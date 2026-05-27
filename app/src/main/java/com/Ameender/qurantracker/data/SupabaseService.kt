@@ -3,6 +3,7 @@ package com.Ameender.qurantracker.data
 import android.content.Intent
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.Auth
+import io.github.jan.supabase.auth.ExternalAuthAction
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.handleDeeplinks
 import io.github.jan.supabase.auth.providers.Google
@@ -10,6 +11,8 @@ import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
+import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.storage.storage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -60,6 +63,20 @@ data class ReadingGroupProgressRow(
     val amount: Int
 )
 
+@Serializable
+data class ProfileUpsert(
+    val id: String,
+    @SerialName("display_name") val displayName: String,
+    @SerialName("avatar_url") val avatarUrl: String? = null
+)
+
+@Serializable
+data class ProfileRow(
+    val id: String,
+    @SerialName("display_name") val displayName: String = "",
+    @SerialName("avatar_url") val avatarUrl: String? = null
+)
+
 data class ReadingGroupLeaderboardRow(
     val label: String,
     val totalPoints: Int,
@@ -76,6 +93,10 @@ object SupabaseConfig {
         get() = URL.startsWith("https://") && ANON_KEY.isNotBlank()
 }
 
+private const val GROUP_POINTS_AYAH = 1
+private const val GROUP_POINTS_PAGE = 10
+private const val GROUP_POINTS_HIZB = 100
+
 object SupabaseService {
     private val clientOrNull: SupabaseClient? by lazy {
         if (!SupabaseConfig.isConfigured) {
@@ -88,8 +109,10 @@ object SupabaseService {
                 install(Auth) {
                     scheme = SupabaseConfig.DEEPLINK_SCHEME
                     host = SupabaseConfig.DEEPLINK_HOST
+                    defaultExternalAuthAction = ExternalAuthAction.CustomTabs()
                 }
                 install(Postgrest)
+                install(Storage)
             }
         }
     }
@@ -101,6 +124,70 @@ object SupabaseService {
         return clientOrNull?.auth?.currentSessionOrNull()?.user?.email
     }
 
+    private suspend fun loadProfile(): ProfileRow? {
+        val user = client.auth.currentUserOrNull() ?: return null
+        return client.from("profiles")
+            .select {
+                filter { eq("id", user.id) }
+                single()
+            }
+            .decodeSingleOrNull<ProfileRow>()
+    }
+
+    suspend fun loadProfileName(): String? {
+        return loadProfile()
+            ?.displayName
+            ?.takeIf { it.isNotBlank() }
+    }
+
+    suspend fun loadProfileAvatarUrl(): String? {
+        return loadProfile()
+            ?.avatarUrl
+            ?.takeIf { it.isNotBlank() }
+    }
+
+    suspend fun saveProfileName(name: String) {
+        val user = client.auth.currentUserOrNull() ?: error("Log eerst in om je profielnaam op te slaan.")
+        val safeName = name.trim().take(40)
+        if (safeName.isBlank()) error("Vul eerst een profielnaam in.")
+        val currentAvatarUrl = runCatching { loadProfileAvatarUrl() }.getOrNull()
+        client.from("profiles").upsert(
+            ProfileUpsert(
+                id = user.id,
+                displayName = safeName,
+                avatarUrl = currentAvatarUrl
+            )
+        )
+    }
+
+    suspend fun uploadProfileAvatar(bytes: ByteArray, mimeType: String): String {
+        val user = client.auth.currentUserOrNull() ?: error("Log eerst in om een profielfoto te uploaden.")
+        val profile = runCatching { loadProfile() }.getOrNull()
+        val extension = when {
+            mimeType.contains("png", ignoreCase = true) -> "png"
+            mimeType.contains("webp", ignoreCase = true) -> "webp"
+            else -> "jpg"
+        }
+        val path = "${user.id}/avatar.$extension"
+        client.storage.from("avatars").upload(path, bytes) {
+            upsert = true
+        }
+        val publicUrl = client.storage.from("avatars").publicUrl(path)
+        client.from("profiles").upsert(
+            ProfileUpsert(
+                id = user.id,
+                displayName = profile?.displayName?.takeIf { it.isNotBlank() }
+                    ?: user.email?.substringBefore("@").orEmpty(),
+                avatarUrl = publicUrl
+            )
+        )
+        return publicUrl
+    }
+
+    private suspend fun currentDisplayName(fallbackEmail: String?): String {
+        return loadProfileName() ?: fallbackEmail ?: "Gebruiker"
+    }
+
     suspend fun createReadingGroup(
         name: String,
         description: String,
@@ -109,6 +196,7 @@ object SupabaseService {
         code: String
     ) {
         val user = client.auth.currentUserOrNull() ?: error("Log eerst in om een groep te maken.")
+        val displayName = currentDisplayName(user.email)
         client.from("reading_groups").insert(
             ReadingGroupInsert(
                 code = code,
@@ -123,7 +211,7 @@ object SupabaseService {
             ReadingGroupMemberInsert(
                 groupCode = code,
                 userId = user.id,
-                displayName = user.email ?: "Gebruiker",
+                displayName = displayName,
                 role = "owner"
             )
         )
@@ -132,6 +220,7 @@ object SupabaseService {
     suspend fun joinReadingGroup(code: String) {
         val cleanCode = code.trim().uppercase()
         val user = client.auth.currentUserOrNull() ?: error("Log eerst in om deel te nemen aan een groep.")
+        val displayName = currentDisplayName(user.email)
         val group = client.from("reading_groups")
             .select {
                 filter { eq("code", cleanCode) }
@@ -144,7 +233,7 @@ object SupabaseService {
             ReadingGroupMemberInsert(
                 groupCode = group.code,
                 userId = user.id,
-                displayName = user.email ?: "Gebruiker",
+                displayName = displayName,
                 role = "member"
             )
         )
@@ -185,7 +274,7 @@ object SupabaseService {
                 val ayahs = userRows.filter { it.unit == "ayah" }.sumOf { it.amount }
                 val pages = userRows.filter { it.unit == "page" }.sumOf { it.amount }
                 val hizb = userRows.filter { it.unit == "hizb" }.sumOf { it.amount }
-                val points = ayahs + (pages * 10) + (hizb * 80)
+                val points = (ayahs * GROUP_POINTS_AYAH) + (pages * GROUP_POINTS_PAGE) + (hizb * GROUP_POINTS_HIZB)
                 ReadingGroupLeaderboardRow(
                     label = "Lid ${userId.take(6)}",
                     totalPoints = points,
@@ -210,7 +299,7 @@ object SupabaseService {
     }
 
     suspend fun signInWithGoogle() {
-        client.auth.signInWith(Google, redirectUrl = "${SupabaseConfig.DEEPLINK_SCHEME}://${SupabaseConfig.DEEPLINK_HOST}")
+        client.auth.signInWith(Google)
     }
 
     suspend fun signOut() {

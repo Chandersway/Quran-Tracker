@@ -1,7 +1,10 @@
 package com.Ameender.qurantracker.ui
 
 import android.content.Context
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
@@ -22,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -37,6 +41,7 @@ import com.Ameender.qurantracker.viewmodel.GoalViewModel
 import com.Ameender.qurantracker.viewmodel.PlanningViewModel
 import com.Ameender.qurantracker.viewmodel.QuranViewModel
 import com.Ameender.qurantracker.viewmodel.deriveDailyGoalFromJourney
+import coil.compose.AsyncImage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -863,6 +868,7 @@ private fun GroupLeaderboardRow(rank: Int, row: ReadingGroupLeaderboardRow) {
 
 @Composable
 private fun AccountSettingsPage(onBack: () -> Unit) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var accountMode by remember { mutableStateOf("login") }
     var email by remember { mutableStateOf("") }
@@ -878,10 +884,47 @@ private fun AccountSettingsPage(onBack: () -> Unit) {
         )
     }
     var currentUserEmail by remember { mutableStateOf<String?>(null) }
+    var profileName by remember { mutableStateOf("") }
+    var profileNameInput by remember { mutableStateOf("") }
+    var profileAvatarUrl by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         currentUserEmail = runCatching { SupabaseService.currentUserEmail() }.getOrNull()
+    }
+
+    LaunchedEffect(currentUserEmail) {
+        if (currentUserEmail != null) {
+            profileName = runCatching { SupabaseService.loadProfileName() }.getOrNull().orEmpty()
+            profileAvatarUrl = runCatching { SupabaseService.loadProfileAvatarUrl() }.getOrNull()
+            profileNameInput = profileName
+        } else {
+            profileName = ""
+            profileNameInput = ""
+            profileAvatarUrl = null
+        }
+    }
+
+    val avatarPicker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        if (uri != null) {
+            busy = true
+            scope.launch {
+                val result = runCatching {
+                    val mimeType = context.contentResolver.getType(uri) ?: "image/jpeg"
+                    val bytes = context.contentResolver.openInputStream(uri)?.use { it.readBytes() }
+                        ?: error("Foto kon niet gelezen worden.")
+                    SupabaseService.uploadProfileAvatar(bytes, mimeType)
+                }
+                busy = false
+                message = result.fold(
+                    onSuccess = { uploadedUrl ->
+                        profileAvatarUrl = uploadedUrl
+                        "Profielfoto opgeslagen."
+                    },
+                    onFailure = { it.localizedMessage ?: "Profielfoto uploaden is niet gelukt." }
+                )
+            }
+        }
     }
 
     fun requireSupabase(): Boolean {
@@ -953,6 +996,45 @@ private fun AccountSettingsPage(onBack: () -> Unit) {
             }
 
             Spacer(modifier = Modifier.height(12.dp))
+
+            if (currentUserEmail != null) {
+                AccountProfilePanel(
+                    email = currentUserEmail.orEmpty(),
+                    profileName = profileName,
+                    profileNameInput = profileNameInput,
+                    profileAvatarUrl = profileAvatarUrl,
+                    onProfileNameChange = { profileNameInput = it.take(40) },
+                    onPickAvatar = { avatarPicker.launch("image/*") },
+                    busy = busy,
+                    onSaveProfileName = {
+                        busy = true
+                        scope.launch {
+                            val result = runCatching { SupabaseService.saveProfileName(profileNameInput) }
+                            busy = false
+                            message = result.fold(
+                                onSuccess = {
+                                    profileName = profileNameInput.trim()
+                                    "Profielnaam opgeslagen."
+                                },
+                                onFailure = { it.localizedMessage ?: "Profielnaam opslaan is niet gelukt." }
+                            )
+                        }
+                    },
+                    onSignOut = {
+                        busy = true
+                        scope.launch {
+                            val result = runCatching { SupabaseService.signOut() }
+                            busy = false
+                            currentUserEmail = null
+                            message = result.fold(
+                                onSuccess = { "Je bent uitgelogd. De app blijft lokaal werken." },
+                                onFailure = { it.localizedMessage ?: "Uitloggen is niet gelukt." }
+                            )
+                        }
+                    }
+                )
+                return@Column
+            }
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 SettingsChoiceChip(
@@ -1146,6 +1228,106 @@ private fun AccountSettingsPage(onBack: () -> Unit) {
             ) {
                 Text("Doorgaan zonder account", color = MutedGold, fontWeight = FontWeight.Bold)
             }
+        }
+    }
+}
+
+@Composable
+private fun AccountProfilePanel(
+    email: String,
+    profileName: String,
+    profileNameInput: String,
+    profileAvatarUrl: String?,
+    onProfileNameChange: (String) -> Unit,
+    onPickAvatar: () -> Unit,
+    busy: Boolean,
+    onSaveProfileName: () -> Unit,
+    onSignOut: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(AppShape.control))
+            .background(PeriodItemSurface)
+            .border(1.dp, BorderNavy, RoundedCornerShape(AppShape.control))
+            .padding(14.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(StrongGoldSurface)
+                .border(1.dp, Gold.copy(alpha = 0.55f), CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            if (!profileAvatarUrl.isNullOrBlank()) {
+                AsyncImage(
+                    model = profileAvatarUrl,
+                    contentDescription = "Profielfoto",
+                    modifier = Modifier.fillMaxSize().clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+            } else {
+                Text(
+                    emailAvatarInitial(email),
+                    fontSize = 22.sp,
+                    color = GoldLight,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        OutlinedButton(
+            onClick = onPickAvatar,
+            enabled = !busy,
+            modifier = Modifier.height(34.dp),
+            shape = RoundedCornerShape(AppShape.control),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = GoldLight),
+            border = BorderStroke(1.dp, BorderNavy)
+        ) {
+            Icon(Icons.Default.PhotoCamera, contentDescription = null, modifier = Modifier.size(16.dp))
+            Spacer(modifier = Modifier.width(6.dp))
+            Text("Profielfoto kiezen", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+        }
+        Text(profileName.ifBlank { "Je bent ingelogd" }, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = GoldLight)
+        Text(email, fontSize = 12.sp, color = MutedGold, textAlign = TextAlign.Center)
+        Text(
+            "Groepen en online functies zijn actief.",
+            fontSize = 11.sp,
+            color = DimGold,
+            textAlign = TextAlign.Center
+        )
+        OutlinedTextField(
+            value = profileNameInput,
+            onValueChange = onProfileNameChange,
+            singleLine = true,
+            placeholder = { Text("Profielnaam") },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(AppShape.control),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Gold,
+                unfocusedBorderColor = BorderNavy,
+                focusedContainerColor = DeepNavy,
+                unfocusedContainerColor = DeepNavy,
+                cursorColor = Gold
+            )
+        )
+        Button(
+            onClick = onSaveProfileName,
+            enabled = !busy,
+            modifier = Modifier.fillMaxWidth().height(38.dp),
+            shape = RoundedCornerShape(AppShape.control),
+            colors = ButtonDefaults.buttonColors(containerColor = Gold)
+        ) {
+            Text(if (busy) "Opslaan..." else "Profielnaam opslaan", color = DarkNavy, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        }
+        TextButton(
+            onClick = onSignOut,
+            enabled = !busy,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(if (busy) "Uitloggen..." else "Uitloggen", color = GoldLight, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -2058,6 +2240,9 @@ private fun groupGoalLabel(goal: String): String = when (goal) {
     "khatma" -> "Doel: samen een khatma afronden"
     else -> "Doel: samen lezen"
 }
+
+private fun emailAvatarInitial(email: String): String =
+    email.trim().firstOrNull()?.uppercaseChar()?.toString() ?: "?"
 
 data class ReaderBookmarkSummary(
     val title: String,

@@ -99,7 +99,9 @@ dependencies {
     implementation(platform("io.github.jan-tennert.supabase:bom:${libs.versions.supabase.get()}"))
     implementation("io.github.jan-tennert.supabase:auth-kt")
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
+    implementation("io.github.jan-tennert.supabase:storage-kt")
     implementation("io.ktor:ktor-client-android:3.0.3")
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
     // Calendar Compose
     implementation("io.github.epicarchitect:calendar-compose-basis:1.0.5")

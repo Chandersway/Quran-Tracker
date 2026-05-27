@@ -35,6 +35,7 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlinx.coroutines.delay
 
 @Composable
 fun DashboardScreen(
@@ -83,6 +84,9 @@ fun DashboardScreen(
     val goalReached = todayCount >= goal.target && goal.target > 0
     val unitLabel   = goalViewModel.unitLabel(goal.unit)
     val periodStats = remember(allHistory) { calculatePeriodStats(allHistory) }
+    val motivationPoints = remember(allHistory, goalReached, streak) {
+        calculateMotivationPoints(allHistory, goalReached, streak)
+    }
     val hifzOverview = remember(surahProgress, hizbProgress, juzzProgress) {
         calculateHifzOverview(
             surahScores = surahProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) },
@@ -91,11 +95,14 @@ fun DashboardScreen(
         )
     }
     var quickCheckInOpen by remember { mutableStateOf(false) }
+    var pointsPopup by remember { mutableStateOf<PointsPopupState?>(null) }
 
     if (quickCheckInOpen) {
         QuickCheckInDialog(
             onDismiss = { quickCheckInOpen = false },
             onSave = { type, number, subNumber ->
+                val earnedPoints = quickCheckInPoints(type, number)
+                val earnedLabel = quickCheckInLabel(type, number, subNumber)
                 when (type) {
                     "surah" -> {
                         val surah = ALL_SURAHS.find { it.id == number }
@@ -109,6 +116,11 @@ fun DashboardScreen(
                     }
                     else -> viewModel.confirmToggleRub(number, subNumber, false)
                 }
+                pointsPopup = PointsPopupState(
+                    points = earnedPoints,
+                    title = earnedLabel,
+                    streakText = "Vuurreeks: $streak dagen"
+                )
                 quickCheckInOpen = false
             }
         )
@@ -145,6 +157,8 @@ fun DashboardScreen(
         )
 
         ReadingJourneyCard(progress = journeyProgress)
+
+        MotivationPointsCard(points = motivationPoints)
 
         PeriodProgressCard(
             todayReads = periodStats.todayReads,
@@ -337,6 +351,13 @@ fun DashboardScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(20.dp))
+    }
+
+    pointsPopup?.let { popup ->
+        PointsEarnedPopup(
+            state = popup,
+            onDismiss = { pointsPopup = null }
+        )
     }
 }
 
@@ -722,6 +743,45 @@ fun TodayPlanRow(item: PlanningItem, onToggle: () -> Unit) {
     }
 }
 
+data class PointsPopupState(
+    val points: Int,
+    val title: String,
+    val streakText: String
+)
+
+@Composable
+fun PointsEarnedPopup(
+    state: PointsPopupState,
+    onDismiss: () -> Unit
+) {
+    LaunchedEffect(state) {
+        delay(1800)
+        onDismiss()
+    }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        containerColor = PeriodSurface,
+        titleContentColor = GoldLight,
+        textContentColor = MutedGold,
+        shape = RoundedCornerShape(AppShape.card),
+        title = {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text("🔥", fontSize = 28.sp)
+                Text("+${state.points} punten", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
+            }
+        },
+        text = {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(state.title, fontSize = 13.sp, color = Gold, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(state.streakText, fontSize = 11.sp, color = MutedGold)
+            }
+        },
+        confirmButton = {}
+    )
+}
+
 @Composable
 fun QuickCheckInDialog(
     onDismiss: () -> Unit,
@@ -991,6 +1051,170 @@ fun PeriodProgressCard(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun MotivationPointsCard(points: MotivationPointsStats) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp),
+        colors = CardDefaults.cardColors(containerColor = PeriodSurface),
+        shape = RoundedCornerShape(AppShape.card),
+        border = androidx.compose.foundation.BorderStroke(1.dp, BorderNavy)
+    ) {
+        Column(modifier = Modifier.padding(AppSpacing.card)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text("Motivatiepunten", fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
+                    Text(points.levelName, fontSize = 11.sp, color = MutedGold)
+                }
+                Text("${points.totalPoints} pt", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+            SimpleProgressBar(
+                progress = points.levelProgress,
+                activeColor = DoneGreen,
+                backgroundColor = BorderNavy
+            )
+            Text(
+                if (points.nextLevelRemaining == 0) "Nieuw level bereikt" else "Nog ${points.nextLevelRemaining} punten tot volgende level",
+                fontSize = 10.sp,
+                color = DimGold,
+                modifier = Modifier.padding(top = 5.dp)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            StreakFireBar(streakDays = points.streakDays, activeDays = points.weekActiveDays)
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                PeriodStatTile(
+                    modifier = Modifier.weight(1f),
+                    label = "Vandaag",
+                    value = points.todayPoints,
+                    detail = "punten",
+                    color = Gold
+                )
+                PeriodStatTile(
+                    modifier = Modifier.weight(1f),
+                    label = "Week",
+                    value = points.weekPoints,
+                    detail = "punten",
+                    color = ReadBlue
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                PeriodStatTile(
+                    modifier = Modifier.weight(1f),
+                    label = "Bonus",
+                    value = points.bonusPoints,
+                    detail = "streak/doel",
+                    color = DoneGreen
+                )
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(RoundedCornerShape(AppShape.tile))
+                        .background(PeriodItemSurface)
+                        .border(1.dp, PeriodAccentSurface, RoundedCornerShape(AppShape.tile))
+                        .padding(horizontal = 10.dp, vertical = 9.dp)
+                ) {
+                    Text("Laatste", fontSize = 10.sp, color = MutedGold)
+                    Text("+${points.latestPoints} pt", fontSize = 18.sp, color = GoldLight, fontWeight = FontWeight.Bold)
+                    Text(points.latestLabel, fontSize = 10.sp, color = DimGold, maxLines = 1)
+                }
+            }
+
+            Text(
+                "App-punten voor motivatie, niet als religieuze beloning.",
+                fontSize = 10.sp,
+                color = DimGold,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun StreakFireBar(streakDays: Int, activeDays: Int) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(AppShape.control))
+            .background(PeriodItemSurface)
+            .border(1.dp, PeriodAccentSurface, RoundedCornerShape(AppShape.control))
+            .padding(10.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text("Vuurreeks", fontSize = 12.sp, color = Gold, fontWeight = FontWeight.Bold)
+                Text("${streakDays} dagen", fontSize = 11.sp, color = MutedGold)
+            }
+            Text("week $activeDays/7", fontSize = 10.sp, color = DimGold)
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            repeat(7) { index ->
+                val active = index < activeDays.coerceIn(0, 7)
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(28.dp)
+                        .clip(RoundedCornerShape(AppShape.smallControl))
+                        .background(if (active) StrongGoldSurface else DeepNavy)
+                        .border(1.dp, if (active) Gold else BorderNavy, RoundedCornerShape(AppShape.smallControl)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(if (active) "🔥" else "${index + 1}", fontSize = 11.sp, color = if (active) GoldLight else DimGold)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SimpleProgressBar(
+    progress: Float,
+    activeColor: Color,
+    backgroundColor: Color
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(8.dp)
+            .clip(RoundedCornerShape(AppShape.marker))
+            .background(backgroundColor)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(progress.coerceIn(0f, 1f))
+                .fillMaxHeight()
+                .clip(RoundedCornerShape(AppShape.marker))
+                .background(activeColor)
+        )
     }
 }
 
@@ -1399,6 +1623,20 @@ data class DashboardPeriodStats(
     val activeDaysThisWeek: Int
 )
 
+data class MotivationPointsStats(
+    val totalPoints: Int,
+    val todayPoints: Int,
+    val weekPoints: Int,
+    val bonusPoints: Int,
+    val streakDays: Int,
+    val weekActiveDays: Int,
+    val levelName: String,
+    val levelProgress: Float,
+    val nextLevelRemaining: Int,
+    val latestLabel: String,
+    val latestPoints: Int
+)
+
 fun calculatePeriodStats(history: List<ReadingHistory>): DashboardPeriodStats {
     val now = Calendar.getInstance()
     val startToday = startOfDay(now).timeInMillis
@@ -1420,6 +1658,105 @@ fun calculatePeriodStats(history: List<ReadingHistory>): DashboardPeriodStats {
         monthReads = monthReads,
         activeDaysThisWeek = activeDaysThisWeek
     )
+}
+
+fun calculateMotivationPoints(
+    history: List<ReadingHistory>,
+    goalReached: Boolean,
+    streak: Int
+): MotivationPointsStats {
+    val todayStart = startOfDay(Calendar.getInstance()).timeInMillis
+    val weekStart = startOfWeek(Calendar.getInstance()).timeInMillis
+    val readHistory = history.filter { it.action == "read" }
+    val basePoints = readHistory.sumOf { readingMotivationPoints(it) }
+    val todayBasePoints = readHistory
+        .filter { it.timestamp >= todayStart }
+        .sumOf { readingMotivationPoints(it) }
+    val weekBasePoints = readHistory
+        .filter { it.timestamp >= weekStart }
+        .sumOf { readingMotivationPoints(it) }
+    val bonusPoints = motivationBonusPoints(goalReached, streak)
+    val totalPoints = basePoints + bonusPoints
+    val level = motivationLevel(totalPoints)
+    val latest = readHistory.maxByOrNull { it.timestamp }
+    val latestPoints = latest?.let { readingMotivationPoints(it) } ?: 0
+    val weekActiveDays = readHistory
+        .filter { it.timestamp >= weekStart }
+        .map { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(it.timestamp)) }
+        .distinct()
+        .size
+
+    return MotivationPointsStats(
+        totalPoints = totalPoints,
+        todayPoints = todayBasePoints + if (goalReached) 10 else 0,
+        weekPoints = weekBasePoints + bonusPoints,
+        bonusPoints = bonusPoints,
+        streakDays = streak,
+        weekActiveDays = weekActiveDays,
+        levelName = level.name,
+        levelProgress = ((totalPoints - level.start).toFloat() / (level.next - level.start).coerceAtLeast(1)).coerceIn(0f, 1f),
+        nextLevelRemaining = (level.next - totalPoints).coerceAtLeast(0),
+        latestLabel = latest?.let { motivationHistoryLabel(it) } ?: "Nog geen check-in",
+        latestPoints = latestPoints
+    )
+}
+
+fun readingMotivationPoints(item: ReadingHistory): Int = when (item.type) {
+    "surah" -> (ALL_SURAHS.find { it.id == item.surahId }?.ayahs ?: POINTS_PAGE).coerceAtLeast(1)
+    "juz" -> POINTS_JUZ
+    "hizb" -> POINTS_RUB
+    else -> 1
+}
+
+fun motivationBonusPoints(goalReached: Boolean, streak: Int): Int {
+    var bonus = if (goalReached) 10 else 0
+    bonus += when {
+        streak >= 30 -> 50
+        streak >= 7 -> 15
+        streak >= 3 -> 5
+        else -> 0
+    }
+    return bonus
+}
+
+fun motivationHistoryLabel(item: ReadingHistory): String = when (item.type) {
+    "surah" -> item.surahName
+    "juz" -> "Juz ${item.surahId}"
+    "hizb" -> item.surahName.ifBlank { "Rub/Hizb ${item.surahId}" }
+    else -> item.surahName.ifBlank { "Check-in" }
+}
+
+fun quickCheckInPoints(type: String, number: Int): Int = when (type) {
+    "surah" -> (ALL_SURAHS.find { it.id == number }?.ayahs ?: POINTS_PAGE).coerceAtLeast(1)
+    "juz" -> POINTS_JUZ
+    "hizb" -> POINTS_HIZB
+    "rub" -> POINTS_RUB
+    else -> 1
+}
+
+fun quickCheckInLabel(type: String, number: Int, subNumber: Int): String = when (type) {
+    "surah" -> ALL_SURAHS.find { it.id == number }?.name ?: "Soera $number gelezen"
+    "juz" -> "Juz $number gelezen"
+    "hizb" -> "Hizb $number gelezen"
+    "rub" -> "Hizb $number, rub $subNumber gelezen"
+    else -> "Check-in opgeslagen"
+}
+
+const val POINTS_AYAH = 1
+const val POINTS_PAGE = 10
+const val POINTS_RUB = 25
+const val POINTS_HIZB = 100
+const val POINTS_JUZ = 200
+
+data class MotivationLevel(val name: String, val start: Int, val next: Int)
+
+fun motivationLevel(points: Int): MotivationLevel = when {
+    points < 100 -> MotivationLevel("Level 1 · Begin rustig", 0, 100)
+    points < 250 -> MotivationLevel("Level 2 · Regelmatige lezer", 100, 250)
+    points < 500 -> MotivationLevel("Level 3 · Standvastig", 250, 500)
+    points < 1000 -> MotivationLevel("Level 4 · Toegewijd", 500, 1000)
+    points < 2000 -> MotivationLevel("Level 5 · Sterke routine", 1000, 2000)
+    else -> MotivationLevel("Level 6 · Mooie leesreis", 2000, 4000)
 }
 
 fun startOfDay(source: Calendar): Calendar =
