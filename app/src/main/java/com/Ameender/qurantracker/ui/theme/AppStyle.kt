@@ -335,6 +335,78 @@ fun applyThemeColors(themeMode: String) {
             Color(0xFF57C76B),
             Color(0xFF3DC17A),
         )
+    } else if (themeMode == "pink") {
+        applySoftLightPalette(
+            background = Color(0xFFFFF6FA),
+            surface = Color(0xFFFFEDF4),
+            accent = Color(0xFFC85B86),
+            accentDark = Color(0xFF5A2437),
+            secondary = Color(0xFF9B6B92),
+            success = Color(0xFF4B8A67),
+            border = Color(0xFFF0C9D8),
+            focus = Color(0xFFFFE4EF),
+            warm = Color(0xFFFFF4E2)
+        )
+    } else if (themeMode == "mint") {
+        applySoftLightPalette(
+            background = Color(0xFFF4FFF8),
+            surface = Color(0xFFEAF8EF),
+            accent = Color(0xFF2F8A65),
+            accentDark = Color(0xFF193F30),
+            secondary = Color(0xFF3F7E9F),
+            success = Color(0xFF2F8A65),
+            border = Color(0xFFCDE8D8),
+            focus = Color(0xFFE3F6EA),
+            warm = Color(0xFFFFFAE8)
+        )
+    } else if (themeMode == "lavender") {
+        applySoftLightPalette(
+            background = Color(0xFFFAF7FF),
+            surface = Color(0xFFF0EAFB),
+            accent = Color(0xFF7A5BB8),
+            accentDark = Color(0xFF33245A),
+            secondary = Color(0xFF4C839B),
+            success = Color(0xFF438463),
+            border = Color(0xFFD9CDED),
+            focus = Color(0xFFECE4FA),
+            warm = Color(0xFFFFF7E6)
+        )
+    } else if (themeMode == "ember") {
+        applySoftLightPalette(
+            background = Color(0xFFFFF7F0),
+            surface = Color(0xFFFFE9DC),
+            accent = Color(0xFFC6422E),
+            accentDark = Color(0xFF552015),
+            secondary = Color(0xFFB06A2E),
+            success = Color(0xFF5F8A3A),
+            border = Color(0xFFF1C2B2),
+            focus = Color(0xFFFFE0D1),
+            warm = Color(0xFFFFF1D8)
+        )
+    } else if (themeMode == "ocean") {
+        applySoftLightPalette(
+            background = Color(0xFFF1FBFF),
+            surface = Color(0xFFE2F4FA),
+            accent = Color(0xFF247C9B),
+            accentDark = Color(0xFF153E4D),
+            secondary = Color(0xFF3D7A68),
+            success = Color(0xFF3E845A),
+            border = Color(0xFFC4E2EC),
+            focus = Color(0xFFDDF3FA),
+            warm = Color(0xFFFFF7E7)
+        )
+    } else if (themeMode == "sand") {
+        applySoftLightPalette(
+            background = Color(0xFFFFFBF0),
+            surface = Color(0xFFF7EBCF),
+            accent = Color(0xFF9A6B2F),
+            accentDark = Color(0xFF4B3217),
+            secondary = Color(0xFF4C7D72),
+            success = Color(0xFF4D8554),
+            border = Color(0xFFE3D0A8),
+            focus = Color(0xFFF4E5BF),
+            warm = Color(0xFFFFF6DE)
+        )
     } else {
         DarkNavy = Color(0xFFFFFBEA)
         MidNavy = Color(0xFFFFF7DE)
@@ -412,6 +484,90 @@ fun applyThemeColors(themeMode: String) {
     PieColors = listOf(
         Gold, ReadBlue, DoneGreen, DeleteRed,
         ChartPurple, ChartCyan, ChartYellow, ChartPink,
+    )
+}
+
+private fun applySoftLightPalette(
+    background: Color,
+    surface: Color,
+    accent: Color,
+    accentDark: Color,
+    secondary: Color,
+    success: Color,
+    border: Color,
+    focus: Color,
+    warm: Color
+) {
+    DarkNavy = background
+    MidNavy = surface
+    Gold = accent
+    GoldLight = accentDark
+    ReadBlue = secondary
+    MemGold = accent
+    DoneGreen = success
+
+    SoftTextGold = accentDark
+    LabelGold = accentDark.copy(alpha = 0.82f)
+    MutedGold = accentDark.copy(alpha = 0.68f)
+    DimGold = accentDark.copy(alpha = 0.52f)
+    DarkGold = accentDark.copy(alpha = 0.88f)
+    InactiveGold = accentDark.copy(alpha = 0.58f)
+    SoftReadBlue = secondary.copy(alpha = 0.82f)
+    ChevronNavy = accentDark.copy(alpha = 0.42f)
+
+    ScrimBlack = Color(0x66000000)
+    GoldSurface = accent.copy(alpha = 0.12f)
+    SubtleGoldSurface = accent.copy(alpha = 0.08f)
+    MediumGoldSurface = accent.copy(alpha = 0.16f)
+    StrongGoldSurface = accent.copy(alpha = 0.22f)
+    ReadBlueSurface = secondary.copy(alpha = 0.12f)
+    StrongReadBlueSurface = secondary.copy(alpha = 0.24f)
+    DeleteSurface = Color(0x22B45D42)
+    StrongDeleteSurface = Color(0x66B45D42)
+    TodayFocusSurface = focus
+    TodayFocusBorder = accent
+    TodayDoneSurface = success.copy(alpha = 0.18f)
+    PeriodSurface = warm
+    PeriodItemSurface = surface
+    PeriodAccentSurface = accent.copy(alpha = 0.16f)
+    HifzDashboardSurface = surface
+    HifzDashboardItem = warm
+    ReviewDueSurface = Color(0xFFFFE6D8)
+    ReviewSoonSurface = Color(0xFFFFF3D6)
+    ReviewLaterSurface = focus
+    BorderNavy = border
+    ButtonBorderNavy = border.copy(alpha = 0.82f)
+    DeepNavy = background
+    DeleteRed = Color(0xFFB45D42)
+
+    ChartPurple = Color(0xFF8A5E9A)
+    ChartCyan = Color(0xFF478C8C)
+    ChartYellow = Color(0xFFD0A93D)
+    ChartPink = Color(0xFFB95D78)
+
+    HifzScoreSurfaces = listOf(
+        Color(0x55B3261E),
+        Color(0x55D94A1E),
+        Color(0x55F06A1C),
+        Color(0x55F28E1C),
+        Color(0x55E7B51C),
+        Color(0x55D2D61F),
+        Color(0x55A8C92B),
+        Color(0x557DC43A),
+        Color(0x554FBF4A),
+        Color(0x552FAE5F),
+    )
+    HifzScoreBorders = listOf(
+        Color(0xFFB3261E),
+        Color(0xFFD94A1E),
+        Color(0xFFF06A1C),
+        Color(0xFFF28E1C),
+        Color(0xFFE7B51C),
+        Color(0xFFD2D61F),
+        Color(0xFFA8C92B),
+        Color(0xFF7DC43A),
+        Color(0xFF4FBF4A),
+        Color(0xFF2FAE5F),
     )
 }
 

@@ -411,7 +411,7 @@ fun HamburgerMenu(
                         MenuItemExpandableRow(
                             icon = Icons.Default.Info,
                             title = text.appearance,
-                            subtitle = if (themeMode == "dark") text.darkTheme else text.lightTheme,
+                            subtitle = themeModeLabel(themeMode, text),
                             expanded = false,
                             onClick = {}
                         )
@@ -424,7 +424,12 @@ fun HamburgerMenu(
                         ) {
                             SettingsSwatch(Color.White, themeMode == "light") { onThemeModeChange("light") }
                             SettingsSwatch(Color(0xFF15172A), themeMode == "dark") { onThemeModeChange("dark") }
-                            SettingsSwatch(DarkNavy, false) { onThemeModeChange("light") }
+                            SettingsSwatch(Color(0xFFFFEDF4), themeMode == "pink") { onThemeModeChange("pink") }
+                            SettingsSwatch(Color(0xFFEAF8EF), themeMode == "mint") { onThemeModeChange("mint") }
+                            SettingsSwatch(Color(0xFFF0EAFB), themeMode == "lavender") { onThemeModeChange("lavender") }
+                            SettingsSwatch(Color(0xFFFFE9DC), themeMode == "ember") { onThemeModeChange("ember") }
+                            SettingsSwatch(Color(0xFFE2F4FA), themeMode == "ocean") { onThemeModeChange("ocean") }
+                            SettingsSwatch(Color(0xFFF7EBCF), themeMode == "sand") { onThemeModeChange("sand") }
                         }
                         SettingsDivider()
                         MenuItemExpandableRow(
@@ -2206,6 +2211,17 @@ fun appLanguageLabel(language: String): String = when (language) {
     "en" -> "Engels geselecteerd"
     "fr" -> "Frans geselecteerd"
     else -> "Nederlands geselecteerd"
+}
+
+fun themeModeLabel(themeMode: String, text: AppStrings): String = when (themeMode) {
+    "dark" -> text.darkTheme
+    "pink" -> "Roze thema"
+    "mint" -> "Mint thema"
+    "lavender" -> "Lavendel thema"
+    "ember" -> "Vurig rood thema"
+    "ocean" -> "Oceaan thema"
+    "sand" -> "Zand thema"
+    else -> text.lightTheme
 }
 
 fun rewayaFilterLabel(rewayaName: String): String {
