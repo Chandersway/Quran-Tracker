@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "51418505582",
+    "project_id": "qurantracker-8f775",
+    "storage_bucket": "qurantracker-8f775.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51418505582:android:8a1b02d130706de095a17f",
+        "android_client_info": {
+          "package_name": "com.Ameender.qurantracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51418505582-pus7rdsilbf12j6u29blbh4ebp7uerps.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Ameender.qurantracker",
+            "certificate_hash": "50ac992781303b77fd2c12fc8949a24a5ee2e760"
+          }
+        },
+        {
+          "client_id": "51418505582-oh6kq8s1rqf13p0niohask66sip15ul2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmfc7k6bHmkJnQcoo4RRn_dyrQLblvOrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51418505582-oh6kq8s1rqf13p0niohask66sip15ul2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

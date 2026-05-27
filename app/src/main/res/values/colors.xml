@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- QuranTracker XML theme colors: used by Android system bars and non-Compose fallbacks. -->
+    <color name="dark_navy">#FFFFF8E7</color>
+    <color name="mid_navy">#FFFFEFC2</color>
+    <color name="gold">#FFC49A2C</color>
+    <color name="gold_light">#FF4A3510</color>
+    <color name="read_blue">#FF3F7E9F</color>
+    <color name="soft_text_gold">#FF4A3510</color>
+</resources>
