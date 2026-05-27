@@ -231,7 +231,7 @@ object SettingsMenuStyle {
 @Composable
 fun QuranTrackerTheme(themeMode: String = "light", content: @Composable () -> Unit) {
     applyThemeColors(themeMode)
-    val scheme = if (themeMode == "dark") {
+    val scheme = if (themeMode == "dark" || themeMode == "inferno") {
         darkColorScheme(
             primary      = Gold,
             onPrimary    = DarkNavy,
@@ -334,6 +334,78 @@ fun applyThemeColors(themeMode: String) {
             Color(0xFF7ECF4A),
             Color(0xFF57C76B),
             Color(0xFF3DC17A),
+        )
+    } else if (themeMode == "inferno") {
+        DarkNavy = Color(0xFF090505)
+        MidNavy = Color(0xFF1B0B0A)
+        Gold = Color(0xFFFF3B1F)
+        GoldLight = Color(0xFFFFC1A3)
+        ReadBlue = Color(0xFFFF7A1A)
+        MemGold = Color(0xFFFF4A24)
+        DoneGreen = Color(0xFFFF8A2A)
+
+        SoftTextGold = Color(0xFFFFE0D0)
+        LabelGold = Color(0xFFFFA06F)
+        MutedGold = Color(0xFFC56A4C)
+        DimGold = Color(0xFF7A3E31)
+        DarkGold = Color(0xFF3A1712)
+        InactiveGold = Color(0xFF7A3E31)
+        SoftReadBlue = Color(0xFFFF9A4C)
+        ChevronNavy = Color(0xFF8A3A2D)
+
+        ScrimBlack = Color(0xAA000000)
+        GoldSurface = Color(0x33FF3B1F)
+        SubtleGoldSurface = Color(0x22FF3B1F)
+        MediumGoldSurface = Color(0x44FF3B1F)
+        StrongGoldSurface = Color(0x66FF3B1F)
+        ReadBlueSurface = Color(0x33FF7A1A)
+        StrongReadBlueSurface = Color(0x55FF7A1A)
+        DeleteSurface = Color(0x44FF2A1A)
+        StrongDeleteSurface = Color(0x88FF2A1A)
+        TodayFocusSurface = Color(0xFF230D0B)
+        TodayFocusBorder = Color(0xFFFF3B1F)
+        TodayDoneSurface = Color(0x44FF7A1A)
+        PeriodSurface = Color(0xFF130807)
+        PeriodItemSurface = Color(0xFF220C09)
+        PeriodAccentSurface = Color(0x44FF3B1F)
+        HifzDashboardSurface = Color(0xFF170807)
+        HifzDashboardItem = Color(0xFF240D0B)
+        ReviewDueSurface = Color(0xFF3A0A07)
+        ReviewSoonSurface = Color(0xFF3A1A08)
+        ReviewLaterSurface = Color(0xFF26100A)
+        BorderNavy = Color(0xFF4A1B15)
+        ButtonBorderNavy = Color(0xFF6A281E)
+        DeepNavy = Color(0xFF0D0504)
+        DeleteRed = Color(0xFFFF2A1A)
+
+        ChartPurple = Color(0xFFD14CFF)
+        ChartCyan = Color(0xFFFF8A2A)
+        ChartYellow = Color(0xFFFFC247)
+        ChartPink = Color(0xFFFF4F6D)
+
+        HifzScoreSurfaces = listOf(
+            Color(0x77FF1F1A),
+            Color(0x77FF351A),
+            Color(0x77FF4D1A),
+            Color(0x77FF6A1A),
+            Color(0x77FF8A1A),
+            Color(0x77FFB01A),
+            Color(0x77E0C21A),
+            Color(0x77A8C92B),
+            Color(0x777DC43A),
+            Color(0x774FBF4A),
+        )
+        HifzScoreBorders = listOf(
+            Color(0xFFFF1F1A),
+            Color(0xFFFF351A),
+            Color(0xFFFF4D1A),
+            Color(0xFFFF6A1A),
+            Color(0xFFFF8A1A),
+            Color(0xFFFFB01A),
+            Color(0xFFE0C21A),
+            Color(0xFFA8C92B),
+            Color(0xFF7DC43A),
+            Color(0xFF4FBF4A),
         )
     } else if (themeMode == "pink") {
         applySoftLightPalette(

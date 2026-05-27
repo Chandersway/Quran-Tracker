@@ -48,6 +48,7 @@ import java.util.Locale
 import kotlinx.coroutines.launch
 
 @Composable
+@OptIn(ExperimentalLayoutApi::class)
 fun HamburgerMenu(
     isOpen: Boolean,
     onClose: () -> Unit,
@@ -415,12 +416,12 @@ fun HamburgerMenu(
                             expanded = false,
                             onClick = {}
                         )
-                        Row(
+                        FlowRow(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = SettingsMenuStyle.innerPadding, vertical = 8.dp),
-                            horizontalArrangement = Arrangement.spacedBy(14.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             SettingsSwatch(Color.White, themeMode == "light") { onThemeModeChange("light") }
                             SettingsSwatch(Color(0xFF15172A), themeMode == "dark") { onThemeModeChange("dark") }
@@ -428,6 +429,7 @@ fun HamburgerMenu(
                             SettingsSwatch(Color(0xFFEAF8EF), themeMode == "mint") { onThemeModeChange("mint") }
                             SettingsSwatch(Color(0xFFF0EAFB), themeMode == "lavender") { onThemeModeChange("lavender") }
                             SettingsSwatch(Color(0xFFFFE9DC), themeMode == "ember") { onThemeModeChange("ember") }
+                            SettingsSwatch(Color(0xFF090505), themeMode == "inferno") { onThemeModeChange("inferno") }
                             SettingsSwatch(Color(0xFFE2F4FA), themeMode == "ocean") { onThemeModeChange("ocean") }
                             SettingsSwatch(Color(0xFFF7EBCF), themeMode == "sand") { onThemeModeChange("sand") }
                         }
@@ -1665,15 +1667,15 @@ private fun SettingsChoiceChip(
 private fun SettingsSwatch(color: Color, selected: Boolean, onClick: () -> Unit) {
     Box(
         modifier = Modifier
-            .size(42.dp)
+            .size(30.dp)
             .clip(CircleShape)
             .background(color)
-            .border(2.dp, if (selected) DoneGreen else BorderNavy, CircleShape)
+            .border(1.5.dp, if (selected) DoneGreen else BorderNavy, CircleShape)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         if (selected) {
-            Icon(Icons.Default.Check, contentDescription = null, tint = DoneGreen, modifier = Modifier.size(22.dp))
+            Icon(Icons.Default.Check, contentDescription = null, tint = DoneGreen, modifier = Modifier.size(17.dp))
         }
     }
 }
@@ -2219,6 +2221,7 @@ fun themeModeLabel(themeMode: String, text: AppStrings): String = when (themeMod
     "mint" -> "Mint thema"
     "lavender" -> "Lavendel thema"
     "ember" -> "Vurig rood thema"
+    "inferno" -> "Gloeiend vuur thema"
     "ocean" -> "Oceaan thema"
     "sand" -> "Zand thema"
     else -> text.lightTheme
