@@ -142,8 +142,10 @@ val ALL_SURAHS = listOf(
 @Composable
 fun SurahScreen(
     viewModel: QuranViewModel,
-    hifzTintEnabled: Boolean = false
+    hifzTintEnabled: Boolean = false,
+    appLanguage: String = "nl"
 ) {
+    val text = AppText.strings(appLanguage)
     val surahProgress by viewModel.surahProgress.collectAsState()
     val progressMap = surahProgress.associate { it.referenceId to it }
 
@@ -176,12 +178,12 @@ fun SurahScreen(
             text = {
                 Text(
                     if (isRead) {
-                        if (isFirst) "Wil je ${pendingSurah!!.name} markeren als gelezen?"
-                        else "Je hebt ${pendingSurah!!.name} al ${count}x gelezen. Wat wil je doen?"
+                        if (isFirst) text.markSurahReadQuestion.format(pendingSurah!!.name)
+                        else text.surahAlreadyReadQuestion.format(pendingSurah!!.name, count)
                     } else {
                         val isMem = progress?.isMemorized == true
-                        if (!isMem) "Wil je ${pendingSurah!!.name} markeren als gememoriseerd?"
-                        else "Je hebt ${pendingSurah!!.name} al gememoriseerd. Wat wil je doen?"
+                        if (!isMem) text.markSurahMemorizedQuestion.format(pendingSurah!!.name)
+                        else text.surahAlreadyMemorizedQuestion.format(pendingSurah!!.name)
                     }
                 )
             },
@@ -219,7 +221,7 @@ fun SurahScreen(
                         }
                     }
                     TextButton(onClick = { pendingSurah = null }) {
-                        Text("Annuleren", color = MutedGold)
+                        Text(text.cancel, color = MutedGold)
                     }
                 }
             }
@@ -233,12 +235,12 @@ fun SurahScreen(
             titleContentColor = GoldLight,
             textContentColor = LabelGold,
             title = {
-                Text("${scoreSurah!!.name} - Hifz-score")
+                Text("${scoreSurah!!.name} - ${text.hifzScoreLabel}")
             },
             text = {
                 Column {
                     Text(
-                        "Hoe goed ken je deze soera uit je hoofd?",
+                        text.hifzScoreQuestion,
                         fontSize = 13.sp,
                         color = LabelGold
                     )
@@ -262,12 +264,12 @@ fun SurahScreen(
                     viewModel.updateSurahHifzScore(scoreSurah!!.id, scoreValue.toInt())
                     scoreSurah = null
                 }) {
-                    Text("Opslaan", color = Gold)
+                    Text(text.save, color = Gold)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { scoreSurah = null }) {
-                    Text("Annuleren", color = MutedGold)
+                    Text(text.cancel, color = MutedGold)
                 }
             }
         )
@@ -277,7 +279,7 @@ fun SurahScreen(
         modifier = Modifier.fillMaxSize().background(DarkNavy)
     ) {
         Column(modifier = Modifier.padding(AppSpacing.screen)) {
-            Text("Soera", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
+            Text(text.surah, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
             Text(
                 "$readCount/114 gelezen  ·  $memCount/114 gememoriseerd",
                 fontSize = 12.sp, color = MutedGold,
@@ -340,7 +342,7 @@ fun SurahScreen(
                         // Teller tonen
                         if (rCount > 0) {
                             Text(
-                                "${rCount}x gelezen",
+                                text.timesRead.format(rCount),
                                 fontSize = 10.sp,
                                 color = Gold,
                                 fontWeight = FontWeight.Bold
@@ -348,7 +350,7 @@ fun SurahScreen(
                         }
                         if (showHifzTint) {
                             Text(
-                                "Hifz-score: $hifzScore/100",
+                                "${text.hifzScoreLabel}: $hifzScore/100",
                                 fontSize = 10.sp,
                                 color = MutedGold
                             )

@@ -41,8 +41,10 @@ import kotlinx.coroutines.delay
 fun DashboardScreen(
     viewModel: QuranViewModel,
     goalViewModel: GoalViewModel,
-    planningViewModel: PlanningViewModel
+    planningViewModel: PlanningViewModel,
+    appLanguage: String = "nl"
 ) {
+    val text = AppText.strings(appLanguage)
     val allProgress   by viewModel.allProgress.collectAsState()
     val juzzProgress  by viewModel.juzzProgress.collectAsState()
     val hizbProgress  by viewModel.hizbProgress.collectAsState()
@@ -117,9 +119,9 @@ fun DashboardScreen(
                     else -> viewModel.confirmToggleRub(number, subNumber, false)
                 }
                 pointsPopup = PointsPopupState(
-                    points = earnedPoints,
-                    title = earnedLabel,
-                    streakText = "Vuurreeks: $streak dagen"
+                points = earnedPoints,
+                title = earnedLabel,
+                    streakText = "${text.fireStreak}: $streak ${text.days}"
                 )
                 quickCheckInOpen = false
             }
@@ -153,26 +155,29 @@ fun DashboardScreen(
             todayItems = todayItems,
             todayDoneItems = todayDoneItems,
             onTogglePlan = planningViewModel::toggleDone,
-            onQuickCheckIn = { quickCheckInOpen = true }
+            onQuickCheckIn = { quickCheckInOpen = true },
+            text = text
         )
 
-        ReadingJourneyCard(progress = journeyProgress)
+        ReadingJourneyCard(progress = journeyProgress, text = text)
 
-        MotivationPointsCard(points = motivationPoints)
+        MotivationPointsCard(points = motivationPoints, text = text)
 
         PeriodProgressCard(
             todayReads = periodStats.todayReads,
             weekReads = periodStats.weekReads,
             monthReads = periodStats.monthReads,
             activeDaysThisWeek = periodStats.activeDaysThisWeek,
-            streak = streak
+            streak = streak,
+            text = text
         )
 
-        HifzOverviewCard(overview = hifzOverview)
+        HifzOverviewCard(overview = hifzOverview, text = text)
 
         ReviewDueCard(
             items = hifzOverview.reviewItems,
             plannedItems = planningItems,
+            text = text,
             onAddToAgenda = { item ->
                 planningViewModel.addItem(
                     date = reviewDateKey(item.daysUntilReview),
@@ -371,7 +376,8 @@ fun TodayFocusCard(
     todayItems: List<PlanningItem>,
     todayDoneItems: Int,
     onTogglePlan: (PlanningItem) -> Unit,
-    onQuickCheckIn: () -> Unit
+    onQuickCheckIn: () -> Unit,
+    text: AppStrings
 ) {
     Card(
         modifier = Modifier
@@ -388,9 +394,9 @@ fun TodayFocusCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text("Vandaag", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
+                    Text(text.today, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
                     Text(
-                        if (goalReached) "Dagdoel gehaald" else "Nog ${(goalTarget - todayCount).coerceAtLeast(0)} $unitLabel te gaan",
+                        if (goalReached) text.dailyGoalReached else text.remainingToday.format((goalTarget - todayCount).coerceAtLeast(0), unitLabel),
                         fontSize = 12.sp,
                         color = if (goalReached) DoneGreen else MutedGold
                     )
@@ -417,7 +423,7 @@ fun TodayFocusCard(
                 )
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        if (goalReached) "Voltooid" else "Dagelijks doel",
+                        if (goalReached) text.completed else text.dailyGoal,
                         fontSize = 13.sp,
                         color = MutedGold,
                         fontWeight = FontWeight.Medium
@@ -440,14 +446,14 @@ fun TodayFocusCard(
                             contentColor = DarkNavy
                         )
                     ) {
-                        Text("Snelle check-in", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text(text.quickCheckIn, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(14.dp))
             Text(
-                "Planning vandaag ${if (todayItems.isNotEmpty()) "$todayDoneItems/${todayItems.size}" else ""}",
+                "${text.planningToday} ${if (todayItems.isNotEmpty()) "$todayDoneItems/${todayItems.size}" else ""}",
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold,
                 color = LabelGold
@@ -456,18 +462,18 @@ fun TodayFocusCard(
 
             if (todayItems.isEmpty()) {
                 Text(
-                    "Geen items gepland voor vandaag.",
+                    text.noPlanningToday,
                     fontSize = 12.sp,
                     color = MutedGold
                 )
             } else {
                 todayItems.take(4).forEach { item ->
-                    TodayPlanRow(item = item, onToggle = { onTogglePlan(item) })
+                    TodayPlanRow(item = item, text = text, onToggle = { onTogglePlan(item) })
                     Spacer(modifier = Modifier.height(6.dp))
                 }
                 if (todayItems.size > 4) {
                     Text(
-                        "+${todayItems.size - 4} meer in Agenda",
+                        "+${todayItems.size - 4} ${text.moreInAgenda}",
                         fontSize = 11.sp,
                         color = MutedGold,
                         modifier = Modifier.align(Alignment.End)
@@ -552,7 +558,7 @@ fun TodayGoalPie(
 }
 
 @Composable
-fun ReadingJourneyCard(progress: ReadingJourneyProgress) {
+fun ReadingJourneyCard(progress: ReadingJourneyProgress, text: AppStrings) {
     if (!progress.enabled) return
 
     val statusColor = when (progress.status) {
@@ -561,9 +567,9 @@ fun ReadingJourneyCard(progress: ReadingJourneyProgress) {
         else -> Gold
     }
     val statusText = when (progress.status) {
-        JourneyStatus.AHEAD -> "voor op schema"
-        JourneyStatus.BEHIND -> "${progress.behindParts} rub achter"
-        JourneyStatus.ON_TRACK -> "op schema"
+        JourneyStatus.AHEAD -> text.aheadOfSchedule
+        JourneyStatus.BEHIND -> text.behindRub.format(progress.behindParts)
+        JourneyStatus.ON_TRACK -> text.onSchedule
     }
 
     Card(
@@ -581,8 +587,8 @@ fun ReadingJourneyCard(progress: ReadingJourneyProgress) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text("Leesreis", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
-                    Text("Hele Quran in ${progress.totalDays} dagen", fontSize = 12.sp, color = MutedGold)
+                    Text(text.readingJourney, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
+                    Text(text.wholeQuranInDays.format(progress.totalDays), fontSize = 12.sp, color = MutedGold)
                 }
                 Text(
                     "${progress.percentDone}%",
@@ -607,7 +613,8 @@ fun ReadingJourneyCard(progress: ReadingJourneyProgress) {
                     doneProgress = progress.doneProgress,
                     plannedProgress = progress.plannedProgress,
                     centerText = "${progress.percentDone}%",
-                    statusColor = statusColor
+                    statusColor = statusColor,
+                    text = text
                 )
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -617,20 +624,20 @@ fun ReadingJourneyCard(progress: ReadingJourneyProgress) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        "${progress.doneParts} van 240 rub-delen",
+                        text.donePartsOfRub.format(progress.doneParts),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
                         color = GoldLight
                     )
-                    Text("gedaan", fontSize = 12.sp, color = Gold)
+                    Text(text.done, fontSize = 12.sp, color = Gold)
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        "Gepland tot vandaag: ${progress.plannedParts}/240",
+                        text.plannedUntilToday.format(progress.plannedParts),
                         fontSize = 11.sp,
                         color = MutedGold
                     )
                     Text(
-                        "Groene ring is gedaan, lichte ring is planning.",
+                        text.journeyRingHint,
                         fontSize = 10.sp,
                         color = DimGold
                     )
@@ -645,7 +652,8 @@ fun JourneyProgressPie(
     doneProgress: Float,
     plannedProgress: Float,
     centerText: String,
-    statusColor: Color
+    statusColor: Color,
+    text: AppStrings
 ) {
     val doneAnim = remember { Animatable(0f) }
     val plannedAnim = remember { Animatable(0f) }
@@ -691,13 +699,13 @@ fun JourneyProgressPie(
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(centerText, fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
-            Text("gedaan", fontSize = 10.sp, color = MutedGold)
+            Text(text.done, fontSize = 10.sp, color = MutedGold)
         }
     }
 }
 
 @Composable
-fun TodayPlanRow(item: PlanningItem, onToggle: () -> Unit) {
+fun TodayPlanRow(item: PlanningItem, text: AppStrings, onToggle: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -738,7 +746,7 @@ fun TodayPlanRow(item: PlanningItem, onToggle: () -> Unit) {
                 contentColor = DarkNavy
             )
         ) {
-            Text(if (item.isDone) "Klaar" else "Gedaan", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            Text(if (item.isDone) text.completed else text.done, fontSize = 11.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -990,7 +998,8 @@ fun PeriodProgressCard(
     weekReads: Int,
     monthReads: Int,
     activeDaysThisWeek: Int,
-    streak: Int
+    streak: Int,
+    text: AppStrings
 ) {
     Card(
         modifier = Modifier
@@ -1002,7 +1011,7 @@ fun PeriodProgressCard(
     ) {
         Column(modifier = Modifier.padding(AppSpacing.card)) {
             Text(
-                "Progressie",
+                text.progress,
                 fontSize = 15.sp,
                 color = Gold,
                 fontWeight = FontWeight.Bold,
@@ -1015,16 +1024,16 @@ fun PeriodProgressCard(
             ) {
                 PeriodStatTile(
                     modifier = Modifier.weight(1f),
-                    label = "Vandaag",
+                    label = text.today,
                     value = todayReads,
-                    detail = "acties",
+                    detail = text.actions,
                     color = Gold
                 )
                 PeriodStatTile(
                     modifier = Modifier.weight(1f),
-                    label = "Week",
+                    label = text.week,
                     value = weekReads,
-                    detail = "$activeDaysThisWeek/7 dagen",
+                    detail = "$activeDaysThisWeek/7 ${text.days}",
                     color = ReadBlue
                 )
             }
@@ -1037,16 +1046,16 @@ fun PeriodProgressCard(
             ) {
                 PeriodStatTile(
                     modifier = Modifier.weight(1f),
-                    label = "Maand",
+                    label = text.month,
                     value = monthReads,
-                    detail = "acties",
+                    detail = text.actions,
                     color = DoneGreen
                 )
                 PeriodStatTile(
                     modifier = Modifier.weight(1f),
-                    label = "Streak",
+                    label = text.streak,
                     value = streak,
-                    detail = "dagen",
+                    detail = text.days,
                     color = DeleteRed
                 )
             }
@@ -1055,7 +1064,7 @@ fun PeriodProgressCard(
 }
 
 @Composable
-fun MotivationPointsCard(points: MotivationPointsStats) {
+fun MotivationPointsCard(points: MotivationPointsStats, text: AppStrings) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -1071,10 +1080,10 @@ fun MotivationPointsCard(points: MotivationPointsStats) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text("Motivatiepunten", fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
+                    Text(text.motivationPoints, fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
                     Text(points.levelName, fontSize = 11.sp, color = MutedGold)
                 }
-                Text("${points.totalPoints} pt", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
+                Text("${points.totalPoints} ${text.pointsShort}", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -1084,14 +1093,14 @@ fun MotivationPointsCard(points: MotivationPointsStats) {
                 backgroundColor = BorderNavy
             )
             Text(
-                if (points.nextLevelRemaining == 0) "Nieuw level bereikt" else "Nog ${points.nextLevelRemaining} punten tot volgende level",
+                if (points.nextLevelRemaining == 0) text.newLevelReached else text.pointsToNextLevel.format(points.nextLevelRemaining),
                 fontSize = 10.sp,
                 color = DimGold,
                 modifier = Modifier.padding(top = 5.dp)
             )
 
             Spacer(modifier = Modifier.height(12.dp))
-            StreakFireBar(streakDays = points.streakDays, activeDays = points.weekActiveDays)
+            StreakFireBar(streakDays = points.streakDays, activeDays = points.weekActiveDays, text = text)
 
             Spacer(modifier = Modifier.height(8.dp))
             Row(
@@ -1100,16 +1109,16 @@ fun MotivationPointsCard(points: MotivationPointsStats) {
             ) {
                 PeriodStatTile(
                     modifier = Modifier.weight(1f),
-                    label = "Vandaag",
+                    label = text.today,
                     value = points.todayPoints,
-                    detail = "punten",
+                    detail = text.points,
                     color = Gold
                 )
                 PeriodStatTile(
                     modifier = Modifier.weight(1f),
-                    label = "Week",
+                    label = text.week,
                     value = points.weekPoints,
-                    detail = "punten",
+                    detail = text.points,
                     color = ReadBlue
                 )
             }
@@ -1121,9 +1130,9 @@ fun MotivationPointsCard(points: MotivationPointsStats) {
             ) {
                 PeriodStatTile(
                     modifier = Modifier.weight(1f),
-                    label = "Bonus",
+                    label = text.bonus,
                     value = points.bonusPoints,
-                    detail = "streak/doel",
+                    detail = text.streakGoal,
                     color = DoneGreen
                 )
                 Column(
@@ -1134,14 +1143,14 @@ fun MotivationPointsCard(points: MotivationPointsStats) {
                         .border(1.dp, PeriodAccentSurface, RoundedCornerShape(AppShape.tile))
                         .padding(horizontal = 10.dp, vertical = 9.dp)
                 ) {
-                    Text("Laatste", fontSize = 10.sp, color = MutedGold)
-                    Text("+${points.latestPoints} pt", fontSize = 18.sp, color = GoldLight, fontWeight = FontWeight.Bold)
+                    Text(text.latest, fontSize = 10.sp, color = MutedGold)
+                    Text("+${points.latestPoints} ${text.pointsShort}", fontSize = 18.sp, color = GoldLight, fontWeight = FontWeight.Bold)
                     Text(points.latestLabel, fontSize = 10.sp, color = DimGold, maxLines = 1)
                 }
             }
 
             Text(
-                "App-punten voor motivatie, niet als religieuze beloning.",
+                text.appPointsDisclaimer,
                 fontSize = 10.sp,
                 color = DimGold,
                 modifier = Modifier.padding(top = 8.dp)
@@ -1151,7 +1160,7 @@ fun MotivationPointsCard(points: MotivationPointsStats) {
 }
 
 @Composable
-fun StreakFireBar(streakDays: Int, activeDays: Int) {
+fun StreakFireBar(streakDays: Int, activeDays: Int, text: AppStrings) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -1166,10 +1175,10 @@ fun StreakFireBar(streakDays: Int, activeDays: Int) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text("Vuurreeks", fontSize = 12.sp, color = Gold, fontWeight = FontWeight.Bold)
-                Text("${streakDays} dagen", fontSize = 11.sp, color = MutedGold)
+                Text(text.fireStreak, fontSize = 12.sp, color = Gold, fontWeight = FontWeight.Bold)
+                Text("${streakDays} ${text.days}", fontSize = 11.sp, color = MutedGold)
             }
-            Text("week $activeDays/7", fontSize = 10.sp, color = DimGold)
+            Text("${text.week.lowercase()} $activeDays/7", fontSize = 10.sp, color = DimGold)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -1246,7 +1255,7 @@ fun PeriodStatTile(
 }
 
 @Composable
-fun HifzOverviewCard(overview: HifzOverview) {
+fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -1262,7 +1271,7 @@ fun HifzOverviewCard(overview: HifzOverview) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text("Hifz-overzicht", fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
+                    Text(text.hifzOverview, fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
                     Text(
                         "${overview.scoredCount} scores · ${overview.surahCount} soera · ${overview.hizbCount} hizb · ${overview.juzCount} juz",
                         fontSize = 11.sp,
@@ -1298,21 +1307,21 @@ fun HifzOverviewCard(overview: HifzOverview) {
 
             if (overview.scoredCount == 0) {
                 Text(
-                    "Nog geen Hifz-scores. Stel een bereik in of houd een item lang vast.",
+                    text.noHifzScores,
                     fontSize = 12.sp,
                     color = MutedGold
                 )
             } else {
                 HifzRecommendationSection(
-                    title = "Herhaal eerst",
+                    title = text.reviewFirst,
                     items = overview.weakest,
-                    emptyText = "Geen lage scores gevonden."
+                    emptyText = text.noLowScores
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 HifzRecommendationSection(
-                    title = "Sterk",
+                    title = text.strong,
                     items = overview.strongest,
-                    emptyText = "Nog geen sterke scores."
+                    emptyText = text.noStrongScores
                 )
             }
         }
@@ -1369,6 +1378,7 @@ fun HifzScoreRow(item: HifzScoreItem) {
 fun ReviewDueCard(
     items: List<ReviewDueItem>,
     plannedItems: List<PlanningItem>,
+    text: AppStrings,
     onAddToAgenda: (ReviewDueItem) -> Unit
 ) {
     Card(
@@ -1380,9 +1390,9 @@ fun ReviewDueCard(
         border = androidx.compose.foundation.BorderStroke(1.dp, BorderNavy)
     ) {
         Column(modifier = Modifier.padding(AppSpacing.card)) {
-            Text("Te herhalen", fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
+            Text(text.repeatDue, fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
             Text(
-                "Gebaseerd op Hifz-score en laatste scoremoment",
+                text.repeatDueSubtitle,
                 fontSize = 11.sp,
                 color = MutedGold,
                 modifier = Modifier.padding(top = 2.dp, bottom = 10.dp)
@@ -1390,7 +1400,7 @@ fun ReviewDueCard(
 
             if (items.isEmpty()) {
                 Text(
-                    "Nog geen herhaaladvies. Geef eerst Hifz-scores.",
+                    text.noRepeatAdvice,
                     fontSize = 12.sp,
                     color = MutedGold
                 )
@@ -1406,6 +1416,7 @@ fun ReviewDueCard(
                     ReviewDueRow(
                         item = item,
                         isPlanned = isPlanned,
+                        text = text,
                         onAddToAgenda = { if (!isPlanned) onAddToAgenda(item) }
                     )
                     Spacer(modifier = Modifier.height(6.dp))
@@ -1419,6 +1430,7 @@ fun ReviewDueCard(
 fun ReviewDueRow(
     item: ReviewDueItem,
     isPlanned: Boolean,
+    text: AppStrings,
     onAddToAgenda: () -> Unit
 ) {
     val rowColor = when {
@@ -1427,10 +1439,10 @@ fun ReviewDueRow(
         else -> ReviewLaterSurface
     }
     val label = when {
-        item.daysUntilReview < 0 -> "${-item.daysUntilReview} dagen te laat"
-        item.daysUntilReview == 0 -> "vandaag"
-        item.daysUntilReview == 1 -> "morgen"
-        else -> "over ${item.daysUntilReview} dagen"
+        item.daysUntilReview < 0 -> text.lateDays.format(-item.daysUntilReview)
+        item.daysUntilReview == 0 -> text.today.lowercase()
+        item.daysUntilReview == 1 -> text.tomorrow
+        else -> text.inDays.format(item.daysUntilReview)
     }
 
     Row(
@@ -1461,7 +1473,7 @@ fun ReviewDueRow(
                     contentColor = DarkNavy
                 )
             ) {
-                Text(if (isPlanned) "Gepland" else "Agenda", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                Text(if (isPlanned) text.planned else text.agenda, fontSize = 10.sp, fontWeight = FontWeight.Bold)
             }
         }
     }

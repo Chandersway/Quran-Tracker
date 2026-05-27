@@ -17,7 +17,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -68,34 +70,37 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(prefs.getString("selected_reciter_name", "") ?: "")
             }
 
-            QuranTrackerTheme(themeMode = themeMode) {
-                QuranTrackerApp(
-                    themeMode = themeMode,
-                    onThemeModeChange = { newMode ->
-                        themeMode = newMode
-                        prefs.edit().putString("theme_mode", newMode).apply()
-                    },
-                    hifzTintEnabled = hifzTintEnabled,
-                    onHifzTintEnabledChange = { enabled ->
-                        hifzTintEnabled = enabled
-                        prefs.edit().putBoolean("hifz_tint_enabled", enabled).apply()
-                    },
-                    mushafMode = mushafMode,
-                    onMushafModeChange = { newMode ->
-                        mushafMode = newMode
-                        prefs.edit().putString("mushaf_mode", newMode).apply()
-                    },
-                    appLanguage = appLanguage,
-                    onAppLanguageChange = { newLanguage ->
-                        appLanguage = newLanguage
-                        prefs.edit().putString("app_language", newLanguage).apply()
-                    },
-                    selectedReciterName = selectedReciterName,
-                    onSelectedReciterNameChange = { reciterName ->
-                        selectedReciterName = reciterName
-                        prefs.edit().putString("selected_reciter_name", reciterName).apply()
-                    }
-                )
+            val layoutDirection = if (appLanguage == "ar") LayoutDirection.Rtl else LayoutDirection.Ltr
+            CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+                QuranTrackerTheme(themeMode = themeMode) {
+                    QuranTrackerApp(
+                        themeMode = themeMode,
+                        onThemeModeChange = { newMode ->
+                            themeMode = newMode
+                            prefs.edit().putString("theme_mode", newMode).apply()
+                        },
+                        hifzTintEnabled = hifzTintEnabled,
+                        onHifzTintEnabledChange = { enabled ->
+                            hifzTintEnabled = enabled
+                            prefs.edit().putBoolean("hifz_tint_enabled", enabled).apply()
+                        },
+                        mushafMode = mushafMode,
+                        onMushafModeChange = { newMode ->
+                            mushafMode = newMode
+                            prefs.edit().putString("mushaf_mode", newMode).apply()
+                        },
+                        appLanguage = appLanguage,
+                        onAppLanguageChange = { newLanguage ->
+                            appLanguage = newLanguage
+                            prefs.edit().putString("app_language", newLanguage).apply()
+                        },
+                        selectedReciterName = selectedReciterName,
+                        onSelectedReciterNameChange = { reciterName ->
+                            selectedReciterName = reciterName
+                            prefs.edit().putString("selected_reciter_name", reciterName).apply()
+                        }
+                    )
+                }
             }
         }
     }
@@ -125,6 +130,7 @@ fun QuranTrackerApp(
     val viewModel: QuranViewModel       = viewModel()
     val goalViewModel: GoalViewModel    = viewModel()
     val planningViewModel: PlanningViewModel = viewModel()
+    val text = AppText.strings(appLanguage)
 
     var menuOpen by remember { mutableStateOf(false) }
     var readerBookmarkTarget by remember { mutableStateOf<ReaderBookmarkSummary?>(null) }
@@ -134,23 +140,23 @@ fun QuranTrackerApp(
     val currentRoute = navBackStackEntry?.destination?.route
 
     val screenTitle = when (currentRoute) {
-        "dashboard" -> "Dashboard"
-        "hizb"      -> "Hizb & Rub"
-        "juzz"      -> "Juz"
-        "surahs"    -> "Soera"
+        "dashboard" -> text.dashboard
+        "hizb"      -> text.hizbRub
+        "juzz"      -> text.juz
+        "surahs"    -> text.surah
         "reader"    -> "القرآن الكريم"
-        "stats"     -> "Statistieken"
-        "agenda"    -> "Agenda"
-        else        -> "Quran Tracker"
+        "stats"     -> text.stats
+        "agenda"    -> text.agenda
+        else        -> text.quranTracker
     }
 
     val bottomItems = listOf(
-        Triple(Screen.Dashboard, Icons.Default.Home,      "Home"),
-        Triple(Screen.Hizb,      Icons.Default.MenuBook,  "Hizb"),
-        Triple(Screen.Juzz,      Icons.Default.List,      "Juz"),
-        Triple(Screen.Surahs,    Icons.Default.Book,      "Soera"),
-        Triple(Screen.Reader,    Icons.Default.AutoStories,"Quran"),
-        Triple(Screen.Stats,     Icons.Default.BarChart,  "Stats"),
+        Triple(Screen.Dashboard, Icons.Default.Home,      text.home),
+        Triple(Screen.Hizb,      Icons.Default.MenuBook,  text.hizb),
+        Triple(Screen.Juzz,      Icons.Default.List,      text.juz),
+        Triple(Screen.Surahs,    Icons.Default.Book,      text.surah),
+        Triple(Screen.Reader,    Icons.Default.AutoStories,text.quran),
+        Triple(Screen.Stats,     Icons.Default.BarChart,  text.stats),
     )
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -238,7 +244,8 @@ fun QuranTrackerApp(
                     DashboardScreen(
                         viewModel = viewModel,
                         goalViewModel = goalViewModel,
-                        planningViewModel = planningViewModel
+                        planningViewModel = planningViewModel,
+                        appLanguage = appLanguage
                     )
                 }
                 composable(Screen.Hizb.route)      {
@@ -256,7 +263,8 @@ fun QuranTrackerApp(
                 composable(Screen.Surahs.route)    {
                     SurahScreen(
                         viewModel = viewModel,
-                        hifzTintEnabled = hifzTintEnabled
+                        hifzTintEnabled = hifzTintEnabled,
+                        appLanguage = appLanguage
                     )
                 }
                 composable(Screen.Reader.route)    {

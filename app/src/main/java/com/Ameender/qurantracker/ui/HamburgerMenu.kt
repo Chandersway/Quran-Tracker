@@ -77,6 +77,7 @@ fun HamburgerMenu(
     val reciterOptions = remember {
         loadSurahAudioOptions(context, 1).distinctBy { "${it.reciterName}|${it.rewayaName}" }
     }
+    val text = AppText.strings(appLanguage)
 
     var selectedUnit by remember(goal) { mutableStateOf(goal.unit) }
     var targetInput by remember(goal) { mutableStateOf(goal.target.toString()) }
@@ -148,8 +149,8 @@ fun HamburgerMenu(
                         HorizontalDivider(color = BorderNavy.copy(alpha = 0.55f))
                         SettingsActionRow(
                             icon = Icons.Default.MenuBook,
-                            title = "Mushaf",
-                            subtitle = if (mushafMode == "warsh") "Warsh - Muhammadi" else "Hafs - Medina"
+                            title = text.mushaf,
+                            subtitle = if (mushafMode == "warsh") text.warshMuhammadi else text.hafsMedina
                         )
                         Row(
                             modifier = Modifier
@@ -158,13 +159,13 @@ fun HamburgerMenu(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             SettingsChoiceChip(
-                                label = "Hafs - Medina",
+                                label = text.hafsMedina,
                                 selected = mushafMode == "hafs",
                                 onClick = { onMushafModeChange("hafs") },
                                 modifier = Modifier.weight(1f)
                             )
                             SettingsChoiceChip(
-                                label = "Warsh - Muhammadi",
+                                label = text.warshMuhammadi,
                                 selected = mushafMode == "warsh",
                                 onClick = { onMushafModeChange("warsh") },
                                 modifier = Modifier.weight(1f)
@@ -177,32 +178,32 @@ fun HamburgerMenu(
                     SettingsCard {
                         MenuItemExpandableRow(
                             icon = Icons.Default.List,
-                            title = "Inhoudsopgave",
-                            subtitle = "Inhoudsopgave",
+                            title = text.tableOfContents,
+                            subtitle = text.tableOfContents,
                             expanded = fihresOpen,
                             onClick = { fihresOpen = !fihresOpen }
                         )
                         AnimatedVisibility(visible = fihresOpen) {
                             Column {
                                 SettingsSmallNavRow(
-                                    title = "Soewar",
-                                    subtitle = "Alle hoofdstukken",
+                                    title = text.surah,
+                                    subtitle = text.allChapters,
                                     onClick = {
                                         onClose()
                                         onNavigateToSurahs()
                                     }
                                 )
                                 SettingsSmallNavRow(
-                                    title = "Juz",
-                                    subtitle = "30 ajza",
+                                    title = text.juz,
+                                    subtitle = text.thirtyAjza,
                                     onClick = {
                                         onClose()
                                         onNavigateToJuzz()
                                     }
                                 )
                                 SettingsSmallNavRow(
-                                    title = "Hizb",
-                                    subtitle = "60 ahzaab",
+                                    title = text.hizb,
+                                    subtitle = text.sixtyAhzaab,
                                     onClick = {
                                         onClose()
                                         onNavigateToHizb()
@@ -213,8 +214,8 @@ fun HamburgerMenu(
                         SettingsDivider()
                         MenuItemExpandableRow(
                             icon = Icons.Default.BookmarkBorder,
-                            title = "Bladwijzers",
-                            subtitle = if (bookmarkSummaries.isEmpty()) "Nog geen bladwijzers" else "${bookmarkSummaries.size} opgeslagen plekken",
+                            title = text.bookmarks,
+                            subtitle = if (bookmarkSummaries.isEmpty()) text.noBookmarks else "${bookmarkSummaries.size} ${text.savedPlaces}",
                             expanded = bookmarksOpen,
                             onClick = { bookmarksOpen = !bookmarksOpen }
                         )
@@ -222,7 +223,7 @@ fun HamburgerMenu(
                             Column {
                                 if (bookmarkSummaries.isEmpty()) {
                                     Text(
-                                        "Nog geen bladwijzers.",
+                                        "${text.noBookmarks}.",
                                         fontSize = 12.sp,
                                         color = MutedGold,
                                         modifier = Modifier.padding(
@@ -251,16 +252,16 @@ fun HamburgerMenu(
                     SettingsCard {
                         MenuSwitchRow(
                             icon = Icons.Default.Check,
-                            title = "Hifz-score 0-100",
-                            subtitle = "Kleurtint voor soera, hizb en juz",
+                            title = text.hifzScore,
+                            subtitle = text.hifzScoreSubtitle,
                             checked = hifzTintEnabled,
                             onCheckedChange = onHifzTintEnabledChange
                         )
                         SettingsDivider()
                         MenuItemExpandableRow(
                             icon = Icons.Default.Settings,
-                            title = "Score bereik instellen",
-                            subtitle = "Geef meerdere items dezelfde score",
+                            title = text.scoreRange,
+                            subtitle = text.scoreRangeSubtitle,
                             expanded = hifzRangeOpen,
                             onClick = { hifzRangeOpen = !hifzRangeOpen }
                         )
@@ -299,11 +300,11 @@ fun HamburgerMenu(
                     SettingsCard {
                         MenuItemExpandableRow(
                             icon = Icons.Default.DateRange,
-                            title = "Leesreis",
+                            title = text.readingJourney,
                             subtitle = if (readingJourney.enabled) {
-                                "Quran in ${readingJourney.totalDays} dagen"
+                                text.quranInDays.format(readingJourney.totalDays)
                             } else {
-                                "Nog geen einddoel actief"
+                                text.noEndGoal
                             },
                             expanded = readingJourneyOpen,
                             onClick = { readingJourneyOpen = !readingJourneyOpen }
@@ -346,24 +347,24 @@ fun HamburgerMenu(
                     SettingsCard {
                         MenuItemExpandableRow(
                             icon = Icons.Default.DateRange,
-                            title = "Leesplanning",
-                            subtitle = "Khatma en agenda",
+                            title = text.readingPlan,
+                            subtitle = text.khatmaAndAgenda,
                             expanded = leesplanningOpen,
                             onClick = { leesplanningOpen = !leesplanningOpen }
                         )
                         AnimatedVisibility(visible = leesplanningOpen) {
                             Column {
                                 SettingsSmallNavRow(
-                                    title = "Khatma",
-                                    subtitle = "Maak een leesplan",
+                                    title = text.khatma,
+                                    subtitle = text.makeReadingPlan,
                                     onClick = {
                                         onClose()
                                         onNavigateToAgenda()
                                     }
                                 )
                                 SettingsSmallNavRow(
-                                    title = "Agenda",
-                                    subtitle = "Bekijk je planning",
+                                    title = text.agenda,
+                                    subtitle = text.viewPlanning,
                                     onClick = {
                                         onClose()
                                         onNavigateToAgenda()
@@ -372,18 +373,18 @@ fun HamburgerMenu(
                             }
                         }
                         SettingsDivider()
-                        SettingsActionRow(Icons.Default.Info, "Tasbih", "Teller komt later")
+                        SettingsActionRow(Icons.Default.Info, text.tasbih, text.tasbihLater)
                         SettingsDivider()
-                        SettingsActionRow(Icons.Default.Info, "Gebedsrichting", "Qibla komt later")
+                        SettingsActionRow(Icons.Default.Info, text.qibla, text.qiblaLater)
                         SettingsDivider()
                         SettingsActionRow(
                             icon = Icons.Default.PlayArrow,
-                            title = "Media",
-                            subtitle = if (selectedReciterName.isBlank()) "Standaard reciteur" else selectedReciterName,
+                            title = text.media,
+                            subtitle = if (selectedReciterName.isBlank()) text.defaultReciter else selectedReciterName,
                             onClick = { mediaPageOpen = true }
                         )
                         SettingsDivider()
-                        SettingsActionRow(Icons.Default.Info, "Offline", "Downloads komen later")
+                        SettingsActionRow(Icons.Default.Info, text.offline, text.downloadsLater)
                     }
 
                     SettingsGap()
@@ -391,15 +392,15 @@ fun HamburgerMenu(
                     SettingsCard {
                         SettingsActionRow(
                             icon = Icons.Default.Groups,
-                            title = "Groepen",
-                            subtitle = "Maak een leesgroep met deelcode",
+                            title = text.groups,
+                            subtitle = text.groupsSubtitle,
                             onClick = { groupsPageOpen = true }
                         )
                         SettingsDivider()
                         SettingsActionRow(
                             icon = Icons.Default.AccountCircle,
-                            title = "Account",
-                            subtitle = "Optioneel inloggen of zonder account verder",
+                            title = text.account,
+                            subtitle = text.accountSubtitle,
                             onClick = { accountPageOpen = true }
                         )
                     }
@@ -409,8 +410,8 @@ fun HamburgerMenu(
                     SettingsCard {
                         MenuItemExpandableRow(
                             icon = Icons.Default.Info,
-                            title = "Uiterlijk",
-                            subtitle = if (themeMode == "dark") "Donker thema" else "Licht thema",
+                            title = text.appearance,
+                            subtitle = if (themeMode == "dark") text.darkTheme else text.lightTheme,
                             expanded = false,
                             onClick = {}
                         )
@@ -428,8 +429,8 @@ fun HamburgerMenu(
                         SettingsDivider()
                         MenuItemExpandableRow(
                             icon = Icons.Default.Info,
-                            title = "Taal",
-                            subtitle = appLanguageLabel(appLanguage),
+                            title = text.language,
+                            subtitle = AppText.languageLabel(appLanguage, appLanguage),
                             expanded = false,
                             onClick = {}
                         )
@@ -439,7 +440,7 @@ fun HamburgerMenu(
                                 .padding(horizontal = SettingsMenuStyle.innerPadding, vertical = 8.dp),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            listOf("nl" to "NL", "ar" to "AR", "en" to "EN", "fr" to "FR").forEach { (language, label) ->
+                            listOf("nl" to "NL", "en" to "EN", "ar" to "عربي", "fr" to "FR").forEach { (language, label) ->
                                 SettingsChoiceChip(
                                     label = label,
                                     selected = appLanguage == language,
@@ -455,8 +456,8 @@ fun HamburgerMenu(
                     SettingsCard {
                         MenuItemExpandableRow(
                             icon = Icons.Default.DateRange,
-                            title = "Dagelijkse doel",
-                            subtitle = "${goal.target} ${goalViewModel.unitLabel(goal.unit)} per dag",
+                            title = text.dailyGoal,
+                            subtitle = "${goal.target} ${goalViewModel.unitLabel(goal.unit)} ${text.perDay}",
                             expanded = dailyGoalOpen,
                             onClick = { dailyGoalOpen = !dailyGoalOpen }
                         )
