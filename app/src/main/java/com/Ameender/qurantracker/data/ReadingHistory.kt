@@ -3,7 +3,7 @@ package com.Ameender.qurantracker.data
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-@Entity(tableName = "reading_history")
+@Entity(tableName = "reading_history", indices = [Index(value = ["sourceKey"], unique = true)])
 data class ReadingHistory(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
@@ -15,11 +15,21 @@ data class ReadingHistory(
     val extraInfo: String = "", // Begin ayah tekst voor hizb
 
     val timestamp: Long = System.currentTimeMillis(),
-    val dateKey: String = ""
+    val dateKey: String = "",
+    @ColumnInfo(defaultValue = "1") val amount: Int = 1,
+    val sourceKey: String? = null,
+    @ColumnInfo(defaultValue = "''") val contentType: String = ""
 )
 
 @Dao
 interface ReadingHistoryDao {
+    @Query("SELECT * FROM reading_history ORDER BY timestamp DESC")
+    suspend fun getAllOnce(): List<ReadingHistory>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertOnce(history: ReadingHistory): Long
+    @Query("DELETE FROM reading_history WHERE sourceKey = :source")
+    suspend fun deleteSource(source: String): Int
 
     @Insert
     suspend fun insert(history: ReadingHistory)
@@ -34,7 +44,7 @@ interface ReadingHistoryDao {
     @Query("""
         SELECT surahId, surahName, COUNT(*) as count
         FROM reading_history
-        WHERE action = 'read' AND type = 'surah'
+        WHERE action = 'read' AND (type = 'surah' OR contentType = 'surah')
         GROUP BY surahId
         ORDER BY count DESC
         LIMIT 8
@@ -45,7 +55,7 @@ interface ReadingHistoryDao {
     @Query("""
         SELECT surahId, surahName, extraInfo, COUNT(*) as count
         FROM reading_history
-        WHERE action = 'read' AND type = 'hizb'
+        WHERE action = 'read' AND (type IN ('hizb', 'rub') OR contentType = 'hizb')
         GROUP BY surahId
         ORDER BY count DESC
         LIMIT 8
@@ -54,10 +64,10 @@ interface ReadingHistoryDao {
 
     // Totaal per type voor taartgrafiek
     @Query("""
-        SELECT type, COUNT(*) as count
+        SELECT CASE WHEN contentType != '' THEN contentType ELSE type END AS type, COUNT(*) as count
         FROM reading_history
         WHERE action = 'read'
-        GROUP BY type
+        GROUP BY CASE WHEN contentType != '' THEN contentType ELSE type END
         ORDER BY count DESC
     """)
     fun getAllTypeCounts(): Flow<List<TypeCount>>
@@ -74,6 +84,26 @@ interface ReadingHistoryDao {
 
     @Query("DELETE FROM reading_history")
     suspend fun deleteAll()
+
+    @Query("""
+        DELETE FROM reading_history
+        WHERE action = 'read'
+          AND type IN ('hizb', 'rub')
+          AND surahId = :hizbNumber
+          AND dateKey = :dateKey
+          AND (
+              surahName LIKE '%' || :markerA || '%'
+              OR surahName LIKE '%' || :markerB || '%'
+              OR surahName LIKE '%' || :markerC || '%'
+          )
+    """)
+    suspend fun deleteRubReadForDay(
+        hizbNumber: Int,
+        dateKey: String,
+        markerA: String,
+        markerB: String,
+        markerC: String
+    )
 
     @Query("SELECT COUNT(*) FROM reading_history WHERE action = 'read'")
     fun getTotalReadCount(): Flow<Int>

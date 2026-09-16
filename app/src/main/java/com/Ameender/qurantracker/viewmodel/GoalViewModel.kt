@@ -1,135 +1,86 @@
 package com.Ameender.qurantracker.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.Ameender.qurantracker.data.DailyGoal
-import com.Ameender.qurantracker.data.QuranDatabase
+import com.Ameender.qurantracker.data.GoalDataSource
 import com.Ameender.qurantracker.data.ReadingJourney
-import com.Ameender.qurantracker.scheduleDailyReminder
-import kotlinx.coroutines.flow.*
+import com.Ameender.qurantracker.data.GoalDay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
-class GoalViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val db          = QuranDatabase.getDatabase(application)
-    private val goalDao     = db.dailyGoalDao()
-    private val historyDao  = db.readingHistoryDao()
-    private val journeyDao  = db.readingJourneyDao()
-
-    // Huidig doel
-    val dailyGoal = goalDao.getGoal()
-        .map { it ?: DailyGoal() }
+class GoalViewModel(
+    private val repository: GoalDataSource
+) : ViewModel() {
+    val goals = repository.goals.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val days = repository.days.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val sessions = repository.sessions.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val message = MutableStateFlow<String?>(null)
+    init {
+        viewModelScope.launch {
+            while (true) {
+                runCatching { repository.refreshDays() }.onFailure { message.value = it.message }
+                delay(30_000)
+            }
+        }
+    }
+    fun saveDefinition(goal: DailyGoal) = perform { repository.saveGoalDefinition(goal) }
+    fun saveJourneyPlan(enabled: Boolean, goal: DailyGoal, start: String, onResult: (String?) -> Unit) {
+        viewModelScope.launch {
+            val result = runCatching {
+                repository.saveGoalDefinition(goal)
+                repository.saveReadingJourney(enabled, 30, start, false)
+            }
+            onResult(result.exceptionOrNull()?.message)
+        }
+    }
+    fun record(id: Int, date: String, amount: Int, unit: String, source: String, content: com.Ameender.qurantracker.data.GoalSessionContent) =
+        perform { repository.record(id, date, amount, unit, source, content) }
+    fun resolve(day: GoalDay, mode: String) = perform { repository.resolve(day, mode) }
+    fun schedule(goal: DailyGoal, date: String, amount: Int, content: com.Ameender.qurantracker.data.GoalSessionContent) =
+        perform { repository.schedule(goal, date, amount, content) }
+    private fun perform(block: suspend () -> Unit) {
+        viewModelScope.launch {
+            runCatching { block() }.onSuccess { message.value = "Opgeslagen" }
+                .onFailure { message.value = it.message ?: "Opslaan is niet gelukt" }
+        }
+    }
+    val dailyGoal = repository.dailyGoal
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DailyGoal())
 
-    val readingJourney = journeyDao.getJourney()
-        .map { it ?: ReadingJourney(startDate = todayKey()) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ReadingJourney(startDate = todayKey()))
+    val readingJourney = repository.readingJourney
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ReadingJourney())
 
-    // Geschiedenis van vandaag
-    private val todayHistory = historyDao.getRecent()
-        .map { history ->
-            val todayKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            history.filter { it.dateKey == todayKey && it.action == "read" }
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    // Hoeveel vandaag gelezen (in gekozen eenheid)
-    val todayCount = combine(dailyGoal, todayHistory) { goal, history ->
-        when (goal.unit) {
-            "rub"   -> history.count { it.type == "hizb" }
-            "hizb"  -> history.count { it.type == "hizb" } / 4
-            "juz"   -> history.count { it.type == "juz" }
-            "pages" -> history.count { it.type == "surah" } * 2
-            "ayahs" -> history.count { it.type == "surah" } * 10
-            else    -> history.size
-        }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
-
-    // Streak — hoeveel dagen op rij doel gehaald
-    val streak = historyDao.getAll()
-        .map { allHistory ->
-            var streak = 0
-            val sdf    = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val cal    = Calendar.getInstance()
-
-            // Check elke dag terug
-            repeat(365) {
-                val dayKey   = sdf.format(cal.time)
-                val dayItems = allHistory.filter { it.dateKey == dayKey && it.action == "read" }
-                if (dayItems.isNotEmpty()) {
-                    streak++
-                    cal.add(Calendar.DAY_OF_YEAR, -1)
-                } else {
-                    return@map streak
-                }
-            }
-            streak
-        }
+    val todayCount = repository.todayCount
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
-    // Doel opslaan en herinnering plannen
+    val streak = repository.streak
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+
     fun saveGoal(unit: String, target: Int, hour: Int, minute: Int) {
-        viewModelScope.launch {
-            goalDao.upsertGoal(
-                DailyGoal(
-                    unit           = unit,
-                    target         = target,
-                    reminderHour   = hour,
-                    reminderMinute = minute
-                )
-            )
-            // Plan herinnering opnieuw
-            scheduleDailyReminder(getApplication(), hour, minute)
+        perform {
+            repository.saveGoal(unit, target, hour, minute)
         }
     }
 
     fun saveReadingJourney(enabled: Boolean, totalDays: Int, startDate: String, autoDailyGoal: Boolean) {
-        viewModelScope.launch {
-            val safeDays = totalDays.coerceIn(1, 240)
-            journeyDao.upsertJourney(
-                ReadingJourney(
-                    enabled = enabled,
-                    totalDays = safeDays,
-                    startDate = startDate.ifBlank { todayKey() },
-                    autoDailyGoal = autoDailyGoal,
-                    updatedAt = System.currentTimeMillis()
-                )
-            )
-            if (enabled && autoDailyGoal) {
-                val currentGoal = goalDao.getGoalOnce() ?: DailyGoal()
-                val derived = deriveDailyGoalFromJourney(safeDays)
-                goalDao.upsertGoal(
-                    currentGoal.copy(
-                        unit = derived.first,
-                        target = derived.second
-                    )
-                )
-            }
+        perform {
+            repository.saveReadingJourney(enabled, totalDays, startDate, autoDailyGoal)
         }
     }
 
-    // Eenheid label
     fun unitLabel(unit: String): String = when (unit) {
-        "rub"   -> "rub"
-        "hizb"  -> "hizb"
-        "juz"   -> "juz"
+        "rub" -> "rub"
+        "hizb" -> "hizb"
+        "juz" -> "juz"
         "pages" -> "pagina's"
         "ayahs" -> "ayahs"
-        else    -> ""
+        else -> ""
     }
 }
 
-fun deriveDailyGoalFromJourney(totalDays: Int): Pair<String, Int> {
-    val partsPerDay = kotlin.math.ceil(240.0 / totalDays.coerceIn(1, 240)).toInt().coerceAtLeast(1)
-    return when {
-        partsPerDay % 8 == 0 -> "juz" to (partsPerDay / 8).coerceAtLeast(1)
-        partsPerDay % 4 == 0 -> "hizb" to (partsPerDay / 4).coerceAtLeast(1)
-        else -> "rub" to partsPerDay
-    }
-}
-
-private fun todayKey(): String =
-    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+fun deriveDailyGoalFromJourney(totalDays: Int): Pair<String, Int> =
+    com.Ameender.qurantracker.domain.deriveDailyGoalFromJourney(totalDays)

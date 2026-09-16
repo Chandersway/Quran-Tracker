@@ -1,302 +1,127 @@
 package com.Ameender.qurantracker.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.Ameender.qurantracker.data.*
+import com.Ameender.qurantracker.data.QuranProgressDataSource
+import com.Ameender.qurantracker.domain.QuranProgressType
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
-class QuranViewModel(application: Application) : AndroidViewModel(application) {
+class QuranViewModel(
+    private val repository: QuranProgressDataSource
+) : ViewModel() {
 
-    private val db         = QuranDatabase.getDatabase(application)
-    private val dao        = db.quranDao()
-    private val historyDao = db.readingHistoryDao()
-
-    // ── Voortgang ─────────────────────────────────────────
-    val allProgress = dao.getAllProgress()
+    val allProgress = repository.allProgress
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val juzzProgress = dao.getByType("juz")
+    val juzzProgress = repository.juzzProgress
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val hizbProgress = dao.getByType("hizb")
+    val hizbProgress = repository.hizbProgress
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val rubProgress = dao.getByType("rub")
+    val rubProgress = repository.rubProgress
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val surahProgress = dao.getByType("surah")
+    val surahProgress = repository.surahProgress
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    // ── Geschiedenis & Statistieken ───────────────────────
-    val recentHistory = historyDao.getRecent()
+    val recentHistory = repository.recentHistory
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val allHistory = historyDao.getAll()
+    val allHistory = repository.allHistory
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val mostReadSurahs = historyDao.getMostRead()
+    val mostReadSurahs = repository.mostReadSurahs
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val mostReadHizb = historyDao.getMostReadHizb()
+    val mostReadHizb = repository.mostReadHizb
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val totalReadCount = historyDao.getTotalReadCount()
+    val totalReadCount = repository.totalReadCount
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
-    val dayActivity = historyDao.getActivityPerDay(
+    val dayActivity = repository.dayActivitySince(
         since = System.currentTimeMillis() - 7L * 24 * 60 * 60 * 1000
     ).stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val allTypeCounts = historyDao.getAllTypeCounts()
+    val allTypeCounts = repository.allTypeCounts
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    // ── Juz optellen ──────────────────────────────────────
 
     fun confirmToggleJuz(juzNumber: Int, currentValue: Boolean) {
         viewModelScope.launch {
-            val existing = dao.getById("juz_$juzNumber")
-            val newCount = (existing?.readCount ?: 0) + 1
-            dao.upsertProgress(
-                QuranProgress(
-                    id          = "juz_$juzNumber",
-                    type        = "juz",
-                    referenceId = juzNumber,
-                    isRead      = true,
-                    readCount   = newCount
-                )
-            )
-            val dateKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            historyDao.insert(
-                ReadingHistory(
-                    surahId   = juzNumber,
-                    surahName = "Juz $juzNumber",
-                    type      = "juz",
-                    action    = "read",
-                    dateKey   = dateKey
-                )
-            )
+            repository.markJuzRead(juzNumber)
         }
     }
 
     fun confirmToggleJuz(juzNumber: Int) = confirmToggleJuz(juzNumber, false)
 
-    // ── Juz verwijderen ───────────────────────────────────
-
     fun removeJuz(juzNumber: Int) {
         viewModelScope.launch {
-            dao.upsertProgress(
-                QuranProgress(
-                    id          = "juz_$juzNumber",
-                    type        = "juz",
-                    referenceId = juzNumber,
-                    isRead      = false,
-                    readCount   = 0
-                )
-            )
+            repository.removeJuz(juzNumber)
         }
     }
-
-    // ── Hizb / Rub optellen ───────────────────────────────
 
     fun confirmToggleRub(hizbNumber: Int, rubNumber: Int, currentValue: Boolean) {
         viewModelScope.launch {
-            val existing  = dao.getById("rub_${hizbNumber}_$rubNumber")
-            val newCount  = (existing?.readCount ?: 0) + 1
-            dao.upsertProgress(
-                QuranProgress(
-                    id          = "rub_${hizbNumber}_$rubNumber",
-                    type        = "rub",
-                    referenceId = hizbNumber,
-                    subId       = rubNumber,
-                    isRead      = true,
-                    readCount   = newCount
-                )
-            )
-            // Hizb info ophalen voor rijke naam
-            val hizbInfo  = getHizbInfo(hizbNumber)
-            val rubLabel  = when (rubNumber) { 1 -> "¼"; 2 -> "½"; 3 -> "¾"; else -> "1" }
-            val richName  = if (hizbInfo != null)
-                "حزب $hizbNumber ($rubLabel) — ${hizbInfo.startText.take(30)}"
-            else
-                "Hizb $hizbNumber ($rubLabel)"
-
-            val dateKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            historyDao.insert(
-                ReadingHistory(
-                    surahId   = hizbNumber,
-                    surahName = richName,
-                    type      = "hizb",
-                    action    = "read",
-                    dateKey   = dateKey,
-                    extraInfo = hizbInfo?.startText ?: ""
-                )
-            )
+            repository.markRubRead(hizbNumber, rubNumber)
         }
     }
-
-    // ── Hizb / Rub verwijderen ────────────────────────────
 
     fun removeRub(hizbNumber: Int, rubNumber: Int) {
         viewModelScope.launch {
-            dao.upsertProgress(
-                QuranProgress(
-                    id          = "rub_${hizbNumber}_$rubNumber",
-                    type        = "rub",
-                    referenceId = hizbNumber,
-                    subId       = rubNumber,
-                    isRead      = false,
-                    readCount   = 0
-                )
-            )
+            repository.removeRub(hizbNumber, rubNumber)
         }
     }
-
-    // ── Soera optellen ────────────────────────────────────
 
     fun confirmToggleSurah(surahId: Int, surahName: String, field: String, currentValue: Boolean) {
         viewModelScope.launch {
-            val existing     = dao.getById("surah_$surahId")
-            val newReadCount = if (field == "read") (existing?.readCount ?: 0) + 1
-            else existing?.readCount ?: 0
-            val updated = existing?.copy(
-                isRead      = if (field == "read")      true else existing.isRead,
-                isMemorized = if (field == "memorized") true else existing.isMemorized,
-                readCount   = newReadCount
-            ) ?: QuranProgress(
-                id          = "surah_$surahId",
-                type        = "surah",
-                referenceId = surahId,
-                isRead      = field == "read",
-                isMemorized = field == "memorized",
-                readCount   = if (field == "read") 1 else 0
-            )
-            dao.upsertProgress(updated)
-
-            val dateKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            historyDao.insert(
-                ReadingHistory(
-                    surahId   = surahId,
-                    surahName = surahName,
-                    type      = "surah",
-                    action    = field,
-                    dateKey   = dateKey,
-                    extraInfo = ""
-                )
-            )
+            repository.markSurah(surahId, surahName, field)
         }
     }
-
-    // ── Soera verwijderen ─────────────────────────────────
 
     fun removeSurah(surahId: Int, surahName: String, field: String) {
         viewModelScope.launch {
-            val existing = dao.getById("surah_$surahId")
-            if (existing != null) {
-                val updated = existing.copy(
-                    isRead      = if (field == "read")      false else existing.isRead,
-                    isMemorized = if (field == "memorized") false else existing.isMemorized,
-                    readCount   = if (field == "read")      0     else existing.readCount
-                )
-                dao.upsertProgress(updated)
-            }
+            repository.removeSurah(surahId, field)
         }
     }
 
-    // ── Reset geschiedenis ────────────────────────────────
-
     fun updateSurahHifzScore(surahId: Int, score: Int) {
         viewModelScope.launch {
-            val existing = dao.getById("surah_$surahId")
-            val updated = existing?.copy(
-                progress = score.coerceIn(0, 100),
-                hasHifzScore = true,
-                lastUpdated = System.currentTimeMillis()
-            ) ?: QuranProgress(
-                id = "surah_$surahId",
-                type = "surah",
-                referenceId = surahId,
-                progress = score.coerceIn(0, 100),
-                hasHifzScore = true
-            )
-            dao.upsertProgress(updated)
+            repository.updateHifzScore(QuranProgressType.SURAH, surahId, score)
         }
     }
 
     fun updateJuzHifzScore(juzNumber: Int, score: Int) {
         viewModelScope.launch {
-            val existing = dao.getById("juz_$juzNumber")
-            val updated = existing?.copy(
-                progress = score.coerceIn(0, 100),
-                hasHifzScore = true,
-                lastUpdated = System.currentTimeMillis()
-            ) ?: QuranProgress(
-                id = "juz_$juzNumber",
-                type = "juz",
-                referenceId = juzNumber,
-                progress = score.coerceIn(0, 100),
-                hasHifzScore = true
-            )
-            dao.upsertProgress(updated)
+            repository.updateHifzScore(QuranProgressType.JUZ, juzNumber, score)
+        }
+    }
+
+    fun updateJuzAndHizbHifzScores(juzNumber: Int, score: Int) {
+        viewModelScope.launch {
+            repository.updateHifzScore(QuranProgressType.JUZ, juzNumber, score)
+            repository.updateHifzScore(QuranProgressType.HIZB, juzNumber * 2 - 1, score)
+            repository.updateHifzScore(QuranProgressType.HIZB, juzNumber * 2, score)
         }
     }
 
     fun updateHizbHifzScore(hizbNumber: Int, score: Int) {
         viewModelScope.launch {
-            val existing = dao.getById("hizb_$hizbNumber")
-            val updated = existing?.copy(
-                progress = score.coerceIn(0, 100),
-                hasHifzScore = true,
-                lastUpdated = System.currentTimeMillis()
-            ) ?: QuranProgress(
-                id = "hizb_$hizbNumber",
-                type = "hizb",
-                referenceId = hizbNumber,
-                progress = score.coerceIn(0, 100),
-                hasHifzScore = true
-            )
-            dao.upsertProgress(updated)
+            repository.updateHifzScore(QuranProgressType.HIZB, hizbNumber, score)
         }
     }
 
     fun updateHifzScoreRange(type: String, from: Int, to: Int, score: Int) {
         viewModelScope.launch {
-            val safeScore = score.coerceIn(0, 100)
-            val maxValue = when (type) {
-                "juz" -> 30
-                "hizb" -> 60
-                else -> 114
-            }
-            val start = from.coerceIn(1, maxValue)
-            val end = to.coerceIn(1, maxValue)
-            val range = if (start <= end) start..end else end..start
-
-            range.forEach { number ->
-                val id = "${type}_$number"
-                val existing = dao.getById(id)
-                val updated = existing?.copy(
-                    progress = safeScore,
-                    hasHifzScore = true,
-                    lastUpdated = System.currentTimeMillis()
-                ) ?: QuranProgress(
-                    id = id,
-                    type = type,
-                    referenceId = number,
-                    progress = safeScore,
-                    hasHifzScore = true
-                )
-                dao.upsertProgress(updated)
-            }
+            repository.updateHifzScoreRange(type, from, to, score)
         }
     }
 
     fun resetHistory() {
         viewModelScope.launch {
-            historyDao.deleteAll()
+            repository.resetHistory()
         }
     }
 }

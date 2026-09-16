@@ -20,11 +20,16 @@ data class PlanningItem(
     val historyLogged: Boolean = false,
     val reminderHour: Int? = null,
     val reminderMinute: Int? = null,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    @ColumnInfo(defaultValue = "1") val goalId: Int = 1,
+    @ColumnInfo(defaultValue = "1") val amount: Int = 1,
+    @ColumnInfo(defaultValue = "''") val measurementUnit: String = ""
 )
 
 @Dao
 interface PlanningItemDao {
+    @Query("SELECT * FROM planning_items WHERE id = :id")
+    suspend fun getOnce(id: Int): PlanningItem?
 
     @Query("SELECT * FROM planning_items ORDER BY date ASC, createdAt ASC")
     fun getAll(): Flow<List<PlanningItem>>

@@ -17,3 +17,17 @@ app/build/
 local.properties
 ayahinfo_1260.zip
 ayahinfo_1260_tmp/
+/.artifacts/
+/.kotlin/
+/.idea/
+**/build/
+*.apk
+*.aab
+*.jks
+*.keystore
+.env
+.env.*
+!.env.example
+*service-account*.json
+*service_account*.json
+*firebase-adminsdk*.json

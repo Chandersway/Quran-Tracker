@@ -1,10 +1,13 @@
 package com.Ameender.qurantracker.ui
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -28,6 +31,10 @@ import com.Ameender.qurantracker.data.ALL_HIZB
 import com.Ameender.qurantracker.data.PlanningItem
 import com.Ameender.qurantracker.data.ReadingHistory
 import com.Ameender.qurantracker.data.ReadingJourney
+import com.Ameender.qurantracker.data.ReadingMetrics
+import com.Ameender.qurantracker.data.ReadingStatsSummary
+import com.Ameender.qurantracker.data.readingStatsSummary
+import com.Ameender.qurantracker.domain.derivedJuzHifzScore
 import com.Ameender.qurantracker.viewmodel.GoalViewModel
 import com.Ameender.qurantracker.viewmodel.PlanningViewModel
 import com.Ameender.qurantracker.viewmodel.QuranViewModel
@@ -42,7 +49,9 @@ fun DashboardScreen(
     viewModel: QuranViewModel,
     goalViewModel: GoalViewModel,
     planningViewModel: PlanningViewModel,
-    appLanguage: String = "nl"
+    appLanguage: String = "nl",
+    onContinueGoal: (Int) -> Unit = {},
+    onOpenReadingPlan: () -> Unit = {}
 ) {
     val text = AppText.strings(appLanguage)
     val allProgress   by viewModel.allProgress.collectAsState()
@@ -62,21 +71,24 @@ fun DashboardScreen(
     }
     val todayDoneItems = todayItems.count { it.isDone }
 
-    val completedHizbFromRub = remember(rubProgress) { completedHizbCountFromRub(rubProgress.map { it.id to it.isRead }) }
-    val completedJuzFromRub = remember(rubProgress) { completedJuzCountFromRub(rubProgress.map { it.id to it.isRead }) }
-    val manualJuzDone = juzzProgress.count { it.isRead }
-    val manualHizbDone = hizbProgress.count { it.isRead }
+    val rubReadPairs = remember(rubProgress) { rubProgress.map { it.id to it.isRead } }
+    val completedHizbFromRub = remember(rubReadPairs) { completedHizbCountFromRub(rubReadPairs) }
+    val completedJuzFromRub = remember(rubReadPairs) { completedJuzCountFromRub(rubReadPairs) }
+    val manualJuzDone = remember(juzzProgress) { juzzProgress.count { it.isRead } }
+    val manualHizbDone = remember(hizbProgress) { hizbProgress.count { it.isRead } }
     val juzzDone  = maxOf(manualJuzDone, completedJuzFromRub)
     val hizbDone  = maxOf(manualHizbDone, completedHizbFromRub)
-    val rubDone   = rubProgress.count  { it.isRead }
-    val surahMem  = surahProgress.count { it.isMemorized }
-    val journeyProgress = remember(readingJourney, rubProgress, hizbProgress, juzzProgress, planningItems) {
+    val rubDone   = remember(rubProgress) { rubProgress.count  { it.isRead } }
+    val surahMem  = remember(surahProgress) { surahProgress.count { it.isMemorized } }
+    val journeyProgress = remember(readingJourney, allHistory, goal) {
         calculateReadingJourneyProgress(
             journey = readingJourney,
             rubDone = rubDone,
             hizbDone = hizbDone,
             juzDone = juzzDone,
-            planningItems = planningItems
+            planningItems = planningItems,
+            history = allHistory,
+            forecastAvailable = goal.unit != "minutes" && goal.target > 0
         )
     }
 
@@ -84,16 +96,18 @@ fun DashboardScreen(
         (todayCount.toFloat() / goal.target).coerceIn(0f, 1f)
     else 0f
     val goalReached = todayCount >= goal.target && goal.target > 0
-    val unitLabel   = goalViewModel.unitLabel(goal.unit)
+    val unitLabel   = localizedGoalUnitLabel(goal.unit, text)
     val periodStats = remember(allHistory) { calculatePeriodStats(allHistory) }
-    val motivationPoints = remember(allHistory, goalReached, streak) {
-        calculateMotivationPoints(allHistory, goalReached, streak)
+    val readingStats = remember(allHistory) { readingStatsSummary(allHistory) }
+    val motivationPoints = remember(allHistory, goalReached, streak, text) {
+        calculateMotivationPoints(allHistory, goalReached, streak, text)
     }
-    val hifzOverview = remember(surahProgress, hizbProgress, juzzProgress) {
+    val hifzOverview = remember(surahProgress, hizbProgress, juzzProgress, text) {
         calculateHifzOverview(
             surahScores = surahProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) },
             hizbScores = hizbProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) },
-            juzScores = juzzProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) }
+            juzScores = juzzProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) },
+            text = text
         )
     }
     var quickCheckInOpen by remember { mutableStateOf(false) }
@@ -101,14 +115,15 @@ fun DashboardScreen(
 
     if (quickCheckInOpen) {
         QuickCheckInDialog(
+            text = text,
             onDismiss = { quickCheckInOpen = false },
             onSave = { type, number, subNumber ->
                 val earnedPoints = quickCheckInPoints(type, number)
-                val earnedLabel = quickCheckInLabel(type, number, subNumber)
+                val earnedLabel = quickCheckInLabel(type, number, subNumber, text)
                 when (type) {
                     "surah" -> {
                         val surah = ALL_SURAHS.find { it.id == number }
-                        viewModel.confirmToggleSurah(number, surah?.name ?: "Soera $number", "read", false)
+                        viewModel.confirmToggleSurah(number, surah?.name ?: text.t("common.surahNumber", number), "read", false)
                     }
                     "juz" -> viewModel.confirmToggleJuz(number, false)
                     "hizb" -> {
@@ -159,7 +174,7 @@ fun DashboardScreen(
             text = text
         )
 
-        ReadingJourneyCard(progress = journeyProgress, text = text)
+        ReadingPlanHomeCard(history = allHistory, language = appLanguage, onOpen = onOpenReadingPlan)
 
         MotivationPointsCard(points = motivationPoints, text = text)
 
@@ -169,6 +184,14 @@ fun DashboardScreen(
             monthReads = periodStats.monthReads,
             activeDaysThisWeek = periodStats.activeDaysThisWeek,
             streak = streak,
+            text = text
+        )
+
+        DashboardReadingStatsCard(
+            summary = readingStats,
+            juzzDone = juzzDone,
+            hizbDone = hizbDone,
+            rubDone = rubDone,
             text = text
         )
 
@@ -202,7 +225,7 @@ fun DashboardScreen(
                     .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Vandaag", fontSize = 13.sp, color = MutedGold,
+                Text(text.today, fontSize = 13.sp, color = MutedGold,
                     modifier = Modifier.padding(bottom = 12.dp))
 
                 Box(
@@ -301,12 +324,12 @@ fun DashboardScreen(
                 Text("🔥", fontSize = 36.sp)
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
-                    Text("$streak dagen op rij",
+                    Text(text.t("home.stats.streakDays", streak),
                         fontSize = 20.sp, fontWeight = FontWeight.Bold, color = GoldLight)
                     Text(
                         when {
-                            streak == 0  -> "Begin vandaag!"
-                            streak < 7   -> "Goed bezig! Blijf doorgaan!"
+                            streak == 0  -> text.t("home.streak.startToday")
+                            streak < 7   -> text.t("home.streak.keepGoing")
                             streak < 30  -> "Geweldige streak! 💪"
                             else         -> "MashaAllah! Ongelooflijk! 🌟"
                         },
@@ -317,23 +340,23 @@ fun DashboardScreen(
         }
 
         // ── Statistieken grid ──
-        Text("📊 Voortgang", fontSize = 15.sp, color = Gold,
+        Text(text.t("home.stats.progress"), fontSize = 15.sp, color = Gold,
             fontWeight = FontWeight.Medium, modifier = Modifier.padding(bottom = 10.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StatCard(Modifier.weight(1f), "📜", "Juz",       juzzDone,  30,  DoneGreen)
-            StatCard(Modifier.weight(1f), "📿", "Hizb",      hizbDone,  60,  Gold)
+            StatCard(Modifier.weight(1f), "📜", text.t("unit.juz"),       juzzDone,  30,  DoneGreen)
+            StatCard(Modifier.weight(1f), "📿", text.t("unit.hizb"),      hizbDone,  60,  Gold)
         }
         Spacer(modifier = Modifier.height(10.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StatCard(Modifier.weight(1f), "🔹", "Rub",       rubDone,   240, ReadBlue)
-            StatCard(Modifier.weight(1f), "🧠", "Hifz",      surahMem,  114, DeleteRed)
+            StatCard(Modifier.weight(1f), "🔹", text.t("unit.rub"),       rubDone,   240, ReadBlue)
+            StatCard(Modifier.weight(1f), "🧠", text.hifz,      surahMem,  114, DeleteRed)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // ── Voortgangsbalken ──
-        Text("✨ Totale voortgang", fontSize = 15.sp, color = Gold,
+        Text(text.t("home.stats.totalProgress"), fontSize = 15.sp, color = Gold,
             fontWeight = FontWeight.Medium, modifier = Modifier.padding(bottom = 10.dp))
 
         Card(
@@ -342,11 +365,11 @@ fun DashboardScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(AppSpacing.card)) {
-                ProgressBar("Rub",          rubDone,  240, ReadBlue)
+                ProgressBar(text.t("unit.rub"),       rubDone,  240, ReadBlue)
                 Spacer(modifier = Modifier.height(10.dp))
-                ProgressBar("Hizb",         hizbDone, 60,  Gold)
+                ProgressBar(text.t("unit.hizb"),      hizbDone, 60,  Gold)
                 Spacer(modifier = Modifier.height(10.dp))
-                ProgressBar("Juz",          juzzDone, 30,  DoneGreen)
+                ProgressBar(text.t("unit.juz"),       juzzDone, 30,  DoneGreen)
             }
         }
 
@@ -361,6 +384,7 @@ fun DashboardScreen(
     pointsPopup?.let { popup ->
         PointsEarnedPopup(
             state = popup,
+            text = text,
             onDismiss = { pointsPopup = null }
         )
     }
@@ -438,7 +462,7 @@ fun TodayFocusCard(
                     Spacer(modifier = Modifier.height(10.dp))
                     Button(
                         onClick = onQuickCheckIn,
-                        modifier = Modifier.fillMaxWidth().height(36.dp),
+                        modifier = Modifier.fillMaxWidth().height(AppComponentDefaults.minTouchTarget),
                         shape = RoundedCornerShape(AppShape.control),
                         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 0.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -558,15 +582,21 @@ fun TodayGoalPie(
 }
 
 @Composable
-fun ReadingJourneyCard(progress: ReadingJourneyProgress, text: AppStrings) {
-    if (!progress.enabled) return
+fun ReadingJourneyCard(
+    progress: ReadingJourneyProgress,
+    text: AppStrings,
+    language: String = "nl",
+    onManage: () -> Unit = {},
+    onRead: () -> Unit = {}
+) {
+    var activeProgressView by remember { mutableStateOf(ReadingJourneyProgressView.SUMMARY) }
 
     val statusColor = when (progress.status) {
         JourneyStatus.AHEAD -> DoneGreen
         JourneyStatus.BEHIND -> DeleteRed
         else -> Gold
     }
-    val statusText = when (progress.status) {
+    val statusText = if (!progress.forecastAvailable) text.noEndGoal else when (progress.status) {
         JourneyStatus.AHEAD -> text.aheadOfSchedule
         JourneyStatus.BEHIND -> text.behindRub.format(progress.behindParts)
         JourneyStatus.ON_TRACK -> text.onSchedule
@@ -588,10 +618,11 @@ fun ReadingJourneyCard(progress: ReadingJourneyProgress, text: AppStrings) {
             ) {
                 Column {
                     Text(text.readingJourney, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
-                    Text(text.wholeQuranInDays.format(progress.totalDays), fontSize = 12.sp, color = MutedGold)
+                    Text(if (progress.forecastAvailable) text.wholeQuranInDays.format(progress.totalDays) else text.noEndGoal,
+                        fontSize = 12.sp, color = MutedGold)
                 }
                 Text(
-                    "${progress.percentDone}%",
+                    if (progress.enabled) "${progress.percentDone}%" else "0%",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = statusColor
@@ -599,52 +630,209 @@ fun ReadingJourneyCard(progress: ReadingJourneyProgress, text: AppStrings) {
             }
 
             Spacer(modifier = Modifier.height(14.dp))
+            Text(
+                goalText(language,
+                    "Werk toe naar één volledige Koranlezing. Je geregistreerde leesactiviteit telt mee; je dagelijkse leesdoel bepaalt de verwachte einddatum. Registreer na het lezen je voortgang via je doel of de check-in op Home.",
+                    "Work towards one complete Quran reading. Your logged reading counts; your daily reading goal determines the estimated finish date. Log your progress through your goal or the Home check-in after reading.",
+                    "تقدّم نحو ختم القرآن. تُحتسب القراءة المسجلة ويحدد هدفك اليومي موعد الإتمام المتوقع. سجّل تقدمك بعد القراءة عبر الهدف أو التسجيل في الصفحة الرئيسية."),
+                color = MutedGold,
+                fontSize = 12.sp
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                TextButton(onClick = onManage) {
+                    Text(goalText(language,
+                        if (progress.enabled) "Leesdoel en leesreis beheren" else "Leesreis instellen",
+                        if (progress.enabled) "Manage reading goal and journey" else "Set up reading journey",
+                        "إعداد رحلة القراءة والهدف"))
+                }
+                if (progress.enabled) {
+                    TextButton(onClick = onRead) {
+                        Text(goalText(language, "Lezen", "Read", "اقرأ"))
+                    }
+                }
+            }
+            if (!progress.enabled) {
+                Text(
+                    text.noEndGoal,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(AppShape.tile))
+                        .background(PeriodItemSurface)
+                        .border(1.dp, BorderNavy, RoundedCornerShape(AppShape.tile))
+                        .padding(14.dp),
+                    color = MutedGold,
+                    fontSize = 13.sp,
+                    textAlign = TextAlign.Center
+                )
+                return@Column
+            }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(AppShape.tile))
                     .background(PeriodItemSurface)
                     .border(1.dp, BorderNavy, RoundedCornerShape(AppShape.tile))
+                    .clickable {
+                        activeProgressView = when (activeProgressView) {
+                            ReadingJourneyProgressView.SUMMARY -> ReadingJourneyProgressView.DETAILS
+                            ReadingJourneyProgressView.DETAILS -> ReadingJourneyProgressView.SUMMARY
+                        }
+                    }
                     .padding(14.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                JourneyProgressPie(
-                    doneProgress = progress.doneProgress,
-                    plannedProgress = progress.plannedProgress,
-                    centerText = "${progress.percentDone}%",
-                    statusColor = statusColor,
-                    text = text
-                )
+                Crossfade(
+                    targetState = activeProgressView,
+                    animationSpec = tween(240, easing = EaseOutCubic),
+                    label = "readingJourneyCircle"
+                ) { view ->
+                    when (view) {
+                        ReadingJourneyProgressView.SUMMARY -> JourneyProgressPie(
+                            doneProgress = progress.doneProgress,
+                            plannedProgress = progress.plannedProgress,
+                            centerText = "${progress.percentDone}%",
+                            statusColor = statusColor,
+                            centerLabel = text.done,
+                            text = text
+                        )
+                        ReadingJourneyProgressView.DETAILS -> JourneyProgressPie(
+                            doneProgress = progress.plannedProgress,
+                            plannedProgress = progress.doneProgress,
+                            centerText = "${progress.plannedParts}/240",
+                            statusColor = Gold,
+                            plannedColor = statusColor.copy(alpha = 0.30f),
+                            centerLabel = text.planned,
+                            text = text
+                        )
+                    }
+                }
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        statusText,
-                        fontSize = 13.sp,
-                        color = statusColor,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text.donePartsOfRub.format(progress.doneParts),
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = GoldLight
-                    )
-                    Text(text.done, fontSize = 12.sp, color = Gold)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text.plannedUntilToday.format(progress.plannedParts),
-                        fontSize = 11.sp,
-                        color = MutedGold
-                    )
-                    Text(
-                        text.journeyRingHint,
-                        fontSize = 10.sp,
-                        color = DimGold
-                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        ReadingJourneyViewChip(
+                            label = text.progress,
+                            selected = activeProgressView == ReadingJourneyProgressView.SUMMARY,
+                            onClick = { activeProgressView = ReadingJourneyProgressView.SUMMARY }
+                        )
+                        ReadingJourneyViewChip(
+                            label = text.planned,
+                            selected = activeProgressView == ReadingJourneyProgressView.DETAILS,
+                            onClick = { activeProgressView = ReadingJourneyProgressView.DETAILS }
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Crossfade(
+                        targetState = activeProgressView,
+                        animationSpec = tween(240, easing = EaseOutCubic),
+                        label = "readingJourneyText"
+                    ) { view ->
+                        when (view) {
+                            ReadingJourneyProgressView.SUMMARY -> JourneyProgressSummary(
+                                statusText = statusText,
+                                statusColor = statusColor,
+                                progress = progress,
+                                text = text
+                            )
+                            ReadingJourneyProgressView.DETAILS -> JourneyProgressDetails(
+                                progress = progress,
+                                text = text
+                            )
+                        }
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+fun ReadingJourneyViewChip(label: String, selected: Boolean, onClick: () -> Unit) {
+    Text(
+        label,
+        modifier = Modifier
+            .clip(RoundedCornerShape(999.dp))
+            .background(if (selected) DoneGreen.copy(alpha = 0.18f) else DeepNavy.copy(alpha = 0.55f))
+            .border(
+                1.dp,
+                if (selected) DoneGreen else BorderNavy,
+                RoundedCornerShape(999.dp)
+            )
+            .clickable(onClick = onClick)
+            .padding(horizontal = 10.dp, vertical = 5.dp),
+        color = if (selected) GoldLight else MutedGold,
+        fontSize = 11.sp,
+        fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium
+    )
+}
+
+@Composable
+fun JourneyProgressSummary(
+    statusText: String,
+    statusColor: Color,
+    progress: ReadingJourneyProgress,
+    text: AppStrings
+) {
+    Column {
+        Text(
+            statusText,
+            fontSize = 13.sp,
+            color = statusColor,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text.donePartsOfRub.format(progress.doneParts),
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = GoldLight
+        )
+        Text(text.done, fontSize = 12.sp, color = Gold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text.plannedUntilToday.format(progress.plannedParts),
+            fontSize = 11.sp,
+            color = MutedGold
+        )
+        Text(
+            text.journeyRingHint,
+            fontSize = 10.sp,
+            color = DimGold
+        )
+    }
+}
+
+@Composable
+fun JourneyProgressDetails(progress: ReadingJourneyProgress, text: AppStrings) {
+    Column {
+        Text(
+            text.planned,
+            fontSize = 13.sp,
+            color = Gold,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text.plannedUntilToday.format(progress.plannedParts),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = GoldLight
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text.donePartsOfRub.format(progress.doneParts),
+            fontSize = 11.sp,
+            color = MutedGold
+        )
+        Text(
+            text.journeyRingHint,
+            fontSize = 10.sp,
+            color = DimGold
+        )
+    }
+}
+
+private enum class ReadingJourneyProgressView {
+    SUMMARY,
+    DETAILS
 }
 
 @Composable
@@ -653,7 +841,9 @@ fun JourneyProgressPie(
     plannedProgress: Float,
     centerText: String,
     statusColor: Color,
-    text: AppStrings
+    text: AppStrings,
+    centerLabel: String = text.done,
+    plannedColor: Color = Gold.copy(alpha = 0.28f)
 ) {
     val doneAnim = remember { Animatable(0f) }
     val plannedAnim = remember { Animatable(0f) }
@@ -679,7 +869,7 @@ fun JourneyProgressPie(
                 style = Stroke(stroke, cap = StrokeCap.Round)
             )
             drawArc(
-                color = Gold.copy(alpha = 0.28f),
+                color = plannedColor,
                 startAngle = -90f,
                 sweepAngle = 360f * plannedAnim.value,
                 useCenter = false,
@@ -699,7 +889,7 @@ fun JourneyProgressPie(
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(centerText, fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
-            Text(text.done, fontSize = 10.sp, color = MutedGold)
+            Text(centerLabel, fontSize = 10.sp, color = MutedGold)
         }
     }
 }
@@ -760,6 +950,7 @@ data class PointsPopupState(
 @Composable
 fun PointsEarnedPopup(
     state: PointsPopupState,
+    text: AppStrings,
     onDismiss: () -> Unit
 ) {
     LaunchedEffect(state) {
@@ -776,7 +967,7 @@ fun PointsEarnedPopup(
         title = {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                 Text("🔥", fontSize = 28.sp)
-                Text("+${state.points} punten", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
+                Text("+${state.points} ${text.points}", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
             }
         },
         text = {
@@ -792,6 +983,7 @@ fun PointsEarnedPopup(
 
 @Composable
 fun QuickCheckInDialog(
+    text: AppStrings,
     onDismiss: () -> Unit,
     onSave: (type: String, number: Int, subNumber: Int) -> Unit
 ) {
@@ -805,10 +997,16 @@ fun QuickCheckInDialog(
         else -> 114
     }
     val title = when (selectedType) {
-        "juz" -> "Juz"
-        "hizb", "rub" -> "Hizb"
-        else -> "Soera"
+        "juz" -> text.t("unit.juz")
+        "hizb", "rub" -> text.t("unit.hizb")
+        else -> text.t("unit.surah")
     }
+    val typeOptions = listOf(
+        "surah" to text.t("unit.surah"),
+        "juz" to text.t("unit.juz"),
+        "hizb" to text.t("unit.hizb"),
+        "rub" to text.t("unit.rub")
+    )
     val selectedSurah = remember(selectedType, number) {
         if (selectedType == "surah") ALL_SURAHS.find { it.id == number } else null
     }
@@ -821,14 +1019,14 @@ fun QuickCheckInDialog(
         containerColor = MidNavy,
         titleContentColor = GoldLight,
         textContentColor = LabelGold,
-        title = { Text("Snelle check-in") },
+        title = { Text(text.t("quickCheck.title")) },
         text = {
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
-                    listOf("surah" to "Soera", "juz" to "Juz", "hizb" to "Hizb", "rub" to "Rub").forEach { (type, label) ->
+                    typeOptions.forEach { (type, label) ->
                         val selected = selectedType == type
                         Box(
                             modifier = Modifier
@@ -854,6 +1052,7 @@ fun QuickCheckInDialog(
 
                 Spacer(modifier = Modifier.height(12.dp))
                 QuickCheckStepper(
+                    text = text,
                     label = title,
                     value = number,
                     min = 1,
@@ -862,6 +1061,7 @@ fun QuickCheckInDialog(
                 )
 
                 QuickCheckSelectedInfo(
+                    text = text,
                     selectedType = selectedType,
                     surah = selectedSurah,
                     hizb = selectedHizb
@@ -870,7 +1070,8 @@ fun QuickCheckInDialog(
                 if (selectedType == "rub") {
                     Spacer(modifier = Modifier.height(8.dp))
                     QuickCheckStepper(
-                        label = "Rub",
+                        text = text,
+                        label = text.t("unit.rub"),
                         value = subNumber,
                         min = 1,
                         max = 4,
@@ -881,12 +1082,12 @@ fun QuickCheckInDialog(
         },
         confirmButton = {
             TextButton(onClick = { onSave(selectedType, number, subNumber) }) {
-                Text("Opslaan als gelezen", color = Gold)
+                Text(text.t("quickCheck.saveAsRead"), color = Gold)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Annuleren", color = MutedGold)
+                Text(text.t("common.cancel"), color = MutedGold)
             }
         }
     )
@@ -894,13 +1095,14 @@ fun QuickCheckInDialog(
 
 @Composable
 fun QuickCheckSelectedInfo(
+    text: AppStrings,
     selectedType: String,
     surah: Surah?,
     hizb: com.Ameender.qurantracker.data.HizbInfo?
 ) {
     val title = when (selectedType) {
         "surah" -> surah?.let { "${it.id}. ${it.name}" }
-        "hizb", "rub" -> hizb?.let { "Hizb ${it.hizbNumber} - ${it.surahArabic} ${it.surahNumber}:${it.ayahNumber}" }
+        "hizb", "rub" -> hizb?.let { "${text.t("unit.hizb")} ${it.hizbNumber} - ${it.surahArabic} ${it.surahNumber}:${it.ayahNumber}" }
         else -> null
     }
     val subtitle = when (selectedType) {
@@ -928,6 +1130,7 @@ fun QuickCheckSelectedInfo(
 
 @Composable
 fun QuickCheckStepper(
+    text: AppStrings,
     label: String,
     value: Int,
     min: Int,
@@ -947,7 +1150,7 @@ fun QuickCheckStepper(
         ) {
             Box(
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(AppComponentDefaults.minTouchTarget)
                     .clickable { onChange((value - 1).coerceAtLeast(min)) },
                 contentAlignment = Alignment.Center
             ) {
@@ -981,14 +1184,14 @@ fun QuickCheckStepper(
             )
             Box(
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(AppComponentDefaults.minTouchTarget)
                     .clickable { onChange((value + 1).coerceAtMost(max)) },
                 contentAlignment = Alignment.Center
             ) {
                 Text("+", fontSize = 16.sp, color = GoldLight)
             }
         }
-        Text("Bereik: $min-$max", fontSize = 10.sp, color = DimGold, modifier = Modifier.padding(top = 3.dp))
+        Text(text.t("hifz.range.limit", min, max), fontSize = 10.sp, color = DimGold, modifier = Modifier.padding(top = 3.dp))
     }
 }
 
@@ -1081,7 +1284,7 @@ fun MotivationPointsCard(points: MotivationPointsStats, text: AppStrings) {
             ) {
                 Column {
                     Text(text.motivationPoints, fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
-                    Text(points.levelName, fontSize = 11.sp, color = MutedGold)
+                    Text(text.t(points.levelKey), fontSize = 11.sp, color = MutedGold)
                 }
                 Text("${points.totalPoints} ${text.pointsShort}", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
             }
@@ -1156,6 +1359,101 @@ fun MotivationPointsCard(points: MotivationPointsStats, text: AppStrings) {
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
+    }
+}
+
+@Composable
+fun DashboardReadingStatsCard(
+    summary: ReadingStatsSummary,
+    juzzDone: Int,
+    hizbDone: Int,
+    rubDone: Int,
+    text: AppStrings
+) {
+    QuranProgressCard(title = text.t("stats.overviewTitle"), modifier = Modifier.padding(bottom = AppSpacing.xxl)) {
+        if (summary.readActions == 0) {
+            QuranEmptyState(
+                title = text.t("stats.noHistory"),
+                message = text.t("stats.overviewEmpty")
+            )
+            return@QuranProgressCard
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(AppSpacing.md)
+        ) {
+            DashboardStatTile(
+                label = text.t("stats.pagesRead"),
+                value = summary.pageEquivalent.toString(),
+                detail = text.t("stats.ayahEquivalent", summary.ayahEquivalent),
+                color = ReadBlue,
+                modifier = Modifier.weight(1f)
+            )
+            DashboardStatTile(
+                label = text.points,
+                value = summary.points.toString(),
+                detail = text.t("stats.pointsExplain"),
+                color = Gold,
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(AppSpacing.xl))
+        QuranProgressRow(
+            label = text.juz,
+            valueText = text.formatCountOfTotal(juzzDone.coerceIn(0, 30), 30),
+            progress = juzzDone.coerceIn(0, 30) / 30f,
+            color = DoneGreen
+        )
+        Spacer(modifier = Modifier.height(AppSpacing.xl))
+        QuranProgressRow(
+            label = text.t("unit.hizb"),
+            valueText = text.formatCountOfTotal(hizbDone.coerceIn(0, 60), 60),
+            progress = hizbDone.coerceIn(0, 60) / 60f,
+            color = Gold
+        )
+        Spacer(modifier = Modifier.height(AppSpacing.xl))
+        QuranProgressRow(
+            label = text.t("unit.rub"),
+            valueText = text.formatCountOfTotal(rubDone.coerceIn(0, 240), 240),
+            progress = rubDone.coerceIn(0, 240) / 240f,
+            color = ReadBlue
+        )
+
+        Spacer(modifier = Modifier.height(AppSpacing.lg))
+        Text(
+            text.t(
+                "stats.periodEquivalent",
+                ReadingMetrics.pageEquivalent(summary.todayAyahEquivalent),
+                ReadingMetrics.pageEquivalent(summary.weekAyahEquivalent),
+                ReadingMetrics.pageEquivalent(summary.monthAyahEquivalent)
+            ),
+            style = AppTextStyle.caption,
+            color = DimGold
+        )
+    }
+}
+
+@Composable
+private fun DashboardStatTile(
+    label: String,
+    value: String,
+    detail: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(AppShape.tile))
+            .background(PeriodItemSurface)
+            .border(AppBorder.thin, PeriodAccentSurface, RoundedCornerShape(AppShape.tile))
+            .padding(AppSpacing.list),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(label, style = AppTextStyle.caption, color = MutedGold, maxLines = 1)
+        Text(value, style = AppTextStyle.pageTitle, color = color, fontWeight = FontWeight.Bold)
+        Text(detail, style = AppTextStyle.caption, color = DimGold, maxLines = 2, textAlign = TextAlign.Center)
     }
 }
 
@@ -1256,6 +1554,7 @@ fun PeriodStatTile(
 
 @Composable
 fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
+    var showJuzScores by remember { mutableStateOf(true) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -1270,22 +1569,24 @@ fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column {
+                Column(Modifier.weight(1f)) {
                     Text(text.hifzOverview, fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
                     Text(
-                        "${overview.scoredCount} scores · ${overview.surahCount} soera · ${overview.hizbCount} hizb · ${overview.juzCount} juz",
+                        text.t("home.hifz.summary", overview.scoredCount, overview.surahCount, overview.hizbCount, overview.juzCount),
                         fontSize = 11.sp,
                         color = MutedGold
                     )
                 }
                 Text(
-                    "${overview.averageScore}/100",
+                    if (overview.scoredCount == 0) "—" else "${overview.averageScore}/100",
                     fontSize = 22.sp,
-                    color = if (overview.averageScore > 0) hifzScoreBorder(overview.averageScore) else MutedGold,
+                    color = if (overview.scoredCount > 0) hifzScoreBorder(overview.averageScore) else MutedGold,
                     fontWeight = FontWeight.Bold
                 )
             }
 
+            Text(text.t("home.hifz.averageExplanation"), fontSize = 11.sp, color = MutedGold,
+                modifier = Modifier.padding(top = 8.dp))
             Spacer(modifier = Modifier.height(10.dp))
             Box(
                 modifier = Modifier
@@ -1299,8 +1600,48 @@ fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
                         .fillMaxWidth((overview.averageScore / 100f).coerceIn(0f, 1f))
                         .fillMaxHeight()
                         .clip(RoundedCornerShape(AppShape.bar))
-                        .background(if (overview.averageScore > 0) hifzScoreBorder(overview.averageScore) else BorderNavy)
+                        .background(if (overview.scoredCount > 0) hifzScoreBorder(overview.averageScore) else BorderNavy)
                 )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                text.t("home.hifz.allScores"),
+                fontSize = 12.sp,
+                color = LabelGold,
+                fontWeight = FontWeight.Bold
+            )
+            Row(
+                modifier = Modifier.padding(top = 6.dp, bottom = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                FilterChip(
+                    selected = showJuzScores,
+                    onClick = { showJuzScores = true },
+                    label = { Text(text.t("unit.juz")) }
+                )
+                FilterChip(
+                    selected = !showJuzScores,
+                    onClick = { showJuzScores = false },
+                    label = { Text(text.t("unit.hizb")) }
+                )
+            }
+            val browseScores = if (showJuzScores) overview.juzScores else overview.hizbScores
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(end = 8.dp)
+            ) {
+                items(
+                    items = browseScores,
+                    key = { "${if (showJuzScores) "juz" else "hizb"}_${it.number}" }
+                ) { item ->
+                    HifzBrowseScoreTile(
+                        item = item,
+                        unit = if (showJuzScores) text.t("unit.juz") else text.t("unit.hizb"),
+                        derivedLabel = text.t("home.hifz.derived")
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -1324,6 +1665,37 @@ fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
                     emptyText = text.noStrongScores
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun HifzBrowseScoreTile(item: HifzBrowseScore, unit: String, derivedLabel: String) {
+    val score = item.score
+    Column(
+        modifier = Modifier
+            .width(88.dp)
+            .clip(RoundedCornerShape(AppShape.smallControl))
+            .background(HifzDashboardItem)
+            .border(
+                1.dp,
+                score?.let(::hifzScoreBorder) ?: BorderNavy,
+                RoundedCornerShape(AppShape.smallControl)
+            )
+            .padding(horizontal = 8.dp, vertical = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("$unit ${item.number}", fontSize = 11.sp, color = MutedGold, maxLines = 1)
+        Text(
+            score?.let { "$it%" } ?: "—",
+            fontSize = 16.sp,
+            color = score?.let(::hifzScoreBorder) ?: DimGold,
+            fontWeight = FontWeight.Bold
+        )
+        if (item.derived) {
+            Text(derivedLabel, fontSize = 9.sp, color = DimGold, maxLines = 1)
+        } else {
+            Spacer(modifier = Modifier.height(11.dp))
         }
     }
 }
@@ -1355,7 +1727,7 @@ fun HifzScoreRow(item: HifzScoreItem) {
             .background(HifzDashboardItem)
             .border(
                 1.dp,
-                if (item.score > 0) hifzScoreBorder(item.score) else BorderNavy,
+                hifzScoreBorder(item.score),
                 RoundedCornerShape(AppShape.smallControl)
             )
             .padding(horizontal = 10.dp, vertical = 7.dp),
@@ -1368,7 +1740,7 @@ fun HifzScoreRow(item: HifzScoreItem) {
         Text(
             "${item.score}",
             fontSize = 16.sp,
-            color = if (item.score > 0) hifzScoreBorder(item.score) else MutedGold,
+            color = hifzScoreBorder(item.score),
             fontWeight = FontWeight.Bold
         )
     }
@@ -1450,7 +1822,7 @@ fun ReviewDueRow(
             .fillMaxWidth()
             .clip(RoundedCornerShape(AppShape.smallControl))
             .background(rowColor)
-            .border(1.dp, if (item.score > 0) hifzScoreBorder(item.score) else BorderNavy, RoundedCornerShape(AppShape.smallControl))
+            .border(1.dp, hifzScoreBorder(item.score), RoundedCornerShape(AppShape.smallControl))
             .padding(horizontal = 10.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -1487,7 +1859,15 @@ data class HifzOverview(
     val averageScore: Int,
     val weakest: List<HifzScoreItem>,
     val strongest: List<HifzScoreItem>,
-    val reviewItems: List<ReviewDueItem>
+    val reviewItems: List<ReviewDueItem>,
+    val juzScores: List<HifzBrowseScore>,
+    val hizbScores: List<HifzBrowseScore>
+)
+
+data class HifzBrowseScore(
+    val number: Int,
+    val score: Int?,
+    val derived: Boolean = false
 )
 
 data class HifzScoreItem(
@@ -1519,17 +1899,19 @@ data class HifzRawScore(
 fun calculateHifzOverview(
     surahScores: List<HifzRawScore>,
     hizbScores: List<HifzRawScore>,
-    juzScores: List<HifzRawScore>
+    juzScores: List<HifzRawScore>,
+    text: AppStrings
 ): HifzOverview {
     val surahItems = surahScores
-        .filter { it.hasScore }
+        .filter { it.hasScore && it.score > 0 }
+        .sortedByDescending { it.lastUpdated }
         .mapNotNull { raw ->
             val surahId = raw.id
             val surah = ALL_SURAHS.find { it.id == surahId } ?: return@mapNotNull null
             HifzScoreItem(
                 id = surah.id,
                 type = "surah",
-                typeLabel = "Soera",
+                typeLabel = text.t("unit.surah"),
                 name = surah.name,
                 arabic = surah.arabic,
                 score = raw.score.coerceIn(0, 100),
@@ -1539,54 +1921,58 @@ fun calculateHifzOverview(
         .distinctBy { it.id }
 
     val hizbItems = hizbScores
-        .filter { it.hasScore }
+        .filter { it.hasScore && it.score > 0 && it.id in 1..60 }
+        .sortedByDescending { it.lastUpdated }
         .map { raw ->
             val hizbId = raw.id
             HifzScoreItem(
                 id = hizbId,
                 type = "hizb",
-                typeLabel = "Hizb",
-                name = "Hizb $hizbId",
-                arabic = "حزب $hizbId",
+                typeLabel = text.t("unit.hizb"),
+                name = text.t("common.hizbNumber", hizbId),
+                arabic = text.t("common.hizbNumber", hizbId),
                 score = raw.score.coerceIn(0, 100),
                 lastUpdated = raw.lastUpdated
             )
         }
         .distinctBy { it.id }
 
-    val directJuzScores = juzScores
-        .filter { it.hasScore }
-        .associateBy { it.id }
-    val hizbScoreMap = hizbItems.associate { it.id to it.score }
-    val hizbUpdatedMap = hizbItems.associate { it.id to it.lastUpdated }
-    val juzItems = (1..30).mapNotNull { juzId ->
-        val firstHizb = juzId * 2 - 1
-        val secondHizb = juzId * 2
-        val derivedScore = listOfNotNull(hizbScoreMap[firstHizb], hizbScoreMap[secondHizb])
-            .takeIf { it.isNotEmpty() }
-            ?.average()
-            ?.toInt()
-        val directScore = directJuzScores[juzId]
-        val score = directScore?.score ?: derivedScore ?: return@mapNotNull null
-        val lastUpdated = directScore?.lastUpdated
-            ?: listOfNotNull(hizbUpdatedMap[firstHizb], hizbUpdatedMap[secondHizb]).maxOrNull()
-            ?: System.currentTimeMillis()
+    // Only explicit assessments count: derived Juz values would count Hizbs twice.
+    val juzItems = juzScores.filter { it.hasScore && it.score > 0 && it.id in 1..30 }
+        .sortedByDescending { it.lastUpdated }.distinctBy { it.id }.map { raw ->
+        val juzId = raw.id
         HifzScoreItem(
             id = juzId,
             type = "juz",
-            typeLabel = if (directScore != null) "Juz" else "Juz gemiddeld",
-            name = "Juz $juzId",
-            arabic = "Juz $juzId",
-            score = score.coerceIn(0, 100),
-            lastUpdated = lastUpdated
+            typeLabel = text.t("unit.juz"),
+            name = text.t("common.juzNumber", juzId),
+            arabic = text.t("common.juzNumber", juzId),
+            score = raw.score.coerceIn(0, 100),
+            lastUpdated = raw.lastUpdated
         )
     }
 
     val items = surahItems + hizbItems + juzItems
-    val average = if (items.isEmpty()) 0 else items.map { it.score }.average().toInt()
+    val average = if (items.isEmpty()) 0 else (items.map { it.score }.average() + 0.5).toInt()
     val reviewItems = items
         .map { it.toReviewDueItem() }
         .sortedWith(compareBy<ReviewDueItem> { it.daysUntilReview }.thenBy { it.score }.thenBy { it.type }.thenBy { it.id })
+    val hizbScoreValues = hizbItems.associate { it.id to it.score }
+    val explicitJuzScoreValues = juzItems.associate { it.id to it.score }
+    val browseJuzScores = (1..30).map { juz ->
+        val explicitScore = explicitJuzScoreValues[juz]
+        val derivedScore = if (explicitScore == null) {
+            derivedJuzHifzScore(hizbScoreValues[juz * 2 - 1], hizbScoreValues[juz * 2])
+        } else null
+        HifzBrowseScore(
+            number = juz,
+            score = explicitScore ?: derivedScore,
+            derived = explicitScore == null && derivedScore != null
+        )
+    }
+    val browseHizbScores = (1..60).map { hizb ->
+        HifzBrowseScore(number = hizb, score = hizbScoreValues[hizb])
+    }
 
     return HifzOverview(
         scoredCount = items.size,
@@ -1596,7 +1982,9 @@ fun calculateHifzOverview(
         averageScore = average,
         weakest = items.sortedWith(compareBy<HifzScoreItem> { it.score }.thenBy { it.type }.thenBy { it.id }).take(3),
         strongest = items.sortedWith(compareByDescending<HifzScoreItem> { it.score }.thenBy { it.type }.thenBy { it.id }).take(3),
-        reviewItems = reviewItems
+        reviewItems = reviewItems,
+        juzScores = browseJuzScores,
+        hizbScores = browseHizbScores
     )
 }
 
@@ -1642,7 +2030,7 @@ data class MotivationPointsStats(
     val bonusPoints: Int,
     val streakDays: Int,
     val weekActiveDays: Int,
-    val levelName: String,
+    val levelKey: String,
     val levelProgress: Float,
     val nextLevelRemaining: Int,
     val latestLabel: String,
@@ -1675,7 +2063,8 @@ fun calculatePeriodStats(history: List<ReadingHistory>): DashboardPeriodStats {
 fun calculateMotivationPoints(
     history: List<ReadingHistory>,
     goalReached: Boolean,
-    streak: Int
+    streak: Int,
+    text: AppStrings
 ): MotivationPointsStats {
     val todayStart = startOfDay(Calendar.getInstance()).timeInMillis
     val weekStart = startOfWeek(Calendar.getInstance()).timeInMillis
@@ -1705,18 +2094,17 @@ fun calculateMotivationPoints(
         bonusPoints = bonusPoints,
         streakDays = streak,
         weekActiveDays = weekActiveDays,
-        levelName = level.name,
+        levelKey = level.key,
         levelProgress = ((totalPoints - level.start).toFloat() / (level.next - level.start).coerceAtLeast(1)).coerceIn(0f, 1f),
         nextLevelRemaining = (level.next - totalPoints).coerceAtLeast(0),
-        latestLabel = latest?.let { motivationHistoryLabel(it) } ?: "Nog geen check-in",
+        latestLabel = latest?.let { motivationHistoryLabel(it, text) } ?: text.t("quickCheck.noCheckIn"),
         latestPoints = latestPoints
     )
 }
 
 fun readingMotivationPoints(item: ReadingHistory): Int = when (item.type) {
-    "surah" -> (ALL_SURAHS.find { it.id == item.surahId }?.ayahs ?: POINTS_PAGE).coerceAtLeast(1)
-    "juz" -> POINTS_JUZ
-    "hizb" -> POINTS_RUB
+    "surah", "juz", "hizb", "rub", "page", "pages", "ayah", "ayahs" ->
+        ReadingMetrics.historyAyahEquivalent(item).coerceAtLeast(1)
     else -> 1
 }
 
@@ -1731,44 +2119,47 @@ fun motivationBonusPoints(goalReached: Boolean, streak: Int): Int {
     return bonus
 }
 
-fun motivationHistoryLabel(item: ReadingHistory): String = when (item.type) {
+fun motivationHistoryLabel(item: ReadingHistory, text: AppStrings): String = when (item.type) {
     "surah" -> item.surahName
-    "juz" -> "Juz ${item.surahId}"
-    "hizb" -> item.surahName.ifBlank { "Rub/Hizb ${item.surahId}" }
-    else -> item.surahName.ifBlank { "Check-in" }
+    "juz" -> text.t("common.juzNumber", item.surahId)
+    "hizb" -> item.surahName.ifBlank { "${text.t("unit.rub")}/${text.t("unit.hizb")} ${item.surahId}" }
+    else -> item.surahName.ifBlank { text.t("quickCheck.title") }
 }
 
 fun quickCheckInPoints(type: String, number: Int): Int = when (type) {
-    "surah" -> (ALL_SURAHS.find { it.id == number }?.ayahs ?: POINTS_PAGE).coerceAtLeast(1)
-    "juz" -> POINTS_JUZ
-    "hizb" -> POINTS_HIZB
-    "rub" -> POINTS_RUB
+    "surah" -> ReadingMetrics.surahAyahCount(number).coerceAtLeast(1)
+    "juz" -> ReadingMetrics.ayahsPerJuz
+    "hizb" -> ReadingMetrics.ayahsPerHizb
+    "rub" -> ReadingMetrics.ayahsPerRub
     else -> 1
 }
 
-fun quickCheckInLabel(type: String, number: Int, subNumber: Int): String = when (type) {
-    "surah" -> ALL_SURAHS.find { it.id == number }?.name ?: "Soera $number gelezen"
-    "juz" -> "Juz $number gelezen"
-    "hizb" -> "Hizb $number gelezen"
-    "rub" -> "Hizb $number, rub $subNumber gelezen"
-    else -> "Check-in opgeslagen"
+fun quickCheckInLabel(type: String, number: Int, subNumber: Int, text: AppStrings): String = when (type) {
+    "surah" -> text.t("quickCheck.surahRead", ALL_SURAHS.find { it.id == number }?.name ?: text.t("common.surahNumber", number))
+    "juz" -> text.t("quickCheck.juzRead", number)
+    "hizb" -> text.t("quickCheck.hizbRead", number)
+    "rub" -> text.t("quickCheck.rubRead", number, subNumber)
+    else -> text.t("quickCheck.saved")
 }
 
-const val POINTS_AYAH = 1
-const val POINTS_PAGE = 10
-const val POINTS_RUB = 25
-const val POINTS_HIZB = 100
-const val POINTS_JUZ = 200
+fun localizedGoalUnitLabel(unit: String, text: AppStrings): String = when (unit) {
+    "rub" -> text.t("unit.rub")
+    "hizb" -> text.t("unit.hizb")
+    "juz" -> text.t("unit.juz")
+    "pages" -> text.t("planning.pages")
+    "ayahs" -> text.t("unit.ayah.other")
+    else -> ""
+}
 
-data class MotivationLevel(val name: String, val start: Int, val next: Int)
+data class MotivationLevel(val key: String, val start: Int, val next: Int)
 
 fun motivationLevel(points: Int): MotivationLevel = when {
-    points < 100 -> MotivationLevel("Level 1 · Begin rustig", 0, 100)
-    points < 250 -> MotivationLevel("Level 2 · Regelmatige lezer", 100, 250)
-    points < 500 -> MotivationLevel("Level 3 · Standvastig", 250, 500)
-    points < 1000 -> MotivationLevel("Level 4 · Toegewijd", 500, 1000)
-    points < 2000 -> MotivationLevel("Level 5 · Sterke routine", 1000, 2000)
-    else -> MotivationLevel("Level 6 · Mooie leesreis", 2000, 4000)
+    points < 100 -> MotivationLevel("home.motivation.level1", 0, 100)
+    points < 250 -> MotivationLevel("home.motivation.level2", 100, 250)
+    points < 500 -> MotivationLevel("home.motivation.level3", 250, 500)
+    points < 1000 -> MotivationLevel("home.motivation.level4", 500, 1000)
+    points < 2000 -> MotivationLevel("home.motivation.level5", 1000, 2000)
+    else -> MotivationLevel("home.motivation.level6", 2000, 4000)
 }
 
 fun startOfDay(source: Calendar): Calendar =
@@ -1799,7 +2190,8 @@ data class ReadingJourneyProgress(
     val plannedProgress: Float,
     val percentDone: Int,
     val behindParts: Int,
-    val status: JourneyStatus
+    val status: JourneyStatus,
+    val forecastAvailable: Boolean = true
 )
 
 enum class JourneyStatus {
@@ -1813,7 +2205,9 @@ fun calculateReadingJourneyProgress(
     rubDone: Int,
     hizbDone: Int,
     juzDone: Int,
-    planningItems: List<PlanningItem>
+    planningItems: List<PlanningItem>,
+    history: List<ReadingHistory>? = null,
+    forecastAvailable: Boolean = true
 ): ReadingJourneyProgress {
     if (!journey.enabled) {
         return ReadingJourneyProgress(false, journey.totalDays, 0, 0, 0f, 0f, 0, 0, JourneyStatus.ON_TRACK)
@@ -1826,8 +2220,13 @@ fun calculateReadingJourneyProgress(
             val end = item.subId.coerceIn(start, totalParts)
             end - start + 1
         }
-    val doneParts = maxOf(doneFromPlanning, rubDone, hizbDone * 4, juzDone * 8).coerceIn(0, totalParts)
-    val plannedParts = plannedJourneyParts(journey).coerceIn(0, totalParts)
+    val doneParts = if (history != null) {
+        (com.Ameender.qurantracker.data.journeyFraction(history.filter { it.dateKey >= journey.startDate }) * totalParts).toInt()
+    } else maxOf(doneFromPlanning, rubDone, hizbDone * 4, juzDone * 8).coerceIn(0, totalParts)
+    val actualProgress = history?.let {
+        com.Ameender.qurantracker.data.journeyFraction(it.filter { entry -> entry.dateKey >= journey.startDate }).toFloat()
+    } ?: (doneParts / totalParts.toFloat())
+    val plannedParts = if (forecastAvailable) plannedJourneyParts(journey).coerceIn(0, totalParts) else 0
     val status = when {
         doneParts + 1 < plannedParts -> JourneyStatus.BEHIND
         doneParts > plannedParts -> JourneyStatus.AHEAD
@@ -1838,11 +2237,12 @@ fun calculateReadingJourneyProgress(
         totalDays = journey.totalDays,
         doneParts = doneParts,
         plannedParts = plannedParts,
-        doneProgress = doneParts / totalParts.toFloat(),
+        doneProgress = actualProgress,
         plannedProgress = plannedParts / totalParts.toFloat(),
-        percentDone = ((doneParts / totalParts.toFloat()) * 100).toInt(),
+        percentDone = (actualProgress * 100).toInt(),
         behindParts = (plannedParts - doneParts).coerceAtLeast(0),
-        status = status
+        status = status,
+        forecastAvailable = forecastAvailable
     )
 }
 

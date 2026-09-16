@@ -143,7 +143,10 @@ val ALL_SURAHS = listOf(
 fun SurahScreen(
     viewModel: QuranViewModel,
     hifzTintEnabled: Boolean = false,
-    appLanguage: String = "nl"
+    appLanguage: String = "nl",
+    noteCounts: Map<Int, Int> = emptyMap(),
+    onOpenNotes: (Int) -> Unit = {},
+    onOpenInReader: (Int) -> Unit = {}
 ) {
     val text = AppText.strings(appLanguage)
     val surahProgress by viewModel.surahProgress.collectAsState()
@@ -157,6 +160,7 @@ fun SurahScreen(
     var pendingField by remember { mutableStateOf("") }
     var scoreSurah by remember { mutableStateOf<Surah?>(null) }
     var scoreValue by remember { mutableFloatStateOf(0f) }
+    var celebration by remember { mutableStateOf<ReadingCelebration?>(null) }
 
     if (pendingSurah != null) {
         val progress  = progressMap[pendingSurah!!.id]
@@ -190,12 +194,17 @@ fun SurahScreen(
             confirmButton = {
                 // ➕ Optellen / Markeren
                 TextButton(onClick = {
+                    val surah = pendingSurah!!
+                    val field = pendingField
                     viewModel.confirmToggleSurah(
-                        pendingSurah!!.id,
-                        pendingSurah!!.name,
-                        pendingField,
+                        surah.id,
+                        surah.name,
+                        field,
                         false
                     )
+                    if (field == "read") {
+                        celebration = ReadingCelebration(surah.name, CelebrationLevel.Bright)
+                    }
                     pendingSurah = null
                 }) {
                     Text(
@@ -217,7 +226,7 @@ fun SurahScreen(
                             )
                             pendingSurah = null
                         }) {
-                            Text("🗑 Verwijderen", color = DeleteRed)
+                            Text(text.t("common.remove"), color = DeleteRed)
                         }
                     }
                     TextButton(onClick = { pendingSurah = null }) {
@@ -225,6 +234,13 @@ fun SurahScreen(
                     }
                 }
             }
+        )
+    }
+
+    celebration?.let {
+        ReadingCelebrationDialog(
+            celebration = it,
+            onDismiss = { celebration = null }
         )
     }
 
@@ -281,7 +297,7 @@ fun SurahScreen(
         Column(modifier = Modifier.padding(AppSpacing.screen)) {
             Text(text.surah, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
             Text(
-                "$readCount/114 gelezen  ·  $memCount/114 gememoriseerd",
+                text.t("tracker.surahProgressSummary", readCount, memCount),
                 fontSize = 12.sp, color = MutedGold,
                 modifier = Modifier.padding(top = 4.dp)
             )
@@ -294,76 +310,30 @@ fun SurahScreen(
                 val isMem     = progress?.isMemorized ?: false
                 val rCount    = progress?.readCount ?: 0
                 val hifzScore = progress?.progress ?: 0
-                val hasHifzScore = progress?.hasHifzScore == true
-                val showHifzTint = hifzTintEnabled && hasHifzScore && hifzScore > 0
+                val hasHifzScore = progress?.hasHifzScore == true && hifzScore > 0
+                val showHifzTint = hifzTintEnabled && hasHifzScore
                 val cardBackground = if (showHifzTint) hifzScoreSurface(hifzScore) else MidNavy
                 val cardBorder = if (showHifzTint) hifzScoreBorder(hifzScore) else BorderNavy
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 7.dp)
-                        .clip(RoundedCornerShape(AppShape.tile))
-                        .combinedClickable(
-                            onClick = {},
-                            onLongClick = {
-                                if (hifzTintEnabled) {
-                                    scoreSurah = surah
-                                    scoreValue = hifzScore.toFloat()
-                                }
-                            }
-                        )
-                        .background(cardBackground)
-                        .border(1.dp, cardBorder, RoundedCornerShape(AppShape.tile))
-                        .padding(horizontal = 12.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                QuranSurahCard(
+                    number = surah.id,
+                    name = surah.name,
+                    arabicName = surah.arabic,
+                    metadata = "${surah.ayahs} ayah's · Juz ${surah.juz}",
+                    readCountText = if (rCount > 0) text.timesRead.format(rCount) else null,
+                    hifzScoreText = if (hasHifzScore) "${text.hifzScoreLabel}: $hifzScore/100" else null,
+                    backgroundColor = cardBackground,
+                    borderColor = cardBorder,
+                    onClick = { onOpenInReader(surah.id) },
+                    onLongClick = {
+                            scoreSurah = surah
+                            scoreValue = hifzScore.toFloat()
+                    }
                 ) {
-                    // Nummer cirkel
-                    Box(
-                        modifier = Modifier
-                            .size(32.dp)
-                            .clip(RoundedCornerShape(AppShape.pill))
-                            .background(DeepNavy)
-                            .border(1.dp, ButtonBorderNavy, RoundedCornerShape(AppShape.pill)),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("${surah.id}", fontSize = 10.sp, color = Gold)
-                    }
-
-                    Spacer(modifier = Modifier.width(10.dp))
-
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(surah.name, fontSize = 13.sp, color = SoftTextGold)
-                        Text(surah.arabic, fontSize = 13.sp, color = Gold)
-                        Text(
-                            "${surah.ayahs} ayah's · Juz ${surah.juz}",
-                            fontSize = 10.sp, color = DimGold
-                        )
-                        // Teller tonen
-                        if (rCount > 0) {
-                            Text(
-                                text.timesRead.format(rCount),
-                                fontSize = 10.sp,
-                                color = Gold,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                        if (showHifzTint) {
-                            Text(
-                                "${text.hifzScoreLabel}: $hifzScore/100",
-                                fontSize = 10.sp,
-                                color = MutedGold
-                            )
-                        }
-                    }
-
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(5.dp),
-                        horizontalAlignment = Alignment.End
-                    ) {
+                        NoteCountButton(noteCounts[surah.id] ?: 0, "Notities · ${surah.name}") { onOpenNotes(surah.id) }
                         OutlinedButton(
                             onClick = { pendingSurah = surah; pendingField = "read" },
-                            modifier = Modifier.height(28.dp),
+                            modifier = Modifier.heightIn(min = AppComponentDefaults.minTouchTarget),
                             contentPadding = PaddingValues(horizontal = 10.dp, vertical = 0.dp),
                             shape = RoundedCornerShape(AppShape.smallControl),
                             colors = ButtonDefaults.outlinedButtonColors(
@@ -374,12 +344,12 @@ fun SurahScreen(
                                 1.dp, if (isRead) ReadBlue else ButtonBorderNavy
                             )
                         ) {
-                            Text("📖 Gelezen", fontSize = 10.sp)
+                            Text(text.t("tracker.readButton"), fontSize = 10.sp)
                         }
 
                         OutlinedButton(
                             onClick = { pendingSurah = surah; pendingField = "memorized" },
-                            modifier = Modifier.height(28.dp),
+                            modifier = Modifier.heightIn(min = AppComponentDefaults.minTouchTarget),
                             contentPadding = PaddingValues(horizontal = 10.dp, vertical = 0.dp),
                             shape = RoundedCornerShape(AppShape.smallControl),
                             colors = ButtonDefaults.outlinedButtonColors(
@@ -390,11 +360,10 @@ fun SurahScreen(
                                 1.dp, if (isMem) Gold else ButtonBorderNavy
                             )
                         ) {
-                            Text("🧠 Hifz", fontSize = 10.sp)
+                            Text(text.t("tracker.hifzButton"), fontSize = 10.sp)
                         }
                     }
                 }
             }
         }
     }
-}

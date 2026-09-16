@@ -7,6 +7,7 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -21,23 +22,43 @@ import androidx.compose.ui.unit.sp
 import com.Ameender.qurantracker.data.getHizbForJuz
 import com.Ameender.qurantracker.viewmodel.QuranViewModel
 
+private val HIZB_IDS = (1..60).toList()
+private val RUB_IDS = (1..4).toList()
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HizbScreen(
     viewModel: QuranViewModel,
-    hifzTintEnabled: Boolean = false
+    hifzTintEnabled: Boolean = false,
+    appLanguage: String = "nl",
+    onOpenInReader: (hizbNumber: Int, surahId: Int, ayahNumber: Int) -> Unit = { _, _, _ -> },
+    noteCounts: Map<Int, Int> = emptyMap(),
+    onOpenNotes: (Int) -> Unit = {}
 ) {
+    val text = AppText.strings(appLanguage)
     val rubProgress by viewModel.rubProgress.collectAsState()
-    val rubMap = rubProgress.associate { it.id to it }
+    val rubMap = remember(rubProgress) { rubProgress.associateBy { it.id } }
     val hizbProgress by viewModel.hizbProgress.collectAsState()
-    val hizbMap = hizbProgress.associate { it.referenceId to it }
+    val hizbMap = remember(hizbProgress) { hizbProgress.associateBy { it.referenceId } }
+    val hizbStartInfo = remember { HIZB_IDS.associateWith { hizbId -> getHizbForJuz((hizbId + 1) / 2).find { it.hizbNumber == hizbId } } }
 
     var pendingHizb by remember { mutableStateOf<Int?>(null) }
     var pendingRub by remember { mutableStateOf<Int?>(null) }
     var scoreHizb by remember { mutableStateOf<Int?>(null) }
     var scoreValue by remember { mutableFloatStateOf(0f) }
+    var celebration by remember { mutableStateOf<ReadingCelebration?>(null) }
+    val listState = rememberLazyListState()
 
-    val rubLabel = { n: Int -> when (n) { 1 -> "1/4"; 2 -> "1/2"; 3 -> "3/4"; else -> "1" } }
+    val rubLabel = remember { { n: Int -> when (n) { 1 -> "1/4"; 2 -> "1/2"; 3 -> "3/4"; else -> "1" } } }
+    val firstOpenHizb = remember(rubMap) {
+        HIZB_IDS.firstOrNull { hizb ->
+            RUB_IDS.any { rub -> rubMap["rub_${hizb}_$rub"]?.isRead != true }
+        } ?: 60
+    }
+
+    LaunchedEffect(firstOpenHizb) {
+        listState.scrollToItem((firstOpenHizb - 1).coerceAtLeast(0))
+    }
 
     if (pendingHizb != null && pendingRub != null) {
         val key = "rub_${pendingHizb}_${pendingRub}"
@@ -50,20 +71,26 @@ fun HizbScreen(
             containerColor = MidNavy,
             titleContentColor = GoldLight,
             textContentColor = LabelGold,
-            title = { Text("Hizb $pendingHizb - ${rubLabel(pendingRub!!)}") },
+            title = { Text(text.t("tracker.hizbRubTitle", pendingHizb ?: "", rubLabel(pendingRub!!))) },
             text = {
                 Text(
-                    if (isFirst) "Wil je Hizb $pendingHizb - ${rubLabel(pendingRub!!)} markeren als gelezen?"
-                    else "Je hebt dit al ${count}x gelezen. Wat wil je doen?"
+                    if (isFirst) text.t("tracker.hizbMarkQuestion", pendingHizb ?: "", rubLabel(pendingRub!!))
+                    else text.t("tracker.hizbAlreadyReadQuestion", count)
                 )
             },
             confirmButton = {
                 TextButton(onClick = {
-                    viewModel.confirmToggleRub(pendingHizb!!, pendingRub!!, false)
+                    val hizb = pendingHizb!!
+                    val rub = pendingRub!!
+                    viewModel.confirmToggleRub(hizb, rub, false)
+                    celebration = ReadingCelebration(
+                        "Hizb $hizb - ${rubLabel(rub)}",
+                        CelebrationLevel.Soft
+                    )
                     pendingHizb = null
                     pendingRub = null
                 }) {
-                    Text(if (isFirst) "Markeren" else "Nog een keer", color = Gold)
+                    Text(if (isFirst) text.t("common.mark") else text.t("common.markAgain"), color = Gold)
                 }
             },
             dismissButton = {
@@ -74,14 +101,21 @@ fun HizbScreen(
                             pendingHizb = null
                             pendingRub = null
                         }) {
-                            Text("Verwijderen", color = DeleteRed)
+                            Text(text.t("common.remove"), color = DeleteRed)
                         }
                     }
                     TextButton(onClick = { pendingHizb = null; pendingRub = null }) {
-                        Text("Annuleren", color = MutedGold)
+                        Text(text.t("common.cancel"), color = MutedGold)
                     }
                 }
             }
+        )
+    }
+
+    celebration?.let {
+        ReadingCelebrationDialog(
+            celebration = it,
+            onDismiss = { celebration = null }
         )
     }
 
@@ -91,12 +125,12 @@ fun HizbScreen(
             containerColor = MidNavy,
             titleContentColor = GoldLight,
             textContentColor = LabelGold,
-            title = { Text("Hizb $scoreHizb - Hifz-score") },
+            title = { Text(text.t("tracker.hifzScoreTitle", "Hizb $scoreHizb")) },
             text = {
                 Column {
-                    Text("Hoe goed ken je deze hizb uit je hoofd?", fontSize = 13.sp, color = LabelGold)
+                    Text(text.t("tracker.hizbScoreQuestion"), fontSize = 13.sp, color = LabelGold)
                     Text(
-                        "${scoreValue.toInt()} / 100",
+                        text.t("tracker.scoreValue", scoreValue.toInt()),
                         fontSize = 22.sp,
                         color = Gold,
                         fontWeight = FontWeight.Bold,
@@ -115,12 +149,12 @@ fun HizbScreen(
                     viewModel.updateHizbHifzScore(scoreHizb!!, scoreValue.toInt())
                     scoreHizb = null
                 }) {
-                    Text("Opslaan", color = Gold)
+                    Text(text.t("common.save"), color = Gold)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { scoreHizb = null }) {
-                    Text("Annuleren", color = MutedGold)
+                    Text(text.t("common.cancel"), color = MutedGold)
                 }
             }
         )
@@ -137,28 +171,31 @@ fun HizbScreen(
                 .background(MidNavy)
                 .padding(AppSpacing.screen)
         ) {
-            Text("الأحزاب", fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
-            Text("Hizb & Rub tracker", fontSize = 13.sp, color = Gold)
+            Text(text.t("tracker.hizbTitleArabic"), fontSize = 22.sp, color = GoldLight, fontWeight = FontWeight.Bold)
+            Text(text.t("tracker.hizbSubtitle"), fontSize = 13.sp, color = Gold)
             Text(
-                "60 hizb met elk 4 rub",
+                text.t("tracker.hizbDescription"),
                 fontSize = 11.sp,
                 color = DimGold,
                 modifier = Modifier.padding(top = 2.dp)
             )
         }
 
-        LazyColumn(contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = AppShape.tile)) {
-            items((1..60).toList()) { hizbId ->
+        LazyColumn(
+            state = listState,
+            contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = AppShape.tile)
+        ) {
+            items(HIZB_IDS, key = { it }) { hizbId ->
                 val juzId = (hizbId + 1) / 2
-                val hizbInfo = getHizbForJuz(juzId).find { it.hizbNumber == hizbId }
+                val hizbInfo = hizbStartInfo[hizbId]
 
-                val allDone = (1..4).all { rub -> rubMap["rub_${hizbId}_$rub"]?.isRead == true }
-                val anyDone = (1..4).any { rub -> rubMap["rub_${hizbId}_$rub"]?.isRead == true }
-                val doneRubCount = (1..4).count { rub -> rubMap["rub_${hizbId}_$rub"]?.isRead == true }
+                val allDone = RUB_IDS.all { rub -> rubMap["rub_${hizbId}_$rub"]?.isRead == true }
+                val anyDone = RUB_IDS.any { rub -> rubMap["rub_${hizbId}_$rub"]?.isRead == true }
+                val doneRubCount = RUB_IDS.count { rub -> rubMap["rub_${hizbId}_$rub"]?.isRead == true }
                 val hifzProgress = hizbMap[hizbId]
                 val hifzScore = hifzProgress?.progress ?: 0
-                val hasHifzScore = hifzProgress?.hasHifzScore == true
-                val showHifzTint = hifzTintEnabled && hasHifzScore && hifzScore > 0
+                val hasHifzScore = hifzProgress?.hasHifzScore == true && hifzScore > 0
+                val showHifzTint = hifzTintEnabled && hasHifzScore
 
                 val borderColor = when {
                     showHifzTint -> hifzScoreBorder(hifzScore)
@@ -184,12 +221,14 @@ fun HizbScreen(
                         .padding(bottom = AppSpacing.itemVertical)
                         .clip(RoundedCornerShape(AppShape.tile))
                         .combinedClickable(
-                            onClick = {},
+                            onClick = {
+                                hizbInfo?.let {
+                                    onOpenInReader(hizbId, it.surahNumber, it.ayahNumber)
+                                }
+                            },
                             onLongClick = {
-                                if (hifzTintEnabled) {
                                     scoreHizb = hizbId
                                     scoreValue = hifzScore.toFloat()
-                                }
                             }
                         )
                         .background(bgColor)
@@ -209,7 +248,7 @@ fun HizbScreen(
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                "$doneRubCount/4 rub voltooid",
+                                text.t("tracker.hizbCompletedRub", doneRubCount),
                                 fontSize = 11.sp,
                                 color = if (allDone) Gold else MutedGold,
                                 modifier = Modifier.padding(top = 2.dp)
@@ -233,12 +272,15 @@ fun HizbScreen(
                                 )
                             }
                         }
-                        Text("Juz $juzId", fontSize = 11.sp, color = DimGold)
+                        Column(horizontalAlignment = Alignment.End) {
+                            NoteCountButton(noteCounts[hizbId] ?: 0, "Notities · Hizb $hizbId") { onOpenNotes(hizbId) }
+                            Text(text.t("common.juzNumber", juzId), fontSize = 11.sp, color = DimGold)
+                        }
                     }
 
-                    if (showHifzTint) {
+                    if (hasHifzScore) {
                         Text(
-                            "Hifz-score: $hifzScore/100",
+                            text.t("tracker.hizbScoreValue", hifzScore),
                             fontSize = 10.sp,
                             color = MutedGold,
                             fontWeight = FontWeight.Bold,
@@ -252,7 +294,7 @@ fun HizbScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        (1..4).forEach { rub ->
+                        RUB_IDS.forEach { rub ->
                             val key = "rub_${hizbId}_$rub"
                             val progress = rubMap[key]
                             val isDone = progress?.isRead == true
@@ -277,7 +319,7 @@ fun HizbScreen(
                                     Text(if (isDone) "✓" else "·", fontSize = 14.sp)
                                     Text(rubLabel(rub), fontSize = 11.sp)
                                     if (count > 0) {
-                                        Text("${count}x", fontSize = 9.sp, color = Gold)
+                                        Text(text.t("tracker.timesCount", count), fontSize = 9.sp, color = Gold)
                                     }
                                 }
                             }

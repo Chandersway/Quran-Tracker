@@ -53,6 +53,10 @@ android {
     }
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
     // Standaard Android
     implementation(libs.androidx.core.ktx)
@@ -102,6 +106,7 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:storage-kt")
     implementation("io.ktor:ktor-client-android:3.0.3")
     implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation("com.caverock:androidsvg-aar:1.4")
 
     // Calendar Compose
     implementation("io.github.epicarchitect:calendar-compose-basis:1.0.5")

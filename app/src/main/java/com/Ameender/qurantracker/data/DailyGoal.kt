@@ -15,6 +15,11 @@ data class DailyGoal(
 
 @Dao
 interface DailyGoalDao {
+    @Query("SELECT * FROM daily_goal ORDER BY id")
+    fun getGoals(): Flow<List<DailyGoal>>
+
+    @Query("SELECT * FROM daily_goal ORDER BY id")
+    suspend fun getGoalsOnce(): List<DailyGoal>
 
     @Query("SELECT * FROM daily_goal WHERE id = 1")
     fun getGoal(): Flow<DailyGoal?>

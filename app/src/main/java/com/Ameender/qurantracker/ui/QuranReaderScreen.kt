@@ -2,13 +2,22 @@ package com.Ameender.qurantracker.ui
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.media.MediaPlayer
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.pdf.PdfRenderer
+import android.content.Intent
+import android.os.ParcelFileDescriptor
+import android.util.LruCache
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,13 +26,17 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.EditNote
+import androidx.compose.material.icons.filled.FormatSize
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Stop
@@ -31,10 +44,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.boundsInRoot
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.text.font.FontWeight
@@ -44,12 +65,14 @@ import androidx.compose.ui.unit.sp
 import com.Ameender.qurantracker.data.QuranChapter
 import com.Ameender.qurantracker.data.QuranDatabaseHelper
 import com.Ameender.qurantracker.data.QuranSearchResult
+import com.caverock.androidsvg.SVG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.io.File
+import java.util.zip.GZIPInputStream
 
 data class SurahAudioOption(
     val reciterName: String,
@@ -96,19 +119,31 @@ data class HafsAyahPosition(
     val height: Float
 )
 
+private val AyahToolbarGreen = Color(0xFF244F2E)
+
 @Composable
 fun QuranReaderScreen(
     mushafMode: String = "hafs",
     initialSurahId: Int? = null,
     initialAyah: Int? = null,
     initialWarshPage: Int? = null,
+    openInitialTargetInMushaf: Boolean = false,
     selectedReciterName: String = "",
+    appLanguage: String = "nl",
+    audioPlayer: GlobalAudioPlayer,
+    onOpenNotes: (Int, Int) -> Unit = { _, _ -> },
+    surahNoteCounts: Map<Int, Int> = emptyMap(),
+    onOpenSurahNotes: (Int) -> Unit = {},
+    onReaderModeChanged: (Boolean) -> Unit = {},
     onInitialTargetConsumed: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val dbHelper = remember { QuranDatabaseHelper(context) }
+    val text = AppText.strings(appLanguage)
 
     var selectedChapter by remember { mutableStateOf<QuranChapter?>(null) }
+    SideEffect { onReaderModeChanged(selectedChapter != null) }
+    DisposableEffect(Unit) { onDispose { onReaderModeChanged(false) } }
     var selectedAyah by remember { mutableStateOf<Int?>(null) }
     var chapters by remember { mutableStateOf<List<QuranChapter>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
@@ -157,7 +192,10 @@ fun QuranReaderScreen(
             mushafMode = mushafMode,
             initialAyah = selectedAyah,
             initialWarshPage = initialWarshPage,
+            openInitialTargetInMushaf = openInitialTargetInMushaf,
             selectedReciterName = selectedReciterName,
+            audioPlayer = audioPlayer,
+            onOpenNotes = onOpenNotes,
             onBack  = {
                 selectedChapter = null
                 selectedAyah = null
@@ -166,10 +204,13 @@ fun QuranReaderScreen(
     } else {
         ChapterListScreen(
             chapters  = chapters,
+            noteCounts = surahNoteCounts,
+            onOpenNotes = onOpenSurahNotes,
             isLoading = isLoading,
             searchQuery = searchQuery,
             searchResults = searchResults,
             isSearching = isSearching,
+            text = text,
             onSearchQueryChange = { searchQuery = it },
             onSelect  = {
                 selectedChapter = it
@@ -192,15 +233,16 @@ fun ChapterListScreen(
     searchQuery: String,
     searchResults: List<QuranSearchResult>,
     isSearching: Boolean,
+    text: AppStrings,
     onSearchQueryChange: (String) -> Unit,
     onSelect: (QuranChapter) -> Unit,
-    onSearchResultSelect: (QuranSearchResult) -> Unit
+    onSearchResultSelect: (QuranSearchResult) -> Unit,
+    noteCounts: Map<Int, Int> = emptyMap(),
+    onOpenNotes: (Int) -> Unit = {}
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(DarkNavy)
-    ) {
+    LazyColumn(modifier = Modifier.fillMaxSize().background(DarkNavy)) {
+        item(key = "chapter-header") {
+        Column {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -215,27 +257,32 @@ fun ChapterListScreen(
                 fontWeight = FontWeight.Bold,
                 color = GoldLight
             )
-            Text("De Edele Quran", fontSize = 13.sp, color = Gold)
+            Text(text.readerSubtitle, fontSize = 13.sp, color = Gold)
         }
 
         QuranSearchBox(
             query = searchQuery,
             results = searchResults,
             isSearching = isSearching,
+            placeholder = text.quranSearchPlaceholder,
             onQueryChange = onSearchQueryChange,
             onResultClick = onSearchResultSelect
         )
-
+        }
+        }
         if (isLoading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            item(key = "chapter-loading") {
+            Box(modifier = Modifier.fillMaxWidth().height(160.dp), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(color = Gold)
             }
-        } else {
-            LazyColumn(contentPadding = PaddingValues(AppSpacing.list)) {
-                items(chapters) { chapter ->
-                    ChapterListItem(chapter = chapter, onClick = { onSelect(chapter) })
-                }
             }
+        } else {
+                items(chapters, key = { it.id }) { chapter ->
+                    Box(Modifier.padding(horizontal = AppSpacing.list)) {
+                    ChapterListItem(chapter = chapter, onClick = { onSelect(chapter) },
+                        noteCount = noteCounts[chapter.id] ?: 0, onOpenNotes = { onOpenNotes(chapter.id) })
+                    }
+                }
         }
     }
 }
@@ -245,6 +292,7 @@ fun QuranSearchBox(
     query: String,
     results: List<QuranSearchResult>,
     isSearching: Boolean,
+    placeholder: String,
     onQueryChange: (String) -> Unit,
     onResultClick: (QuranSearchResult) -> Unit
 ) {
@@ -259,7 +307,7 @@ fun QuranSearchBox(
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = Gold) },
-            placeholder = { Text("Zoek in Quran", color = DimGold) },
+            placeholder = { Text(placeholder, color = DimGold) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = GoldLight,
                 unfocusedTextColor = GoldLight,
@@ -333,7 +381,7 @@ fun SearchResultItem(result: QuranSearchResult, onClick: () -> Unit) {
 }
 
 @Composable
-fun ChapterListItem(chapter: QuranChapter, onClick: () -> Unit) {
+fun ChapterListItem(chapter: QuranChapter, onClick: () -> Unit, noteCount: Int = 0, onOpenNotes: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -365,7 +413,7 @@ fun ChapterListItem(chapter: QuranChapter, onClick: () -> Unit) {
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                "Soera ${chapter.id}",
+                ALL_SURAHS.firstOrNull { it.id == chapter.id }?.name ?: "Surah ${chapter.id}",
                 fontSize = 14.sp,
                 color = SoftTextGold,
                 fontWeight = FontWeight.Medium
@@ -383,6 +431,7 @@ fun ChapterListItem(chapter: QuranChapter, onClick: () -> Unit) {
             color = Gold,
             fontWeight = FontWeight.Bold
         )
+        NoteCountButton(noteCount, "Notities · ${chapter.nameAr}", onOpenNotes)
     }
 }
 
@@ -393,19 +442,18 @@ fun ChapterReaderScreen(
     mushafMode: String = "hafs",
     initialAyah: Int? = null,
     initialWarshPage: Int? = null,
+    openInitialTargetInMushaf: Boolean = false,
     selectedReciterName: String = "",
+    audioPlayer: GlobalAudioPlayer,
+    onOpenNotes: (Int, Int) -> Unit = { _, _ -> },
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+    val pageWidthPx = with(density) { configuration.screenWidthDp.dp.toPx().toInt() }
     var ayahs by remember { mutableStateOf<List<Pair<Int, String>>>(emptyList()) }
     var audioStatus by remember { mutableStateOf("") }
-    var isPreparingAudio by remember { mutableStateOf(false) }
-    var isPlayingAudio by remember { mutableStateOf(false) }
-    var audioPositionMs by remember { mutableIntStateOf(0) }
-    var audioDurationMs by remember { mutableIntStateOf(0) }
-    var playbackSpeed by remember { mutableFloatStateOf(1.0f) }
-    var warshAudioBarVisible by remember { mutableStateOf(true) }
-    var warshAudioBarTouchTick by remember { mutableIntStateOf(0) }
     var showSurahCard by remember(chapter.id) { mutableStateOf(false) }
     var bookmarkedAyahs by remember(chapter.id) {
         mutableStateOf(loadAyahBookmarks(context, chapter.id))
@@ -419,6 +467,7 @@ fun ChapterReaderScreen(
     var selectedWord by remember { mutableStateOf<QuranWord?>(null) }
     var selectedAyahInfo by remember { mutableStateOf<WordByWordAyah?>(null) }
     var selectedAyahAction by remember { mutableStateOf<ReaderAyahAction?>(null) }
+    var selectedAyahToolbarY by remember { mutableStateOf<Float?>(null) }
     var selectedWarshAyahKey by remember { mutableStateOf<Pair<Int, Int>?>(null) }
     val warshPageNumbers = remember(chapter.id) { warshPagesForSurah(chapter.id) }
     val warshPageResIds = remember(chapter.id) {
@@ -431,17 +480,7 @@ fun ChapterReaderScreen(
             if (resId == 0) null else page to resId
         }
     }
-    val continuousWarshPageResIds = remember(chapter.id) {
-        val startPage = warshPageNumbers.first.takeIf { it > 0 } ?: 1
-        (startPage..638).mapNotNull { page ->
-            val resId = context.resources.getIdentifier(
-                "warsh_page_${page.toString().padStart(3, '0')}",
-                "drawable",
-                context.packageName
-            )
-            if (resId == 0) null else page to resId
-        }
-    }
+    val continuousWarshPageResIds = warshPageResIds
     val hafsMadinaPageNumbers = remember(chapter.id) { hafsMadinaPagesForSurah(chapter.id) }
     val hafsMadinaPageResIds = remember(chapter.id) {
         hafsMadinaPageNumbers.mapNotNull { page ->
@@ -453,16 +492,47 @@ fun ChapterReaderScreen(
             if (resId == 0) null else page to resId
         }
     }
-    var showWarshMushaf by remember(chapter.id, mushafMode, warshPageResIds) {
-        mutableStateOf(initialAyah == null && mushafMode == "warsh" && warshPageResIds.isNotEmpty())
+    val downloadedMushafPdf = remember(mushafMode) {
+        downloadedMushafPdfFile(context, mushafMode).takeIf { it.exists() && it.length() > 0L }
     }
-    var showHafsMadinaMushaf by remember(chapter.id, mushafMode, hafsMadinaPageResIds) {
-        mutableStateOf(initialAyah == null && mushafMode == "hafs" && hafsMadinaPageResIds.isNotEmpty())
+    val maknoonPagesInstalled = remember(mushafMode) {
+        (mushafMode == "warsh_maknoon" || mushafMode == "hafs_maknoon") &&
+            downloadedMushafPageCount(context, mushafMode) >= 604
+    }
+    val downloadedMushafPageCount by produceState(initialValue = 0, downloadedMushafPdf) {
+        value = withContext(Dispatchers.IO) { downloadedMushafPdf?.pdfPageCount() ?: 0 }
+    }
+    val shouldOpenInitialTargetInMushaf = (openInitialTargetInMushaf || initialAyah != null) && initialAyah != null
+    var showWarshMushaf by remember(chapter.id, mushafMode, warshPageResIds, initialAyah, shouldOpenInitialTargetInMushaf) {
+        mutableStateOf(
+            (initialAyah == null || shouldOpenInitialTargetInMushaf) &&
+                mushafMode == "warsh" &&
+                warshPageResIds.isNotEmpty()
+        )
+    }
+    var showHafsMadinaMushaf by remember(chapter.id, mushafMode, hafsMadinaPageResIds, initialAyah, shouldOpenInitialTargetInMushaf) {
+        mutableStateOf(
+            (initialAyah == null || shouldOpenInitialTargetInMushaf) &&
+                mushafMode == "hafs" &&
+                hafsMadinaPageResIds.isNotEmpty()
+        )
+    }
+    var showDownloadedPdfMushaf by remember(chapter.id, mushafMode, downloadedMushafPdf, downloadedMushafPageCount, initialAyah, shouldOpenInitialTargetInMushaf) {
+        mutableStateOf(
+            (initialAyah == null || shouldOpenInitialTargetInMushaf) &&
+                downloadedMushafPdf != null &&
+                downloadedMushafPageCount > 0
+        )
+    }
+    var showMaknoonWarshMushaf by remember(chapter.id, mushafMode, maknoonPagesInstalled, initialAyah, shouldOpenInitialTargetInMushaf) {
+        mutableStateOf((initialAyah == null || shouldOpenInitialTargetInMushaf) && maknoonPagesInstalled)
     }
     val hasWarshMushaf = warshPageResIds.isNotEmpty()
     val hasHafsMadinaMushaf = hafsMadinaPageResIds.isNotEmpty()
-    val showMushafImage = showWarshMushaf || showHafsMadinaMushaf
-    val hasMushafImage = hasWarshMushaf || hasHafsMadinaMushaf
+    val hasDownloadedPdfMushaf = downloadedMushafPdf != null && downloadedMushafPageCount > 0
+    val hasMaknoonWarshMushaf = maknoonPagesInstalled
+    val showMushafImage = showWarshMushaf || showHafsMadinaMushaf || showDownloadedPdfMushaf || showMaknoonWarshMushaf
+    val hasMushafImage = hasWarshMushaf || hasHafsMadinaMushaf || hasDownloadedPdfMushaf || hasMaknoonWarshMushaf
     val hasWordByWord = wordByWordAyahs.isNotEmpty()
     val hideAyahText = showMushafImage || showWordByWord
     val mushafContentPadding = if (showMushafImage) PaddingValues(0.dp) else PaddingValues(AppSpacing.screen)
@@ -482,44 +552,25 @@ fun ChapterReaderScreen(
                 ?: audioOptions.firstOrNull()
         )
     }
+    val isCurrentAudio = selectedAudio?.link == audioPlayer.currentTrack?.audioUrl
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
-    val mediaPlayer = remember(chapter.id) { MediaPlayer() }
-
-    DisposableEffect(mediaPlayer) {
-        mediaPlayer.setOnCompletionListener {
-            isPlayingAudio = false
-            isPreparingAudio = false
-            audioPositionMs = 0
-            audioStatus = "Afspelen klaar"
-        }
-        onDispose {
-            mediaPlayer.release()
-        }
+    var arabicFontSize by remember {
+        mutableIntStateOf(loadReaderArabicFontSize(context))
     }
+    var selectedTextAyah by remember { mutableStateOf<Int?>(null) }
 
-    LaunchedEffect(isPlayingAudio, isPreparingAudio) {
-        while (isPlayingAudio || isPreparingAudio) {
-            if (isPlayingAudio) {
-                audioPositionMs = runCatching { mediaPlayer.currentPosition }.getOrDefault(audioPositionMs)
-                audioDurationMs = runCatching { mediaPlayer.duration }.getOrDefault(audioDurationMs)
-            }
-            delay(500)
-        }
-    }
-
-    LaunchedEffect(playbackSpeed, isPlayingAudio) {
-        if (isPlayingAudio) {
-            runCatching {
-                mediaPlayer.playbackParams = mediaPlayer.playbackParams.setSpeed(playbackSpeed)
-            }
-        }
-    }
-
-    LaunchedEffect(showWarshMushaf, warshAudioBarVisible, warshAudioBarTouchTick, isPlayingAudio, isPreparingAudio) {
-        if (showWarshMushaf && warshAudioBarVisible && (isPlayingAudio || isPreparingAudio)) {
-            delay(4000)
-            warshAudioBarVisible = false
+    LaunchedEffect(selectedAudio?.link) {
+        val audio = selectedAudio ?: return@LaunchedEffect
+        val currentTrack = audioPlayer.currentTrack ?: return@LaunchedEffect
+        if (currentTrack.surahId == chapter.id && currentTrack.audioUrl != audio.link) {
+            audioPlayer.replaceCurrentTrack(
+                track = currentTrack.copy(
+                    reciterName = audio.reciterName,
+                    audioUrl = audio.link
+                ),
+                startWhenReady = audioPlayer.isPlaying || audioPlayer.isPreparing
+            )
         }
     }
 
@@ -533,13 +584,157 @@ fun ChapterReaderScreen(
     }
 
     LaunchedEffect(initialAyah, ayahs) {
-        val ayah = initialAyah
+        val ayah = initialAyah ?: loadLastReadAyah(context, chapter.id)
         if (ayah != null && ayahs.isNotEmpty()) {
+            if (shouldOpenInitialTargetInMushaf) {
+                showWordByWord = false
+                when {
+                    mushafMode == "hafs_maknoon" && hasMaknoonWarshMushaf -> {
+                        showWarshMushaf = false
+                        showHafsMadinaMushaf = false
+                        showDownloadedPdfMushaf = false
+                        showMaknoonWarshMushaf = true
+                    }
+                    mushafMode == "warsh_maknoon" && hasMaknoonWarshMushaf -> {
+                        showWarshMushaf = false
+                        showHafsMadinaMushaf = false
+                        showDownloadedPdfMushaf = false
+                        showMaknoonWarshMushaf = true
+                    }
+                    mushafMode == "warsh" && hasWarshMushaf -> {
+                        showWarshMushaf = true
+                        showHafsMadinaMushaf = false
+                        showDownloadedPdfMushaf = false
+                        showMaknoonWarshMushaf = false
+                    }
+                    mushafMode == "hafs" && hasHafsMadinaMushaf -> {
+                        showWarshMushaf = false
+                        showHafsMadinaMushaf = true
+                        showDownloadedPdfMushaf = false
+                        showMaknoonWarshMushaf = false
+                    }
+                    hasDownloadedPdfMushaf -> {
+                        showWarshMushaf = false
+                        showHafsMadinaMushaf = false
+                        showDownloadedPdfMushaf = true
+                        showMaknoonWarshMushaf = false
+                    }
+                    hasHafsMadinaMushaf -> {
+                        showWarshMushaf = false
+                        showHafsMadinaMushaf = true
+                        showDownloadedPdfMushaf = false
+                        showMaknoonWarshMushaf = false
+                    }
+                    else -> {
+                        val offset = ayahListIndexOffset(chapter.id, surahCardResId != 0 && showSurahCard)
+                        listState.animateScrollToItem((offset + ayah - 1).coerceAtLeast(0))
+                    }
+                }
+                return@LaunchedEffect
+            }
             showWarshMushaf = false
             showHafsMadinaMushaf = false
+            showDownloadedPdfMushaf = false
+            showMaknoonWarshMushaf = false
             showWordByWord = false
             val offset = ayahListIndexOffset(chapter.id, surahCardResId != 0 && showSurahCard)
             listState.animateScrollToItem((offset + ayah - 1).coerceAtLeast(0))
+            selectedTextAyah = ayah
+        }
+    }
+
+    LaunchedEffect(
+        shouldOpenInitialTargetInMushaf,
+        initialAyah,
+        showWarshMushaf,
+        showHafsMadinaMushaf,
+        showDownloadedPdfMushaf,
+        showMaknoonWarshMushaf,
+        continuousWarshPageResIds,
+        hafsMadinaPageResIds,
+        downloadedMushafPageCount,
+        pageWidthPx
+    ) {
+        val ayah = initialAyah
+        if (!shouldOpenInitialTargetInMushaf || ayah == null) return@LaunchedEffect
+        delay(120)
+
+        when {
+            showWarshMushaf && continuousWarshPageResIds.isNotEmpty() -> {
+                val target = withContext(Dispatchers.IO) {
+                    findWarshAyahMushafTarget(
+                        context = context,
+                        surahId = chapter.id,
+                        ayahNumber = ayah,
+                        pages = continuousWarshPageResIds.map { it.first }
+                    )
+                }
+                val page = target?.page ?: warshPageNumbers.first
+                val pageIndex = continuousWarshPageResIds.indexOfFirst { it.first == page }.coerceAtLeast(0)
+                val scrollFraction = target?.scrollFraction ?: 0f
+                listState.scrollToItem(
+                    index = pageIndex,
+                    scrollOffset = (scrollFraction * pageWidthPx * ReaderInfoStyle.warshPageRatio).toInt()
+                )
+            }
+            showHafsMadinaMushaf && hafsMadinaPageResIds.isNotEmpty() -> {
+                val target = withContext(Dispatchers.IO) {
+                    findHafsAyahMushafTarget(
+                        context = context,
+                        surahId = chapter.id,
+                        ayahNumber = ayah,
+                        pages = hafsMadinaPageResIds.map { it.first }
+                    )
+                }
+                val page = target?.page ?: hafsMadinaPageNumbers.first
+                val pageIndex = hafsMadinaPageResIds.indexOfFirst { it.first == page }.coerceAtLeast(0)
+                val scrollFraction = target?.scrollFraction ?: 0f
+                listState.scrollToItem(
+                    index = pageIndex,
+                    scrollOffset = (scrollFraction * pageWidthPx * ReaderInfoStyle.hafsMadinaPageRatio).toInt()
+                )
+            }
+            showMaknoonWarshMushaf -> {
+                val pages = downloadedMaknoonPagesForSurah(hafsMadinaPageNumbers)
+                val target = withContext(Dispatchers.IO) {
+                    findHafsAyahMushafTarget(
+                        context = context,
+                        surahId = chapter.id,
+                        ayahNumber = ayah,
+                        pages = pages
+                    )
+                }
+                val page = target?.page ?: hafsMadinaPageNumbers.first
+                val pageIndex = pages.indexOf(page).coerceAtLeast(0)
+                val scrollFraction = target?.scrollFraction ?: 0f
+                listState.scrollToItem(
+                    index = pageIndex,
+                    scrollOffset = (scrollFraction * pageWidthPx * ReaderInfoStyle.hafsMadinaPageRatio).toInt()
+                )
+            }
+            showDownloadedPdfMushaf && downloadedMushafPageCount > 0 -> {
+                val fallbackPages = if (mushafMode == "warsh_madina") warshPageNumbers else hafsMadinaPageNumbers
+                val pages = downloadedPdfPagesForSurah(
+                    mushafMode = mushafMode,
+                    pageCount = downloadedMushafPageCount,
+                    fallbackPages = fallbackPages
+                )
+                val target = withContext(Dispatchers.IO) {
+                    findHafsAyahMushafTarget(
+                        context = context,
+                        surahId = chapter.id,
+                        ayahNumber = ayah,
+                        pages = pages
+                    )
+                }
+                val page = target?.page ?: fallbackPages.first
+                val pageIndex = pages.indexOf(page).coerceAtLeast(0)
+                val scrollFraction = target?.scrollFraction ?: 0f
+                listState.scrollToItem(
+                    index = pageIndex,
+                    scrollOffset = (scrollFraction * pageWidthPx * ReaderInfoStyle.hafsMadinaPageRatio).toInt()
+                )
+            }
         }
     }
 
@@ -548,9 +743,43 @@ fun ChapterReaderScreen(
         if (page != null && continuousWarshPageResIds.isNotEmpty()) {
             showWarshMushaf = true
             showHafsMadinaMushaf = false
+            showDownloadedPdfMushaf = false
+            showMaknoonWarshMushaf = false
             showWordByWord = false
             val pageIndex = continuousWarshPageResIds.indexOfFirst { it.first == page }.coerceAtLeast(0)
             listState.animateScrollToItem(pageIndex)
+        }
+    }
+
+    LaunchedEffect(showWarshMushaf, chapter.id, pageWidthPx, warshPageNumbers) {
+        if (showWarshMushaf && !shouldOpenInitialTargetInMushaf && chapter.id > 2 && warshPageNumbers.first > 0) {
+            val offsetFraction = withContext(Dispatchers.IO) {
+                warshSurahStartScrollFraction(
+                    loadWarshPagePositions(context, warshPageNumbers.first),
+                    chapter.id
+                )
+            }
+            delay(120)
+            listState.scrollToItem(
+                index = 0,
+                scrollOffset = (offsetFraction * pageWidthPx * ReaderInfoStyle.warshPageRatio).toInt()
+            )
+        }
+    }
+
+    LaunchedEffect(showHafsMadinaMushaf, chapter.id, pageWidthPx, hafsMadinaPageNumbers) {
+        if (showHafsMadinaMushaf && !shouldOpenInitialTargetInMushaf && chapter.id > 2 && hafsMadinaPageNumbers.first > 0) {
+            val offsetFraction = withContext(Dispatchers.IO) {
+                hafsSurahStartScrollFraction(
+                    loadHafsMadinaPagePositions(context, hafsMadinaPageNumbers.first),
+                    chapter.id
+                )
+            }
+            delay(120)
+            listState.scrollToItem(
+                index = 0,
+                scrollOffset = (offsetFraction * pageWidthPx * ReaderInfoStyle.hafsMadinaPageRatio).toInt()
+            )
         }
     }
 
@@ -559,40 +788,24 @@ fun ChapterReaderScreen(
         if (audio == null) {
             audioStatus = "Geen reciteur gekozen"
         } else {
-            try {
-                isPreparingAudio = true
-                audioStatus = "Audio laden..."
-                mediaPlayer.reset()
-                mediaPlayer.setDataSource(audio.link)
-                mediaPlayer.setOnPreparedListener {
-                    audioDurationMs = it.duration
-                    audioPositionMs = 0
-                    it.start()
-                    runCatching {
-                        it.playbackParams = it.playbackParams.setSpeed(playbackSpeed)
-                    }
-                    isPreparingAudio = false
-                    isPlayingAudio = true
-                    audioStatus = "Soera ${chapter.id} speelt af: ${audio.reciterName}"
-                }
-                mediaPlayer.prepareAsync()
-            } catch (e: Exception) {
-                isPreparingAudio = false
-                isPlayingAudio = false
-                audioStatus = "Audio kon niet starten"
+            val canonicalSurah = ALL_SURAHS.firstOrNull { it.id == chapter.id }
+            val track = AudioTrack(
+                surahId = chapter.id,
+                surahName = canonicalSurah?.name
+                    ?: chapter.namePronEn.takeIf(String::isNotBlank)
+                    ?: "Soera ${chapter.id}",
+                surahNameArabic = canonicalSurah?.arabic ?: chapter.nameAr,
+                ayahNumber = null,
+                reciterName = audio.reciterName,
+                audioUrl = audio.link
+            )
+            if (isCurrentAudio && !audioPlayer.isPreparing && !audioPlayer.isPlaying) {
+                audioPlayer.resume()
+            } else {
+                audioPlayer.play(track)
             }
+            audioStatus = "Soera ${chapter.id} speelt af: ${audio.reciterName}"
         }
-    }
-    val stopAudio = {
-        if (isPlayingAudio || isPreparingAudio) {
-            mediaPlayer.stop()
-            mediaPlayer.reset()
-        }
-        isPreparingAudio = false
-        isPlayingAudio = false
-        audioPositionMs = 0
-        audioDurationMs = 0
-        audioStatus = "Audio gestopt"
     }
     var readerMenuOpen by remember { mutableStateOf(false) }
     var showBookmarkList by remember { mutableStateOf(false) }
@@ -605,11 +818,29 @@ fun ChapterReaderScreen(
             }
         }
     }
+    val openCurrentSurahInWarsh: () -> Unit = {
+        selectedWord = null
+        selectedWordAyah = null
+        selectedAyahInfo = null
+        selectedAyahAction = null
+        showSurahCard = false
+        showWordByWord = false
+        showHafsMadinaMushaf = false
+        showDownloadedPdfMushaf = false
+        showMaknoonWarshMushaf = hasMaknoonWarshMushaf
+        showWarshMushaf = false
+        scope.launch {
+            delay(80)
+            listState.scrollToItem(0)
+        }
+    }
 
     if (selectedWord != null && selectedWordAyah != null) {
         WordInfoDialog(
             word = selectedWord!!,
             ayah = selectedWordAyah!!,
+            canOpenWarsh = hasMaknoonWarshMushaf,
+            onOpenWarsh = openCurrentSurahInWarsh,
             onDismiss = {
                 selectedWord = null
                 selectedWordAyah = null
@@ -624,33 +855,69 @@ fun ChapterReaderScreen(
                 selectedWord = word
                 selectedAyahInfo = null
             },
+            canOpenWarsh = hasMaknoonWarshMushaf,
+            onOpenWarsh = openCurrentSurahInWarsh,
             onDismiss = { selectedAyahInfo = null }
         )
     }
-    if (selectedAyahAction != null) {
-        AyahActionDialog(
-            action = selectedAyahAction!!,
-            onPlay = {
-                selectedAyahAction = null
-                playAudio()
-            },
-            onBookmark = { action ->
-                val currentSet = if (action.surahId == chapter.id) {
-                    bookmarkedAyahs
+    val copySelectedAyah: () -> Unit = {
+        selectedAyahAction?.let { action ->
+            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            val clip = android.content.ClipData.newPlainText(
+                "Quran ${action.surahId}:${action.ayahNumber}",
+                "${action.ayahText}\n${action.surahName} ${action.surahId}:${action.ayahNumber}"
+            )
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(context, "Ayah gekopieerd", Toast.LENGTH_SHORT).show()
+        }
+    }
+    val shareSelectedAyah: () -> Unit = {
+        selectedAyahAction?.let { action ->
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "${action.ayahText}\n${action.surahName} ${action.surahId}:${action.ayahNumber}"
+                )
+            }
+            context.startActivity(Intent.createChooser(shareIntent, "Ayah delen"))
+        }
+    }
+    val toggleSelectedAyahBookmark: () -> Unit = {
+        selectedAyahAction?.let { action ->
+            val currentSet = if (action.surahId == chapter.id) {
+                bookmarkedAyahs
+            } else {
+                loadAyahBookmarks(context, action.surahId)
+            }
+            val updated = currentSet.toggle(action.ayahNumber)
+            if (action.surahId == chapter.id) bookmarkedAyahs = updated
+            saveAyahBookmarks(context, action.surahId, updated)
+            selectedAyahAction = action.copy(isBookmarked = updated.contains(action.ayahNumber))
+        }
+    }
+    val selectMushafAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit = { surahId, ayahNumber, ayahText, wordInfo, toolbarY ->
+        if (surahId == 0) {
+            selectedWarshAyahKey = null
+            selectedAyahAction = null
+            selectedAyahToolbarY = null
+        } else {
+            selectedWarshAyahKey = surahId to ayahNumber
+            selectedAyahToolbarY = toolbarY
+            val surahName = if (surahId == chapter.id) chapter.nameAr else dbHelper.getChapterName(surahId)
+            selectedAyahAction = ReaderAyahAction(
+                surahId = surahId,
+                surahName = surahName,
+                ayahNumber = ayahNumber,
+                ayahText = ayahText,
+                wordInfo = wordInfo,
+                isBookmarked = if (surahId == chapter.id) {
+                    bookmarkedAyahs.contains(ayahNumber)
                 } else {
-                    loadAyahBookmarks(context, action.surahId)
+                    loadAyahBookmarks(context, surahId).contains(ayahNumber)
                 }
-                val updated = currentSet.toggle(action.ayahNumber)
-                if (action.surahId == chapter.id) bookmarkedAyahs = updated
-                saveAyahBookmarks(context, action.surahId, updated)
-                selectedAyahAction = action.copy(isBookmarked = updated.contains(action.ayahNumber))
-            },
-            onInfo = { action ->
-                selectedAyahAction = null
-                selectedAyahInfo = action.wordInfo
-            },
-            onDismiss = { selectedAyahAction = null }
-        )
+            )
+        }
     }
     if (showBookmarkList) {
         ReaderBookmarkDialog(
@@ -687,7 +954,7 @@ fun ChapterReaderScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = onBack) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Terug", tint = Gold)
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Terug", tint = Gold)
                 }
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -722,9 +989,23 @@ fun ChapterReaderScreen(
                             if (mushafMode == "warsh") {
                                 showWarshMushaf = !showWarshMushaf
                                 showHafsMadinaMushaf = false
+                                showDownloadedPdfMushaf = false
+                                showMaknoonWarshMushaf = false
+                            } else if (hasMaknoonWarshMushaf) {
+                                showMaknoonWarshMushaf = !showMaknoonWarshMushaf
+                                showWarshMushaf = false
+                                showHafsMadinaMushaf = false
+                                showDownloadedPdfMushaf = false
+                            } else if (hasDownloadedPdfMushaf) {
+                                showDownloadedPdfMushaf = !showDownloadedPdfMushaf
+                                showWarshMushaf = false
+                                showHafsMadinaMushaf = false
+                                showMaknoonWarshMushaf = false
                             } else {
                                 showHafsMadinaMushaf = !showHafsMadinaMushaf
                                 showWarshMushaf = false
+                                showDownloadedPdfMushaf = false
+                                showMaknoonWarshMushaf = false
                             }
                         },
                         modifier = Modifier
@@ -778,22 +1059,7 @@ fun ChapterReaderScreen(
                         wordByWordAyahs = wordByWordAyahs,
                         bookmarkedAyahs = bookmarkedAyahs,
                         selectedAyahKey = selectedWarshAyahKey,
-                        onLongPressAyah = { surahId, ayahNumber, ayahText, wordInfo ->
-                            selectedWarshAyahKey = surahId to ayahNumber
-                            val surahName = if (surahId == chapter.id) chapter.nameAr else dbHelper.getChapterName(surahId)
-                            selectedAyahAction = ReaderAyahAction(
-                                surahId = surahId,
-                                surahName = surahName,
-                                ayahNumber = ayahNumber,
-                                ayahText = ayahText,
-                                wordInfo = wordInfo,
-                                isBookmarked = if (surahId == chapter.id) {
-                                    bookmarkedAyahs.contains(ayahNumber)
-                                } else {
-                                    loadAyahBookmarks(context, surahId).contains(ayahNumber)
-                                }
-                            )
-                        },
+                        onSelectAyah = selectMushafAyah,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
@@ -810,22 +1076,40 @@ fun ChapterReaderScreen(
                         wordByWordAyahs = wordByWordAyahs,
                         bookmarkedAyahs = bookmarkedAyahs,
                         selectedAyahKey = selectedWarshAyahKey,
-                        onLongPressAyah = { surahId, ayahNumber, ayahText, wordInfo ->
-                            selectedWarshAyahKey = surahId to ayahNumber
-                            val surahName = if (surahId == chapter.id) chapter.nameAr else dbHelper.getChapterName(surahId)
-                            selectedAyahAction = ReaderAyahAction(
-                                surahId = surahId,
-                                surahName = surahName,
-                                ayahNumber = ayahNumber,
-                                ayahText = ayahText,
-                                wordInfo = wordInfo,
-                                isBookmarked = if (surahId == chapter.id) {
-                                    bookmarkedAyahs.contains(ayahNumber)
-                                } else {
-                                    loadAyahBookmarks(context, surahId).contains(ayahNumber)
-                                }
-                            )
-                        },
+                        onSelectAyah = selectMushafAyah,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+
+            if (hasDownloadedPdfMushaf && showDownloadedPdfMushaf && downloadedMushafPdf != null) {
+                val pages = downloadedPdfPagesForSurah(
+                    mushafMode = mushafMode,
+                    pageCount = downloadedMushafPageCount,
+                    fallbackPages = if (mushafMode == "warsh_madina") warshPageNumbers else hafsMadinaPageNumbers
+                )
+                items(pages) { page ->
+                    DownloadedPdfMushafPage(
+                        pdfFile = downloadedMushafPdf,
+                        pageNumber = page,
+                        mushafMode = mushafMode,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+
+            if (hasMaknoonWarshMushaf && showMaknoonWarshMushaf) {
+                val pages = downloadedMaknoonPagesForSurah(hafsMadinaPageNumbers)
+                items(pages) { page ->
+                    MaknoonWarshMushafPage(
+                        pageNumber = page,
+                        pageFile = downloadedMushafPageFile(context, mushafMode, page),
+                        dbHelper = dbHelper,
+                        currentChapterId = chapter.id,
+                        ayahs = ayahs,
+                        bookmarkedAyahs = bookmarkedAyahs,
+                        selectedAyahKey = selectedWarshAyahKey,
+                        onSelectAyah = selectMushafAyah,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
@@ -858,12 +1142,18 @@ fun ChapterReaderScreen(
             }
 
             if (!hideAyahText) {
-                items(ayahs) { (number, text) ->
+                items(ayahs, key = { it.first }) { (number, text) ->
                     val wordByWordAyah = wordByWordAyahs.firstOrNull { it.ayah == number }
                     AyahItem(
                         number = number,
                         text = text,
+                        arabicFontSize = arabicFontSize,
+                        isSelected = selectedTextAyah == number,
                         isBookmarked = bookmarkedAyahs.contains(number),
+                        onClick = {
+                            selectedTextAyah = number
+                            saveLastReadAyah(context, chapter.id, number)
+                        },
                         onBookmarkClick = {
                             val updated = bookmarkedAyahs.toggle(number)
                             bookmarkedAyahs = updated
@@ -874,6 +1164,8 @@ fun ChapterReaderScreen(
                             if (wordByWordAyah != null) selectedAyahInfo = wordByWordAyah
                         },
                         onLongPress = {
+                            selectedTextAyah = number
+                            saveLastReadAyah(context, chapter.id, number)
                             selectedAyahAction = ReaderAyahAction(
                                 surahId = chapter.id,
                                 surahName = chapter.nameAr,
@@ -910,8 +1202,34 @@ fun ChapterReaderScreen(
                     onDismissRequest = { readerMenuOpen = false }
                 ) {
                     DropdownMenuItem(
+                        text = { Text("Tekst lezen") },
+                        onClick = {
+                            showWarshMushaf = false
+                            showHafsMadinaMushaf = false
+                            showDownloadedPdfMushaf = false
+                            showMaknoonWarshMushaf = false
+                            showWordByWord = false
+                            readerMenuOpen = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Lettergrootte: ${arabicFontSize}sp") },
+                        leadingIcon = { Icon(Icons.Default.FormatSize, contentDescription = null) },
+                        onClick = {
+                            arabicFontSize = (arabicFontSize + 2).coerceAtMost(36)
+                            saveReaderArabicFontSize(context, arabicFontSize)
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Lettergrootte kleiner") },
+                        onClick = {
+                            arabicFontSize = (arabicFontSize - 2).coerceAtLeast(20)
+                            saveReaderArabicFontSize(context, arabicFontSize)
+                        }
+                    )
+                    DropdownMenuItem(
                         text = { Text("Terug naar soewar") },
-                        leadingIcon = { Icon(Icons.Default.ArrowBack, contentDescription = null) },
+                        leadingIcon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null) },
                         onClick = {
                             readerMenuOpen = false
                             onBack()
@@ -933,21 +1251,14 @@ fun ChapterReaderScreen(
                                 if (showSurahCard) {
                                     showWarshMushaf = false
                                     showHafsMadinaMushaf = false
+                                    showDownloadedPdfMushaf = false
+                                    showMaknoonWarshMushaf = false
                                     showWordByWord = false
                                 }
                                 readerMenuOpen = false
                             }
                         )
                     }
-                    DropdownMenuItem(
-                        text = { Text("Tekstweergave tonen") },
-                        onClick = {
-                            showWarshMushaf = false
-                            showHafsMadinaMushaf = false
-                            showWordByWord = false
-                            readerMenuOpen = false
-                        }
-                    )
                     if (hasWordByWord) {
                         DropdownMenuItem(
                             text = { Text("Woord voor woord tonen") },
@@ -955,6 +1266,8 @@ fun ChapterReaderScreen(
                                 showWordByWord = true
                                 showWarshMushaf = false
                                 showHafsMadinaMushaf = false
+                                showDownloadedPdfMushaf = false
+                                showMaknoonWarshMushaf = false
                                 readerMenuOpen = false
                             }
                         )
@@ -982,8 +1295,34 @@ fun ChapterReaderScreen(
                     onDismissRequest = { readerMenuOpen = false }
                 ) {
                     DropdownMenuItem(
+                        text = { Text("Tekst lezen") },
+                        onClick = {
+                            showWarshMushaf = false
+                            showHafsMadinaMushaf = false
+                            showDownloadedPdfMushaf = false
+                            showMaknoonWarshMushaf = false
+                            showWordByWord = false
+                            readerMenuOpen = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Lettergrootte: ${arabicFontSize}sp") },
+                        leadingIcon = { Icon(Icons.Default.FormatSize, contentDescription = null) },
+                        onClick = {
+                            arabicFontSize = (arabicFontSize + 2).coerceAtMost(36)
+                            saveReaderArabicFontSize(context, arabicFontSize)
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Lettergrootte kleiner") },
+                        onClick = {
+                            arabicFontSize = (arabicFontSize - 2).coerceAtLeast(20)
+                            saveReaderArabicFontSize(context, arabicFontSize)
+                        }
+                    )
+                    DropdownMenuItem(
                         text = { Text("Terug naar soewar") },
-                        leadingIcon = { Icon(Icons.Default.ArrowBack, contentDescription = null) },
+                        leadingIcon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null) },
                         onClick = {
                             readerMenuOpen = false
                             onBack()
@@ -1005,18 +1344,9 @@ fun ChapterReaderScreen(
                                 if (showSurahCard) {
                                     showWarshMushaf = false
                                     showHafsMadinaMushaf = false
+                                    showDownloadedPdfMushaf = false
                                     showWordByWord = false
                                 }
-                                readerMenuOpen = false
-                            }
-                        )
-                    }
-                    if (hasWarshMushaf) {
-                        DropdownMenuItem(
-                            text = { Text("Warsh mushaf tonen") },
-                            onClick = {
-                                showWarshMushaf = true
-                                showWordByWord = false
                                 readerMenuOpen = false
                             }
                         )
@@ -1027,6 +1357,34 @@ fun ChapterReaderScreen(
                             onClick = {
                                 showHafsMadinaMushaf = true
                                 showWarshMushaf = false
+                                showDownloadedPdfMushaf = false
+                                showMaknoonWarshMushaf = false
+                                showWordByWord = false
+                                readerMenuOpen = false
+                            }
+                        )
+                    }
+                    if (hasDownloadedPdfMushaf) {
+                        DropdownMenuItem(
+                            text = { Text("${mushafDisplayName(mushafMode)} tonen") },
+                            onClick = {
+                                showDownloadedPdfMushaf = true
+                                showWarshMushaf = false
+                                showHafsMadinaMushaf = false
+                                showMaknoonWarshMushaf = false
+                                showWordByWord = false
+                                readerMenuOpen = false
+                            }
+                        )
+                    }
+                    if (hasMaknoonWarshMushaf) {
+                        DropdownMenuItem(
+                            text = { Text("Warsh - Maknoon tonen") },
+                            onClick = {
+                                showMaknoonWarshMushaf = true
+                                showWarshMushaf = false
+                                showHafsMadinaMushaf = false
+                                showDownloadedPdfMushaf = false
                                 showWordByWord = false
                                 readerMenuOpen = false
                             }
@@ -1034,13 +1392,13 @@ fun ChapterReaderScreen(
                     }
                     if (hasWordByWord) {
                         DropdownMenuItem(
-                            text = { Text(if (showWordByWord) "Tekstweergave tonen" else "Woord voor woord tonen") },
+                            text = { Text("Woord voor woord tonen") },
                             onClick = {
-                                showWordByWord = !showWordByWord
-                                if (showWordByWord) {
-                                    showWarshMushaf = false
-                                    showHafsMadinaMushaf = false
-                                }
+                                showWordByWord = true
+                                showWarshMushaf = false
+                                showHafsMadinaMushaf = false
+                                showDownloadedPdfMushaf = false
+                                showMaknoonWarshMushaf = false
                                 readerMenuOpen = false
                             }
                         )
@@ -1049,71 +1407,44 @@ fun ChapterReaderScreen(
             }
         }
 
-        if (audioOptions.isNotEmpty() && showMushafImage) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 14.dp, vertical = ReaderOverlayStyle.audioPadding),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                if (warshAudioBarVisible) {
-                    TransparentWarshAudioBar(
-                        isPlaying = isPlayingAudio,
-                        isPreparing = isPreparingAudio,
-                        positionMs = audioPositionMs,
-                        durationMs = audioDurationMs,
-                        playbackSpeed = playbackSpeed,
-                        onInteraction = {
-                            warshAudioBarTouchTick++
-                            warshAudioBarVisible = true
-                        },
-                        onSpeedChange = {
-                            playbackSpeed = it
-                            warshAudioBarTouchTick++
-                        },
-                        onPlayStop = {
-                            warshAudioBarTouchTick++
-                            if (isPlayingAudio || isPreparingAudio) stopAudio() else playAudio()
-                        },
-                        onSeek = { position ->
-                            warshAudioBarTouchTick++
-                            runCatching {
-                                mediaPlayer.seekTo(position)
-                                audioPositionMs = position
-                            }
-                        },
-                        onSkip = { delta ->
-                            warshAudioBarTouchTick++
-                            val safeDuration = audioDurationMs.takeIf { it > 0 } ?: Int.MAX_VALUE
-                            val newPosition = (audioPositionMs + delta).coerceIn(0, safeDuration)
-                            runCatching {
-                                mediaPlayer.seekTo(newPosition)
-                                audioPositionMs = newPosition
-                            }
-                        }
-                    )
-                } else {
-                    SmallFloatingActionButton(
-                        onClick = {
-                            warshAudioBarVisible = true
-                            warshAudioBarTouchTick++
-                        },
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .size(ReaderOverlayStyle.audioButton)
-                            .border(1.dp, Gold.copy(alpha = 0.32f), RoundedCornerShape(ReaderOverlayStyle.roundButton)),
-                        containerColor = DeepNavy.copy(alpha = 0.34f),
-                        contentColor = GoldLight
-                    ) {
-                        Icon(
-                            imageVector = if (isPlayingAudio || isPreparingAudio) Icons.Default.Stop else Icons.Default.PlayArrow,
-                            contentDescription = "Audio balk tonen",
-                            modifier = Modifier.size(22.dp)
-                        )
-                    }
-                }
+        selectedAyahAction?.let { action ->
+            val toolbarTop = with(density) {
+                val selectedY = selectedAyahToolbarY ?: (configuration.screenHeightDp.dp.toPx() * 0.58f)
+                (selectedY + 8.dp.toPx())
+                    .toDp()
+                    .coerceIn(72.dp, (configuration.screenHeightDp.dp - 150.dp).coerceAtLeast(72.dp))
             }
-        } else if (audioOptions.isNotEmpty()) {
+            AyahSelectionToolbar(
+                action = action,
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .offset(y = toolbarTop),
+                onCopy = copySelectedAyah,
+                onBookmark = toggleSelectedAyahBookmark,
+                onShare = shareSelectedAyah,
+                onNotes = {
+                    selectedAyahAction = null
+                    onOpenNotes(action.surahId, action.ayahNumber)
+                },
+                onWords = {
+                    action.wordInfo?.let { info ->
+                        selectedAyahInfo = info
+                        selectedAyahAction = null
+                    }
+                },
+                onRepeat = {
+                    selectedAyahAction = null
+                    audioPlayer.seekTo(0)
+                    playAudio()
+                },
+                onPlay = {
+                    selectedAyahAction = null
+                    playAudio()
+                }
+            )
+        }
+
+        if (audioOptions.isNotEmpty() && (!audioPlayer.isVisible || !isCurrentAudio)) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -1121,18 +1452,16 @@ fun ChapterReaderScreen(
                 contentAlignment = Alignment.BottomEnd
             ) {
                 SmallFloatingActionButton(
-                    onClick = {
-                        if (isPlayingAudio || isPreparingAudio) stopAudio() else playAudio()
-                    },
+                    onClick = playAudio,
                     modifier = Modifier
                         .size(ReaderOverlayStyle.audioButton)
                         .border(1.dp, Gold.copy(alpha = 0.5f), RoundedCornerShape(ReaderOverlayStyle.roundButton)),
-                    containerColor = (if (isPlayingAudio || isPreparingAudio) DeleteRed else DeepNavy).copy(alpha = ReaderOverlayStyle.audioAlpha),
+                    containerColor = DeepNavy.copy(alpha = ReaderOverlayStyle.audioAlpha),
                     contentColor = GoldLight
                 ) {
                     Icon(
-                        imageVector = if (isPlayingAudio || isPreparingAudio) Icons.Default.Stop else Icons.Default.PlayArrow,
-                        contentDescription = if (isPlayingAudio || isPreparingAudio) "Stop audio" else "Speel audio af",
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = "Speel ${ALL_SURAHS.firstOrNull { it.id == chapter.id }?.name ?: "soera ${chapter.id}"} af",
                         modifier = Modifier.size(22.dp)
                     )
                 }
@@ -1175,7 +1504,7 @@ fun TransparentWarshAudioBar(
 ) {
     var speedMenuOpen by remember { mutableStateOf(false) }
     val speedOptions = remember {
-        (5..20).map { it / 10f }
+        listOf(0.75f, 1f, 1.25f, 1.5f, 2f)
     }
 
     Row(
@@ -1191,7 +1520,7 @@ fun TransparentWarshAudioBar(
     ) {
         Box(
             modifier = Modifier
-                .size(38.dp)
+                .size(AppComponentDefaults.minTouchTarget)
                 .clip(RoundedCornerShape(ReaderOverlayStyle.roundButton))
                 .background((if (isPlaying || isPreparing) DeleteRed else Gold).copy(alpha = 0.58f))
                 .clickable(onClick = onPlayStop),
@@ -1269,7 +1598,7 @@ fun TransparentWarshAudioBar(
 fun AudioSkipButton(label: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
-            .size(width = 38.dp, height = 32.dp)
+            .size(AppComponentDefaults.minTouchTarget)
             .clip(RoundedCornerShape(AppShape.control))
             .background(DeepNavy.copy(alpha = 0.28f))
             .border(1.dp, Gold.copy(alpha = 0.20f), RoundedCornerShape(AppShape.control))
@@ -1780,6 +2109,25 @@ fun loadWordByWordAyahs(context: Context, surahId: Int): List<WordByWordAyah> {
     }
 }
 
+fun loadWordInfoByKey(
+    context: Context,
+    surahIds: List<Int>,
+    currentSurahId: Int? = null,
+    currentSurahAyahs: List<WordByWordAyah> = emptyList()
+): Map<Pair<Int, Int>, WordByWordAyah> =
+    buildMap {
+        surahIds.forEach { surahId ->
+            val ayahs = if (surahId == currentSurahId && currentSurahAyahs.isNotEmpty()) {
+                currentSurahAyahs
+            } else {
+                loadWordByWordAyahs(context, surahId)
+            }
+            ayahs.forEach { ayah ->
+                put(surahId to ayah.ayah, ayah)
+            }
+        }
+    }
+
 fun loadSurahAudioOptions(context: Context, surahId: Int): List<SurahAudioOption> {
     return try {
         val json = context.assets.open("audio_surah_$surahId.json")
@@ -1901,6 +2249,33 @@ fun saveWarshPageBookmarks(context: Context, surahId: Int, bookmarks: Set<Int>) 
         .apply()
 }
 
+fun loadLastReadAyah(context: Context, surahId: Int): Int? {
+    val value = context
+        .getSharedPreferences("reader_state", Context.MODE_PRIVATE)
+        .getInt("last_read_ayah_$surahId", 0)
+    return value.takeIf { it > 0 }
+}
+
+fun saveLastReadAyah(context: Context, surahId: Int, ayahNumber: Int) {
+    context.getSharedPreferences("reader_state", Context.MODE_PRIVATE)
+        .edit()
+        .putInt("last_read_surah", surahId)
+        .putInt("last_read_ayah_$surahId", ayahNumber)
+        .apply()
+}
+
+fun loadReaderArabicFontSize(context: Context): Int =
+    context.getSharedPreferences("reader_state", Context.MODE_PRIVATE)
+        .getInt("arabic_font_size", 26)
+        .coerceIn(20, 36)
+
+fun saveReaderArabicFontSize(context: Context, fontSize: Int) {
+    context.getSharedPreferences("reader_state", Context.MODE_PRIVATE)
+        .edit()
+        .putInt("arabic_font_size", fontSize.coerceIn(20, 36))
+        .apply()
+}
+
 fun Set<Int>.toggle(value: Int): Set<Int> {
     return if (contains(value)) this - value else this + value
 }
@@ -1962,6 +2337,355 @@ fun ensureHafsAyahInfoDatabase(context: Context): File {
     return target
 }
 
+fun downloadedPdfPagesForSurah(
+    mushafMode: String,
+    pageCount: Int,
+    fallbackPages: IntRange
+): List<Int> {
+    if (pageCount <= 0) return emptyList()
+    if (mushafMode == "hafs_indopak_15") return (1..pageCount).toList()
+    val startPage = fallbackPages.first.takeIf { it in 1..pageCount } ?: 1
+    return (startPage..pageCount).toList()
+}
+
+fun downloadedMaknoonPagesForSurah(fallbackPages: IntRange): List<Int> =
+    (fallbackPages.first..604).toList()
+
+fun File.pdfPageCount(): Int {
+    if (!exists() || length() <= 0L) return 0
+    return ParcelFileDescriptor.open(this, ParcelFileDescriptor.MODE_READ_ONLY).use { descriptor ->
+        PdfRenderer(descriptor).use { renderer ->
+            renderer.pageCount
+        }
+    }
+}
+
+data class PdfCropProfile(
+    val left: Float,
+    val top: Float,
+    val right: Float,
+    val bottom: Float
+)
+
+private val mushafBitmapCache = object : LruCache<String, Bitmap>(24 * 1024) {
+    override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount / 1024
+}
+
+fun pdfCropProfileForMushaf(mushafMode: String, pageNumber: Int): PdfCropProfile =
+    when (mushafMode) {
+        "warsh_quran_world" -> {
+            val sideShift = 0.035f
+            val baseSide = 0.115f
+            val isOddPage = pageNumber % 2 == 1
+            PdfCropProfile(
+                left = if (isOddPage) baseSide - sideShift else baseSide + sideShift,
+                top = 0.085f,
+                right = if (isOddPage) baseSide + sideShift else baseSide - sideShift,
+                bottom = 0.095f
+            )
+        }
+        else -> PdfCropProfile(
+            left = 0.055f,
+            top = 0.045f,
+            right = 0.055f,
+            bottom = 0.055f
+        )
+    }
+
+fun renderPdfPage(
+    pdfFile: File,
+    pageNumber: Int,
+    cropProfile: PdfCropProfile,
+    targetWidth: Int = 1440
+): Bitmap? {
+    if (!pdfFile.exists() || pdfFile.length() <= 0L || pageNumber <= 0) return null
+    return ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY).use { descriptor ->
+        PdfRenderer(descriptor).use { renderer ->
+            if (pageNumber > renderer.pageCount) return@use null
+            renderer.openPage(pageNumber - 1).use { page ->
+                val cropLeft = page.width * cropProfile.left
+                val cropTop = page.height * cropProfile.top
+                val cropWidth = page.width * (1f - cropProfile.left - cropProfile.right)
+                val cropHeight = page.height * (1f - cropProfile.top - cropProfile.bottom)
+                val scale = targetWidth.toFloat() / cropWidth
+                val targetHeight = (cropHeight * scale).toInt().coerceAtLeast(1)
+                val matrix = Matrix().apply {
+                    setScale(scale, scale)
+                    postTranslate(-cropLeft * scale, -cropTop * scale)
+                }
+                Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.ARGB_8888).also { bitmap ->
+                    bitmap.eraseColor(android.graphics.Color.WHITE)
+                    page.render(bitmap, null, matrix, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                }
+            }
+        }
+    }
+}
+
+fun hafsSurahStartScrollFraction(
+    positions: List<HafsAyahPosition>,
+    surahId: Int?
+): Float {
+    if (surahId == null) return 0f
+    val firstTop = positions
+        .filter { it.surahId == surahId }
+        .minOfOrNull { it.top } ?: return 0f
+    return (firstTop - 0.14f).coerceIn(0f, 0.62f)
+}
+
+fun warshSurahStartScrollFraction(
+    positions: List<WarshAyahPosition>,
+    surahId: Int?
+): Float {
+    if (surahId == null) return 0f
+    val firstLine = positions
+        .filter { it.surahId == surahId }
+        .minOfOrNull { it.line } ?: return 0f
+    return ((firstLine / 15f) - 0.10f).coerceIn(0f, 0.62f)
+}
+
+data class MushafAyahTarget(
+    val page: Int,
+    val scrollFraction: Float
+)
+
+fun findHafsAyahMushafTarget(
+    context: Context,
+    surahId: Int,
+    ayahNumber: Int,
+    pages: List<Int>
+): MushafAyahTarget? {
+    for (page in pages) {
+        val position = loadHafsMadinaPagePositions(context, page)
+            .filter { it.surahId == surahId && it.ayahNumber == ayahNumber }
+            .minByOrNull { it.top }
+        if (position != null) {
+            return MushafAyahTarget(
+                page = page,
+                scrollFraction = (position.top - 0.14f).coerceIn(0f, 0.62f)
+            )
+        }
+    }
+    return null
+}
+
+fun findWarshAyahMushafTarget(
+    context: Context,
+    surahId: Int,
+    ayahNumber: Int,
+    pages: List<Int>
+): MushafAyahTarget? {
+    for (page in pages) {
+        val position = loadWarshPagePositions(context, page)
+            .filter { it.surahId == surahId && it.ayahNumber == ayahNumber }
+            .minByOrNull { it.line }
+        if (position != null) {
+            return MushafAyahTarget(
+                page = page,
+                scrollFraction = ((position.line / 15f) - 0.10f).coerceIn(0f, 0.62f)
+            )
+        }
+    }
+    return null
+}
+
+@Composable
+fun DownloadedPdfMushafPage(
+    pdfFile: File,
+    pageNumber: Int,
+    mushafMode: String,
+    modifier: Modifier = Modifier
+) {
+    val cropProfile = remember(mushafMode, pageNumber) { pdfCropProfileForMushaf(mushafMode, pageNumber) }
+    val pageAspectRatio = remember(cropProfile) {
+        val baseRatio = ReaderInfoStyle.hafsMadinaPageRatio
+        val vertical = 1f - cropProfile.top - cropProfile.bottom
+        val horizontal = 1f - cropProfile.left - cropProfile.right
+        baseRatio * (vertical / horizontal)
+    }
+    val cacheKey = remember(pdfFile, pageNumber, cropProfile) {
+        "pdf:${pdfFile.absolutePath}:${pdfFile.lastModified()}:$pageNumber:$cropProfile"
+    }
+    val rendered by produceState<Bitmap?>(initialValue = mushafBitmapCache.get(cacheKey), cacheKey) {
+        if (value == null) {
+            value = withContext(Dispatchers.IO) {
+                renderPdfPage(pdfFile, pageNumber, cropProfile)?.also { mushafBitmapCache.put(cacheKey, it) }
+            }
+        }
+    }
+
+    Box(
+        modifier = modifier
+            .background(Color.White)
+            .fillMaxWidth()
+            .aspectRatio(1f / pageAspectRatio),
+        contentAlignment = Alignment.Center
+    ) {
+        if (rendered == null) {
+            CircularProgressIndicator(
+                color = Gold,
+                modifier = Modifier.padding(48.dp)
+            )
+        } else {
+            Image(
+                bitmap = rendered!!.asImageBitmap(),
+                contentDescription = "Gedownloade mushaf pagina $pageNumber",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier.matchParentSize()
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun MaknoonWarshMushafPage(
+    pageNumber: Int,
+    pageFile: File,
+    dbHelper: QuranDatabaseHelper,
+    currentChapterId: Int,
+    ayahs: List<Pair<Int, String>>,
+    bookmarkedAyahs: Set<Int>,
+    selectedAyahKey: Pair<Int, Int>?,
+    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+    val cacheKey = remember(pageFile) {
+        "maknoon:${pageFile.absolutePath}:${pageFile.lastModified()}"
+    }
+    val rendered by produceState<Bitmap?>(initialValue = mushafBitmapCache.get(cacheKey), cacheKey) {
+        if (value == null) {
+            value = withContext(Dispatchers.IO) {
+                renderMaknoonPage(pageFile)?.also { mushafBitmapCache.put(cacheKey, it) }
+            }
+        }
+    }
+    val positions = remember(pageNumber) { loadHafsMadinaPagePositions(context, pageNumber) }
+    val ayahTextByNumber = remember(ayahs) { ayahs.toMap() }
+    val wordInfoByKey = remember(positions) { loadWordInfoByKey(context, positions.map { it.surahId }.distinct()) }
+    val pageCropZoom = if (pageFile.extension.equals("png", ignoreCase = true)) {
+        MAKNOON_HAFS_PAGE_CROP_ZOOM
+    } else {
+        1f
+    }
+
+    BoxWithConstraints(
+        modifier = modifier
+            .background(Color.White)
+            .fillMaxWidth()
+            .clipToBounds()
+            .aspectRatio(MAKNOON_WARSH_PAGE_WIDTH / MAKNOON_WARSH_PAGE_HEIGHT),
+        contentAlignment = Alignment.Center
+    ) {
+        if (rendered == null) {
+            CircularProgressIndicator(
+                color = Gold,
+                modifier = Modifier.padding(48.dp)
+            )
+        } else {
+            Image(
+                bitmap = rendered!!.asImageBitmap(),
+                contentDescription = "Warsh Maknoon pagina $pageNumber",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .matchParentSize()
+                    .graphicsLayer(
+                        scaleX = pageCropZoom,
+                        scaleY = pageCropZoom
+                    )
+            )
+        }
+
+        val pageHeight = maxWidth * (MAKNOON_WARSH_PAGE_HEIGHT / MAKNOON_WARSH_PAGE_WIDTH)
+        val cropInsetX = maxWidth * (pageCropZoom - 1f) / 2f
+        val cropInsetY = pageHeight * (pageCropZoom - 1f) / 2f
+
+        positions.forEach { position ->
+            val ayahText = if (position.surahId == currentChapterId) {
+                ayahTextByNumber[position.ayahNumber].orEmpty()
+            } else {
+                ""
+            }.ifBlank { dbHelper.getAyahText(position.surahId, position.ayahNumber) }
+            val wordInfo = wordInfoByKey[position.surahId to position.ayahNumber]
+            val isSelected = selectedAyahKey == (position.surahId to position.ayahNumber)
+            var ayahBounds by remember(position.surahId, position.ayahNumber, position.top) { mutableStateOf<Rect?>(null) }
+            Box(
+                modifier = Modifier
+                    .offset(
+                        x = (maxWidth * position.left * pageCropZoom) - cropInsetX,
+                        y = (pageHeight * position.top * pageCropZoom) - cropInsetY
+                    )
+                    .width(maxWidth * position.width * pageCropZoom)
+                    .height(pageHeight * position.height * pageCropZoom)
+                    .onGloballyPositioned { coordinates ->
+                        ayahBounds = coordinates.boundsInRoot()
+                    }
+                    .combinedClickable(
+                        onClick = {
+                            onSelectAyah(0, 0, "", null, null)
+                        },
+                        onLongClick = {
+                            onSelectAyah(
+                                position.surahId,
+                                position.ayahNumber,
+                                ayahText,
+                                wordInfo,
+                                ayahBounds?.bottom
+                            )
+                        }
+                    )
+            )
+        }
+    }
+}
+
+private const val MAKNOON_WARSH_PAGE_WIDTH = 346.35f
+private const val MAKNOON_WARSH_PAGE_HEIGHT = 468.71f
+private const val MAKNOON_HAFS_PAGE_CROP_ZOOM = 1.15f
+private const val MAKNOON_WARSH_PAGE_ZOOM = 1.12f
+
+fun renderMaknoonPage(file: File, targetWidth: Int = 1440): Bitmap? {
+    if (file.extension.equals("png", ignoreCase = true)) {
+        return BitmapFactory.decodeFile(file.absolutePath)
+    }
+    return renderMaknoonSvgPage(file, targetWidth)
+}
+
+fun renderMaknoonSvgPage(file: File, targetWidth: Int = 1440): Bitmap? =
+    runCatching {
+        val svgText = readSvgzText(file) ?: return@runCatching null
+        val svgStart = svgText.indexOf("<svg")
+        val cleanSvg = if (svgStart >= 0) svgText.substring(svgStart) else svgText
+        val svg = SVG.getFromString(cleanSvg)
+        val targetHeight = (targetWidth * (MAKNOON_WARSH_PAGE_HEIGHT / MAKNOON_WARSH_PAGE_WIDTH)).toInt()
+        val bitmap = Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.ARGB_8888)
+        bitmap.eraseColor(android.graphics.Color.WHITE)
+        svg.documentWidth = targetWidth.toFloat()
+        svg.documentHeight = targetHeight.toFloat()
+        val canvas = Canvas(bitmap)
+        canvas.scale(
+            MAKNOON_WARSH_PAGE_ZOOM,
+            MAKNOON_WARSH_PAGE_ZOOM,
+            targetWidth / 2f,
+            targetHeight / 2f
+        )
+        svg.renderToCanvas(canvas)
+        bitmap
+    }.getOrNull()
+
+fun readSvgzText(file: File): String? =
+    runCatching {
+        val bytes = file.readBytes()
+        if (bytes.size >= 2 && bytes[0] == 0x1f.toByte() && bytes[1] == 0x8b.toByte()) {
+            GZIPInputStream(bytes.inputStream()).use { input ->
+                input.readBytes().decodeToString()
+            }
+        } else {
+            bytes.decodeToString()
+        }
+    }.getOrNull()
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HafsMadinaMushafPage(
@@ -1973,13 +2697,15 @@ fun HafsMadinaMushafPage(
     wordByWordAyahs: List<WordByWordAyah>,
     bookmarkedAyahs: Set<Int>,
     selectedAyahKey: Pair<Int, Int>?,
-    onLongPressAyah: (Int, Int, String, WordByWordAyah?) -> Unit,
+    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val positions = remember(page) { loadHafsMadinaPagePositions(context, page) }
     val ayahTextByNumber = remember(ayahs) { ayahs.toMap() }
-    val wordInfoByNumber = remember(wordByWordAyahs) { wordByWordAyahs.associateBy { it.ayah } }
+    val wordInfoByKey = remember(positions, wordByWordAyahs) {
+        loadWordInfoByKey(context, positions.map { it.surahId }.distinct(), currentChapterId, wordByWordAyahs)
+    }
 
     BoxWithConstraints(
         modifier = modifier
@@ -1999,11 +2725,9 @@ fun HafsMadinaMushafPage(
             } else {
                 ""
             }.ifBlank { dbHelper.getAyahText(position.surahId, position.ayahNumber) }
-            val wordInfo = if (position.surahId == currentChapterId) {
-                wordInfoByNumber[position.ayahNumber]
-            } else null
-            val isBookmarked = position.surahId == currentChapterId && bookmarkedAyahs.contains(position.ayahNumber)
+            val wordInfo = wordInfoByKey[position.surahId to position.ayahNumber]
             val isSelected = selectedAyahKey == (position.surahId to position.ayahNumber)
+            var ayahBounds by remember(position.surahId, position.ayahNumber, position.top) { mutableStateOf<Rect?>(null) }
             Box(
                 modifier = Modifier
                     .offset(
@@ -2012,23 +2736,22 @@ fun HafsMadinaMushafPage(
                     )
                     .width(maxWidth * position.width)
                     .height(maxWidth * ReaderInfoStyle.hafsMadinaPageRatio * position.height)
+                    .onGloballyPositioned { coordinates ->
+                        ayahBounds = coordinates.boundsInRoot()
+                    }
                     .combinedClickable(
-                        onClick = {},
+                        onClick = {
+                            onSelectAyah(0, 0, "", null, null)
+                        },
                         onLongClick = {
-                            onLongPressAyah(position.surahId, position.ayahNumber, ayahText, wordInfo)
+                            onSelectAyah(
+                                position.surahId,
+                                position.ayahNumber,
+                                ayahText,
+                                wordInfo,
+                                ayahBounds?.bottom
+                            )
                         }
-                    )
-                    .background(
-                        when {
-                            isSelected -> Gold.copy(alpha = ReaderInfoStyle.warshSelectedAlpha)
-                            isBookmarked -> DoneGreen.copy(alpha = ReaderInfoStyle.warshDebugHighlightAlpha)
-                            else -> Color.Transparent
-                        }
-                    )
-                    .border(
-                        width = if (isSelected) 1.dp else 0.dp,
-                        color = if (isSelected) Gold.copy(alpha = ReaderInfoStyle.warshSelectedBorderAlpha) else Color.Transparent,
-                        shape = RoundedCornerShape(AppShape.marker)
                     )
             )
         }
@@ -2046,13 +2769,15 @@ fun WarshMushafPage(
     wordByWordAyahs: List<WordByWordAyah>,
     bookmarkedAyahs: Set<Int>,
     selectedAyahKey: Pair<Int, Int>?,
-    onLongPressAyah: (Int, Int, String, WordByWordAyah?) -> Unit,
+    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val positions = remember(page) { loadWarshPagePositions(context, page) }
     val ayahTextByNumber = remember(ayahs) { ayahs.toMap() }
-    val wordInfoByNumber = remember(wordByWordAyahs) { wordByWordAyahs.associateBy { it.ayah } }
+    val wordInfoByKey = remember(positions, wordByWordAyahs) {
+        loadWordInfoByKey(context, positions.map { it.surahId }.distinct(), currentChapterId, wordByWordAyahs)
+    }
 
     BoxWithConstraints(
         modifier = modifier
@@ -2074,11 +2799,9 @@ fun WarshMushafPage(
             } else {
                 ""
             }.ifBlank { dbHelper.getAyahText(position.surahId, position.ayahNumber) }
-            val wordInfo = if (position.surahId == currentChapterId) {
-                wordInfoByNumber[position.ayahNumber]
-            } else null
-            val isBookmarked = position.surahId == currentChapterId && bookmarkedAyahs.contains(position.ayahNumber)
+            val wordInfo = wordInfoByKey[position.surahId to position.ayahNumber]
             val isSelected = selectedAyahKey == (position.surahId to position.ayahNumber)
+            var ayahBounds by remember(position.surahId, position.ayahNumber, position.line, position.rawLeft) { mutableStateOf<Rect?>(null) }
             Box(
                 modifier = Modifier
                     .offset(
@@ -2087,22 +2810,22 @@ fun WarshMushafPage(
                     )
                     .width(maxWidth * position.rawWidth)
                     .height(lineHeight)
+                    .onGloballyPositioned { coordinates ->
+                        ayahBounds = coordinates.boundsInRoot()
+                    }
                     .combinedClickable(
-                        onClick = {},
+                        onClick = {
+                            onSelectAyah(0, 0, "", null, null)
+                        },
                         onLongClick = {
-                            onLongPressAyah(position.surahId, position.ayahNumber, ayahText, wordInfo)
+                            onSelectAyah(
+                                position.surahId,
+                                position.ayahNumber,
+                                ayahText,
+                                wordInfo,
+                                ayahBounds?.bottom
+                            )
                         }
-                    )
-                    .background(
-                        when {
-                            isSelected -> ReadBlue.copy(alpha = ReaderInfoStyle.warshSelectedAlpha)
-                            isBookmarked -> Gold.copy(alpha = ReaderInfoStyle.warshDebugHighlightAlpha)
-                            else -> Color.Transparent
-                        }
-                    )
-                    .border(
-                        width = if (isSelected) 1.dp else 0.dp,
-                        color = if (isSelected) ReadBlue.copy(alpha = ReaderInfoStyle.warshSelectedBorderAlpha) else Color.Transparent
                     )
             )
         }
@@ -2179,6 +2902,8 @@ fun WordByWordAyahCard(
 fun WordInfoDialog(
     word: QuranWord,
     ayah: WordByWordAyah,
+    canOpenWarsh: Boolean,
+    onOpenWarsh: () -> Unit,
     onDismiss: () -> Unit
 ) {
     AlertDialog(
@@ -2188,9 +2913,9 @@ fun WordInfoDialog(
         textContentColor = SoftTextGold,
         title = {
             Column(horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxWidth()) {
-                Text(word.arabic, fontSize = 26.sp, color = GoldLight, textAlign = TextAlign.End)
-                Text(word.translation, fontSize = 13.sp, color = SoftTextGold)
-                Text(word.transliteration, fontSize = 11.sp, color = MutedGold)
+                Text(word.arabic, fontSize = 30.sp, color = GoldLight, textAlign = TextAlign.End)
+                Text(word.translation, fontSize = 13.sp, color = SoftTextGold, textAlign = TextAlign.End)
+                Text(word.transliteration, fontSize = 11.sp, color = MutedGold, textAlign = TextAlign.End)
             }
         },
         text = {
@@ -2200,21 +2925,24 @@ fun WordInfoDialog(
                     .heightIn(max = 360.dp)
                     .verticalScroll(rememberScrollState())
             ) {
-                Text("I'rab ayah ${ayah.ayah}", fontSize = 13.sp, color = Gold, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    ayah.e3rab.ifBlank { "Geen i'rab gevonden voor deze ayah." },
-                    fontSize = 14.sp,
-                    color = SoftTextGold,
-                    lineHeight = 24.sp,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth()
+                ReaderInfoSectionTitle("I'rab ayah ${ayah.ayah}")
+                I3rabTextBox(
+                    text = ayah.e3rab.ifBlank { "Geen i'rab gevonden voor deze ayah." }
                 )
             }
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
                 Text("Sluiten", color = Gold)
+            }
+        },
+        dismissButton = {
+            if (canOpenWarsh) {
+                TextButton(onClick = onOpenWarsh) {
+                    Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = Gold, modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("Open in Warsh", color = Gold)
+                }
             }
         }
     )
@@ -2225,6 +2953,8 @@ fun WordInfoDialog(
 fun AyahInfoDialog(
     ayah: WordByWordAyah,
     onWordClick: (QuranWord) -> Unit,
+    canOpenWarsh: Boolean,
+    onOpenWarsh: () -> Unit,
     onDismiss: () -> Unit
 ) {
     AlertDialog(
@@ -2233,7 +2963,10 @@ fun AyahInfoDialog(
         titleContentColor = GoldLight,
         textContentColor = SoftTextGold,
         title = {
-            Text("Ayah ${ayah.ayah}", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            Column(horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxWidth()) {
+                Text("Ayah ${ayah.ayah}", fontSize = 19.sp, fontWeight = FontWeight.Bold, color = GoldLight)
+                Text("Woord voor woord en i'rab", fontSize = 11.sp, color = MutedGold)
+            }
         },
         text = {
             Column(
@@ -2242,7 +2975,7 @@ fun AyahInfoDialog(
                     .heightIn(max = ReaderInfoStyle.dialogMaxHeight)
                     .verticalScroll(rememberScrollState())
             ) {
-                Text("Woorden", fontSize = 13.sp, color = Gold, fontWeight = FontWeight.Bold)
+                ReaderInfoSectionTitle("Woorden")
                 Spacer(modifier = Modifier.height(8.dp))
                 FlowRow(
                     modifier = Modifier.fillMaxWidth(),
@@ -2255,7 +2988,7 @@ fun AyahInfoDialog(
                                 .widthIn(min = ReaderInfoStyle.wordChipMinWidth)
                                 .padding(start = 6.dp)
                                 .clip(RoundedCornerShape(AppShape.smallControl))
-                                .background(DeepNavy)
+                                .background(DeepNavy.copy(alpha = 0.86f))
                                 .border(1.dp, Gold.copy(alpha = 0.25f), RoundedCornerShape(AppShape.smallControl))
                                 .clickable { onWordClick(word) }
                                 .padding(horizontal = 9.dp, vertical = 7.dp),
@@ -2280,15 +3013,9 @@ fun AyahInfoDialog(
                 }
 
                 Spacer(modifier = Modifier.height(14.dp))
-                Text("I'rab", fontSize = 13.sp, color = Gold, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    ayah.e3rab.ifBlank { "Geen i'rab gevonden voor deze ayah." },
-                    fontSize = 14.sp,
-                    color = SoftTextGold,
-                    lineHeight = 24.sp,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth()
+                ReaderInfoSectionTitle("I'rab")
+                I3rabTextBox(
+                    text = ayah.e3rab.ifBlank { "Geen i'rab gevonden voor deze ayah." }
                 )
             }
         },
@@ -2296,8 +3023,139 @@ fun AyahInfoDialog(
             TextButton(onClick = onDismiss) {
                 Text("Sluiten", color = Gold)
             }
+        },
+        dismissButton = {
+            if (canOpenWarsh) {
+                TextButton(onClick = onOpenWarsh) {
+                    Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = Gold, modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("Open in Warsh", color = Gold)
+                }
+            }
         }
     )
+}
+
+@Composable
+fun ReaderInfoSectionTitle(text: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text, fontSize = 13.sp, color = Gold, fontWeight = FontWeight.Bold, textAlign = TextAlign.End)
+    }
+}
+
+@Composable
+fun I3rabTextBox(text: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp)
+            .clip(RoundedCornerShape(AppShape.control))
+            .background(DeepNavy.copy(alpha = 0.78f))
+            .border(1.dp, BorderNavy.copy(alpha = 0.72f), RoundedCornerShape(AppShape.control))
+            .padding(horizontal = 12.dp, vertical = 12.dp)
+    ) {
+        Text(
+            text,
+            fontSize = 14.sp,
+            color = SoftTextGold,
+            lineHeight = 24.sp,
+            textAlign = TextAlign.End,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun AyahSelectionToolbar(
+    action: ReaderAyahAction,
+    modifier: Modifier = Modifier,
+    onCopy: () -> Unit,
+    onBookmark: () -> Unit,
+    onShare: () -> Unit,
+    onNotes: () -> Unit,
+    onWords: () -> Unit,
+    onRepeat: () -> Unit,
+    onPlay: () -> Unit
+) {
+    Surface(
+        modifier = modifier,
+        color = AyahToolbarGreen.copy(alpha = 0.92f),
+        contentColor = Color.White,
+        shape = RoundedCornerShape(2.dp),
+        tonalElevation = 6.dp,
+        shadowElevation = 8.dp
+    ) {
+        Row(
+            modifier = Modifier
+                .height(54.dp)
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            SelectionToolbarButton(
+                icon = if (action.isBookmarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+                label = "Bladwijzer",
+                onClick = onBookmark
+            )
+            SelectionToolbarButton(
+                icon = Icons.Default.ContentCopy,
+                label = "Kopieer",
+                onClick = onCopy
+            )
+            SelectionToolbarButton(
+                icon = Icons.Default.Share,
+                label = "Delen",
+                onClick = onShare
+            )
+            SelectionToolbarButton(
+                icon = Icons.Default.EditNote,
+                label = "Notitie",
+                onClick = onNotes
+            )
+            SelectionToolbarButton(
+                icon = Icons.Default.Info,
+                label = "Woorden",
+                enabled = action.wordInfo != null,
+                onClick = onWords
+            )
+            SelectionToolbarButton(
+                icon = Icons.Default.Replay,
+                label = "Herhaal",
+                onClick = onRepeat
+            )
+            SelectionToolbarButton(
+                icon = Icons.Default.PlayArrow,
+                label = "Afspelen",
+                onClick = onPlay
+            )
+        }
+    }
+}
+
+@Composable
+fun SelectionToolbarButton(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    IconButton(
+        enabled = enabled,
+        onClick = onClick,
+        modifier = Modifier.size(AppComponentDefaults.minTouchTarget)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = if (enabled) Color.White else Color.White.copy(alpha = 0.35f),
+            modifier = Modifier.size(26.dp)
+        )
+    }
 }
 
 @Composable
@@ -2352,7 +3210,7 @@ fun AyahActionDialog(
                         modifier = Modifier.weight(1f)
                     )
                     AyahActionButton(
-                        label = "Tafsir",
+                        label = "Woorden",
                         icon = Icons.Default.Info,
                         enabled = action.wordInfo != null,
                         onClick = { onInfo(action) },
@@ -2365,8 +3223,8 @@ fun AyahActionDialog(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     AyahActionButton(
-                        label = "Kopieren",
-                        icon = Icons.Default.ContentCopy,
+                        label = "Tafsir",
+                        icon = Icons.AutoMirrored.Filled.MenuBook,
                         enabled = false,
                         onClick = {},
                         modifier = Modifier.weight(1f)
@@ -2444,7 +3302,10 @@ fun BookmarkIconButton(
 fun AyahItem(
     number: Int,
     text: String,
+    arabicFontSize: Int,
+    isSelected: Boolean = false,
     isBookmarked: Boolean = false,
+    onClick: () -> Unit = {},
     onBookmarkClick: () -> Unit = {},
     hasAyahInfo: Boolean = false,
     onInfoClick: () -> Unit = {},
@@ -2455,13 +3316,17 @@ fun AyahItem(
             .fillMaxWidth()
             .padding(bottom = AppSpacing.list)
             .clip(RoundedCornerShape(AppShape.tile))
-            .background(MidNavy)
-            .border(1.dp, BorderNavy, RoundedCornerShape(AppShape.tile))
+            .background(if (isSelected) TodayFocusSurface else MidNavy)
+            .border(
+                width = if (isSelected) AppBorder.selected else AppBorder.thin,
+                color = if (isSelected) TodayFocusBorder else BorderNavy,
+                shape = RoundedCornerShape(AppShape.tile)
+            )
             .combinedClickable(
-                onClick = {},
+                onClick = onClick,
                 onLongClick = onLongPress
             )
-            .padding(AppSpacing.compactCard)
+            .padding(horizontal = AppSpacing.card, vertical = AppSpacing.xxl)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -2507,10 +3372,10 @@ fun AyahItem(
 
         Text(
             text = text,
-            fontSize = 20.sp,
-            color = SoftTextGold,
+            fontSize = arabicFontSize.coerceIn(20, 36).sp,
+            color = GoldLight,
             textAlign = TextAlign.End,
-            lineHeight = 36.sp,
+            lineHeight = (arabicFontSize.coerceIn(20, 36) + 16).sp,
             modifier = Modifier.fillMaxWidth()
         )
     }

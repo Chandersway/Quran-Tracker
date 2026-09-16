@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -145,6 +146,17 @@ var HifzScoreBorders = listOf(
 
 // Afstanden die meerdere schermen delen.
 object AppSpacing {
+    val none = 0.dp
+    val xxs = 2.dp
+    val xs = 4.dp
+    val sm = 6.dp
+    val md = 8.dp
+    val lg = 10.dp
+    val xl = 12.dp
+    val xxl = 14.dp
+    val xxxl = 16.dp
+    val section = 20.dp
+    val pageBottom = 80.dp
     val screen = 16.dp
     val list = 12.dp
     val card = 16.dp
@@ -155,6 +167,14 @@ object AppSpacing {
 
 // Hoeken/vormen die meerdere schermen delen.
 object AppShape {
+    val none = 0.dp
+    val xxs = 1.dp
+    val xs = 3.dp
+    val sm = 4.dp
+    val md = 8.dp
+    val lg = 14.dp
+    val xl = 20.dp
+    val full = 50.dp
     val largeCard = 14.dp
     val card = 14.dp
     val compactCard = 14.dp
@@ -167,26 +187,123 @@ object AppShape {
     val pill = 50.dp
 }
 
+// Stroke-diktes die overal hetzelfde blijven.
+object AppBorder {
+    val hairline = 0.5.dp
+    val thin = 1.dp
+    val selected = 2.dp
+    val strong = 3.dp
+}
+
+// Elevation en schaduwen. Houd de app rustig: veel schermen gebruiken vlakke cards.
+object AppElevation {
+    val none = 0.dp
+    val subtle = 1.dp
+    val card = 2.dp
+    val raised = 6.dp
+    val dialog = 12.dp
+}
+
+object AppShadow {
+    val none = AppElevation.none
+    val soft = AppElevation.card
+    val floating = AppElevation.raised
+}
+
+// Consistente iconen en touch-targets.
+object AppIcon {
+    val tiny = 13.dp
+    val xs = 15.dp
+    val sm = 16.dp
+    val md = 18.dp
+    val lg = 20.dp
+    val xl = 24.dp
+    val xxl = 28.dp
+    val action = 48.dp
+    val touch = 48.dp
+    val menuLineWidth = 20.dp
+    val menuLineHeight = 2.dp
+}
+
+// Font- en typografiebron voor de hele app.
+object AppFont {
+    val primary = FontFamily.SansSerif
+    val arabic = FontFamily.SansSerif
+}
+
+object AppTextStyle {
+    val pageTitle = TextStyle(fontFamily = AppFont.primary, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+    val sectionTitle = TextStyle(fontFamily = AppFont.primary, fontSize = 17.sp, fontWeight = FontWeight.Bold)
+    val cardTitle = TextStyle(fontFamily = AppFont.primary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+    val body = TextStyle(fontFamily = AppFont.primary, fontSize = 14.sp, fontWeight = FontWeight.Normal)
+    val bodySmall = TextStyle(fontFamily = AppFont.primary, fontSize = 12.sp, fontWeight = FontWeight.Normal)
+    val label = TextStyle(fontFamily = AppFont.primary, fontSize = 12.sp, fontWeight = FontWeight.Medium)
+    val labelStrong = TextStyle(fontFamily = AppFont.primary, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+    val caption = TextStyle(fontFamily = AppFont.primary, fontSize = 10.sp, fontWeight = FontWeight.Medium)
+}
+
+// Semantische kleurtoegang. Oude kleur-namen blijven bestaan voor compatibiliteit.
+object AppColor {
+    val background: Color get() = DarkNavy
+    val surface: Color get() = MidNavy
+    val surfaceAlt: Color get() = DeepNavy
+    val primary: Color get() = Gold
+    val primaryText: Color get() = GoldLight
+    val textPrimary: Color get() = SoftTextGold
+    val textSecondary: Color get() = LabelGold
+    val textMuted: Color get() = MutedGold
+    val textDisabled: Color get() = DimGold
+    val border: Color get() = BorderNavy
+    val borderStrong: Color get() = ButtonBorderNavy
+    val success: Color get() = DoneGreen
+    val info: Color get() = ReadBlue
+    val danger: Color get() = DeleteRed
+    val dangerSurface: Color get() = DeleteSurface
+    val scrim: Color get() = ScrimBlack
+}
+
+object AppThemeSwatchColor {
+    val light = Color(0xFFFFFFFF)
+    val dark = Color(0xFF15172A)
+    val pink = Color(0xFFFFEDF4)
+    val mint = Color(0xFFEAF8EF)
+    val lavender = Color(0xFFF0EAFB)
+    val ember = Color(0xFFFFE9DC)
+    val inferno = Color(0xFF090505)
+    val ocean = Color(0xFFE2F4FA)
+    val sand = Color(0xFFF7EBCF)
+    val matteForest = Color(0xFF31483A)
+    val matteCharcoal = Color(0xFF383C3F)
+    val matteManuscript = Color(0xFF4B3E2E)
+}
+
+object AppChartSize {
+    val pieHeight = 200.dp
+    val barHeight = 140.dp
+    val progressHeight = 10.dp
+    val barWidth = 28.dp
+}
+
 // App-breed lettertype: rustig, rond en consistent met het instellingenpaneel.
 private val AppTypography = Typography(
-    bodyLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 16.sp, fontWeight = FontWeight.Normal),
-    bodyMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 14.sp, fontWeight = FontWeight.Normal),
-    bodySmall = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 12.sp, fontWeight = FontWeight.Normal),
-    titleLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 20.sp, fontWeight = FontWeight.Bold),
-    titleMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 16.sp, fontWeight = FontWeight.Bold),
-    titleSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 14.sp, fontWeight = FontWeight.Bold),
-    labelLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 14.sp, fontWeight = FontWeight.Bold),
-    labelMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 12.sp, fontWeight = FontWeight.Medium),
-    labelSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 10.sp, fontWeight = FontWeight.Medium),
+    bodyLarge = TextStyle(fontFamily = AppFont.primary, fontSize = 16.sp, fontWeight = FontWeight.Normal),
+    bodyMedium = AppTextStyle.body,
+    bodySmall = AppTextStyle.bodySmall,
+    titleLarge = AppTextStyle.pageTitle,
+    titleMedium = TextStyle(fontFamily = AppFont.primary, fontSize = 16.sp, fontWeight = FontWeight.Bold),
+    titleSmall = TextStyle(fontFamily = AppFont.primary, fontSize = 14.sp, fontWeight = FontWeight.Bold),
+    labelLarge = TextStyle(fontFamily = AppFont.primary, fontSize = 14.sp, fontWeight = FontWeight.Bold),
+    labelMedium = AppTextStyle.label,
+    labelSmall = AppTextStyle.caption,
 )
 
 // QuranReaderScreen: full-screen mushaf overlay maten en vormen.
 object ReaderOverlayStyle {
     val edgePadding = 10.dp
     val audioPadding = 18.dp
-    val menuButton = 42.dp
-    val audioButton = 44.dp
-    val bookmarkButton = 34.dp
+    val menuButton = 48.dp
+    val audioButton = 48.dp
+    val bookmarkButton = 48.dp
     val roundButton = 22.dp
     val overlayAlpha = 0.62f
     val audioAlpha = 0.72f
@@ -210,28 +327,59 @@ object ReaderInfoStyle {
     val warshSelectedBorderAlpha = 0.32f
 }
 
+// BookReaderScreen: offline boeklezer, zoekresultaten en paginapaneel.
+object BookReaderStyle {
+    val headerGap = 6.dp
+    val cardGap = 10.dp
+    val authorGap = 8.dp
+    val navButtonHeight = 54.dp
+    val pageMinHeight = 420.dp
+    val pageMaxHeight = 680.dp
+    val searchResultsMaxHeight = 260.dp
+    val titleSize = 26.sp
+    val subtitleSize = 14.sp
+    val labelSize = 12.sp
+    val bodySize = 13.sp
+    val bodyLineHeight = 21.sp
+    val chapterTitleSize = 15.sp
+    val pageTextSize = 21.sp
+    val pageLineHeight = 36.sp
+    val resultPreviewLines = 2
+}
+
 // AgendaScreen: khatma planner blok in het toevoegen-menu.
 object AgendaKhatmaStyle {
     val previewMaxItems = 4
-    val plannerButtonHeight = 42.dp
+    val plannerButtonHeight = 48.dp
 }
 
 // HamburgerMenu: instellingen-paneel in mushaf-stijl.
 object SettingsMenuStyle {
     val panelWidth = 318.dp
-    val cardRadius = 14.dp
+    val cardRadius = AppShape.card
     val rowHeight = 64.dp
-    val iconSize = 24.dp
-    val choiceHeight = 46.dp
-    val innerPadding = 14.dp
-    val sectionGap = 10.dp
+    val iconSize = AppIcon.xl
+    val choiceHeight = 48.dp
+    val innerPadding = AppSpacing.xxl
+    val sectionGap = AppSpacing.lg
+}
+
+// Compacte component defaults voor nieuwe UI.
+object AppComponentDefaults {
+    val cardRadius: Dp get() = AppShape.card
+    val cardPadding: Dp get() = AppSpacing.card
+    val controlRadius: Dp get() = AppShape.control
+    val controlHeight: Dp = 48.dp
+    val minTouchTarget: Dp get() = AppIcon.touch
+    val borderWidth: Dp get() = AppBorder.thin
+    val cardElevation: Dp get() = AppElevation.none
 }
 
 // Compose Material theme voor de hele app.
 @Composable
 fun QuranTrackerTheme(themeMode: String = "light", content: @Composable () -> Unit) {
     applyThemeColors(themeMode)
-    val scheme = if (themeMode == "dark" || themeMode == "inferno") {
+    val scheme = if (themeMode in setOf("dark", "inferno", "matte_forest", "matte_charcoal", "matte_manuscript")) {
         darkColorScheme(
             primary      = Gold,
             onPrimary    = DarkNavy,
@@ -263,7 +411,9 @@ fun QuranTrackerTheme(themeMode: String = "light", content: @Composable () -> Un
 }
 
 fun applyThemeColors(themeMode: String) {
-    if (themeMode == "dark") {
+    if (themeMode in setOf("matte_forest", "matte_charcoal", "matte_manuscript")) {
+        applyMatteDarkPalette(themeMode)
+    } else if (themeMode == "dark") {
         DarkNavy = Color(0xFF0A1628)
         MidNavy = Color(0xFF112240)
         Gold = Color(0xFFC9A84C)
@@ -557,6 +707,62 @@ fun applyThemeColors(themeMode: String) {
         Gold, ReadBlue, DoneGreen, DeleteRed,
         ChartPurple, ChartCyan, ChartYellow, ChartPink,
     )
+}
+
+private fun applyMatteDarkPalette(mode: String) {
+    // Reset all legacy tokens first, so switching from a bright theme cannot leak colors.
+    applyThemeColors("dark")
+    val forest = mode == "matte_forest"
+    val manuscript = mode == "matte_manuscript"
+    DarkNavy = when { forest -> Color(0xFF141D19); manuscript -> Color(0xFF1C1814); else -> Color(0xFF191B1D) }
+    MidNavy = when { forest -> Color(0xFF202D25); manuscript -> Color(0xFF2A241D); else -> Color(0xFF272A2C) }
+    DeepNavy = when { forest -> Color(0xFF19241E); manuscript -> Color(0xFF231E18); else -> Color(0xFF202325) }
+    Gold = when { forest -> Color(0xFFADBF9B); manuscript -> Color(0xFFC6AA73); else -> Color(0xFFB8C1BC) }
+    SoftTextGold = when { forest -> Color(0xFFD9DFD1); manuscript -> Color(0xFFDED2B9); else -> Color(0xFFDCDDDA) }
+    GoldLight = SoftTextGold
+    MutedGold = when { forest -> Color(0xFFADB9A9); manuscript -> Color(0xFFBCAE98); else -> Color(0xFFB2B7B3) }
+    LabelGold = MutedGold
+    DimGold = MutedGold
+    InactiveGold = MutedGold
+    DarkGold = Gold
+    ChevronNavy = MutedGold
+    BorderNavy = when { forest -> Color(0xFF425145); manuscript -> Color(0xFF534635); else -> Color(0xFF494E50) }
+    ButtonBorderNavy = BorderNavy
+    ReadBlue = Color(0xFFA2BBC1)
+    SoftReadBlue = ReadBlue
+    DoneGreen = Color(0xFFACBE98)
+    MemGold = Gold
+    DeleteRed = Color(0xFFD79D8B)
+    ScrimBlack = Color(0x99000000)
+    GoldSurface = androidx.compose.ui.graphics.lerp(MidNavy, Gold, 0.10f)
+    SubtleGoldSurface = androidx.compose.ui.graphics.lerp(MidNavy, Gold, 0.05f)
+    MediumGoldSurface = androidx.compose.ui.graphics.lerp(MidNavy, Gold, 0.15f)
+    StrongGoldSurface = androidx.compose.ui.graphics.lerp(MidNavy, Gold, 0.20f)
+    ReadBlueSurface = androidx.compose.ui.graphics.lerp(MidNavy, ReadBlue, 0.10f)
+    StrongReadBlueSurface = androidx.compose.ui.graphics.lerp(MidNavy, ReadBlue, 0.18f)
+    DeleteSurface = androidx.compose.ui.graphics.lerp(MidNavy, DeleteRed, 0.10f)
+    StrongDeleteSurface = androidx.compose.ui.graphics.lerp(MidNavy, DeleteRed, 0.18f)
+    TodayFocusSurface = GoldSurface
+    TodayFocusBorder = BorderNavy
+    TodayDoneSurface = androidx.compose.ui.graphics.lerp(MidNavy, DoneGreen, 0.10f)
+    PeriodSurface = MidNavy
+    PeriodItemSurface = DeepNavy
+    PeriodAccentSurface = GoldSurface
+    HifzDashboardSurface = MidNavy
+    HifzDashboardItem = DeepNavy
+    ReviewDueSurface = DeleteSurface
+    ReviewSoonSurface = GoldSurface
+    ReviewLaterSurface = TodayDoneSurface
+    ChartPurple = Color(0xFFB6A8C1)
+    ChartCyan = Color(0xFF9DBBBB)
+    ChartYellow = Color(0xFFC8B582)
+    ChartPink = Color(0xFFC4A0AC)
+    HifzScoreBorders = listOf(
+        Color(0xFFD59B91), Color(0xFFD4A088), Color(0xFFD0A784), Color(0xFFCDB184),
+        Color(0xFFC5B987), Color(0xFFBBC08D), Color(0xFFB0C295), Color(0xFFA5C39E),
+        Color(0xFF9BC4AA), Color(0xFF93C4B3)
+    )
+    HifzScoreSurfaces = HifzScoreBorders.map { androidx.compose.ui.graphics.lerp(MidNavy, it, 0.12f) }
 }
 
 private fun applySoftLightPalette(
