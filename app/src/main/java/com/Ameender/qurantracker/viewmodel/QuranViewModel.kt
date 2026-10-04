@@ -11,6 +11,19 @@ import kotlinx.coroutines.launch
 class QuranViewModel(
     private val repository: QuranProgressDataSource
 ) : ViewModel() {
+    val checkInSaving = kotlinx.coroutines.flow.MutableStateFlow(false)
+    val checkInError = kotlinx.coroutines.flow.MutableStateFlow(false)
+    fun quickCheckIn(type: String, numbers: Set<Int>, subNumber: Int, requestId: String, onSuccess: () -> Unit) {
+        if (checkInSaving.value) return
+        checkInSaving.value = true
+        checkInError.value = false
+        viewModelScope.launch {
+            try { repository.quickCheckIn(type, numbers, subNumber, requestId); onSuccess() }
+            catch (cancel: kotlinx.coroutines.CancellationException) { throw cancel }
+            catch (_: Exception) { checkInError.value = true }
+            finally { checkInSaving.value = false }
+        }
+    }
 
     val allProgress = repository.allProgress
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -119,9 +132,28 @@ class QuranViewModel(
         }
     }
 
+    private val _historyResetState = kotlinx.coroutines.flow.MutableStateFlow(HistoryResetState.Idle)
+    val historyResetState: kotlinx.coroutines.flow.StateFlow<HistoryResetState> = _historyResetState
+
+    fun dismissHistoryResetResult() {
+        if (_historyResetState.value != HistoryResetState.Clearing) _historyResetState.value = HistoryResetState.Idle
+    }
+
     fun resetHistory() {
+        if (_historyResetState.value == HistoryResetState.Clearing) return
+        _historyResetState.value = HistoryResetState.Clearing
         viewModelScope.launch {
-            repository.resetHistory()
+            try {
+                repository.resetHistory()
+                _historyResetState.value = HistoryResetState.Success
+            } catch (cancel: kotlinx.coroutines.CancellationException) {
+                _historyResetState.value = HistoryResetState.Idle
+                throw cancel
+            } catch (_: Exception) {
+                _historyResetState.value = HistoryResetState.Error
+            }
         }
     }
 }
+
+enum class HistoryResetState { Idle, Clearing, Success, Error }

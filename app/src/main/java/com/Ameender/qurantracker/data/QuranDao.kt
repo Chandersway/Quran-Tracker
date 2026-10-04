@@ -26,6 +26,9 @@ interface QuranDao {
     @Query("DELETE FROM quran_progress")
     suspend fun deleteAll()
 
+    @Query("UPDATE quran_progress SET isRead = 0, readCount = 0")
+    suspend fun resetReadingProgress()
+
     @Query("UPDATE quran_progress SET readCount = readCount + 1, lastUpdated = :time WHERE id = :id")
     suspend fun incrementReadCount(id: String, time: Long = System.currentTimeMillis())
 

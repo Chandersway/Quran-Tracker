@@ -18,7 +18,9 @@ class QuranTrackerViewModelFactory(
     private val quranProgressRepository by lazy {
         QuranProgressRepository(
             progressDao = database.quranDao(),
-            historyDao = database.readingHistoryDao()
+            historyDao = database.readingHistoryDao(),
+            database = database,
+            surahName = { id -> com.Ameender.qurantracker.ui.ALL_SURAHS.find { it.id == id }?.name ?: "Surah $id" }
         )
     }
     private val goalRepository by lazy {

@@ -11,13 +11,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase
     entities = [
         QuranProgress::class,
         ReadingHistory::class,
+        CheckInRequest::class,
         DailyGoal::class,
         GoalDay::class,
         PlanningItem::class,
         ReadingJourney::class,
         AyahNote::class
     ],
-    version = 19,
+    version = 20,
     exportSchema = true
 )
 abstract class QuranDatabase : RoomDatabase() {
@@ -81,6 +82,13 @@ abstract class QuranDatabase : RoomDatabase() {
                         WHERE type = 'khatma' AND EXISTS (SELECT 1 FROM planning_items p
                         WHERE p.type = 'khatma' AND p.displayName = reading_history.surahName AND p.date = reading_history.dateKey)
                     """)
+                }
+            },
+            object : Migration(19, 20) {
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE reading_history ADD COLUMN ownerId TEXT NOT NULL DEFAULT ''")
+                    db.execSQL("CREATE INDEX index_reading_history_ownerId_timestamp ON reading_history(ownerId, timestamp)")
+                    db.execSQL("CREATE TABLE checkin_requests (requestId TEXT NOT NULL PRIMARY KEY)")
                 }
             },
             object : Migration(18, 19) {

@@ -11,11 +11,15 @@
 - Daily notification opens the daily goal. Planning notification opens the agenda on the item's date; a deleted item falls back to the normal agenda. It does not yet scroll/highlight the specific row.
 - Existing per-group preference RPCs are reused. New account category settings save through Supabase; UI only confirms a successful write. Authentication checking has a loading state.
 
-## Supabase migration — NOT deployed or integration-tested
+## Supabase deployment
+
+Applied to `Quran_Tracer` (`tboaaxcdnajgttdanfmb`) through the SQL Editor after explicit user approval: notification foundation (`20260916010000`) and grant hardening/legacy lockdown (`20260916020000`). Existing legacy and v2 reaction/comment row counts were preserved. RLS policies and queue trigger were inspected live. End-to-end FCM delivery and two-account client integration are still untested.
+
+The remote project has no `supabase_migrations.schema_migrations` history. Do not blindly run all migrations or mark old migrations applied without comparing their definitions to the live schema. This deployment record documents the manual application; it does not establish a verified baseline for the older schema.
 
 `supabase/migrations/20260916010000_notification_delivery_foundation.sql` adds account preferences, device registrations and an idempotent delivery queue. It depends on the earlier group migrations and `group_v2_set_updated_at()`.
 
-RLS restricts client access to its own preferences/devices and read-only delivery rows. Queue creation is server-side; eligibility checks active membership and group/category preferences. Unknown event types are rejected. Existing event producers must be audited against the new category names before deployment.
+RLS restricts client access to its own preferences/devices and read-only delivery rows. The follow-up migration removes default broad grants, including TRUNCATE, and denies client access to the two archived legacy likes/comments tables without deleting their rows. Queue creation is server-side; eligibility checks active membership and group/category preferences. Unknown event types are rejected. Existing event producers must be audited against the new category names before enabling push delivery.
 
 The migration intentionally does not install a dispatcher. No device tokens are currently registered. Consequently group push while the app is closed is NOT implemented, even if preference writes succeed.
 

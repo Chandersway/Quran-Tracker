@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.Ameender.qurantracker.data.*
@@ -100,9 +101,9 @@ internal fun ReadingPlanScreen(history: List<ReadingHistory>, language: String) 
         }
         Text(t("Planning"), style = MaterialTheme.typography.titleLarge)
         Text(t("Een einddatum is optioneel. Zonder datum lees je op je eigen tempo."), style = MaterialTheme.typography.bodySmall)
-        OutlinedButton(onClick = {
+        OutlinedButton(modifier = Modifier.testTag("reading_plan_end_date"), onClick = {
             val date = runCatching { LocalDate.parse(end) }.getOrDefault(LocalDate.now().plusDays(14))
-            DatePickerDialog(context.createConfigurationContext(android.content.res.Configuration(context.resources.configuration).apply { setLocale(java.util.Locale.forLanguageTag(language)) }), { _, y, m, d -> end = LocalDate.of(y, m + 1, d).toString() }, date.year, date.monthValue - 1, date.dayOfMonth).apply { datePicker.minDate = System.currentTimeMillis() }.show()
+            DatePickerDialog(localizedDialogContext(context, language), { _, y, m, d -> end = LocalDate.of(y, m + 1, d).toString() }, date.year, date.monthValue - 1, date.dayOfMonth).apply { datePicker.minDate = System.currentTimeMillis() }.show()
         }) { Text(if (end.isBlank()) t("Einddatum kiezen") else LocalDate.parse(end).format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM).withLocale(java.util.Locale.forLanguageTag(language)))) }
         if (end.isNotBlank()) {
             TextButton(onClick = { end = "" }) { Text(t("Zonder einddatum")) }

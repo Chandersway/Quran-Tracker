@@ -4,7 +4,6 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -29,6 +28,8 @@ import com.Ameender.qurantracker.data.SurahReadCount
 import com.Ameender.qurantracker.data.TypeCount
 import com.Ameender.qurantracker.data.readingStatsSummary
 import com.Ameender.qurantracker.viewmodel.QuranViewModel
+import com.Ameender.qurantracker.viewmodel.HistoryResetState
+import androidx.compose.ui.platform.testTag
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.min
@@ -122,7 +123,6 @@ fun StatsScreen(viewModel: QuranViewModel, appLanguage: String = "nl") {
     val text = AppText.strings(appLanguage)
     val mostRead      by viewModel.mostReadSurahs.collectAsState()
     val mostReadHizb  by viewModel.mostReadHizb.collectAsState()
-    val recentHistory by viewModel.recentHistory.collectAsState()
     val dayActivity   by viewModel.dayActivity.collectAsState()
     val totalReads    by viewModel.totalReadCount.collectAsState()
     val typeCounts    by viewModel.allTypeCounts.collectAsState()
@@ -130,6 +130,7 @@ fun StatsScreen(viewModel: QuranViewModel, appLanguage: String = "nl") {
     val juzzProgress  by viewModel.juzzProgress.collectAsState()
     val hizbProgress  by viewModel.hizbProgress.collectAsState()
     val rubProgress   by viewModel.rubProgress.collectAsState()
+    val resetState by viewModel.historyResetState.collectAsState()
 
     val summary = remember(allHistory) { readingStatsSummary(allHistory) }
     val streak = summary.currentStreak
@@ -183,15 +184,6 @@ fun StatsScreen(viewModel: QuranViewModel, appLanguage: String = "nl") {
                 Column {
                     Text(text.stats, style = AppTextStyle.pageTitle, color = GoldLight)
                     Text(text.t("stats.totalActions", summary.readActions), style = AppTextStyle.bodySmall, color = MutedGold)
-                }
-                IconButton(
-                    onClick = { showResetDialog = true },
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(AppShape.control))
-                        .background(DeleteSurface)
-                        .border(AppBorder.thin, StrongDeleteSurface, RoundedCornerShape(AppShape.control))
-                ) {
-                    Icon(Icons.Default.Delete, contentDescription = text.t("stats.resetHistory"), tint = DeleteRed)
                 }
             }
         }
@@ -318,72 +310,6 @@ fun StatsScreen(viewModel: QuranViewModel, appLanguage: String = "nl") {
             }
         }
 
-        if (recentHistory.isNotEmpty()) {
-            items(recentHistory.take(30)) { history ->
-                val dateStr = SimpleDateFormat("dd MMM yyyy · HH:mm", Locale.getDefault())
-                    .format(Date(history.timestamp))
-
-                val typeIcon = when {
-                    history.type == "juz"              -> text.juz
-                    history.type == "hizb"             -> text.t("stats.hizb")
-                    history.action == "memorized"      -> text.hifz
-                    else                               -> text.surah
-                }
-                val typeLabel = when {
-                    history.type == "juz"              -> text.juz
-                    history.type == "hizb"             -> if (history.surahName.hasRubMarker()) text.t("stats.rub") else text.t("stats.hizb")
-                    history.action == "memorized"      -> text.hifz
-                    else                               -> text.read
-                }
-                val labelColor = when {
-                    history.type == "juz"              -> DoneGreen
-                    history.type == "hizb"             -> Gold
-                    history.action == "memorized"      -> Gold
-                    else                               -> ReadBlue
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = AppSpacing.sm)
-                        .clip(RoundedCornerShape(AppShape.tile))
-                        .background(MidNavy)
-                        .border(AppBorder.thin, BorderNavy, RoundedCornerShape(AppShape.tile))
-                        .padding(AppSpacing.list)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(typeIcon, fontSize = 18.sp)
-                        Spacer(modifier = Modifier.width(AppSpacing.lg))
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                readableHistoryName(history.type, history.surahId, history.surahName),
-                                fontSize = 13.sp,
-                                color = SoftTextGold,
-                                fontWeight = FontWeight.Medium
-                            )
-                            Text(dateStr, fontSize = 11.sp, color = DimGold)
-                        }
-                        Text(typeLabel, fontSize = 11.sp, color = labelColor)
-                    }
-                    // Begin ayah tonen voor hizb
-                    if (history.type == "hizb" && history.extraInfo.isNotEmpty()) {
-                        Spacer(modifier = Modifier.height(AppSpacing.sm))
-                        Text(
-                            history.extraInfo,
-                            fontSize = 13.sp,
-                            color = Gold.copy(alpha = 0.7f),
-                            textAlign = TextAlign.End,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(AppShape.smallControl))
-                                .background(SubtleGoldSurface)
-                                .padding(horizontal = AppSpacing.md, vertical = AppSpacing.xs)
-                        )
-                    }
-                }
-            }
-        }
-
         item {
             QuranProgressStatsCard(
                 juzzDone = juzzDone,
@@ -393,6 +319,32 @@ fun StatsScreen(viewModel: QuranViewModel, appLanguage: String = "nl") {
             )
         }
 
+        item(key = "clear-reading-data") {
+            Card(Modifier.fillMaxWidth().testTag("stats_clear_card"),
+                colors = CardDefaults.cardColors(containerColor = MidNavy)) {
+                Column(Modifier.padding(AppSpacing.list), verticalArrangement = Arrangement.spacedBy(AppSpacing.md)) {
+                    Text(text.t("stats.clearData"), style = AppTextStyle.cardTitle, color = GoldLight)
+                    Text(text.t("stats.clearDescription"), style = AppTextStyle.bodySmall, color = MutedGold)
+                    when (resetState) {
+                        HistoryResetState.Clearing -> {
+                            LinearProgressIndicator(Modifier.fillMaxWidth())
+                            Text(text.t("stats.clearing"), color = MutedGold)
+                        }
+                        HistoryResetState.Success -> Text(text.t("stats.cleared"), color = DoneGreen,
+                            modifier = Modifier.testTag("stats_clear_success"))
+                        HistoryResetState.Error -> Text(text.t("stats.clearFailed"), color = DeleteRed)
+                        else -> Unit
+                    }
+                    OutlinedButton(enabled = resetState != HistoryResetState.Clearing,
+                        onClick = { viewModel.dismissHistoryResetResult(); showResetDialog = true },
+                        modifier = Modifier.fillMaxWidth().testTag("stats_clear_button")) {
+                        Icon(Icons.Default.Delete, contentDescription = null, tint = DeleteRed)
+                        Spacer(Modifier.width(AppSpacing.sm))
+                        Text(text.t("stats.clearData"), color = DeleteRed)
+                    }
+                }
+            }
+        }
         item { Spacer(modifier = Modifier.height(AppSpacing.pageBottom)) }
     }
 }

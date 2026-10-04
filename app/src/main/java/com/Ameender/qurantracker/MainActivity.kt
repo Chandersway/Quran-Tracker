@@ -428,11 +428,7 @@ fun QuranTrackerApp(
     }
 
     fun navigateTopLevel(screen: Screen) {
-        navController.navigate(screen.route) {
-            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-            launchSingleTop = true
-            restoreState = true
-        }
+        navController.navigateToTopLevel(screen.route)
     }
 
     fun navigateSecondary(screen: Screen) {

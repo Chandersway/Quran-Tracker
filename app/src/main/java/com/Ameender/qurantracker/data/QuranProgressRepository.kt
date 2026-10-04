@@ -8,8 +8,10 @@ import com.Ameender.qurantracker.domain.rubProgressId
 import com.Ameender.qurantracker.domain.surahProgressId
 import com.Ameender.qurantracker.domain.todayDateKey
 import kotlinx.coroutines.flow.Flow
+import androidx.room.withTransaction
 
 interface QuranProgressDataSource {
+    suspend fun quickCheckIn(type: String, numbers: Set<Int>, subNumber: Int, requestId: String) { error("Unsupported") }
     val allProgress: Flow<List<QuranProgress>>
     val juzzProgress: Flow<List<QuranProgress>>
     val hizbProgress: Flow<List<QuranProgress>>
@@ -36,8 +38,37 @@ interface QuranProgressDataSource {
 
 class QuranProgressRepository(
     private val progressDao: QuranDao,
-    private val historyDao: ReadingHistoryDao
+    private val historyDao: ReadingHistoryDao,
+    private val database: QuranDatabase? = null,
+    private val surahName: (Int) -> String = { "Surah $it" },
+    private val ownerProvider: () -> String = ::currentHistoryOwner
 ) : QuranProgressDataSource {
+    override suspend fun quickCheckIn(type: String, numbers: Set<Int>, subNumber: Int, requestId: String) {
+        require(requestId.isNotBlank() && numbers.isNotEmpty())
+        require(type in setOf("surah", "juz", "hizb", "rub"))
+        require(numbers.all { it in 1..when(type) { "surah" -> 114; "juz" -> 30; else -> 60 } })
+        require(type == "hizb" || numbers.size == 1)
+        require(subNumber in 1..4)
+        val owner = ownerProvider()
+        checkNotNull(database).withTransaction {
+            val requestKey = "checkin:$owner:$requestId"
+            if (historyDao.hasSource(requestKey)) return@withTransaction
+            for (number in numbers.sorted()) {
+                when(type) {
+                    "surah" -> markSurahInternal(number, surahName(number), "read", owner)
+                    "juz" -> markJuzReadInternal(number, owner)
+                    "rub" -> markRubReadInternal(number, subNumber, true, owner)
+                    "hizb" -> {
+                        (1..4).forEach { markRubReadInternal(number, it, false) }
+                        historyDao.insert(ReadingHistory(surahId = number, surahName = "Hizb $number", type = "hizb", action = "read", dateKey = todayDateKey(), ownerId = owner,
+                            sourceKey = if (number == numbers.min()) requestKey else "$requestKey:$number"))
+                    }
+                }
+            }
+            historyDao.recordRequest(CheckInRequest(requestKey))
+            check(owner == ownerProvider()) { "ACCOUNT_CHANGED" }
+        }
+    }
     override val allProgress = progressDao.getAllProgress()
     override val juzzProgress = progressDao.getByType(QuranProgressType.JUZ)
     override val hizbProgress = progressDao.getByType(QuranProgressType.HIZB)
@@ -54,6 +85,10 @@ class QuranProgressRepository(
     override fun dayActivitySince(since: Long) = historyDao.getActivityPerDay(since)
 
     override suspend fun markJuzRead(juzNumber: Int) {
+        markJuzReadInternal(juzNumber)
+    }
+
+    private suspend fun markJuzReadInternal(juzNumber: Int, owner: String = "") {
         val existing = progressDao.getById(juzProgressId(juzNumber))
         progressDao.upsertProgress(
             existing?.copy(isRead = true, readCount = existing.readCount + 1) ?: QuranProgress(
@@ -68,6 +103,7 @@ class QuranProgressRepository(
             ReadingHistory(
                 surahId = juzNumber,
                 surahName = "Juz $juzNumber",
+                ownerId = owner,
                 type = QuranProgressType.JUZ,
                 action = QuranAction.READ,
                 dateKey = todayDateKey()
@@ -83,9 +119,13 @@ class QuranProgressRepository(
     }
 
     override suspend fun markRubRead(hizbNumber: Int, rubNumber: Int) {
+        markRubReadInternal(hizbNumber, rubNumber, true)
+    }
+
+    private suspend fun markRubReadInternal(hizbNumber: Int, rubNumber: Int, logHistory: Boolean, owner: String = "") {
         val existing = progressDao.getById(rubProgressId(hizbNumber, rubNumber))
         progressDao.upsertProgress(
-            QuranProgress(
+            existing?.copy(isRead = true, readCount = existing.readCount + 1) ?: QuranProgress(
                 id = rubProgressId(hizbNumber, rubNumber),
                 type = QuranProgressType.RUB,
                 referenceId = hizbNumber,
@@ -95,6 +135,7 @@ class QuranProgressRepository(
             )
         )
 
+        if (!logHistory) return
         val hizbInfo = getHizbInfo(hizbNumber)
         val rubLabel = when (rubNumber) {
             1 -> "1/4"
@@ -112,6 +153,7 @@ class QuranProgressRepository(
             ReadingHistory(
                 surahId = hizbNumber,
                 surahName = richName,
+                ownerId = owner,
                 type = QuranProgressType.RUB,
                 action = QuranAction.READ,
                 dateKey = todayDateKey(),
@@ -142,6 +184,10 @@ class QuranProgressRepository(
     }
 
     override suspend fun markSurah(surahId: Int, surahName: String, field: String) {
+        markSurahInternal(surahId, surahName, field)
+    }
+
+    private suspend fun markSurahInternal(surahId: Int, surahName: String, field: String, owner: String = "") {
         val existing = progressDao.getById(surahProgressId(surahId))
         val updated = existing?.copy(
             isRead = if (field == QuranAction.READ) true else existing.isRead,
@@ -161,6 +207,7 @@ class QuranProgressRepository(
             ReadingHistory(
                 surahId = surahId,
                 surahName = surahName,
+                ownerId = owner,
                 type = QuranProgressType.SURAH,
                 action = field,
                 dateKey = todayDateKey(),
@@ -208,7 +255,11 @@ class QuranProgressRepository(
     }
 
     override suspend fun resetHistory() {
-        historyDao.deleteAll()
+        checkNotNull(database).withTransaction {
+            historyDao.deleteAll()
+            progressDao.resetReadingProgress()
+            historyDao.clearRequests()
+        }
     }
 
     private fun progressId(type: String, number: Int): String = when (type) {

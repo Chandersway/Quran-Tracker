@@ -3,7 +3,7 @@ package com.Ameender.qurantracker.data
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-@Entity(tableName = "reading_history", indices = [Index(value = ["sourceKey"], unique = true)])
+@Entity(tableName = "reading_history", indices = [Index(value = ["sourceKey"], unique = true), Index(value = ["ownerId", "timestamp"])])
 data class ReadingHistory(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
@@ -18,11 +18,21 @@ data class ReadingHistory(
     val dateKey: String = "",
     @ColumnInfo(defaultValue = "1") val amount: Int = 1,
     val sourceKey: String? = null,
-    @ColumnInfo(defaultValue = "''") val contentType: String = ""
+    @ColumnInfo(defaultValue = "''") val contentType: String = "",
+    @ColumnInfo(defaultValue = "''") val ownerId: String = ""
 )
 
 @Dao
 interface ReadingHistoryDao {
+    @Query("SELECT surahId AS hizbNumber, COUNT(*) AS count FROM reading_history WHERE ownerId = :owner AND timestamp >= :start AND timestamp < :endExclusive AND action = 'read' AND type = 'hizb' AND surahId BETWEEN 1 AND 60 GROUP BY surahId")
+    fun hizbCounts(owner: String, start: Long, endExclusive: Long): Flow<List<HizbReadingCount>>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM checkin_requests WHERE requestId = :key)")
+    suspend fun hasSource(key: String): Boolean
+    @Insert
+    suspend fun recordRequest(request: CheckInRequest)
+    @Query("DELETE FROM checkin_requests")
+    suspend fun clearRequests()
     @Query("SELECT * FROM reading_history ORDER BY timestamp DESC")
     suspend fun getAllOnce(): List<ReadingHistory>
 
@@ -108,6 +118,11 @@ interface ReadingHistoryDao {
     @Query("SELECT COUNT(*) FROM reading_history WHERE action = 'read'")
     fun getTotalReadCount(): Flow<Int>
 }
+
+data class HizbReadingCount(val hizbNumber: Int, val count: Int)
+
+@Entity(tableName = "checkin_requests")
+data class CheckInRequest(@PrimaryKey val requestId: String)
 
 data class SurahReadCount(
     val surahId: Int,

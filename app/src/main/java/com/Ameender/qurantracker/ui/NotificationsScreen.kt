@@ -1,6 +1,5 @@
 package com.Ameender.qurantracker.ui
 
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.background
@@ -14,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationManagerCompat
@@ -59,7 +59,7 @@ internal fun NotificationsScreen(language: String, model: NotificationsViewModel
         Text(t("timing"), style = MaterialTheme.typography.bodySmall, color = MutedGold, modifier = Modifier.padding(vertical = 8.dp))
         NotificationSection(t("daily"))
         NotificationToggle(t("reminder"), prefs.daily, !state.saving && prefs.enabled) { model.save(prefs.copy(daily = it)) }
-        NotificationTime(t("time"), prefs.dailyMinute, language, !state.saving && prefs.enabled && prefs.daily) { model.save(prefs.copy(dailyMinute = it)) }
+        NotificationTime(t("time"), prefs.dailyMinute, language, !state.saving) { model.save(prefs.copy(dailyMinute = it)) }
         NotificationToggle(t("extra"), prefs.extra, !state.saving && prefs.enabled) { model.save(prefs.copy(extra = it)) }
         if (prefs.extra) NotificationTime(t("time"), prefs.extraMinute, language, !state.saving && prefs.enabled) { model.save(prefs.copy(extraMinute = it)) }
         NotificationSection(t("planning"))
@@ -123,15 +123,39 @@ private fun NotificationToggle(title: String, checked: Boolean, enabled: Boolean
     }
 }
 @Composable
-private fun NotificationTime(title: String, minute: Int, language: String, enabled: Boolean, onChange: (Int) -> Unit) {
-    val context = LocalContext.current
+internal fun NotificationTime(title: String, minute: Int, language: String, enabled: Boolean, onChange: (Int) -> Unit) {
     val locale = java.util.Locale.forLanguageTag(language)
     val label = String.format(locale, "%02d:%02d", minute / 60, minute % 60)
-    Row(Modifier.fillMaxWidth().heightIn(min = 52.dp).clickable(enabled = enabled) {
-        TimePickerDialog(context.createConfigurationContext(android.content.res.Configuration(context.resources.configuration).apply { setLocale(locale) }),
-            { _, hour, min -> onChange(hour * 60 + min) }, minute / 60, minute % 60, true).show()
-    }, verticalAlignment = Alignment.CenterVertically) {
+    var choosing by remember { mutableStateOf(false) }
+    Row(Modifier.fillMaxWidth().heightIn(min = 56.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(title, Modifier.weight(1f), color = if(enabled) GoldLight else MutedGold)
-        Text(label, color = MutedGold)
+        OutlinedButton(onClick = { choosing = true }, enabled = enabled, modifier = Modifier.testTag("notification_time_$title")) {
+            Text("$label · ${notificationText(language, "chooseTime")}")
+        }
+    }
+    if (choosing) {
+        var hour by remember { mutableStateOf(String.format(locale, "%02d", minute / 60)) }
+        var minutes by remember { mutableStateOf(String.format(locale, "%02d", minute % 60)) }
+        val h = normalizePlanNumber(hour).toIntOrNull()
+        val m = normalizePlanNumber(minutes).toIntOrNull()
+        val valid = h != null && h in 0..23 && m != null && m in 0..59
+        AlertDialog(onDismissRequest = { choosing = false }, title = { Text(title) }, text = {
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                OutlinedTextField(hour, { hour = normalizePlanNumber(it).filter(Char::isDigit).take(2) },
+                    label = { Text(notificationText(language, "hours")) }, singleLine = true,
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number),
+                    modifier = Modifier.weight(1f).testTag("notification_hour"))
+                OutlinedTextField(minutes, { minutes = normalizePlanNumber(it).filter(Char::isDigit).take(2) },
+                    label = { Text(notificationText(language, "minutesLabel")) }, singleLine = true,
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number),
+                    modifier = Modifier.weight(1f).testTag("notification_minute"))
+            }
+        }, confirmButton = {
+            TextButton(enabled = valid && enabled, modifier = Modifier.testTag("notification_time_save"), onClick = {
+                if (valid) { onChange(h!! * 60 + m!!); choosing = false }
+            }) { Text(notificationText(language, "save")) }
+        }, dismissButton = {
+            TextButton(onClick = { choosing = false }, modifier = Modifier.testTag("notification_time_cancel")) { Text(notificationText(language, "cancel")) }
+        })
     }
 }

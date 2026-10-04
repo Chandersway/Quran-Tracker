@@ -111,34 +111,27 @@ fun DashboardScreen(
         )
     }
     var quickCheckInOpen by remember { mutableStateOf(false) }
+    val checkInSaving by viewModel.checkInSaving.collectAsState()
+    val checkInError by viewModel.checkInError.collectAsState()
     var pointsPopup by remember { mutableStateOf<PointsPopupState?>(null) }
 
     if (quickCheckInOpen) {
+        val requestId = androidx.compose.runtime.saveable.rememberSaveable { java.util.UUID.randomUUID().toString() }
         QuickCheckInDialog(
+            language = appLanguage, saving = checkInSaving, error = checkInError,
             text = text,
             onDismiss = { quickCheckInOpen = false },
-            onSave = { type, number, subNumber ->
-                val earnedPoints = quickCheckInPoints(type, number)
-                val earnedLabel = quickCheckInLabel(type, number, subNumber, text)
-                when (type) {
-                    "surah" -> {
-                        val surah = ALL_SURAHS.find { it.id == number }
-                        viewModel.confirmToggleSurah(number, surah?.name ?: text.t("common.surahNumber", number), "read", false)
-                    }
-                    "juz" -> viewModel.confirmToggleJuz(number, false)
-                    "hizb" -> {
-                        (1..4).forEach { rub ->
-                            viewModel.confirmToggleRub(number, rub, false)
-                        }
-                    }
-                    else -> viewModel.confirmToggleRub(number, subNumber, false)
-                }
+            onSave = { type, numbers, subNumber ->
+                viewModel.quickCheckIn(type, numbers, subNumber, requestId) {
+                val earnedPoints = numbers.sumOf { quickCheckInPoints(type, it) }
+                val earnedLabel = if (numbers.size == 1) quickCheckInLabel(type, numbers.first(), subNumber, text) else text.t("quickCheck.saved")
                 pointsPopup = PointsPopupState(
                 points = earnedPoints,
                 title = earnedLabel,
                     streakText = "${text.fireStreak}: $streak ${text.days}"
                 )
                 quickCheckInOpen = false
+                }
             }
         )
     }
@@ -175,6 +168,7 @@ fun DashboardScreen(
         )
 
         ReadingPlanHomeCard(history = allHistory, language = appLanguage, onOpen = onOpenReadingPlan)
+        HizbOverviewCard(language = appLanguage)
 
         MotivationPointsCard(points = motivationPoints, text = text)
 
@@ -984,9 +978,15 @@ fun PointsEarnedPopup(
 @Composable
 fun QuickCheckInDialog(
     text: AppStrings,
+    language: String = "nl",
+    saving: Boolean = false,
+    error: Boolean = false,
     onDismiss: () -> Unit,
-    onSave: (type: String, number: Int, subNumber: Int) -> Unit
+    onSave: (type: String, numbers: Set<Int>, subNumber: Int) -> Unit
 ) {
+    var selectedHizbs by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(emptyList<Int>()) }
+    var choosingHizbs by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    var multipleHizbs by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var selectedType by remember { mutableStateOf("surah") }
     var number by remember { mutableIntStateOf(1) }
     var subNumber by remember { mutableIntStateOf(1) }
@@ -1014,8 +1014,15 @@ fun QuickCheckInDialog(
         if (selectedType == "hizb" || selectedType == "rub") ALL_HIZB.find { it.hizbNumber == number } else null
     }
 
+    if (choosingHizbs) {
+        HizbSelectionSheet(selectedHizbs.toSet(), language,
+            onChange = { selectedHizbs = it.sorted() },
+            onDismiss = { choosingHizbs = false })
+        return
+    }
+
     AlertDialog(
-        onDismissRequest = onDismiss,
+        onDismissRequest = { if (!saving) onDismiss() },
         containerColor = MidNavy,
         titleContentColor = GoldLight,
         textContentColor = LabelGold,
@@ -1031,11 +1038,12 @@ fun QuickCheckInDialog(
                         Box(
                             modifier = Modifier
                                 .weight(1f)
+                                .then(Modifier.quickCheckTypeTag(type))
                                 .clip(RoundedCornerShape(AppShape.smallControl))
                                 .background(if (selected) StrongGoldSurface else DeepNavy)
                                 .border(1.dp, if (selected) Gold else BorderNavy, RoundedCornerShape(AppShape.smallControl))
                                 .padding(vertical = 8.dp)
-                                .clickable {
+                                .clickable(enabled = !saving) {
                                     selectedType = type
                                     number = number.coerceIn(1, when (type) {
                                         "juz" -> 30
@@ -1057,10 +1065,27 @@ fun QuickCheckInDialog(
                     value = number,
                     min = 1,
                     max = maxNumber,
-                    onChange = { number = it }
+                    onChange = {
+                        if (!saving) {
+                            number = it
+                            if (selectedType == "hizb") {
+                                multipleHizbs = false
+                                selectedHizbs = emptyList()
+                            }
+                        }
+                    }
                 )
 
-                QuickCheckSelectedInfo(
+                if (selectedType == "hizb") {
+                    Spacer(Modifier.height(8.dp))
+                    HizbMultiSelect(selectedHizbs.toSet(), language, !saving) {
+                        if (!multipleHizbs) selectedHizbs = listOf(number)
+                        multipleHizbs = true
+                        choosingHizbs = true
+                    }
+                }
+
+                if (selectedType != "hizb" || !multipleHizbs) QuickCheckSelectedInfo(
                     text = text,
                     selectedType = selectedType,
                     surah = selectedSurah,
@@ -1081,12 +1106,14 @@ fun QuickCheckInDialog(
             }
         },
         confirmButton = {
-            TextButton(onClick = { onSave(selectedType, number, subNumber) }) {
+            if (error) Text(hizbText(language, "error"), color = MaterialTheme.colorScheme.error)
+            TextButton(modifier = androidx.compose.ui.Modifier.then(Modifier.quickCheckTypeTag("submit")), enabled = !saving && (selectedType != "hizb" || !multipleHizbs || selectedHizbs.isNotEmpty()), onClick = { onSave(selectedType, if (selectedType == "hizb" && multipleHizbs) selectedHizbs.toSet() else setOf(number), subNumber) }) {
+                if (saving) CircularProgressIndicator(Modifier.size(18.dp))
                 Text(text.t("quickCheck.saveAsRead"), color = Gold)
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
+            TextButton(enabled = !saving, onClick = onDismiss) {
                 Text(text.t("common.cancel"), color = MutedGold)
             }
         }
