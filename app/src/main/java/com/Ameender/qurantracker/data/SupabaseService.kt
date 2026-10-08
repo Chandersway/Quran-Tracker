@@ -9,10 +9,15 @@ import io.github.jan.supabase.auth.handleDeeplinks
 import io.github.jan.supabase.auth.providers.Google
 import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.auth.status.SessionStatus
+import io.github.jan.supabase.auth.status.SessionSource
 import io.github.jan.supabase.auth.user.UserInfo
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
+import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.rpc
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
 import kotlinx.serialization.SerialName
@@ -336,6 +341,11 @@ object SupabaseService {
     private val authScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val _authenticationState = MutableStateFlow<AuthenticationState>(AuthenticationState.Checking)
     val authenticationState: StateFlow<AuthenticationState> = _authenticationState.asStateFlow()
+    private val _passwordRecovery = MutableStateFlow(false)
+    val passwordRecovery: StateFlow<Boolean> = _passwordRecovery.asStateFlow()
+    private val _accountDeleted = MutableStateFlow(false)
+    val accountDeleted: StateFlow<Boolean> = _accountDeleted.asStateFlow()
+    fun consumeAccountDeletionNotice() { _accountDeleted.value = false }
 
     init {
         val authClient = clientOrNull?.auth
@@ -344,6 +354,9 @@ object SupabaseService {
         } else {
             authScope.launch {
                 authClient.sessionStatus.collectLatest { status ->
+                    if (status is SessionStatus.Authenticated && status.source == SessionSource.External &&
+                        status.session.type == "recovery") _passwordRecovery.value = true
+                    if (status is SessionStatus.NotAuthenticated) _passwordRecovery.value = false
                     _authenticationState.value = when (status) {
                         is SessionStatus.Authenticated -> authClient.currentUserOrNull()
                             ?.toAuthenticationState()
@@ -417,7 +430,7 @@ object SupabaseService {
                 uploadedAvatarUrl = null,
                 googlePhotoUrl = providerAvatar
             ),
-            provider = user.appMetadata.stringValue("provider") ?: "Google",
+            provider = user.appMetadata.stringValue("provider") ?: "email",
             customDisplayName = customName,
             providerDisplayName = providerName,
             customAvatarUrl = customAvatar,
@@ -1033,6 +1046,65 @@ object SupabaseService {
         client.auth.signInWith(Google)
     }
 
+    suspend fun requestPasswordReset(email: String) {
+        require(AccountManagementPolicy.validEmail(email))
+        client.auth.resetPasswordForEmail(email.trim(), redirectUrl = "qurantracker://auth")
+    }
+
+    private suspend fun verifyAccountPassword(password: String) {
+        val before = client.auth.retrieveUserForCurrentSession()
+        require(password.isNotBlank())
+        client.auth.signInWith(Email) {
+            email = requireNotNull(before.email)
+            this.password = password
+        }
+        check(client.auth.currentUserOrNull()?.id == before.id) { "Account identity changed" }
+    }
+
+    suspend fun changeAccountPassword(currentPassword: String, newPassword: String, nonce: String = "") {
+        require(AccountManagementPolicy.validPassword(newPassword))
+        verifyAccountPassword(currentPassword)
+        client.auth.updateUser {
+            password = newPassword
+            this.nonce = nonce.trim().ifBlank { null }
+        }
+    }
+
+    suspend fun requestPasswordChangeCode() = client.auth.reauthenticate()
+
+    suspend fun completePasswordRecovery(newPassword: String) {
+        check(_passwordRecovery.value) { "No verified recovery session" }
+        require(AccountManagementPolicy.validPassword(newPassword))
+        client.auth.updateUser { password = newPassword }
+        // Keep the recovery dialog open to show success; Done clears the flag.
+    }
+
+    fun dismissPasswordRecovery() { _passwordRecovery.value = false }
+
+    suspend fun changeAccountEmail(currentPassword: String, newEmail: String) {
+        val email = client.auth.retrieveUserForCurrentSession().email.orEmpty()
+        require(AccountManagementPolicy.changedEmail(email, newEmail))
+        verifyAccountPassword(currentPassword)
+        client.auth.updateUser(redirectUrl = "qurantracker://auth") { this.email = newEmail.trim() }
+        synchronizeAuthenticationState()
+    }
+
+    suspend fun accountDeletionStatus(): String =
+        client.postgrest.rpc("account_deletion_status_v1").decodeAs<String>()
+
+    suspend fun deleteOwnAccount(confirmationEmail: String, currentPassword: String) {
+        val user = client.auth.retrieveUserForCurrentSession()
+        require(AccountManagementPolicy.deletionConfirmed(user.email.orEmpty(), confirmationEmail))
+        if (user.appMetadata.stringValue("provider") == "email") verifyAccountPassword(currentPassword)
+        // No user ID is accepted by this RPC: the server derives it from auth.uid().
+        client.postgrest.rpc("delete_my_account_v1", buildJsonObject {
+            put("confirmation_email", confirmationEmail.trim())
+        })
+        _accountDeleted.value = true
+        client.auth.clearSession()
+        _authenticationState.value = AuthenticationState.SignedOut
+    }
+
     suspend fun signOut() {
         client.auth.signOut()
         _authenticationState.value = AuthenticationState.SignedOut
@@ -1040,14 +1112,15 @@ object SupabaseService {
 
     fun handleDeeplinks(intent: Intent) {
         val data = intent.data
-        android.util.Log.d("SupabaseAuth", "Binnenkomende link: $data")
+        // Auth callback URLs can contain access/refresh tokens. Never log them.
         try {
             if (data?.scheme == SupabaseConfig.DEEPLINK_SCHEME && data.host == SupabaseConfig.DEEPLINK_HOST) {
-                _authenticationState.value = AuthenticationState.Checking
+                // The SDK's sessionStatus is the source of truth. An invalid callback must
+                // not leave the UI in Checking when the SDK emits no session change.
+                clientOrNull?.handleDeeplinks(intent)
             }
-            clientOrNull?.handleDeeplinks(intent)
         } catch (e: Exception) {
-            android.util.Log.e("SupabaseAuth", "Deeplink fout: ${e.message}")
+            android.util.Log.e("SupabaseAuth", "Auth callback could not be processed")
         }
     }
 }

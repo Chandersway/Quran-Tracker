@@ -223,6 +223,7 @@ private val MemberPermissionOptions = listOf(
 @Composable
 @OptIn(ExperimentalLayoutApi::class)
 fun HamburgerMenu(
+    onReplayIntro: () -> Unit = {},
     isOpen: Boolean,
     onClose: () -> Unit,
     onNavigateToAgenda: () -> Unit,
@@ -373,6 +374,12 @@ fun HamburgerMenu(
                             title = com.Ameender.qurantracker.notifications.notificationText(appLanguage, "title"),
                             subtitle = "",
                             onClick = { onClose(); onNavigateToNotifications() }
+                        )
+                        SettingsActionRow(
+                            icon = Icons.Default.Info,
+                            title = text.t("onboarding.replay"),
+                            subtitle = "",
+                            onClick = { onClose(); onReplayIntro() }
                         )
                     }
                     SettingsGap()
@@ -622,8 +629,6 @@ fun HamburgerMenu(
                             subtitle = if (selectedReciterName.isBlank()) text.defaultReciter else selectedReciterName,
                             onClick = { mediaPageOpen = true }
                         )
-                        SettingsDivider()
-                        SettingsActionRow(Icons.Default.Info, text.offline, text.downloadsLater)
                     }
 
                     SettingsGap()
@@ -670,7 +675,7 @@ fun HamburgerMenu(
                                 .padding(horizontal = SettingsMenuStyle.innerPadding, vertical = 8.dp),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            listOf("nl" to "NL", "en" to "EN", "ar" to "عربي", "fr" to "FR").forEach { (language, label) ->
+                            listOf("nl" to "NL", "en" to "EN", "ar" to "عربي").forEach { (language, label) ->
                                 SettingsChoiceChip(
                                     label = label,
                                     selected = appLanguage == language,
@@ -2038,7 +2043,7 @@ private fun AuthenticatedGroupsSettingsPage(
         }
     }
 
-    fun joinOnlineGroup() {
+    fun joinOnlineGroup(onJoined: () -> Unit = {}) {
         if (busy) return
         if (joinCode.isBlank()) {
             message = text.groupJoinText.invalidCode
@@ -2069,6 +2074,7 @@ private fun AuthenticatedGroupsSettingsPage(
             result
                 .onSuccess { details ->
                     openGroup(details, text.groupJoinText.success.format(cleanCode))
+                    onJoined()
                 }
                 .onFailure {
                     message = friendlyGroupError(it, text.groupJoinText.error)
@@ -2089,15 +2095,14 @@ private fun AuthenticatedGroupsSettingsPage(
             runCatching { SupabaseService.acceptGroupInvitation(secureToken) }
                 .onSuccess { details ->
                     openGroup(details, text.t("groups.invite.accepted"))
+                    onInviteConsumed()
                 }
                 .onFailure { message = friendlyGroupError(it, text.t("groups.invite.acceptError")) }
             busy = false
-            onInviteConsumed()
         } else if (cleanInvite != null) {
             joinCode = cleanInvite
             message = ""
-            joinOnlineGroup()
-            onInviteConsumed()
+            joinOnlineGroup(onJoined = onInviteConsumed)
         }
     }
 
@@ -8640,7 +8645,16 @@ private fun AccountSettingsPage(
     var profileAvatarUrl by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
 
-    LaunchedEffect(authenticatedUser?.userId) {
+    val accountDeleted by SupabaseService.accountDeleted.collectAsState()
+    LaunchedEffect(accountDeleted) {
+        if (accountDeleted) {
+            message = accountManagementText(language, "deleted")
+            notice = accountManagementText(language, "title") to message
+            SupabaseService.consumeAccountDeletionNotice()
+        }
+    }
+
+    LaunchedEffect(authenticatedUser?.userId, authenticatedUser?.email) {
         val user = authenticatedUser
         if (user != null) {
             currentAccount = ProfileAvatarService.withCachedAvatar(
@@ -8814,6 +8828,7 @@ private fun AccountSettingsPage(
             }
             if (authenticatedUser != null) {
                 AccountProfilePanel(
+                    language = language,
                     account = currentAccount,
                     email = currentUserEmail.orEmpty(),
                     profileName = profileName.ifBlank { currentAccount?.displayName.orEmpty() },
@@ -8961,6 +8976,9 @@ private fun AccountSettingsPage(
                 )
             )
 
+            if (accountMode == "login") {
+                ForgotPasswordButton(email = email, language = language, enabled = !busy)
+            }
             if (accountMode == "signup") {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(strings.repeatPasswordLabel, fontSize = 11.sp, color = MutedGold, modifier = Modifier.padding(bottom = 6.dp))
@@ -9087,6 +9105,7 @@ private fun AccountSettingsPage(
 
 @Composable
 private fun AccountProfilePanel(
+    language: String,
     account: UserAccount?,
     email: String,
     profileName: String,
@@ -9133,7 +9152,7 @@ private fun AccountProfilePanel(
         Text(displayName, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = GoldLight, textAlign = TextAlign.Center)
         Text(email, fontSize = 12.sp, color = MutedGold, textAlign = TextAlign.Center)
         Text(
-            strings.googleActive,
+            accountManagementText(language, if (account?.provider.equals("google", true)) "googleStatus" else "emailStatus"),
             fontSize = 11.sp,
             color = DoneGreen,
             textAlign = TextAlign.Center
@@ -9195,6 +9214,7 @@ private fun AccountProfilePanel(
                 }
             }
         }
+        AccountManagementPanel(account = account, email = email, language = language, enabled = !busy)
         TextButton(
             onClick = onSignOut,
             enabled = !busy,

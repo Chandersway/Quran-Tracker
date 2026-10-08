@@ -1,0 +1,41 @@
+Rub-navigatie — voortgang fase 2
+
+Geïmplementeerd:
+- Rub-popup heeft een aparte actie 'Open dit rubʿ in de mushaf'.
+- Ondersteund: ingebouwde Hafs Medina en volledig gedownloade Hafs Maknoon.
+- Leest lokale 240-startpuntentabel; navigeert via de bestaande ayahroute.
+- Opent zonder een leesregistratie of hifz-score te wijzigen.
+- Controleert paginabestand en geometrie. Geen stille fallback naar een andere editie.
+- Warsh en niet-gecontroleerde PDF/IndoPak-layouts blijven uitgeschakeld met uitleg.
+- Nieuwe labels in Nederlands, Engels en Arabisch.
+
+Warsh-onderzoek:
+De oorspronkelijke quran-meta-brontabel blijft in quarantaine.
+De 604 echte Maknoon-SVG-pagina's zijn doorzocht op de achtbladige bloemvorm
+bij een deelgrens. 434 vormen zijn gevonden, ieder bij precies één geometrische
+ayahstrook. De vorm alleen onderscheidt echter geen rub van een achtste-deel.
+Visueel gecontroleerde pagina 5 toont de vorm vóór Warsh 2:25 (Hafs 2:26),
+en niet vóór Warsh 2:26 zoals de oorspronkelijke rubtabel vermeldt.
+
+Tweede bron: adelpro/open-mushaf-native, MIT,
+commit f4aa7867059ac6250a3f8aa68c64002ca1874b7d,
+assets/quran-metadata/mushaf-elmadina-warsh-azrak/thumn.json.
+Deze bron heeft 480 achtste-delen met paginaverwijzingen, maar ook evidente
+fouten (bijvoorbeeld surah 1, ayah 60). De eerste half-hizbgrens wijkt bovendien
+af van de eerder veronderstelde Hafs-grens: daarom geen automatische omzetting.
+408 bronitems kunnen qua aantal op hun pagina aan de gevonden vormen worden
+gekoppeld; 62 pagina's blijven onopgelost. Dit is GEEN inhoudelijke goedkeuring.
+Snapshot, MIT-licentie, hashes en rapport staan in scripts/data/warsh-divisions.
+
+Nog nodig voor Warsh:
+Een betrouwbare editie-specifieke classificatie van kwart/achtste-grenzen,
+controle van ontbrekende vormen bij onder andere soerabeginsels en bronfouten.
+De 104 oorspronkelijke verschillen zijn dus nog niet allemaal opgelost.
+Warsh activeren op basis van alleen een gevonden bloem of paginatelling zou
+onterecht zekerheid suggereren. Daarom blijft die runtime-route geblokkeerd.
+
+Reproduceerbaar:
+python scripts/inspect_warsh_rub_markers.py
+python scripts/audit_warsh_divisions.py
+Bron-SVGs: .artifacts/warsh-maknoon/001.svgz t/m 604.svgz.
+Deze scripts wijzigen geen leesgegevens en keuren geen runtime-startpunten goed.

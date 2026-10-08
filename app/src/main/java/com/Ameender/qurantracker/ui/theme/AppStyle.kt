@@ -865,6 +865,6 @@ fun hifzScoreBucket(score: Int): Int {
     }
 }
 
-fun hifzScoreSurface(score: Int): Color = HifzScoreSurfaces[hifzScoreBucket(score)]
+fun hifzScoreSurface(score: Int): Color = if (score <= 0) MidNavy else HifzScoreSurfaces[hifzScoreBucket(score)]
 
-fun hifzScoreBorder(score: Int): Color = HifzScoreBorders[hifzScoreBucket(score)]
+fun hifzScoreBorder(score: Int): Color = if (score <= 0) BorderNavy else HifzScoreBorders[hifzScoreBucket(score)]

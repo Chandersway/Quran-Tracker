@@ -112,14 +112,6 @@ class QuranViewModel(
         }
     }
 
-    fun updateJuzAndHizbHifzScores(juzNumber: Int, score: Int) {
-        viewModelScope.launch {
-            repository.updateHifzScore(QuranProgressType.JUZ, juzNumber, score)
-            repository.updateHifzScore(QuranProgressType.HIZB, juzNumber * 2 - 1, score)
-            repository.updateHifzScore(QuranProgressType.HIZB, juzNumber * 2, score)
-        }
-    }
-
     fun updateHizbHifzScore(hizbNumber: Int, score: Int) {
         viewModelScope.launch {
             repository.updateHifzScore(QuranProgressType.HIZB, hizbNumber, score)

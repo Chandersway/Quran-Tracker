@@ -9,12 +9,12 @@ class NotificationPolicyTest {
     private val zone = ZoneId.of("Europe/Amsterdam")
     private val quiet = QuietHours(true, 1320, 420)
 
-    @Test fun completeGoalNeverReminds() {
-        assertFalse(NotificationPolicy.dailyAllowed(prefs, false, 5, 5))
-        assertFalse(NotificationPolicy.dailyAllowed(prefs.copy(extra = true), true, 5, 8))
+    @Test fun completedGoalStillReminds() {
+        assertTrue(NotificationPolicy.dailyAllowed(prefs, false, 5, 5))
+        assertTrue(NotificationPolicy.dailyAllowed(prefs.copy(extra = true), true, 5, 8))
     }
     @Test fun unfinishedGoalReminds() { assertTrue(NotificationPolicy.dailyAllowed(prefs, false, 5, 3)) }
-    @Test fun disabledGoalNeverReminds() { assertFalse(NotificationPolicy.dailyAllowed(prefs, false, 0, 0)) }
+    @Test fun noGoalStillReminds() { assertTrue(NotificationPolicy.dailyAllowed(prefs, false, 0, 0)) }
     @Test fun masterSwitchOverridesCategories() {
         assertFalse(NotificationPolicy.dailyAllowed(prefs.copy(enabled = false, extra = true), true, 5, 0))
         assertFalse(NotificationPolicy.planningAllowed(prefs.copy(enabled = false), true, false, true))

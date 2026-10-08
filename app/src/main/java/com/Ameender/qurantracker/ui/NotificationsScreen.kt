@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -44,28 +48,43 @@ internal fun NotificationsScreen(language: String, model: NotificationsViewModel
     val prefs = state.preferences
     if (prefs == null) { Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }; return }
     Column(Modifier.fillMaxSize().background(DarkNavy).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp)) {
-        if (!permission) {
-            Text(t("blocked"), color = GoldLight)
-            TextButton(onClick = { context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)) }) { Text(t("system")) }
+        Text(t("intro"), style = MaterialTheme.typography.bodyMedium, color = MutedGold,
+            modifier = Modifier.padding(bottom = 16.dp))
+        NotificationSettingsCard {
+            Text(t(if (permission) "deviceAllowed" else "blocked"), style = MaterialTheme.typography.titleSmall,
+                color = if (permission) DoneGreen else GoldLight)
+            Text(t("systemHelp"), style = MaterialTheme.typography.bodySmall, color = MutedGold)
+            TextButton(onClick = { context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)) }) { Text(t("system"), color = Gold) }
         }
         state.status?.let { Text(t(it), style = MaterialTheme.typography.bodySmall, color = if (it == "error") MaterialTheme.colorScheme.error else MutedGold) }
         NotificationSection(t("general"))
-        NotificationToggle(t("all"), prefs.enabled, !state.saving) { model.save(prefs.copy(enabled = it)) }
+        NotificationSettingsCard {
+        NotificationToggle(t("localOn"), prefs.enabled, !state.saving, t("localHelp")) { model.save(prefs.copy(enabled = it)) }
+        }
+        NotificationSection(t("daily"))
+        NotificationSettingsCard {
+        NotificationToggle(t("reminder"), prefs.daily, !state.saving && prefs.enabled, t("dailyHelp")) { model.save(prefs.copy(daily = it)) }
+        if (prefs.daily) NotificationTime(t("time"), prefs.dailyMinute, language, !state.saving && prefs.enabled) { model.save(prefs.copy(dailyMinute = it)) }
+        HorizontalDivider(color = BorderNavy)
+        NotificationToggle(t("extra"), prefs.extra, !state.saving && prefs.enabled) { model.save(prefs.copy(extra = it)) }
+        if (prefs.extra) NotificationTime(t("extraTime"), prefs.extraMinute, language, !state.saving && prefs.enabled) { model.save(prefs.copy(extraMinute = it)) }
+        }
+        NotificationSection(t("planning"))
+        NotificationSettingsCard {
+        NotificationToggle(t("planningOn"), prefs.planning, !state.saving && prefs.enabled, t("planningHelp")) { model.save(prefs.copy(planning = it)) }
+        }
+        NotificationSection(t("quiet"))
+        NotificationSettingsCard {
         NotificationToggle(t("quiet"), prefs.quiet.enabled, !state.saving && prefs.enabled) { model.save(prefs.copy(quiet = prefs.quiet.copy(enabled = it))) }
         if (prefs.quiet.enabled) {
             NotificationTime(t("from"), prefs.quiet.startMinute, language, !state.saving && prefs.enabled) { model.save(prefs.copy(quiet = prefs.quiet.copy(startMinute = it))) }
             NotificationTime(t("until"), prefs.quiet.endMinute, language, !state.saving && prefs.enabled) { model.save(prefs.copy(quiet = prefs.quiet.copy(endMinute = it))) }
         }
         Text(t("timing"), style = MaterialTheme.typography.bodySmall, color = MutedGold, modifier = Modifier.padding(vertical = 8.dp))
-        NotificationSection(t("daily"))
-        NotificationToggle(t("reminder"), prefs.daily, !state.saving && prefs.enabled) { model.save(prefs.copy(daily = it)) }
-        NotificationTime(t("time"), prefs.dailyMinute, language, !state.saving) { model.save(prefs.copy(dailyMinute = it)) }
-        NotificationToggle(t("extra"), prefs.extra, !state.saving && prefs.enabled) { model.save(prefs.copy(extra = it)) }
-        if (prefs.extra) NotificationTime(t("time"), prefs.extraMinute, language, !state.saving && prefs.enabled) { model.save(prefs.copy(extraMinute = it)) }
-        NotificationSection(t("planning"))
-        NotificationToggle(t("planningOn"), prefs.planning, !state.saving && prefs.enabled) { model.save(prefs.copy(planning = it)) }
-        Text(t("planningHelp"), color = MutedGold, style = MaterialTheme.typography.bodySmall)
+        }
         NotificationSection(t("groups"))
+        NotificationSettingsCard {
+        Text(t("comingSoon"), style = MaterialTheme.typography.labelLarge, color = Gold)
         Text(t("pushPending"), color = MutedGold, style = MaterialTheme.typography.bodySmall)
         if (!state.signedIn && !state.authChecking) Text(t("login"), modifier = Modifier.padding(vertical = 12.dp), color = GoldLight)
         if (state.groupsLoading || state.authChecking) LinearProgressIndicator(Modifier.fillMaxWidth().padding(vertical = 12.dp))
@@ -90,6 +109,7 @@ internal fun NotificationsScreen(language: String, model: NotificationsViewModel
                 Text("›")
             }
         }
+        }
         Spacer(Modifier.height(24.dp))
     }
     openedGroup?.let { code ->
@@ -112,13 +132,22 @@ internal fun NotificationsScreen(language: String, model: NotificationsViewModel
 
 @Composable
 private fun NotificationSection(title: String) {
-    HorizontalDivider(Modifier.padding(top = 18.dp, bottom = 12.dp), color = BorderNavy)
-    Text(title, style = MaterialTheme.typography.titleSmall, color = Gold, modifier = Modifier.padding(bottom = 4.dp))
+    Text(title, style = MaterialTheme.typography.titleSmall, color = Gold, modifier = Modifier.padding(top = 24.dp, bottom = 10.dp, start = 4.dp))
 }
 @Composable
-private fun NotificationToggle(title: String, checked: Boolean, enabled: Boolean, onChange: (Boolean) -> Unit) {
-    Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).toggleable(value = checked, enabled = enabled, role = Role.Switch, onValueChange = onChange), verticalAlignment = Alignment.CenterVertically) {
-        Text(title, Modifier.weight(1f).padding(end = 12.dp), color = if (enabled) GoldLight else MutedGold)
+private fun NotificationSettingsCard(content: @Composable ColumnScope.() -> Unit) {
+    Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MidNavy), border = BorderStroke(1.dp, BorderNavy)) {
+        Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), content = content)
+    }
+}
+@Composable
+private fun NotificationToggle(title: String, checked: Boolean, enabled: Boolean, subtitle: String? = null, onChange: (Boolean) -> Unit) {
+    Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).toggleable(value = checked, enabled = enabled, role = Role.Switch, onValueChange = onChange).padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f).padding(end = 12.dp)) {
+            Text(title, style = MaterialTheme.typography.bodyLarge, color = if (enabled) GoldLight else MutedGold)
+            subtitle?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MutedGold, modifier = Modifier.padding(top = 4.dp)) }
+        }
         Switch(checked = checked, onCheckedChange = null, enabled = enabled)
     }
 }
@@ -128,9 +157,9 @@ internal fun NotificationTime(title: String, minute: Int, language: String, enab
     val label = String.format(locale, "%02d:%02d", minute / 60, minute % 60)
     var choosing by remember { mutableStateOf(false) }
     Row(Modifier.fillMaxWidth().heightIn(min = 56.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(title, Modifier.weight(1f), color = if(enabled) GoldLight else MutedGold)
-        OutlinedButton(onClick = { choosing = true }, enabled = enabled, modifier = Modifier.testTag("notification_time_$title")) {
-            Text("$label · ${notificationText(language, "chooseTime")}")
+        Text(title, Modifier.weight(1f).padding(end = 12.dp), color = if(enabled) GoldLight else MutedGold)
+        OutlinedButton(onClick = { choosing = true }, enabled = enabled, modifier = Modifier.testTag("notification_time_$title").semantics { contentDescription = "$title: $label" }) {
+            Text(label)
         }
     }
     if (choosing) {

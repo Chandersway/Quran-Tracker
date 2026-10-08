@@ -1,0 +1,69 @@
+Quran Tracker — audioherhaling, deel 1
+Datum: 8 oktober 2026
+
+STATUS
+Technische haalbaarheid aannemelijk; nog geen productie-go voor Warsh.
+Proefscherm gebouwd en geïnstalleerd, maar volledige afspeelrondes en
+inhoudelijke audiogrenzen nog niet bevestigd. Geen wijzigingen aan de
+productiespeler, mushafstroken, scores, account of leesgeschiedenis.
+
+GEONDERZOCHTE APPDATA
+- Hafs: bestaande hafs_ayahinfo_1260.db, 604 pagina's.
+- Warsh Maknoon: warsh_maknoon_positions.json, 604 pagina's, 6214 ayat.
+- Bestaande warsh_ayah_map.json vertaalt naar 6236 appreferenties.
+- Alle getekende Warsh-verzen bestaan in de brug; alle gekoppelde
+  referenties bestaan in Quraan.db. Geen vaste offset gebruiken.
+- Baqarah-pagina 2: Hafs 2:1–5, Warsh gedrukt 2:1–4; kandidaat-audio
+  002001.mp3 t/m 002005.mp3. Dit is een hypothese voor de audiokoppeling.
+- Overlap tussen Warsh-pagina's 85/86, 317/318, 354/355, 355/356.
+  Volledige bestanden kunnen daar extra tekst buiten de pagina bevatten.
+  Voor exact afbakenen zijn geverifieerde fragmentgrenzen/timestamps nodig.
+- Andere layouts zoals IndoPak en PDF-edities zijn niet gecertificeerd
+  door deze controle. Dezelfde riwayah betekent niet dezelfde paginering.
+- De app heeft 60 hizb-startreferenties; juz koppelt aan telkens twee hizb.
+  Bestaan en volgorde zijn gecontroleerd, niet alle inhoudelijke grenzen.
+  Er is nog geen gevalideerde tabel met alle 240 rub-audiogrenzen vastgesteld.
+
+AUDIOKANDIDATEN
+Hafs: Mishary Alafasy
+https://everyayah.com/data/Alafasy_128kbps/
+Warsh: Ibrahim Al-Dosari
+https://everyayah.com/data/warsh/warsh_ibrahim_aldosary_128kbps/
+
+Beide indexen bevatten de 6236 verwachte appreferenties. Steekproef:
+19 bestanden per bron, bereikverzoek, HTTP/audioheader gecontroleerd.
+Geen volledige download of inhoudelijke validatie van alle bestanden.
+Warsh-bestandsnummering lijkt de app/Hafs-referenties te volgen. Dat
+bewijst NIET dat fragmenten op dezelfde woorden beginnen/eindigen.
+Audio-gebruiksrechten en voorwaarden voor herdistributie/caching zijn
+nog niet vastgesteld. De licentie van de referentiebrug dekt de audio niet.
+
+PROEF
+Alleen debug: .debug.RepeatAudioProbeActivity (niet in release).
+Hergebruikt GlobalAudioPlayer met een vaste lijst, tweemaal achter elkaar.
+Warsh en Hafs; knoppen voor pagina 1, 2, 106 en 300; pauze/hervatten/stop.
+Geen automatische volgende soera buiten de gekozen lijst, geen fallback
+naar een andere reciteur/riwayah. Stopt/pauzeert bij verlaten van de proef.
+30 seconden laad-/bufferwachttijd geeft een duidelijke foutmelding.
+Geen registratie van beluisterde passages als gelezen.
+
+CONTROLE NODIG VOOR DEEL 2
+1. Per kandidaat werkelijk twee volledige rondes horen; einde stopt.
+2. Fatiha/basmala en Baqarah 2:1, 2:5, 2:200, 2:285 in WARSH-nummering
+   vergelijken met de gedrukte tekst, niet blind met gelijke bestandsnummers.
+3. Pagina 106 (soeraovergang), 300 (midden) en genoemde overlappagina's.
+4. Hizb/juz/rub-grenzen valideren met een geschikte primaire dataset.
+5. Streaming-/gebruiksvoorwaarden vaststellen voor publicatie.
+
+ADVIES VOOR VERVOLG
+Scheid mushafeditie, riwayah en audionummering expliciet. Gebruik stabiele
+bron- en reciteur-ID's: de huidige speler kiest vervolgaudio via naam en
+fallback, wat niet geschikt is voor gecontroleerde selectieherhaling.
+Eerst ayahbereik en complete-ayah-pagina's; exacte woordknippen pas met
+betrouwbare timings. Geen volledige productiefunctie in deze fase.
+
+REPRODUCEERBARE CONTROLE
+python scripts/audit_repeat_audio.py --online
+Uitvoer: build/repeat-audio-audit/audit.json
+Zonder --online: alleen lokale data-audit (online-resultaat dan leeg).
+Netwerk-/parsefouten worden als onbekend/fout vastgelegd, niet als succes.

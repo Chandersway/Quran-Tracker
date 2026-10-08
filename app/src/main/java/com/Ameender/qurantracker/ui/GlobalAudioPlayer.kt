@@ -117,6 +117,28 @@ class GlobalAudioPlayer(
     private val mediaPlayer = MediaPlayer()
     private val supportedPlaybackSpeeds = setOf(0.75f, 1f, 1.25f, 1.5f, 1.75f, 2f)
     private var playWhenReady = false
+    private var selectionTracks = emptyList<AudioTrack>()
+    private var selectionIndex = 0
+    var selectionTitle by mutableStateOf<String?>(null)
+        private set
+    var selectionRound by mutableIntStateOf(1)
+        private set
+    var selectionRounds by mutableIntStateOf(2)
+        private set
+    var repeatSheetRequested by mutableStateOf(false)
+    var playerSheetRequested by mutableStateOf(false)
+    var canConfigureSelection by mutableStateOf(false)
+
+    fun playSelection(tracks: List<AudioTrack>, title: String, rounds: Int) {
+        require(tracks.isNotEmpty() && rounds in listOf(0, 2, 3, 5))
+        stop()
+        selectionTracks = tracks.toList()
+        selectionTitle = title
+        selectionRounds = rounds
+        selectionRound = 1
+        selectionIndex = 0
+        playInternal(selectionTracks.first())
+    }
 
     var isPlaying by mutableStateOf(false)
         private set
@@ -152,8 +174,17 @@ class GlobalAudioPlayer(
     init {
         mediaPlayer.isLooping = repeatEnabled
         mediaPlayer.setOnCompletionListener {
+            if (selectionTracks.isNotEmpty()) {
+                val next = nextRepeatStep(selectionIndex, selectionRound, selectionTracks.size, selectionRounds)
+                if (next != null) {
+                    selectionIndex = next.first
+                    selectionRound = next.second
+                    playInternal(selectionTracks[selectionIndex])
+                    return@setOnCompletionListener
+                }
+            }
             val nextTrack = currentTrack
-                ?.takeIf { autoplayEnabled && !repeatEnabled }
+                ?.takeIf { selectionTracks.isEmpty() && autoplayEnabled && !repeatEnabled }
                 ?.let(resolveNextTrack)
             if (nextTrack != null) {
                 play(nextTrack, startWhenReady = true)
@@ -199,7 +230,14 @@ class GlobalAudioPlayer(
     }
 
     fun play(track: AudioTrack, startWhenReady: Boolean = true, startPositionMs: Int = 0) {
-        if (currentTrack?.audioUrl == track.audioUrl && !isPreparing && playbackState != AudioPlaybackState.Error) {
+        if (selectionTracks.isNotEmpty()) stop()
+        selectionTracks = emptyList()
+        selectionTitle = null
+        playInternal(track, startWhenReady, startPositionMs)
+    }
+
+    private fun playInternal(track: AudioTrack, startWhenReady: Boolean = true, startPositionMs: Int = 0) {
+        if (selectionTracks.isEmpty() && currentTrack?.audioUrl == track.audioUrl && !isPreparing && playbackState != AudioPlaybackState.Error) {
             if (startPositionMs > 0) seekTo(startPositionMs)
             if (startWhenReady) resume()
             isVisible = true
@@ -219,7 +257,7 @@ class GlobalAudioPlayer(
             playWhenReady = startWhenReady
             errorType = null
             playbackState = AudioPlaybackState.Loading
-            mediaPlayer.isLooping = repeatEnabled
+            mediaPlayer.isLooping = repeatEnabled && selectionTracks.isEmpty()
             mediaPlayer.setDataSource(track.audioUrl)
             mediaPlayer.setOnPreparedListener {
                 durationMs = it.duration.coerceAtLeast(0)
@@ -262,6 +300,12 @@ class GlobalAudioPlayer(
     }
 
     fun resume() {
+        if (playbackState == AudioPlaybackState.Completed && selectionTracks.isNotEmpty()) {
+            selectionIndex = 0
+            selectionRound = 1
+            playInternal(selectionTracks.first())
+            return
+        }
         playWhenReady = true
         if (isPreparing) return
         if (currentTrack != null && !isPlaying) {
@@ -292,10 +336,12 @@ class GlobalAudioPlayer(
 
     fun retry() {
         val track = currentTrack ?: return
-        play(track, startWhenReady = true, startPositionMs = positionMs)
+        playInternal(track, startWhenReady = true, startPositionMs = positionMs)
     }
 
     fun stop() {
+        selectionTracks = emptyList()
+        selectionTitle = null
         if (isPlaying || isPreparing || isBuffering) runCatching { mediaPlayer.stop() }
         runCatching { mediaPlayer.reset() }
         isPreparing = false
@@ -342,7 +388,7 @@ class GlobalAudioPlayer(
 
     fun updateRepeat(enabled: Boolean) {
         repeatEnabled = enabled
-        runCatching { mediaPlayer.isLooping = enabled }
+        runCatching { mediaPlayer.isLooping = enabled && selectionTracks.isEmpty() }
         onRepeatChanged(enabled)
     }
 
@@ -437,6 +483,12 @@ fun GlobalMiniPlayer(
     val track = audioPlayer.currentTrack ?: return
     if (!audioPlayer.isVisible) return
     var expanded by remember { mutableStateOf(false) }
+    LaunchedEffect(audioPlayer.playerSheetRequested) {
+        if (audioPlayer.playerSheetRequested) {
+            expanded = true
+            audioPlayer.playerSheetRequested = false
+        }
+    }
     var speedMenuOpen by remember { mutableStateOf(false) }
     var upwardDrag by remember { mutableStateOf(0f) }
     val progress = audioProgress(audioPlayer.positionMs, audioPlayer.durationMs)
@@ -471,7 +523,7 @@ fun GlobalMiniPlayer(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        audioSurahTitle(track),
+                        audioPlayer.selectionTitle ?: audioSurahTitle(track),
                         color = GoldLight,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.ExtraBold,
@@ -479,7 +531,9 @@ fun GlobalMiniPlayer(
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        audioMiniMeta(text, track, audioPlayer),
+                        if (audioPlayer.selectionTitle != null && audioPlayer.playbackState != AudioPlaybackState.Error)
+                            text.t("repeat.round", audioPlayer.selectionRound, if (audioPlayer.selectionRounds == 0) "∞" else audioPlayer.selectionRounds.toString())
+                        else audioMiniMeta(text, track, audioPlayer),
                         color = if (audioPlayer.playbackState == AudioPlaybackState.Error) DeleteRed else MutedGold,
                         fontSize = 9.sp,
                         maxLines = 1,
@@ -671,6 +725,18 @@ private fun ExpandedAudioPlayerSheet(
 
             AudioStateMessage(audioPlayer, text)
 
+            if (audioPlayer.canConfigureSelection) {
+                OutlinedButton(onClick = { onDismiss(); audioPlayer.repeatSheetRequested = true }, modifier = Modifier.fillMaxWidth()) {
+                    Icon(Icons.Default.ReplayCircleFilled, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text(text.t("audio.repeat"))
+                }
+            }
+            audioPlayer.selectionTitle?.let { title ->
+                Text("$title · " + text.t("repeat.round", audioPlayer.selectionRound,
+                    if (audioPlayer.selectionRounds == 0) "∞" else audioPlayer.selectionRounds.toString()), color = Gold)
+            }
+
             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Slider(
                     value = progress,
@@ -760,7 +826,7 @@ private fun ExpandedAudioPlayerSheet(
                 border = androidx.compose.foundation.BorderStroke(1.dp, BorderNavy)
             ) {
                 Column {
-                    AudioToggleRow(
+                    if (audioPlayer.selectionTitle == null && !audioPlayer.canConfigureSelection) AudioToggleRow(
                         icon = Icons.Default.ReplayCircleFilled,
                         title = text.t("audio.repeat"),
                         subtitle = text.t("audio.repeatDescription"),

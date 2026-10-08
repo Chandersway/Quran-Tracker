@@ -1,0 +1,5893 @@
+{
+  "existingHizbDifferences": [
+    {
+      "edition": "warsh",
+      "hizb": 2,
+      "existing": [
+        2,
+        75
+      ],
+      "sourcePrinted": [
+        2,
+        75
+      ],
+      "sourceAppAyahs": [
+        76
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 3,
+      "existing": [
+        2,
+        142
+      ],
+      "sourcePrinted": [
+        2,
+        142
+      ],
+      "sourceAppAyahs": [
+        143
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 4,
+      "existing": [
+        2,
+        203
+      ],
+      "sourcePrinted": [
+        2,
+        203
+      ],
+      "sourceAppAyahs": [
+        205
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 5,
+      "existing": [
+        2,
+        253
+      ],
+      "sourcePrinted": [
+        2,
+        253
+      ],
+      "sourceAppAyahs": [
+        255
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 10,
+      "existing": [
+        4,
+        88
+      ],
+      "sourcePrinted": [
+        4,
+        88
+      ],
+      "sourceAppAyahs": [
+        89
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 11,
+      "existing": [
+        4,
+        148
+      ],
+      "sourcePrinted": [
+        4,
+        148
+      ],
+      "sourceAppAyahs": [
+        149
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 12,
+      "existing": [
+        5,
+        27
+      ],
+      "sourcePrinted": [
+        5,
+        27
+      ],
+      "sourceAppAyahs": [
+        25
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 13,
+      "existing": [
+        5,
+        82
+      ],
+      "sourcePrinted": [
+        5,
+        82
+      ],
+      "sourceAppAyahs": [
+        80
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 14,
+      "existing": [
+        6,
+        36
+      ],
+      "sourcePrinted": [
+        6,
+        36
+      ],
+      "sourceAppAyahs": [
+        35
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 15,
+      "existing": [
+        6,
+        111
+      ],
+      "sourcePrinted": [
+        6,
+        111
+      ],
+      "sourceAppAyahs": [
+        110
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 17,
+      "existing": [
+        7,
+        88
+      ],
+      "sourcePrinted": [
+        7,
+        88
+      ],
+      "sourceAppAyahs": [
+        89
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 21,
+      "existing": [
+        9,
+        93
+      ],
+      "sourcePrinted": [
+        9,
+        93
+      ],
+      "sourceAppAyahs": [
+        92
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 24,
+      "existing": [
+        11,
+        84
+      ],
+      "sourcePrinted": [
+        11,
+        84
+      ],
+      "sourceAppAyahs": [
+        85
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 26,
+      "existing": [
+        13,
+        19
+      ],
+      "sourcePrinted": [
+        13,
+        19
+      ],
+      "sourceAppAyahs": [
+        17
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 31,
+      "existing": [
+        18,
+        75
+      ],
+      "sourcePrinted": [
+        18,
+        75
+      ],
+      "sourceAppAyahs": [
+        76
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 39,
+      "existing": [
+        27,
+        56
+      ],
+      "sourcePrinted": [
+        27,
+        56
+      ],
+      "sourceAppAyahs": [
+        54
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 42,
+      "existing": [
+        31,
+        22
+      ],
+      "sourcePrinted": [
+        31,
+        22
+      ],
+      "sourceAppAyahs": [
+        23
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 45,
+      "existing": [
+        36,
+        28
+      ],
+      "sourcePrinted": [
+        36,
+        28
+      ],
+      "sourceAppAyahs": [
+        29
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 47,
+      "existing": [
+        39,
+        32
+      ],
+      "sourcePrinted": [
+        39,
+        32
+      ],
+      "sourceAppAyahs": [
+        33
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 49,
+      "existing": [
+        41,
+        47
+      ],
+      "sourcePrinted": [
+        41,
+        47
+      ],
+      "sourceAppAyahs": [
+        48
+      ]
+    },
+    {
+      "edition": "warsh",
+      "hizb": 50,
+      "existing": [
+        43,
+        24
+      ],
+      "sourcePrinted": [
+        43,
+        24
+      ],
+      "sourceAppAyahs": [
+        25
+      ]
+    }
+  ],
+  "crossEditionDifferences": [
+    {
+      "id": 2,
+      "hafs": [
+        2,
+        26
+      ],
+      "warsh": [
+        2,
+        26
+      ],
+      "warshAppAyahs": [
+        27
+      ]
+    },
+    {
+      "id": 3,
+      "hafs": [
+        2,
+        44
+      ],
+      "warsh": [
+        2,
+        44
+      ],
+      "warshAppAyahs": [
+        45
+      ]
+    },
+    {
+      "id": 4,
+      "hafs": [
+        2,
+        60
+      ],
+      "warsh": [
+        2,
+        60
+      ],
+      "warshAppAyahs": [
+        61
+      ]
+    },
+    {
+      "id": 5,
+      "hafs": [
+        2,
+        75
+      ],
+      "warsh": [
+        2,
+        75
+      ],
+      "warshAppAyahs": [
+        76
+      ]
+    },
+    {
+      "id": 6,
+      "hafs": [
+        2,
+        92
+      ],
+      "warsh": [
+        2,
+        92
+      ],
+      "warshAppAyahs": [
+        93
+      ]
+    },
+    {
+      "id": 7,
+      "hafs": [
+        2,
+        106
+      ],
+      "warsh": [
+        2,
+        106
+      ],
+      "warshAppAyahs": [
+        107
+      ]
+    },
+    {
+      "id": 8,
+      "hafs": [
+        2,
+        124
+      ],
+      "warsh": [
+        2,
+        124
+      ],
+      "warshAppAyahs": [
+        125
+      ]
+    },
+    {
+      "id": 9,
+      "hafs": [
+        2,
+        142
+      ],
+      "warsh": [
+        2,
+        142
+      ],
+      "warshAppAyahs": [
+        143
+      ]
+    },
+    {
+      "id": 10,
+      "hafs": [
+        2,
+        158
+      ],
+      "warsh": [
+        2,
+        158
+      ],
+      "warshAppAyahs": [
+        159
+      ]
+    },
+    {
+      "id": 11,
+      "hafs": [
+        2,
+        177
+      ],
+      "warsh": [
+        2,
+        177
+      ],
+      "warshAppAyahs": [
+        178
+      ]
+    },
+    {
+      "id": 12,
+      "hafs": [
+        2,
+        189
+      ],
+      "warsh": [
+        2,
+        189
+      ],
+      "warshAppAyahs": [
+        190
+      ]
+    },
+    {
+      "id": 13,
+      "hafs": [
+        2,
+        203
+      ],
+      "warsh": [
+        2,
+        203
+      ],
+      "warshAppAyahs": [
+        205
+      ]
+    },
+    {
+      "id": 14,
+      "hafs": [
+        2,
+        219
+      ],
+      "warsh": [
+        2,
+        219
+      ],
+      "warshAppAyahs": [
+        221
+      ]
+    },
+    {
+      "id": 15,
+      "hafs": [
+        2,
+        233
+      ],
+      "warsh": [
+        2,
+        233
+      ],
+      "warshAppAyahs": [
+        235
+      ]
+    },
+    {
+      "id": 16,
+      "hafs": [
+        2,
+        243
+      ],
+      "warsh": [
+        2,
+        243
+      ],
+      "warshAppAyahs": [
+        245
+      ]
+    },
+    {
+      "id": 17,
+      "hafs": [
+        2,
+        253
+      ],
+      "warsh": [
+        2,
+        253
+      ],
+      "warshAppAyahs": [
+        255
+      ]
+    },
+    {
+      "id": 18,
+      "hafs": [
+        2,
+        263
+      ],
+      "warsh": [
+        2,
+        263
+      ],
+      "warshAppAyahs": [
+        264
+      ]
+    },
+    {
+      "id": 19,
+      "hafs": [
+        2,
+        272
+      ],
+      "warsh": [
+        2,
+        272
+      ],
+      "warshAppAyahs": [
+        273
+      ]
+    },
+    {
+      "id": 20,
+      "hafs": [
+        2,
+        283
+      ],
+      "warsh": [
+        2,
+        283
+      ],
+      "warshAppAyahs": [
+        284
+      ]
+    },
+    {
+      "id": 23,
+      "hafs": [
+        3,
+        52
+      ],
+      "warsh": [
+        3,
+        52
+      ],
+      "warshAppAyahs": [
+        53
+      ]
+    },
+    {
+      "id": 24,
+      "hafs": [
+        3,
+        75
+      ],
+      "warsh": [
+        3,
+        75
+      ],
+      "warshAppAyahs": [
+        76
+      ]
+    },
+    {
+      "id": 35,
+      "hafs": [
+        4,
+        58
+      ],
+      "warsh": [
+        4,
+        58
+      ],
+      "warshAppAyahs": [
+        59
+      ]
+    },
+    {
+      "id": 36,
+      "hafs": [
+        4,
+        74
+      ],
+      "warsh": [
+        4,
+        74
+      ],
+      "warshAppAyahs": [
+        75
+      ]
+    },
+    {
+      "id": 37,
+      "hafs": [
+        4,
+        88
+      ],
+      "warsh": [
+        4,
+        88
+      ],
+      "warshAppAyahs": [
+        89
+      ]
+    },
+    {
+      "id": 38,
+      "hafs": [
+        4,
+        100
+      ],
+      "warsh": [
+        4,
+        100
+      ],
+      "warshAppAyahs": [
+        101
+      ]
+    },
+    {
+      "id": 39,
+      "hafs": [
+        4,
+        114
+      ],
+      "warsh": [
+        4,
+        114
+      ],
+      "warshAppAyahs": [
+        115
+      ]
+    },
+    {
+      "id": 40,
+      "hafs": [
+        4,
+        135
+      ],
+      "warsh": [
+        4,
+        135
+      ],
+      "warshAppAyahs": [
+        136
+      ]
+    },
+    {
+      "id": 41,
+      "hafs": [
+        4,
+        148
+      ],
+      "warsh": [
+        4,
+        148
+      ],
+      "warshAppAyahs": [
+        149
+      ]
+    },
+    {
+      "id": 42,
+      "hafs": [
+        4,
+        163
+      ],
+      "warsh": [
+        4,
+        163
+      ],
+      "warshAppAyahs": [
+        164
+      ]
+    },
+    {
+      "id": 44,
+      "hafs": [
+        5,
+        12
+      ],
+      "warsh": [
+        5,
+        12
+      ],
+      "warshAppAyahs": [
+        11
+      ]
+    },
+    {
+      "id": 45,
+      "hafs": [
+        5,
+        27
+      ],
+      "warsh": [
+        5,
+        27
+      ],
+      "warshAppAyahs": [
+        25
+      ]
+    },
+    {
+      "id": 46,
+      "hafs": [
+        5,
+        41
+      ],
+      "warsh": [
+        5,
+        41
+      ],
+      "warshAppAyahs": [
+        39
+      ]
+    },
+    {
+      "id": 47,
+      "hafs": [
+        5,
+        51
+      ],
+      "warsh": [
+        5,
+        51
+      ],
+      "warshAppAyahs": [
+        49
+      ]
+    },
+    {
+      "id": 48,
+      "hafs": [
+        5,
+        67
+      ],
+      "warsh": [
+        5,
+        67
+      ],
+      "warshAppAyahs": [
+        65
+      ]
+    },
+    {
+      "id": 49,
+      "hafs": [
+        5,
+        82
+      ],
+      "warsh": [
+        5,
+        82
+      ],
+      "warshAppAyahs": [
+        80
+      ]
+    },
+    {
+      "id": 50,
+      "hafs": [
+        5,
+        97
+      ],
+      "warsh": [
+        5,
+        97
+      ],
+      "warshAppAyahs": [
+        95
+      ]
+    },
+    {
+      "id": 51,
+      "hafs": [
+        5,
+        109
+      ],
+      "warsh": [
+        5,
+        109
+      ],
+      "warshAppAyahs": [
+        107
+      ]
+    },
+    {
+      "id": 52,
+      "hafs": [
+        6,
+        13
+      ],
+      "warsh": [
+        6,
+        13
+      ],
+      "warshAppAyahs": [
+        12
+      ]
+    },
+    {
+      "id": 53,
+      "hafs": [
+        6,
+        36
+      ],
+      "warsh": [
+        6,
+        36
+      ],
+      "warshAppAyahs": [
+        35
+      ]
+    },
+    {
+      "id": 54,
+      "hafs": [
+        6,
+        59
+      ],
+      "warsh": [
+        6,
+        59
+      ],
+      "warshAppAyahs": [
+        58
+      ]
+    },
+    {
+      "id": 55,
+      "hafs": [
+        6,
+        74
+      ],
+      "warsh": [
+        6,
+        74
+      ],
+      "warshAppAyahs": [
+        73
+      ]
+    },
+    {
+      "id": 56,
+      "hafs": [
+        6,
+        95
+      ],
+      "warsh": [
+        6,
+        95
+      ],
+      "warshAppAyahs": [
+        94
+      ]
+    },
+    {
+      "id": 57,
+      "hafs": [
+        6,
+        111
+      ],
+      "warsh": [
+        6,
+        111
+      ],
+      "warshAppAyahs": [
+        110
+      ]
+    },
+    {
+      "id": 58,
+      "hafs": [
+        6,
+        127
+      ],
+      "warsh": [
+        6,
+        127
+      ],
+      "warshAppAyahs": [
+        126
+      ]
+    },
+    {
+      "id": 59,
+      "hafs": [
+        6,
+        141
+      ],
+      "warsh": [
+        6,
+        141
+      ],
+      "warshAppAyahs": [
+        140
+      ]
+    },
+    {
+      "id": 60,
+      "hafs": [
+        6,
+        151
+      ],
+      "warsh": [
+        6,
+        151
+      ],
+      "warshAppAyahs": [
+        150
+      ]
+    },
+    {
+      "id": 62,
+      "hafs": [
+        7,
+        31
+      ],
+      "warsh": [
+        7,
+        31
+      ],
+      "warshAppAyahs": [
+        33
+      ]
+    },
+    {
+      "id": 63,
+      "hafs": [
+        7,
+        47
+      ],
+      "warsh": [
+        7,
+        47
+      ],
+      "warshAppAyahs": [
+        48
+      ]
+    },
+    {
+      "id": 64,
+      "hafs": [
+        7,
+        65
+      ],
+      "warsh": [
+        7,
+        65
+      ],
+      "warshAppAyahs": [
+        66
+      ]
+    },
+    {
+      "id": 65,
+      "hafs": [
+        7,
+        88
+      ],
+      "warsh": [
+        7,
+        88
+      ],
+      "warshAppAyahs": [
+        89
+      ]
+    },
+    {
+      "id": 66,
+      "hafs": [
+        7,
+        117
+      ],
+      "warsh": [
+        7,
+        117
+      ],
+      "warshAppAyahs": [
+        118
+      ]
+    },
+    {
+      "id": 74,
+      "hafs": [
+        8,
+        61
+      ],
+      "warsh": [
+        8,
+        61
+      ],
+      "warshAppAyahs": [
+        60
+      ]
+    },
+    {
+      "id": 80,
+      "hafs": [
+        9,
+        75
+      ],
+      "warsh": [
+        9,
+        75
+      ],
+      "warshAppAyahs": [
+        74
+      ]
+    },
+    {
+      "id": 81,
+      "hafs": [
+        9,
+        93
+      ],
+      "warsh": [
+        9,
+        93
+      ],
+      "warshAppAyahs": [
+        92
+      ]
+    },
+    {
+      "id": 82,
+      "hafs": [
+        9,
+        111
+      ],
+      "warsh": [
+        9,
+        111
+      ],
+      "warshAppAyahs": [
+        110
+      ]
+    },
+    {
+      "id": 83,
+      "hafs": [
+        9,
+        122
+      ],
+      "warsh": [
+        9,
+        122
+      ],
+      "warshAppAyahs": [
+        121
+      ]
+    },
+    {
+      "id": 92,
+      "hafs": [
+        11,
+        61
+      ],
+      "warsh": [
+        11,
+        61
+      ],
+      "warshAppAyahs": [
+        62
+      ]
+    },
+    {
+      "id": 93,
+      "hafs": [
+        11,
+        84
+      ],
+      "warsh": [
+        11,
+        84
+      ],
+      "warshAppAyahs": [
+        85
+      ]
+    },
+    {
+      "id": 101,
+      "hafs": [
+        13,
+        19
+      ],
+      "warsh": [
+        13,
+        19
+      ],
+      "warshAppAyahs": [
+        17
+      ]
+    },
+    {
+      "id": 102,
+      "hafs": [
+        13,
+        35
+      ],
+      "warsh": [
+        13,
+        35
+      ],
+      "warshAppAyahs": [
+        34
+      ]
+    },
+    {
+      "id": 103,
+      "hafs": [
+        14,
+        10
+      ],
+      "warsh": [
+        14,
+        10
+      ],
+      "warshAppAyahs": [
+        8
+      ]
+    },
+    {
+      "id": 104,
+      "hafs": [
+        14,
+        28
+      ],
+      "warsh": [
+        14,
+        28
+      ],
+      "warshAppAyahs": [
+        26
+      ]
+    },
+    {
+      "id": 120,
+      "hafs": [
+        18,
+        51
+      ],
+      "warsh": [
+        18,
+        51
+      ],
+      "warshAppAyahs": [
+        52
+      ]
+    },
+    {
+      "id": 121,
+      "hafs": [
+        18,
+        75
+      ],
+      "warsh": [
+        18,
+        75
+      ],
+      "warshAppAyahs": [
+        76
+      ]
+    },
+    {
+      "id": 122,
+      "hafs": [
+        18,
+        99
+      ],
+      "warsh": [
+        18,
+        99
+      ],
+      "warshAppAyahs": [
+        103,
+        104
+      ]
+    },
+    {
+      "id": 123,
+      "hafs": [
+        19,
+        22
+      ],
+      "warsh": [
+        19,
+        22
+      ],
+      "warshAppAyahs": [
+        23
+      ]
+    },
+    {
+      "id": 126,
+      "hafs": [
+        20,
+        55
+      ],
+      "warsh": [
+        20,
+        55
+      ],
+      "warshAppAyahs": [
+        56
+      ]
+    },
+    {
+      "id": 127,
+      "hafs": [
+        20,
+        83
+      ],
+      "warsh": [
+        20,
+        83
+      ],
+      "warshAppAyahs": [
+        85
+      ]
+    },
+    {
+      "id": 128,
+      "hafs": [
+        20,
+        111
+      ],
+      "warsh": [
+        20,
+        111
+      ],
+      "warshAppAyahs": [
+        114
+      ]
+    },
+    {
+      "id": 132,
+      "hafs": [
+        21,
+        83
+      ],
+      "warsh": [
+        21,
+        83
+      ],
+      "warshAppAyahs": [
+        84
+      ]
+    },
+    {
+      "id": 135,
+      "hafs": [
+        22,
+        38
+      ],
+      "warsh": [
+        22,
+        38
+      ],
+      "warshAppAyahs": [
+        40
+      ]
+    },
+    {
+      "id": 136,
+      "hafs": [
+        22,
+        60
+      ],
+      "warsh": [
+        22,
+        60
+      ],
+      "warshAppAyahs": [
+        62
+      ]
+    },
+    {
+      "id": 139,
+      "hafs": [
+        23,
+        75
+      ],
+      "warsh": [
+        23,
+        75
+      ],
+      "warshAppAyahs": [
+        74
+      ]
+    },
+    {
+      "id": 143,
+      "hafs": [
+        24,
+        53
+      ],
+      "warsh": [
+        24,
+        53
+      ],
+      "warshAppAyahs": [
+        55
+      ]
+    },
+    {
+      "id": 153,
+      "hafs": [
+        27,
+        56
+      ],
+      "warsh": [
+        27,
+        56
+      ],
+      "warshAppAyahs": [
+        54
+      ]
+    },
+    {
+      "id": 154,
+      "hafs": [
+        27,
+        82
+      ],
+      "warsh": [
+        27,
+        82
+      ],
+      "warshAppAyahs": [
+        80
+      ]
+    },
+    {
+      "id": 155,
+      "hafs": [
+        28,
+        12
+      ],
+      "warsh": [
+        28,
+        12
+      ],
+      "warshAppAyahs": [
+        13
+      ]
+    },
+    {
+      "id": 160,
+      "hafs": [
+        29,
+        26
+      ],
+      "warsh": [
+        29,
+        26
+      ],
+      "warshAppAyahs": [
+        27
+      ]
+    },
+    {
+      "id": 163,
+      "hafs": [
+        30,
+        31
+      ],
+      "warsh": [
+        30,
+        31
+      ],
+      "warshAppAyahs": [
+        32
+      ]
+    },
+    {
+      "id": 164,
+      "hafs": [
+        30,
+        54
+      ],
+      "warsh": [
+        30,
+        54
+      ],
+      "warshAppAyahs": [
+        55
+      ]
+    },
+    {
+      "id": 165,
+      "hafs": [
+        31,
+        22
+      ],
+      "warsh": [
+        31,
+        22
+      ],
+      "warshAppAyahs": [
+        23
+      ]
+    },
+    {
+      "id": 177,
+      "hafs": [
+        36,
+        28
+      ],
+      "warsh": [
+        36,
+        28
+      ],
+      "warshAppAyahs": [
+        29
+      ]
+    },
+    {
+      "id": 178,
+      "hafs": [
+        36,
+        60
+      ],
+      "warsh": [
+        36,
+        60
+      ],
+      "warshAppAyahs": [
+        61
+      ]
+    },
+    {
+      "id": 182,
+      "hafs": [
+        38,
+        21
+      ],
+      "warsh": [
+        38,
+        21
+      ],
+      "warshAppAyahs": [
+        22
+      ]
+    },
+    {
+      "id": 183,
+      "hafs": [
+        38,
+        52
+      ],
+      "warsh": [
+        38,
+        52
+      ],
+      "warshAppAyahs": [
+        53
+      ]
+    },
+    {
+      "id": 184,
+      "hafs": [
+        39,
+        8
+      ],
+      "warsh": [
+        39,
+        8
+      ],
+      "warshAppAyahs": [
+        7
+      ]
+    },
+    {
+      "id": 185,
+      "hafs": [
+        39,
+        32
+      ],
+      "warsh": [
+        39,
+        32
+      ],
+      "warshAppAyahs": [
+        33
+      ]
+    },
+    {
+      "id": 186,
+      "hafs": [
+        39,
+        53
+      ],
+      "warsh": [
+        39,
+        53
+      ],
+      "warshAppAyahs": [
+        56
+      ]
+    },
+    {
+      "id": 191,
+      "hafs": [
+        41,
+        9
+      ],
+      "warsh": [
+        41,
+        9
+      ],
+      "warshAppAyahs": [
+        10
+      ]
+    },
+    {
+      "id": 192,
+      "hafs": [
+        41,
+        25
+      ],
+      "warsh": [
+        41,
+        25
+      ],
+      "warshAppAyahs": [
+        26
+      ]
+    },
+    {
+      "id": 193,
+      "hafs": [
+        41,
+        47
+      ],
+      "warsh": [
+        41,
+        47
+      ],
+      "warshAppAyahs": [
+        48
+      ]
+    },
+    {
+      "id": 194,
+      "hafs": [
+        42,
+        13
+      ],
+      "warsh": [
+        42,
+        13
+      ],
+      "warshAppAyahs": [
+        15
+      ]
+    },
+    {
+      "id": 195,
+      "hafs": [
+        42,
+        27
+      ],
+      "warsh": [
+        42,
+        27
+      ],
+      "warshAppAyahs": [
+        29
+      ]
+    },
+    {
+      "id": 196,
+      "hafs": [
+        42,
+        51
+      ],
+      "warsh": [
+        43,
+        1
+      ],
+      "warshAppAyahs": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": 197,
+      "hafs": [
+        43,
+        24
+      ],
+      "warsh": [
+        43,
+        24
+      ],
+      "warshAppAyahs": [
+        25
+      ]
+    },
+    {
+      "id": 199,
+      "hafs": [
+        44,
+        17
+      ],
+      "warsh": [
+        44,
+        17
+      ],
+      "warshAppAyahs": [
+        18
+      ]
+    },
+    {
+      "id": 200,
+      "hafs": [
+        45,
+        12
+      ],
+      "warsh": [
+        45,
+        12
+      ],
+      "warshAppAyahs": [
+        13
+      ]
+    },
+    {
+      "id": 202,
+      "hafs": [
+        46,
+        21
+      ],
+      "warsh": [
+        46,
+        21
+      ],
+      "warshAppAyahs": [
+        22
+      ]
+    },
+    {
+      "id": 203,
+      "hafs": [
+        47,
+        10
+      ],
+      "warsh": [
+        47,
+        10
+      ],
+      "warshAppAyahs": [
+        9
+      ]
+    },
+    {
+      "id": 204,
+      "hafs": [
+        47,
+        33
+      ],
+      "warsh": [
+        47,
+        33
+      ],
+      "warshAppAyahs": [
+        32
+      ]
+    },
+    {
+      "id": 210,
+      "hafs": [
+        52,
+        24
+      ],
+      "warsh": [
+        52,
+        24
+      ],
+      "warshAppAyahs": [
+        26
+      ]
+    },
+    {
+      "id": 215,
+      "hafs": [
+        56,
+        75
+      ],
+      "warsh": [
+        56,
+        75
+      ],
+      "warshAppAyahs": [
+        72
+      ]
+    },
+    {
+      "id": 216,
+      "hafs": [
+        57,
+        16
+      ],
+      "warsh": [
+        57,
+        16
+      ],
+      "warshAppAyahs": [
+        17
+      ]
+    },
+    {
+      "id": 230,
+      "hafs": [
+        73,
+        20
+      ],
+      "warsh": [
+        74,
+        1
+      ],
+      "warshAppAyahs": [
+        1
+      ]
+    }
+  ],
+  "multiplePageStarts": [],
+  "hafsAlignedWarshCandidates": [
+    {
+      "id": 1,
+      "surah": 1,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            1
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 2,
+      "surah": 2,
+      "hafsAyah": 26,
+      "candidates": [
+        {
+          "ayah": 25,
+          "appAyahs": [
+            26
+          ],
+          "pages": [
+            5
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 3,
+      "surah": 2,
+      "hafsAyah": 44,
+      "candidates": [
+        {
+          "ayah": 43,
+          "appAyahs": [
+            44
+          ],
+          "pages": [
+            7
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 4,
+      "surah": 2,
+      "hafsAyah": 60,
+      "candidates": [
+        {
+          "ayah": 59,
+          "appAyahs": [
+            60
+          ],
+          "pages": [
+            9
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 5,
+      "surah": 2,
+      "hafsAyah": 75,
+      "candidates": [
+        {
+          "ayah": 74,
+          "appAyahs": [
+            75
+          ],
+          "pages": [
+            11
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 6,
+      "surah": 2,
+      "hafsAyah": 92,
+      "candidates": [
+        {
+          "ayah": 91,
+          "appAyahs": [
+            92
+          ],
+          "pages": [
+            14
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 7,
+      "surah": 2,
+      "hafsAyah": 106,
+      "candidates": [
+        {
+          "ayah": 105,
+          "appAyahs": [
+            106
+          ],
+          "pages": [
+            17
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 8,
+      "surah": 2,
+      "hafsAyah": 124,
+      "candidates": [
+        {
+          "ayah": 123,
+          "appAyahs": [
+            124
+          ],
+          "pages": [
+            19
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 9,
+      "surah": 2,
+      "hafsAyah": 142,
+      "candidates": [
+        {
+          "ayah": 141,
+          "appAyahs": [
+            142
+          ],
+          "pages": [
+            22
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 10,
+      "surah": 2,
+      "hafsAyah": 158,
+      "candidates": [
+        {
+          "ayah": 157,
+          "appAyahs": [
+            158
+          ],
+          "pages": [
+            24
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 11,
+      "surah": 2,
+      "hafsAyah": 177,
+      "candidates": [
+        {
+          "ayah": 176,
+          "appAyahs": [
+            177
+          ],
+          "pages": [
+            27
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 12,
+      "surah": 2,
+      "hafsAyah": 189,
+      "candidates": [
+        {
+          "ayah": 188,
+          "appAyahs": [
+            189
+          ],
+          "pages": [
+            29
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 13,
+      "surah": 2,
+      "hafsAyah": 203,
+      "candidates": [
+        {
+          "ayah": 201,
+          "appAyahs": [
+            203
+          ],
+          "pages": [
+            32
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 14,
+      "surah": 2,
+      "hafsAyah": 219,
+      "candidates": [
+        {
+          "ayah": 217,
+          "appAyahs": [
+            219
+          ],
+          "pages": [
+            34
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 15,
+      "surah": 2,
+      "hafsAyah": 233,
+      "candidates": [
+        {
+          "ayah": 231,
+          "appAyahs": [
+            233
+          ],
+          "pages": [
+            37
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 16,
+      "surah": 2,
+      "hafsAyah": 243,
+      "candidates": [
+        {
+          "ayah": 241,
+          "appAyahs": [
+            243
+          ],
+          "pages": [
+            39
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 17,
+      "surah": 2,
+      "hafsAyah": 253,
+      "candidates": [
+        {
+          "ayah": 251,
+          "appAyahs": [
+            253
+          ],
+          "pages": [
+            42
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 18,
+      "surah": 2,
+      "hafsAyah": 263,
+      "candidates": [
+        {
+          "ayah": 262,
+          "appAyahs": [
+            263
+          ],
+          "pages": [
+            44
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 19,
+      "surah": 2,
+      "hafsAyah": 272,
+      "candidates": [
+        {
+          "ayah": 271,
+          "appAyahs": [
+            272
+          ],
+          "pages": [
+            46
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 20,
+      "surah": 2,
+      "hafsAyah": 283,
+      "candidates": [
+        {
+          "ayah": 282,
+          "appAyahs": [
+            283
+          ],
+          "pages": [
+            49
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 21,
+      "surah": 3,
+      "hafsAyah": 15,
+      "candidates": [
+        {
+          "ayah": 15,
+          "appAyahs": [
+            15
+          ],
+          "pages": [
+            51
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 22,
+      "surah": 3,
+      "hafsAyah": 33,
+      "candidates": [
+        {
+          "ayah": 33,
+          "appAyahs": [
+            33
+          ],
+          "pages": [
+            54
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 23,
+      "surah": 3,
+      "hafsAyah": 52,
+      "candidates": [
+        {
+          "ayah": 51,
+          "appAyahs": [
+            52
+          ],
+          "pages": [
+            56
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 24,
+      "surah": 3,
+      "hafsAyah": 75,
+      "candidates": [
+        {
+          "ayah": 74,
+          "appAyahs": [
+            75
+          ],
+          "pages": [
+            59
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 25,
+      "surah": 3,
+      "hafsAyah": 93,
+      "candidates": [
+        {
+          "ayah": 93,
+          "appAyahs": [
+            93
+          ],
+          "pages": [
+            62
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 26,
+      "surah": 3,
+      "hafsAyah": 113,
+      "candidates": [
+        {
+          "ayah": 113,
+          "appAyahs": [
+            113
+          ],
+          "pages": [
+            64
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 27,
+      "surah": 3,
+      "hafsAyah": 133,
+      "candidates": [
+        {
+          "ayah": 133,
+          "appAyahs": [
+            133
+          ],
+          "pages": [
+            67
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 28,
+      "surah": 3,
+      "hafsAyah": 153,
+      "candidates": [
+        {
+          "ayah": 153,
+          "appAyahs": [
+            153
+          ],
+          "pages": [
+            69
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 29,
+      "surah": 3,
+      "hafsAyah": 171,
+      "candidates": [
+        {
+          "ayah": 171,
+          "appAyahs": [
+            171
+          ],
+          "pages": [
+            72
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 30,
+      "surah": 3,
+      "hafsAyah": 186,
+      "candidates": [
+        {
+          "ayah": 186,
+          "appAyahs": [
+            186
+          ],
+          "pages": [
+            74
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 31,
+      "surah": 4,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            77
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 32,
+      "surah": 4,
+      "hafsAyah": 12,
+      "candidates": [
+        {
+          "ayah": 12,
+          "appAyahs": [
+            12
+          ],
+          "pages": [
+            79
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 33,
+      "surah": 4,
+      "hafsAyah": 24,
+      "candidates": [
+        {
+          "ayah": 24,
+          "appAyahs": [
+            24
+          ],
+          "pages": [
+            82
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 34,
+      "surah": 4,
+      "hafsAyah": 36,
+      "candidates": [
+        {
+          "ayah": 36,
+          "appAyahs": [
+            36
+          ],
+          "pages": [
+            84
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 35,
+      "surah": 4,
+      "hafsAyah": 58,
+      "candidates": [
+        {
+          "ayah": 57,
+          "appAyahs": [
+            58
+          ],
+          "pages": [
+            87
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 36,
+      "surah": 4,
+      "hafsAyah": 74,
+      "candidates": [
+        {
+          "ayah": 73,
+          "appAyahs": [
+            74
+          ],
+          "pages": [
+            89
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 37,
+      "surah": 4,
+      "hafsAyah": 88,
+      "candidates": [
+        {
+          "ayah": 87,
+          "appAyahs": [
+            88
+          ],
+          "pages": [
+            92
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 38,
+      "surah": 4,
+      "hafsAyah": 100,
+      "candidates": [
+        {
+          "ayah": 99,
+          "appAyahs": [
+            100
+          ],
+          "pages": [
+            94
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 39,
+      "surah": 4,
+      "hafsAyah": 114,
+      "candidates": [
+        {
+          "ayah": 113,
+          "appAyahs": [
+            114
+          ],
+          "pages": [
+            97
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 40,
+      "surah": 4,
+      "hafsAyah": 135,
+      "candidates": [
+        {
+          "ayah": 134,
+          "appAyahs": [
+            135
+          ],
+          "pages": [
+            100
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 41,
+      "surah": 4,
+      "hafsAyah": 148,
+      "candidates": [
+        {
+          "ayah": 147,
+          "appAyahs": [
+            148
+          ],
+          "pages": [
+            102
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 42,
+      "surah": 4,
+      "hafsAyah": 163,
+      "candidates": [
+        {
+          "ayah": 162,
+          "appAyahs": [
+            163
+          ],
+          "pages": [
+            104
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 43,
+      "surah": 5,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            106
+          ]
+        },
+        {
+          "ayah": 2,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            106
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 44,
+      "surah": 5,
+      "hafsAyah": 12,
+      "candidates": [
+        {
+          "ayah": 13,
+          "appAyahs": [
+            12
+          ],
+          "pages": [
+            109
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 45,
+      "surah": 5,
+      "hafsAyah": 27,
+      "candidates": [
+        {
+          "ayah": 29,
+          "appAyahs": [
+            27
+          ],
+          "pages": [
+            112
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 46,
+      "surah": 5,
+      "hafsAyah": 41,
+      "candidates": [
+        {
+          "ayah": 43,
+          "appAyahs": [
+            41
+          ],
+          "pages": [
+            114
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 47,
+      "surah": 5,
+      "hafsAyah": 51,
+      "candidates": [
+        {
+          "ayah": 53,
+          "appAyahs": [
+            51
+          ],
+          "pages": [
+            117
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 48,
+      "surah": 5,
+      "hafsAyah": 67,
+      "candidates": [
+        {
+          "ayah": 69,
+          "appAyahs": [
+            67
+          ],
+          "pages": [
+            119
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 49,
+      "surah": 5,
+      "hafsAyah": 82,
+      "candidates": [
+        {
+          "ayah": 84,
+          "appAyahs": [
+            82
+          ],
+          "pages": [
+            121
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 50,
+      "surah": 5,
+      "hafsAyah": 97,
+      "candidates": [
+        {
+          "ayah": 99,
+          "appAyahs": [
+            97
+          ],
+          "pages": [
+            124
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 51,
+      "surah": 5,
+      "hafsAyah": 109,
+      "candidates": [
+        {
+          "ayah": 111,
+          "appAyahs": [
+            109
+          ],
+          "pages": [
+            126
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 52,
+      "surah": 6,
+      "hafsAyah": 13,
+      "candidates": [
+        {
+          "ayah": 14,
+          "appAyahs": [
+            13
+          ],
+          "pages": [
+            129
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 53,
+      "surah": 6,
+      "hafsAyah": 36,
+      "candidates": [
+        {
+          "ayah": 37,
+          "appAyahs": [
+            36
+          ],
+          "pages": [
+            132
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 54,
+      "surah": 6,
+      "hafsAyah": 59,
+      "candidates": [
+        {
+          "ayah": 60,
+          "appAyahs": [
+            59
+          ],
+          "pages": [
+            134
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 55,
+      "surah": 6,
+      "hafsAyah": 74,
+      "candidates": [
+        {
+          "ayah": 75,
+          "appAyahs": [
+            74
+          ],
+          "pages": [
+            137
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 56,
+      "surah": 6,
+      "hafsAyah": 95,
+      "candidates": [
+        {
+          "ayah": 96,
+          "appAyahs": [
+            95
+          ],
+          "pages": [
+            140
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 57,
+      "surah": 6,
+      "hafsAyah": 111,
+      "candidates": [
+        {
+          "ayah": 112,
+          "appAyahs": [
+            111
+          ],
+          "pages": [
+            142
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 58,
+      "surah": 6,
+      "hafsAyah": 127,
+      "candidates": [
+        {
+          "ayah": 128,
+          "appAyahs": [
+            127
+          ],
+          "pages": [
+            144
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 59,
+      "surah": 6,
+      "hafsAyah": 141,
+      "candidates": [
+        {
+          "ayah": 142,
+          "appAyahs": [
+            141
+          ],
+          "pages": [
+            146
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 60,
+      "surah": 6,
+      "hafsAyah": 151,
+      "candidates": [
+        {
+          "ayah": 152,
+          "appAyahs": [
+            151
+          ],
+          "pages": [
+            148
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 61,
+      "surah": 7,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            151
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 62,
+      "surah": 7,
+      "hafsAyah": 31,
+      "candidates": [
+        {
+          "ayah": 29,
+          "appAyahs": [
+            31
+          ],
+          "pages": [
+            154
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 63,
+      "surah": 7,
+      "hafsAyah": 47,
+      "candidates": [
+        {
+          "ayah": 46,
+          "appAyahs": [
+            47
+          ],
+          "pages": [
+            156
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 64,
+      "surah": 7,
+      "hafsAyah": 65,
+      "candidates": [
+        {
+          "ayah": 64,
+          "appAyahs": [
+            65
+          ],
+          "pages": [
+            158
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 65,
+      "surah": 7,
+      "hafsAyah": 88,
+      "candidates": [
+        {
+          "ayah": 87,
+          "appAyahs": [
+            88
+          ],
+          "pages": [
+            162
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 66,
+      "surah": 7,
+      "hafsAyah": 117,
+      "candidates": [
+        {
+          "ayah": 116,
+          "appAyahs": [
+            117
+          ],
+          "pages": [
+            164
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 67,
+      "surah": 7,
+      "hafsAyah": 142,
+      "candidates": [
+        {
+          "ayah": 142,
+          "appAyahs": [
+            142
+          ],
+          "pages": [
+            167
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 68,
+      "surah": 7,
+      "hafsAyah": 156,
+      "candidates": [
+        {
+          "ayah": 156,
+          "appAyahs": [
+            156
+          ],
+          "pages": [
+            170
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 69,
+      "surah": 7,
+      "hafsAyah": 171,
+      "candidates": [
+        {
+          "ayah": 171,
+          "appAyahs": [
+            171
+          ],
+          "pages": [
+            173
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 70,
+      "surah": 7,
+      "hafsAyah": 189,
+      "candidates": [
+        {
+          "ayah": 189,
+          "appAyahs": [
+            189
+          ],
+          "pages": [
+            175
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 71,
+      "surah": 8,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            177
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 72,
+      "surah": 8,
+      "hafsAyah": 22,
+      "candidates": [
+        {
+          "ayah": 22,
+          "appAyahs": [
+            22
+          ],
+          "pages": [
+            179
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 73,
+      "surah": 8,
+      "hafsAyah": 41,
+      "candidates": [
+        {
+          "ayah": 41,
+          "appAyahs": [
+            41
+          ],
+          "pages": [
+            182
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 74,
+      "surah": 8,
+      "hafsAyah": 61,
+      "candidates": [
+        {
+          "ayah": 62,
+          "appAyahs": [
+            61
+          ],
+          "pages": [
+            184
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 75,
+      "surah": 9,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            187
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 76,
+      "surah": 9,
+      "hafsAyah": 19,
+      "candidates": [
+        {
+          "ayah": 19,
+          "appAyahs": [
+            19
+          ],
+          "pages": [
+            189
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 77,
+      "surah": 9,
+      "hafsAyah": 34,
+      "candidates": [
+        {
+          "ayah": 34,
+          "appAyahs": [
+            34
+          ],
+          "pages": [
+            192
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 78,
+      "surah": 9,
+      "hafsAyah": 46,
+      "candidates": [
+        {
+          "ayah": 46,
+          "appAyahs": [
+            46
+          ],
+          "pages": [
+            194
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 79,
+      "surah": 9,
+      "hafsAyah": 60,
+      "candidates": [
+        {
+          "ayah": 60,
+          "appAyahs": [
+            60
+          ],
+          "pages": [
+            196
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 80,
+      "surah": 9,
+      "hafsAyah": 75,
+      "candidates": [
+        {
+          "ayah": 76,
+          "appAyahs": [
+            75
+          ],
+          "pages": [
+            199
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 81,
+      "surah": 9,
+      "hafsAyah": 93,
+      "candidates": [
+        {
+          "ayah": 94,
+          "appAyahs": [
+            93
+          ],
+          "pages": [
+            201
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 82,
+      "surah": 9,
+      "hafsAyah": 111,
+      "candidates": [
+        {
+          "ayah": 112,
+          "appAyahs": [
+            111
+          ],
+          "pages": [
+            204
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 83,
+      "surah": 9,
+      "hafsAyah": 122,
+      "candidates": [
+        {
+          "ayah": 123,
+          "appAyahs": [
+            122
+          ],
+          "pages": [
+            206
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 84,
+      "surah": 10,
+      "hafsAyah": 11,
+      "candidates": [
+        {
+          "ayah": 11,
+          "appAyahs": [
+            11
+          ],
+          "pages": [
+            209
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 85,
+      "surah": 10,
+      "hafsAyah": 26,
+      "candidates": [
+        {
+          "ayah": 26,
+          "appAyahs": [
+            26
+          ],
+          "pages": [
+            212
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 86,
+      "surah": 10,
+      "hafsAyah": 53,
+      "candidates": [
+        {
+          "ayah": 53,
+          "appAyahs": [
+            53
+          ],
+          "pages": [
+            214
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 87,
+      "surah": 10,
+      "hafsAyah": 71,
+      "candidates": [
+        {
+          "ayah": 71,
+          "appAyahs": [
+            71
+          ],
+          "pages": [
+            217
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 88,
+      "surah": 10,
+      "hafsAyah": 90,
+      "candidates": [
+        {
+          "ayah": 90,
+          "appAyahs": [
+            90
+          ],
+          "pages": [
+            219
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 89,
+      "surah": 11,
+      "hafsAyah": 6,
+      "candidates": [
+        {
+          "ayah": 6,
+          "appAyahs": [
+            6
+          ],
+          "pages": [
+            222
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 90,
+      "surah": 11,
+      "hafsAyah": 24,
+      "candidates": [
+        {
+          "ayah": 24,
+          "appAyahs": [
+            24
+          ],
+          "pages": [
+            224
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 91,
+      "surah": 11,
+      "hafsAyah": 41,
+      "candidates": [
+        {
+          "ayah": 41,
+          "appAyahs": [
+            41
+          ],
+          "pages": [
+            226
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 92,
+      "surah": 11,
+      "hafsAyah": 61,
+      "candidates": [
+        {
+          "ayah": 60,
+          "appAyahs": [
+            61
+          ],
+          "pages": [
+            228
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 93,
+      "surah": 11,
+      "hafsAyah": 84,
+      "candidates": [
+        {
+          "ayah": 83,
+          "appAyahs": [
+            84
+          ],
+          "pages": [
+            231
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 94,
+      "surah": 11,
+      "hafsAyah": 108,
+      "candidates": [
+        {
+          "ayah": 108,
+          "appAyahs": [
+            108
+          ],
+          "pages": [
+            233
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 95,
+      "surah": 12,
+      "hafsAyah": 7,
+      "candidates": [
+        {
+          "ayah": 7,
+          "appAyahs": [
+            7
+          ],
+          "pages": [
+            236
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 96,
+      "surah": 12,
+      "hafsAyah": 30,
+      "candidates": [
+        {
+          "ayah": 30,
+          "appAyahs": [
+            30
+          ],
+          "pages": [
+            238
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 97,
+      "surah": 12,
+      "hafsAyah": 53,
+      "candidates": [
+        {
+          "ayah": 53,
+          "appAyahs": [
+            53
+          ],
+          "pages": [
+            242
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 98,
+      "surah": 12,
+      "hafsAyah": 77,
+      "candidates": [
+        {
+          "ayah": 77,
+          "appAyahs": [
+            77
+          ],
+          "pages": [
+            244
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 99,
+      "surah": 12,
+      "hafsAyah": 101,
+      "candidates": [
+        {
+          "ayah": 101,
+          "appAyahs": [
+            101
+          ],
+          "pages": [
+            247
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 100,
+      "surah": 13,
+      "hafsAyah": 5,
+      "candidates": [
+        {
+          "ayah": 5,
+          "appAyahs": [
+            5
+          ],
+          "pages": [
+            249
+          ]
+        },
+        {
+          "ayah": 6,
+          "appAyahs": [
+            5
+          ],
+          "pages": [
+            249
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 101,
+      "surah": 13,
+      "hafsAyah": 19,
+      "candidates": [
+        {
+          "ayah": 21,
+          "appAyahs": [
+            19
+          ],
+          "pages": [
+            252
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 102,
+      "surah": 13,
+      "hafsAyah": 35,
+      "candidates": [
+        {
+          "ayah": 36,
+          "appAyahs": [
+            35
+          ],
+          "pages": [
+            254
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 103,
+      "surah": 14,
+      "hafsAyah": 10,
+      "candidates": [
+        {
+          "ayah": 13,
+          "appAyahs": [
+            10
+          ],
+          "pages": [
+            256
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 104,
+      "surah": 14,
+      "hafsAyah": 28,
+      "candidates": [
+        {
+          "ayah": 30,
+          "appAyahs": [
+            28
+          ],
+          "pages": [
+            259
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 105,
+      "surah": 15,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            262
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 106,
+      "surah": 15,
+      "hafsAyah": 50,
+      "candidates": [
+        {
+          "ayah": 50,
+          "appAyahs": [
+            50
+          ],
+          "pages": [
+            264
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 107,
+      "surah": 16,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            267
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 108,
+      "surah": 16,
+      "hafsAyah": 30,
+      "candidates": [
+        {
+          "ayah": 30,
+          "appAyahs": [
+            30
+          ],
+          "pages": [
+            270
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 109,
+      "surah": 16,
+      "hafsAyah": 51,
+      "candidates": [
+        {
+          "ayah": 51,
+          "appAyahs": [
+            51
+          ],
+          "pages": [
+            272
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 110,
+      "surah": 16,
+      "hafsAyah": 75,
+      "candidates": [
+        {
+          "ayah": 75,
+          "appAyahs": [
+            75
+          ],
+          "pages": [
+            275
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 111,
+      "surah": 16,
+      "hafsAyah": 90,
+      "candidates": [
+        {
+          "ayah": 90,
+          "appAyahs": [
+            90
+          ],
+          "pages": [
+            277
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 112,
+      "surah": 16,
+      "hafsAyah": 111,
+      "candidates": [
+        {
+          "ayah": 111,
+          "appAyahs": [
+            111
+          ],
+          "pages": [
+            280
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 113,
+      "surah": 17,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            282
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 114,
+      "surah": 17,
+      "hafsAyah": 23,
+      "candidates": [
+        {
+          "ayah": 23,
+          "appAyahs": [
+            23
+          ],
+          "pages": [
+            284
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 115,
+      "surah": 17,
+      "hafsAyah": 50,
+      "candidates": [
+        {
+          "ayah": 50,
+          "appAyahs": [
+            50
+          ],
+          "pages": [
+            287
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 116,
+      "surah": 17,
+      "hafsAyah": 70,
+      "candidates": [
+        {
+          "ayah": 70,
+          "appAyahs": [
+            70
+          ],
+          "pages": [
+            289
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 117,
+      "surah": 17,
+      "hafsAyah": 99,
+      "candidates": [
+        {
+          "ayah": 99,
+          "appAyahs": [
+            99
+          ],
+          "pages": [
+            292
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 118,
+      "surah": 18,
+      "hafsAyah": 17,
+      "candidates": [
+        {
+          "ayah": 17,
+          "appAyahs": [
+            17
+          ],
+          "pages": [
+            295
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 119,
+      "surah": 18,
+      "hafsAyah": 32,
+      "candidates": [
+        {
+          "ayah": 32,
+          "appAyahs": [
+            32
+          ],
+          "pages": [
+            297
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 120,
+      "surah": 18,
+      "hafsAyah": 51,
+      "candidates": [
+        {
+          "ayah": 50,
+          "appAyahs": [
+            51
+          ],
+          "pages": [
+            299
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 121,
+      "surah": 18,
+      "hafsAyah": 75,
+      "candidates": [
+        {
+          "ayah": 74,
+          "appAyahs": [
+            75
+          ],
+          "pages": [
+            302
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 122,
+      "surah": 18,
+      "hafsAyah": 99,
+      "candidates": [
+        {
+          "ayah": 95,
+          "appAyahs": [
+            99
+          ],
+          "pages": [
+            304
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 123,
+      "surah": 19,
+      "hafsAyah": 22,
+      "candidates": [
+        {
+          "ayah": 21,
+          "appAyahs": [
+            22
+          ],
+          "pages": [
+            306
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 124,
+      "surah": 19,
+      "hafsAyah": 59,
+      "candidates": [
+        {
+          "ayah": 59,
+          "appAyahs": [
+            59
+          ],
+          "pages": [
+            309
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 125,
+      "surah": 20,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            312
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 126,
+      "surah": 20,
+      "hafsAyah": 55,
+      "candidates": [
+        {
+          "ayah": 54,
+          "appAyahs": [
+            55
+          ],
+          "pages": [
+            315
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 127,
+      "surah": 20,
+      "hafsAyah": 83,
+      "candidates": [
+        {
+          "ayah": 81,
+          "appAyahs": [
+            83
+          ],
+          "pages": [
+            317
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 128,
+      "surah": 20,
+      "hafsAyah": 111,
+      "candidates": [
+        {
+          "ayah": 108,
+          "appAyahs": [
+            111
+          ],
+          "pages": [
+            319
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 129,
+      "surah": 21,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            322
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 130,
+      "surah": 21,
+      "hafsAyah": 29,
+      "candidates": [
+        {
+          "ayah": 29,
+          "appAyahs": [
+            29
+          ],
+          "pages": [
+            324
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 131,
+      "surah": 21,
+      "hafsAyah": 51,
+      "candidates": [
+        {
+          "ayah": 51,
+          "appAyahs": [
+            51
+          ],
+          "pages": [
+            326
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 132,
+      "surah": 21,
+      "hafsAyah": 83,
+      "candidates": [
+        {
+          "ayah": 82,
+          "appAyahs": [
+            83
+          ],
+          "pages": [
+            329
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 133,
+      "surah": 22,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            332
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 134,
+      "surah": 22,
+      "hafsAyah": 19,
+      "candidates": [
+        {
+          "ayah": 19,
+          "appAyahs": [
+            19,
+            20,
+            21
+          ],
+          "pages": [
+            334
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 135,
+      "surah": 22,
+      "hafsAyah": 38,
+      "candidates": [
+        {
+          "ayah": 36,
+          "appAyahs": [
+            38
+          ],
+          "pages": [
+            336
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 136,
+      "surah": 22,
+      "hafsAyah": 60,
+      "candidates": [
+        {
+          "ayah": 58,
+          "appAyahs": [
+            60
+          ],
+          "pages": [
+            339
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 137,
+      "surah": 23,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            342
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 138,
+      "surah": 23,
+      "hafsAyah": 36,
+      "candidates": [
+        {
+          "ayah": 36,
+          "appAyahs": [
+            36
+          ],
+          "pages": [
+            344
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 139,
+      "surah": 23,
+      "hafsAyah": 75,
+      "candidates": [
+        {
+          "ayah": 76,
+          "appAyahs": [
+            75
+          ],
+          "pages": [
+            347
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 140,
+      "surah": 24,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            350
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 141,
+      "surah": 24,
+      "hafsAyah": 21,
+      "candidates": [
+        {
+          "ayah": 21,
+          "appAyahs": [
+            21
+          ],
+          "pages": [
+            352
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 142,
+      "surah": 24,
+      "hafsAyah": 35,
+      "candidates": [
+        {
+          "ayah": 35,
+          "appAyahs": [
+            35
+          ],
+          "pages": [
+            354
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 143,
+      "surah": 24,
+      "hafsAyah": 53,
+      "candidates": [
+        {
+          "ayah": 51,
+          "appAyahs": [
+            53
+          ],
+          "pages": [
+            356
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 144,
+      "surah": 25,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            359
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 145,
+      "surah": 25,
+      "hafsAyah": 21,
+      "candidates": [
+        {
+          "ayah": 21,
+          "appAyahs": [
+            21
+          ],
+          "pages": [
+            362
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 146,
+      "surah": 25,
+      "hafsAyah": 53,
+      "candidates": [
+        {
+          "ayah": 53,
+          "appAyahs": [
+            53
+          ],
+          "pages": [
+            364
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 147,
+      "surah": 26,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            367
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 148,
+      "surah": 26,
+      "hafsAyah": 52,
+      "candidates": [
+        {
+          "ayah": 52,
+          "appAyahs": [
+            52
+          ],
+          "pages": [
+            369
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 149,
+      "surah": 26,
+      "hafsAyah": 111,
+      "candidates": [
+        {
+          "ayah": 111,
+          "appAyahs": [
+            111
+          ],
+          "pages": [
+            371
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 150,
+      "surah": 26,
+      "hafsAyah": 181,
+      "candidates": [
+        {
+          "ayah": 181,
+          "appAyahs": [
+            181
+          ],
+          "pages": [
+            374
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 151,
+      "surah": 27,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            377
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 152,
+      "surah": 27,
+      "hafsAyah": 27,
+      "candidates": [
+        {
+          "ayah": 27,
+          "appAyahs": [
+            27
+          ],
+          "pages": [
+            379
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 153,
+      "surah": 27,
+      "hafsAyah": 56,
+      "candidates": [
+        {
+          "ayah": 58,
+          "appAyahs": [
+            56
+          ],
+          "pages": [
+            382
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 154,
+      "surah": 27,
+      "hafsAyah": 82,
+      "candidates": [
+        {
+          "ayah": 84,
+          "appAyahs": [
+            82
+          ],
+          "pages": [
+            384
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 155,
+      "surah": 28,
+      "hafsAyah": 12,
+      "candidates": [
+        {
+          "ayah": 11,
+          "appAyahs": [
+            12
+          ],
+          "pages": [
+            386
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 156,
+      "surah": 28,
+      "hafsAyah": 29,
+      "candidates": [
+        {
+          "ayah": 29,
+          "appAyahs": [
+            29
+          ],
+          "pages": [
+            389
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 157,
+      "surah": 28,
+      "hafsAyah": 51,
+      "candidates": [
+        {
+          "ayah": 51,
+          "appAyahs": [
+            51
+          ],
+          "pages": [
+            392
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 158,
+      "surah": 28,
+      "hafsAyah": 76,
+      "candidates": [
+        {
+          "ayah": 76,
+          "appAyahs": [
+            76
+          ],
+          "pages": [
+            394
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 159,
+      "surah": 29,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            396
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 160,
+      "surah": 29,
+      "hafsAyah": 26,
+      "candidates": [
+        {
+          "ayah": 25,
+          "appAyahs": [
+            26
+          ],
+          "pages": [
+            399
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 161,
+      "surah": 29,
+      "hafsAyah": 46,
+      "candidates": [
+        {
+          "ayah": 46,
+          "appAyahs": [
+            46
+          ],
+          "pages": [
+            402
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 162,
+      "surah": 30,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2,
+            3
+          ],
+          "pages": [
+            404
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 163,
+      "surah": 30,
+      "hafsAyah": 31,
+      "candidates": [
+        {
+          "ayah": 30,
+          "appAyahs": [
+            31
+          ],
+          "pages": [
+            407
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 164,
+      "surah": 30,
+      "hafsAyah": 54,
+      "candidates": [
+        {
+          "ayah": 53,
+          "appAyahs": [
+            54
+          ],
+          "pages": [
+            410
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 165,
+      "surah": 31,
+      "hafsAyah": 22,
+      "candidates": [
+        {
+          "ayah": 21,
+          "appAyahs": [
+            22
+          ],
+          "pages": [
+            413
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 166,
+      "surah": 32,
+      "hafsAyah": 11,
+      "candidates": [
+        {
+          "ayah": 11,
+          "appAyahs": [
+            11
+          ],
+          "pages": [
+            415
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 167,
+      "surah": 33,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            418
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 168,
+      "surah": 33,
+      "hafsAyah": 18,
+      "candidates": [
+        {
+          "ayah": 18,
+          "appAyahs": [
+            18
+          ],
+          "pages": [
+            420
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 169,
+      "surah": 33,
+      "hafsAyah": 31,
+      "candidates": [
+        {
+          "ayah": 31,
+          "appAyahs": [
+            31
+          ],
+          "pages": [
+            422
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 170,
+      "surah": 33,
+      "hafsAyah": 51,
+      "candidates": [
+        {
+          "ayah": 51,
+          "appAyahs": [
+            51
+          ],
+          "pages": [
+            425
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 171,
+      "surah": 33,
+      "hafsAyah": 60,
+      "candidates": [
+        {
+          "ayah": 60,
+          "appAyahs": [
+            60
+          ],
+          "pages": [
+            426
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 172,
+      "surah": 34,
+      "hafsAyah": 10,
+      "candidates": [
+        {
+          "ayah": 10,
+          "appAyahs": [
+            10
+          ],
+          "pages": [
+            429
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 173,
+      "surah": 34,
+      "hafsAyah": 24,
+      "candidates": [
+        {
+          "ayah": 24,
+          "appAyahs": [
+            24
+          ],
+          "pages": [
+            431
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 174,
+      "surah": 34,
+      "hafsAyah": 46,
+      "candidates": [
+        {
+          "ayah": 46,
+          "appAyahs": [
+            46
+          ],
+          "pages": [
+            433
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 175,
+      "surah": 35,
+      "hafsAyah": 15,
+      "candidates": [
+        {
+          "ayah": 15,
+          "appAyahs": [
+            15
+          ],
+          "pages": [
+            436
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 176,
+      "surah": 35,
+      "hafsAyah": 41,
+      "candidates": [
+        {
+          "ayah": 41,
+          "appAyahs": [
+            41
+          ],
+          "pages": [
+            439
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 177,
+      "surah": 36,
+      "hafsAyah": 28,
+      "candidates": [
+        {
+          "ayah": 27,
+          "appAyahs": [
+            28
+          ],
+          "pages": [
+            442
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 178,
+      "surah": 36,
+      "hafsAyah": 60,
+      "candidates": [
+        {
+          "ayah": 59,
+          "appAyahs": [
+            60
+          ],
+          "pages": [
+            444
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 179,
+      "surah": 37,
+      "hafsAyah": 22,
+      "candidates": [
+        {
+          "ayah": 22,
+          "appAyahs": [
+            22
+          ],
+          "pages": [
+            446
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 180,
+      "surah": 37,
+      "hafsAyah": 83,
+      "candidates": [
+        {
+          "ayah": 83,
+          "appAyahs": [
+            83
+          ],
+          "pages": [
+            449
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 181,
+      "surah": 37,
+      "hafsAyah": 145,
+      "candidates": [
+        {
+          "ayah": 145,
+          "appAyahs": [
+            145
+          ],
+          "pages": [
+            451
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 182,
+      "surah": 38,
+      "hafsAyah": 21,
+      "candidates": [
+        {
+          "ayah": 20,
+          "appAyahs": [
+            21
+          ],
+          "pages": [
+            454
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 183,
+      "surah": 38,
+      "hafsAyah": 52,
+      "candidates": [
+        {
+          "ayah": 51,
+          "appAyahs": [
+            52
+          ],
+          "pages": [
+            456
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 184,
+      "surah": 39,
+      "hafsAyah": 8,
+      "candidates": [
+        {
+          "ayah": 9,
+          "appAyahs": [
+            8
+          ],
+          "pages": [
+            459
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 185,
+      "surah": 39,
+      "hafsAyah": 32,
+      "candidates": [
+        {
+          "ayah": 31,
+          "appAyahs": [
+            32
+          ],
+          "pages": [
+            462
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 186,
+      "surah": 39,
+      "hafsAyah": 53,
+      "candidates": [
+        {
+          "ayah": 50,
+          "appAyahs": [
+            53
+          ],
+          "pages": [
+            464
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 187,
+      "surah": 40,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            467
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 188,
+      "surah": 40,
+      "hafsAyah": 21,
+      "candidates": [
+        {
+          "ayah": 21,
+          "appAyahs": [
+            21
+          ],
+          "pages": [
+            469
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 189,
+      "surah": 40,
+      "hafsAyah": 41,
+      "candidates": [
+        {
+          "ayah": 41,
+          "appAyahs": [
+            41
+          ],
+          "pages": [
+            472
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 190,
+      "surah": 40,
+      "hafsAyah": 66,
+      "candidates": [
+        {
+          "ayah": 66,
+          "appAyahs": [
+            66
+          ],
+          "pages": [
+            474
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 191,
+      "surah": 41,
+      "hafsAyah": 9,
+      "candidates": [
+        {
+          "ayah": 8,
+          "appAyahs": [
+            9
+          ],
+          "pages": [
+            477
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 192,
+      "surah": 41,
+      "hafsAyah": 25,
+      "candidates": [
+        {
+          "ayah": 24,
+          "appAyahs": [
+            25
+          ],
+          "pages": [
+            479
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 193,
+      "surah": 41,
+      "hafsAyah": 47,
+      "candidates": [
+        {
+          "ayah": 46,
+          "appAyahs": [
+            47
+          ],
+          "pages": [
+            482
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 194,
+      "surah": 42,
+      "hafsAyah": 13,
+      "candidates": [
+        {
+          "ayah": 11,
+          "appAyahs": [
+            13
+          ],
+          "pages": [
+            484
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 195,
+      "surah": 42,
+      "hafsAyah": 27,
+      "candidates": [
+        {
+          "ayah": 25,
+          "appAyahs": [
+            27
+          ],
+          "pages": [
+            486
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 196,
+      "surah": 42,
+      "hafsAyah": 51,
+      "candidates": [
+        {
+          "ayah": 48,
+          "appAyahs": [
+            51
+          ],
+          "pages": [
+            488
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 197,
+      "surah": 43,
+      "hafsAyah": 24,
+      "candidates": [
+        {
+          "ayah": 23,
+          "appAyahs": [
+            24
+          ],
+          "pages": [
+            491
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 198,
+      "surah": 43,
+      "hafsAyah": 57,
+      "candidates": [
+        {
+          "ayah": 57,
+          "appAyahs": [
+            57
+          ],
+          "pages": [
+            493
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 199,
+      "surah": 44,
+      "hafsAyah": 17,
+      "candidates": [
+        {
+          "ayah": 16,
+          "appAyahs": [
+            17
+          ],
+          "pages": [
+            496
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 200,
+      "surah": 45,
+      "hafsAyah": 12,
+      "candidates": [
+        {
+          "ayah": 11,
+          "appAyahs": [
+            12
+          ],
+          "pages": [
+            499
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 201,
+      "surah": 46,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            502
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 202,
+      "surah": 46,
+      "hafsAyah": 21,
+      "candidates": [
+        {
+          "ayah": 20,
+          "appAyahs": [
+            21
+          ],
+          "pages": [
+            505
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 203,
+      "surah": 47,
+      "hafsAyah": 10,
+      "candidates": [
+        {
+          "ayah": 11,
+          "appAyahs": [
+            10
+          ],
+          "pages": [
+            507
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 204,
+      "surah": 47,
+      "hafsAyah": 33,
+      "candidates": [
+        {
+          "ayah": 34,
+          "appAyahs": [
+            33
+          ],
+          "pages": [
+            510
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 205,
+      "surah": 48,
+      "hafsAyah": 18,
+      "candidates": [
+        {
+          "ayah": 18,
+          "appAyahs": [
+            18
+          ],
+          "pages": [
+            513
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 206,
+      "surah": 49,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            515
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 207,
+      "surah": 49,
+      "hafsAyah": 14,
+      "candidates": [
+        {
+          "ayah": 14,
+          "appAyahs": [
+            14
+          ],
+          "pages": [
+            517
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 208,
+      "surah": 50,
+      "hafsAyah": 27,
+      "candidates": [
+        {
+          "ayah": 27,
+          "appAyahs": [
+            27
+          ],
+          "pages": [
+            519
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 209,
+      "surah": 51,
+      "hafsAyah": 31,
+      "candidates": [
+        {
+          "ayah": 31,
+          "appAyahs": [
+            31
+          ],
+          "pages": [
+            522
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 210,
+      "surah": 52,
+      "hafsAyah": 24,
+      "candidates": [
+        {
+          "ayah": 22,
+          "appAyahs": [
+            24
+          ],
+          "pages": [
+            524
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 211,
+      "surah": 53,
+      "hafsAyah": 26,
+      "candidates": [
+        {
+          "ayah": 26,
+          "appAyahs": [
+            26
+          ],
+          "pages": [
+            526
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 212,
+      "surah": 54,
+      "hafsAyah": 9,
+      "candidates": [
+        {
+          "ayah": 9,
+          "appAyahs": [
+            9
+          ],
+          "pages": [
+            529
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 213,
+      "surah": 55,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            531
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 214,
+      "surah": 56,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            534
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 215,
+      "surah": 56,
+      "hafsAyah": 75,
+      "candidates": [
+        {
+          "ayah": 78,
+          "appAyahs": [
+            75
+          ],
+          "pages": [
+            536
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 216,
+      "surah": 57,
+      "hafsAyah": 16,
+      "candidates": [
+        {
+          "ayah": 15,
+          "appAyahs": [
+            16
+          ],
+          "pages": [
+            539
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 217,
+      "surah": 58,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            542
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 218,
+      "surah": 58,
+      "hafsAyah": 14,
+      "candidates": [
+        {
+          "ayah": 14,
+          "appAyahs": [
+            14
+          ],
+          "pages": [
+            544
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 219,
+      "surah": 59,
+      "hafsAyah": 11,
+      "candidates": [
+        {
+          "ayah": 11,
+          "appAyahs": [
+            11
+          ],
+          "pages": [
+            547
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 220,
+      "surah": 60,
+      "hafsAyah": 7,
+      "candidates": [
+        {
+          "ayah": 7,
+          "appAyahs": [
+            7
+          ],
+          "pages": [
+            550
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 221,
+      "surah": 62,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            553
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 222,
+      "surah": 63,
+      "hafsAyah": 4,
+      "candidates": [
+        {
+          "ayah": 4,
+          "appAyahs": [
+            4
+          ],
+          "pages": [
+            554
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 223,
+      "surah": 65,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            558
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 224,
+      "surah": 66,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            560
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 225,
+      "surah": 67,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            562
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 226,
+      "surah": 68,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            564
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 227,
+      "surah": 69,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1,
+            2
+          ],
+          "pages": [
+            566
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 228,
+      "surah": 70,
+      "hafsAyah": 19,
+      "candidates": [
+        {
+          "ayah": 19,
+          "appAyahs": [
+            19
+          ],
+          "pages": [
+            569
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 229,
+      "surah": 72,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            572
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 230,
+      "surah": 73,
+      "hafsAyah": 20,
+      "candidates": [
+        {
+          "ayah": 18,
+          "appAyahs": [
+            20
+          ],
+          "pages": [
+            575
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 231,
+      "surah": 75,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            577
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 232,
+      "surah": 76,
+      "hafsAyah": 19,
+      "candidates": [
+        {
+          "ayah": 19,
+          "appAyahs": [
+            19
+          ],
+          "pages": [
+            579
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 233,
+      "surah": 78,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            582
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 234,
+      "surah": 80,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            585
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 235,
+      "surah": 82,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            587
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 236,
+      "surah": 84,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            589
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 237,
+      "surah": 87,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            591
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 238,
+      "surah": 90,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            594
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 239,
+      "surah": 94,
+      "hafsAyah": 1,
+      "candidates": [
+        {
+          "ayah": 1,
+          "appAyahs": [
+            1
+          ],
+          "pages": [
+            596
+          ]
+        }
+      ],
+      "approved": false
+    },
+    {
+      "id": 240,
+      "surah": 100,
+      "hafsAyah": 9,
+      "candidates": [
+        {
+          "ayah": 9,
+          "appAyahs": [
+            9
+          ],
+          "pages": [
+            600
+          ]
+        }
+      ],
+      "approved": false
+    }
+  ]
+}

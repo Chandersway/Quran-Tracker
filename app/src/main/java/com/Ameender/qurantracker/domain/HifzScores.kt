@@ -19,7 +19,7 @@ fun shouldConfirmJuzHifzScore(
     if (juzScore <= 0) return false
     val validFirst = firstHizb?.takeIf { it > 0 }
     val validSecond = secondHizb?.takeIf { it > 0 }
-    if (validFirst == null || validSecond == null) return true
+    if (validFirst == null || validSecond == null) return false
     return kotlin.math.abs(juzScore - validFirst) >= threshold ||
         kotlin.math.abs(juzScore - validSecond) >= threshold
 }

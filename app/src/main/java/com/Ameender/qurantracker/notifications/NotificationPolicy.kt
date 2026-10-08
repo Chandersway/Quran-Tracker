@@ -36,7 +36,7 @@ data class NotificationPreferences(
 
 object NotificationPolicy {
     fun dailyAllowed(preferences: NotificationPreferences, extra: Boolean, target: Int, done: Int): Boolean =
-        preferences.enabled && (if (extra) preferences.extra else preferences.daily) && target > 0 && done < target
+        preferences.enabled && (if (extra) preferences.extra else preferences.daily)
 
     fun planningAllowed(preferences: NotificationPreferences, exists: Boolean, done: Boolean, reminderSet: Boolean): Boolean =
         preferences.enabled && preferences.planning && exists && !done && reminderSet

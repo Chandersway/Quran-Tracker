@@ -1,0 +1,16 @@
+warsh_ayah_map.json is a reference-only extract of number_in_hafs from Quran JSON:
+https://quran-json.risanb.com/text/warsh/quran.json
+https://github.com/risan/quran-json
+Retrieved 2026-10-07. Source SHA-256 is included in the JSON.
+
+Attribution: Quran JSON (Risan Bagja), Quranpedia.net / KFGQPC Warsh edition.
+Licensed under Creative Commons Attribution-ShareAlike 4.0 International:
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Changes: omitted Arabic text and retained the verse-reference arrays, grouped
+by chapter. No changes to verse references. Build and validation script:
+scripts/build_warsh_ayah_map.py.
+
+This mapping bridges Warsh/Madani verse numbering to the app's existing
+Hafs-indexed text, word information, notes and bookmarks. It does not change
+the spelling or numbering printed in the Warsh page images.

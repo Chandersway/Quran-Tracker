@@ -34,14 +34,44 @@ class HifzScoresTest {
         val result = overview(hizb=listOf(score(1,50),score(2,100)),juz=listOf(score(1,0)))
         assertEquals(75,result.averageScore)
         assertEquals(0,result.juzCount)
-        assertEquals(75,result.juzScores.first().score)
-        assertTrue(result.juzScores.first().derived)
+        assertNull(result.juzScores.first().score)
+        assertFalse(result.juzScores.first().derived)
     }
     @Test fun latestDuplicateWinsAndInvalidIdsAreIgnored() {
         val result = overview(hizb=listOf(score(1,10,time=1),score(1,80,time=2),score(61,100)),
             juz=listOf(score(0,100)),surah=listOf(score(115,100)))
         assertEquals(1,result.scoredCount)
         assertEquals(80,result.averageScore)
+    }
+    @Test fun independentCategoriesAndNonBlockingHint() {
+        val result = overview(hizb=listOf(score(1,95),score(2,95)),
+            juz=listOf(score(1,20)),surah=listOf(score(1,70)))
+        assertEquals(95, result.hizbScores.first().score)
+        assertEquals(20, result.juzScores.first().score)
+        assertEquals(70, result.surahScores.first().score)
+        assertEquals(listOf(1), result.inconsistentJuz)
+        assertEquals(114, result.surahScores.size)
+        assertEquals(4, result.allScores.size)
+        assertTrue(overview(hizb=listOf(score(1,95)),juz=listOf(score(1,20))).inconsistentJuz.isEmpty())
+    }
+    @Test fun latestClearCannotResurrectAnOlderScore() {
+        val oldAndCleared = listOf(score(1,90,time=1), score(1,0,false,time=2))
+        val result = overview(hizb=oldAndCleared,juz=oldAndCleared,surah=oldAndCleared)
+        assertEquals(0,result.scoredCount)
+        assertTrue(result.reviewItems.isEmpty())
+        assertNull(result.surahScores.first().score)
+        assertNull(result.hizbScores.first().score)
+        assertNull(result.juzScores.first().score)
+    }
+    @Test fun zeroHasNeutralColors() {
+        assertEquals(com.Ameender.qurantracker.ui.MidNavy, com.Ameender.qurantracker.ui.hifzScoreSurface(0))
+        assertEquals(com.Ameender.qurantracker.ui.BorderNavy, com.Ameender.qurantracker.ui.hifzScoreBorder(0))
+    }
+    @Test fun arabicOverviewUsesArabicSurahNamesIncludingReviews() {
+        val result = calculateHifzOverview(listOf(score(1,70)), emptyList(), emptyList(), AppText.strings("ar"), "ar")
+        assertEquals("الفاتحة", result.allScores.single().name)
+        assertEquals("الفاتحة", result.reviewItems.single().name)
+        assertEquals("Al-Fatihah", overview(surah=listOf(score(1,70))).allScores.single().name)
     }
     @Test fun averagesRoundAndClamp() {
         assertEquals(51,overview(surah=listOf(score(1,50),score(2,51))).averageScore)
@@ -56,7 +86,7 @@ class HifzScoresTest {
     }
     @Test fun inconsistentJuzScoresNeedConfirmation() {
         assertFalse(shouldConfirmJuzHifzScore(0, null, null))
-        assertTrue(shouldConfirmJuzHifzScore(80, null, 80))
+        assertFalse(shouldConfirmJuzHifzScore(80, null, 80))
         assertTrue(shouldConfirmJuzHifzScore(80, 60, 80))
         assertFalse(shouldConfirmJuzHifzScore(80, 61, 99))
     }
@@ -93,6 +123,19 @@ class HifzScoresTest {
         assertEquals(0,rows.values.single().progress)
         assertFalse(rows.values.single().hasHifzScore)
         assertEquals(1,rows.size)
+        repo.updateHifzScore("hizb",1,90)
+        repo.updateHifzScore("surah",1,65)
+        repo.updateHifzScore("juz",1,25)
+        assertEquals(90,rows.values.single { it.type == "hizb" }.progress)
+        assertEquals(65,rows.values.single { it.type == "surah" }.progress)
+        repo.markJuzRead(1)
+        for (type in listOf("surah", "hizb", "juz")) {
+            repo.updateHifzScore(type,1,0)
+            val cleared = rows.values.single { it.type == type }
+            assertFalse(cleared.hasHifzScore)
+            assertEquals(0,cleared.progress)
+        }
+        assertTrue(rows.values.single { it.type == "juz" }.isRead)
         try { repo.updateHifzScore("rub",1,80); fail("Invalid scope accepted") } catch (_: IllegalArgumentException) {}
         try { repo.updateHifzScore("juz",31,80); fail("Invalid number accepted") } catch (_: IllegalArgumentException) {}
     }

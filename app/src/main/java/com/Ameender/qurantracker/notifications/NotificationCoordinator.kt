@@ -42,30 +42,49 @@ object NotificationCoordinator {
     suspend fun reconcile(context: Context) = withContext(Dispatchers.IO) {
         val db = QuranDatabase.getDatabase(context)
         val prefs = NotificationPreferencesRepository(context).load()
-        if (!prefs.enabled) return@withContext
+        if (!prefs.enabled) {
+            WorkManager.getInstance(context).cancelUniqueWork("scheduled_reading_reminder")
+            return@withContext
+        }
         val zone = ZoneId.systemDefault()
         val now = Instant.now()
         val today = now.atZone(zone).toLocalDate()
-        val goal = db.dailyGoalDao().getGoalOnce()
-        if (goal != null) {
-            val day = db.goalDayDao().all().find { it.goalId == 1 && it.date == today.toString() }
-                ?: GoalDay(1, today.toString(), goal.unit, goal.target)
-            val progress = goalProgress(day, db.readingHistoryDao().getAllOnce())
-            for (extra in listOf(false, true)) {
-                if (extra && prefs.daily && prefs.extraMinute == prefs.dailyMinute) continue
-                val minute = if (extra) prefs.extraMinute else prefs.dailyMinute
-                val due = today.atTime(minute / 60, minute % 60).atZone(zone).toInstant()
-                if (now >= due && prefs.quiet.nextAllowed(now, zone) == now &&
-                    NotificationPolicy.dailyAllowed(prefs, extra, progress.target, progress.done)) {
-                    val language = language(context)
-                    val remaining = progress.remaining
-                    val body = notificationText(language, "remaining").format(remaining, notificationUnit(language, day.unit))
-                    deliver(context, "daily:$today:$extra", notificationText(language, "daily"), body, "daily_goal")
-                }
+        for (extra in listOf(false, true)) {
+            if (extra && prefs.daily && prefs.extraMinute == prefs.dailyMinute) continue
+            val minute = if (extra) prefs.extraMinute else prefs.dailyMinute
+            val due = today.atTime(minute / 60, minute % 60).atZone(zone).toInstant()
+            if (now >= due && prefs.quiet.nextAllowed(now, zone) == now &&
+                NotificationPolicy.dailyAllowed(prefs, extra, 0, 0)) {
+                val language = language(context)
+                deliver(context, "reminder:$today:$minute", notificationText(language, "reminder"),
+                    notificationText(language, "readingReminderBody"), "daily_goal")
             }
         }
+        scheduleNextReminder(context, prefs, now, zone)
         db.planningItemDao().getAll().first().filter { !it.isDone && it.reminderHour != null && it.reminderMinute != null }
             .forEach { item -> planning(context, item.id, now) }
+    }
+
+    private fun scheduleNextReminder(context: Context, prefs: NotificationPreferences, now: Instant, zone: ZoneId) {
+        val today = now.atZone(zone).toLocalDate()
+        val candidates = listOfNotNull(
+            prefs.dailyMinute.takeIf { prefs.daily },
+            prefs.extraMinute.takeIf { prefs.extra }
+        ).map { minute ->
+            val todayDue = today.atTime(minute / 60, minute % 60).atZone(zone).toInstant()
+            val allowed = prefs.quiet.nextAllowed(todayDue, zone)
+            if (allowed > now) allowed
+            else prefs.quiet.nextAllowed(today.plusDays(1).atTime(minute / 60, minute % 60).atZone(zone).toInstant(), zone)
+        }
+        val work = WorkManager.getInstance(context)
+        val next = candidates.minOrNull()
+        if (next == null) {
+            work.cancelUniqueWork("scheduled_reading_reminder")
+            return
+        }
+        work.enqueueUniqueWork("scheduled_reading_reminder", ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequestBuilder<NotificationReconcileWorker>()
+                .setInitialDelay(Duration.between(now, next).toMillis().coerceAtLeast(1), TimeUnit.MILLISECONDS).build())
     }
 
     suspend fun planning(context: Context, itemId: Int, now: Instant = Instant.now()) = withContext(Dispatchers.IO) {

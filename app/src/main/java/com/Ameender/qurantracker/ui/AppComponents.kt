@@ -92,7 +92,8 @@ fun QuranSecondaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    leadingIcon: ImageVector? = null
+    leadingIcon: ImageVector? = null,
+    multiline: Boolean = false
 ) {
     OutlinedButton(
         onClick = onClick,
@@ -105,13 +106,16 @@ fun QuranSecondaryButton(
             contentColor = AppColor.primaryText,
             disabledContentColor = AppColor.textMuted
         ),
-        contentPadding = PaddingValues(horizontal = AppSpacing.xl, vertical = AppSpacing.none)
+        contentPadding = PaddingValues(horizontal = AppSpacing.xl, vertical = if (multiline) AppSpacing.md else AppSpacing.none)
     ) {
         if (leadingIcon != null) {
             Icon(leadingIcon, contentDescription = null, modifier = Modifier.size(AppIcon.sm))
             Spacer(modifier = Modifier.width(AppSpacing.md))
         }
-        Text(text, style = AppTextStyle.labelStrong, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(text, style = AppTextStyle.labelStrong, maxLines = if (multiline) Int.MAX_VALUE else 1,
+            modifier = if (multiline) Modifier.fillMaxWidth() else Modifier,
+            textAlign = if (multiline) TextAlign.Center else TextAlign.Unspecified,
+            overflow = TextOverflow.Ellipsis)
     }
 }
 

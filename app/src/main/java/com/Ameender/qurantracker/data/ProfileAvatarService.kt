@@ -7,6 +7,14 @@ object ProfileAvatarService {
     private const val AVATAR_PREFIX = "avatar:"
     private const val DISPLAY_NAME_PREFIX = "display_name:"
 
+    fun clearCachedProfile(context: Context, accountKey: String) {
+        if (accountKey.isBlank()) return
+        context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+            .remove(cacheKey(AVATAR_PREFIX, accountKey))
+            .remove(cacheKey(DISPLAY_NAME_PREFIX, accountKey))
+            .apply()
+    }
+
     fun resolveAvatarUrl(
         customAvatarUrl: String?,
         uploadedAvatarUrl: String?,

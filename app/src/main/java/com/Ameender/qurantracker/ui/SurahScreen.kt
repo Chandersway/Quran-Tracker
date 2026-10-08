@@ -273,6 +273,7 @@ fun SurahScreen(
                         valueRange = 0f..100f,
                         steps = 99
                     )
+                    Text(text.t("hifz.independent"), fontSize = 12.sp, color = MutedGold)
                 }
             },
             confirmButton = {
@@ -284,8 +285,14 @@ fun SurahScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { scoreSurah = null }) {
-                    Text(text.cancel, color = MutedGold)
+                Column {
+                    TextButton(onClick = {
+                        viewModel.updateSurahHifzScore(scoreSurah!!.id, 0)
+                        scoreSurah = null
+                    }) { Text(text.t("hifz.clear"), color = DeleteRed) }
+                    TextButton(onClick = { scoreSurah = null }) {
+                        Text(text.cancel, color = MutedGold)
+                    }
                 }
             }
         )

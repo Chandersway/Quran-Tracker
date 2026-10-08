@@ -1,0 +1,31 @@
+Warsh rub navigation — implementation update
+
+Supersedes the pending Warsh status in rub-navigation-phase2.txt.
+Supported layout: warsh_maknoon, all 604 downloaded pages required.
+Other Warsh layouts remain disabled; no Hafs fallback.
+
+435 eight-petal boundary ornaments were found in the actual 604 Maknoon SVGs.
+The detector now examines every black path (not only the largest), resolving
+the earlier missing ornament. Every ornament maps uniquely to one printed ayah.
+45 surah-beginning anchors from the independent thumn index complete 480 starts.
+Quran ordering produces 240 quarter starts by taking alternate eighth starts.
+454 source entries agree with canonical references; the remaining 26 printed
+references were reviewed against original SVG excerpts (review-1..5.png).
+Explicit corrections are guarded in scripts/build_verified_warsh_rubs.py.
+This includes the swapped surah 69 beginning/eighth in the external index.
+
+Independent index: https://github.com/adelpro/open-mushaf-native
+Revision f4aa7867059ac6250a3f8aa68c64002ca1874b7d, MIT license preserved at
+scripts/data/warsh-divisions/LICENSE. Printed edition: https://maknoon.com/quran/warsh/
+Source snapshots and input hashes accompany the reproducible derived asset.
+No source SVGs are newly bundled with this feature.
+
+Runtime loads warsh_rub_starts.json, validates the printed position and canonical
+bridge, then uses existing reader navigation. Popup labels use printed Warsh
+numbers; reader routing uses canonical numbers. Opening never registers reading
+or changes hifz scores. Original quran-meta Warsh table remains quarantined.
+
+Offline data validation: python scripts/build_verified_warsh_rubs.py --check
+Android regression: RubReaderActionTest checks every Hafs and Warsh quarter
+against reader page resolution, including Warsh scroll position and key early
+anchors that differ from Hafs. Build and test before release.

@@ -34,7 +34,6 @@ import com.Ameender.qurantracker.data.ReadingJourney
 import com.Ameender.qurantracker.data.ReadingMetrics
 import com.Ameender.qurantracker.data.ReadingStatsSummary
 import com.Ameender.qurantracker.data.readingStatsSummary
-import com.Ameender.qurantracker.domain.derivedJuzHifzScore
 import com.Ameender.qurantracker.viewmodel.GoalViewModel
 import com.Ameender.qurantracker.viewmodel.PlanningViewModel
 import com.Ameender.qurantracker.viewmodel.QuranViewModel
@@ -102,12 +101,13 @@ fun DashboardScreen(
     val motivationPoints = remember(allHistory, goalReached, streak, text) {
         calculateMotivationPoints(allHistory, goalReached, streak, text)
     }
-    val hifzOverview = remember(surahProgress, hizbProgress, juzzProgress, text) {
+    val hifzOverview = remember(surahProgress, hizbProgress, juzzProgress, text, appLanguage) {
         calculateHifzOverview(
             surahScores = surahProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) },
             hizbScores = hizbProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) },
             juzScores = juzzProgress.map { HifzRawScore(it.referenceId, it.progress, it.hasHifzScore, it.lastUpdated) },
-            text = text
+            text = text,
+            language = appLanguage
         )
     }
     var quickCheckInOpen by remember { mutableStateOf(false) }
@@ -147,12 +147,7 @@ fun DashboardScreen(
         Text("﷽", fontSize = 26.sp, color = GoldLight,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth())
-        Text("Quran Tracker", fontSize = 20.sp, fontWeight = FontWeight.Bold,
-            color = GoldLight, textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth())
-        Text("متتبع القرآن الكريم", fontSize = 12.sp, color = Gold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp))
+        WirdnaBrand(Modifier.align(Alignment.CenterHorizontally).padding(top = 8.dp, bottom = 20.dp))
 
         TodayFocusCard(
             todayCount = todayCount,
@@ -169,6 +164,7 @@ fun DashboardScreen(
 
         ReadingPlanHomeCard(history = allHistory, language = appLanguage, onOpen = onOpenReadingPlan)
         HizbOverviewCard(language = appLanguage)
+        Spacer(modifier = Modifier.height(16.dp))
 
         MotivationPointsCard(points = motivationPoints, text = text)
 
@@ -189,7 +185,7 @@ fun DashboardScreen(
             text = text
         )
 
-        HifzOverviewCard(overview = hifzOverview, text = text)
+        HifzOverviewCard(overview = hifzOverview, text = text, language = appLanguage)
 
         ReviewDueCard(
             items = hifzOverview.reviewItems,
@@ -1580,8 +1576,15 @@ fun PeriodStatTile(
 }
 
 @Composable
-fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
-    var showJuzScores by remember { mutableStateOf(true) }
+fun HifzOverviewCard(overview: HifzOverview, text: AppStrings, language: String = "nl") {
+    var scoreType by remember { mutableStateOf("surah") }
+    val browseScores = when (scoreType) {
+        "surah" -> overview.surahScores
+        "hizb" -> overview.hizbScores
+        else -> overview.juzScores
+    }
+    val assessed = browseScores.mapNotNull { it.score }
+    val average = if (assessed.isEmpty()) 0 else (assessed.average() + 0.5).toInt()
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -1599,20 +1602,20 @@ fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
                 Column(Modifier.weight(1f)) {
                     Text(text.hifzOverview, fontSize = 15.sp, color = Gold, fontWeight = FontWeight.Bold)
                     Text(
-                        text.t("home.hifz.summary", overview.scoredCount, overview.surahCount, overview.hizbCount, overview.juzCount),
+                        text.t("hifz.assessed", assessed.size, browseScores.size),
                         fontSize = 11.sp,
                         color = MutedGold
                     )
                 }
                 Text(
-                    if (overview.scoredCount == 0) "—" else "${overview.averageScore}/100",
+                    if (assessed.isEmpty()) "—" else "$average/100",
                     fontSize = 22.sp,
-                    color = if (overview.scoredCount > 0) hifzScoreBorder(overview.averageScore) else MutedGold,
+                    color = if (assessed.isNotEmpty()) hifzScoreBorder(average) else MutedGold,
                     fontWeight = FontWeight.Bold
                 )
             }
 
-            Text(text.t("home.hifz.averageExplanation"), fontSize = 11.sp, color = MutedGold,
+            Text(text.t("hifz.independent"), fontSize = 11.sp, color = MutedGold,
                 modifier = Modifier.padding(top = 8.dp))
             Spacer(modifier = Modifier.height(10.dp))
             Box(
@@ -1624,17 +1627,17 @@ fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
             ) {
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth((overview.averageScore / 100f).coerceIn(0f, 1f))
+                        .fillMaxWidth((average / 100f).coerceIn(0f, 1f))
                         .fillMaxHeight()
                         .clip(RoundedCornerShape(AppShape.bar))
-                        .background(if (overview.scoredCount > 0) hifzScoreBorder(overview.averageScore) else BorderNavy)
+                        .background(if (assessed.isNotEmpty()) hifzScoreBorder(average) else BorderNavy)
                 )
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text.t("home.hifz.allScores"),
+                text.hifzScoreLabel,
                 fontSize = 12.sp,
                 color = LabelGold,
                 fontWeight = FontWeight.Bold
@@ -1643,37 +1646,33 @@ fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
                 modifier = Modifier.padding(top = 6.dp, bottom = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                FilterChip(
-                    selected = showJuzScores,
-                    onClick = { showJuzScores = true },
-                    label = { Text(text.t("unit.juz")) }
-                )
-                FilterChip(
-                    selected = !showJuzScores,
-                    onClick = { showJuzScores = false },
-                    label = { Text(text.t("unit.hizb")) }
-                )
+                listOf("surah", "hizb", "juz").forEach { type ->
+                    FilterChip(selected = scoreType == type, onClick = { scoreType = type },
+                        label = { Text(text.t("unit.$type")) })
+                }
             }
-            val browseScores = if (showJuzScores) overview.juzScores else overview.hizbScores
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(end = 8.dp)
             ) {
                 items(
                     items = browseScores,
-                    key = { "${if (showJuzScores) "juz" else "hizb"}_${it.number}" }
+                    key = { "${scoreType}_${it.number}" }
                 ) { item ->
                     HifzBrowseScoreTile(
                         item = item,
-                        unit = if (showJuzScores) text.t("unit.juz") else text.t("unit.hizb"),
-                        derivedLabel = text.t("home.hifz.derived")
+                        unit = text.t("unit.$scoreType"),
+                        derivedLabel = text.t("home.hifz.derived"),
+                        name = if (scoreType == "surah") ALL_SURAHS.find { it.id == item.number }?.let {
+                            if (language == "ar") it.arabic else it.name
+                        } else null
                     )
                 }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            if (overview.scoredCount == 0) {
+            if (assessed.isEmpty()) {
                 Text(
                     text.noHifzScores,
                     fontSize = 12.sp,
@@ -1682,28 +1681,32 @@ fun HifzOverviewCard(overview: HifzOverview, text: AppStrings) {
             } else {
                 HifzRecommendationSection(
                     title = text.reviewFirst,
-                    items = overview.weakest,
+                    items = overview.allScores.filter { it.type == scoreType }.sortedBy { it.score }.take(3),
                     emptyText = text.noLowScores
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 HifzRecommendationSection(
                     title = text.strong,
-                    items = overview.strongest,
+                    items = overview.allScores.filter { it.type == scoreType }.sortedByDescending { it.score }.take(3),
                     emptyText = text.noStrongScores
                 )
+            }
+            overview.inconsistentJuz.forEach { juz ->
+                Text(text.t("hifz.consistency", juz, juz * 2 - 1, juz * 2),
+                    fontSize = 11.sp, color = MutedGold, modifier = Modifier.padding(top = 10.dp))
             }
         }
     }
 }
 
 @Composable
-private fun HifzBrowseScoreTile(item: HifzBrowseScore, unit: String, derivedLabel: String) {
+private fun HifzBrowseScoreTile(item: HifzBrowseScore, unit: String, derivedLabel: String, name: String? = null) {
     val score = item.score
     Column(
         modifier = Modifier
             .width(88.dp)
             .clip(RoundedCornerShape(AppShape.smallControl))
-            .background(HifzDashboardItem)
+            .background(score?.let(::hifzScoreSurface) ?: HifzDashboardItem)
             .border(
                 1.dp,
                 score?.let(::hifzScoreBorder) ?: BorderNavy,
@@ -1713,6 +1716,7 @@ private fun HifzBrowseScoreTile(item: HifzBrowseScore, unit: String, derivedLabe
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("$unit ${item.number}", fontSize = 11.sp, color = MutedGold, maxLines = 1)
+        if (name != null) Text(name, fontSize = 10.sp, color = MutedGold, maxLines = 2)
         Text(
             score?.let { "$it%" } ?: "—",
             fontSize = 16.sp,
@@ -1879,6 +1883,9 @@ fun ReviewDueRow(
 }
 
 data class HifzOverview(
+    val surahScores: List<HifzBrowseScore>,
+    val allScores: List<HifzScoreItem>,
+    val inconsistentJuz: List<Int>,
     val scoredCount: Int,
     val surahCount: Int,
     val hizbCount: Int,
@@ -1927,9 +1934,11 @@ fun calculateHifzOverview(
     surahScores: List<HifzRawScore>,
     hizbScores: List<HifzRawScore>,
     juzScores: List<HifzRawScore>,
-    text: AppStrings
+    text: AppStrings,
+    language: String = "nl"
 ): HifzOverview {
     val surahItems = surahScores
+        .sortedByDescending { it.lastUpdated }.distinctBy { it.id }
         .filter { it.hasScore && it.score > 0 }
         .sortedByDescending { it.lastUpdated }
         .mapNotNull { raw ->
@@ -1939,7 +1948,7 @@ fun calculateHifzOverview(
                 id = surah.id,
                 type = "surah",
                 typeLabel = text.t("unit.surah"),
-                name = surah.name,
+                name = if (language == "ar") surah.arabic else surah.name,
                 arabic = surah.arabic,
                 score = raw.score.coerceIn(0, 100),
                 lastUpdated = raw.lastUpdated
@@ -1948,6 +1957,7 @@ fun calculateHifzOverview(
         .distinctBy { it.id }
 
     val hizbItems = hizbScores
+        .sortedByDescending { it.lastUpdated }.distinctBy { it.id }
         .filter { it.hasScore && it.score > 0 && it.id in 1..60 }
         .sortedByDescending { it.lastUpdated }
         .map { raw ->
@@ -1965,7 +1975,8 @@ fun calculateHifzOverview(
         .distinctBy { it.id }
 
     // Only explicit assessments count: derived Juz values would count Hizbs twice.
-    val juzItems = juzScores.filter { it.hasScore && it.score > 0 && it.id in 1..30 }
+    val juzItems = juzScores.sortedByDescending { it.lastUpdated }.distinctBy { it.id }
+        .filter { it.hasScore && it.score > 0 && it.id in 1..30 }
         .sortedByDescending { it.lastUpdated }.distinctBy { it.id }.map { raw ->
         val juzId = raw.id
         HifzScoreItem(
@@ -1988,13 +1999,9 @@ fun calculateHifzOverview(
     val explicitJuzScoreValues = juzItems.associate { it.id to it.score }
     val browseJuzScores = (1..30).map { juz ->
         val explicitScore = explicitJuzScoreValues[juz]
-        val derivedScore = if (explicitScore == null) {
-            derivedJuzHifzScore(hizbScoreValues[juz * 2 - 1], hizbScoreValues[juz * 2])
-        } else null
         HifzBrowseScore(
             number = juz,
-            score = explicitScore ?: derivedScore,
-            derived = explicitScore == null && derivedScore != null
+            score = explicitScore
         )
     }
     val browseHizbScores = (1..60).map { hizb ->
@@ -2002,6 +2009,12 @@ fun calculateHifzOverview(
     }
 
     return HifzOverview(
+        surahScores = (1..114).map { id -> HifzBrowseScore(id, surahItems.find { it.id == id }?.score) },
+        allScores = items,
+        inconsistentJuz = juzItems.filter { juz ->
+            com.Ameender.qurantracker.domain.shouldConfirmJuzHifzScore(
+                juz.score, hizbScoreValues[juz.id * 2 - 1], hizbScoreValues[juz.id * 2])
+        }.map { it.id },
         scoredCount = items.size,
         surahCount = surahItems.size,
         hizbCount = hizbItems.size,

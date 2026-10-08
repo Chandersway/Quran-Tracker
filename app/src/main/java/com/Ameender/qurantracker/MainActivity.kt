@@ -19,6 +19,7 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.luminance
@@ -37,9 +38,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.navDeepLink
 import androidx.navigation.compose.*
 import com.Ameender.qurantracker.data.SupabaseConfig
+import com.Ameender.qurantracker.data.AppLanguage
+import com.Ameender.qurantracker.data.LanguageEntryStage
+import com.Ameender.qurantracker.data.LanguageEntryStore
+import com.Ameender.qurantracker.data.PendingNavigationStore
 import com.Ameender.qurantracker.data.NoteScope
 import com.Ameender.qurantracker.data.QuranNoteTarget
 import com.Ameender.qurantracker.data.target
@@ -73,33 +77,42 @@ sealed class Screen(val route: String, val label: String) {
 }
 
 class MainActivity : ComponentActivity() {
+    private lateinit var pendingNavigation: PendingNavigationStore
     private val notificationDestination = mutableStateOf<String?>(null)
     private val pendingGroupInviteCode = mutableStateOf<String?>(null)
     private val pendingGroupInviteToken = mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        notificationDestination.value = notificationRoute(intent)
-        pendingGroupInviteCode.value = groupInviteCodeFrom(intent)
-        pendingGroupInviteToken.value = groupInviteTokenFrom(intent)
+        // Classify before notification workers or default settings create first-run data.
+        val languageEntry = LanguageEntryStore(this)
+        pendingNavigation = PendingNavigationStore(this)
+        if (savedInstanceState == null) receiveNavigation(intent)
+        restorePendingNavigation()
         try {
             SupabaseService.handleDeeplinks(intent)
         } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-            checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1001)
+            android.util.Log.e("AppEntry", "Deep link could not be processed")
         }
         com.Ameender.qurantracker.notifications.NotificationCoordinator.initialize(this)
+        com.Ameender.qurantracker.notifications.QuranMessagingService.initialize(this)
         setContent {
+            var entryStage by remember { mutableStateOf(languageEntry.initialStage) }
+            var introStep by remember { mutableStateOf(languageEntry.introStep()) }
+            LaunchedEffect(entryStage) {
+                if ((entryStage == LanguageEntryStage.EXISTING_USER || entryStage == LanguageEntryStage.COMPLETED) &&
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                    checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1001)
+                }
+            }
             val prefs = remember { getSharedPreferences("settings", MODE_PRIVATE) }
             var themeMode by remember {
                 mutableStateOf(prefs.getString("theme_mode", "light") ?: "light")
             }
             var hifzTintEnabled by remember {
-                mutableStateOf(prefs.getBoolean("hifz_tint_enabled", false))
+                mutableStateOf(prefs.getBoolean("hifz_tint_enabled", true))
             }
             var mushafMode by remember {
                 val savedMushaf = prefs.getString("mushaf_mode", "hafs") ?: "hafs"
@@ -117,7 +130,11 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(initialMushaf)
             }
             var appLanguage by remember {
-                mutableStateOf(prefs.getString("app_language", "nl") ?: "nl")
+                mutableStateOf(languageEntry.language().code)
+            }
+            val changeLanguage: (AppLanguage) -> Unit = { language ->
+                languageEntry.select(language)
+                appLanguage = language.code
             }
             var selectedReciterName by remember {
                 mutableStateOf(prefs.getString("selected_reciter_name", "") ?: "")
@@ -138,6 +155,7 @@ class MainActivity : ComponentActivity() {
             val layoutDirection = if (appLanguage == "ar") LayoutDirection.Rtl else LayoutDirection.Ltr
             CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                 QuranTrackerTheme(themeMode = themeMode) {
+                    AccountRecoveryHost(language = appLanguage)
                     SideEffect {
                         window.statusBarColor = DarkNavy.toArgb()
                         window.navigationBarColor = DarkNavy.toArgb()
@@ -147,9 +165,39 @@ class MainActivity : ComponentActivity() {
                             isAppearanceLightNavigationBars = useDarkSystemIcons
                         }
                     }
+                    if (entryStage == LanguageEntryStage.LANGUAGE) {
+                        LanguageSelectionScreen(
+                            language = AppLanguage.fromCode(appLanguage),
+                            onSelect = changeLanguage,
+                            onContinue = {
+                                languageEntry.continueToIntro(AppLanguage.fromCode(appLanguage))
+                                entryStage = LanguageEntryStage.INTRO_PENDING
+                            }
+                        )
+                    } else if (entryStage == LanguageEntryStage.INTRO_PENDING) {
+                        OnboardingShell(
+                            language = appLanguage,
+                            step = introStep,
+                            onStepChange = { step ->
+                                languageEntry.saveIntroStep(step)
+                                introStep = step
+                            },
+                            onReturnToLanguage = {
+                                languageEntry.returnToLanguage()
+                                entryStage = LanguageEntryStage.LANGUAGE
+                            },
+                            onComplete = {
+                                languageEntry.completeIntro()
+                                entryStage = LanguageEntryStage.COMPLETED
+                            }
+                        )
+                    } else {
                     val viewModelFactory = remember {
                         QuranTrackerViewModelFactory(application)
                     }
+                    val deliveredCode = pendingGroupInviteCode.value
+                    val deliveredToken = pendingGroupInviteToken.value
+                    val deliveredNotification = notificationDestination.value
                     QuranTrackerApp(
                         viewModelFactory = viewModelFactory,
                         themeMode = themeMode,
@@ -169,8 +217,7 @@ class MainActivity : ComponentActivity() {
                         },
                         appLanguage = appLanguage,
                         onAppLanguageChange = { newLanguage ->
-                            appLanguage = newLanguage
-                            prefs.edit().putString("app_language", newLanguage).apply()
+                            changeLanguage(AppLanguage.fromCode(newLanguage))
                         },
                         selectedReciterName = selectedReciterName,
                         onSelectedReciterNameChange = { reciterName ->
@@ -196,12 +243,16 @@ class MainActivity : ComponentActivity() {
                         groupInviteCode = pendingGroupInviteCode.value,
                         groupInviteToken = pendingGroupInviteToken.value,
                         onGroupInviteConsumed = {
-                            pendingGroupInviteCode.value = null
-                            pendingGroupInviteToken.value = null
+                            pendingNavigation.consumeGroup(deliveredCode, deliveredToken)
+                            restorePendingNavigation()
                         },
                         notificationDestination = notificationDestination.value,
-                        onNotificationConsumed = { notificationDestination.value = null }
+                        onNotificationConsumed = {
+                            pendingNavigation.consumeNotification(deliveredNotification)
+                            restorePendingNavigation()
+                        }
                     )
+                    }
                 }
             }
         }
@@ -210,40 +261,21 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        notificationDestination.value = notificationRoute(intent)
-        pendingGroupInviteCode.value = groupInviteCodeFrom(intent)
-        pendingGroupInviteToken.value = groupInviteTokenFrom(intent)
-        SupabaseService.handleDeeplinks(intent)
+        receiveNavigation(intent)
+        restorePendingNavigation()
+        runCatching { SupabaseService.handleDeeplinks(intent) }
     }
 
-    private fun notificationRoute(intent: Intent): String? {
-        val uri = intent.data ?: return null
-        if (uri.scheme != "qurantracker" || uri.host != "notification") return null
-        val route = uri.pathSegments.firstOrNull()?.takeIf { it == "daily_goal" || it == "agenda" } ?: return null
-        val itemId = uri.pathSegments.getOrNull(1)?.toIntOrNull()?.takeIf { it > 0 }
-        return if (route == "agenda" && itemId != null) "agenda?itemId=$itemId" else route
+    private fun receiveNavigation(intent: Intent) {
+        pendingNavigation.receive(intent)
     }
 
-    private fun groupInviteCodeFrom(intent: Intent?): String? {
-        val data = intent?.data ?: return null
-        val code = when {
-            data.scheme == SupabaseConfig.DEEPLINK_SCHEME && data.host == "group" ->
-                data.pathSegments.firstOrNull()
-            data.scheme == "https" && data.host == "qurantracker.app" && data.pathSegments.firstOrNull() == "group" ->
-                data.pathSegments.getOrNull(1)
-            else -> null
-        }
-        return code
-            ?.trim()
-            ?.uppercase()
-            ?.takeIf { it.isNotBlank() }
+    private fun restorePendingNavigation() {
+        notificationDestination.value = pendingNavigation.notification
+        pendingGroupInviteCode.value = pendingNavigation.groupCode
+        pendingGroupInviteToken.value = pendingNavigation.groupToken
     }
 
-    private fun groupInviteTokenFrom(intent: Intent?): String? {
-        return intent?.data?.getQueryParameter("invite")
-            ?.trim()
-            ?.takeIf { it.length in 32..160 }
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -275,7 +307,9 @@ fun QuranTrackerApp(
     onNotificationConsumed: () -> Unit = {}
 ) {
     val navController       = rememberNavController()
-    LaunchedEffect(notificationDestination) {
+    var replayIntro by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(notificationDestination, replayIntro) {
+        if (replayIntro) return@LaunchedEffect
         notificationDestination?.let { route ->
             navController.navigate(route) { launchSingleTop = true }
             onNotificationConsumed()
@@ -364,7 +398,8 @@ fun QuranTrackerApp(
         }
     }
 
-    LaunchedEffect(groupInviteCode, groupInviteToken) {
+    LaunchedEffect(groupInviteCode, groupInviteToken, replayIntro) {
+        if (replayIntro) return@LaunchedEffect
         if (!groupInviteCode.isNullOrBlank() || !groupInviteToken.isNullOrBlank()) {
             navController.navigate(Screen.Groups.route) {
                 launchSingleTop = true
@@ -566,6 +601,15 @@ fun QuranTrackerApp(
                 }
                 composable(Screen.Hizb.route)      {
                     HizbScreen(
+                        mushafMode = mushafMode,
+                        onOpenRubInReader = { hizb, quarter, surah, ayah ->
+                            readerBookmarkTarget = ReaderBookmarkSummary(
+                                title = text.t("rub.open.title", hizb, quarter),
+                                subtitle = text.t("tracker.startAtSurahAyah", surah, ayah),
+                                surahId = surah, ayahNumber = ayah, openInMushaf = true
+                            )
+                            navigateReader()
+                        },
                         noteCounts = countsFor(NoteScope.HIZB),
                         onOpenNotes = { openNotes(QuranNoteTarget(NoteScope.HIZB, it)) },
                         viewModel = viewModel,
@@ -721,17 +765,12 @@ fun QuranTrackerApp(
                         }
                     )
                 }
-                composable(
-                    route = Screen.Groups.route,
-                    deepLinks = listOf(
-                        navDeepLink { uriPattern = "${SupabaseConfig.DEEPLINK_SCHEME}://group/{inviteCode}" },
-                        navDeepLink { uriPattern = "https://qurantracker.app/group/{inviteCode}" }
-                    )
-                ) {
+                // Incoming links are delivered centrally, after the first-run gate.
+                composable(route = Screen.Groups.route) {
                     GroupsSettingsPage(
                         text = text,
-                        invitedGroupCode = groupInviteCode,
-                        invitedGroupToken = groupInviteToken,
+                        invitedGroupCode = groupInviteCode.takeUnless { replayIntro },
+                        invitedGroupToken = groupInviteToken.takeUnless { replayIntro },
                         onInviteConsumed = onGroupInviteConsumed,
                         onDetailModeChanged = { groupDetailMode = it },
                         onBack = ::navigateBackOrHome
@@ -761,6 +800,7 @@ fun QuranTrackerApp(
         }
 
         HamburgerMenu(
+            onReplayIntro = { menuOpen = false; replayIntro = true },
             onNavigateToNotifications = { navigateSecondary(Screen.Notifications) },
             onNavigateToReadingPlan = { navigateSecondary(Screen.ReadingPlan) },
             isOpen           = menuOpen,
@@ -818,6 +858,7 @@ fun QuranTrackerApp(
             onSelectedReciterNameStartNow = { selectReciter(it, true) },
             audioPlayer = audioPlayer
         )
+        if (replayIntro) OnboardingReplay(appLanguage) { replayIntro = false }
         if (focusIsRunning || (focusRemainingSeconds in 1 until focusMinutes * 60)) {
             FocusFloatingTimer(
                 remainingSeconds = focusRemainingSeconds,

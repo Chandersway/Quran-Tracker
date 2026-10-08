@@ -31,6 +31,8 @@ fun HizbScreen(
     viewModel: QuranViewModel,
     hifzTintEnabled: Boolean = false,
     appLanguage: String = "nl",
+    mushafMode: String = "hafs",
+    onOpenRubInReader: (hizbNumber: Int, quarter: Int, surahId: Int, ayahNumber: Int) -> Unit = { _, _, _, _ -> },
     onOpenInReader: (hizbNumber: Int, surahId: Int, ayahNumber: Int) -> Unit = { _, _, _ -> },
     noteCounts: Map<Int, Int> = emptyMap(),
     onOpenNotes: (Int) -> Unit = {}
@@ -73,10 +75,17 @@ fun HizbScreen(
             textContentColor = LabelGold,
             title = { Text(text.t("tracker.hizbRubTitle", pendingHizb ?: "", rubLabel(pendingRub!!))) },
             text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    RubReaderAction(pendingHizb!!, pendingRub!!, mushafMode, text) { target ->
+                        pendingHizb = null
+                        pendingRub = null
+                        onOpenRubInReader(target.hizb, target.quarter, target.surah, target.ayah)
+                    }
                 Text(
                     if (isFirst) text.t("tracker.hizbMarkQuestion", pendingHizb ?: "", rubLabel(pendingRub!!))
                     else text.t("tracker.hizbAlreadyReadQuestion", count)
                 )
+                }
             },
             confirmButton = {
                 TextButton(onClick = {
@@ -142,6 +151,7 @@ fun HizbScreen(
                         valueRange = 0f..100f,
                         steps = 99
                     )
+                    Text(text.t("hifz.independent"), fontSize = 12.sp, color = MutedGold)
                 }
             },
             confirmButton = {
@@ -153,8 +163,14 @@ fun HizbScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { scoreHizb = null }) {
-                    Text(text.t("common.cancel"), color = MutedGold)
+                Column {
+                    TextButton(onClick = {
+                        viewModel.updateHizbHifzScore(scoreHizb!!, 0)
+                        scoreHizb = null
+                    }) { Text(text.t("hifz.clear"), color = DeleteRed) }
+                    TextButton(onClick = { scoreHizb = null }) {
+                        Text(text.t("common.cancel"), color = MutedGold)
+                    }
                 }
             }
         )
@@ -199,12 +215,14 @@ fun HizbScreen(
 
                 val borderColor = when {
                     showHifzTint -> hifzScoreBorder(hifzScore)
+                    hifzTintEnabled -> BorderNavy
                     allDone -> Gold
                     anyDone -> ReadBlue
                     else -> BorderNavy
                 }
                 val bgColor = when {
                     showHifzTint -> hifzScoreSurface(hifzScore)
+                    hifzTintEnabled -> MidNavy
                     allDone -> Gold.copy(alpha = 0.15f)
                     anyDone -> ReadBlueSurface
                     else -> MidNavy
@@ -304,7 +322,8 @@ fun HizbScreen(
                                 onClick = { pendingHizb = hizbId; pendingRub = rub },
                                 modifier = Modifier
                                     .weight(1f)
-                                    .height(54.dp),
+                                    .heightIn(min = 64.dp),
+                                contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
                                 shape = RoundedCornerShape(AppShape.control),
                                 colors = ButtonDefaults.outlinedButtonColors(
                                     containerColor = if (isDone) StrongGoldSurface else Color.Transparent,

@@ -1,0 +1,42 @@
+Rub-navigatie — fase 1, 8 oktober 2026
+
+Opgeleverd: lokale gegevensvoorbereiding, zonder UI- of navigatiewijziging.
+Bron: quran-center/quran-meta, commit 3b7afc7f8c905da3d8fb3e8725f86805bd76b2bd.
+MIT-licentie is bij bron en appasset opgenomen; URLs en SHA-256 per bestand
+staan in rub_starts.json. Genereren en controleren kan daarna geheel offline.
+
+240 Hafs-startpunten: referenties en paginalocaties bestaan in Quraan.db en
+hafs_ayahinfo_1260.db. Alle 60 hizb-starten komen overeen met de bestaande lijst.
+240 Warsh-bronstartpunten: referenties en paginalocaties bestaan in de actuele
+Warsh-Maknoon-geometrie. Dit bewijst echter NIET dat het juiste rub daar begint.
+
+BELANGRIJKE ACCEPTATIEBLOKKADE
+104 Warsh-rubstarten komen via de bestaande tekstbrug niet overeen met de
+overeenkomstige Hafs-tekstgrens. Daaronder zijn 21 hizb-starten. Voorbeeld:
+bron-rub 2 gebruikt Warsh 2:26, terwijl de appbrug dit koppelt aan Hafs 2:27;
+Hafs-rub 2 begint bij 2:26. Niet als bewezen bronfout bestempelen zonder controle
+van de gedrukte rubtekens. Niet stilzwijgend dezelfde versnummering hergebruiken.
+
+Daarom staat de Warsh-brontabel expliciet op quarantined_source_conflicts /
+readyForNavigation=false. Fase 1 is voor Warsh nog niet inhoudelijk goedgekeurd.
+Geen runtime-loader en geen navigatie gebruiken deze asset in deze fase.
+
+scripts/data/rub-source/review.json bevat alle afwijkingen en 240 alternatieve
+Warsh-kandidaten op basis van dezelfde tekstgrens als Hafs. Die kandidaten zijn
+eveneens NIET automatisch goedgekeurd: een grens kan midden in een gedrukt
+Warsh-vers vallen of meer dan één gedrukte ayah raken.
+
+Voor vervolg: vergelijk vooral rub 2/3/4, hizb 2/3/4 en soeraovergangen met de
+rubtekens op de echte Maknoon-Warsh-pagina's. Bevestig vervolgens systematisch
+de 240 grenzen. Pas daarna de definitieve Warsh-navigatietabel activeren.
+De gebruikelijke visuele eindcontrole voor beide edities blijft daarnaast nodig.
+PDF/IndoPak/oudere Warsh-layouts hebben geen goedgekeurde paginakoppeling.
+
+Controle:
+  python scripts/build_rub_starts.py --check
+  python scripts/test_rub_starts.py
+Bron opnieuw ophalen en genereren:
+  python scripts/build_rub_starts.py --fetch
+
+De appdata over gelezen rubs, scores, bestaande hizbs en mushafstroken is niet
+gewijzigd. Fase 2 (knoppen/navigatie) is nog niet uitgevoerd.

@@ -23,7 +23,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.Ameender.qurantracker.data.getHizbForJuz
-import com.Ameender.qurantracker.domain.shouldConfirmJuzHifzScore
 import com.Ameender.qurantracker.viewmodel.QuranViewModel
 
 data class JuzStartInfo(
@@ -66,15 +65,6 @@ private val JUZ_START_INFO = mapOf(
 
 private val JUZ_IDS = (1..30).toList()
 private val JUZ_RUB_IDS = (1..4).toList()
-private const val HIFZ_SCORE_PREFS = "hifz_score_settings"
-private const val JUZ_SCORE_LEADING_KEY = "juz_score_leading"
-
-private data class PendingJuzScoreConsistency(
-    val juz: Int,
-    val score: Int,
-    val firstHizbScore: Int?,
-    val secondHizbScore: Int?
-)
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -87,18 +77,8 @@ fun JuzzScreen(
     onOpenNotes: (Int) -> Unit = {}
 ) {
     val text = AppText.strings(appLanguage)
-    val context = LocalContext.current
-    val hifzScorePrefs = remember(context) {
-        context.getSharedPreferences(HIFZ_SCORE_PREFS, android.content.Context.MODE_PRIVATE)
-    }
     val juzzProgress by viewModel.juzzProgress.collectAsState()
     val juzzMap = remember(juzzProgress) { juzzProgress.associateBy { it.referenceId } }
-    val hizbProgress by viewModel.hizbProgress.collectAsState()
-    val hizbScoreMap = remember(hizbProgress) {
-        hizbProgress
-            .filter { it.hasHifzScore && it.progress > 0 }
-            .associate { it.referenceId to it.progress }
-    }
     val rubProgress by viewModel.rubProgress.collectAsState()
     val rubMap = remember(rubProgress) { rubProgress.associateBy { it.id } }
     val doneRubCountByJuz = remember(rubMap) {
@@ -116,8 +96,6 @@ fun JuzzScreen(
     var pendingJuz by remember { mutableStateOf<Int?>(null) }
     var scoreJuz by remember { mutableStateOf<Int?>(null) }
     var scoreValue by remember { mutableFloatStateOf(0f) }
-    var juzScoreLeading by remember { mutableStateOf(hifzScorePrefs.getBoolean(JUZ_SCORE_LEADING_KEY, false)) }
-    var pendingScoreConsistency by remember { mutableStateOf<PendingJuzScoreConsistency?>(null) }
     var celebration by remember { mutableStateOf<ReadingCelebration?>(null) }
     val gridState = rememberLazyGridState()
     val firstOpenJuz = remember(juzzMap, doneRubCountByJuz) {
@@ -212,110 +190,33 @@ fun JuzzScreen(
                         valueRange = 0f..100f,
                         steps = 99
                     )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Checkbox(
-                            checked = juzScoreLeading,
-                            onCheckedChange = { juzScoreLeading = it }
-                        )
-                        Column(
-                            modifier = Modifier
-                                .weight(1f)
-                                .clickable { juzScoreLeading = !juzScoreLeading }
-                        ) {
-                            Text(text.t("tracker.juzLeadingLabel"), fontSize = 12.sp, color = LabelGold)
-                            Text(text.t("tracker.juzLeadingExplanation"), fontSize = 10.sp, color = MutedGold)
-                        }
-                    }
+                    Text(text.t("hifz.independent"), fontSize = 12.sp, color = MutedGold)
                 }
             },
             confirmButton = {
                 TextButton(onClick = {
                     val juz = scoreJuz!!
                     val score = scoreValue.toInt()
-                    val firstHizb = juz * 2 - 1
-                    val secondHizb = juz * 2
-                    hifzScorePrefs.edit().putBoolean(JUZ_SCORE_LEADING_KEY, juzScoreLeading).apply()
-                    when {
-                        score == 0 -> viewModel.updateJuzHifzScore(juz, score)
-                        juzScoreLeading -> viewModel.updateJuzAndHizbHifzScores(juz, score)
-                        shouldConfirmJuzHifzScore(score, hizbScoreMap[firstHizb], hizbScoreMap[secondHizb]) -> {
-                            pendingScoreConsistency = PendingJuzScoreConsistency(
-                                juz = juz,
-                                score = score,
-                                firstHizbScore = hizbScoreMap[firstHizb],
-                                secondHizbScore = hizbScoreMap[secondHizb]
-                            )
-                        }
-                        else -> viewModel.updateJuzHifzScore(juz, score)
-                    }
+                    viewModel.updateJuzHifzScore(juz, score)
                     scoreJuz = null
                 }) {
                     Text(text.t("common.save"), color = Gold)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { scoreJuz = null }) {
-                    Text(text.t("common.cancel"), color = MutedGold)
-                }
-            }
-        )
-    }
-
-    pendingScoreConsistency?.let { pending ->
-        val firstHizb = pending.juz * 2 - 1
-        val secondHizb = pending.juz * 2
-        val firstScore = pending.firstHizbScore?.takeIf { it > 0 }?.let { "$it%" }
-            ?: text.t("tracker.notAssessed")
-        val secondScore = pending.secondHizbScore?.takeIf { it > 0 }?.let { "$it%" }
-            ?: text.t("tracker.notAssessed")
-        AlertDialog(
-            onDismissRequest = { pendingScoreConsistency = null },
-            containerColor = MidNavy,
-            titleContentColor = GoldLight,
-            textContentColor = LabelGold,
-            title = { Text(text.t("tracker.juzConsistencyTitle")) },
-            text = {
-                Text(
-                    text.t(
-                        "tracker.juzConsistencyBody",
-                        pending.juz,
-                        pending.score,
-                        firstHizb,
-                        firstScore,
-                        secondHizb,
-                        secondScore
-                    ),
-                    fontSize = 13.sp
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    viewModel.updateJuzAndHizbHifzScores(pending.juz, pending.score)
-                    pendingScoreConsistency = null
-                }) {
-                    Text(text.t("tracker.updateJuzAndHizb"), color = Gold)
-                }
-            },
-            dismissButton = {
-                Row {
+                Column {
                     TextButton(onClick = {
-                        viewModel.updateJuzHifzScore(pending.juz, pending.score)
-                        pendingScoreConsistency = null
-                    }) {
-                        Text(text.t("tracker.saveJuzOnly"), color = LabelGold)
-                    }
-                    TextButton(onClick = { pendingScoreConsistency = null }) {
+                        viewModel.updateJuzHifzScore(scoreJuz!!, 0)
+                        scoreJuz = null
+                    }) { Text(text.t("hifz.clear"), color = DeleteRed) }
+                    TextButton(onClick = { scoreJuz = null }) {
                         Text(text.t("common.cancel"), color = MutedGold)
                     }
                 }
             }
         )
     }
+
 
     Column(
         modifier = Modifier
@@ -345,22 +246,21 @@ fun JuzzScreen(
                 val isAutoDone = doneRubCount == 8
                 val isDone    = progress?.isRead == true || isAutoDone
                 val readCount = progress?.readCount ?: 0
-                val derivedHifzScore = com.Ameender.qurantracker.domain.derivedJuzHifzScore(
-                    hizbScoreMap[firstHizb], hizbScoreMap[secondHizb])
                 val hasDirectHifzScore = progress?.hasHifzScore == true && (progress.progress > 0)
-                val hasDerivedHifzScore = derivedHifzScore != null
-                val hifzScore = (if (hasDirectHifzScore) progress?.progress ?: 0 else derivedHifzScore ?: 0).coerceIn(0, 100)
-                val hasHifzScore = hasDirectHifzScore || hasDerivedHifzScore
+                val hifzScore = (progress?.progress ?: 0).coerceIn(0, 100)
+                val hasHifzScore = hasDirectHifzScore
                 val showHifzTint = hifzTintEnabled && hasHifzScore
                 val startInfo = JUZ_START_INFO[juzId]
                 val startHizb = getHizbForJuz(juzId).firstOrNull()
                 val cardBackground = when {
                     showHifzTint -> hifzScoreSurface(hifzScore)
+                    hifzTintEnabled -> MidNavy
                     isDone -> Gold.copy(alpha = 0.25f)
                     else -> MidNavy
                 }
                 val cardBorder = when {
                     showHifzTint -> hifzScoreBorder(hifzScore)
+                    hifzTintEnabled -> BorderNavy
                     isDone -> Gold
                     else -> BorderNavy
                 }

@@ -1,0 +1,9167 @@
+{
+  "sourceRevision": "f4aa7867059ac6250a3f8aa68c64002ca1874b7d",
+  "sourceUrl": "https://raw.githubusercontent.com/adelpro/open-mushaf-native/f4aa7867059ac6250a3f8aa68c64002ca1874b7d/",
+  "sourceEntries": 480,
+  "sourceSha256": "91e0d1c8889fb47a6eace5b774303efec544e20f51980d926f23ba1121c7d9c7",
+  "status": "Not approved: page-count matching cannot prove numbering or quarter identity",
+  "matchedByPageCount": [
+    {
+      "source": {
+        "hizb_number": 1,
+        "thumn": 2,
+        "sura_number": 2,
+        "starting_aya": 18,
+        "startingPage": 4
+      },
+      "printed": {
+        "page": 4,
+        "x": 270.75406408729003,
+        "y": 62.26999999999998,
+        "refs": [
+          [
+            2,
+            16
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 1,
+        "thumn": 3,
+        "sura_number": 2,
+        "starting_aya": 26,
+        "startingPage": 5
+      },
+      "printed": {
+        "page": 5,
+        "x": 55.709997691738465,
+        "y": 141.76,
+        "refs": [
+          [
+            2,
+            25
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 1,
+        "thumn": 4,
+        "sura_number": 2,
+        "starting_aya": 34,
+        "startingPage": 6
+      },
+      "printed": {
+        "page": 6,
+        "x": 212.5599976917386,
+        "y": 274.26,
+        "refs": [
+          [
+            2,
+            33
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 1,
+        "thumn": 5,
+        "sura_number": 2,
+        "starting_aya": 42,
+        "startingPage": 7
+      },
+      "printed": {
+        "page": 7,
+        "x": 166.87999769173842,
+        "y": 220.9700000000001,
+        "refs": [
+          [
+            2,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 1,
+        "thumn": 6,
+        "sura_number": 2,
+        "starting_aya": 54,
+        "startingPage": 8
+      },
+      "printed": {
+        "page": 8,
+        "x": 270.77999769173846,
+        "y": 247.74000000000018,
+        "refs": [
+          [
+            2,
+            53
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 1,
+        "thumn": 7,
+        "sura_number": 1,
+        "starting_aya": 60,
+        "startingPage": 9
+      },
+      "printed": {
+        "page": 9,
+        "x": 93.71999769173857,
+        "y": 168.39999999999992,
+        "refs": [
+          [
+            2,
+            59
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 1,
+        "thumn": 8,
+        "sura_number": 2,
+        "starting_aya": 67,
+        "startingPage": 10
+      },
+      "printed": {
+        "page": 10,
+        "x": 69.13999769173813,
+        "y": 273.88000000000056,
+        "refs": [
+          [
+            2,
+            66
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 1,
+        "sura_number": 2,
+        "starting_aya": 76,
+        "startingPage": 11
+      },
+      "printed": {
+        "page": 11,
+        "x": 205.75999769173882,
+        "y": 379.63000000000045,
+        "refs": [
+          [
+            2,
+            75
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 2,
+        "sura_number": 2,
+        "starting_aya": 38,
+        "startingPage": 13
+      },
+      "printed": {
+        "page": 13,
+        "x": 270.5799976917386,
+        "y": 168.39999999999992,
+        "refs": [
+          [
+            2,
+            84
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 3,
+        "sura_number": 2,
+        "starting_aya": 92,
+        "startingPage": 14
+      },
+      "printed": {
+        "page": 14,
+        "x": 207.25406408729,
+        "y": 300.7299999999999,
+        "refs": [
+          [
+            2,
+            91
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 4,
+        "sura_number": 2,
+        "starting_aya": 101,
+        "startingPage": 15
+      },
+      "printed": {
+        "page": 15,
+        "x": 205.30082332008124,
+        "y": 380.17999999999995,
+        "refs": [
+          [
+            2,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 5,
+        "sura_number": 2,
+        "starting_aya": 106,
+        "startingPage": 17
+      },
+      "printed": {
+        "page": 17,
+        "x": 270.3008233200813,
+        "y": 62.99999999999997,
+        "refs": [
+          [
+            2,
+            105
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 6,
+        "sura_number": 2,
+        "starting_aya": 114,
+        "startingPage": 18
+      },
+      "printed": {
+        "page": 18,
+        "x": 97.83082332008124,
+        "y": 142.35999999999999,
+        "refs": [
+          [
+            2,
+            113
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 7,
+        "sura_number": 2,
+        "starting_aya": 124,
+        "startingPage": 19
+      },
+      "printed": {
+        "page": 19,
+        "x": 159.22082332008122,
+        "y": 248.09999999999997,
+        "refs": [
+          [
+            2,
+            123
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 2,
+        "thumn": 8,
+        "sura_number": 2,
+        "starting_aya": 133,
+        "startingPage": 20
+      },
+      "printed": {
+        "page": 20,
+        "x": 178.43406408729,
+        "y": 326.64,
+        "refs": [
+          [
+            2,
+            132
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 1,
+        "sura_number": 2,
+        "starting_aya": 142,
+        "startingPage": 22
+      },
+      "printed": {
+        "page": 22,
+        "x": 270.19406408729,
+        "y": 63.089999999999975,
+        "refs": [
+          [
+            2,
+            141
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 2,
+        "sura_number": 2,
+        "starting_aya": 148,
+        "startingPage": 23
+      },
+      "printed": {
+        "page": 23,
+        "x": 92.63082332008125,
+        "y": 115.97999999999998,
+        "refs": [
+          [
+            2,
+            147
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 3,
+        "sura_number": 2,
+        "starting_aya": 158,
+        "startingPage": 24
+      },
+      "printed": {
+        "page": 24,
+        "x": 177.74406408729,
+        "y": 194.82,
+        "refs": [
+          [
+            2,
+            157
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 4,
+        "sura_number": 2,
+        "starting_aya": 166,
+        "startingPage": 25
+      },
+      "printed": {
+        "page": 25,
+        "x": 269.5108233200813,
+        "y": 273.9699999999999,
+        "refs": [
+          [
+            2,
+            165
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 5,
+        "sura_number": 2,
+        "starting_aya": 177,
+        "startingPage": 27
+      },
+      "printed": {
+        "page": 27,
+        "x": 271.21082332008126,
+        "y": 62.089999999999975,
+        "refs": [
+          [
+            2,
+            176
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 6,
+        "sura_number": 2,
+        "starting_aya": 185,
+        "startingPage": 28
+      },
+      "printed": {
+        "page": 28,
+        "x": 209.84406408729,
+        "y": 247.57,
+        "refs": [
+          [
+            2,
+            184
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 7,
+        "sura_number": 2,
+        "starting_aya": 189,
+        "startingPage": 29
+      },
+      "printed": {
+        "page": 29,
+        "x": 226.04082332008124,
+        "y": 327.16999999999996,
+        "refs": [
+          [
+            2,
+            188
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 3,
+        "thumn": 8,
+        "sura_number": 2,
+        "starting_aya": 196,
+        "startingPage": 30
+      },
+      "printed": {
+        "page": 30,
+        "x": 201.97999769173862,
+        "y": 380.0599999999997,
+        "refs": [
+          [
+            2,
+            195
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 1,
+        "sura_number": 2,
+        "starting_aya": 203,
+        "startingPage": 32
+      },
+      "printed": {
+        "page": 32,
+        "x": 269.74406408729,
+        "y": 62.389999999999986,
+        "refs": [
+          [
+            2,
+            201
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 2,
+        "sura_number": 2,
+        "starting_aya": 214,
+        "startingPage": 33
+      },
+      "printed": {
+        "page": 33,
+        "x": 269.72082332008125,
+        "y": 168.17,
+        "refs": [
+          [
+            2,
+            211
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 3,
+        "sura_number": 2,
+        "starting_aya": 219,
+        "startingPage": 34
+      },
+      "printed": {
+        "page": 34,
+        "x": 169.60406408729003,
+        "y": 353.22,
+        "refs": [
+          [
+            2,
+            217
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 4,
+        "sura_number": 2,
+        "starting_aya": 227,
+        "startingPage": 36
+      },
+      "printed": {
+        "page": 36,
+        "x": 146.21406408729,
+        "y": 141.7,
+        "refs": [
+          [
+            2,
+            226
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 5,
+        "sura_number": 2,
+        "starting_aya": 233,
+        "startingPage": 37
+      },
+      "printed": {
+        "page": 37,
+        "x": 164.56082332008123,
+        "y": 274.02,
+        "refs": [
+          [
+            2,
+            231
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 6,
+        "sura_number": 2,
+        "starting_aya": 235,
+        "startingPage": 38
+      },
+      "printed": {
+        "page": 38,
+        "x": 270.49406408729,
+        "y": 220.98999999999998,
+        "refs": [
+          [
+            2,
+            233
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 7,
+        "sura_number": 2,
+        "starting_aya": 243,
+        "startingPage": 39
+      },
+      "printed": {
+        "page": 39,
+        "x": 86.06082332008123,
+        "y": 273.92999999999995,
+        "refs": [
+          [
+            2,
+            241
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 4,
+        "thumn": 8,
+        "sura_number": 2,
+        "starting_aya": 248,
+        "startingPage": 40
+      },
+      "printed": {
+        "page": 40,
+        "x": 271.09406408729,
+        "y": 353.52,
+        "refs": [
+          [
+            2,
+            246
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 1,
+        "sura_number": 2,
+        "starting_aya": 253,
+        "startingPage": 42
+      },
+      "printed": {
+        "page": 42,
+        "x": 269.75406408729,
+        "y": 62.309999999999974,
+        "refs": [
+          [
+            2,
+            251
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 2,
+        "sura_number": 2,
+        "starting_aya": 258,
+        "startingPage": 43
+      },
+      "printed": {
+        "page": 43,
+        "x": 208.16082332008122,
+        "y": 141.04999999999998,
+        "refs": [
+          [
+            2,
+            257
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 3,
+        "sura_number": 2,
+        "starting_aya": 263,
+        "startingPage": 44
+      },
+      "printed": {
+        "page": 44,
+        "x": 213.95406408729002,
+        "y": 300.5999999999999,
+        "refs": [
+          [
+            2,
+            262
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 4,
+        "sura_number": 2,
+        "starting_aya": 267,
+        "startingPage": 45
+      },
+      "printed": {
+        "page": 45,
+        "x": 60.84082332008122,
+        "y": 247.55999999999997,
+        "refs": [
+          [
+            2,
+            266
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 5,
+        "sura_number": 2,
+        "starting_aya": 272,
+        "startingPage": 46
+      },
+      "printed": {
+        "page": 46,
+        "x": 55.70082332008123,
+        "y": 168.19,
+        "refs": [
+          [
+            2,
+            271
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 6,
+        "sura_number": 2,
+        "starting_aya": 280,
+        "startingPage": 47
+      },
+      "printed": {
+        "page": 47,
+        "x": 52.65082332008122,
+        "y": 353.5799999999999,
+        "refs": [
+          [
+            2,
+            279
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 7,
+        "sura_number": 2,
+        "starting_aya": 283,
+        "startingPage": 49
+      },
+      "printed": {
+        "page": 49,
+        "x": 270.71082332008126,
+        "y": 63.359999999999985,
+        "refs": [
+          [
+            2,
+            282
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 5,
+        "thumn": 8,
+        "sura_number": 3,
+        "starting_aya": 5,
+        "startingPage": 50
+      },
+      "printed": {
+        "page": 50,
+        "x": 96.18082332008123,
+        "y": 197.52999999999997,
+        "refs": [
+          [
+            3,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 6,
+        "thumn": 1,
+        "sura_number": 3,
+        "starting_aya": 15,
+        "startingPage": 51
+      },
+      "printed": {
+        "page": 51,
+        "x": 49.08082332008122,
+        "y": 353.34000000000003,
+        "refs": [
+          [
+            3,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 6,
+        "thumn": 2,
+        "sura_number": 2,
+        "starting_aya": 23,
+        "startingPage": 53
+      },
+      "printed": {
+        "page": 53,
+        "x": 270.22082332008125,
+        "y": 63.119999999999976,
+        "refs": [
+          [
+            3,
+            23
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 6,
+        "thumn": 3,
+        "sura_number": 3,
+        "starting_aya": 33,
+        "startingPage": 54
+      },
+      "printed": {
+        "page": 54,
+        "x": 211.49406408729,
+        "y": 194.61999999999998,
+        "refs": [
+          [
+            3,
+            33
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 6,
+        "thumn": 4,
+        "sura_number": 3,
+        "starting_aya": 42,
+        "startingPage": 55
+      },
+      "printed": {
+        "page": 55,
+        "x": 72.46082332008123,
+        "y": 247.72,
+        "refs": [
+          [
+            3,
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 6,
+        "thumn": 5,
+        "sura_number": 3,
+        "starting_aya": 52,
+        "startingPage": 56
+      },
+      "printed": {
+        "page": 56,
+        "x": 152.91406408729003,
+        "y": 379.62,
+        "refs": [
+          [
+            3,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 6,
+        "thumn": 6,
+        "sura_number": 3,
+        "starting_aya": 64,
+        "startingPage": 58
+      },
+      "printed": {
+        "page": 58,
+        "x": 270.54406408729,
+        "y": 115.51999999999997,
+        "refs": [
+          [
+            3,
+            63
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 6,
+        "thumn": 7,
+        "sura_number": 3,
+        "starting_aya": 75,
+        "startingPage": 59
+      },
+      "printed": {
+        "page": 59,
+        "x": 223.27082332008123,
+        "y": 247.54,
+        "refs": [
+          [
+            3,
+            74
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 1,
+        "sura_number": 3,
+        "starting_aya": 92,
+        "startingPage": 62
+      },
+      "printed": {
+        "page": 62,
+        "x": 271.47406408729,
+        "y": 62.48999999999998,
+        "refs": [
+          [
+            3,
+            91
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 2,
+        "sura_number": 3,
+        "starting_aya": 103,
+        "startingPage": 63
+      },
+      "printed": {
+        "page": 63,
+        "x": 222.0708233200812,
+        "y": 141.64999999999998,
+        "refs": [
+          [
+            3,
+            103
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 3,
+        "sura_number": 3,
+        "starting_aya": 113,
+        "startingPage": 64
+      },
+      "printed": {
+        "page": 64,
+        "x": 268.59406408728995,
+        "y": 326.5899999999999,
+        "refs": [
+          [
+            3,
+            113
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 4,
+        "sura_number": 3,
+        "starting_aya": 121,
+        "startingPage": 65
+      },
+      "printed": {
+        "page": 65,
+        "x": 96.17082332008124,
+        "y": 406.53,
+        "refs": [
+          [
+            3,
+            121
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 5,
+        "sura_number": 3,
+        "starting_aya": 133,
+        "startingPage": 67
+      },
+      "printed": {
+        "page": 67,
+        "x": 270.5008233200813,
+        "y": 62.39999999999998,
+        "refs": [
+          [
+            3,
+            133
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 6,
+        "sura_number": 3,
+        "starting_aya": 144,
+        "startingPage": 68
+      },
+      "printed": {
+        "page": 68,
+        "x": 79.03082332008123,
+        "y": 142.12999999999994,
+        "refs": [
+          [
+            3,
+            144
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 7,
+        "sura_number": 3,
+        "starting_aya": 153,
+        "startingPage": 69
+      },
+      "printed": {
+        "page": 69,
+        "x": 269.0308233200812,
+        "y": 353.2399999999999,
+        "refs": [
+          [
+            3,
+            153
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 7,
+        "thumn": 8,
+        "sura_number": 3,
+        "starting_aya": 160,
+        "startingPage": 71
+      },
+      "printed": {
+        "page": 71,
+        "x": 88.97082332008122,
+        "y": 141.64,
+        "refs": [
+          [
+            3,
+            160
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 8,
+        "thumn": 1,
+        "sura_number": 3,
+        "starting_aya": 171,
+        "startingPage": 72
+      },
+      "printed": {
+        "page": 72,
+        "x": 80.77082332008123,
+        "y": 300.42999999999995,
+        "refs": [
+          [
+            3,
+            171
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 8,
+        "thumn": 2,
+        "sura_number": 3,
+        "starting_aya": 181,
+        "startingPage": 74
+      },
+      "printed": {
+        "page": 74,
+        "x": 270.81406408729,
+        "y": 62.39999999999998,
+        "refs": [
+          [
+            3,
+            181
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 8,
+        "thumn": 3,
+        "sura_number": 3,
+        "starting_aya": 186,
+        "startingPage": 74
+      },
+      "printed": {
+        "page": 74,
+        "x": 100.9699976917384,
+        "y": 353.06999999999994,
+        "refs": [
+          [
+            3,
+            186
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 8,
+        "thumn": 4,
+        "sura_number": 3,
+        "starting_aya": 196,
+        "startingPage": 76
+      },
+      "printed": {
+        "page": 76,
+        "x": 200.74406408728998,
+        "y": 194.54,
+        "refs": [
+          [
+            3,
+            196
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 8,
+        "thumn": 5,
+        "sura_number": 4,
+        "starting_aya": 6,
+        "startingPage": 77
+      },
+      "printed": {
+        "page": 77,
+        "x": 233.23082332008124,
+        "y": 353.86,
+        "refs": [
+          [
+            4,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 8,
+        "thumn": 6,
+        "sura_number": 4,
+        "starting_aya": 11,
+        "startingPage": 78
+      },
+      "printed": {
+        "page": 78,
+        "x": 112.93082332008123,
+        "y": 247.50999999999996,
+        "refs": [
+          [
+            4,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 8,
+        "thumn": 7,
+        "sura_number": 4,
+        "starting_aya": 13,
+        "startingPage": 79
+      },
+      "printed": {
+        "page": 79,
+        "x": 197.45082332008124,
+        "y": 326.2199999999999,
+        "refs": [
+          [
+            4,
+            13
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 1,
+        "sura_number": 4,
+        "starting_aya": 24,
+        "startingPage": 82
+      },
+      "printed": {
+        "page": 82,
+        "x": 269.82406408728997,
+        "y": 62.09999999999998,
+        "refs": [
+          [
+            4,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 2,
+        "sura_number": 4,
+        "starting_aya": 29,
+        "startingPage": 83
+      },
+      "printed": {
+        "page": 83,
+        "x": 127.02082332008123,
+        "y": 115.55999999999997,
+        "refs": [
+          [
+            4,
+            29
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 3,
+        "sura_number": 4,
+        "starting_aya": 36,
+        "startingPage": 84
+      },
+      "printed": {
+        "page": 84,
+        "x": 221.21406408728998,
+        "y": 274.13,
+        "refs": [
+          [
+            4,
+            36
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 4,
+        "sura_number": 4,
+        "starting_aya": 46,
+        "startingPage": 86
+      },
+      "printed": {
+        "page": 86,
+        "x": 270.51406408729,
+        "y": 88.98999999999998,
+        "refs": [
+          [
+            4,
+            45
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 5,
+        "sura_number": 4,
+        "starting_aya": 58,
+        "startingPage": 87
+      },
+      "printed": {
+        "page": 87,
+        "x": 103.36082332008124,
+        "y": 300.05999999999995,
+        "refs": [
+          [
+            4,
+            57
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 6,
+        "sura_number": 4,
+        "starting_aya": 65,
+        "startingPage": 88
+      },
+      "printed": {
+        "page": 88,
+        "x": 138.59406408729,
+        "y": 380.17999999999995,
+        "refs": [
+          [
+            4,
+            64
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 7,
+        "sura_number": 4,
+        "starting_aya": 74,
+        "startingPage": 89
+      },
+      "printed": {
+        "page": 89,
+        "x": 172.66082332008125,
+        "y": 379.8799999999999,
+        "refs": [
+          [
+            4,
+            73
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 9,
+        "thumn": 8,
+        "sura_number": 4,
+        "starting_aya": 79,
+        "startingPage": 90
+      },
+      "printed": {
+        "page": 90,
+        "x": 232.99406408728998,
+        "y": 406.03999999999996,
+        "refs": [
+          [
+            4,
+            78
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 1,
+        "sura_number": 4,
+        "starting_aya": 87,
+        "startingPage": 92
+      },
+      "printed": {
+        "page": 92,
+        "x": 269.61406408729005,
+        "y": 62.54999999999998,
+        "refs": [
+          [
+            4,
+            86
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 2,
+        "sura_number": 4,
+        "starting_aya": 92,
+        "startingPage": 93
+      },
+      "printed": {
+        "page": 93,
+        "x": 135.3808233200812,
+        "y": 194.99999999999997,
+        "refs": [
+          [
+            4,
+            91
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 3,
+        "sura_number": 4,
+        "starting_aya": 100,
+        "startingPage": 94
+      },
+      "printed": {
+        "page": 94,
+        "x": 95.68406408729001,
+        "y": 300.24,
+        "refs": [
+          [
+            4,
+            99
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 4,
+        "sura_number": 4,
+        "starting_aya": 105,
+        "startingPage": 95
+      },
+      "printed": {
+        "page": 95,
+        "x": 210.97082332008122,
+        "y": 405.26,
+        "refs": [
+          [
+            4,
+            104
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 5,
+        "sura_number": 4,
+        "starting_aya": 114,
+        "startingPage": 97
+      },
+      "printed": {
+        "page": 97,
+        "x": 269.65406408729,
+        "y": 60.27999999999997,
+        "refs": [
+          [
+            4,
+            113
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 6,
+        "sura_number": 4,
+        "starting_aya": 164,
+        "startingPage": 98
+      },
+      "printed": {
+        "page": 98,
+        "x": 68.40082332008123,
+        "y": 168.22999999999996,
+        "refs": [
+          [
+            4,
+            123
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 7,
+        "sura_number": 4,
+        "starting_aya": 130,
+        "startingPage": 99
+      },
+      "printed": {
+        "page": 99,
+        "x": 189.18406408729,
+        "y": 221.94999999999996,
+        "refs": [
+          [
+            4,
+            129
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 10,
+        "thumn": 8,
+        "sura_number": 4,
+        "starting_aya": 140,
+        "startingPage": 100
+      },
+      "printed": {
+        "page": 100,
+        "x": 116.35406408729,
+        "y": 352.7399999999999,
+        "refs": [
+          [
+            4,
+            139
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 1,
+        "sura_number": 4,
+        "starting_aya": 144,
+        "startingPage": 102
+      },
+      "printed": {
+        "page": 102,
+        "x": 269.79406408729,
+        "y": 62.42999999999998,
+        "refs": [
+          [
+            4,
+            147
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 2,
+        "sura_number": 4,
+        "starting_aya": 157,
+        "startingPage": 103
+      },
+      "printed": {
+        "page": 103,
+        "x": 256.67082332008124,
+        "y": 167.77999999999997,
+        "refs": [
+          [
+            4,
+            156
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 3,
+        "sura_number": 4,
+        "starting_aya": 166,
+        "startingPage": 104
+      },
+      "printed": {
+        "page": 104,
+        "x": 270.26406408728997,
+        "y": 247.48999999999998,
+        "refs": [
+          [
+            4,
+            165
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 4,
+        "sura_number": 4,
+        "starting_aya": 174,
+        "startingPage": 105
+      },
+      "printed": {
+        "page": 105,
+        "x": 103.27082332008123,
+        "y": 353.13,
+        "refs": [
+          [
+            4,
+            173
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 5,
+        "sura_number": 5,
+        "starting_aya": 3,
+        "startingPage": 107
+      },
+      "printed": {
+        "page": 107,
+        "x": 271.18082332008123,
+        "y": 62.339999999999975,
+        "refs": [
+          [
+            5,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 6,
+        "sura_number": 5,
+        "starting_aya": 6,
+        "startingPage": 108
+      },
+      "printed": {
+        "page": 108,
+        "x": 269.85406408729,
+        "y": 62.84999999999998,
+        "refs": [
+          [
+            5,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 7,
+        "sura_number": 5,
+        "starting_aya": 12,
+        "startingPage": 109
+      },
+      "printed": {
+        "page": 109,
+        "x": 200.20082332008118,
+        "y": 168.13,
+        "refs": [
+          [
+            5,
+            13
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 11,
+        "thumn": 8,
+        "sura_number": 5,
+        "starting_aya": 17,
+        "startingPage": 110
+      },
+      "printed": {
+        "page": 110,
+        "x": 92.63082332008125,
+        "y": 300.42999999999995,
+        "refs": [
+          [
+            5,
+            19
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 1,
+        "sura_number": 5,
+        "starting_aya": 23,
+        "startingPage": 111
+      },
+      "printed": {
+        "page": 111,
+        "x": 150.1208233200812,
+        "y": 379.25,
+        "refs": [
+          [
+            5,
+            25
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 2,
+        "sura_number": 5,
+        "starting_aya": 32,
+        "startingPage": 113
+      },
+      "printed": {
+        "page": 113,
+        "x": 237.66082332008125,
+        "y": 142.64999999999998,
+        "refs": [
+          [
+            5,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 3,
+        "sura_number": 5,
+        "starting_aya": 41,
+        "startingPage": 114
+      },
+      "printed": {
+        "page": 114,
+        "x": 70.52082332008123,
+        "y": 220.93999999999997,
+        "refs": [
+          [
+            5,
+            43
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 4,
+        "sura_number": 5,
+        "starting_aya": 45,
+        "startingPage": 115
+      },
+      "printed": {
+        "page": 115,
+        "x": 79.68082332008123,
+        "y": 326.22,
+        "refs": [
+          [
+            5,
+            47
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 5,
+        "sura_number": 5,
+        "starting_aya": 49,
+        "startingPage": 116
+      },
+      "printed": {
+        "page": 116,
+        "x": 167.06406408729,
+        "y": 327.05999999999995,
+        "refs": [
+          [
+            5,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 6,
+        "sura_number": 5,
+        "starting_aya": 58,
+        "startingPage": 118
+      },
+      "printed": {
+        "page": 118,
+        "x": 270.91406408729,
+        "y": 62.66999999999999,
+        "refs": [
+          [
+            5,
+            60
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 7,
+        "sura_number": 5,
+        "starting_aya": 67,
+        "startingPage": 119
+      },
+      "printed": {
+        "page": 119,
+        "x": 101.95082332008124,
+        "y": 168.25999999999996,
+        "refs": [
+          [
+            5,
+            69
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 12,
+        "thumn": 8,
+        "sura_number": 5,
+        "starting_aya": 73,
+        "startingPage": 120
+      },
+      "printed": {
+        "page": 120,
+        "x": 157.16406408729,
+        "y": 194.76,
+        "refs": [
+          [
+            5,
+            75
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 13,
+        "thumn": 1,
+        "sura_number": 5,
+        "starting_aya": 82,
+        "startingPage": 121
+      },
+      "printed": {
+        "page": 121,
+        "x": 177.32082332008122,
+        "y": 273.9599999999999,
+        "refs": [
+          [
+            5,
+            84
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 13,
+        "thumn": 3,
+        "sura_number": 5,
+        "starting_aya": 76,
+        "startingPage": 124
+      },
+      "printed": {
+        "page": 124,
+        "x": 180.75406408729,
+        "y": 115.21999999999997,
+        "refs": [
+          [
+            5,
+            99
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 13,
+        "thumn": 4,
+        "sura_number": 5,
+        "starting_aya": 106,
+        "startingPage": 125
+      },
+      "printed": {
+        "page": 125,
+        "x": 136.32082332008122,
+        "y": 168.39999999999995,
+        "refs": [
+          [
+            5,
+            108
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 13,
+        "thumn": 5,
+        "sura_number": 5,
+        "starting_aya": 111,
+        "startingPage": 126
+      },
+      "printed": {
+        "page": 126,
+        "x": 187.99406408729,
+        "y": 299.90999999999985,
+        "refs": [
+          [
+            5,
+            113
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 13,
+        "thumn": 7,
+        "sura_number": 6,
+        "starting_aya": 13,
+        "startingPage": 129
+      },
+      "printed": {
+        "page": 129,
+        "x": 51.31082332008122,
+        "y": 220.88,
+        "refs": [
+          [
+            6,
+            14
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 13,
+        "thumn": 8,
+        "sura_number": 6,
+        "starting_aya": 26,
+        "startingPage": 130
+      },
+      "printed": {
+        "page": 130,
+        "x": 188.02406408729001,
+        "y": 379.7099999999999,
+        "refs": [
+          [
+            6,
+            27
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 14,
+        "thumn": 1,
+        "sura_number": 6,
+        "starting_aya": 36,
+        "startingPage": 132
+      },
+      "printed": {
+        "page": 132,
+        "x": 270.00406408729003,
+        "y": 62.21999999999997,
+        "refs": [
+          [
+            6,
+            37
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 14,
+        "thumn": 2,
+        "sura_number": 6,
+        "starting_aya": 48,
+        "startingPage": 133
+      },
+      "printed": {
+        "page": 133,
+        "x": 53.12082332008122,
+        "y": 167.98999999999998,
+        "refs": [
+          [
+            6,
+            49
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 14,
+        "thumn": 3,
+        "sura_number": 6,
+        "starting_aya": 59,
+        "startingPage": 134
+      },
+      "printed": {
+        "page": 134,
+        "x": 69.64082332008124,
+        "y": 353.1399999999999,
+        "refs": [
+          [
+            6,
+            60
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 14,
+        "thumn": 4,
+        "sura_number": 6,
+        "starting_aya": 70,
+        "startingPage": 136
+      },
+      "printed": {
+        "page": 136,
+        "x": 150.47406408729,
+        "y": 88.56999999999998,
+        "refs": [
+          [
+            6,
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 14,
+        "thumn": 5,
+        "sura_number": 6,
+        "starting_aya": 80,
+        "startingPage": 137
+      },
+      "printed": {
+        "page": 137,
+        "x": 127.49082332008123,
+        "y": 300.17999999999995,
+        "refs": [
+          [
+            6,
+            81
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 14,
+        "thumn": 6,
+        "sura_number": 6,
+        "starting_aya": 91,
+        "startingPage": 139
+      },
+      "printed": {
+        "page": 139,
+        "x": 270.46082332008126,
+        "y": 62.75999999999999,
+        "refs": [
+          [
+            6,
+            92
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 14,
+        "thumn": 8,
+        "sura_number": 6,
+        "starting_aya": 102,
+        "startingPage": 141
+      },
+      "printed": {
+        "page": 141,
+        "x": 142.00082332008122,
+        "y": 88.73999999999998,
+        "refs": [
+          [
+            6,
+            104
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 1,
+        "sura_number": 6,
+        "starting_aya": 111,
+        "startingPage": 142
+      },
+      "printed": {
+        "page": 142,
+        "x": 270.36999769173843,
+        "y": 62.229999999999976,
+        "refs": [
+          [
+            6,
+            112
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 2,
+        "sura_number": 6,
+        "starting_aya": 120,
+        "startingPage": 143
+      },
+      "printed": {
+        "page": 143,
+        "x": 270.49082332008123,
+        "y": 141.40999999999997,
+        "refs": [
+          [
+            6,
+            121
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 3,
+        "sura_number": 6,
+        "starting_aya": 127,
+        "startingPage": 144
+      },
+      "printed": {
+        "page": 144,
+        "x": 155.31406408729,
+        "y": 168.01999999999998,
+        "refs": [
+          [
+            6,
+            128
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 4,
+        "sura_number": 6,
+        "starting_aya": 135,
+        "startingPage": 145
+      },
+      "printed": {
+        "page": 145,
+        "x": 74.42082332008124,
+        "y": 194.26999999999998,
+        "refs": [
+          [
+            6,
+            136
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 5,
+        "sura_number": 6,
+        "starting_aya": 140,
+        "startingPage": 146
+      },
+      "printed": {
+        "page": 146,
+        "x": 232.15406408729,
+        "y": 220.45999999999998,
+        "refs": [
+          [
+            6,
+            141
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 6,
+        "sura_number": 6,
+        "starting_aya": 144,
+        "startingPage": 147
+      },
+      "printed": {
+        "page": 147,
+        "x": 87.04082332008124,
+        "y": 247.64999999999998,
+        "refs": [
+          [
+            6,
+            146
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 7,
+        "sura_number": 6,
+        "starting_aya": 151,
+        "startingPage": 148
+      },
+      "printed": {
+        "page": 148,
+        "x": 50.600823320081226,
+        "y": 300.2199999999999,
+        "refs": [
+          [
+            6,
+            152
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 15,
+        "thumn": 8,
+        "sura_number": 6,
+        "starting_aya": 158,
+        "startingPage": 150
+      },
+      "printed": {
+        "page": 150,
+        "x": 270.03406408729,
+        "y": 62.43999999999998,
+        "refs": [
+          [
+            6,
+            159
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 16,
+        "thumn": 1,
+        "sura_number": 7,
+        "starting_aya": 5,
+        "startingPage": 151
+      },
+      "printed": {
+        "page": 151,
+        "x": 228.7608233200812,
+        "y": 223.45,
+        "refs": [
+          [
+            7,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 16,
+        "thumn": 2,
+        "sura_number": 7,
+        "starting_aya": 21,
+        "startingPage": 152
+      },
+      "printed": {
+        "page": 152,
+        "x": 182.39406408729,
+        "y": 352.65999999999997,
+        "refs": [
+          [
+            7,
+            20
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 16,
+        "thumn": 3,
+        "sura_number": 7,
+        "starting_aya": 32,
+        "startingPage": 154
+      },
+      "printed": {
+        "page": 154,
+        "x": 114.55082332008124,
+        "y": 88.91999999999997,
+        "refs": [
+          [
+            7,
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 16,
+        "thumn": 4,
+        "sura_number": 7,
+        "starting_aya": 39,
+        "startingPage": 155
+      },
+      "printed": {
+        "page": 155,
+        "x": 269.5008233200813,
+        "y": 167.98999999999998,
+        "refs": [
+          [
+            7,
+            38
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 16,
+        "thumn": 5,
+        "sura_number": 7,
+        "starting_aya": 47,
+        "startingPage": 156
+      },
+      "printed": {
+        "page": 156,
+        "x": 270.35406408729,
+        "y": 221.04999999999998,
+        "refs": [
+          [
+            7,
+            46
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 16,
+        "thumn": 8,
+        "sura_number": 7,
+        "starting_aya": 77,
+        "startingPage": 160
+      },
+      "printed": {
+        "page": 160,
+        "x": 147.4708233200812,
+        "y": 247.36999999999998,
+        "refs": [
+          [
+            7,
+            76
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 1,
+        "sura_number": 7,
+        "starting_aya": 88,
+        "startingPage": 162
+      },
+      "printed": {
+        "page": 162,
+        "x": 271.6899976917384,
+        "y": 62.13999999999997,
+        "refs": [
+          [
+            7,
+            87
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 2,
+        "sura_number": 7,
+        "starting_aya": 100,
+        "startingPage": 163
+      },
+      "printed": {
+        "page": 163,
+        "x": 72.76406408729,
+        "y": 194.35999999999999,
+        "refs": [
+          [
+            7,
+            99
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 3,
+        "sura_number": 7,
+        "starting_aya": 117,
+        "startingPage": 164
+      },
+      "printed": {
+        "page": 164,
+        "x": 270.03406408728995,
+        "y": 379.15,
+        "refs": [
+          [
+            7,
+            116
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 4,
+        "sura_number": 7,
+        "starting_aya": 132,
+        "startingPage": 166
+      },
+      "printed": {
+        "page": 166,
+        "x": 124.64082332008124,
+        "y": 114.96999999999998,
+        "refs": [
+          [
+            7,
+            131
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 5,
+        "sura_number": 7,
+        "starting_aya": 142,
+        "startingPage": 167
+      },
+      "printed": {
+        "page": 167,
+        "x": 175.74082332008123,
+        "y": 247.2,
+        "refs": [
+          [
+            7,
+            142
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 6,
+        "sura_number": 7,
+        "starting_aya": 149,
+        "startingPage": 168
+      },
+      "printed": {
+        "page": 168,
+        "x": 270.99406408729,
+        "y": 405.94999999999993,
+        "refs": [
+          [
+            7,
+            149
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 7,
+        "sura_number": 7,
+        "starting_aya": 156,
+        "startingPage": 170
+      },
+      "printed": {
+        "page": 170,
+        "x": 270.02406408729,
+        "y": 62.229999999999976,
+        "refs": [
+          [
+            7,
+            156
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 17,
+        "thumn": 8,
+        "sura_number": 7,
+        "starting_aya": 163,
+        "startingPage": 171
+      },
+      "printed": {
+        "page": 171,
+        "x": 201.51082332008124,
+        "y": 353.3499999999999,
+        "refs": [
+          [
+            7,
+            163
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 18,
+        "thumn": 1,
+        "sura_number": 7,
+        "starting_aya": 171,
+        "startingPage": 173
+      },
+      "printed": {
+        "page": 173,
+        "x": 270.12406408729,
+        "y": 62.31999999999998,
+        "refs": [
+          [
+            7,
+            171
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 18,
+        "thumn": 2,
+        "sura_number": 7,
+        "starting_aya": 179,
+        "startingPage": 174
+      },
+      "printed": {
+        "page": 174,
+        "x": 270.19406408729,
+        "y": 62.27999999999997,
+        "refs": [
+          [
+            7,
+            179
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 18,
+        "thumn": 3,
+        "sura_number": 7,
+        "starting_aya": 188,
+        "startingPage": 175
+      },
+      "printed": {
+        "page": 175,
+        "x": 270.8108233200813,
+        "y": 62.579999999999984,
+        "refs": [
+          [
+            7,
+            188
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 18,
+        "thumn": 4,
+        "sura_number": 7,
+        "starting_aya": 199,
+        "startingPage": 176
+      },
+      "printed": {
+        "page": 176,
+        "x": 99.55082332008124,
+        "y": 167.91,
+        "refs": [
+          [
+            7,
+            200
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 18,
+        "thumn": 5,
+        "sura_number": 8,
+        "starting_aya": 5,
+        "startingPage": 177
+      },
+      "printed": {
+        "page": 177,
+        "x": 133.48082332008124,
+        "y": 276.91999999999985,
+        "refs": [
+          [
+            8,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 18,
+        "thumn": 6,
+        "sura_number": 8,
+        "starting_aya": 15,
+        "startingPage": 178
+      },
+      "printed": {
+        "page": 178,
+        "x": 210.34406408729,
+        "y": 352.8299999999999,
+        "refs": [
+          [
+            8,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 18,
+        "thumn": 7,
+        "sura_number": 8,
+        "starting_aya": 22,
+        "startingPage": 179
+      },
+      "printed": {
+        "page": 179,
+        "x": 206.6408233200812,
+        "y": 273.74,
+        "refs": [
+          [
+            8,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 1,
+        "sura_number": 8,
+        "starting_aya": 41,
+        "startingPage": 182
+      },
+      "printed": {
+        "page": 182,
+        "x": 269.67406408729,
+        "y": 62.71999999999997,
+        "refs": [
+          [
+            8,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 2,
+        "sura_number": 8,
+        "starting_aya": 48,
+        "startingPage": 183
+      },
+      "printed": {
+        "page": 183,
+        "x": 71.28406408729,
+        "y": 142.71999999999997,
+        "refs": [
+          [
+            8,
+            49
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 3,
+        "sura_number": 8,
+        "starting_aya": 60,
+        "startingPage": 184
+      },
+      "printed": {
+        "page": 184,
+        "x": 269.68406408729,
+        "y": 327.3399999999999,
+        "refs": [
+          [
+            8,
+            61
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 4,
+        "sura_number": 8,
+        "starting_aya": 71,
+        "startingPage": 186
+      },
+      "printed": {
+        "page": 186,
+        "x": 188.51406408729,
+        "y": 115.62999999999998,
+        "refs": [
+          [
+            8,
+            72
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 5,
+        "sura_number": 9,
+        "starting_aya": 5,
+        "startingPage": 187
+      },
+      "printed": {
+        "page": 187,
+        "x": 144.09082332008123,
+        "y": 302.0799999999999,
+        "refs": [
+          [
+            9,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 6,
+        "sura_number": 9,
+        "starting_aya": 12,
+        "startingPage": 188
+      },
+      "printed": {
+        "page": 188,
+        "x": 53.73082332008122,
+        "y": 300.88,
+        "refs": [
+          [
+            9,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 7,
+        "sura_number": 9,
+        "starting_aya": 19,
+        "startingPage": 189
+      },
+      "printed": {
+        "page": 189,
+        "x": 209.30082332008124,
+        "y": 327.03,
+        "refs": [
+          [
+            9,
+            19
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 19,
+        "thumn": 8,
+        "sura_number": 9,
+        "starting_aya": 28,
+        "startingPage": 191
+      },
+      "printed": {
+        "page": 191,
+        "x": 167.66082332008125,
+        "y": 89.14999999999998,
+        "refs": [
+          [
+            9,
+            28
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 1,
+        "sura_number": 9,
+        "starting_aya": 34,
+        "startingPage": 192
+      },
+      "printed": {
+        "page": 192,
+        "x": 98.92082332008124,
+        "y": 141.94,
+        "refs": [
+          [
+            9,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 2,
+        "sura_number": 9,
+        "starting_aya": 40,
+        "startingPage": 193
+      },
+      "printed": {
+        "page": 193,
+        "x": 89.19082332008122,
+        "y": 300.87,
+        "refs": [
+          [
+            9,
+            40
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 3,
+        "sura_number": 9,
+        "starting_aya": 46,
+        "startingPage": 194
+      },
+      "printed": {
+        "page": 194,
+        "x": 73.17082332008124,
+        "y": 327.05999999999995,
+        "refs": [
+          [
+            9,
+            46
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 4,
+        "sura_number": 9,
+        "starting_aya": 55,
+        "startingPage": 196
+      },
+      "printed": {
+        "page": 196,
+        "x": 269.65406408729,
+        "y": 62.76999999999998,
+        "refs": [
+          [
+            9,
+            55
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 5,
+        "sura_number": 9,
+        "starting_aya": 61,
+        "startingPage": 196
+      },
+      "printed": {
+        "page": 196,
+        "x": 129.56999769173854,
+        "y": 353.5,
+        "refs": [
+          [
+            9,
+            61
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 6,
+        "sura_number": 9,
+        "starting_aya": 70,
+        "startingPage": 198
+      },
+      "printed": {
+        "page": 198,
+        "x": 73.59082332008123,
+        "y": 168.80999999999997,
+        "refs": [
+          [
+            9,
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 7,
+        "sura_number": 9,
+        "starting_aya": 75,
+        "startingPage": 199
+      },
+      "printed": {
+        "page": 199,
+        "x": 172.8808233200812,
+        "y": 221.64,
+        "refs": [
+          [
+            9,
+            76
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 20,
+        "thumn": 8,
+        "sura_number": 9,
+        "starting_aya": 85,
+        "startingPage": 200
+      },
+      "printed": {
+        "page": 200,
+        "x": 270.67406408729,
+        "y": 353.4,
+        "refs": [
+          [
+            9,
+            86
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 1,
+        "sura_number": 9,
+        "starting_aya": 93,
+        "startingPage": 201
+      },
+      "printed": {
+        "page": 201,
+        "x": 113.14082332008124,
+        "y": 379.81999999999994,
+        "refs": [
+          [
+            9,
+            94
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 2,
+        "sura_number": 9,
+        "starting_aya": 101,
+        "startingPage": 203
+      },
+      "printed": {
+        "page": 203,
+        "x": 180.11406408729,
+        "y": 142.12999999999997,
+        "refs": [
+          [
+            9,
+            102
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 3,
+        "sura_number": 9,
+        "starting_aya": 111,
+        "startingPage": 204
+      },
+      "printed": {
+        "page": 204,
+        "x": 270.71082332008126,
+        "y": 326.88,
+        "refs": [
+          [
+            9,
+            112
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 4,
+        "sura_number": 9,
+        "starting_aya": 117,
+        "startingPage": 205
+      },
+      "printed": {
+        "page": 205,
+        "x": 271.75406408729,
+        "y": 379.4799999999999,
+        "refs": [
+          [
+            9,
+            118
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 5,
+        "sura_number": 9,
+        "starting_aya": 123,
+        "startingPage": 207
+      },
+      "printed": {
+        "page": 207,
+        "x": 270.16406408729,
+        "y": 62.64999999999998,
+        "refs": [
+          [
+            9,
+            124
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 6,
+        "sura_number": 10,
+        "starting_aya": 3,
+        "startingPage": 208
+      },
+      "printed": {
+        "page": 208,
+        "x": 207.73406408728997,
+        "y": 197.58999999999997,
+        "refs": [
+          [
+            10,
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 7,
+        "sura_number": 10,
+        "starting_aya": 11,
+        "startingPage": 209
+      },
+      "printed": {
+        "page": 209,
+        "x": 164.50406408728998,
+        "y": 221.29999999999998,
+        "refs": [
+          [
+            10,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 21,
+        "thumn": 8,
+        "sura_number": 10,
+        "starting_aya": 19,
+        "startingPage": 210
+      },
+      "printed": {
+        "page": 210,
+        "x": 270.27406408729,
+        "y": 354.2099999999999,
+        "refs": [
+          [
+            10,
+            19
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 1,
+        "sura_number": 10,
+        "starting_aya": 26,
+        "startingPage": 212
+      },
+      "printed": {
+        "page": 212,
+        "x": 270.36406408729,
+        "y": 64.25999999999998,
+        "refs": [
+          [
+            10,
+            26
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 2,
+        "sura_number": 10,
+        "starting_aya": 37,
+        "startingPage": 213
+      },
+      "printed": {
+        "page": 213,
+        "x": 173.40082332008123,
+        "y": 195.11999999999998,
+        "refs": [
+          [
+            10,
+            37
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 3,
+        "sura_number": 10,
+        "starting_aya": 49,
+        "startingPage": 214
+      },
+      "printed": {
+        "page": 214,
+        "x": 270.59082332008126,
+        "y": 274.18999999999994,
+        "refs": [
+          [
+            10,
+            49
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 4,
+        "sura_number": 10,
+        "starting_aya": 61,
+        "startingPage": 215
+      },
+      "printed": {
+        "page": 215,
+        "x": 197.67406408729002,
+        "y": 353.3899999999999,
+        "refs": [
+          [
+            10,
+            61
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 5,
+        "sura_number": 10,
+        "starting_aya": 71,
+        "startingPage": 217
+      },
+      "printed": {
+        "page": 217,
+        "x": 270.2508233200812,
+        "y": 62.569999999999965,
+        "refs": [
+          [
+            10,
+            71
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 6,
+        "sura_number": 10,
+        "starting_aya": 83,
+        "startingPage": 218
+      },
+      "printed": {
+        "page": 218,
+        "x": 208.04406408729002,
+        "y": 168.39999999999998,
+        "refs": [
+          [
+            10,
+            83
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 7,
+        "sura_number": 10,
+        "starting_aya": 93,
+        "startingPage": 219
+      },
+      "printed": {
+        "page": 219,
+        "x": 269.93406408729,
+        "y": 247.64999999999998,
+        "refs": [
+          [
+            10,
+            93
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 22,
+        "thumn": 8,
+        "sura_number": 10,
+        "starting_aya": 104,
+        "startingPage": 220
+      },
+      "printed": {
+        "page": 220,
+        "x": 271.06406408729,
+        "y": 326.8499999999999,
+        "refs": [
+          [
+            10,
+            104
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 1,
+        "sura_number": 11,
+        "starting_aya": 6,
+        "startingPage": 222
+      },
+      "printed": {
+        "page": 222,
+        "x": 270.25406408729,
+        "y": 61.67999999999998,
+        "refs": [
+          [
+            11,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 2,
+        "sura_number": 11,
+        "starting_aya": 15,
+        "startingPage": 223
+      },
+      "printed": {
+        "page": 223,
+        "x": 129.1108233200812,
+        "y": 141.76,
+        "refs": [
+          [
+            11,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 3,
+        "sura_number": 11,
+        "starting_aya": 24,
+        "startingPage": 224
+      },
+      "printed": {
+        "page": 224,
+        "x": 185.09406408729,
+        "y": 220.26,
+        "refs": [
+          [
+            11,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 4,
+        "sura_number": 11,
+        "starting_aya": 32,
+        "startingPage": 225
+      },
+      "printed": {
+        "page": 225,
+        "x": 185.3608233200812,
+        "y": 220.93999999999997,
+        "refs": [
+          [
+            11,
+            32
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 5,
+        "sura_number": 11,
+        "starting_aya": 41,
+        "startingPage": 226
+      },
+      "printed": {
+        "page": 226,
+        "x": 112.03082332008123,
+        "y": 194.44,
+        "refs": [
+          [
+            11,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 6,
+        "sura_number": 11,
+        "starting_aya": 53,
+        "startingPage": 227
+      },
+      "printed": {
+        "page": 227,
+        "x": 214.84082332008123,
+        "y": 405.9599999999999,
+        "refs": [
+          [
+            11,
+            53
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 7,
+        "sura_number": 11,
+        "starting_aya": 62,
+        "startingPage": 228
+      },
+      "printed": {
+        "page": 228,
+        "x": 271.27406408728996,
+        "y": 406.1199999999999,
+        "refs": [
+          [
+            11,
+            61
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 23,
+        "thumn": 8,
+        "sura_number": 11,
+        "starting_aya": 73,
+        "startingPage": 230
+      },
+      "printed": {
+        "page": 230,
+        "x": 200.92082332008124,
+        "y": 88.44999999999997,
+        "refs": [
+          [
+            11,
+            72
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 24,
+        "thumn": 1,
+        "sura_number": 11,
+        "starting_aya": 84,
+        "startingPage": 231
+      },
+      "printed": {
+        "page": 231,
+        "x": 171.7908233200812,
+        "y": 114.95999999999998,
+        "refs": [
+          [
+            11,
+            83
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 24,
+        "thumn": 2,
+        "sura_number": 11,
+        "starting_aya": 93,
+        "startingPage": 232
+      },
+      "printed": {
+        "page": 232,
+        "x": 228.65406408729,
+        "y": 247.55999999999997,
+        "refs": [
+          [
+            11,
+            93
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 24,
+        "thumn": 3,
+        "sura_number": 11,
+        "starting_aya": 105,
+        "startingPage": 233
+      },
+      "printed": {
+        "page": 233,
+        "x": 136.2308233200812,
+        "y": 300.44999999999993,
+        "refs": [
+          [
+            11,
+            105
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 24,
+        "thumn": 5,
+        "sura_number": 12,
+        "starting_aya": 10,
+        "startingPage": 236
+      },
+      "printed": {
+        "page": 236,
+        "x": 103.25406408729,
+        "y": 273.9599999999999,
+        "refs": [
+          [
+            12,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 24,
+        "thumn": 6,
+        "sura_number": 12,
+        "starting_aya": 23,
+        "startingPage": 238
+      },
+      "printed": {
+        "page": 238,
+        "x": 269.90082332008126,
+        "y": 62.199999999999974,
+        "refs": [
+          [
+            12,
+            23
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 24,
+        "thumn": 7,
+        "sura_number": 12,
+        "starting_aya": 33,
+        "startingPage": 239
+      },
+      "printed": {
+        "page": 239,
+        "x": 135.70406408729,
+        "y": 194.32,
+        "refs": [
+          [
+            12,
+            33
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 24,
+        "thumn": 8,
+        "sura_number": 12,
+        "starting_aya": 42,
+        "startingPage": 240
+      },
+      "printed": {
+        "page": 240,
+        "x": 64.26082332008122,
+        "y": 299.79999999999995,
+        "refs": [
+          [
+            12,
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 1,
+        "sura_number": 12,
+        "starting_aya": 53,
+        "startingPage": 242
+      },
+      "printed": {
+        "page": 242,
+        "x": 269.96082332008126,
+        "y": 62.559999999999974,
+        "refs": [
+          [
+            12,
+            53
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 2,
+        "sura_number": 12,
+        "starting_aya": 66,
+        "startingPage": 243
+      },
+      "printed": {
+        "page": 243,
+        "x": 270.75406408729,
+        "y": 194.01,
+        "refs": [
+          [
+            12,
+            66
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 3,
+        "sura_number": 12,
+        "starting_aya": 77,
+        "startingPage": 244
+      },
+      "printed": {
+        "page": 244,
+        "x": 115.94406408729,
+        "y": 326.9799999999999,
+        "refs": [
+          [
+            12,
+            77
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 4,
+        "sura_number": 12,
+        "starting_aya": 88,
+        "startingPage": 246
+      },
+      "printed": {
+        "page": 246,
+        "x": 206.4408233200812,
+        "y": 114.99999999999999,
+        "refs": [
+          [
+            12,
+            88
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 5,
+        "sura_number": 12,
+        "starting_aya": 101,
+        "startingPage": 247
+      },
+      "printed": {
+        "page": 247,
+        "x": 51.02406408728999,
+        "y": 300.52,
+        "refs": [
+          [
+            12,
+            101
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 6,
+        "sura_number": 12,
+        "starting_aya": 111,
+        "startingPage": 248
+      },
+      "printed": {
+        "page": 248,
+        "x": 211.17082332008124,
+        "y": 379.4799999999999,
+        "refs": [
+          [
+            12,
+            111
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 7,
+        "sura_number": 13,
+        "starting_aya": 5,
+        "startingPage": 249
+      },
+      "printed": {
+        "page": 249,
+        "x": 82.80406408728999,
+        "y": 354.36,
+        "refs": [
+          [
+            13,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 25,
+        "thumn": 8,
+        "sura_number": 13,
+        "starting_aya": 14,
+        "startingPage": 251
+      },
+      "printed": {
+        "page": 251,
+        "x": 270.4408233200812,
+        "y": 62.43999999999997,
+        "refs": [
+          [
+            13,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 26,
+        "thumn": 2,
+        "sura_number": 13,
+        "starting_aya": 53,
+        "startingPage": 254
+      },
+      "printed": {
+        "page": 254,
+        "x": 270.41406408729,
+        "y": 62.51999999999998,
+        "refs": [
+          [
+            13,
+            36
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 26,
+        "thumn": 5,
+        "sura_number": 14,
+        "starting_aya": 10,
+        "startingPage": 256
+      },
+      "printed": {
+        "page": 256,
+        "x": 270.13406408729,
+        "y": 353.42999999999995,
+        "refs": [
+          [
+            14,
+            13
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 26,
+        "thumn": 6,
+        "sura_number": 14,
+        "starting_aya": 19,
+        "startingPage": 258
+      },
+      "printed": {
+        "page": 258,
+        "x": 270.22406408729,
+        "y": 62.69999999999999,
+        "refs": [
+          [
+            14,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 26,
+        "thumn": 8,
+        "sura_number": 14,
+        "starting_aya": 39,
+        "startingPage": 260
+      },
+      "printed": {
+        "page": 260,
+        "x": 110.55082332008124,
+        "y": 300.5799999999999,
+        "refs": [
+          [
+            14,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 27,
+        "thumn": 2,
+        "sura_number": 15,
+        "starting_aya": 22,
+        "startingPage": 263
+      },
+      "printed": {
+        "page": 263,
+        "x": 78.28082332008123,
+        "y": 195.49999999999994,
+        "refs": [
+          [
+            15,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 27,
+        "thumn": 3,
+        "sura_number": 15,
+        "starting_aya": 49,
+        "startingPage": 264
+      },
+      "printed": {
+        "page": 264,
+        "x": 270.75406408729003,
+        "y": 407.06999999999994,
+        "refs": [
+          [
+            15,
+            49
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 27,
+        "thumn": 4,
+        "sura_number": 15,
+        "starting_aya": 78,
+        "startingPage": 266
+      },
+      "printed": {
+        "page": 266,
+        "x": 194.28406408729,
+        "y": 169.03999999999996,
+        "refs": [
+          [
+            15,
+            78
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 27,
+        "thumn": 7,
+        "sura_number": 16,
+        "starting_aya": 30,
+        "startingPage": 270
+      },
+      "printed": {
+        "page": 270,
+        "x": 84.92082332008124,
+        "y": 194.66999999999996,
+        "refs": [
+          [
+            16,
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 27,
+        "thumn": 8,
+        "sura_number": 16,
+        "starting_aya": 38,
+        "startingPage": 271
+      },
+      "printed": {
+        "page": 271,
+        "x": 270.2408233200813,
+        "y": 273.9599999999999,
+        "refs": [
+          [
+            16,
+            38
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 1,
+        "sura_number": 16,
+        "starting_aya": 51,
+        "startingPage": 272
+      },
+      "printed": {
+        "page": 272,
+        "x": 155.95406408729002,
+        "y": 326.9799999999999,
+        "refs": [
+          [
+            16,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 2,
+        "sura_number": 16,
+        "starting_aya": 63,
+        "startingPage": 273
+      },
+      "printed": {
+        "page": 273,
+        "x": 189.0808233200812,
+        "y": 353.29999999999995,
+        "refs": [
+          [
+            16,
+            63
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 3,
+        "sura_number": 16,
+        "starting_aya": 71,
+        "startingPage": 274
+      },
+      "printed": {
+        "page": 274,
+        "x": 239.29406408729,
+        "y": 326.91999999999996,
+        "refs": [
+          [
+            16,
+            71
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 4,
+        "sura_number": 16,
+        "starting_aya": 79,
+        "startingPage": 275
+      },
+      "printed": {
+        "page": 275,
+        "x": 211.75082332008122,
+        "y": 405.65999999999997,
+        "refs": [
+          [
+            16,
+            79
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 5,
+        "sura_number": 16,
+        "starting_aya": 90,
+        "startingPage": 277
+      },
+      "printed": {
+        "page": 277,
+        "x": 60.58082332008122,
+        "y": 168.20999999999995,
+        "refs": [
+          [
+            16,
+            90
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 6,
+        "sura_number": 16,
+        "starting_aya": 98,
+        "startingPage": 278
+      },
+      "printed": {
+        "page": 278,
+        "x": 270.18406408729,
+        "y": 273.81999999999994,
+        "refs": [
+          [
+            16,
+            98
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 7,
+        "sura_number": 16,
+        "starting_aya": 111,
+        "startingPage": 280
+      },
+      "printed": {
+        "page": 280,
+        "x": 269.92406408729,
+        "y": 62.06999999999998,
+        "refs": [
+          [
+            16,
+            111
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 28,
+        "thumn": 8,
+        "sura_number": 16,
+        "starting_aya": 120,
+        "startingPage": 281
+      },
+      "printed": {
+        "page": 281,
+        "x": 271.3008233200813,
+        "y": 115.15999999999998,
+        "refs": [
+          [
+            16,
+            120
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 29,
+        "thumn": 2,
+        "sura_number": 17,
+        "starting_aya": 11,
+        "startingPage": 283
+      },
+      "printed": {
+        "page": 283,
+        "x": 270.40082332008126,
+        "y": 168.40999999999994,
+        "refs": [
+          [
+            17,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 29,
+        "thumn": 3,
+        "sura_number": 17,
+        "starting_aya": 23,
+        "startingPage": 284
+      },
+      "printed": {
+        "page": 284,
+        "x": 270.63406408729,
+        "y": 247.39999999999995,
+        "refs": [
+          [
+            17,
+            23
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 29,
+        "thumn": 4,
+        "sura_number": 17,
+        "starting_aya": 36,
+        "startingPage": 285
+      },
+      "printed": {
+        "page": 285,
+        "x": 159.65082332008123,
+        "y": 353.4899999999999,
+        "refs": [
+          [
+            17,
+            36
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 29,
+        "thumn": 5,
+        "sura_number": 17,
+        "starting_aya": 50,
+        "startingPage": 287
+      },
+      "printed": {
+        "page": 287,
+        "x": 270.45082332008127,
+        "y": 62.91999999999999,
+        "refs": [
+          [
+            17,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 29,
+        "thumn": 6,
+        "sura_number": 17,
+        "starting_aya": 61,
+        "startingPage": 288
+      },
+      "printed": {
+        "page": 288,
+        "x": 270.40406408729,
+        "y": 195.05999999999995,
+        "refs": [
+          [
+            17,
+            61
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 29,
+        "thumn": 7,
+        "sura_number": 17,
+        "starting_aya": 70,
+        "startingPage": 289
+      },
+      "printed": {
+        "page": 289,
+        "x": 86.77082332008123,
+        "y": 195.30999999999995,
+        "refs": [
+          [
+            17,
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 29,
+        "thumn": 8,
+        "sura_number": 17,
+        "starting_aya": 85,
+        "startingPage": 290
+      },
+      "printed": {
+        "page": 290,
+        "x": 169.75406408729,
+        "y": 380.1399999999999,
+        "refs": [
+          [
+            17,
+            85
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 30,
+        "thumn": 1,
+        "sura_number": 17,
+        "starting_aya": 99,
+        "startingPage": 292
+      },
+      "printed": {
+        "page": 292,
+        "x": 105.67082332008124,
+        "y": 168.84999999999994,
+        "refs": [
+          [
+            17,
+            99
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 30,
+        "thumn": 3,
+        "sura_number": 18,
+        "starting_aya": 5,
+        "startingPage": 295
+      },
+      "printed": {
+        "page": 295,
+        "x": 232.94082332008122,
+        "y": 115.74999999999997,
+        "refs": [
+          [
+            18,
+            17
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 30,
+        "thumn": 4,
+        "sura_number": 18,
+        "starting_aya": 22,
+        "startingPage": 296
+      },
+      "printed": {
+        "page": 296,
+        "x": 121.32082332008125,
+        "y": 221.53999999999996,
+        "refs": [
+          [
+            18,
+            23
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 30,
+        "thumn": 5,
+        "sura_number": 18,
+        "starting_aya": 30,
+        "startingPage": 297
+      },
+      "printed": {
+        "page": 297,
+        "x": 163.1208233200812,
+        "y": 221.37999999999994,
+        "refs": [
+          [
+            18,
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 30,
+        "thumn": 6,
+        "sura_number": 18,
+        "starting_aya": 42,
+        "startingPage": 298
+      },
+      "printed": {
+        "page": 298,
+        "x": 100.96082332008123,
+        "y": 274.03999999999996,
+        "refs": [
+          [
+            18,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 30,
+        "thumn": 7,
+        "sura_number": 18,
+        "starting_aya": 50,
+        "startingPage": 299
+      },
+      "printed": {
+        "page": 299,
+        "x": 148.40082332008123,
+        "y": 247.94999999999996,
+        "refs": [
+          [
+            18,
+            49
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 30,
+        "thumn": 8,
+        "sura_number": 18,
+        "starting_aya": 59,
+        "startingPage": 300
+      },
+      "printed": {
+        "page": 300,
+        "x": 230.75999769173842,
+        "y": 353.53,
+        "refs": [
+          [
+            18,
+            58
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 1,
+        "sura_number": 18,
+        "starting_aya": 75,
+        "startingPage": 302
+      },
+      "printed": {
+        "page": 302,
+        "x": 270.36406408729,
+        "y": 62.839999999999975,
+        "refs": [
+          [
+            18,
+            74
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 2,
+        "sura_number": 18,
+        "starting_aya": 87,
+        "startingPage": 303
+      },
+      "printed": {
+        "page": 303,
+        "x": 175.3108233200812,
+        "y": 141.83999999999995,
+        "refs": [
+          [
+            18,
+            85
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 3,
+        "sura_number": 18,
+        "starting_aya": 102,
+        "startingPage": 304
+      },
+      "printed": {
+        "page": 304,
+        "x": 270.51406408729,
+        "y": 168.60999999999996,
+        "refs": [
+          [
+            18,
+            98
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 4,
+        "sura_number": 19,
+        "starting_aya": 7,
+        "startingPage": 305
+      },
+      "printed": {
+        "page": 305,
+        "x": 105.55082332008124,
+        "y": 249.33999999999995,
+        "refs": [
+          [
+            19,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 5,
+        "sura_number": 19,
+        "starting_aya": 22,
+        "startingPage": 306
+      },
+      "printed": {
+        "page": 306,
+        "x": 137.01406408729002,
+        "y": 327.01999999999987,
+        "refs": [
+          [
+            19,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 6,
+        "sura_number": 19,
+        "starting_aya": 41,
+        "startingPage": 308
+      },
+      "printed": {
+        "page": 308,
+        "x": 270.23406408729,
+        "y": 115.62999999999998,
+        "refs": [
+          [
+            19,
+            40
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 7,
+        "sura_number": 19,
+        "starting_aya": 59,
+        "startingPage": 309
+      },
+      "printed": {
+        "page": 309,
+        "x": 270.39082332008127,
+        "y": 273.79999999999995,
+        "refs": [
+          [
+            19,
+            59
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 31,
+        "thumn": 8,
+        "sura_number": 19,
+        "starting_aya": 75,
+        "startingPage": 310
+      },
+      "printed": {
+        "page": 310,
+        "x": 269.87406408729004,
+        "y": 353.4999999999999,
+        "refs": [
+          [
+            19,
+            75
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 32,
+        "thumn": 2,
+        "sura_number": 20,
+        "starting_aya": 36,
+        "startingPage": 313
+      },
+      "printed": {
+        "page": 313,
+        "x": 64.58082332008121,
+        "y": 405.8299999999999,
+        "refs": [
+          [
+            20,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 32,
+        "thumn": 3,
+        "sura_number": 20,
+        "starting_aya": 55,
+        "startingPage": 315
+      },
+      "printed": {
+        "page": 315,
+        "x": 53.530823320081225,
+        "y": 141.36999999999995,
+        "refs": [
+          [
+            20,
+            54
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 32,
+        "thumn": 4,
+        "sura_number": 20,
+        "starting_aya": 72,
+        "startingPage": 316
+      },
+      "printed": {
+        "page": 316,
+        "x": 161.75406408729,
+        "y": 274.0999999999999,
+        "refs": [
+          [
+            20,
+            71
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 32,
+        "thumn": 5,
+        "sura_number": 20,
+        "starting_aya": 83,
+        "startingPage": 317
+      },
+      "printed": {
+        "page": 317,
+        "x": 130.12082332008123,
+        "y": 247.64999999999998,
+        "refs": [
+          [
+            20,
+            81
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 32,
+        "thumn": 6,
+        "sura_number": 20,
+        "starting_aya": 97,
+        "startingPage": 318
+      },
+      "printed": {
+        "page": 318,
+        "x": 51.84082332008122,
+        "y": 326.8499999999999,
+        "refs": [
+          [
+            20,
+            95
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 32,
+        "thumn": 7,
+        "sura_number": 20,
+        "starting_aya": 111,
+        "startingPage": 319
+      },
+      "printed": {
+        "page": 319,
+        "x": 232.3408233200812,
+        "y": 353.54999999999995,
+        "refs": [
+          [
+            20,
+            108
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 32,
+        "thumn": 8,
+        "sura_number": 20,
+        "starting_aya": 126,
+        "startingPage": 321
+      },
+      "printed": {
+        "page": 321,
+        "x": 270.17082332008124,
+        "y": 62.65999999999997,
+        "refs": [
+          [
+            20,
+            124
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 33,
+        "thumn": 2,
+        "sura_number": 21,
+        "starting_aya": 15,
+        "startingPage": 323
+      },
+      "printed": {
+        "page": 323,
+        "x": 73.04082332008124,
+        "y": 141.58999999999995,
+        "refs": [
+          [
+            21,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 33,
+        "thumn": 3,
+        "sura_number": 21,
+        "starting_aya": 30,
+        "startingPage": 324
+      },
+      "printed": {
+        "page": 324,
+        "x": 128.16082332008125,
+        "y": 221.19999999999996,
+        "refs": [
+          [
+            21,
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 33,
+        "thumn": 4,
+        "sura_number": 21,
+        "starting_aya": 42,
+        "startingPage": 325
+      },
+      "printed": {
+        "page": 325,
+        "x": 188.7708233200812,
+        "y": 299.9,
+        "refs": [
+          [
+            21,
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 33,
+        "thumn": 5,
+        "sura_number": 21,
+        "starting_aya": 51,
+        "startingPage": 326
+      },
+      "printed": {
+        "page": 326,
+        "x": 209.62406408729,
+        "y": 273.90999999999997,
+        "refs": [
+          [
+            21,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 33,
+        "thumn": 6,
+        "sura_number": 21,
+        "starting_aya": 73,
+        "startingPage": 328
+      },
+      "printed": {
+        "page": 328,
+        "x": 270.43406408729,
+        "y": 62.859999999999985,
+        "refs": [
+          [
+            21,
+            72
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 33,
+        "thumn": 7,
+        "sura_number": 21,
+        "starting_aya": 87,
+        "startingPage": 329
+      },
+      "printed": {
+        "page": 329,
+        "x": 270.3708233200813,
+        "y": 247.05999999999995,
+        "refs": [
+          [
+            21,
+            86
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 33,
+        "thumn": 8,
+        "sura_number": 21,
+        "starting_aya": 101,
+        "startingPage": 330
+      },
+      "printed": {
+        "page": 330,
+        "x": 70.18082332008123,
+        "y": 406.5099999999999,
+        "refs": [
+          [
+            21,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 34,
+        "thumn": 2,
+        "sura_number": 22,
+        "starting_aya": 33,
+        "startingPage": 333
+      },
+      "printed": {
+        "page": 333,
+        "x": 270.6908233200813,
+        "y": 221.47999999999996,
+        "refs": [
+          [
+            22,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 34,
+        "thumn": 3,
+        "sura_number": 22,
+        "starting_aya": 19,
+        "startingPage": 334
+      },
+      "printed": {
+        "page": 334,
+        "x": 96.85082332008122,
+        "y": 248.02999999999994,
+        "refs": [
+          [
+            22,
+            19
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 34,
+        "thumn": 4,
+        "sura_number": 22,
+        "starting_aya": 30,
+        "startingPage": 335
+      },
+      "printed": {
+        "page": 335,
+        "x": 270.2408233200813,
+        "y": 379.8899999999999,
+        "refs": [
+          [
+            22,
+            28
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 34,
+        "thumn": 5,
+        "sura_number": 22,
+        "starting_aya": 38,
+        "startingPage": 336
+      },
+      "printed": {
+        "page": 336,
+        "x": 93.04082332008124,
+        "y": 406.65999999999997,
+        "refs": [
+          [
+            22,
+            36
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 34,
+        "thumn": 6,
+        "sura_number": 22,
+        "starting_aya": 49,
+        "startingPage": 338
+      },
+      "printed": {
+        "page": 338,
+        "x": 270.38406408729,
+        "y": 142.32999999999996,
+        "refs": [
+          [
+            22,
+            47
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 34,
+        "thumn": 7,
+        "sura_number": 22,
+        "starting_aya": 60,
+        "startingPage": 339
+      },
+      "printed": {
+        "page": 339,
+        "x": 169.37082332008123,
+        "y": 221.81999999999994,
+        "refs": [
+          [
+            22,
+            58
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 34,
+        "thumn": 8,
+        "sura_number": 22,
+        "starting_aya": 72,
+        "startingPage": 340
+      },
+      "printed": {
+        "page": 340,
+        "x": 173.36406408729002,
+        "y": 353.9599999999999,
+        "refs": [
+          [
+            22,
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 35,
+        "thumn": 2,
+        "sura_number": 23,
+        "starting_aya": 24,
+        "startingPage": 343
+      },
+      "printed": {
+        "page": 343,
+        "x": 131.06082332008123,
+        "y": 248.19999999999996,
+        "refs": [
+          [
+            23,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 35,
+        "thumn": 3,
+        "sura_number": 23,
+        "starting_aya": 39,
+        "startingPage": 344
+      },
+      "printed": {
+        "page": 344,
+        "x": 66.44082332008125,
+        "y": 353.94999999999993,
+        "refs": [
+          [
+            23,
+            39
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 35,
+        "thumn": 4,
+        "sura_number": 23,
+        "starting_aya": 57,
+        "startingPage": 345
+      },
+      "printed": {
+        "page": 345,
+        "x": 223.1208233200812,
+        "y": 406.7099999999999,
+        "refs": [
+          [
+            23,
+            58
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 35,
+        "thumn": 5,
+        "sura_number": 23,
+        "starting_aya": 75,
+        "startingPage": 347
+      },
+      "printed": {
+        "page": 347,
+        "x": 270.45082332008127,
+        "y": 63.059999999999974,
+        "refs": [
+          [
+            23,
+            76
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 35,
+        "thumn": 6,
+        "sura_number": 23,
+        "starting_aya": 93,
+        "startingPage": 348
+      },
+      "printed": {
+        "page": 348,
+        "x": 75.57082332008125,
+        "y": 142.60999999999996,
+        "refs": [
+          [
+            23,
+            94
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 35,
+        "thumn": 8,
+        "sura_number": 24,
+        "starting_aya": 11,
+        "startingPage": 351
+      },
+      "printed": {
+        "page": 351,
+        "x": 270.22082332008125,
+        "y": 62.75999999999998,
+        "refs": [
+          [
+            24,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 1,
+        "sura_number": 24,
+        "starting_aya": 21,
+        "startingPage": 352
+      },
+      "printed": {
+        "page": 352,
+        "x": 270.33406408729,
+        "y": 62.639999999999986,
+        "refs": [
+          [
+            24,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 2,
+        "sura_number": 24,
+        "starting_aya": 30,
+        "startingPage": 353
+      },
+      "printed": {
+        "page": 353,
+        "x": 213.7308233200812,
+        "y": 167.74999999999994,
+        "refs": [
+          [
+            24,
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 3,
+        "sura_number": 24,
+        "starting_aya": 35,
+        "startingPage": 354
+      },
+      "printed": {
+        "page": 354,
+        "x": 139.61406408729002,
+        "y": 273.9699999999999,
+        "refs": [
+          [
+            24,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 4,
+        "sura_number": 24,
+        "starting_aya": 43,
+        "startingPage": 355
+      },
+      "printed": {
+        "page": 355,
+        "x": 110.97082332008122,
+        "y": 353.03999999999996,
+        "refs": [
+          [
+            24,
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 5,
+        "sura_number": 24,
+        "starting_aya": 53,
+        "startingPage": 356
+      },
+      "printed": {
+        "page": 356,
+        "x": 270.31406408729003,
+        "y": 406.3699999999999,
+        "refs": [
+          [
+            24,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 6,
+        "sura_number": 24,
+        "starting_aya": 60,
+        "startingPage": 358
+      },
+      "printed": {
+        "page": 358,
+        "x": 123.45082332008124,
+        "y": 115.66999999999997,
+        "refs": [
+          [
+            24,
+            58
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 7,
+        "sura_number": 24,
+        "starting_aya": 63,
+        "startingPage": 359
+      },
+      "printed": {
+        "page": 359,
+        "x": 139.74082332008123,
+        "y": 166.24999999999994,
+        "refs": [
+          [
+            24,
+            61
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 36,
+        "thumn": 8,
+        "sura_number": 25,
+        "starting_aya": 10,
+        "startingPage": 360
+      },
+      "printed": {
+        "page": 360,
+        "x": 270.31406408729003,
+        "y": 379.79999999999995,
+        "refs": [
+          [
+            25,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 37,
+        "thumn": 1,
+        "sura_number": 25,
+        "starting_aya": 21,
+        "startingPage": 362
+      },
+      "printed": {
+        "page": 362,
+        "x": 269.92406408729,
+        "y": 62.92999999999998,
+        "refs": [
+          [
+            25,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 37,
+        "thumn": 2,
+        "sura_number": 25,
+        "starting_aya": 35,
+        "startingPage": 363
+      },
+      "printed": {
+        "page": 363,
+        "x": 161.9808233200812,
+        "y": 115.77999999999997,
+        "refs": [
+          [
+            25,
+            35
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 37,
+        "thumn": 3,
+        "sura_number": 25,
+        "starting_aya": 45,
+        "startingPage": 364
+      },
+      "printed": {
+        "page": 364,
+        "x": 133.5508233200812,
+        "y": 89.13999999999997,
+        "refs": [
+          [
+            25,
+            45
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 37,
+        "thumn": 4,
+        "sura_number": 25,
+        "starting_aya": 61,
+        "startingPage": 365
+      },
+      "printed": {
+        "page": 365,
+        "x": 69.85082332008122,
+        "y": 221.06999999999994,
+        "refs": [
+          [
+            25,
+            61
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 37,
+        "thumn": 6,
+        "sura_number": 26,
+        "starting_aya": 25,
+        "startingPage": 368
+      },
+      "printed": {
+        "page": 368,
+        "x": 270.38406408729,
+        "y": 168.78999999999996,
+        "refs": [
+          [
+            26,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 37,
+        "thumn": 7,
+        "sura_number": 26,
+        "starting_aya": 50,
+        "startingPage": 369
+      },
+      "printed": {
+        "page": 369,
+        "x": 80.35082332008125,
+        "y": 273.80999999999995,
+        "refs": [
+          [
+            26,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 37,
+        "thumn": 8,
+        "sura_number": 26,
+        "starting_aya": 82,
+        "startingPage": 370
+      },
+      "printed": {
+        "page": 370,
+        "x": 181.45406408729002,
+        "y": 406.65,
+        "refs": [
+          [
+            26,
+            82
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 1,
+        "sura_number": 26,
+        "starting_aya": 111,
+        "startingPage": 371
+      },
+      "printed": {
+        "page": 371,
+        "x": 211.7308233200812,
+        "y": 432.9699999999999,
+        "refs": [
+          [
+            26,
+            111
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 2,
+        "sura_number": 26,
+        "starting_aya": 146,
+        "startingPage": 373
+      },
+      "printed": {
+        "page": 373,
+        "x": 169.87082332008123,
+        "y": 194.52999999999994,
+        "refs": [
+          [
+            26,
+            146
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 3,
+        "sura_number": 26,
+        "starting_aya": 181,
+        "startingPage": 374
+      },
+      "printed": {
+        "page": 374,
+        "x": 93.36082332008124,
+        "y": 380.16999999999996,
+        "refs": [
+          [
+            26,
+            181
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 4,
+        "sura_number": 26,
+        "starting_aya": 210,
+        "startingPage": 376
+      },
+      "printed": {
+        "page": 376,
+        "x": 219.49406408729,
+        "y": 115.62999999999998,
+        "refs": [
+          [
+            26,
+            210
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 5,
+        "sura_number": 27,
+        "starting_aya": 6,
+        "startingPage": 377
+      },
+      "printed": {
+        "page": 377,
+        "x": 270.84082332008126,
+        "y": 223.69999999999996,
+        "refs": [
+          [
+            27,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 6,
+        "sura_number": 27,
+        "starting_aya": 18,
+        "startingPage": 378
+      },
+      "printed": {
+        "page": 378,
+        "x": 270.07406408729,
+        "y": 194.83999999999995,
+        "refs": [
+          [
+            27,
+            17
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 7,
+        "sura_number": 27,
+        "starting_aya": 27,
+        "startingPage": 379
+      },
+      "printed": {
+        "page": 379,
+        "x": 92.06082332008123,
+        "y": 194.41999999999996,
+        "refs": [
+          [
+            27,
+            27
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 38,
+        "thumn": 8,
+        "sura_number": 27,
+        "starting_aya": 41,
+        "startingPage": 380
+      },
+      "printed": {
+        "page": 380,
+        "x": 76.41082332008125,
+        "y": 273.9999999999999,
+        "refs": [
+          [
+            27,
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 39,
+        "thumn": 1,
+        "sura_number": 27,
+        "starting_aya": 56,
+        "startingPage": 382
+      },
+      "printed": {
+        "page": 382,
+        "x": 270.32406408729,
+        "y": 63.21999999999997,
+        "refs": [
+          [
+            27,
+            58
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 39,
+        "thumn": 2,
+        "sura_number": 27,
+        "starting_aya": 66,
+        "startingPage": 383
+      },
+      "printed": {
+        "page": 383,
+        "x": 206.8908233200812,
+        "y": 141.98999999999995,
+        "refs": [
+          [
+            27,
+            68
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 39,
+        "thumn": 3,
+        "sura_number": 27,
+        "starting_aya": 82,
+        "startingPage": 384
+      },
+      "printed": {
+        "page": 384,
+        "x": 73.30082332008124,
+        "y": 168.61999999999995,
+        "refs": [
+          [
+            27,
+            84
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 39,
+        "thumn": 5,
+        "sura_number": 28,
+        "starting_aya": 12,
+        "startingPage": 386
+      },
+      "printed": {
+        "page": 386,
+        "x": 270.10406408729,
+        "y": 354.05999999999995,
+        "refs": [
+          [
+            28,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 39,
+        "thumn": 8,
+        "sura_number": 28,
+        "starting_aya": 39,
+        "startingPage": 390
+      },
+      "printed": {
+        "page": 390,
+        "x": 270.70406408729,
+        "y": 248.42999999999995,
+        "refs": [
+          [
+            28,
+            39
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 40,
+        "thumn": 1,
+        "sura_number": 28,
+        "starting_aya": 51,
+        "startingPage": 392
+      },
+      "printed": {
+        "page": 392,
+        "x": 270.42406408729,
+        "y": 63.23999999999998,
+        "refs": [
+          [
+            28,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 40,
+        "thumn": 4,
+        "sura_number": 28,
+        "starting_aya": 83,
+        "startingPage": 395
+      },
+      "printed": {
+        "page": 395,
+        "x": 178.8308233200812,
+        "y": 354.4,
+        "refs": [
+          [
+            28,
+            83
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 40,
+        "thumn": 5,
+        "sura_number": 29,
+        "starting_aya": 8,
+        "startingPage": 397
+      },
+      "printed": {
+        "page": 397,
+        "x": 97.61082332008124,
+        "y": 89.03999999999998,
+        "refs": [
+          [
+            29,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 40,
+        "thumn": 6,
+        "sura_number": 29,
+        "starting_aya": 17,
+        "startingPage": 398
+      },
+      "printed": {
+        "page": 398,
+        "x": 112.67082332008124,
+        "y": 115.98999999999998,
+        "refs": [
+          [
+            29,
+            16
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 40,
+        "thumn": 7,
+        "sura_number": 29,
+        "starting_aya": 26,
+        "startingPage": 399
+      },
+      "printed": {
+        "page": 399,
+        "x": 151.33082332008124,
+        "y": 194.67999999999995,
+        "refs": [
+          [
+            29,
+            25
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 40,
+        "thumn": 8,
+        "sura_number": 29,
+        "starting_aya": 36,
+        "startingPage": 400
+      },
+      "printed": {
+        "page": 400,
+        "x": 270.42406408729,
+        "y": 300.7299999999999,
+        "refs": [
+          [
+            29,
+            36
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 41,
+        "thumn": 1,
+        "sura_number": 29,
+        "starting_aya": 46,
+        "startingPage": 402
+      },
+      "printed": {
+        "page": 402,
+        "x": 270.22406408729,
+        "y": 63.109999999999985,
+        "refs": [
+          [
+            29,
+            46
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 41,
+        "thumn": 3,
+        "sura_number": 30,
+        "starting_aya": 9,
+        "startingPage": 405
+      },
+      "printed": {
+        "page": 405,
+        "x": 86.32082332008125,
+        "y": 168.53999999999996,
+        "refs": [
+          [
+            30,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 41,
+        "thumn": 4,
+        "sura_number": 30,
+        "starting_aya": 22,
+        "startingPage": 406
+      },
+      "printed": {
+        "page": 406,
+        "x": 90.40082332008123,
+        "y": 274.40999999999997,
+        "refs": [
+          [
+            30,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 41,
+        "thumn": 5,
+        "sura_number": 30,
+        "starting_aya": 30,
+        "startingPage": 407
+      },
+      "printed": {
+        "page": 407,
+        "x": 55.23082332008122,
+        "y": 300.8399999999999,
+        "refs": [
+          [
+            30,
+            29
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 41,
+        "thumn": 6,
+        "sura_number": 30,
+        "starting_aya": 41,
+        "startingPage": 408
+      },
+      "printed": {
+        "page": 408,
+        "x": 201.05406408729002,
+        "y": 406.6099999999999,
+        "refs": [
+          [
+            30,
+            40
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 41,
+        "thumn": 7,
+        "sura_number": 30,
+        "starting_aya": 54,
+        "startingPage": 410
+      },
+      "printed": {
+        "page": 410,
+        "x": 118.71082332008123,
+        "y": 142.45999999999995,
+        "refs": [
+          [
+            30,
+            53
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 41,
+        "thumn": 8,
+        "sura_number": 31,
+        "starting_aya": 11,
+        "startingPage": 411
+      },
+      "printed": {
+        "page": 411,
+        "x": 120.01082332008124,
+        "y": 407.2299999999999,
+        "refs": [
+          [
+            31,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 42,
+        "thumn": 1,
+        "sura_number": 31,
+        "starting_aya": 22,
+        "startingPage": 413
+      },
+      "printed": {
+        "page": 413,
+        "x": 77.67082332008124,
+        "y": 168.90999999999994,
+        "refs": [
+          [
+            31,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 42,
+        "thumn": 2,
+        "sura_number": 31,
+        "starting_aya": 33,
+        "startingPage": 414
+      },
+      "printed": {
+        "page": 414,
+        "x": 270.18406408729,
+        "y": 301.18999999999994,
+        "refs": [
+          [
+            31,
+            32
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 42,
+        "thumn": 3,
+        "sura_number": 31,
+        "starting_aya": 11,
+        "startingPage": 415
+      },
+      "printed": {
+        "page": 415,
+        "x": 86.34082332008123,
+        "y": 406.92999999999995,
+        "refs": [
+          [
+            32,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 42,
+        "thumn": 4,
+        "sura_number": 32,
+        "starting_aya": 21,
+        "startingPage": 417
+      },
+      "printed": {
+        "page": 417,
+        "x": 270.7408233200813,
+        "y": 62.95999999999998,
+        "refs": [
+          [
+            32,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 42,
+        "thumn": 6,
+        "sura_number": 33,
+        "starting_aya": 9,
+        "startingPage": 419
+      },
+      "printed": {
+        "page": 419,
+        "x": 270.3108233200813,
+        "y": 142.11999999999995,
+        "refs": [
+          [
+            33,
+            9
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 42,
+        "thumn": 7,
+        "sura_number": 33,
+        "starting_aya": 18,
+        "startingPage": 420
+      },
+      "printed": {
+        "page": 420,
+        "x": 159.19406408729,
+        "y": 142.51999999999995,
+        "refs": [
+          [
+            33,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 42,
+        "thumn": 8,
+        "sura_number": 33,
+        "starting_aya": 25,
+        "startingPage": 421
+      },
+      "printed": {
+        "page": 421,
+        "x": 89.36082332008124,
+        "y": 142.07999999999996,
+        "refs": [
+          [
+            33,
+            25
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 43,
+        "thumn": 1,
+        "sura_number": 33,
+        "starting_aya": 31,
+        "startingPage": 422
+      },
+      "printed": {
+        "page": 422,
+        "x": 270.45406408729,
+        "y": 62.579999999999984,
+        "refs": [
+          [
+            33,
+            31
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 43,
+        "thumn": 2,
+        "sura_number": 33,
+        "starting_aya": 37,
+        "startingPage": 423
+      },
+      "printed": {
+        "page": 423,
+        "x": 54.280823320081225,
+        "y": 168.47999999999996,
+        "refs": [
+          [
+            33,
+            37
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 43,
+        "thumn": 3,
+        "sura_number": 33,
+        "starting_aya": 49,
+        "startingPage": 424
+      },
+      "printed": {
+        "page": 424,
+        "x": 270.35406408729,
+        "y": 195.07999999999996,
+        "refs": [
+          [
+            33,
+            49
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 43,
+        "thumn": 4,
+        "sura_number": 33,
+        "starting_aya": 53,
+        "startingPage": 425
+      },
+      "printed": {
+        "page": 425,
+        "x": 208.6408233200812,
+        "y": 221.33999999999995,
+        "refs": [
+          [
+            33,
+            53
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 43,
+        "thumn": 5,
+        "sura_number": 33,
+        "starting_aya": 60,
+        "startingPage": 426
+      },
+      "printed": {
+        "page": 426,
+        "x": 126.14082332008124,
+        "y": 327.2099999999999,
+        "refs": [
+          [
+            33,
+            60
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 43,
+        "thumn": 8,
+        "sura_number": 34,
+        "starting_aya": 18,
+        "startingPage": 430
+      },
+      "printed": {
+        "page": 430,
+        "x": 270.74406408729,
+        "y": 194.83999999999995,
+        "refs": [
+          [
+            34,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 1,
+        "sura_number": 34,
+        "starting_aya": 24,
+        "startingPage": 431
+      },
+      "printed": {
+        "page": 431,
+        "x": 220.2808233200812,
+        "y": 115.45999999999998,
+        "refs": [
+          [
+            34,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 2,
+        "sura_number": 34,
+        "starting_aya": 37,
+        "startingPage": 432
+      },
+      "printed": {
+        "page": 432,
+        "x": 208.12406408729,
+        "y": 300.9799999999999,
+        "refs": [
+          [
+            34,
+            37
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 3,
+        "sura_number": 34,
+        "starting_aya": 46,
+        "startingPage": 433
+      },
+      "printed": {
+        "page": 433,
+        "x": 140.20082332008124,
+        "y": 327.28999999999996,
+        "refs": [
+          [
+            34,
+            46
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 4,
+        "sura_number": 35,
+        "starting_aya": 8,
+        "startingPage": 435
+      },
+      "printed": {
+        "page": 435,
+        "x": 178.9308233200812,
+        "y": 194.79999999999995,
+        "refs": [
+          [
+            35,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 5,
+        "sura_number": 35,
+        "starting_aya": 15,
+        "startingPage": 436
+      },
+      "printed": {
+        "page": 436,
+        "x": 203.36406408729002,
+        "y": 300.8299999999999,
+        "refs": [
+          [
+            35,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 6,
+        "sura_number": 35,
+        "starting_aya": 31,
+        "startingPage": 438
+      },
+      "printed": {
+        "page": 438,
+        "x": 270.27406408729,
+        "y": 62.92999999999998,
+        "refs": [
+          [
+            35,
+            31
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 7,
+        "sura_number": 35,
+        "starting_aya": 41,
+        "startingPage": 439
+      },
+      "printed": {
+        "page": 439,
+        "x": 149.47082332008122,
+        "y": 194.77999999999994,
+        "refs": [
+          [
+            35,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 44,
+        "thumn": 8,
+        "sura_number": 36,
+        "starting_aya": 7,
+        "startingPage": 440
+      },
+      "printed": {
+        "page": 440,
+        "x": 163.30406408729002,
+        "y": 251.34999999999994,
+        "refs": [
+          [
+            36,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 45,
+        "thumn": 1,
+        "sura_number": 36,
+        "starting_aya": 28,
+        "startingPage": 442
+      },
+      "printed": {
+        "page": 442,
+        "x": 271.01406408729,
+        "y": 63.03999999999998,
+        "refs": [
+          [
+            36,
+            27
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 45,
+        "thumn": 2,
+        "sura_number": 36,
+        "starting_aya": 46,
+        "startingPage": 443
+      },
+      "printed": {
+        "page": 443,
+        "x": 219.6708233200812,
+        "y": 168.25999999999996,
+        "refs": [
+          [
+            36,
+            45
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 45,
+        "thumn": 3,
+        "sura_number": 36,
+        "starting_aya": 60,
+        "startingPage": 444
+      },
+      "printed": {
+        "page": 444,
+        "x": 163.82406408729,
+        "y": 142.38999999999996,
+        "refs": [
+          [
+            36,
+            59
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 45,
+        "thumn": 4,
+        "sura_number": 36,
+        "starting_aya": 80,
+        "startingPage": 445
+      },
+      "printed": {
+        "page": 445,
+        "x": 270.3108233200813,
+        "y": 327.0799999999999,
+        "refs": [
+          [
+            36,
+            79
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 45,
+        "thumn": 5,
+        "sura_number": 37,
+        "starting_aya": 22,
+        "startingPage": 446
+      },
+      "printed": {
+        "page": 446,
+        "x": 270.26406408729,
+        "y": 406.5899999999999,
+        "refs": [
+          [
+            37,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 45,
+        "thumn": 6,
+        "sura_number": 37,
+        "starting_aya": 51,
+        "startingPage": 447
+      },
+      "printed": {
+        "page": 447,
+        "x": 180.7308233200812,
+        "y": 432.54999999999995,
+        "refs": [
+          [
+            37,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 45,
+        "thumn": 7,
+        "sura_number": 37,
+        "starting_aya": 73,
+        "startingPage": 449
+      },
+      "printed": {
+        "page": 449,
+        "x": 65.36082332008121,
+        "y": 115.58999999999997,
+        "refs": [
+          [
+            37,
+            83
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 46,
+        "thumn": 1,
+        "sura_number": 37,
+        "starting_aya": 145,
+        "startingPage": 451
+      },
+      "printed": {
+        "page": 451,
+        "x": 199.50082332008122,
+        "y": 300.6099999999999,
+        "refs": [
+          [
+            37,
+            145
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 46,
+        "thumn": 3,
+        "sura_number": 38,
+        "starting_aya": 21,
+        "startingPage": 454
+      },
+      "printed": {
+        "page": 454,
+        "x": 184.3908233200812,
+        "y": 142.2,
+        "refs": [
+          [
+            38,
+            20
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 46,
+        "thumn": 4,
+        "sura_number": 38,
+        "starting_aya": 31,
+        "startingPage": 455
+      },
+      "printed": {
+        "page": 455,
+        "x": 270.3108233200813,
+        "y": 194.61999999999995,
+        "refs": [
+          [
+            38,
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 46,
+        "thumn": 6,
+        "sura_number": 38,
+        "starting_aya": 84,
+        "startingPage": 458
+      },
+      "printed": {
+        "page": 458,
+        "x": 270.30406408729,
+        "y": 62.76999999999998,
+        "refs": [
+          [
+            38,
+            83
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 46,
+        "thumn": 7,
+        "sura_number": 39,
+        "starting_aya": 8,
+        "startingPage": 459
+      },
+      "printed": {
+        "page": 459,
+        "x": 270.3008233200813,
+        "y": 247.65999999999994,
+        "refs": [
+          [
+            39,
+            9
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 47,
+        "thumn": 1,
+        "sura_number": 39,
+        "starting_aya": 32,
+        "startingPage": 462
+      },
+      "printed": {
+        "page": 462,
+        "x": 269.75406408729003,
+        "y": 63.32999999999997,
+        "refs": [
+          [
+            39,
+            31
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 47,
+        "thumn": 2,
+        "sura_number": 39,
+        "starting_aya": 42,
+        "startingPage": 463
+      },
+      "printed": {
+        "page": 463,
+        "x": 193.38082332008122,
+        "y": 195.34999999999994,
+        "refs": [
+          [
+            39,
+            40
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 47,
+        "thumn": 3,
+        "sura_number": 39,
+        "starting_aya": 54,
+        "startingPage": 464
+      },
+      "printed": {
+        "page": 464,
+        "x": 191.91406408729,
+        "y": 327.44999999999993,
+        "refs": [
+          [
+            39,
+            51
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 47,
+        "thumn": 6,
+        "sura_number": 40,
+        "starting_aya": 11,
+        "startingPage": 468
+      },
+      "printed": {
+        "page": 468,
+        "x": 82.68082332008123,
+        "y": 195.30999999999995,
+        "refs": [
+          [
+            40,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 47,
+        "thumn": 7,
+        "sura_number": 40,
+        "starting_aya": 21,
+        "startingPage": 469
+      },
+      "printed": {
+        "page": 469,
+        "x": 130.9608233200812,
+        "y": 195.43999999999994,
+        "refs": [
+          [
+            40,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 47,
+        "thumn": 8,
+        "sura_number": 40,
+        "starting_aya": 30,
+        "startingPage": 470
+      },
+      "printed": {
+        "page": 470,
+        "x": 181.49406408729,
+        "y": 327.55999999999995,
+        "refs": [
+          [
+            40,
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 1,
+        "sura_number": 40,
+        "starting_aya": 41,
+        "startingPage": 472
+      },
+      "printed": {
+        "page": 472,
+        "x": 270.11406408729,
+        "y": 63.14999999999998,
+        "refs": [
+          [
+            40,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 2,
+        "sura_number": 40,
+        "starting_aya": 53,
+        "startingPage": 473
+      },
+      "printed": {
+        "page": 473,
+        "x": 123.73082332008124,
+        "y": 168.94999999999996,
+        "refs": [
+          [
+            40,
+            53
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 3,
+        "sura_number": 40,
+        "starting_aya": 66,
+        "startingPage": 474
+      },
+      "printed": {
+        "page": 474,
+        "x": 70.67082332008124,
+        "y": 380.2199999999999,
+        "refs": [
+          [
+            40,
+            66
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 4,
+        "sura_number": 40,
+        "starting_aya": 79,
+        "startingPage": 476
+      },
+      "printed": {
+        "page": 476,
+        "x": 169.98406408729002,
+        "y": 142.57999999999996,
+        "refs": [
+          [
+            40,
+            78
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 5,
+        "sura_number": 41,
+        "starting_aya": 9,
+        "startingPage": 477
+      },
+      "printed": {
+        "page": 477,
+        "x": 46.820823320081224,
+        "y": 302.4599999999999,
+        "refs": [
+          [
+            41,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 6,
+        "sura_number": 41,
+        "starting_aya": 17,
+        "startingPage": 478
+      },
+      "printed": {
+        "page": 478,
+        "x": 212.72406408729,
+        "y": 327.4899999999999,
+        "refs": [
+          [
+            41,
+            16
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 7,
+        "sura_number": 41,
+        "starting_aya": 25,
+        "startingPage": 479
+      },
+      "printed": {
+        "page": 479,
+        "x": 157.66082332008122,
+        "y": 220.95999999999995,
+        "refs": [
+          [
+            41,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 48,
+        "thumn": 8,
+        "sura_number": 41,
+        "starting_aya": 38,
+        "startingPage": 480
+      },
+      "printed": {
+        "page": 480,
+        "x": 176.46406408729,
+        "y": 406.80999999999995,
+        "refs": [
+          [
+            41,
+            37
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 1,
+        "sura_number": 41,
+        "starting_aya": 47,
+        "startingPage": 482
+      },
+      "printed": {
+        "page": 482,
+        "x": 269.93406408729,
+        "y": 62.839999999999975,
+        "refs": [
+          [
+            41,
+            46
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 2,
+        "sura_number": 42,
+        "starting_aya": 5,
+        "startingPage": 483
+      },
+      "printed": {
+        "page": 483,
+        "x": 191.63082332008122,
+        "y": 171.25999999999996,
+        "refs": [
+          [
+            42,
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 3,
+        "sura_number": 42,
+        "starting_aya": 13,
+        "startingPage": 484
+      },
+      "printed": {
+        "page": 484,
+        "x": 270.28406408729,
+        "y": 168.89999999999995,
+        "refs": [
+          [
+            42,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 4,
+        "sura_number": 42,
+        "starting_aya": 20,
+        "startingPage": 485
+      },
+      "printed": {
+        "page": 485,
+        "x": 270.5008233200813,
+        "y": 247.63999999999996,
+        "refs": [
+          [
+            42,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 5,
+        "sura_number": 42,
+        "starting_aya": 27,
+        "startingPage": 486
+      },
+      "printed": {
+        "page": 486,
+        "x": 231.32406408729,
+        "y": 274.28999999999996,
+        "refs": [
+          [
+            42,
+            25
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 6,
+        "sura_number": 42,
+        "starting_aya": 42,
+        "startingPage": 487
+      },
+      "printed": {
+        "page": 487,
+        "x": 106.88082332008122,
+        "y": 326.9899999999999,
+        "refs": [
+          [
+            42,
+            39
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 7,
+        "sura_number": 42,
+        "starting_aya": 51,
+        "startingPage": 488
+      },
+      "printed": {
+        "page": 488,
+        "x": 83.06082332008123,
+        "y": 380.30999999999995,
+        "refs": [
+          [
+            42,
+            48
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 49,
+        "thumn": 8,
+        "sura_number": 43,
+        "starting_aya": 11,
+        "startingPage": 490
+      },
+      "printed": {
+        "page": 490,
+        "x": 270.92406408729,
+        "y": 62.859999999999985,
+        "refs": [
+          [
+            43,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 50,
+        "thumn": 1,
+        "sura_number": 43,
+        "starting_aya": 24,
+        "startingPage": 491
+      },
+      "printed": {
+        "page": 491,
+        "x": 270.46082332008126,
+        "y": 115.63999999999997,
+        "refs": [
+          [
+            43,
+            23
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 50,
+        "thumn": 2,
+        "sura_number": 43,
+        "starting_aya": 43,
+        "startingPage": 492
+      },
+      "printed": {
+        "page": 492,
+        "x": 167.68406408729,
+        "y": 300.69999999999993,
+        "refs": [
+          [
+            43,
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 50,
+        "thumn": 3,
+        "sura_number": 43,
+        "starting_aya": 63,
+        "startingPage": 494
+      },
+      "printed": {
+        "page": 494,
+        "x": 270.50406408729003,
+        "y": 115.96999999999998,
+        "refs": [
+          [
+            43,
+            63
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 50,
+        "thumn": 4,
+        "sura_number": 43,
+        "starting_aya": 85,
+        "startingPage": 495
+      },
+      "printed": {
+        "page": 495,
+        "x": 160.00082332008122,
+        "y": 300.8799999999999,
+        "refs": [
+          [
+            43,
+            85
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 50,
+        "thumn": 5,
+        "sura_number": 44,
+        "starting_aya": 25,
+        "startingPage": 497
+      },
+      "printed": {
+        "page": 497,
+        "x": 55.65082332008122,
+        "y": 142.17999999999995,
+        "refs": [
+          [
+            44,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 50,
+        "thumn": 8,
+        "sura_number": 45,
+        "starting_aya": 25,
+        "startingPage": 501
+      },
+      "printed": {
+        "page": 501,
+        "x": 69.79082332008124,
+        "y": 141.80999999999995,
+        "refs": [
+          [
+            45,
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 51,
+        "thumn": 2,
+        "sura_number": 46,
+        "starting_aya": 15,
+        "startingPage": 504
+      },
+      "printed": {
+        "page": 504,
+        "x": 270.43406408729,
+        "y": 63.27999999999997,
+        "refs": [
+          [
+            46,
+            14
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 51,
+        "thumn": 3,
+        "sura_number": 46,
+        "starting_aya": 21,
+        "startingPage": 505
+      },
+      "printed": {
+        "page": 505,
+        "x": 271.0708233200813,
+        "y": 63.32999999999997,
+        "refs": [
+          [
+            46,
+            20
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 51,
+        "thumn": 4,
+        "sura_number": 46,
+        "starting_aya": 33,
+        "startingPage": 506
+      },
+      "printed": {
+        "page": 506,
+        "x": 154.77406408729001,
+        "y": 247.71999999999994,
+        "refs": [
+          [
+            46,
+            32
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 51,
+        "thumn": 5,
+        "sura_number": 47,
+        "starting_aya": 10,
+        "startingPage": 507
+      },
+      "printed": {
+        "page": 507,
+        "x": 168.4808233200812,
+        "y": 380.3799999999999,
+        "refs": [
+          [
+            47,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 51,
+        "thumn": 6,
+        "sura_number": 47,
+        "starting_aya": 20,
+        "startingPage": 509
+      },
+      "printed": {
+        "page": 509,
+        "x": 271.89082332008127,
+        "y": 62.889999999999986,
+        "refs": [
+          [
+            47,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 51,
+        "thumn": 7,
+        "sura_number": 47,
+        "starting_aya": 33,
+        "startingPage": 510
+      },
+      "printed": {
+        "page": 510,
+        "x": 270.78406408729,
+        "y": 195.20999999999995,
+        "refs": [
+          [
+            47,
+            34
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 51,
+        "thumn": 8,
+        "sura_number": 48,
+        "starting_aya": 8,
+        "startingPage": 511
+      },
+      "printed": {
+        "page": 511,
+        "x": 52.390823320081225,
+        "y": 380.28,
+        "refs": [
+          [
+            48,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 52,
+        "thumn": 1,
+        "sura_number": 48,
+        "starting_aya": 18,
+        "startingPage": 513
+      },
+      "printed": {
+        "page": 513,
+        "x": 96.04082332008124,
+        "y": 194.78999999999996,
+        "refs": [
+          [
+            48,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 52,
+        "thumn": 2,
+        "sura_number": 48,
+        "starting_aya": 27,
+        "startingPage": 514
+      },
+      "printed": {
+        "page": 514,
+        "x": 127.62082332008123,
+        "y": 221.45999999999995,
+        "refs": [
+          [
+            48,
+            26
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 52,
+        "thumn": 4,
+        "sura_number": 49,
+        "starting_aya": 9,
+        "startingPage": 516
+      },
+      "printed": {
+        "page": 516,
+        "x": 89.20082332008124,
+        "y": 221.86999999999995,
+        "refs": [
+          [
+            49,
+            9
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 52,
+        "thumn": 5,
+        "sura_number": 49,
+        "starting_aya": 14,
+        "startingPage": 517
+      },
+      "printed": {
+        "page": 517,
+        "x": 208.50082332008122,
+        "y": 194.88999999999996,
+        "refs": [
+          [
+            49,
+            14
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 52,
+        "thumn": 6,
+        "sura_number": 50,
+        "starting_aya": 9,
+        "startingPage": 518
+      },
+      "printed": {
+        "page": 518,
+        "x": 232.07406408729,
+        "y": 301.79999999999995,
+        "refs": [
+          [
+            50,
+            9
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 52,
+        "thumn": 7,
+        "sura_number": 50,
+        "starting_aya": 27,
+        "startingPage": 519
+      },
+      "printed": {
+        "page": 519,
+        "x": 155.91082332008122,
+        "y": 274.0899999999999,
+        "refs": [
+          [
+            50,
+            27
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 1,
+        "sura_number": 51,
+        "starting_aya": 31,
+        "startingPage": 522
+      },
+      "printed": {
+        "page": 522,
+        "x": 270.79406408729,
+        "y": 62.94999999999999,
+        "refs": [
+          [
+            51,
+            31
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 2,
+        "sura_number": 50,
+        "starting_aya": 51,
+        "startingPage": 523
+      },
+      "printed": {
+        "page": 523,
+        "x": 270.3808233200813,
+        "y": 140.63999999999996,
+        "refs": [
+          [
+            51,
+            56
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 3,
+        "sura_number": 52,
+        "starting_aya": 24,
+        "startingPage": 524
+      },
+      "printed": {
+        "page": 524,
+        "x": 91.95082332008124,
+        "y": 274.6,
+        "refs": [
+          [
+            52,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 4,
+        "sura_number": 52,
+        "starting_aya": 44,
+        "startingPage": 525
+      },
+      "printed": {
+        "page": 525,
+        "x": 163.33082332008124,
+        "y": 300.3899999999999,
+        "refs": [
+          [
+            52,
+            42
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 5,
+        "sura_number": 53,
+        "starting_aya": 26,
+        "startingPage": 526
+      },
+      "printed": {
+        "page": 526,
+        "x": 138.3308233200812,
+        "y": 407.01999999999987,
+        "refs": [
+          [
+            53,
+            26
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 6,
+        "sura_number": 53,
+        "starting_aya": 47,
+        "startingPage": 528
+      },
+      "printed": {
+        "page": 528,
+        "x": 270.30406408729,
+        "y": 89.10999999999999,
+        "refs": [
+          [
+            53,
+            46
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 7,
+        "sura_number": 54,
+        "starting_aya": 10,
+        "startingPage": 529
+      },
+      "printed": {
+        "page": 529,
+        "x": 57.29082332008122,
+        "y": 115.30999999999997,
+        "refs": [
+          [
+            54,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 53,
+        "thumn": 8,
+        "sura_number": 54,
+        "starting_aya": 37,
+        "startingPage": 530
+      },
+      "printed": {
+        "page": 530,
+        "x": 270.08406408729,
+        "y": 221.41999999999996,
+        "refs": [
+          [
+            54,
+            37
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 54,
+        "thumn": 4,
+        "sura_number": 56,
+        "starting_aya": 49,
+        "startingPage": 535
+      },
+      "printed": {
+        "page": 535,
+        "x": 60.01082332008122,
+        "y": 406.15,
+        "refs": [
+          [
+            56,
+            52
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 54,
+        "thumn": 5,
+        "sura_number": 56,
+        "starting_aya": 75,
+        "startingPage": 536
+      },
+      "printed": {
+        "page": 536,
+        "x": 78.07082332008125,
+        "y": 406.5899999999999,
+        "refs": [
+          [
+            56,
+            78
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 54,
+        "thumn": 6,
+        "sura_number": 57,
+        "starting_aya": 7,
+        "startingPage": 538
+      },
+      "printed": {
+        "page": 538,
+        "x": 215.88406408729,
+        "y": 195.17,
+        "refs": [
+          [
+            57,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 54,
+        "thumn": 7,
+        "sura_number": 57,
+        "starting_aya": 16,
+        "startingPage": 539
+      },
+      "printed": {
+        "page": 539,
+        "x": 189.6708233200812,
+        "y": 300.05999999999995,
+        "refs": [
+          [
+            57,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 54,
+        "thumn": 8,
+        "sura_number": 57,
+        "starting_aya": 22,
+        "startingPage": 540
+      },
+      "printed": {
+        "page": 540,
+        "x": 72.93082332008123,
+        "y": 300.8899999999999,
+        "refs": [
+          [
+            57,
+            21
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 55,
+        "thumn": 2,
+        "sura_number": 58,
+        "starting_aya": 8,
+        "startingPage": 543
+      },
+      "printed": {
+        "page": 543,
+        "x": 96.89082332008124,
+        "y": 142.53999999999996,
+        "refs": [
+          [
+            58,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 55,
+        "thumn": 3,
+        "sura_number": 58,
+        "starting_aya": 14,
+        "startingPage": 544
+      },
+      "printed": {
+        "page": 544,
+        "x": 92.09082332008123,
+        "y": 168.66999999999996,
+        "refs": [
+          [
+            58,
+            14
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 55,
+        "thumn": 4,
+        "sura_number": 59,
+        "starting_aya": 2,
+        "startingPage": 545
+      },
+      "printed": {
+        "page": 545,
+        "x": 65.23082332008121,
+        "y": 354.79999999999995,
+        "refs": [
+          [
+            59,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 55,
+        "thumn": 5,
+        "sura_number": 59,
+        "starting_aya": 11,
+        "startingPage": 547
+      },
+      "printed": {
+        "page": 547,
+        "x": 120.95082332008124,
+        "y": 116.01999999999998,
+        "refs": [
+          [
+            59,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 55,
+        "thumn": 7,
+        "sura_number": 60,
+        "starting_aya": 7,
+        "startingPage": 550
+      },
+      "printed": {
+        "page": 550,
+        "x": 107.39082332008124,
+        "y": 89.27999999999997,
+        "refs": [
+          [
+            60,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 56,
+        "thumn": 3,
+        "sura_number": 63,
+        "starting_aya": 9,
+        "startingPage": 555
+      },
+      "printed": {
+        "page": 555,
+        "x": 270.33082332008127,
+        "y": 300.51999999999987,
+        "refs": [
+          [
+            63,
+            9
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 56,
+        "thumn": 4,
+        "sura_number": 64,
+        "starting_aya": 7,
+        "startingPage": 556
+      },
+      "printed": {
+        "page": 556,
+        "x": 69.63082332008122,
+        "y": 302.18999999999994,
+        "refs": [
+          [
+            64,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 56,
+        "thumn": 6,
+        "sura_number": 65,
+        "starting_aya": 6,
+        "startingPage": 559
+      },
+      "printed": {
+        "page": 559,
+        "x": 49.820823320081224,
+        "y": 115.40999999999998,
+        "refs": [
+          [
+            65,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 56,
+        "thumn": 8,
+        "sura_number": 66,
+        "starting_aya": 8,
+        "startingPage": 561
+      },
+      "printed": {
+        "page": 561,
+        "x": 270.64082332008127,
+        "y": 63.04999999999998,
+        "refs": [
+          [
+            66,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 57,
+        "thumn": 2,
+        "sura_number": 67,
+        "starting_aya": 19,
+        "startingPage": 563
+      },
+      "printed": {
+        "page": 563,
+        "x": 270.95082332008127,
+        "y": 221.27999999999994,
+        "refs": [
+          [
+            67,
+            20
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 57,
+        "thumn": 3,
+        "sura_number": 68,
+        "starting_aya": 19,
+        "startingPage": 565
+      },
+      "printed": {
+        "page": 565,
+        "x": 225.6108233200812,
+        "y": 88.77999999999997,
+        "refs": [
+          [
+            68,
+            19
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 57,
+        "thumn": 4,
+        "sura_number": 68,
+        "starting_aya": 48,
+        "startingPage": 566
+      },
+      "printed": {
+        "page": 566,
+        "x": 270.36406408729,
+        "y": 166.66999999999996,
+        "refs": [
+          [
+            68,
+            48
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 57,
+        "thumn": 5,
+        "sura_number": 69,
+        "starting_aya": 19,
+        "startingPage": 567
+      },
+      "printed": {
+        "page": 567,
+        "x": 79.69082332008125,
+        "y": 221.39999999999998,
+        "refs": [
+          [
+            69,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 57,
+        "thumn": 8,
+        "sura_number": 71,
+        "starting_aya": 15,
+        "startingPage": 571
+      },
+      "printed": {
+        "page": 571,
+        "x": 177.44082332008122,
+        "y": 115.57999999999998,
+        "refs": [
+          [
+            71,
+            15
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 58,
+        "thumn": 2,
+        "sura_number": 72,
+        "starting_aya": 23,
+        "startingPage": 573
+      },
+      "printed": {
+        "page": 573,
+        "x": 199.0908233200812,
+        "y": 274.2099999999999,
+        "refs": [
+          [
+            72,
+            23
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 58,
+        "thumn": 3,
+        "sura_number": 73,
+        "starting_aya": 20,
+        "startingPage": 575
+      },
+      "printed": {
+        "page": 575,
+        "x": 270.40082332008126,
+        "y": 62.99999999999997,
+        "refs": [
+          [
+            73,
+            18
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 58,
+        "thumn": 4,
+        "sura_number": 74,
+        "starting_aya": 31,
+        "startingPage": 576
+      },
+      "printed": {
+        "page": 576,
+        "x": 73.08082332008124,
+        "y": 142.28999999999996,
+        "refs": [
+          [
+            74,
+            31
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 58,
+        "thumn": 7,
+        "sura_number": 76,
+        "starting_aya": 19,
+        "startingPage": 579
+      },
+      "printed": {
+        "page": 579,
+        "x": 200.8108233200812,
+        "y": 300.90999999999997,
+        "refs": [
+          [
+            76,
+            19
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 58,
+        "thumn": 8,
+        "sura_number": 77,
+        "starting_aya": 16,
+        "startingPage": 580
+      },
+      "printed": {
+        "page": 580,
+        "x": 211.91406408729,
+        "y": 407.04999999999995,
+        "refs": [
+          [
+            77,
+            16
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 59,
+        "thumn": 3,
+        "sura_number": 79,
+        "starting_aya": 42,
+        "startingPage": 584
+      },
+      "printed": {
+        "page": 584,
+        "x": 270.35406408729,
+        "y": 379.7499999999999,
+        "refs": [
+          [
+            79,
+            41
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 59,
+        "thumn": 6,
+        "sura_number": 83,
+        "starting_aya": 14,
+        "startingPage": 588
+      },
+      "printed": {
+        "page": 588,
+        "x": 226.10406408729,
+        "y": 168.19999999999996,
+        "refs": [
+          [
+            83,
+            14
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 59,
+        "thumn": 7,
+        "sura_number": 84,
+        "starting_aya": 16,
+        "startingPage": 589
+      },
+      "printed": {
+        "page": 589,
+        "x": 269.71082332008126,
+        "y": 354.28,
+        "refs": [
+          [
+            84,
+            16
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 59,
+        "thumn": 8,
+        "sura_number": 85,
+        "starting_aya": 12,
+        "startingPage": 590
+      },
+      "printed": {
+        "page": 590,
+        "x": 69.10082332008122,
+        "y": 328.92999999999995,
+        "refs": [
+          [
+            85,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "source": {
+        "hizb_number": 60,
+        "thumn": 2,
+        "sura_number": 88,
+        "starting_aya": 17,
+        "startingPage": 592
+      },
+      "printed": {
+        "page": 592,
+        "x": 52.26082332008122,
+        "y": 354.3899999999999,
+        "refs": [
+          [
+            88,
+            17
+          ]
+        ]
+      }
+    }
+  ],
+  "unresolvedPages": [
+    {
+      "page": 1,
+      "source": [
+        {
+          "hizb_number": 1,
+          "thumn": 1,
+          "sura_number": 1,
+          "starting_aya": 1,
+          "startingPage": 1
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 60,
+      "source": [
+        {
+          "hizb_number": 6,
+          "thumn": 8,
+          "sura_number": 3,
+          "starting_aya": 81,
+          "startingPage": 60
+        },
+        {
+          "hizb_number": 46,
+          "thumn": 8,
+          "sura_number": 39,
+          "starting_aya": 21,
+          "startingPage": 60
+        }
+      ],
+      "printed": [
+        {
+          "page": 60,
+          "x": 122.80082332008124,
+          "y": 327.03999999999996,
+          "refs": [
+            [
+              3,
+              80
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 80,
+      "source": [
+        {
+          "hizb_number": 8,
+          "thumn": 8,
+          "sura_number": 4,
+          "starting_aya": 19,
+          "startingPage": 80
+        },
+        {
+          "hizb_number": 18,
+          "thumn": 8,
+          "sura_number": 8,
+          "starting_aya": 31,
+          "startingPage": 80
+        }
+      ],
+      "printed": [
+        {
+          "page": 80,
+          "x": 240.27406408729001,
+          "y": 405.78999999999996,
+          "refs": [
+            [
+              4,
+              19
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 123,
+      "source": [
+        {
+          "hizb_number": 13,
+          "thumn": 2,
+          "sura_number": 5,
+          "starting_aya": 90,
+          "startingPage": 123
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 128,
+      "source": [
+        {
+          "hizb_number": 13,
+          "thumn": 6,
+          "sura_number": 6,
+          "starting_aya": 1,
+          "startingPage": 128
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 140,
+      "source": [
+        {
+          "hizb_number": 14,
+          "thumn": 7,
+          "sura_number": 6,
+          "starting_aya": 95,
+          "startingPage": 140
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 157,
+      "source": [
+        {
+          "hizb_number": 16,
+          "thumn": 6,
+          "sura_number": 7,
+          "starting_aya": 57,
+          "startingPage": 157
+        },
+        {
+          "hizb_number": 16,
+          "thumn": 7,
+          "sura_number": 7,
+          "starting_aya": 69,
+          "startingPage": 157
+        }
+      ],
+      "printed": [
+        {
+          "page": 157,
+          "x": 104.67082332008124,
+          "y": 353.77,
+          "refs": [
+            [
+              7,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 235,
+      "source": [
+        {
+          "hizb_number": 24,
+          "thumn": 4,
+          "sura_number": 11,
+          "starting_aya": 118,
+          "startingPage": 235
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 252,
+      "source": [
+        {
+          "hizb_number": 26,
+          "thumn": 1,
+          "sura_number": 13,
+          "starting_aya": 19,
+          "startingPage": 252
+        },
+        {
+          "hizb_number": 26,
+          "thumn": 3,
+          "sura_number": 13,
+          "starting_aya": 19,
+          "startingPage": 252
+        }
+      ],
+      "printed": [
+        {
+          "page": 252,
+          "x": 270.46406408729,
+          "y": 62.41999999999999,
+          "refs": [
+            [
+              13,
+              21
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 255,
+      "source": [
+        {
+          "hizb_number": 26,
+          "thumn": 4,
+          "sura_number": 14,
+          "starting_aya": 1,
+          "startingPage": 255
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 259,
+      "source": [
+        {
+          "hizb_number": 26,
+          "thumn": 7,
+          "sura_number": 14,
+          "starting_aya": 28,
+          "startingPage": 259
+        },
+        {
+          "hizb_number": 27,
+          "thumn": 6,
+          "sura_number": 16,
+          "starting_aya": 15,
+          "startingPage": 259
+        }
+      ],
+      "printed": [
+        {
+          "page": 259,
+          "x": 218.0608233200812,
+          "y": 194.84999999999994,
+          "refs": [
+            [
+              14,
+              30
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 262,
+      "source": [
+        {
+          "hizb_number": 27,
+          "thumn": 1,
+          "sura_number": 15,
+          "starting_aya": 1,
+          "startingPage": 262
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 267,
+      "source": [
+        {
+          "hizb_number": 27,
+          "thumn": 5,
+          "sura_number": 16,
+          "starting_aya": 1,
+          "startingPage": 267
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 282,
+      "source": [
+        {
+          "hizb_number": 29,
+          "thumn": 1,
+          "sura_number": 17,
+          "starting_aya": 1,
+          "startingPage": 282
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 293,
+      "source": [
+        {
+          "hizb_number": 30,
+          "thumn": 2,
+          "sura_number": 18,
+          "starting_aya": 1,
+          "startingPage": 293
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 312,
+      "source": [
+        {
+          "hizb_number": 32,
+          "thumn": 1,
+          "sura_number": 20,
+          "starting_aya": 1,
+          "startingPage": 312
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 322,
+      "source": [
+        {
+          "hizb_number": 33,
+          "thumn": 1,
+          "sura_number": 21,
+          "starting_aya": 1,
+          "startingPage": 322
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 332,
+      "source": [
+        {
+          "hizb_number": 34,
+          "thumn": 1,
+          "sura_number": 22,
+          "starting_aya": 1,
+          "startingPage": 332
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 342,
+      "source": [
+        {
+          "hizb_number": 35,
+          "thumn": 1,
+          "sura_number": 23,
+          "starting_aya": 1,
+          "startingPage": 342
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 349,
+      "source": [
+        {
+          "hizb_number": 35,
+          "thumn": 7,
+          "sura_number": 23,
+          "starting_aya": 115,
+          "startingPage": 349
+        },
+        {
+          "hizb_number": 43,
+          "thumn": 7,
+          "sura_number": 34,
+          "starting_aya": 10,
+          "startingPage": 349
+        }
+      ],
+      "printed": [
+        {
+          "page": 349,
+          "x": 84.01082332008124,
+          "y": 300.56999999999994,
+          "refs": [
+            [
+              23,
+              116
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 367,
+      "source": [
+        {
+          "hizb_number": 37,
+          "thumn": 5,
+          "sura_number": 26,
+          "starting_aya": 1,
+          "startingPage": 367
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 385,
+      "source": [
+        {
+          "hizb_number": 39,
+          "thumn": 4,
+          "sura_number": 28,
+          "starting_aya": 1,
+          "startingPage": 385
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 388,
+      "source": [
+        {
+          "hizb_number": 39,
+          "thumn": 6,
+          "sura_number": 28,
+          "starting_aya": 22,
+          "startingPage": 388
+        },
+        {
+          "hizb_number": 39,
+          "thumn": 7,
+          "sura_number": 28,
+          "starting_aya": 29,
+          "startingPage": 388
+        }
+      ],
+      "printed": [
+        {
+          "page": 388,
+          "x": 270.34406408729,
+          "y": 63.46999999999997,
+          "refs": [
+            [
+              28,
+              21
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 394,
+      "source": [
+        {
+          "hizb_number": 40,
+          "thumn": 2,
+          "sura_number": 28,
+          "starting_aya": 63,
+          "startingPage": 394
+        },
+        {
+          "hizb_number": 40,
+          "thumn": 3,
+          "sura_number": 28,
+          "starting_aya": 76,
+          "startingPage": 394
+        }
+      ],
+      "printed": [
+        {
+          "page": 394,
+          "x": 171.41406408729,
+          "y": 301.3399999999999,
+          "refs": [
+            [
+              28,
+              76
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 404,
+      "source": [
+        {
+          "hizb_number": 41,
+          "thumn": 2,
+          "sura_number": 29,
+          "starting_aya": 60,
+          "startingPage": 404
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 418,
+      "source": [
+        {
+          "hizb_number": 42,
+          "thumn": 5,
+          "sura_number": 33,
+          "starting_aya": 1,
+          "startingPage": 418
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 428,
+      "source": [
+        {
+          "hizb_number": 43,
+          "thumn": 6,
+          "sura_number": 34,
+          "starting_aya": 1,
+          "startingPage": 428
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 450,
+      "source": [
+        {
+          "hizb_number": 45,
+          "thumn": 8,
+          "sura_number": 37,
+          "starting_aya": 114,
+          "startingPage": 450
+        },
+        {
+          "hizb_number": 50,
+          "thumn": 7,
+          "sura_number": 45,
+          "starting_aya": 14,
+          "startingPage": 450
+        }
+      ],
+      "printed": [
+        {
+          "page": 450,
+          "x": 77.67082332008124,
+          "y": 221.40999999999994,
+          "refs": [
+            [
+              37,
+              114
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 453,
+      "source": [
+        {
+          "hizb_number": 46,
+          "thumn": 2,
+          "sura_number": 38,
+          "starting_aya": 1,
+          "startingPage": 453
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 465,
+      "source": [
+        {
+          "hizb_number": 46,
+          "thumn": 5,
+          "sura_number": 38,
+          "starting_aya": 52,
+          "startingPage": 465
+        },
+        {
+          "hizb_number": 47,
+          "thumn": 4,
+          "sura_number": 39,
+          "starting_aya": 67,
+          "startingPage": 465
+        }
+      ],
+      "printed": [
+        {
+          "page": 465,
+          "x": 110.66082332008122,
+          "y": 380.1399999999999,
+          "refs": [
+            [
+              39,
+              64
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "page": 467,
+      "source": [
+        {
+          "hizb_number": 47,
+          "thumn": 5,
+          "sura_number": 40,
+          "starting_aya": 1,
+          "startingPage": 467
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 499,
+      "source": [
+        {
+          "hizb_number": 50,
+          "thumn": 6,
+          "sura_number": 45,
+          "starting_aya": 1,
+          "startingPage": 499
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 502,
+      "source": [
+        {
+          "hizb_number": 51,
+          "thumn": 1,
+          "sura_number": 46,
+          "starting_aya": 1,
+          "startingPage": 502
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 515,
+      "source": [
+        {
+          "hizb_number": 52,
+          "thumn": 3,
+          "sura_number": 49,
+          "starting_aya": 1,
+          "startingPage": 515
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 520,
+      "source": [
+        {
+          "hizb_number": 52,
+          "thumn": 8,
+          "sura_number": 51,
+          "starting_aya": 1,
+          "startingPage": 520
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 531,
+      "source": [
+        {
+          "hizb_number": 54,
+          "thumn": 1,
+          "sura_number": 55,
+          "starting_aya": 1,
+          "startingPage": 531
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 533,
+      "source": [
+        {
+          "hizb_number": 54,
+          "thumn": 2,
+          "sura_number": 55,
+          "starting_aya": 41,
+          "startingPage": 533
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 534,
+      "source": [
+        {
+          "hizb_number": 54,
+          "thumn": 3,
+          "sura_number": 56,
+          "starting_aya": 1,
+          "startingPage": 534
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 542,
+      "source": [
+        {
+          "hizb_number": 55,
+          "thumn": 1,
+          "sura_number": 58,
+          "starting_aya": 1,
+          "startingPage": 542
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 549,
+      "source": [
+        {
+          "hizb_number": 55,
+          "thumn": 6,
+          "sura_number": 60,
+          "starting_aya": 1,
+          "startingPage": 549
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 551,
+      "source": [
+        {
+          "hizb_number": 55,
+          "thumn": 8,
+          "sura_number": 61,
+          "starting_aya": 1,
+          "startingPage": 551
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 553,
+      "source": [
+        {
+          "hizb_number": 56,
+          "thumn": 1,
+          "sura_number": 62,
+          "starting_aya": 1,
+          "startingPage": 553
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 554,
+      "source": [
+        {
+          "hizb_number": 56,
+          "thumn": 2,
+          "sura_number": 63,
+          "starting_aya": 1,
+          "startingPage": 554
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 558,
+      "source": [
+        {
+          "hizb_number": 56,
+          "thumn": 5,
+          "sura_number": 65,
+          "starting_aya": 1,
+          "startingPage": 558
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 560,
+      "source": [
+        {
+          "hizb_number": 56,
+          "thumn": 7,
+          "sura_number": 66,
+          "starting_aya": 1,
+          "startingPage": 560
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 562,
+      "source": [
+        {
+          "hizb_number": 57,
+          "thumn": 1,
+          "sura_number": 67,
+          "starting_aya": 1,
+          "startingPage": 562
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 568,
+      "source": [
+        {
+          "hizb_number": 57,
+          "thumn": 6,
+          "sura_number": 69,
+          "starting_aya": 1,
+          "startingPage": 568
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 570,
+      "source": [
+        {
+          "hizb_number": 57,
+          "thumn": 7,
+          "sura_number": 69,
+          "starting_aya": 40,
+          "startingPage": 570
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 572,
+      "source": [
+        {
+          "hizb_number": 58,
+          "thumn": 1,
+          "sura_number": 72,
+          "starting_aya": 1,
+          "startingPage": 572
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 577,
+      "source": [
+        {
+          "hizb_number": 58,
+          "thumn": 5,
+          "sura_number": 75,
+          "starting_aya": 1,
+          "startingPage": 577
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 578,
+      "source": [
+        {
+          "hizb_number": 58,
+          "thumn": 6,
+          "sura_number": 76,
+          "starting_aya": 1,
+          "startingPage": 578
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 582,
+      "source": [
+        {
+          "hizb_number": 59,
+          "thumn": 1,
+          "sura_number": 78,
+          "starting_aya": 1,
+          "startingPage": 582
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 583,
+      "source": [
+        {
+          "hizb_number": 59,
+          "thumn": 2,
+          "sura_number": 79,
+          "starting_aya": 1,
+          "startingPage": 583
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 586,
+      "source": [
+        {
+          "hizb_number": 59,
+          "thumn": 4,
+          "sura_number": 81,
+          "starting_aya": 1,
+          "startingPage": 586
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 587,
+      "source": [
+        {
+          "hizb_number": 59,
+          "thumn": 5,
+          "sura_number": 82,
+          "starting_aya": 1,
+          "startingPage": 587
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 591,
+      "source": [
+        {
+          "hizb_number": 60,
+          "thumn": 1,
+          "sura_number": 87,
+          "starting_aya": 1,
+          "startingPage": 591
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 594,
+      "source": [
+        {
+          "hizb_number": 60,
+          "thumn": 3,
+          "sura_number": 90,
+          "starting_aya": 1,
+          "startingPage": 594
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 595,
+      "source": [
+        {
+          "hizb_number": 60,
+          "thumn": 4,
+          "sura_number": 92,
+          "starting_aya": 1,
+          "startingPage": 595
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 596,
+      "source": [
+        {
+          "hizb_number": 60,
+          "thumn": 5,
+          "sura_number": 94,
+          "starting_aya": 1,
+          "startingPage": 596
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 598,
+      "source": [
+        {
+          "hizb_number": 60,
+          "thumn": 6,
+          "sura_number": 98,
+          "starting_aya": 1,
+          "startingPage": 598
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 599,
+      "source": [
+        {
+          "hizb_number": 60,
+          "thumn": 7,
+          "sura_number": 100,
+          "starting_aya": 9,
+          "startingPage": 599
+        }
+      ],
+      "printed": []
+    },
+    {
+      "page": 602,
+      "source": [
+        {
+          "hizb_number": 60,
+          "thumn": 8,
+          "sura_number": 102,
+          "starting_aya": 1,
+          "startingPage": 602
+        }
+      ],
+      "printed": []
+    }
+  ]
+}
