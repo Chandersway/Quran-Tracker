@@ -163,13 +163,18 @@ fun RepeatSelectionSheet(
                                     range.map { surah to it }
                                 }
                                 val refs = printed.flatMap { (s, a) ->
-                                    (if (warsh) WarshAyahReferences.hafsAyahs(context, s, a) else listOf(a)).map { s to it }
+                                    (if (warsh && reciter.timingReadId == null) WarshAyahReferences.hafsAyahs(context, s, a) else listOf(a)).map { s to it }
                                 }.distinct().sortedWith(compareBy({ it.first }, { it.second }))
                                 require(refs.isNotEmpty())
+                                val timings = if (reciter.timingReadId != null) refs.map { it.first }.distinct().associateWith { s ->
+                                    loadRepeatTimings(reciter, s, requireNotNull(bridge).getJSONArray(s.toString()).length())
+                                } else emptyMap()
                                 refs.map { (s, a) ->
                                     val info = ALL_SURAHS.first { it.id == s }
+                                    val clip = timings[s]?.single { it.ayah == a }
                                     AudioTrack(s, info.name, info.arabic, a,
-                                        reciter.displayName(), reciter.ayahUrl(s, a))
+                                        reciter.displayName(), if (clip == null) reciter.ayahUrl(s, a) else reciter.surahAudioUrl(s),
+                                        clip?.start ?: 0, clip?.end)
                                 }
                             }
                         }

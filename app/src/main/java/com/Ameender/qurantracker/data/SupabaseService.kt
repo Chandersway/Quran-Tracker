@@ -33,6 +33,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.withLock
+import com.Ameender.qurantracker.notifications.GroupPushGate
 
 data class ReadingGroupDetails(
     val code: String,
@@ -51,7 +53,8 @@ data class ReadingGroupDetails(
     val permissions: Set<String> = emptySet(),
     val joinRequestStatus: String? = null,
     val unreadNotificationCount: Int = 0,
-    val activeRulesVersion: Int? = null
+    val activeRulesVersion: Int? = null,
+    val memberPermissions: GroupMemberPermissions = GroupMemberPermissions()
 )
 
 @Serializable
@@ -231,6 +234,13 @@ data class ProfileRow(
     @SerialName("avatar_url") val avatarUrl: String? = null
 )
 
+data class ReadingGroupReadingEntry(
+    val unit: String,
+    val amount: Int,
+    val occurredOn: String,
+    val referenceNumber: Int? = null
+)
+
 data class ReadingGroupLeaderboardRow(
     val userId: String,
     val label: String,
@@ -245,7 +255,8 @@ data class ReadingGroupLeaderboardRow(
     val streak: Int = 0,
     val activeToday: Boolean = false,
     val weeklyPoints: Int = 0,
-    val monthlyPoints: Int = 0
+    val monthlyPoints: Int = 0,
+    val readingEntries: List<ReadingGroupReadingEntry> = emptyList()
 )
 
 data class ReadingGroupFeedItem(
@@ -530,7 +541,8 @@ object SupabaseService {
         code: String,
         goalPeriod: String = "none",
         goalTarget: Int? = null,
-        privacy: String = "restricted"
+        privacy: String = "restricted",
+        memberPermissions: GroupMemberPermissions = GroupMemberPermissions()
     ): ReadingGroupDetails {
         val user = authenticatedUserOrNull(forceRefresh = true)
             ?: error("Je sessie is verlopen. Log opnieuw in om een groep te maken.")
@@ -545,7 +557,8 @@ object SupabaseService {
             goalPeriod = goalPeriod,
             goalTarget = goalTarget,
             privacy = privacy,
-            code = code
+            code = code,
+            memberPermissions = memberPermissions
         )
     }
 
@@ -585,7 +598,8 @@ object SupabaseService {
         unit: String,
         goalPeriod: String = "none",
         goalTarget: Int? = null,
-        privacy: String = "restricted"
+        privacy: String = "restricted",
+        memberPermissions: GroupMemberPermissions
     ): ReadingGroupDetails {
         val user = authenticatedUserOrNull(forceRefresh = true)
             ?: error("Je sessie is verlopen. Log opnieuw in om groepen te wijzigen.")
@@ -598,7 +612,8 @@ object SupabaseService {
             progressUnit = unit,
             goalPeriod = goalPeriod,
             goalTarget = goalTarget,
-            privacy = privacy
+            privacy = privacy,
+            memberPermissions = memberPermissions
         )
     }
 
@@ -841,10 +856,16 @@ object SupabaseService {
             ?: com.Ameender.qurantracker.notifications.GroupPushPreferences(user.id)
     }
 
-    suspend fun saveGroupPushPreferences(value: com.Ameender.qurantracker.notifications.GroupPushPreferences) {
+    suspend fun saveGroupPushPreferences(value: com.Ameender.qurantracker.notifications.GroupPushPreferences) = GroupPushGate.mutex.withLock {
         val user = authenticatedUserOrNull() ?: error("AUTH_REQUIRED")
         require(value.userId == user.id)
-        client.from("notification_preferences").upsert(value)
+        // Explicit fields also persist switches toggled back to their default (true).
+        client.from("notification_preferences").upsert(buildJsonObject {
+            put("user_id", user.id); put("enabled", value.enabled); put("mention", value.mention)
+            put("reaction", value.reaction); put("announcement", value.announcement)
+            put("invitation", value.invitation); put("join_request", value.joinRequest); put("update", value.update)
+        })
+        if (!value.enabled || !value.reaction) GroupPushGate.dismiss()
     }
 
     suspend fun updateGroupNotificationPreferences(
@@ -852,10 +873,12 @@ object SupabaseService {
         level: String,
         pushEnabled: Boolean,
         mutedUntil: String? = null
-    ): ReadingGroupNotificationPreferences {
-        authenticatedUserOrNull(forceRefresh = true)
+    ): ReadingGroupNotificationPreferences = GroupPushGate.mutex.withLock {
+        authenticatedUserOrNull()
             ?: error("Je sessie is verlopen. Log opnieuw in om meldingsinstellingen te wijzigen.")
-        return groupRepository.updateNotificationPreferences(code, level, pushEnabled, mutedUntil)
+        val saved = groupRepository.updateNotificationPreferences(code, level, pushEnabled, mutedUntil)
+        if (!saved.pushEnabled || saved.level in listOf("muted", "mentions") || saved.mutedUntil != null) GroupPushGate.dismiss(code)
+        saved
     }
 
     suspend fun loadGroupNotifications(
@@ -965,8 +988,8 @@ object SupabaseService {
         return groupRepository.sendMessage(code, safeMessage, displayName, user.id)
     }
 
-    suspend fun loadGroupFeed(code: String): List<ReadingGroupFeedItem> {
-        return groupRepository.loadFeed(code, authenticatedUserOrNull()?.id)
+    suspend fun loadGroupFeed(code: String, postId: String? = null): List<ReadingGroupFeedItem> {
+        return groupRepository.loadFeed(code, authenticatedUserOrNull()?.id, postId)
     }
 
     suspend fun toggleGroupFeedLike(code: String, postId: String, currentlyLiked: Boolean): Boolean {
@@ -1016,10 +1039,9 @@ object SupabaseService {
     suspend fun addGroupFeedComment(code: String, postId: String, content: String): ReadingGroupCommentItem {
         val safeContent = content.trim().take(400)
         if (safeContent.isBlank()) error("Schrijf eerst een reactie.")
-        val user = authenticatedUserOrNull(forceRefresh = true)
+        authenticatedUserOrNull(forceRefresh = true)
             ?: error("Je sessie is verlopen. Log opnieuw in om te reageren.")
-        val displayName = currentDisplayName(user.email)
-        return groupRepository.addComment(code, postId, safeContent, displayName)
+        return groupRepository.addComment(code, postId, safeContent)
     }
 
     suspend fun loadGroupLeaderboard(code: String): List<ReadingGroupLeaderboardRow> {
@@ -1105,7 +1127,27 @@ object SupabaseService {
         _authenticationState.value = AuthenticationState.SignedOut
     }
 
+    suspend fun pushAccountId(): String? = authenticatedUserOrNull()?.id
+
+    suspend fun registerPushDevice(installation: String, token: String, enabled: Boolean, timezone: String,
+        quiet: Boolean, quietStart: Int, quietEnd: Int, language: String) {
+        client.postgrest.rpc("register_push_device_v1", buildJsonObject {
+            put("p_installation", installation); put("p_token", token); put("p_enabled", enabled)
+            put("p_timezone", timezone); put("p_quiet", quiet); put("p_quiet_start", quietStart)
+            put("p_quiet_end", quietEnd); put("p_language", language)
+        })
+    }
+    suspend fun unregisterPushDevice(installation: String) {
+        client.postgrest.rpc("unregister_push_device_v1", buildJsonObject { put("p_installation", installation) })
+    }
+    @Serializable
+    data class GroupPushTarget(@SerialName("group_code") val groupCode: String, @SerialName("post_id") val postId: String)
+    suspend fun groupPushTarget(event: String): GroupPushTarget? = client.postgrest.rpc(
+        "get_group_push_target_v1", buildJsonObject { put("p_event", event) }
+    ).decodeList<GroupPushTarget>().firstOrNull()
+
     suspend fun signOut() {
+        com.Ameender.qurantracker.notifications.GroupPushRegistration.beforeSignOut()
         client.auth.signOut()
         _authenticationState.value = AuthenticationState.SignedOut
     }

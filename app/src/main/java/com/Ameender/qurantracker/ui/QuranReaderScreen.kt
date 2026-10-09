@@ -99,7 +99,8 @@ data class ReaderAyahAction(
     val ayahNumber: Int,
     val ayahText: String,
     val wordInfo: WordByWordAyah?,
-    val isBookmarked: Boolean
+    val isBookmarked: Boolean,
+    val warshAyah: Int? = null
 )
 
 data class WarshAyahPosition(
@@ -469,6 +470,20 @@ fun ChapterReaderScreen(
     var selectedWord by remember { mutableStateOf<QuranWord?>(null) }
     var selectedAyahInfo by remember { mutableStateOf<WordByWordAyah?>(null) }
     var selectedAyahAction by remember { mutableStateOf<ReaderAyahAction?>(null) }
+    var irabTarget by remember { mutableStateOf<ReaderAyahAction?>(null) }
+    var asbabTarget by remember { mutableStateOf<ReaderAyahAction?>(null) }
+    asbabTarget?.let { target ->
+        IrabScreen(text = repeatText, initialSurah = target.surahId, initialAyah = target.ayahNumber,
+            warshAyah = target.warshAyah, autoLoad = true, asbab = true,
+            onClose = { asbabTarget = null })
+    }
+    irabTarget?.let { target ->
+        val surah = target.surahId
+        val ayah = target.ayahNumber
+        IrabScreen(text = repeatText, initialSurah = surah, initialAyah = ayah,
+            warshAyah = target.warshAyah,
+            autoLoad = true, onClose = { irabTarget = null })
+    }
     var selectedAyahToolbarY by remember { mutableStateOf<Float?>(null) }
     var selectedWarshAyahKey by remember { mutableStateOf<Pair<Int, Int>?>(null) }
     val warshPageNumbers = remember(chapter.id) { warshPagesForSurah(chapter.id) }
@@ -931,7 +946,7 @@ fun ChapterReaderScreen(
             selectedAyahAction = action.copy(isBookmarked = updated.contains(action.ayahNumber))
         }
     }
-    val selectMushafAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit = { surahId, ayahNumber, ayahText, wordInfo, toolbarY ->
+    val selectMushafAyah: (Int, Int, String, WordByWordAyah?, Float?, Int?) -> Unit = { surahId, ayahNumber, ayahText, wordInfo, toolbarY, warshAyah ->
         if (surahId == 0) {
             selectedWarshAyahKey = null
             selectedAyahAction = null
@@ -943,6 +958,7 @@ fun ChapterReaderScreen(
             selectedAyahAction = ReaderAyahAction(
                 surahId = surahId,
                 surahName = surahName,
+                warshAyah = warshAyah,
                 ayahNumber = ayahNumber,
                 ayahText = ayahText,
                 wordInfo = wordInfo,
@@ -1449,8 +1465,28 @@ fun ChapterReaderScreen(
                     .toDp()
                     .coerceIn(72.dp, (configuration.screenHeightDp.dp - 150.dp).coerceAtLeast(72.dp))
             }
+            var hasAsbab by remember(action) { mutableStateOf(false) }
+            LaunchedEffect(action) {
+                try {
+                    val index = AsbabIndex.load()
+                    val refs = action.warshAyah?.let { WarshAyahReferences.hafsAyahs(context, action.surahId, it) }
+                        ?: listOf(action.ayahNumber)
+                    hasAsbab = listOf(2919, 460).any { book -> refs.any { index.has(book, action.surahId, it) } }
+                } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+                catch (_: Exception) { hasAsbab = true } // Unknown availability opens the retry screen.
+            }
             AyahSelectionToolbar(
                 action = action,
+                irabLabel = repeatText.t("irab.title"),
+                asbabLabel = repeatText.t("asbab.title"),
+                onAsbab = if (hasAsbab) ({
+                    asbabTarget = action
+                    selectedAyahAction = null
+                }) else null,
+                onIrab = {
+                    irabTarget = action
+                    selectedAyahAction = null
+                },
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .offset(y = toolbarTop),
@@ -2588,7 +2624,7 @@ fun MaknoonWarshMushafPage(
     ayahs: List<Pair<Int, String>>,
     bookmarkedAyahs: Set<Int>,
     selectedAyahKey: Pair<Int, Int>?,
-    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit,
+    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?, Int?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -2674,7 +2710,7 @@ fun MaknoonWarshMushafPage(
                     }
                     .combinedClickable(
                         onClick = {
-                            onSelectAyah(0, 0, "", null, null)
+                            onSelectAyah(0, 0, "", null, null, null)
                         },
                         onLongClick = {
                             onSelectAyah(
@@ -2682,7 +2718,7 @@ fun MaknoonWarshMushafPage(
                                 selection.ayahNumber,
                                 selection.text,
                                 selection.wordInfo,
-                                ayahBounds?.bottom
+                                ayahBounds?.bottom, if (isWarsh) position.ayahNumber else null
                             )
                         }
                     )
@@ -2744,7 +2780,7 @@ fun HafsMadinaMushafPage(
     wordByWordAyahs: List<WordByWordAyah>,
     bookmarkedAyahs: Set<Int>,
     selectedAyahKey: Pair<Int, Int>?,
-    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit,
+    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?, Int?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -2788,7 +2824,7 @@ fun HafsMadinaMushafPage(
                     }
                     .combinedClickable(
                         onClick = {
-                            onSelectAyah(0, 0, "", null, null)
+                            onSelectAyah(0, 0, "", null, null, null)
                         },
                         onLongClick = {
                             onSelectAyah(
@@ -2796,7 +2832,7 @@ fun HafsMadinaMushafPage(
                                 position.ayahNumber,
                                 ayahText,
                                 wordInfo,
-                                ayahBounds?.bottom
+                                ayahBounds?.bottom, null
                             )
                         }
                     )
@@ -2816,7 +2852,7 @@ fun WarshMushafPage(
     wordByWordAyahs: List<WordByWordAyah>,
     bookmarkedAyahs: Set<Int>,
     selectedAyahKey: Pair<Int, Int>?,
-    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?) -> Unit,
+    onSelectAyah: (Int, Int, String, WordByWordAyah?, Float?, Int?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -2862,7 +2898,7 @@ fun WarshMushafPage(
                     }
                     .combinedClickable(
                         onClick = {
-                            onSelectAyah(0, 0, "", null, null)
+                            onSelectAyah(0, 0, "", null, null, null)
                         },
                         onLongClick = {
                             onSelectAyah(
@@ -2870,7 +2906,7 @@ fun WarshMushafPage(
                                 selection.ayahNumber,
                                 selection.text,
                                 selection.wordInfo,
-                                ayahBounds?.bottom
+                                ayahBounds?.bottom, position.ayahNumber
                             )
                         }
                     )
@@ -3119,6 +3155,10 @@ fun I3rabTextBox(text: String) {
 @Composable
 fun AyahSelectionToolbar(
     action: ReaderAyahAction,
+    irabLabel: String,
+    asbabLabel: String,
+    onAsbab: (() -> Unit)?,
+    onIrab: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     onCopy: () -> Unit,
     onBookmark: () -> Unit,
@@ -3175,6 +3215,14 @@ fun AyahSelectionToolbar(
                 label = "Herhaal",
                 onClick = onRepeat
             )
+            onIrab?.let { openIrab ->
+                TextButton(onClick = openIrab) {
+                    Text(irabLabel, color = Color.White, fontSize = 12.sp)
+                }
+            }
+            if (onAsbab != null) TextButton(onClick = onAsbab) {
+                Text(asbabLabel, color = Color.White, fontSize = 12.sp)
+            }
             SelectionToolbarButton(
                 icon = Icons.Default.PlayArrow,
                 label = "Afspelen",

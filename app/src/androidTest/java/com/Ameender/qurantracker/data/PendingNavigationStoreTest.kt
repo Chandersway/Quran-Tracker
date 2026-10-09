@@ -10,6 +10,17 @@ import org.junit.Test
 import java.util.UUID
 
 class PendingNavigationStoreTest {
+    @Test fun groupPushSurvivesAuthButRejectsInvalidEvent() = isolated { context ->
+        val store = PendingNavigationStore(context)
+        val id = "12345678-1234-1234-1234-123456789abc"
+        store.receive(link("qurantracker://notification/group/$id"))
+        store.receive(link("qurantracker://auth?code=example"))
+        store.receive(link("qurantracker://notification/group/not-a-uuid"))
+        assertEquals("groups?notificationId=$id", PendingNavigationStore(context).notification)
+        assertNull(store.groupCode)
+        store.consumeNotification(store.notification)
+        assertNull(store.notification)
+    }
     private fun isolated(block: (Context) -> Unit) {
         val base = InstrumentationRegistry.getInstrumentation().targetContext
         val name = "pending_test_${UUID.randomUUID()}"
@@ -23,7 +34,7 @@ class PendingNavigationStoreTest {
     @Test fun invitationSurvivesAuthLauncherAndRecreationUntilConsumed() = isolated { context ->
         val store = PendingNavigationStore(context)
         val token = "a".repeat(64)
-        store.receive(link("https://qurantracker.app/group/abc-1234?invite=$token"))
+        store.receive(link("https://qurantracker-8f775.web.app/group/abc-1234?invite=$token"))
         store.receive(link("qurantracker://auth?code=example"))
         store.receive(Intent(Intent.ACTION_MAIN))
         val restored = PendingNavigationStore(context)
@@ -63,9 +74,9 @@ class PendingNavigationStoreTest {
     @Test fun malformedLinksCannotReplacePendingInvitation() = isolated { context ->
         val store = PendingNavigationStore(context)
         store.receive(link("qurantracker://group/ABC-1234"))
-        listOf("https://qurantracker.app/group/nope", "qurantracker://group/ABC-9999/extra",
-            "https://user@qurantracker.app/group/ABC-9999", "https://qurantracker.app:8080/group/ABC-9999",
-            "https://qurantracker.app.evil/group/ABC-9999", "qurantracker://group/ABC-9999?invite=short",
+        listOf("https://qurantracker-8f775.web.app/group/nope", "qurantracker://group/ABC-9999/extra",
+            "https://user@qurantracker-8f775.web.app/group/ABC-9999", "https://qurantracker-8f775.web.app:8080/group/ABC-9999",
+            "https://qurantracker-8f775.web.app.evil/group/ABC-9999", "qurantracker://group/ABC-9999?invite=short",
             "qurantracker://group/ABC-9999?invite=${"a".repeat(64)}&invite=${"b".repeat(64)}")
             .forEach { store.receive(link(it)) }
         assertEquals("ABC-1234", store.groupCode)

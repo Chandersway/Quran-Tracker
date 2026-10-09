@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data-extraction-rules>
     <cloud-backup>
+        <exclude domain="sharedpref" path="firebase_device.xml" />
+        <exclude domain="sharedpref" path="group_push_delivered.xml" />
         <exclude domain="sharedpref" path="pending_navigation.xml" />
     </cloud-backup>
     <device-transfer>
+        <exclude domain="sharedpref" path="firebase_device.xml" />
+        <exclude domain="sharedpref" path="group_push_delivered.xml" />
         <exclude domain="sharedpref" path="pending_navigation.xml" />
     </device-transfer>
 </data-extraction-rules>

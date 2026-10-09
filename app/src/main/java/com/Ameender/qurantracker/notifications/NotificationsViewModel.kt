@@ -49,6 +49,7 @@ class NotificationsViewModel(application: Application) : AndroidViewModel(applic
             try {
                 repository.save(preferences)
                 NotificationCoordinator.reconcileSoon(getApplication())
+                GroupPushRegistration.enqueue(getApplication())
                 mutableState.update { it.copy(preferences = preferences, status = "saved") }
             } catch (cancel: CancellationException) { throw cancel }
             catch (_: Exception) { mutableState.update { it.copy(status = "error") } }

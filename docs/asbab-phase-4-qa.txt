@@ -1,0 +1,28 @@
+ASBAB FINAL TECHNICAL QA — 2026-10-09
+
+Build and JVM unit tests passed. Shared IrabScreenTest instrumentation suite:
+10 tests passed, zero skipped, Pixel_9_Pro_XL emulator API 37.
+
+Asbab-specific checks:
+- Uses al-Wahidi book 2919 and displays an honest empty-result message.
+- Warsh 2:1 loads mapped Hafs 2:1, switching to 2:2 retains book 2919.
+- Simulated IOException shows localized error without leaking raw exception text;
+  manual retry succeeds.
+- Arabic RTL, 2x font scale, dark theme: notice, source and close remain reachable.
+- Asbab action is reachable and invokes its callback in horizontally scrolling
+  ayah toolbar.
+
+Shared regression checks:
+- Exact initial Hafs reference and close callback.
+- Explicit alternative book after missing i'rab content.
+- Simulated rate limit, manual retry, invalid input disabled.
+- Warsh multiple references in large Arabic dark mode.
+- Pending slow request prevents duplicate submission, close remains enabled.
+
+These use deterministic injected responses, not a live server or airplane mode.
+No production changes were required by this QA pass; three tests were added.
+Remaining manual checks: physical-device reader position after closing, system
+back, rotation, actual offline/online transitions and accessibility screen reader.
+Phase-1 source audit is a sample, not full Quran coverage or scholarly grading.
+Never present all included reports as authenticated merely because they appear
+in al-Wahidi. Preserve source text and references.

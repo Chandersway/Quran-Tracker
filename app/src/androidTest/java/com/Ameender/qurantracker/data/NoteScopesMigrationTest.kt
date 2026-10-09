@@ -34,7 +34,7 @@ class NoteScopesMigrationTest {
         helper.writableDatabase
         helper.close()
         val database = Room.databaseBuilder(context, QuranDatabase::class.java, name)
-            .addMigrations(NOTE_SCOPES_MIGRATION).build()
+            .addMigrations(*QuranDatabase.ALL_MIGRATIONS).build()
         try {
             val repository = AyahNoteRepository(database.ayahNoteDao())
             val legacy = repository.allNotes.first().single()

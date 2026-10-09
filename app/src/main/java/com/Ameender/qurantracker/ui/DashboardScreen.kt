@@ -159,7 +159,8 @@ fun DashboardScreen(
             todayDoneItems = todayDoneItems,
             onTogglePlan = planningViewModel::toggleDone,
             onQuickCheckIn = { quickCheckInOpen = true },
-            text = text
+            text = text,
+            language = appLanguage
         )
 
         ReadingPlanHomeCard(history = allHistory, language = appLanguage, onOpen = onOpenReadingPlan)
@@ -391,7 +392,8 @@ fun TodayFocusCard(
     todayDoneItems: Int,
     onTogglePlan: (PlanningItem) -> Unit,
     onQuickCheckIn: () -> Unit,
-    text: AppStrings
+    text: AppStrings,
+    language: String = "nl"
 ) {
     Card(
         modifier = Modifier
@@ -410,7 +412,7 @@ fun TodayFocusCard(
                 Column {
                     Text(text.today, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = GoldLight)
                     Text(
-                        if (goalReached) text.dailyGoalReached else text.remainingToday.format((goalTarget - todayCount).coerceAtLeast(0), unitLabel),
+                        if (goalReached) text.dailyGoalReached else text.remainingToday.format(dailyGoalNumber((goalTarget - todayCount).coerceAtLeast(0), language), unitLabel),
                         fontSize = 12.sp,
                         color = if (goalReached) DoneGreen else MutedGold
                     )
@@ -433,7 +435,8 @@ fun TodayFocusCard(
                     todayCount = todayCount,
                     goalTarget = goalTarget,
                     unitLabel = unitLabel,
-                    goalReached = goalReached
+                    goalReached = goalReached,
+                    language = language
                 )
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -443,7 +446,7 @@ fun TodayFocusCard(
                         fontWeight = FontWeight.Medium
                     )
                     Text(
-                        "$todayCount van $goalTarget",
+                        dailyGoalCountLabel(todayCount, goalTarget, language),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
                         color = if (goalReached) DoneGreen else GoldLight
@@ -504,7 +507,8 @@ fun TodayGoalPie(
     todayCount: Int,
     goalTarget: Int,
     unitLabel: String,
-    goalReached: Boolean
+    goalReached: Boolean,
+    language: String = "nl"
 ) {
     val animProgress = remember { Animatable(0f) }
     LaunchedEffect(progress) {
@@ -551,13 +555,13 @@ fun TodayGoalPie(
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                "$todayCount",
+                dailyGoalNumber(todayCount, language),
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = if (goalReached) DoneGreen else GoldLight
             )
             Text(
-                "/$goalTarget",
+                "/${dailyGoalNumber(goalTarget, language)}",
                 fontSize = 11.sp,
                 color = MutedGold
             )

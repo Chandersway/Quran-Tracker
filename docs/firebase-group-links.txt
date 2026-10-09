@@ -1,0 +1,33 @@
+Firebase group invitations
+
+Hosting project/site: qurantracker-8f775
+URL: https://qurantracker-8f775.web.app/group/ABC-1234?invite=TOKEN
+Public page: public/index.html (user-provided manual test implementation).
+Android association: public/.well-known/assetlinks.json.
+Firebase excludes .git, but must NOT exclude .well-known.
+
+App shares one HTTPS link plus code where applicable. Manifest autoVerify and
+PendingNavigationStore recognize the Firebase host. Custom qurantracker://group
+links remain supported for the page's explicit Open in Wirdna button.
+Unowned qurantracker.app no longer shared/claimed by the app.
+
+Assetlinks currently contains the public SHA-256 fingerprint of the local debug
+signing certificate used on the phone. Before Play distribution add the Play
+App Signing certificate fingerprint from Play Console, App integrity. The upload
+certificate is not a substitute for the certificate Google uses to sign installs.
+No private keys/passwords are published.
+
+Deploy: firebase.cmd deploy --only hosting --project qurantracker-8f775
+The .well-known endpoint must return JSON without redirects; /group/... returns
+the invitation HTML. Both endpoints verified live with HTTP 200.
+
+Build/unit tests successful. PendingNavigationStoreTest exercises link receiving,
+retention across auth/launcher, independent notification state and malformed links.
+All four instrumentation tests passed. Updated APK installed with install -r.
+Physical Android 16 phone domain state: verified; link handling allowed and host
+selection enabled. Standard resolver (MATCH_DEFAULT_ONLY, flags 65536) resolves
+the public HTTPS group URL to com.Ameender.qurantracker/.MainActivity.
+Emulator verifier reports legacy_failure; physical phone verification is the
+successful end-to-end association check, not an artificially forced verifier state.
+These checks do not claim an actual backend membership acceptance with two accounts.
+Existing private-group/invitation acceptance logic is unchanged by this link fix.

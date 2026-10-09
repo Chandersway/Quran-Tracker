@@ -2,4 +2,7 @@
 <full-backup-content>
     <!-- Invitation tokens are transient capabilities, not transferable preferences. -->
     <exclude domain="sharedpref" path="pending_navigation.xml" />
+    <!-- Push registrations and delivery receipts belong to this device only. -->
+    <exclude domain="sharedpref" path="firebase_device.xml" />
+    <exclude domain="sharedpref" path="group_push_delivered.xml" />
 </full-backup-content>

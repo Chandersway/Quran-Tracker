@@ -1,0 +1,26 @@
+I'RAB PHASE 5 — QA, 2026-10-09
+
+Five Compose instrumentation tests passed on Pixel_9_Pro_XL / API 37:
+- Opens the requested Hafs reference (2:255), shows book attribution, closes.
+- Empty ad-Da'as response requires explicit choice of al-Ukbari before loading.
+- HTTP 429 presentation, manual retry, invalid ayah disables submission.
+- Warsh 2:1 maps to selectable Hafs 2:1/2:2; selecting second requests ayah 2.
+  Tested in Arabic RTL, dark theme, 2x font scale; close remains reachable by scroll.
+- Slow pending request disables duplicate submission while close remains available.
+
+Tests use an injected suspending loader: deterministic success/empty/429/delay,
+not claims about live server uptime or complete book coverage.
+All current JVM unit tests passed, including NL/EN/AR i'rab strings.
+Existing Warsh geometry instrumentation callback updated to the six-argument
+signature added in phase 4. Its full geometry suite was not rerun in this task.
+Initial selected Warsh-linked ayah now matches the reference loaded automatically.
+
+Known limits / remaining manual QA:
+- No scholarly certification; book fragments may include surrounding ayahs.
+- Phase-1 live sample remains the coverage check, not an all-ayah audit.
+- Physical-device reader -> dialog -> back scroll-position preservation still
+  needs a practical check; isolated dialog close was tested automatically.
+- Actual airplane mode, device rotation, screen readers and varied small physical
+  screen sizes are not covered by these five tests.
+- No offline books; fresh requests need internet.
+- No assertion that Hafs-based grammatical analysis is Warsh-specific.

@@ -29,6 +29,7 @@ import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.automirrored.filled.Reply
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -37,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -57,6 +59,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.Ameender.qurantracker.data.SupabaseConfig
 import com.Ameender.qurantracker.data.SupabaseService
+import com.Ameender.qurantracker.data.GroupMemberPermissions
 import com.Ameender.qurantracker.data.AuthenticationState
 import com.Ameender.qurantracker.data.ProtectedAuthAccess
 import com.Ameender.qurantracker.data.protectedAccess
@@ -136,12 +139,6 @@ private data class SelectorOption(
     val icon: ImageVector
 )
 
-private data class GroupMemberPermissions(
-    val canPostMessages: Boolean = true,
-    val canShareProgress: Boolean = true,
-    val canComment: Boolean = true,
-    val canInviteMembers: Boolean = false
-)
 
 private data class PendingGroupMediaUpload(
     val bytes: ByteArray,
@@ -283,6 +280,10 @@ fun HamburgerMenu(
     var bookmarksOpen by remember { mutableStateOf(false) }
     var leesplanningOpen by remember { mutableStateOf(false) }
     var mediaPageOpen by remember { mutableStateOf(false) }
+    var irabOpen by rememberSaveable { mutableStateOf(false) }
+    var asbabOpen by rememberSaveable { mutableStateOf(false) }
+    if (asbabOpen && isOpen) IrabScreen(text = text, asbab = true, onClose = { asbabOpen = false })
+    if (irabOpen && isOpen) IrabScreen(text = text, onClose = { irabOpen = false })
     var mushafPageOpen by remember { mutableStateOf(false) }
     var accountPageOpen by remember { mutableStateOf(false) }
     var mediaFilter by remember(text.mediaAllFilter) { mutableStateOf(text.mediaAllFilter) }
@@ -575,6 +576,20 @@ fun HamburgerMenu(
                         SettingsDivider()
                         SettingsActionRow(
                             icon = Icons.Default.CompareArrows,
+                            title = text.t("irab.title"),
+                            subtitle = text.t("irab.menuSubtitle"),
+                            onClick = { irabOpen = true }
+                        )
+                        SettingsDivider()
+                        SettingsActionRow(
+                            icon = Icons.Default.CompareArrows,
+                            title = text.t("asbab.title"),
+                            subtitle = text.t("asbab.menuSubtitle"),
+                            onClick = { asbabOpen = true }
+                        )
+                        SettingsDivider()
+                        SettingsActionRow(
+                            icon = Icons.Default.CompareArrows,
                             title = text.t("navigation.mutashabihat"),
                             subtitle = text.t("menu.mutashabihat.subtitle"),
                             onClick = {
@@ -698,6 +713,7 @@ fun HamburgerMenu(
 @Composable
 fun GroupsSettingsPage(
     text: AppStrings,
+    notificationId: String? = null,
     invitedGroupCode: String? = null,
     invitedGroupToken: String? = null,
     onInviteConsumed: () -> Unit = {},
@@ -724,6 +740,7 @@ fun GroupsSettingsPage(
         }
         ProtectedAuthAccess.Content -> AuthenticatedGroupsSettingsPage(
             text = text,
+            notificationId = notificationId,
             authenticatedUserId = (authenticationState as AuthenticationState.Authenticated).userId,
             invitedGroupCode = invitedGroupCode,
             invitedGroupToken = invitedGroupToken,
@@ -738,6 +755,7 @@ fun GroupsSettingsPage(
 private fun AuthenticatedGroupsSettingsPage(
     text: AppStrings,
     authenticatedUserId: String,
+    notificationId: String? = null,
     invitedGroupCode: String? = null,
     invitedGroupToken: String? = null,
     onInviteConsumed: () -> Unit = {},
@@ -829,6 +847,8 @@ private fun AuthenticatedGroupsSettingsPage(
     var busy by remember { mutableStateOf(false) }
     var checkedExistingGroup by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
+    fun friendlyGroupError(error: Throwable, fallback: String): String =
+        localizedGroupError(error, text, fallback)
     var isGroupOwner by remember { mutableStateOf(false) }
     var activeGroupDetails by remember { mutableStateOf<ReadingGroupDetails?>(null) }
     var availableGroups by remember { mutableStateOf<List<ReadingGroupDetails>>(emptyList()) }
@@ -839,6 +859,7 @@ private fun AuthenticatedGroupsSettingsPage(
     var reportReason by remember { mutableStateOf("spam") }
     var reportDetails by remember { mutableStateOf("") }
     var deletingComment by remember { mutableStateOf<Pair<ReadingGroupFeedItem, ReadingGroupCommentItem>?>(null) }
+    var commentDeleteError by remember { mutableStateOf("") }
     var managingMember by remember { mutableStateOf<ReadingGroupMemberRow?>(null) }
     var selectedMemberRole by remember { mutableStateOf("member") }
     var removingMember by remember { mutableStateOf<ReadingGroupMemberRow?>(null) }
@@ -848,6 +869,8 @@ private fun AuthenticatedGroupsSettingsPage(
     var invitationExpiresDays by remember { mutableIntStateOf(7) }
     var createdInvitation by remember { mutableStateOf<ReadingGroupInvitationRow?>(null) }
     var showJoinRequestDialog by remember { mutableStateOf(false) }
+    var showIncomingInvitation by rememberSaveable { mutableStateOf(false) }
+    var joinRequestCode by remember { mutableStateOf("") }
     var joinRequestMessage by remember { mutableStateOf("") }
     val activeGroupCode = groupCode.trim().uppercase()
 
@@ -921,7 +944,9 @@ private fun AuthenticatedGroupsSettingsPage(
         onDispose { onDetailModeChanged(false) }
     }
 
-    fun groupInviteLink(code: String): String = "https://qurantracker.app/group/${code.trim().uppercase()}"
+    fun invitationLanguage(): String = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        .getString("app_language", "nl").orEmpty().takeIf { it in setOf("nl", "en", "ar") } ?: "nl"
+    fun groupInviteLink(code: String): String = "https://qurantracker-8f775.web.app/group/${code.trim().uppercase()}?lang=${invitationLanguage()}"
     fun groupAppInviteLink(code: String): String = "qurantracker://group/${code.trim().uppercase()}"
 
     fun loadStoredGoalConfig(code: String) {
@@ -940,17 +965,6 @@ private fun AuthenticatedGroupsSettingsPage(
         val key = code.trim().uppercase()
         if (key.isBlank()) return
         privacy = normalizeGroupPrivacy(groupFormPrefs.getString("${key}_privacy", GROUP_PRIVACY_CODE_ONLY).orEmpty())
-    }
-
-    fun loadStoredPermissions(code: String) {
-        val key = code.trim().uppercase()
-        if (key.isBlank()) return
-        permissions = GroupMemberPermissions(
-            canPostMessages = groupFormPrefs.getBoolean("${key}_can_post_messages", true),
-            canShareProgress = groupFormPrefs.getBoolean("${key}_can_share_progress", true),
-            canComment = groupFormPrefs.getBoolean("${key}_can_comment", true),
-            canInviteMembers = groupFormPrefs.getBoolean("${key}_can_invite_members", false)
-        )
     }
 
     fun saveStoredGoalConfig(code: String) {
@@ -977,17 +991,6 @@ private fun AuthenticatedGroupsSettingsPage(
             .apply()
     }
 
-    fun saveStoredPermissions(code: String) {
-        val key = code.trim().uppercase()
-        if (key.isBlank()) return
-        groupFormPrefs.edit()
-            .putBoolean("${key}_can_post_messages", permissions.canPostMessages)
-            .putBoolean("${key}_can_share_progress", permissions.canShareProgress)
-            .putBoolean("${key}_can_comment", permissions.canComment)
-            .putBoolean("${key}_can_invite_members", permissions.canInviteMembers)
-            .apply()
-    }
-
     fun validateGroupForm(): String? {
         if (groupName.isBlank()) return text.groupForm.groupNameRequired
         if (goalPeriod == GOAL_PERIOD_NONE) return null
@@ -1007,15 +1010,17 @@ private fun AuthenticatedGroupsSettingsPage(
         goalPeriod = normalizeGoalPeriod(details.goalPeriod)
         goalTarget = details.goalTarget
         privacy = normalizeGroupPrivacy(details.privacy)
-        loadStoredPermissions(details.code)
+        permissions = details.memberPermissions
         isGroupOwner = details.isOwner
     }
 
     suspend fun openGroup(
-        details: ReadingGroupDetails,
+        summary: ReadingGroupDetails,
         successMessage: String? = null,
         destination: String = "home"
     ) {
+        // List responses are summaries; never edit permissions from cached/default values.
+        val details = SupabaseService.loadReadingGroup(summary.code)
         val targetCode = details.code.trim().uppercase()
         availableGroups = (availableGroups.filterNot { it.code.equals(targetCode, ignoreCase = true) } + details)
             .sortedWith(
@@ -1464,7 +1469,7 @@ private fun AuthenticatedGroupsSettingsPage(
     fun secureInvitationLinks(invitation: ReadingGroupInvitationRow): Pair<String, String>? {
         val token = invitation.token?.takeIf(String::isNotBlank) ?: return null
         val encodedToken = Uri.encode(token)
-        return "https://qurantracker.app/group/$activeGroupCode?invite=$encodedToken" to
+        return "https://qurantracker-8f775.web.app/group/$activeGroupCode?invite=$encodedToken&lang=${invitationLanguage()}" to
             "qurantracker://group/$activeGroupCode?invite=$encodedToken"
     }
 
@@ -1479,8 +1484,7 @@ private fun AuthenticatedGroupsSettingsPage(
         val links = secureInvitationLinks(invitation) ?: return
         val shareText = listOf(
             text.t("groups.invite.shareText", createdGroupName.ifBlank { groupName }),
-            links.first,
-            text.t("group.shareAppLinkLine", links.second)
+            links.first
         ).joinToString("\n")
         context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
@@ -1568,7 +1572,8 @@ private fun AuthenticatedGroupsSettingsPage(
     }
 
     fun submitJoinRequest() {
-        val cleanCode = joinCode.trim().uppercase()
+        if (busy) return
+        val cleanCode = joinRequestCode
         if (!isValidGroupCode(cleanCode)) {
             message = text.groupJoinText.invalidCode
             return
@@ -1580,6 +1585,9 @@ private fun AuthenticatedGroupsSettingsPage(
                     showJoinRequestDialog = false
                     joinRequestMessage = ""
                     message = text.t("groups.requests.sent")
+                    if (invitedGroupCode.equals(cleanCode, ignoreCase = true) && invitedGroupToken.isNullOrBlank()) {
+                        onInviteConsumed()
+                    }
                 }
                 .onFailure { message = friendlyGroupError(it, text.t("groups.requests.sendError")) }
             busy = false
@@ -1593,8 +1601,7 @@ private fun AuthenticatedGroupsSettingsPage(
         }
         val shareText = listOf(
             text.groupShareText.format(groupInviteLink(activeGroupCode)),
-            text.t("group.shareCodeLine", activeGroupCode),
-            text.t("group.shareAppLinkLine", groupAppInviteLink(activeGroupCode))
+            text.t("group.shareCodeLine", activeGroupCode)
         ).joinToString(separator = "\n")
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
@@ -1637,13 +1644,13 @@ private fun AuthenticatedGroupsSettingsPage(
                         code = targetCode,
                         goalPeriod = normalizeGoalPeriod(goalPeriod),
                         goalTarget = goalTarget,
-                        privacy = groupPrivacyBackendValue(privacy)
+                        privacy = groupPrivacyBackendValue(privacy),
+                        memberPermissions = permissions
                     )
                 }
                 openGroup(details, text.groupCreateText.success, destination = "overview")
                 saveStoredGoalConfig(targetCode)
                 saveStoredPrivacy(targetCode)
-                saveStoredPermissions(targetCode)
             } catch (error: Exception) {
                 message = friendlyGroupError(error, text.groupCreateText.error)
             } finally {
@@ -1674,11 +1681,11 @@ private fun AuthenticatedGroupsSettingsPage(
                     unit = unit,
                     goalPeriod = normalizeGoalPeriod(goalPeriod),
                     goalTarget = goalTarget,
-                    privacy = groupPrivacyBackendValue(privacy)
+                    privacy = groupPrivacyBackendValue(privacy),
+                    memberPermissions = permissions
                 )
                 saveStoredGoalConfig(targetCode)
                 saveStoredPrivacy(targetCode)
-                saveStoredPermissions(targetCode)
                 openGroup(details, text.groupSettingsText.saved)
             } catch (error: Exception) {
                 message = friendlyGroupError(error, text.groupSettingsText.saveError)
@@ -1714,7 +1721,7 @@ private fun AuthenticatedGroupsSettingsPage(
 
                 if (remainingGroups.isNotEmpty()) {
                     openGroup(
-                        details = remainingGroups.first(),
+                        summary = remainingGroups.first(),
                         successMessage = text.t("groups.delete.success"),
                         destination = "overview"
                     )
@@ -1966,6 +1973,8 @@ private fun AuthenticatedGroupsSettingsPage(
 
     fun confirmDeleteFeedComment() {
         val (post, comment) = deletingComment ?: return
+        if (busy) return
+        commentDeleteError = ""
         busy = true
         scope.launch {
             runCatching {
@@ -1978,8 +1987,11 @@ private fun AuthenticatedGroupsSettingsPage(
                     ) else current
                 }
                 deletingComment = null
+                openReplyPostId = post.id
                 message = text.t("groups.feed.comment.delete.success")
-            }.onFailure { message = friendlyGroupError(it, text.t("groups.feed.comment.delete.error")) }
+            }.onFailure {
+                commentDeleteError = friendlyGroupError(it, text.t("groups.feed.comment.delete.error"))
+            }
             busy = false
         }
     }
@@ -2016,10 +2028,15 @@ private fun AuthenticatedGroupsSettingsPage(
     }
 
     LaunchedEffect(activeGroupCode, groupPage, groupScreen) {
-        if (activeGroupCode.isBlank() || groupPage != "feed" || groupScreen != "home") return@LaunchedEffect
+        if (activeGroupCode.isBlank() || groupScreen != "home") return@LaunchedEffect
         while (true) {
-            delay(10000)
             runCatching {
+                val refreshed = SupabaseService.loadReadingGroup(activeGroupCode)
+                activeGroupDetails = refreshed
+                permissions = refreshed.memberPermissions
+            }
+            delay(10000)
+            if (groupPage == "feed") runCatching {
                 feedItems = SupabaseService.loadGroupFeed(activeGroupCode)
             }
         }
@@ -2051,7 +2068,7 @@ private fun AuthenticatedGroupsSettingsPage(
         }
         val input = joinCode.trim()
         val link = runCatching { Uri.parse(input) }.getOrNull()
-            ?.takeIf { (it.scheme == "https" && it.host == "qurantracker.app" && it.pathSegments.firstOrNull() == "group") ||
+            ?.takeIf { (it.scheme == "https" && it.host == "qurantracker-8f775.web.app" && it.pathSegments.firstOrNull() == "group") ||
                 (it.scheme == "qurantracker" && it.host == "group") }
         val token = link?.getQueryParameter("invite")?.takeIf { it.isNotBlank() }
         val cleanCode = (link?.lastPathSegment ?: formatGroupCodeInput(input)).orEmpty().uppercase()
@@ -2077,7 +2094,14 @@ private fun AuthenticatedGroupsSettingsPage(
                     onJoined()
                 }
                 .onFailure {
-                    message = friendlyGroupError(it, text.groupJoinText.error)
+                    if (requiresGroupAccessRequest(it, token != null)) {
+                        joinRequestCode = cleanCode
+                        joinRequestMessage = ""
+                        message = ""
+                        showJoinRequestDialog = true
+                    } else {
+                        message = friendlyGroupError(it, text.groupJoinText.error)
+                    }
                 }
         }
     }
@@ -2090,23 +2114,32 @@ private fun AuthenticatedGroupsSettingsPage(
             accountRequired = true
             return@LaunchedEffect
         }
-        if (secureToken != null) {
-            busy = true
-            runCatching { SupabaseService.acceptGroupInvitation(secureToken) }
-                .onSuccess { details ->
-                    openGroup(details, text.t("groups.invite.accepted"))
-                    onInviteConsumed()
-                }
-                .onFailure { message = friendlyGroupError(it, text.t("groups.invite.acceptError")) }
-            busy = false
-        } else if (cleanInvite != null) {
-            joinCode = cleanInvite
+        if (secureToken != null || cleanInvite != null) {
+            joinCode = cleanInvite.orEmpty()
             message = ""
-            joinOnlineGroup(onJoined = onInviteConsumed)
+            showIncomingInvitation = true
         }
     }
 
+    LaunchedEffect(notificationId, authenticatedUserId) {
+        if (notificationId == null) return@LaunchedEffect
+        busy = true
+        try {
+            val target = SupabaseService.groupPushTarget(notificationId)
+                ?: error("GROUP_POST_NOT_FOUND")
+            openGroup(SupabaseService.loadReadingGroup(target.groupCode))
+            val post = SupabaseService.loadGroupFeed(target.groupCode, target.postId).firstOrNull()
+                ?: error("GROUP_POST_NOT_FOUND")
+            feedItems = listOf(post) + feedItems.filterNot { it.serverId == post.serverId }
+            openReplyPostId = post.id
+            SupabaseService.markGroupNotificationRead(target.groupCode, notificationId, true)
+        } catch (cancel: kotlinx.coroutines.CancellationException) { throw cancel }
+          catch (failure: Exception) { message = friendlyGroupError(failure, text.groupFeedLoadFailed) }
+        finally { busy = false; checkedExistingGroup = true }
+    }
+
     LaunchedEffect(authenticatedUserId) {
+        if (notificationId != null) return@LaunchedEffect
         if (invitedGroupCode?.isNotBlank() == true || invitedGroupToken?.isNotBlank() == true || activeGroupCode.isNotBlank()) {
             checkedExistingGroup = true
             return@LaunchedEffect
@@ -2144,6 +2177,7 @@ private fun AuthenticatedGroupsSettingsPage(
         groupLanguage = activeGroupDetails?.languageCode ?: "nl",
         currentRole = activeGroupDetails?.currentRole ?: if (isGroupOwner) "owner" else "member",
         permissions = permissions,
+        effectivePermissions = activeGroupDetails?.permissions.orEmpty(),
         message = message,
         groupScreen = groupScreen,
         groupPage = groupPage,
@@ -2217,7 +2251,6 @@ private fun AuthenticatedGroupsSettingsPage(
         onSaveGroupSettings = { saveGroupSettings() },
         onDeleteGroup = { deleteActiveGroup() },
         onJoinGroup = { joinOnlineGroup() },
-        onRequestAccess = { showJoinRequestDialog = true },
         onShareGroup = { shareActiveGroupCode() },
         onOpenInviteManager = {
             invitationEmail = ""
@@ -2288,7 +2321,12 @@ private fun AuthenticatedGroupsSettingsPage(
         onTogglePinPost = { toggleFeedPostPinned(it) },
         onDeletePost = { deletingPost = it },
         onReportPost = { item -> reportingPost = item; reportReason = "spam"; reportDetails = "" },
-        onDeleteComment = { post, comment -> deletingComment = post to comment },
+        onDeleteComment = { post, comment ->
+            // ModalBottomSheet and AlertDialog use separate windows. Dismiss the sheet first.
+            openReplyPostId = null
+            commentDeleteError = ""
+            deletingComment = post to comment
+        },
         onToggleReply = { item ->
             openReplyPostId = if (openReplyPostId == item.id) null else item.id
         },
@@ -2332,13 +2370,20 @@ private fun AuthenticatedGroupsSettingsPage(
             onConfirm = { submitFeedPostReport() }
         )
     }
-    deletingComment?.let {
+    deletingComment?.let { (post, _) ->
         ConfirmFeedDeleteDialog(
             text = text,
             title = text.t("groups.feed.comment.delete.title"),
             body = text.t("groups.feed.comment.delete.body"),
+            errorMessage = commentDeleteError,
             busy = busy,
-            onDismiss = { if (!busy) deletingComment = null },
+            onDismiss = {
+                if (!busy) {
+                    deletingComment = null
+                    commentDeleteError = ""
+                    openReplyPostId = post.id
+                }
+            },
             onConfirm = { confirmDeleteFeedComment() }
         )
     }
@@ -2390,10 +2435,59 @@ private fun AuthenticatedGroupsSettingsPage(
             }
         )
     }
+    if (showIncomingInvitation) {
+        AlertDialog(
+            onDismissRequest = {
+                if (!busy) {
+                    showIncomingInvitation = false
+                    onInviteConsumed()
+                }
+            },
+            title = { Text(text.t("groups.invite.confirmTitle")) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(text.t("groups.invite.confirmBody"))
+                    invitedGroupCode?.takeIf { it.isNotBlank() }?.let { Text(it) }
+                    if (message.isNotBlank()) Text(message, color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(enabled = !busy, onClick = {
+                    showIncomingInvitation = false
+                    onInviteConsumed()
+                }) { Text(text.t("common.cancel")) }
+            },
+            confirmButton = {
+                TextButton(enabled = !busy, onClick = {
+                    val token = invitedGroupToken?.trim()?.takeIf { it.isNotBlank() }
+                    if (token == null) {
+                        showIncomingInvitation = false
+                        joinOnlineGroup(onJoined = onInviteConsumed)
+                    } else {
+                        busy = true
+                        message = ""
+                        scope.launch {
+                            runCatching { SupabaseService.acceptGroupInvitation(token) }
+                                .onSuccess { details ->
+                                    showIncomingInvitation = false
+                                    openGroup(details, text.t("groups.invite.accepted"))
+                                    onInviteConsumed()
+                                }
+                                .onFailure { message = friendlyGroupError(it, text.t("groups.invite.acceptError")) }
+                            busy = false
+                        }
+                    }
+                }) {
+                    if (busy) CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
+                    else Text(text.groupJoinAction)
+                }
+            }
+        )
+    }
     if (showJoinRequestDialog) {
         CreateJoinRequestDialog(
             text = text,
-            groupCode = joinCode,
+            groupCode = joinRequestCode,
             message = joinRequestMessage,
             onMessageChange = { joinRequestMessage = it.take(500) },
             busy = busy,
@@ -2549,6 +2643,7 @@ private fun GroupCommunityContent(
     groupLanguage: String,
     currentRole: String,
     permissions: GroupMemberPermissions,
+    effectivePermissions: Set<String>,
     message: String,
     groupScreen: String,
     groupPage: String,
@@ -2602,7 +2697,6 @@ private fun GroupCommunityContent(
     onSaveGroupSettings: () -> Unit,
     onDeleteGroup: () -> Unit,
     onJoinGroup: () -> Unit,
-    onRequestAccess: () -> Unit,
     onShareGroup: () -> Unit,
     onOpenInviteManager: () -> Unit,
     onManageMember: (ReadingGroupMemberRow) -> Unit,
@@ -2676,8 +2770,7 @@ private fun GroupCommunityContent(
                 busy = busy,
                 onCreateGroup = onStartCreateGroup,
                 onOpenGroup = onOpenGroup,
-                onJoinGroup = onJoinGroup,
-                onRequestAccess = onRequestAccess
+                onJoinGroup = onJoinGroup
             )
             return@Column
         }
@@ -2796,6 +2889,7 @@ private fun GroupCommunityContent(
 
         GroupHomeScreen(
             text = text,
+            effectivePermissions = effectivePermissions,
             groupName = groupName.ifBlank { text.groups },
             description = description.ifBlank { text.groupPageSubtitle },
             activeGroupCode = activeGroupCode,
@@ -3349,6 +3443,7 @@ private fun JoinGroupCard(
 @Composable
 private fun GroupHomeScreen(
     text: AppStrings,
+    effectivePermissions: Set<String>,
     groupName: String,
     description: String,
     activeGroupCode: String,
@@ -3472,7 +3567,7 @@ private fun GroupHomeScreen(
                     trackColor = BorderNavy
                 )
             }
-            GroupSummaryCard(
+            if (selectedTab != "feed") GroupSummaryCard(
                 text = text,
                 targetValue = goalTarget,
                 goalPeriod = goalPeriod,
@@ -3520,6 +3615,7 @@ private fun GroupHomeScreen(
                 )
                 "progress" -> GroupProgressTab(
                     text = text,
+                    canShareProgress = "progress.create" in effectivePermissions && "post.create" in effectivePermissions,
                     groupUnit = unit,
                     targetValue = goalTarget,
                     leaderboard = leaderboard,
@@ -3594,6 +3690,8 @@ private fun GroupHomeScreen(
                 )
                 else -> GroupFeedTab(
                     text = text,
+                    canPostMessages = "post.create" in effectivePermissions,
+                    canComment = "comment.create" in effectivePermissions,
                     currentRole = currentRole,
                     currentMember = members.firstOrNull { it.isCurrentUser },
                     chatMessage = chatMessage,
@@ -4971,6 +5069,8 @@ private fun GroupDashboardMetric(label: String, value: String, color: Color, mod
 @Composable
 private fun GroupFeedTab(
     text: AppStrings,
+    canPostMessages: Boolean,
+    canComment: Boolean,
     currentRole: String,
     currentMember: ReadingGroupMemberRow?,
     chatMessage: String,
@@ -5000,8 +5100,8 @@ private fun GroupFeedTab(
     val sortedPosts = feedItems.sortedByDescending { it.createdAt }.take(30)
     val pinnedPosts = sortedPosts.filter { it.isPinned }
     val recentPosts = sortedPosts.filterNot { it.isPinned }
-    Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.lg)) {
-        FeedComposer(
+    Column {
+        if (canPostMessages) FeedComposer(
             text = text,
             currentMember = currentMember,
             chatMessage = chatMessage,
@@ -5014,7 +5114,7 @@ private fun GroupFeedTab(
             line = line,
             onAttachMedia = onAttachMedia,
             onSendMessage = onSendMessage
-        )
+        ) else Text(text.t("groups.error.permission"), color = muted, fontSize = 13.sp)
         if (sortedPosts.isEmpty()) {
             GroupFeatureEmptyState(
                 icon = Icons.Default.Forum,
@@ -5028,7 +5128,6 @@ private fun GroupFeedTab(
             }
         } else {
             if (pinnedPosts.isNotEmpty()) {
-                GroupFeedSectionTitle(Icons.Default.PushPin, text.t("groups.detail.pinned"), Gold)
                 pinnedPosts.forEach { item ->
                     FeedPostCard(
                         text = text,
@@ -5036,6 +5135,7 @@ private fun GroupFeedTab(
                         currentRole = currentRole,
                         replyDraft = replyDrafts[item.id].orEmpty(),
                         replyOpen = openReplyPostId == item.id,
+                        canComment = canComment,
                         busy = busy,
                         onReact = { reaction -> onReact(item, reaction) },
                         onEdit = { onEditPost(item) },
@@ -5050,7 +5150,6 @@ private fun GroupFeedTab(
                 }
             }
             if (recentPosts.isNotEmpty()) {
-                GroupFeedSectionTitle(Icons.Default.Forum, text.t("groups.detail.recentPosts"), green)
                 recentPosts.forEach { item ->
                     FeedPostCard(
                         text = text,
@@ -5058,6 +5157,7 @@ private fun GroupFeedTab(
                         currentRole = currentRole,
                         replyDraft = replyDrafts[item.id].orEmpty(),
                         replyOpen = openReplyPostId == item.id,
+                        canComment = canComment,
                         busy = busy,
                         onReact = { reaction -> onReact(item, reaction) },
                         onEdit = { onEditPost(item) },
@@ -5101,9 +5201,7 @@ private fun FeedComposer(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(AppShape.card))
-            .background(MidNavy)
-            .padding(AppSpacing.lg),
+            .padding(horizontal = 4.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.md)
     ) {
         Text(text.t("groups.detail.startDiscussion"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = GoldLight)
@@ -5593,6 +5691,7 @@ private fun MemberRoleBadge(
 @Composable
 private fun GroupProgressTab(
     text: AppStrings,
+    canShareProgress: Boolean,
     groupUnit: String,
     targetValue: Int?,
     leaderboard: List<ReadingGroupLeaderboardRow>,
@@ -5653,7 +5752,7 @@ private fun GroupProgressTab(
             green = green,
             line = line
         )
-        AddProgressCard(
+        if (canShareProgress) AddProgressCard(
             text = text,
             groupUnit = groupUnit,
             amount = amount,
@@ -5669,7 +5768,7 @@ private fun GroupProgressTab(
             green = green,
             line = line,
             onShareProgress = onShareProgress
-        )
+        ) else Text(text.t("groups.error.permission"), color = muted, fontSize = 13.sp)
     }
 }
 
@@ -6937,7 +7036,9 @@ private fun groupGoalTypeLabel(text: AppStrings, goal: String): String =
         ?: text.groupType.freeReading
 
 @Composable
-private fun GroupLeaderboardRow(text: AppStrings, rank: Int, row: ReadingGroupLeaderboardRow) {
+internal fun GroupLeaderboardRow(text: AppStrings, rank: Int, row: ReadingGroupLeaderboardRow) {
+    var showReading by remember(row.userId) { mutableStateOf(false) }
+    if (showReading) GroupMemberReadingSheet(text, row) { showReading = false }
     val rankColor = when (rank) {
         1 -> Gold
         2 -> ReadBlue
@@ -6950,6 +7051,7 @@ private fun GroupLeaderboardRow(text: AppStrings, rank: Int, row: ReadingGroupLe
             .fillMaxWidth()
             .clip(RoundedCornerShape(AppShape.control))
             .background(if (rank <= 3) StrongGoldSurface else PeriodItemSurface)
+            .clickable { showReading = true }
             .border(1.dp, if (rank <= 3) Gold.copy(alpha = 0.35f) else BorderNavy, RoundedCornerShape(AppShape.control))
             .padding(AppSpacing.md),
         verticalAlignment = Alignment.CenterVertically,
@@ -7003,12 +7105,13 @@ private fun GroupLeaderboardRow(text: AppStrings, rank: Int, row: ReadingGroupLe
 }
 
 @Composable
-private fun FeedPostCard(
+internal fun FeedPostCard(
     text: AppStrings,
     item: ReadingGroupFeedItem,
     currentRole: String,
     replyDraft: String = "",
     replyOpen: Boolean = false,
+    canComment: Boolean = true,
     busy: Boolean = false,
     onReact: (String) -> Unit = {},
     onEdit: () -> Unit = {},
@@ -7036,9 +7139,7 @@ private fun FeedPostCard(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(AppShape.card))
-            .background(if (item.isPinned) StrongGoldSurface else MidNavy)
-            .padding(AppSpacing.lg),
+            .padding(horizontal = 4.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.md)
     ) {
         Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -7053,31 +7154,21 @@ private fun FeedPostCard(
                     Text(
                         item.displayName,
                         modifier = Modifier.weight(1f, fill = false),
-                        fontSize = 12.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = GoldLight,
                         maxLines = 1
                     )
-                    if (isProgress) {
-                        GroupBadge(text.groupTopContributor, Gold)
-                    }
-                    Text(groupFeedTimeLabel(item.createdAt), fontSize = 10.sp, color = MutedGold)
-                    if (!item.editedAt.isNullOrBlank()) {
-                        Text(text.t("groups.feed.edited"), fontSize = 9.sp, color = MutedGold)
-                    }
                     if (item.isPinned) {
                         Icon(Icons.Default.PushPin, contentDescription = text.t("groups.detail.pinned"), tint = Gold, modifier = Modifier.size(13.dp))
                     }
                 }
-                if (item.message.isNotBlank()) {
-                    Text(
-                        item.message,
-                        fontSize = 13.sp,
-                        lineHeight = 19.sp,
-                        color = SoftTextGold,
-                        fontWeight = if (isProgress) FontWeight.Bold else FontWeight.Medium
-                    )
-                }
+                Text(
+                    listOfNotNull(feedTimestamp(item.createdAt, text.localeCode),
+                        text.t("groups.feed.edited").takeIf { !item.editedAt.isNullOrBlank() })
+                        .joinToString(" · "),
+                    fontSize = 11.sp, color = Color(0xFFABB6C5)
+                )
                 if (isProgress && item.amount != null && item.unit != null) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                         Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = Gold, modifier = Modifier.size(13.dp))
@@ -7090,7 +7181,7 @@ private fun FeedPostCard(
                 }
             }
             Box {
-                IconButton(onClick = { menuExpanded = true }, modifier = Modifier.size(34.dp)) {
+                IconButton(onClick = { menuExpanded = true }, modifier = Modifier.size(48.dp)) {
                     Icon(
                         Icons.Default.MoreHoriz,
                         contentDescription = text.t("groups.feed.moreActions"),
@@ -7129,6 +7220,19 @@ private fun FeedPostCard(
                 }
             }
         }
+        if (item.message.isNotBlank()) {
+            var expanded by remember(item.id, item.message) { mutableStateOf(false) }
+            var overflows by remember(item.id, item.message) { mutableStateOf(false) }
+            Text(
+                item.message, fontSize = 15.sp, lineHeight = 23.sp, color = SoftTextGold,
+                maxLines = if (expanded) Int.MAX_VALUE else 6,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                onTextLayout = { if (!expanded) overflows = it.hasVisualOverflow }
+            )
+            if (overflows || expanded) TextButton(onClick = { expanded = !expanded }) {
+                Text(text.t(if (expanded) "groups.feed.readLess" else "groups.feed.readMore"), color = Gold)
+            }
+        }
         if (isMedia && !item.mediaUrl.isNullOrBlank()) {
             AsyncImage(
                 model = item.mediaUrl,
@@ -7141,7 +7245,6 @@ private fun FeedPostCard(
                 contentScale = ContentScale.Crop
             )
         }
-        HorizontalDivider(color = BorderNavy, thickness = AppBorder.hairline)
         FeedActions(
             text = text,
             myReaction = item.myReaction,
@@ -7157,73 +7260,13 @@ private fun FeedPostCard(
                 context.startActivity(Intent.createChooser(shareIntent, text.t("groups.feed.share")))
             }
         )
-        if (item.comments.isNotEmpty()) {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                val visibleComments = if (replyOpen) item.comments else item.comments.takeLast(2)
-                visibleComments.forEach { comment ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(DeepNavy)
-                            .padding(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            "${comment.displayName}: ${comment.content}",
-                            modifier = Modifier.weight(1f),
-                            fontSize = 11.sp,
-                            lineHeight = 16.sp,
-                            color = SoftTextGold
-                        )
-                        if (comment.isMine || canModerate) {
-                            IconButton(
-                                onClick = { onDeleteComment(comment) },
-                                modifier = Modifier.size(30.dp)
-                            ) {
-                                Icon(
-                                    Icons.Default.DeleteOutline,
-                                    contentDescription = text.t("groups.feed.comment.delete.action"),
-                                    tint = MutedGold,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                            }
-                        }
-                    }
-                }
-                if (!replyOpen && item.comments.size > visibleComments.size) {
-                    TextButton(onClick = onToggleReply, contentPadding = PaddingValues(0.dp)) {
-                        Text(
-                            text.t("groups.feed.comments.viewAll", item.comments.size),
-                            fontSize = 10.sp,
-                            color = Gold
-                        )
-                    }
-                }
-            }
-        }
-        if (replyOpen) {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(
-                    value = replyDraft,
-                    onValueChange = onReplyDraftChange,
-                    placeholder = { Text(text.groupFeedReplyPlaceholder, fontSize = 11.sp) },
-                    singleLine = true,
-                    modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(10.dp)
-                )
-                Button(
-                    onClick = onSubmitReply,
-                    enabled = !busy && replyDraft.isNotBlank(),
-                    shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = DoneGreen)
-                ) {
-                    Text(text.groupFeedReplySubmit, fontSize = 11.sp, color = GoldLight)
-                }
-            }
-        }
+        HorizontalDivider(color = BorderNavy.copy(alpha = 0.6f), thickness = AppBorder.hairline)
     }
+    if (replyOpen) GroupCommentsSheet(
+        text = text, post = item, draft = replyDraft, canComment = canComment,
+        canModerate = canModerate, busy = busy, onDismiss = onToggleReply,
+        onDraftChange = onReplyDraftChange, onSubmit = onSubmitReply, onDelete = onDeleteComment
+    )
 }
 
 @Composable
@@ -7247,7 +7290,7 @@ private fun FeedActions(
         Row(horizontalArrangement = Arrangement.spacedBy(18.dp)) {
             Box {
                 Row(
-                    modifier = Modifier.clickable { reactionsExpanded = true },
+                    modifier = Modifier.heightIn(min = 48.dp).clickable { reactionsExpanded = true }.padding(horizontal = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
@@ -7258,7 +7301,7 @@ private fun FeedActions(
                         modifier = Modifier.size(17.dp)
                     )
                     Text(
-                        if (myReaction == null) "$totalReactions ${text.t("groups.feed.reactions")}" else groupReactionLabel(text, myReaction),
+                        if (totalReactions > 0) dailyGoalNumber(totalReactions, text.localeCode) else text.t("groups.feed.appreciate"),
                         fontSize = 11.sp,
                         color = reactionColor
                     )
@@ -7291,7 +7334,7 @@ private fun FeedActions(
                 }
             }
             Row(
-                modifier = Modifier.clickable { onToggleReply() },
+                modifier = Modifier.heightIn(min = 48.dp).clickable { onToggleReply() }.padding(horizontal = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
@@ -7301,11 +7344,12 @@ private fun FeedActions(
                     tint = MutedGold,
                     modifier = Modifier.size(16.dp)
                 )
-                Text("$commentCount ${text.groupFeed.comments}", fontSize = 11.sp, color = MutedGold)
+                Text(feedCommentLabel(text, commentCount), fontSize = 11.sp, color = Color(0xFFABB6C5))
             }
         }
-        IconButton(onClick = onShare, modifier = Modifier.size(32.dp)) {
-            Icon(Icons.Default.Share, contentDescription = text.t("groups.feed.share"), tint = MutedGold, modifier = Modifier.size(17.dp))
+        IconButton(onClick = onShare, modifier = Modifier.size(48.dp)) {
+            Icon(Icons.AutoMirrored.Filled.Reply, contentDescription = text.t("groups.feed.share"), tint = MutedGold,
+                modifier = Modifier.size(20.dp).graphicsLayer(scaleX = -1f))
         }
     }
 }
@@ -8222,10 +8266,11 @@ private fun ConfirmGroupTaskStatusDialog(
 }
 
 @Composable
-private fun ConfirmFeedDeleteDialog(
+internal fun ConfirmFeedDeleteDialog(
     text: AppStrings,
     title: String,
     body: String,
+    errorMessage: String = "",
     busy: Boolean,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit
@@ -8235,7 +8280,12 @@ private fun ConfirmFeedDeleteDialog(
         containerColor = MidNavy,
         icon = { Icon(Icons.Default.DeleteOutline, contentDescription = null, tint = DeleteRed) },
         title = { Text(title, color = GoldLight, fontWeight = FontWeight.Bold) },
-        text = { Text(body, color = MutedGold, fontSize = 12.sp, lineHeight = 18.sp) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(body, color = MutedGold, fontSize = 12.sp, lineHeight = 18.sp)
+                if (errorMessage.isNotBlank()) Text(errorMessage, color = DeleteRed, fontSize = 12.sp)
+            }
+        },
         dismissButton = {
             TextButton(onClick = onDismiss, enabled = !busy) {
                 Text(text.t("common.cancel"), color = MutedGold)
@@ -10411,7 +10461,7 @@ private fun ReadingJourneyEditor(
             colors = ButtonDefaults.buttonColors(containerColor = if (saved) DoneGreen else Gold)
         ) {
             Text(
-                if (saved) "Leesreis opgeslagen" else "Leesreis opslaan",
+                text.t(if (saved) "readingJourney.saved" else "readingJourney.save"),
                 fontSize = 12.sp,
                 color = DarkNavy,
                 fontWeight = FontWeight.Bold
@@ -10692,24 +10742,6 @@ private fun groupEventDateLabel(value: String): String {
         }.getOrNull()
     } ?: return value.take(16).replace('T', ' ')
     return SimpleDateFormat("dd-MM-yyyy · HH:mm", Locale.getDefault()).format(parsed)
-}
-
-private fun friendlyGroupError(error: Throwable, fallback: String): String {
-    val raw = error.localizedMessage.orEmpty()
-    val lower = raw.lowercase()
-    return when {
-        "geen groep gevonden" in lower -> raw.substringBefore("\n")
-        "0 rows" in lower || "cannot coerce" in lower -> "Geen groep gevonden met deze code."
-        "duplicate" in lower || "already exists" in lower -> "Je zit al in deze groep."
-        "user not found" in lower || "refresh token" in lower || "session" in lower ->
-            "Je opgeslagen login is niet meer geldig. Log uit en daarna opnieuw in."
-        "unable to resolve host" in lower || "network" in lower || "failed to connect" in lower ||
-            "timeout" in lower || "timed out" in lower ->
-            "Kan geen verbinding maken. Controleer je internetverbinding en probeer het opnieuw."
-        "jwt" in lower || "log eerst in" in lower || "auth" in lower -> "Log eerst in om groepen te gebruiken."
-        raw.isBlank() -> fallback
-        else -> fallback
-    }
 }
 
 private fun normalizeGroupType(value: String): String = when (value.trim().lowercase()) {

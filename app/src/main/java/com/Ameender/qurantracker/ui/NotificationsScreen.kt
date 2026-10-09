@@ -84,8 +84,8 @@ internal fun NotificationsScreen(language: String, model: NotificationsViewModel
         }
         NotificationSection(t("groups"))
         NotificationSettingsCard {
-        Text(t("comingSoon"), style = MaterialTheme.typography.labelLarge, color = Gold)
-        Text(t("pushPending"), color = MutedGold, style = MaterialTheme.typography.bodySmall)
+        Text(t("repliesReady"), style = MaterialTheme.typography.labelLarge, color = Gold)
+        Text(t("repliesHelp"), color = MutedGold, style = MaterialTheme.typography.bodySmall)
         if (!state.signedIn && !state.authChecking) Text(t("login"), modifier = Modifier.padding(vertical = 12.dp), color = GoldLight)
         if (state.groupsLoading || state.authChecking) LinearProgressIndicator(Modifier.fillMaxWidth().padding(vertical = 12.dp))
         if (state.groupsError) {

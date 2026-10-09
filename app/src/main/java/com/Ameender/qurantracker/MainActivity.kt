@@ -258,6 +258,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        com.Ameender.qurantracker.notifications.GroupPushRegistration.enqueue(this)
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
@@ -766,9 +771,12 @@ fun QuranTrackerApp(
                     )
                 }
                 // Incoming links are delivered centrally, after the first-run gate.
-                composable(route = Screen.Groups.route) {
+                composable(route = "groups?notificationId={notificationId}", arguments = listOf(
+                    androidx.navigation.navArgument("notificationId") { type = androidx.navigation.NavType.StringType; nullable = true; defaultValue = null }
+                )) { entry ->
                     GroupsSettingsPage(
                         text = text,
+                        notificationId = entry.arguments?.getString("notificationId"),
                         invitedGroupCode = groupInviteCode.takeUnless { replayIntro },
                         invitedGroupToken = groupInviteToken.takeUnless { replayIntro },
                         onInviteConsumed = onGroupInviteConsumed,

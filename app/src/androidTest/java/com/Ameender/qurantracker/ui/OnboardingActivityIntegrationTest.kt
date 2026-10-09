@@ -28,8 +28,10 @@ class OnboardingActivityIntegrationTest {
         assumeTrue(Build.HARDWARE == "ranchu" || Build.HARDWARE == "goldfish")
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val pending = PendingNavigationStore(context)
-        assumeTrue(pending.groupCode == null && pending.groupToken == null && pending.notification == null)
+        // Isolate stale emulator invitations without discarding the original delivery state.
+        val navigationPrefs = context.getSharedPreferences("pending_navigation", Context.MODE_PRIVATE)
+        val navigationKeys = listOf("group_code", "group_token", "notification")
+        val navigationBefore = navigationKeys.associateWith { navigationPrefs.getString(it, null) }
         val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val keys = listOf("onboarding_language_stage_v1", "onboarding_intro_step_v1", "app_language")
         val before = keys.associateWith { prefs.getString(it, null) }
@@ -37,11 +39,17 @@ class OnboardingActivityIntegrationTest {
             instrumentation.uiAutomation.grantRuntimePermission(context.packageName, Manifest.permission.POST_NOTIFICATIONS)
         }
         try {
+            navigationPrefs.edit().apply { navigationKeys.forEach { remove(it) } }.commit()
             prefs.edit().putString(keys[0], stage).remove(keys[1]).putString(keys[2], "nl").commit()
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).setAction(Intent.ACTION_MAIN)).use {
                 block(it, context)
             }
         } finally {
+            navigationPrefs.edit().apply {
+                navigationBefore.forEach { (key, value) ->
+                    if (value == null) remove(key) else putString(key, value)
+                }
+            }.commit()
             val edit = prefs.edit()
             before.forEach { (key, value) -> if (value == null) edit.remove(key) else edit.putString(key, value) }
             edit.commit()

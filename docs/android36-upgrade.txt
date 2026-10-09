@@ -1,0 +1,47 @@
+Android target upgrade — 2026-10-09
+
+compileSdk/targetSdk: 34 -> 36; minSdk remains 26.
+AGP: 8.5.2 -> 8.13.2; Gradle wrapper: 9.0.0 -> 8.13 (documented AGP pairing).
+Application ID, signing identity, database, preferences and backend unchanged.
+
+Verification:
+- assembleDebug successful.
+- 103 unit tests, zero failures/errors.
+- Full lintDebug and lintRelease now pass with zero errors. Compose BOM updated
+  from 2024.02.00 to 2025.08.01 in both app and instrumentation dependencies,
+  replacing the old lint detector that could not read Kotlin 2.1 metadata.
+  No lint suppressions/baseline added; temporary focused-lint script removed.
+  Warnings remain: debug 2830, release 2812 (10 hints each). These are not a
+  claim of full release quality or Play compliance.
+- Installed on the physical Android 16 phone using install -r; launch succeeded.
+- Package manager confirmed minSdk=26, targetSdk=36. Dashboard screenshot checked:
+  top and bottom controls are outside system bars. No broad manual QA claimed.
+- Emulator package manager was unresponsive even to a basic test/reboot.
+  Stopped only Pixel_9_Pro_XL using adb emu kill and cold-started with
+  -no-snapshot-load -no-snapshot-save -no-window, without wiping storage.
+  Installation and instrumentation now complete normally.
+- connectedDebugAndroidTest XML: 68 tests, 65 passed, 3 skipped, zero failures
+  or errors. Skips: opt-in history clearing, two-process checkpoint fixture,
+  and visual Warsh test requiring downloaded page files. All 240 Hafs/Warsh
+  destination checks and normal onboarding activity integration tests pass.
+- Fixed outdated migration test to use the production migration chain through
+  schema 20, preserving its assertions about old notes. No migration SQL changed.
+- Onboarding integration fixture now backs up/restores pending navigation state
+  on the emulator, so stale invitations do not skip these tests.
+- Final Compose-updated APK installed with install -r on the Android 16 phone;
+  cold launch succeeded. User data not cleared.
+
+Platform review: existing Scaffold consumes content insets; language/intro use
+safeDrawingPadding; navigation uses AndroidX/Compose rather than onBackPressed.
+No removeFirst/removeLast new-platform collection calls found in app sources.
+No new background-service permissions or behavior changes introduced.
+
+This is only the Android-target step, not full Play release approval. Remaining
+release work includes warning triage, broader device/feature testing, release signing,
+AAB validation (including native-library/page-size and download-size checks),
+privacy/data safety and Play Console requirements.
+
+References:
+https://developer.android.com/build/releases/agp-8-13-0-release-notes
+https://developer.android.com/about/versions/16/behavior-changes-16
+https://developer.android.com/about/versions/15/behavior-changes-15

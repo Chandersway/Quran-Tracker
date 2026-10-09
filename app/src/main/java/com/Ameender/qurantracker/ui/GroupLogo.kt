@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.Ameender.qurantracker.data.SupabaseService
@@ -27,7 +29,13 @@ import kotlinx.coroutines.launch
 
 /** Shared group identity, deliberately separate from a member's group profile avatar. */
 @Composable
-internal fun GroupLogo(code: String, canEdit: Boolean, text: AppStrings) {
+internal fun GroupLogo(
+    code: String,
+    canEdit: Boolean,
+    text: AppStrings,
+    size: Dp = 76.dp,
+    loadLogo: suspend (String) -> String? = SupabaseService::loadGroupLogo
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var url by remember(code) { mutableStateOf<String?>(null) }
@@ -41,7 +49,7 @@ internal fun GroupLogo(code: String, canEdit: Boolean, text: AppStrings) {
     var error by remember(code) { mutableStateOf<String?>(null) }
     val snackbar = remember { SnackbarHostState() }
     LaunchedEffect(code) {
-        try { url = SupabaseService.loadGroupLogo(code) }
+        try { url = loadLogo(code) }
         catch (e: Exception) { if (e is CancellationException) throw e; error = text.t("groups.logo.loadError") }
         finally { loading = false }
     }
@@ -78,11 +86,14 @@ internal fun GroupLogo(code: String, canEdit: Boolean, text: AppStrings) {
         }
     }
     Box {
-        Box(Modifier.size(76.dp).clip(RoundedCornerShape(22.dp)).background(GoldSurface)
-            .clickable(enabled = canEdit && !loading) { pending = null; pendingUri = null; removing = false; dialog = true },
+        Box(Modifier.size(size).clip(RoundedCornerShape(size * 0.28f)).background(GoldSurface)
+            .then(if (canEdit) Modifier.clickable(enabled = !loading) {
+                pending = null; pendingUri = null; removing = false; dialog = true
+            } else Modifier),
             contentAlignment = Alignment.Center) {
-            Icon(Icons.Default.Mosque, text.t("groups.logo.title"), tint = Gold, modifier = Modifier.size(40.dp))
-            if (url != null) AsyncImage(url, text.t("groups.logo.title"), Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+            Icon(Icons.Default.Mosque, text.t("groups.logo.title"), tint = Gold, modifier = Modifier.size(size * 0.52f))
+            if (url != null) AsyncImage(url, text.t("groups.logo.title"),
+                Modifier.fillMaxSize().testTag("group_logo_$code"), contentScale = ContentScale.Crop)
             if (loading) CircularProgressIndicator(Modifier.size(24.dp), color = Gold, strokeWidth = 2.dp)
         }
         SnackbarHost(snackbar, Modifier.widthIn(max = 280.dp))
@@ -115,7 +126,7 @@ internal fun GroupLogo(code: String, canEdit: Boolean, text: AppStrings) {
                     saving = true; error = null
                     try {
                         SupabaseService.setGroupLogo(code, if (removing) null else pending, mime)
-                        url = SupabaseService.loadGroupLogo(code)
+                        url = loadLogo(code)
                         dialog = false
                         snackbar.showSnackbar(text.t("groups.logo.saved"))
                     } catch (e: Exception) { if (e is CancellationException) throw e; error = text.t("groups.logo.saveError") }

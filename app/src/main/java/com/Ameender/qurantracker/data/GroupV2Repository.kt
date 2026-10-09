@@ -305,7 +305,8 @@ private data class CreateGroupV2Params(
     @SerialName("p_progress_unit") val progressUnit: String,
     @SerialName("p_goal_period") val goalPeriod: String,
     @SerialName("p_goal_target") val goalTarget: Int?,
-    @SerialName("p_privacy") val privacy: String
+    @SerialName("p_privacy") val privacy: String,
+    @SerialName("p_member_permissions") val memberPermissions: GroupMemberPermissions
 )
 
 @Serializable
@@ -317,7 +318,8 @@ private data class UpdateGroupV2Params(
     @SerialName("p_progress_unit") val progressUnit: String,
     @SerialName("p_goal_period") val goalPeriod: String,
     @SerialName("p_goal_target") val goalTarget: Int?,
-    @SerialName("p_privacy") val privacy: String
+    @SerialName("p_privacy") val privacy: String,
+    @SerialName("p_member_permissions") val memberPermissions: GroupMemberPermissions
 )
 
 @Serializable
@@ -621,10 +623,11 @@ internal class GroupV2Repository(
         goalPeriod: String,
         goalTarget: Int?,
         privacy: String,
-        code: String
+        code: String,
+        memberPermissions: GroupMemberPermissions
     ): ReadingGroupDetails {
         val row = client.postgrest.rpc(
-            "create_group_v2_full",
+            "create_group_v3_full",
             CreateGroupV2Params(
                 code = code.trim().uppercase(),
                 name = name.trim(),
@@ -633,10 +636,11 @@ internal class GroupV2Repository(
                 progressUnit = progressUnit,
                 goalPeriod = goalPeriod,
                 goalTarget = goalTarget,
-                privacy = privacy
+                privacy = privacy,
+                memberPermissions = memberPermissions
             )
         ).decodeSingleFlexible<GroupV2Row>()
-        return row.toDetails(currentUserId, "owner")
+        return loadGroup(row.code, currentUserId)
     }
 
     suspend fun joinGroup(
@@ -648,12 +652,16 @@ internal class GroupV2Repository(
             "join_group_v2_by_code",
             JoinGroupV2Params(code.trim().uppercase(), displayName)
         ).decodeSingleFlexible<GroupV2Row>()
-        return row.toDetails(currentUserId, loadCurrentRole(row.id, currentUserId))
+        return loadGroup(row.code, currentUserId)
     }
 
     suspend fun loadGroup(code: String, currentUserId: String): ReadingGroupDetails {
         val row = loadGroupRowByCode(code)
+        val memberPermissions = client.postgrest.rpc(
+            "get_group_member_permissions_v1", GroupIdParam(row.id)
+        ).decodeAs<GroupMemberPermissions>()
         return row.toDetails(currentUserId, row.viewerRole ?: loadCurrentRole(row.id, currentUserId))
+            .copy(memberPermissions = memberPermissions)
     }
 
     suspend fun loadCurrentUserGroups(currentUserId: String): List<ReadingGroupDetails> {
@@ -678,11 +686,12 @@ internal class GroupV2Repository(
         progressUnit: String,
         goalPeriod: String,
         goalTarget: Int?,
-        privacy: String
+        privacy: String,
+        memberPermissions: GroupMemberPermissions
     ): ReadingGroupDetails {
         val existing = loadGroupRowByCode(code)
         val updated = client.postgrest.rpc(
-            "update_group_v2_full",
+            "update_group_v3_full",
             UpdateGroupV2Params(
                 groupId = existing.id,
                 name = name.trim(),
@@ -691,10 +700,11 @@ internal class GroupV2Repository(
                 progressUnit = progressUnit,
                 goalPeriod = goalPeriod,
                 goalTarget = goalTarget,
-                privacy = privacy
+                privacy = privacy,
+                memberPermissions = memberPermissions
             )
         ).decodeSingleFlexible<GroupV2Row>()
-        return updated.toDetails(currentUserId, loadCurrentRole(updated.id, currentUserId))
+        return loadGroup(updated.code, currentUserId)
     }
 
     suspend fun deleteGroup(code: String) {
@@ -1229,14 +1239,16 @@ internal class GroupV2Repository(
         )
     }
 
-    suspend fun loadFeed(code: String, currentUserId: String?): List<ReadingGroupFeedItem> {
+    suspend fun loadFeed(code: String, currentUserId: String?, postId: String? = null): List<ReadingGroupFeedItem> {
         val group = loadGroupRowByCode(code)
         val posts = client.from("group_posts")
             .select {
                 filter {
                     eq("group_id", group.id)
                     eq("status", "published")
+                    if (postId != null) eq("id", postId)
                 }
+                order("created_at", io.github.jan.supabase.postgrest.query.Order.DESCENDING)
                 limit(60)
             }
             .decodeList<GroupV2PostRow>()
@@ -1275,7 +1287,9 @@ internal class GroupV2Repository(
                 likedByMe = currentUserId != null && postReactions.any {
                     it.userId == currentUserId && it.reaction == "like"
                 },
-                comments = postComments.sortedBy { it.createdAt }.map { it.toCommentItem(currentUserId) },
+                comments = postComments.sortedBy { it.createdAt }.map {
+                    it.toCommentItem(currentUserId, membersById[it.createdBy]?.displayName)
+                },
                 isMine = currentUserId != null && post.createdBy == currentUserId,
                 myReaction = currentUserId?.let { userId ->
                     postReactions.firstOrNull { it.userId == userId }?.reaction
@@ -1299,15 +1313,15 @@ internal class GroupV2Repository(
     suspend fun addComment(
         code: String,
         postId: String,
-        content: String,
-        displayName: String
+        content: String
     ): ReadingGroupCommentItem {
         val group = loadGroupRowByCode(code)
+        val profile = loadMyGroupProfile(code)
         val row = client.postgrest.rpc(
             "add_group_post_comment_v2",
-            AddPostCommentV2Params(group.id, postId, content.trim(), displayName)
+            AddPostCommentV2Params(group.id, postId, content.trim(), profile.displayName)
         ).decodeSingleFlexible<GroupV2CommentRow>()
-        return row.toCommentItem(row.createdBy)
+        return row.toCommentItem(row.createdBy, profile.displayName)
     }
 
     suspend fun updatePost(
@@ -1442,7 +1456,12 @@ internal class GroupV2Repository(
                 weeklyPoints = (readingWeeklyPoints.toLong() + (awards?.weeklyPoints ?: 0L))
                     .coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
                 monthlyPoints = (readingMonthlyPoints.toLong() + (awards?.monthlyPoints ?: 0L))
-                    .coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+                    .coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
+                readingEntries = userRows.sortedByDescending { it.occurredOn }.map {
+                    ReadingGroupReadingEntry(it.unit, it.amount, it.occurredOn,
+                        if (it.source.startsWith("group_manual:${it.unit}:"))
+                            it.source.substringAfterLast(':').toIntOrNull() else null)
+                }
             )
         }.sortedByDescending { it.totalPoints }
     }
@@ -1560,9 +1579,7 @@ private fun GroupV2PostRow.toFeedItem(
 ): ReadingGroupFeedItem {
     return ReadingGroupFeedItem(
         id = legacyId ?: stableUiId(id),
-        displayName = displayNameOverride?.takeIf(String::isNotBlank)
-            ?: displayNameSnapshot?.takeIf(String::isNotBlank)
-            ?: "Lid",
+        displayName = resolveGroupAuthorName(displayNameOverride, displayNameSnapshot),
         type = when (type) {
             "progress" -> "progress"
             "media" -> "media"
@@ -1722,10 +1739,10 @@ private fun GroupV2AuditEntryRow.toAuditEntry() = ReadingGroupAuditEntry(
     createdAt = createdAt
 )
 
-private fun GroupV2CommentRow.toCommentItem(currentUserId: String?): ReadingGroupCommentItem {
+private fun GroupV2CommentRow.toCommentItem(currentUserId: String?, currentDisplayName: String? = null): ReadingGroupCommentItem {
     return ReadingGroupCommentItem(
         id = legacyId ?: stableUiId(id),
-        displayName = displayNameSnapshot?.takeIf(String::isNotBlank) ?: "Lid",
+        displayName = resolveGroupAuthorName(currentDisplayName, displayNameSnapshot),
         content = content,
         createdAt = createdAt,
         serverId = id,

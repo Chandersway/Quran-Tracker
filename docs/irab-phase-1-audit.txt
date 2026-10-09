@@ -1,0 +1,75 @@
+I'RAB PHASE 1 — SOURCE AND MAPPING AUDIT
+Date: 2026-10-09. Research only; no app/runtime change.
+
+Decision: CONDITIONAL GO for an online book-excerpt reader, NOT a guaranteed
+complete, isolated per-ayah explanation. Start with Hafs references.
+
+SOURCE
+https://api.quranpedia.net/
+https://api.quranpedia.net/dumps
+Book 316: إعراب القرآن, short_name إعراب القرآن للدعاس.
+API credits a group of authors; do not invent individual author metadata.
+Edition 1, 1425; publisher دار المنير ودار الفارابي - دمشق.
+Language Arabic, RTL. Provider's book.parts says 1 but 36:1 content.part is 3:
+use per-fragment volume/page references; don't infer all content is volume 1.
+These are technical/source checks, not scholarly certification or a full-book audit.
+
+LIVE SAMPLE (12 references; 11 returned nonempty content)
+Reference  Blocks  Volume/page(s)  Observed scope
+1:1        2       1/7,8           Entire 1:1-7 plus introductory material
+1:7        2       1/7,8           Same group excerpt
+2:1        1       1/9             2:1-5
+2:2        1       1/9             Same group excerpt
+2:254      1       1/107           Headers for 253 and 254
+2:255      1       1/108           Tail of 254, header 255, then 256-257
+2:256      1       1/108           Same page as 255
+2:282      2       1/119,120       Long explanation continues across pages
+18:1       1       page 209        Headers 18:1-4 and 18:5-7
+36:1       1       3/88            Headers 36:1-8 and 36:9-12
+112:1      0       -               Missing in book 316; verified twice
+114:6      1       page 477        Headers for all six ayahs
+Follow-up: 112:2 also missing in book 316. Availability endpoint for 112:1/2
+lists books 180,309,318, not 316. Book 309 returns content for both.
+Never silently relabel another book as ad-Da'as: offer an explicit alternative.
+
+MAPPING FINDINGS
+Endpoint: /v1/ayah/{surah}/{ayah}/book/316 uses local Hafs verse references.
+Actual content.ayahs values are global IDs in this sample, despite the docs'
+illustration of a local range string. Examples: 2:1 -> 8..12; 2:255 ->
+262,263,264; 2:282 -> 289; 114:6 -> 6231..6236.
+Validate IDs using canonical Hafs counts; NEVER interpret 262 as local verse 262
+when requesting 2:255. Don't trust ayahs metadata as exact text boundaries:
+page 108 also begins with the continuation of the preceding ayah's explanation.
+HTML contains p/br/div and footnotes. Sanitize rendering, disable scripts and
+remote resources, retain paragraphs and footnotes; don't inject arbitrary HTML.
+Combining consecutive returned pages is needed for 2:282. Automatic trimming
+on a header alone risks removing continuation text. Preferred first UI:
+'Book excerpt related to this ayah; may include surrounding ayahs', with source,
+volume/page and unchanged original text. Precise extraction is a later feature.
+
+USAGE POLICY CHECK (provider statement, not independent rights clearance)
+Live API: free for apps, no authentication. Attribution optional for live use;
+we should still visibly credit Quranpedia and the specific book.
+Published rate limits: 120 requests/min/IP and 10,000/day/IP; handle 429 and
+avoid retries in a tight loop. No mass API scraping. Official versioned dumps
+and a changes endpoint are offered for bulk data; dataset republication requires
+Quranpedia attribution/link. Avoid frozen unmaintained copies.
+Use live fetching for phase 2. Offline redistribution/update strategy and any
+book-specific restrictions need separate review before bundling book content.
+
+WARSH
+Do not call the explanation Warsh-specific. Existing Warsh-to-Hafs verse mapping
+can locate corresponding references but does not resolve grammatical differences
+between readings. Keep phase 2 Hafs-based; verify Warsh separately in phase 4.
+
+PHASE 2 ACCEPTANCE CONDITIONS
+- One reusable Arabic RTL book-excerpt screen; source and volume/page visible.
+- Clear multi-ayah/excerpt label, no claim of exact single-ayah segmentation.
+- Missing content (112:1) has honest empty state and explicit alternative book.
+- Timeouts/429/offline handled; no automatic AI reconstruction or translation.
+- No claim of complete Quran coverage based on this small sample.
+- Later specialist review for scholarly accuracy; preserve original text.
+
+REPRODUCE
+scripts/audit_irab_source.ps1 issues 12 small read-only requests and outputs
+metadata/header summaries, not a redistributed copy of the book.

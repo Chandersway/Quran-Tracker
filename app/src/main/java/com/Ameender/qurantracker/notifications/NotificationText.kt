@@ -2,6 +2,10 @@ package com.Ameender.qurantracker.notifications
 
 internal fun notificationText(language: String, key: String): String {
     val row = when (key) {
+        "repliesReady" -> listOf("Pushmeldingen bij groepsreacties", "Push notifications for group replies", "إشعارات فورية لردود المجموعات", "Notifications push pour les réponses de groupe")
+        "repliesHelp" -> listOf("Ontvang meldingen bij nieuwe reacties op je berichten en discussies waarin je hebt gereageerd. Andere soorten groepspush worden nog niet automatisch verstuurd.", "Receive notifications for new replies to your posts and discussions you have replied to. Other types of group push notifications are not yet sent automatically.", "تلقَّ إشعارات بالردود الجديدة على منشوراتك والنقاشات التي شاركت فيها برد. لا تُرسل الأنواع الأخرى من إشعارات المجموعات الفورية تلقائيًا بعد.", "Recevez des notifications pour les nouvelles réponses à vos publications et aux discussions auxquelles vous avez répondu. Les autres types de notifications push de groupe ne sont pas encore envoyés automatiquement.")
+        "replyTitle" -> listOf("Nieuwe groepsreactie", "New group reply", "رد جديد في المجموعة", "Nouvelle réponse dans le groupe")
+        "replyBody" -> listOf("Er is gereageerd op een discussie waaraan je deelneemt. Tik om te bekijken.", "Someone replied to a discussion you participate in. Tap to view.", "هناك رد جديد في نقاش تشارك فيه. اضغط لعرضه.", "Une réponse a été ajoutée à une discussion à laquelle vous participez. Appuyez pour la voir.")
         "intro" -> listOf("Kies welke herinneringen je ontvangt en wanneer je rust wilt.", "Choose your reminders and when you want quiet time.", "اختر تذكيراتك والأوقات التي تفضل فيها الهدوء.", "Choisissez vos rappels et vos heures de calme.")
         "deviceAllowed" -> listOf("Toegestaan op je telefoon", "Allowed on your phone", "مسموح بها على هاتفك", "Autorisées sur votre téléphone")
         "systemHelp" -> listOf("Geluid, trillen en weergave op je vergrendelscherm beheer je via Android.", "Manage sound, vibration and lock-screen visibility in Android.", "تحكّم بالصوت والاهتزاز والعرض على شاشة القفل من إعدادات Android.", "Gérez le son, les vibrations et l’écran verrouillé dans Android.")
@@ -33,7 +37,7 @@ internal fun notificationText(language: String, key: String): String {
         "groups" -> listOf("Groepen", "Groups", "المجموعات", "Groupes")
         "groupOn" -> listOf("Groepsnotificaties", "Group notifications", "إشعارات المجموعات", "Notifications de groupe")
         "mention" -> listOf("Mentions", "Mentions", "الإشارات إليك", "Mentions")
-        "reaction" -> listOf("Reacties op eigen berichten", "Reactions to your posts", "التفاعلات مع منشوراتك", "Réactions à vos publications")
+        "reaction" -> listOf("Reacties in jouw discussies", "Replies in your discussions", "الردود في نقاشاتك", "Réponses dans vos discussions")
         "announcement" -> listOf("Aankondigingen", "Announcements", "الإعلانات", "Annonces")
         "invitation" -> listOf("Uitnodigingen", "Invitations", "الدعوات", "Invitations")
         "join_request" -> listOf("Toetredingsverzoeken", "Join requests", "طلبات الانضمام", "Demandes d’adhésion")

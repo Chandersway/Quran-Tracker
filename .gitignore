@@ -35,3 +35,5 @@ ayahinfo_1260_tmp/
 *service-account*.json
 *service_account*.json
 *firebase-adminsdk*.json
+/.firebase/
+firebase-debug.log*

@@ -80,7 +80,7 @@ class WarshMaknoonGeometryTest {
                         ayahs = emptyList(),
                         bookmarkedAyahs = emptySet(),
                         selectedAyahKey = null,
-                        onSelectAyah = { surah, ayah, _, _, _ -> selected = surah to ayah },
+                        onSelectAyah = { surah, ayah, _, _, _, _ -> selected = surah to ayah },
                         modifier = Modifier.width(width.value.dp).testTag("warsh-page")
                     )
                 }

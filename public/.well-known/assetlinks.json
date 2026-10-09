@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.Ameender.qurantracker",
+      "sha256_cert_fingerprints": [
+        "4F:83:CB:C5:51:FD:F8:CB:32:6B:EB:57:15:25:1C:D2:24:9C:5B:5D:5B:4A:9D:7E:C3:21:2D:19:2F:DA:D0:E5"
+      ]
+    }
+  }
+]

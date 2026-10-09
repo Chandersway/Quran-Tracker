@@ -49,7 +49,7 @@ abstract class QuranDatabase : RoomDatabase() {
             }
         }
 
-        private val ALL_MIGRATIONS = arrayOf(
+        internal val ALL_MIGRATIONS = arrayOf(
             migration(1, 2),
             migration(2, 3),
             migration(3, 4),

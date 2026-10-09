@@ -1,0 +1,3 @@
+[functions.group-push]
+# Authentication is performed by a database-verified, Vault-backed dispatcher token.
+verify_jwt = false

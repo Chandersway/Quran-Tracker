@@ -2,6 +2,8 @@ package com.Ameender.qurantracker.ui
 
 import android.media.MediaPlayer
 import android.media.PlaybackParams
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -84,7 +86,9 @@ data class AudioTrack(
     val surahNameArabic: String = "",
     val ayahNumber: Int?,
     val reciterName: String,
-    val audioUrl: String
+    val audioUrl: String,
+    val clipStartMs: Int = 0,
+    val clipEndMs: Int? = null
 )
 
 enum class AudioPlaybackState {
@@ -171,16 +175,27 @@ class GlobalAudioPlayer(
     var sleepTimerEndsAtMs by mutableStateOf<Long?>(null)
         private set
 
-    init {
-        mediaPlayer.isLooping = repeatEnabled
-        mediaPlayer.setOnCompletionListener {
+    private val clipHandler = Handler(Looper.getMainLooper())
+    private val clipWatch = object : Runnable {
+        override fun run() {
+            val end = currentTrack?.clipEndMs ?: return
+            if (isPlaying && !isPreparing && runCatching { mediaPlayer.currentPosition >= end }.getOrDefault(false)) {
+                runCatching { mediaPlayer.pause() }
+                completeTrack()
+            }
+            if (currentTrack?.clipEndMs != null && isPlaying) clipHandler.postDelayed(this, 20)
+        }
+    }
+
+    private fun completeTrack() {
+            clipHandler.removeCallbacks(clipWatch)
             if (selectionTracks.isNotEmpty()) {
                 val next = nextRepeatStep(selectionIndex, selectionRound, selectionTracks.size, selectionRounds)
                 if (next != null) {
                     selectionIndex = next.first
                     selectionRound = next.second
                     playInternal(selectionTracks[selectionIndex])
-                    return@setOnCompletionListener
+                    return
                 }
             }
             val nextTrack = currentTrack
@@ -188,14 +203,18 @@ class GlobalAudioPlayer(
                 ?.let(resolveNextTrack)
             if (nextTrack != null) {
                 play(nextTrack, startWhenReady = true)
-                return@setOnCompletionListener
+                return
             }
             isPlaying = false
             isPreparing = false
             isBuffering = false
             positionMs = durationMs.coerceAtLeast(0)
             playbackState = AudioPlaybackState.Completed
-        }
+    }
+
+    init {
+        mediaPlayer.isLooping = repeatEnabled
+        mediaPlayer.setOnCompletionListener { completeTrack() }
         mediaPlayer.setOnBufferingUpdateListener { _, percent ->
             bufferedPercent = percent.coerceIn(0, 100)
         }
@@ -245,7 +264,9 @@ class GlobalAudioPlayer(
         }
 
         runCatching {
+            clipHandler.removeCallbacks(clipWatch)
             mediaPlayer.reset()
+            mediaPlayer.setOnSeekCompleteListener(null)
             currentTrack = track
             positionMs = startPositionMs.coerceAtLeast(0)
             durationMs = 0
@@ -260,19 +281,31 @@ class GlobalAudioPlayer(
             mediaPlayer.isLooping = repeatEnabled && selectionTracks.isEmpty()
             mediaPlayer.setDataSource(track.audioUrl)
             mediaPlayer.setOnPreparedListener {
-                durationMs = it.duration.coerceAtLeast(0)
+                durationMs = ((track.clipEndMs ?: it.duration) - track.clipStartMs).coerceAtLeast(0)
                 val maxPosition = durationMs.takeIf { value -> value > 0 } ?: Int.MAX_VALUE
                 val safeStartPosition = positionMs.coerceIn(0, maxPosition)
-                if (safeStartPosition > 0) it.seekTo(safeStartPosition)
-                isPreparing = false
-                if (playWhenReady) {
-                    it.start()
-                    applyPlaybackSpeed()
-                    isPlaying = true
-                    playbackState = AudioPlaybackState.Playing
+                fun ready() {
+                    isPreparing = false
+                    if (playWhenReady) {
+                        it.start()
+                        applyPlaybackSpeed()
+                        isPlaying = true
+                        playbackState = AudioPlaybackState.Playing
+                        if (track.clipEndMs != null) clipHandler.post(clipWatch)
+                    } else {
+                        isPlaying = false
+                        playbackState = AudioPlaybackState.Paused
+                    }
+                }
+                val absoluteStart = track.clipStartMs + safeStartPosition
+                if (absoluteStart > 0) {
+                    it.setOnSeekCompleteListener { prepared ->
+                        prepared.setOnSeekCompleteListener(null)
+                        ready()
+                    }
+                    it.seekTo(absoluteStart.toLong(), MediaPlayer.SEEK_CLOSEST)
                 } else {
-                    isPlaying = false
-                    playbackState = AudioPlaybackState.Paused
+                    ready()
                 }
             }
             mediaPlayer.prepareAsync()
@@ -291,6 +324,7 @@ class GlobalAudioPlayer(
     }
 
     fun pause() {
+        clipHandler.removeCallbacks(clipWatch)
         playWhenReady = false
         if (isPlaying) runCatching { mediaPlayer.pause() }
         isPlaying = false
@@ -319,6 +353,10 @@ class GlobalAudioPlayer(
                 isVisible = true
                 errorType = null
                 playbackState = AudioPlaybackState.Playing
+                if (currentTrack?.clipEndMs != null) {
+                    clipHandler.removeCallbacks(clipWatch)
+                    clipHandler.post(clipWatch)
+                }
             }.onFailure {
                 errorType = AudioErrorType.Unknown
                 playbackState = AudioPlaybackState.Error
@@ -340,6 +378,7 @@ class GlobalAudioPlayer(
     }
 
     fun stop() {
+        clipHandler.removeCallbacks(clipWatch)
         selectionTracks = emptyList()
         selectionTitle = null
         if (isPlaying || isPreparing || isBuffering) runCatching { mediaPlayer.stop() }
@@ -361,7 +400,7 @@ class GlobalAudioPlayer(
     fun seekTo(position: Int) {
         if (currentTrack == null || isPreparing) return
         val safePosition = position.coerceIn(0, durationMs.takeIf { it > 0 } ?: Int.MAX_VALUE)
-        runCatching { mediaPlayer.seekTo(safePosition) }
+        runCatching { mediaPlayer.seekTo((safePosition + (currentTrack?.clipStartMs ?: 0)).toLong(), MediaPlayer.SEEK_CLOSEST) }
             .onSuccess { positionMs = safePosition }
     }
 
@@ -409,8 +448,8 @@ class GlobalAudioPlayer(
 
     fun updatePosition() {
         if (isPlaying || isBuffering) {
-            positionMs = runCatching { mediaPlayer.currentPosition }.getOrDefault(positionMs)
-            durationMs = runCatching { mediaPlayer.duration }.getOrDefault(durationMs).coerceAtLeast(0)
+            positionMs = runCatching { mediaPlayer.currentPosition - (currentTrack?.clipStartMs ?: 0) }.getOrDefault(positionMs).coerceAtLeast(0)
+            if (currentTrack?.clipEndMs == null) durationMs = runCatching { mediaPlayer.duration }.getOrDefault(durationMs).coerceAtLeast(0)
         }
         val timerEnd = sleepTimerEndsAtMs
         if (timerEnd != null && System.currentTimeMillis() >= timerEnd) {
@@ -420,6 +459,7 @@ class GlobalAudioPlayer(
     }
 
     fun release() {
+        clipHandler.removeCallbacks(clipWatch)
         runCatching { mediaPlayer.release() }
     }
 

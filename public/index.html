@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Groepsuitnodiging · Quran Tracker</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #08233d;
+      color: #fff8eb;
+      font-family: system-ui, sans-serif;
+    }
+    main { width: 100%; max-width: 420px; text-align: center; }
+    .brand { color: #dfb866; letter-spacing: 5px; }
+    h1 { font-size: 27px; }
+    p { line-height: 1.6; color: #d2dce5; }
+    #code { font-size: 26px; letter-spacing: 3px; }
+    select { padding: 10px; border-radius: 8px; background: #08233d; color: #fff8eb; border: 1px solid #dfb866; font: inherit; }
+    label { display: block; margin-bottom: 8px; }
+    a, button {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a { background: #dfb866; color: #08233d; }
+    button {
+      border: 1px solid #dfb866;
+      background: transparent;
+      color: #dfb866;
+    }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <h2 class="brand">Quran Tracker</h2>
+    <label id="language-label" for="language">Taal</label>
+    <select id="language">
+      <option value="nl">Nederlands</option>
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+    </select>
+    <h1 id="title">Je bent uitgenodigd voor een groep</h1>
+    <p id="description">De uitnodiging wordt geladen…</p>
+
+    <section id="actions" hidden>
+      <p id="code-label">Groepscode</p>
+      <strong id="code" dir="ltr"></strong>
+      <a id="open">Open in Quran Tracker</a>
+      <button id="copy" type="button">Kopieer groepscode</button>
+      <p id="install">Quran Tracker moet op je telefoon geïnstalleerd zijn.</p>
+    </section>
+
+    <p id="status" role="status"></p>
+  </main>
+
+  <script>
+    const url = new URL(window.location.href);
+    const translations = {
+      nl: { pageTitle: "Groepsuitnodiging · Quran Tracker", language: "Taal", title: "Je bent uitgenodigd voor een groep",
+        description: "Open de uitnodiging in Quran Tracker om verder te gaan.", code: "Groepscode", open: "Open in Quran Tracker",
+        copy: "Kopieer groepscode", install: "Quran Tracker moet op je telefoon geïnstalleerd zijn.",
+        invalid: "Deze link bevat geen geldige groepscode. Vraag om een nieuwe uitnodiging.",
+        copied: "Groepscode gekopieerd.", copyFailed: "Kopiëren lukt niet. Neem de code hierboven over." },
+      en: { pageTitle: "Group invitation · Quran Tracker", language: "Language", title: "You’re invited to a group",
+        description: "Open the invitation in Quran Tracker to continue.", code: "Group code", open: "Open in Quran Tracker",
+        copy: "Copy group code", install: "Quran Tracker must be installed on your phone.",
+        invalid: "This link does not contain a valid group code. Ask for a new invitation.",
+        copied: "Group code copied.", copyFailed: "Could not copy. Use the code shown above." },
+      ar: { pageTitle: "دعوة إلى مجموعة · Quran Tracker", language: "اللغة", title: "أنت مدعو للانضمام إلى مجموعة",
+        description: "افتح الدعوة في Quran Tracker للمتابعة.", code: "رمز المجموعة", open: "افتح في Quran Tracker",
+        copy: "نسخ رمز المجموعة", install: "يجب تثبيت Quran Tracker على هاتفك.",
+        invalid: "هذا الرابط لا يحتوي على رمز مجموعة صالح. اطلب دعوة جديدة.",
+        copied: "تم نسخ رمز المجموعة.", copyFailed: "تعذر النسخ. استخدم الرمز الظاهر أعلاه." }
+    };
+    const normalizeLanguage = value => (value || "").toLowerCase().split(/[-_]/)[0];
+    const requestedLanguage = normalizeLanguage(url.searchParams.get("lang"));
+    const browserLanguage = (navigator.languages || [navigator.language]).map(normalizeLanguage)
+      .find(value => Object.hasOwn(translations, value));
+    let language = Object.hasOwn(translations, requestedLanguage) ? requestedLanguage : browserLanguage || "en";
+    let statusKey = null;
+    function renderLanguage() {
+      const t = translations[language];
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+      document.title = t.pageTitle;
+      document.getElementById("language").value = language;
+      for (const [id, key] of [["language-label", "language"], ["title", "title"], ["code-label", "code"],
+          ["open", "open"], ["copy", "copy"], ["install", "install"]]) {
+        document.getElementById(id).textContent = t[key];
+      }
+      document.getElementById("description").textContent = t[valid ? "description" : "invalid"];
+      document.getElementById("status").textContent = statusKey ? t[statusKey] : "";
+    }
+    document.getElementById("language").onchange = event => {
+      language = event.target.value;
+      url.searchParams.set("lang", language);
+      try { history.replaceState(null, "", url.href); } catch { /* Local file preview may disallow this. */ }
+      renderLanguage();
+    };
+    const path = url.pathname.match(/^\/group\/([A-Za-z0-9]{3}-[0-9]{4})\/?$/);
+    const codes = url.searchParams.getAll("code");
+    const tokens = url.searchParams.getAll("invite");
+
+    // ?code=... is bedoeld voor de lokale test.
+    const code = (path?.[1] || codes[0] || "").toUpperCase();
+    const token = tokens[0];
+    const valid = /^[A-Z0-9]{3}-[0-9]{4}$/.test(code)
+      && codes.length <= 1
+      && tokens.length <= 1
+      && (token === undefined || /^[A-Za-z0-9_-]{32,160}$/.test(token));
+
+    if (valid) {
+      const appLink = new URL("qurantracker://group/" + code);
+      if (token !== undefined) appLink.searchParams.set("invite", token);
+
+      document.getElementById("code").textContent = code;
+      document.getElementById("open").href = appLink.href;
+      document.getElementById("actions").hidden = false;
+
+      document.getElementById("copy").onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          statusKey = "copied";
+        } catch {
+          statusKey = "copyFailed";
+        }
+        renderLanguage();
+      };
+    }
+    renderLanguage();
+  </script>
+</body>
+</html>

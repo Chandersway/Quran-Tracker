@@ -16,7 +16,7 @@ class PendingNavigationStore(context: Context) {
         if (!uri.isHierarchical) return
         if (uri.userInfo != null || uri.port != -1) return
         val group = (uri.scheme == SupabaseConfig.DEEPLINK_SCHEME && uri.host == "group") ||
-            (uri.scheme == "https" && uri.host == "qurantracker.app" && uri.pathSegments.firstOrNull() == "group")
+            (uri.scheme == "https" && uri.host == "qurantracker-8f775.web.app" && uri.pathSegments.firstOrNull() == "group")
         if (group) {
             val code = (if (uri.scheme == "https") uri.pathSegments.getOrNull(1) else uri.pathSegments.firstOrNull())
                 ?.trim()?.uppercase(Locale.ROOT)?.takeIf { Regex("^[A-Z0-9]{3}-[0-9]{4}$").matches(it) }
@@ -27,6 +27,12 @@ class PendingNavigationStore(context: Context) {
             if (uri.pathSegments.size != (if (uri.scheme == "https") 2 else 1)) return
             receive(code, token, null)
         } else if (uri.scheme == "qurantracker" && uri.host == "notification") {
+            if (uri.pathSegments.firstOrNull() == "group") {
+                val event = uri.pathSegments.getOrNull(1) ?: return
+                if (uri.pathSegments.size != 2 || !com.Ameender.qurantracker.notifications.validPushUuid(event)) return
+                receive(null, null, "groups?notificationId=$event")
+                return
+            }
             val route = uri.pathSegments.firstOrNull()?.takeIf { it == "daily_goal" || it == "agenda" } ?: return
             val id = uri.pathSegments.getOrNull(1)?.toIntOrNull()?.takeIf { it > 0 }
             receive(null, null, if (route == "agenda" && id != null) "agenda?itemId=$id" else route)

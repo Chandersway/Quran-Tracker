@@ -65,8 +65,7 @@ internal fun GroupsOverviewScreen(
     busy: Boolean,
     onCreateGroup: () -> Unit,
     onOpenGroup: (String) -> Unit,
-    onJoinGroup: () -> Unit,
-    onRequestAccess: () -> Unit
+    onJoinGroup: () -> Unit
 ) {
     var selectedTab by rememberSaveable { mutableStateOf("mine") }
     var searchQuery by rememberSaveable { mutableStateOf("") }
@@ -136,8 +135,7 @@ internal fun GroupsOverviewScreen(
                     joinCode = joinCode,
                     onJoinCodeChange = onJoinCodeChange,
                     busy = busy,
-                    onJoinGroup = onJoinGroup,
-                    onRequestAccess = onRequestAccess
+                    onJoinGroup = onJoinGroup
                 )
             }
 
@@ -286,14 +284,7 @@ private fun ActiveGroupCard(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(
-            modifier = Modifier
-                .size(54.dp)
-                .background(GroupsOverviewSoftGreen, RoundedCornerShape(14.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(Icons.Default.Groups, contentDescription = null, tint = GroupsOverviewGreen)
-        }
+        GroupLogo(code = code, canEdit = false, text = text, size = 54.dp)
         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
             Text(name, color = GroupsOverviewInk, fontSize = 14.sp, fontWeight = FontWeight.Bold)
             if (description.isNotBlank()) {
@@ -350,8 +341,7 @@ private fun InvitationCard(
     joinCode: String,
     onJoinCodeChange: (String) -> Unit,
     busy: Boolean,
-    onJoinGroup: () -> Unit,
-    onRequestAccess: () -> Unit
+    onJoinGroup: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -378,6 +368,7 @@ private fun InvitationCard(
         OutlinedTextField(
             value = joinCode,
             onValueChange = onJoinCodeChange,
+            enabled = !busy,
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text(text.groupJoinText.placeholder, fontSize = 12.sp) },
             singleLine = true,
@@ -408,15 +399,6 @@ private fun InvitationCard(
                 Spacer(Modifier.width(8.dp))
             }
             Text(text.groupJoinAction, fontWeight = FontWeight.Bold)
-        }
-        Button(
-            onClick = onRequestAccess,
-            enabled = !busy && joinCode.isNotBlank(),
-            modifier = Modifier.fillMaxWidth().height(44.dp),
-            shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = GroupsOverviewGreen)
-        ) {
-            Text(text.t("groups.requests.requestAccess"), color = GroupsOverviewOnPrimary, fontWeight = FontWeight.Bold)
         }
         Text(
             text.t("groups.requests.requestHint"),

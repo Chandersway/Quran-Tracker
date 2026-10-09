@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.Ameender.qurantracker.data.HizbReadCount
 import com.Ameender.qurantracker.data.ReadingMetrics
 import com.Ameender.qurantracker.data.ReadingHistory
+import com.Ameender.qurantracker.data.ReadingGroupReadingEntry
 import com.Ameender.qurantracker.data.ReadingStatsSummary
 import com.Ameender.qurantracker.data.SurahReadCount
 import com.Ameender.qurantracker.data.TypeCount
@@ -459,7 +460,7 @@ private fun ReadingHistoryItemRow(item: HistoryDisplayItem, text: AppStrings) {
 }
 
 @Composable
-private fun ReadingHistoryRow(history: ReadingHistory, text: AppStrings) {
+internal fun ReadingHistoryRow(history: ReadingHistory, text: AppStrings) {
     val dateStr = remember(history.timestamp) {
         SimpleDateFormat("dd MMM yyyy · HH:mm", Locale.getDefault())
             .format(Date(history.timestamp))
@@ -504,6 +505,10 @@ private fun ReadingHistoryRow(history: ReadingHistory, text: AppStrings) {
                 Text(dateStr, fontSize = 11.sp, color = DimGold)
             }
             Text(typeLabel, fontSize = 11.sp, color = labelColor)
+        }
+        statsHistoryAyahRange(history, text)?.let { range ->
+            Spacer(modifier = Modifier.height(AppSpacing.sm))
+            Text(range, fontSize = 13.sp, color = MutedGold)
         }
         if (history.type == "hizb" && history.extraInfo.isNotEmpty()) {
             Spacer(modifier = Modifier.height(AppSpacing.sm))
@@ -575,6 +580,17 @@ private fun HizbSummaryRow(item: HizbDaySummaryItem, text: AppStrings) {
                 .background(SubtleGoldSurface)
                 .padding(horizontal = AppSpacing.md, vertical = AppSpacing.xs)
         )
+        val ranges = if (isWholeHizb) {
+            listOfNotNull(groupReadingAyahRange(ReadingGroupReadingEntry("hizb", 1, "", item.hizbNumber), text))
+        } else {
+            item.rubNumbers.sorted().mapNotNull { rub ->
+                groupReadingAyahRange(ReadingGroupReadingEntry("rub", 1, "", (item.hizbNumber - 1) * 4 + rub), text)
+            }
+        }
+        ranges.forEach { range ->
+            Spacer(modifier = Modifier.height(AppSpacing.sm))
+            Text(range, fontSize = 13.sp, color = MutedGold)
+        }
         if (item.extraInfo.isNotEmpty()) {
             Spacer(modifier = Modifier.height(AppSpacing.sm))
             Text(
@@ -880,6 +896,19 @@ private fun statsTypeLabel(type: String, text: AppStrings): String = when (type)
     "hizb" -> text.hizbRub
     "rub" -> text.t("stats.rub")
     else -> type.replaceFirstChar { it.uppercase() }
+}
+
+internal fun statsHistoryAyahRange(history: ReadingHistory, text: AppStrings): String? {
+    val unit = history.contentType.ifBlank { history.type }
+    val rub = if (unit in listOf("rub", "hizb")) rubNumberFromHistoryNameSafe(history.surahName) else null
+    if (unit == "rub" && rub == null) return null
+    if (rub != null && history.surahId !in 1..60) return null
+    return groupReadingAyahRange(ReadingGroupReadingEntry(
+        unit = if (rub != null) "rub" else unit,
+        amount = history.amount,
+        occurredOn = history.dateKey,
+        referenceNumber = if (rub != null) (history.surahId - 1) * 4 + rub else history.surahId
+    ), text)
 }
 
 private fun readableHistoryName(type: String, number: Int, name: String): String = when (type) {
