@@ -27,13 +27,16 @@ class OnboardingProcessCheckpointTest {
         val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val backup = context.getSharedPreferences("phase10_checkpoint", Context.MODE_PRIVATE)
         val pending = PendingNavigationStore(context)
+        val navigation = context.getSharedPreferences("pending_navigation", Context.MODE_PRIVATE)
+        val navigationKeys = listOf("group_code", "group_token", "notification")
         val keys = listOf("onboarding_language_stage_v1", "onboarding_intro_step_v1", "app_language")
         if (phase == "prepare") {
             check(!backup.contains("active")) { "Restore the previous fixture before preparing again" }
-            check(pending.groupCode == null && pending.groupToken == null && pending.notification == null)
             val edit = backup.edit().putBoolean("active", true)
             keys.forEach { edit.putString(it, prefs.getString(it, null)) }
+            navigationKeys.forEach { edit.putString("navigation_$it", navigation.getString(it, null)) }
             check(edit.commit())
+            check(navigation.edit().apply { navigationKeys.forEach { remove(it) } }.commit())
             LanguageEntryStore(context).continueToIntro(AppLanguage.Arabic)
             LanguageEntryStore(context).saveIntroStep(OnboardingStep.POMODORO)
             pending.receive("QAT-1010", null, null)
@@ -56,7 +59,11 @@ class OnboardingProcessCheckpointTest {
                 val edit = prefs.edit()
                 keys.forEach { key -> backup.getString(key, null)?.let { edit.putString(key, it) } ?: edit.remove(key) }
                 check(edit.commit())
-                pending.consumeGroup("QAT-1010", null)
+                check(navigation.edit().apply {
+                    navigationKeys.forEach { key ->
+                        backup.getString("navigation_$key", null)?.let { putString(key, it) } ?: remove(key)
+                    }
+                }.commit())
                 context.deleteSharedPreferences("phase10_checkpoint")
             }
         }

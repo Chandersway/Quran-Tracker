@@ -1,5 +1,26 @@
 Releasecontrole stap 2 — 9 oktober 2026
 
+UPDATE NA CORRECTIES (de oorspronkelijke audit hieronder blijft behouden):
+- Huidige versie eerst veiliggesteld op GitHub main, commit 53e0696.
+- AndroidTargetCompatibilityTest verwacht nu de juiste naam Quran Tracker.
+- Language splits uitgezet, zodat in-app taalwisseling ook alle meegeleverde
+  taalresources voor Android-dialogen beschikbaar houdt bij een AAB-installatie.
+- Release lint opnieuw geslaagd: 0 errors, 2821 warnings, 11 hints.
+  AppBundleLocaleChanges is verdwenen; overige waarschuwingen niet onderdrukt.
+- Releasebundel opnieuw gebouwd; debug unit-tests geslaagd/up-to-date.
+- Volledige emulatorrun opnieuw: 94 tests, 90 geslaagd, 4 skips, 0 failures/errors.
+- Daarna proceshersteltest apart uitgevoerd. Eerste voorbereiding stopte veilig
+  op een bestaande emulatoruitnodiging. Fixture verbeterd: navigatiestatus
+  wordt persistent bewaard en na verificatie hersteld.
+- Herhaalde prepare geslaagd; adb force-stop; verify in nieuw proces geslaagd.
+  Arabische taal, Pomodoro-stap en wachtende uitnodiging bleven behouden.
+- Geen telefoondata of volledige appdata gewist. Geen pushregistraties geroteerd.
+- Visual Warsh-paginatest blijft open wegens ontbrekende gedownloade pagina's.
+- Gebruiker bevestigt dat er nog geen uploadkeystore bestaat. Ondertekening,
+  veilige back-up van die sleutel en een echte Play-split-installatietest blijven open.
+- De aanwezige Gradle-bundletool JAR is geen standalone CLI; aanvullende
+  bundletool-validatie is daarmee niet gelukt. Geen AAB-validatiesucces geclaimd.
+
 Scope: lokale technische controle, geen publicatie of productcodewijzigingen.
 Geen installatie of wissen van gegevens op de fysieke telefoon uitgevoerd.
 

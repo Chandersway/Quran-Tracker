@@ -24,6 +24,13 @@ android {
         }
     }
 
+    // In-app language selection must also work without downloading a language split.
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
