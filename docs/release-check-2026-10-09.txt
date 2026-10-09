@@ -1,0 +1,65 @@
+Releasecontrole stap 2 — 9 oktober 2026
+
+Scope: lokale technische controle, geen publicatie of productcodewijzigingen.
+Geen installatie of wissen van gegevens op de fysieke telefoon uitgevoerd.
+
+Uitgevoerd met Android Studio JBR en Gradle offline:
+- :app:lintDebug :app:lintRelease
+- :app:testDebugUnitTest :app:testReleaseUnitTest
+- :app:bundleRelease
+- :app:connectedDebugAndroidTest, uitsluitend emulator-5554 (API 37)
+- node scripts/test_invitation_page.cjs
+
+Resultaten:
+- Debug en release lint: 0 errors. Debug 2840 warnings/11 hints;
+  release 2822 warnings/11 hints. Geen baseline of suppressies toegevoegd.
+- Debug unit-tests: 139 geslaagd, 0 failures/errors/skips.
+- Release unit-tests: 139 geslaagd, 0 failures/errors/skips.
+- Instrumentatietests: XML telt 94 tests: 89 geslaagd, 1 mislukt,
+  4 overgeslagen, 0 errors. De console vermeldt verwarrend 'Finished 98';
+  bovenstaande aantallen zijn uit de JUnit XML.
+- Enige mislukking: AndroidTargetCompatibilityTest.kt:13 verwacht nog
+  'Wirdna – Quran & Hifz'; daadwerkelijke appnaam is correct 'Quran Tracker'.
+  Verouderde testverwachting corrigeren; de appnaam niet terugzetten.
+- Skips: expliciet wissen van historie, vernieuwen van pushtoken,
+  tweeproces-onboardingcheckpoint en visuele Warsh-test die paginabestanden
+  vereist. Deze controles zijn dus niet bewezen door deze run.
+- Emulatorinstallatie en volledige testrun lopen door: eerdere installatiehang
+  niet gereproduceerd. Eerder lint/Kotlin-metadataconflict evenmin gereproduceerd.
+- Uitnodigingspagina: NL/EN/AR, RTL, tokenbehoud, taalfallback, ongeldige links
+  en kopieergedrag geslaagd. Geen echte twee-account-acceptatie uitgevoerd.
+
+Releasebundel:
+- app/build/outputs/bundle/release/app-release.aab gebouwd (173815217 bytes).
+- jarsigner -verify: unsigned. Signing-taaknaam bewijst geen ondertekening.
+- Geen release-signingconfig in app/build.gradle.kts. Ondertekende uploadbundel
+  en test via Play blijven nodig.
+- targetSdk/compileSdk 36, minSdk 26; versionCode 1/versionName 1.0.
+- Alle acht meegeleverde .so-bestanden hebben ELF LOAD-alignment 16384 bytes.
+  Dit is geen volledige 16KB-runtimecontrole of validatie van Play-split-APKs.
+- Bundlegrootte is niet hetzelfde als de downloadgrootte per toestel.
+  Bundletool/Play-validatie en release-installatietest nog niet uitgevoerd.
+
+Waarschuwingentriage:
+- 1362 UnusedResources en 1356 IconLocation per variant. Diverse Quranpagina's
+  worden dynamisch met getIdentifier geladen: niet blind verwijderen of
+  resource shrinking aanzetten. Minify staat momenteel uit.
+- Vier StaticFieldLeak-meldingen betreffen GroupPushGate/GroupPushRegistration.
+  Beide bewaren applicationContext; geen Activity-lek aangetoond door deze melding.
+- AppBundleLocaleChanges: dynamische locale voor dialogen, taalsplitsing niet
+  uitgezet. Hoofdvertalingen zitten in AppText; taalwissel in daadwerkelijke
+  Play-splits, inclusief Android-dialogen, nog controleren.
+- Overige meldingen omvatten afhankelijkheden, API-modernisering, Compose-
+  performance/layout en ontbrekend monochroom launchericoon.
+
+Conclusie:
+De oude technische blockers zijn niet meer reproduceerbaar. De suite is nog
+niet volledig groen door een verouderde naamtest. Geen bewijs van volledige
+releasegereedheid: signing, Play-split/installatiecontrole, overgeslagen en
+brede toesteltests blijven open. Live backendbeveiliging, accountverwijdering,
+privacybeleid en Play-formulieren vallen buiten deze lokale controle.
+
+Rapporten:
+app/build/reports/lint-results-debug.html
+app/build/reports/lint-results-release.html
+app/build/reports/androidTests/connected/debug/index.html

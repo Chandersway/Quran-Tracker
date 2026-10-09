@@ -28,6 +28,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.automirrored.filled.Reply
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.ContentCopy
@@ -3168,51 +3169,59 @@ fun AyahSelectionToolbar(
     onRepeat: () -> Unit,
     onPlay: () -> Unit
 ) {
+    val toolbarLanguage = LocalContext.current.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        .getString("app_language", "nl") ?: "nl"
+    fun label(nl: String, en: String, ar: String, fr: String) = when (toolbarLanguage) {
+        "en" -> en; "ar" -> ar; "fr" -> fr; else -> nl
+    }
     Surface(
-        modifier = modifier,
-        color = AyahToolbarGreen.copy(alpha = 0.92f),
+        modifier = modifier.padding(horizontal = 12.dp).widthIn(max = 520.dp),
+        color = AyahToolbarGreen,
         contentColor = Color.White,
-        shape = RoundedCornerShape(2.dp),
-        tonalElevation = 6.dp,
-        shadowElevation = 8.dp
+        shape = RoundedCornerShape(24.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.14f)),
+        tonalElevation = 0.dp,
+        shadowElevation = 6.dp
     ) {
         Row(
             modifier = Modifier
-                .height(54.dp)
+                .height(56.dp)
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(0.dp)
         ) {
             SelectionToolbarButton(
                 icon = if (action.isBookmarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
-                label = "Bladwijzer",
+                label = label("Bladwijzer", "Bookmark", "علامة مرجعية", "Signet"),
+                selected = action.isBookmarked,
                 onClick = onBookmark
             )
             SelectionToolbarButton(
                 icon = Icons.Default.ContentCopy,
-                label = "Kopieer",
+                label = label("Kopieer", "Copy", "نسخ", "Copier"),
                 onClick = onCopy
             )
             SelectionToolbarButton(
-                icon = Icons.Default.Share,
-                label = "Delen",
+                icon = Icons.AutoMirrored.Filled.Reply,
+                label = label("Delen", "Share", "مشاركة", "Partager"),
+                mirror = true,
                 onClick = onShare
             )
             SelectionToolbarButton(
                 icon = Icons.Default.EditNote,
-                label = "Notitie",
+                label = label("Notitie", "Note", "ملاحظة", "Note"),
                 onClick = onNotes
             )
             SelectionToolbarButton(
                 icon = Icons.Default.Info,
-                label = "Woorden",
+                label = label("Woorden", "Words", "الكلمات", "Mots"),
                 enabled = action.wordInfo != null,
                 onClick = onWords
             )
             SelectionToolbarButton(
                 icon = Icons.Default.Replay,
-                label = "Herhaal",
+                label = label("Herhaal", "Repeat", "تكرار", "Répéter"),
                 onClick = onRepeat
             )
             onIrab?.let { openIrab ->
@@ -3225,7 +3234,8 @@ fun AyahSelectionToolbar(
             }
             SelectionToolbarButton(
                 icon = Icons.Default.PlayArrow,
-                label = "Afspelen",
+                label = label("Afspelen", "Play", "تشغيل", "Écouter"),
+                selected = true,
                 onClick = onPlay
             )
         }
@@ -3237,18 +3247,23 @@ fun SelectionToolbarButton(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     label: String,
     enabled: Boolean = true,
+    selected: Boolean = false,
+    mirror: Boolean = false,
     onClick: () -> Unit
 ) {
     IconButton(
         enabled = enabled,
         onClick = onClick,
-        modifier = Modifier.size(AppComponentDefaults.minTouchTarget)
+        modifier = Modifier.size(AppComponentDefaults.minTouchTarget),
+        colors = IconButtonDefaults.iconButtonColors(
+            containerColor = if (selected) Color.White.copy(alpha = 0.12f) else Color.Transparent
+        )
     ) {
         Icon(
             imageVector = icon,
             contentDescription = label,
             tint = if (enabled) Color.White else Color.White.copy(alpha = 0.35f),
-            modifier = Modifier.size(26.dp)
+            modifier = Modifier.size(22.dp).graphicsLayer(scaleX = if (mirror) -1f else 1f)
         )
     }
 }

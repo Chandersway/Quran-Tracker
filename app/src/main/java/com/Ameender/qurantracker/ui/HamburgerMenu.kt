@@ -236,6 +236,7 @@ fun HamburgerMenu(
     onNavigateToGroups: () -> Unit,
     onNavigateToReadingPlan: () -> Unit,
     onNavigateToNotifications: () -> Unit,
+    onNavigateToReadingChecklist: () -> Unit = {},
     onNavigateToBookmark: (ReaderBookmarkSummary) -> Unit,
     goalViewModel: GoalViewModel = viewModel(),
     planningViewModel: PlanningViewModel = viewModel(),
@@ -377,10 +378,10 @@ fun HamburgerMenu(
                             onClick = { onClose(); onNavigateToNotifications() }
                         )
                         SettingsActionRow(
-                            icon = Icons.Default.Info,
-                            title = text.t("onboarding.replay"),
-                            subtitle = "",
-                            onClick = { onClose(); onReplayIntro() }
+                            icon = Icons.Default.PlayArrow,
+                            title = text.media,
+                            subtitle = if (selectedReciterName.isBlank()) text.defaultReciter else selectedReciterName,
+                            onClick = { mediaPageOpen = true }
                         )
                     }
                     SettingsGap()
@@ -637,17 +638,19 @@ fun HamburgerMenu(
                                 onNavigateToBookReader()
                             }
                         )
-                        SettingsDivider()
-                        SettingsActionRow(
-                            icon = Icons.Default.PlayArrow,
-                            title = text.media,
-                            subtitle = if (selectedReciterName.isBlank()) text.defaultReciter else selectedReciterName,
-                            onClick = { mediaPageOpen = true }
-                        )
                     }
 
                     SettingsGap()
 
+                    SettingsCard {
+                        SettingsActionRow(
+                            icon = Icons.Default.BookmarkBorder,
+                            title = checklistText(appLanguage, "title"),
+                            subtitle = "",
+                            onClick = { onClose(); onNavigateToReadingChecklist() }
+                        )
+                    }
+                    SettingsGap()
                     SettingsCard {
                         MenuItemExpandableRow(
                             icon = Icons.Default.Info,
@@ -701,6 +704,15 @@ fun HamburgerMenu(
                         }
                     }
 
+                    SettingsGap()
+                    SettingsCard {
+                        SettingsActionRow(
+                            icon = Icons.Default.Info,
+                            title = text.t("onboarding.replay"),
+                            subtitle = "",
+                            onClick = { onClose(); onReplayIntro() }
+                        )
+                    }
                     SettingsGap()
 
                     }

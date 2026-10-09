@@ -71,6 +71,7 @@ sealed class Screen(val route: String, val label: String) {
     object Groups    : Screen("groups",    "Groepen")
     object ReadingPlan : Screen("reading_plan", "Mijn leesplan")
     object Notifications : Screen("notifications", "Notificaties")
+    object ReadingChecklist : Screen("reading_checklist", "Tahajjud")
     object DailyGoal : Screen("daily_goal", "Dagelijks doel")
     object Stats     : Screen("stats",     "Stats")
     object Agenda    : Screen("agenda",    "Agenda")
@@ -440,6 +441,7 @@ fun QuranTrackerApp(
     }
     val appBarTitle = when (currentRoute) {
         Screen.Notifications.route -> com.Ameender.qurantracker.notifications.notificationText(appLanguage, "title")
+        Screen.ReadingChecklist.route -> checklistText(appLanguage, "title")
         Screen.DailyGoal.route -> com.Ameender.qurantracker.notifications.notificationText(appLanguage, "daily")
         Screen.ReadingPlan.route -> readingPlanText(appLanguage, "Mijn leesplan")
         Screen.Reader.route -> text.t("navigation.quranTitle")
@@ -785,6 +787,15 @@ fun QuranTrackerApp(
                     )
                 }
                 composable(Screen.Notifications.route) { NotificationsScreen(language = appLanguage) }
+                composable(Screen.ReadingChecklist.route) {
+                    ReadingChecklistScreen(appLanguage) { point ->
+                        readerBookmarkTarget = ReaderBookmarkSummary(
+                            title = checklistText(appLanguage, "title"), subtitle = "",
+                            surahId = point.surah, ayahNumber = point.ayah, openInMushaf = false
+                        )
+                        navigateReader()
+                    }
+                }
                 composable(Screen.DailyGoal.route) {
                     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
                         GoalHubPanel(goalViewModel, appLanguage, onlyGoalId = 1)
@@ -810,6 +821,7 @@ fun QuranTrackerApp(
         HamburgerMenu(
             onReplayIntro = { menuOpen = false; replayIntro = true },
             onNavigateToNotifications = { navigateSecondary(Screen.Notifications) },
+            onNavigateToReadingChecklist = { navigateSecondary(Screen.ReadingChecklist) },
             onNavigateToReadingPlan = { navigateSecondary(Screen.ReadingPlan) },
             isOpen           = menuOpen,
             onClose          = { menuOpen = false },
