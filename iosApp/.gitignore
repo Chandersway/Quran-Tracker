@@ -1,0 +1,6 @@
+# Local Xcode state and build outputs; keep the generated project/shareable schemes.
+xcuserdata/
+*.xcuserstate
+DerivedData/
+*.xcarchive
+*.ipa

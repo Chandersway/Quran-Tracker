@@ -877,7 +877,6 @@ private fun AuthenticatedGroupsSettingsPage(
     var removingMember by remember { mutableStateOf<ReadingGroupMemberRow?>(null) }
     var blockRemovedMember by remember { mutableStateOf(false) }
     var showInvitationDialog by remember { mutableStateOf(false) }
-    var invitationEmail by remember { mutableStateOf("") }
     var invitationExpiresDays by remember { mutableIntStateOf(7) }
     var createdInvitation by remember { mutableStateOf<ReadingGroupInvitationRow?>(null) }
     var showJoinRequestDialog by remember { mutableStateOf(false) }
@@ -1511,7 +1510,7 @@ private fun AuthenticatedGroupsSettingsPage(
             runCatching {
                 SupabaseService.createGroupInvitation(
                     code = activeGroupCode,
-                    invitedEmail = invitationEmail.trim().takeIf(String::isNotBlank),
+                    invitedEmail = null,
                     expiresDays = invitationExpiresDays,
                     maxUses = 10
                 )
@@ -2265,7 +2264,6 @@ private fun AuthenticatedGroupsSettingsPage(
         onJoinGroup = { joinOnlineGroup() },
         onShareGroup = { shareActiveGroupCode() },
         onOpenInviteManager = {
-            invitationEmail = ""
             invitationExpiresDays = 7
             createdInvitation = null
             showInvitationDialog = true
@@ -2428,8 +2426,6 @@ private fun AuthenticatedGroupsSettingsPage(
     if (showInvitationDialog) {
         GroupInvitationManagerDialog(
             text = text,
-            email = invitationEmail,
-            onEmailChange = { invitationEmail = it.take(160) },
             expiresDays = invitationExpiresDays,
             onExpiresDaysChange = { invitationExpiresDays = it },
             createdInvitation = createdInvitation,
@@ -7524,8 +7520,6 @@ private fun RemoveGroupMemberDialog(
 @Composable
 private fun GroupInvitationManagerDialog(
     text: AppStrings,
-    email: String,
-    onEmailChange: (String) -> Unit,
     expiresDays: Int,
     onExpiresDaysChange: (Int) -> Unit,
     createdInvitation: ReadingGroupInvitationRow?,
@@ -7548,23 +7542,6 @@ private fun GroupInvitationManagerDialog(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(text.t("groups.invite.body"), color = MutedGold, fontSize = 11.sp, lineHeight = 16.sp)
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = onEmailChange,
-                    modifier = Modifier.fillMaxWidth(),
-                    label = { Text(text.t("groups.invite.email")) },
-                    placeholder = { Text(text.t("groups.invite.emailHint"), fontSize = 10.sp) },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                    shape = RoundedCornerShape(AppShape.control),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = Gold,
-                        unfocusedBorderColor = BorderNavy,
-                        focusedTextColor = SoftTextGold,
-                        unfocusedTextColor = SoftTextGold,
-                        cursorColor = Gold
-                    )
-                )
                 Text(text.t("groups.invite.expires"), color = GoldLight, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                 Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                     listOf(1, 7, 30).forEach { days ->
