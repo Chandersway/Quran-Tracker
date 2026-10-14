@@ -3,6 +3,9 @@
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -21,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.Ameender.qurantracker.data.HizbReadCount
+import com.Ameender.qurantracker.data.ALL_HIZB
 import com.Ameender.qurantracker.data.ReadingMetrics
 import com.Ameender.qurantracker.data.ReadingHistory
 import com.Ameender.qurantracker.data.ReadingGroupReadingEntry
@@ -37,38 +41,57 @@ import kotlin.math.min
 
 private fun statsPieColor(index: Int): Color = PieColors[index % PieColors.size]
 
-private data class RingEntry(val label: String, val count: Int, val color: Color)
+internal data class RingEntry(val label: String, val count: Int, val color: Color,
+    val rows: List<ReadingHistory> = emptyList(), val key: String = label,
+    val supportingText: String? = null)
 
 @Composable
-private fun StatsDistributionRingCard(title: String, entries: List<RingEntry>, language: String) {
+internal fun StatsDistributionRingCard(title: String, entries: List<RingEntry>, language: String, periodLabel: String) {
+    var detailsOpen by remember { mutableStateOf(false) }
+    var selectedKey by remember { mutableStateOf<String?>(null) }
     val positiveEntries = entries.filter { it.count > 0 }
     val total = positiveEntries.sumOf { it.count }
     StatsRingPanel(
         title, total.toString(),
         goalText(language, "registraties", "registrations", "تسجيلات"),
-        goalText(language, "Alle tijd · aandeel van deze registraties", "All time · share of these registrations", "كل الوقت · حصة من هذه التسجيلات"),
+        periodLabel,
         goalText(language,
             "Elke kleur toont het aandeel van een onderdeel in de getoonde leesregistraties. Herhaald lezen telt mee. Een registratie van een soera, Juz of Hizb is niet dezelfde hoeveelheid tekst; de ring geeft geen percentage van de Quran aan.",
             "Each colour shows an item's share of the displayed reading registrations. Repeated reads count. A surah, Juz and Hizb are different amounts of text; this ring is not a percentage of the Quran.",
             "كل لون يمثل حصة من تسجيلات القراءة المعروضة، وتشمل القراءة المتكررة. السورة والجزء والحزب كميات مختلفة من النص؛ هذه الدائرة ليست نسبة إكمال القرآن."),
-        language, positiveEntries
+        language, positiveEntries,
+        onSelectEntry = { index ->
+            selectedKey = index?.let { positiveEntries[it].key }
+            detailsOpen = true
+        }
     )
+    if (detailsOpen) StatsReadingDetailsSheet(title, positiveEntries, selectedKey, periodLabel, language,
+        onSelect = { selectedKey = it }, onDismiss = { detailsOpen = false })
 }
 
 @Composable
 private fun StatsRingPanel(
     title: String, value: String, centerLabel: String, subtitle: String,
-    explanation: String, language: String, entries: List<RingEntry>, showLegend: Boolean = true
+    explanation: String, language: String, entries: List<RingEntry>, showLegend: Boolean = true,
+    onSelectEntry: ((Int?) -> Unit)? = null
 ) {
     var detailsOpen by remember { mutableStateOf(false) }
     val total = entries.sumOf { it.count }.coerceAtLeast(1)
-    val detailLabel = goalText(language, "Bekijk uitleg en details", "View explanation and details", "عرض الشرح والتفاصيل")
+    val detailLabel = if (onSelectEntry != null)
+        goalText(language, "Bekijk registraties", "View registrations", "عرض التسجيلات")
+        else goalText(language, "Bekijk uitleg en details", "View explanation and details", "عرض الشرح والتفاصيل")
+    val openAll = { if (onSelectEntry != null) onSelectEntry(null) else detailsOpen = true }
     QuranStatisticCard(title = title) {
         Box(
-            Modifier.fillMaxWidth().height(174.dp).clickable(onClickLabel = detailLabel) { detailsOpen = true },
+            Modifier.fillMaxWidth().height(174.dp).clickable(role = Role.Button, onClickLabel = detailLabel, onClick = openAll),
             contentAlignment = Alignment.Center
         ) {
-            Canvas(Modifier.size(162.dp)) {
+            Canvas(Modifier.size(162.dp).testTag("stats-ring-chart-$title").then(if (onSelectEntry == null) Modifier else
+                Modifier.pointerInput(entries) {
+                    detectTapGestures { point ->
+                        onSelectEntry(statsRingSegment(point.x, point.y, size.width.toFloat(), 13.dp.toPx(), entries.map { it.count }))
+                    }
+                })) {
                 val stroke = 13.dp.toPx()
                 val inset = stroke / 2
                 val arcSize = Size(size.width - stroke, size.height - stroke)
@@ -91,11 +114,20 @@ private fun StatsRingPanel(
             color = MutedGold, fontSize = 12.sp)
         if (showLegend) {
             Spacer(Modifier.height(10.dp))
-            entries.take(6).forEach { entry ->
-                LegendRow(entry.color, entry.label, "${entry.count}× · ${String.format(Locale.getDefault(), "%.1f", entry.count * 100.0 / total)}%")
+            entries.take(6).forEachIndexed { index, entry ->
+                Box(if (onSelectEntry == null) Modifier else Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                    .clickable(role = Role.Button, onClickLabel = detailLabel) { onSelectEntry(index) }) {
+                    Column(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+                        LegendRow(entry.color, entry.label, "${entry.count}× · ${String.format(Locale.getDefault(), "%.1f", entry.count * 100.0 / total)}%")
+                        entry.supportingText?.let { opening ->
+                            Text(opening, modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                                color = MutedGold, fontSize = 15.sp, textAlign = TextAlign.End)
+                        }
+                    }
+                }
             }
         }
-        TextButton(onClick = { detailsOpen = true }, modifier = Modifier.fillMaxWidth()) {
+        TextButton(onClick = openAll, modifier = Modifier.fillMaxWidth()) {
             Text(detailLabel, color = Gold, fontSize = 12.sp)
         }
     }
@@ -122,16 +154,21 @@ private fun StatsRingPanel(
 @Composable
 fun StatsScreen(viewModel: QuranViewModel, appLanguage: String = "nl") {
     val text = AppText.strings(appLanguage)
-    val mostRead      by viewModel.mostReadSurahs.collectAsState()
-    val mostReadHizb  by viewModel.mostReadHizb.collectAsState()
     val dayActivity   by viewModel.dayActivity.collectAsState()
     val totalReads    by viewModel.totalReadCount.collectAsState()
-    val typeCounts    by viewModel.allTypeCounts.collectAsState()
     val allHistory    by viewModel.allHistory.collectAsState()
     val juzzProgress  by viewModel.juzzProgress.collectAsState()
     val hizbProgress  by viewModel.hizbProgress.collectAsState()
     val rubProgress   by viewModel.rubProgress.collectAsState()
     val resetState by viewModel.historyResetState.collectAsState()
+
+    var readingPeriod by remember { mutableStateOf(StatsReadingPeriod.All) }
+    val periodLabel = statsReadingPeriodLabel(readingPeriod, appLanguage)
+    // Re-evaluate the calendar boundary on recomposition, including returning to Stats.
+    val periodHistory = statsPeriodHistory(allHistory, readingPeriod)
+    val typeBuckets = statsReadingBuckets(periodHistory, StatsDistribution.Type)
+    val hizbBuckets = statsReadingBuckets(periodHistory, StatsDistribution.Hizb)
+    val surahBuckets = statsReadingBuckets(periodHistory, StatsDistribution.Surah)
 
     val summary = remember(allHistory) { readingStatsSummary(allHistory) }
     val streak = summary.currentStreak
@@ -205,29 +242,40 @@ fun StatsScreen(viewModel: QuranViewModel, appLanguage: String = "nl") {
 
 
         item {
+            Text(goalText(appLanguage, "Periode van de leesgrafieken", "Reading chart period", "فترة رسوم القراءة"), color = GoldLight)
+            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                StatsReadingPeriod.entries.forEach { period ->
+                    FilterChip(selected = readingPeriod == period, onClick = { readingPeriod = period },
+                        label = { Text(statsReadingPeriodLabel(period, appLanguage)) })
+                }
+            }
+        }
+        item {
             StatsDistributionRingCard(
                 title = text.t("stats.distributionByType"),
-                entries = typeCounts.map { RingEntry(statsTypeLabel(it.type, text), it.count,
-                    when (it.type) { "surah" -> ReadBlue; "juz" -> DoneGreen; "hizb" -> Gold; else -> MutedGold }) },
-                language = appLanguage
+                entries = typeBuckets.map { bucket -> RingEntry(statsTypeLabel(bucket.key, text), bucket.rows.size,
+                    when (bucket.key) { "surah" -> ReadBlue; "juz" -> DoneGreen; "hizb" -> Gold; else -> MutedGold },
+                    bucket.rows, bucket.key) },
+                language = appLanguage, periodLabel = periodLabel
             )
         }
         item {
             StatsDistributionRingCard(
                 title = text.t("stats.mostReadHizbRub"),
-                entries = mostReadHizb.mapIndexed { index, entry ->
-                    RingEntry(readableHizbRubNameSafe(entry.surahId, entry.surahName), entry.count, statsPieColor(index))
+                entries = hizbBuckets.mapIndexed { index, bucket ->
+                    RingEntry("Hizb ${bucket.key}", bucket.rows.size, statsPieColor(index), bucket.rows, bucket.key,
+                        supportingText = ALL_HIZB.firstOrNull { it.hizbNumber.toString() == bucket.key }?.startText)
                 },
-                language = appLanguage
+                language = appLanguage, periodLabel = periodLabel
             )
         }
         item {
             StatsDistributionRingCard(
                 title = text.t("stats.mostReadSurahs"),
-                entries = mostRead.mapIndexed { index, entry ->
-                    RingEntry(entry.surahName, entry.count, statsPieColor(index))
+                entries = surahBuckets.mapIndexed { index, bucket ->
+                    RingEntry(bucket.rows.first().surahName, bucket.rows.size, statsPieColor(index), bucket.rows, bucket.key)
                 },
-                language = appLanguage
+                language = appLanguage, periodLabel = periodLabel
             )
         }
         item {
@@ -465,21 +513,20 @@ internal fun ReadingHistoryRow(history: ReadingHistory, text: AppStrings) {
         SimpleDateFormat("dd MMM yyyy · HH:mm", Locale.getDefault())
             .format(Date(history.timestamp))
     }
-    val typeIcon = when {
-        history.type == "juz" -> "Juz"
-        history.type == "hizb" -> "Hizb"
-        history.action == "memorized" -> "Hifz"
-        else -> "Soera"
+    val contentType = history.contentType.ifBlank { history.type }
+    val typeIcon = when (contentType) {
+        "juz" -> "Juz"
+        "hizb", "rub" -> "Hizb"
+        else -> if (history.action == "memorized") "Hifz" else text.surah
     }
-    val typeLabel = when {
-        history.type == "juz" -> "Juz"
-        history.type == "hizb" -> if (history.surahName.hasRubMarker()) "Rub" else "Hizb"
-        history.action == "memorized" -> "Hifz"
-        else -> text.read
+    val typeLabel = when (contentType) {
+        "juz" -> "Juz"
+        "hizb", "rub" -> if (contentType == "rub" || rubNumberFromHistoryNameSafe(history.surahName) != null) "Rub" else "Hizb"
+        else -> if (history.action == "memorized") "Hifz" else text.read
     }
     val labelColor = when {
-        history.type == "juz" -> DoneGreen
-        history.type == "hizb" -> Gold
+        contentType == "juz" -> DoneGreen
+        contentType in listOf("hizb", "rub") -> Gold
         history.action == "memorized" -> Gold
         else -> ReadBlue
     }
@@ -490,14 +537,14 @@ internal fun ReadingHistoryRow(history: ReadingHistory, text: AppStrings) {
             .clip(RoundedCornerShape(AppShape.tile))
             .background(DeepNavy)
             .border(AppBorder.thin, BorderNavy, RoundedCornerShape(AppShape.tile))
-            .padding(AppSpacing.list)
+            .padding(horizontal = AppSpacing.list, vertical = 8.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(typeIcon, fontSize = 11.sp, color = MutedGold, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.width(AppSpacing.lg))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    readableHistoryName(history.type, history.surahId, history.surahName),
+                    statsHistoryTitle(history),
                     fontSize = 13.sp,
                     color = SoftTextGold,
                     fontWeight = FontWeight.Medium
@@ -507,23 +554,15 @@ internal fun ReadingHistoryRow(history: ReadingHistory, text: AppStrings) {
             Text(typeLabel, fontSize = 11.sp, color = labelColor)
         }
         statsHistoryAyahRange(history, text)?.let { range ->
-            Spacer(modifier = Modifier.height(AppSpacing.sm))
+            Spacer(modifier = Modifier.height(3.dp))
             Text(range, fontSize = 13.sp, color = MutedGold)
         }
-        if (history.type == "hizb" && history.extraInfo.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(AppSpacing.sm))
-            Text(
-                history.extraInfo,
-                fontSize = 13.sp,
-                color = Gold.copy(alpha = 0.7f),
+        statsHistoryOpening(history)?.let { opening ->
+            Text(opening, fontSize = 15.sp, color = SoftTextGold,
                 textAlign = TextAlign.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(AppShape.smallControl))
-                    .background(SubtleGoldSurface)
-                    .padding(horizontal = AppSpacing.md, vertical = AppSpacing.xs)
-            )
+                modifier = Modifier.fillMaxWidth().padding(top = 3.dp))
         }
+
     }
 }
 
@@ -911,11 +950,19 @@ internal fun statsHistoryAyahRange(history: ReadingHistory, text: AppStrings): S
     ), text)
 }
 
-private fun readableHistoryName(type: String, number: Int, name: String): String = when (type) {
-    "juz" -> "Juz $number"
-    "hizb" -> readableHizbRubNameSafe(number, name)
-    else -> name
+internal fun statsHistoryOpening(history: ReadingHistory): String? {
+    if (history.contentType.ifBlank { history.type } !in listOf("hizb", "rub")) return null
+    // The Hizb screen uses this same opening for the Hizb and its Rub registrations.
+    return ALL_HIZB.firstOrNull { it.hizbNumber == history.surahId }?.startText
+        ?.trim()?.split(Regex("\\s+"))?.take(4)?.joinToString(" ")
 }
+
+internal fun statsHistoryTitle(history: ReadingHistory): String =
+    when (history.contentType.ifBlank { history.type }) {
+        "juz" -> "Juz ${history.surahId}"
+        "hizb", "rub" -> readableHizbRubNameSafe(history.surahId, history.surahName)
+        else -> history.surahName
+    }
 
 private fun readableHizbRubNameSafe(hizbNumber: Int, name: String): String {
     val rubLabel = when (rubNumberFromHistoryNameSafe(name)) {

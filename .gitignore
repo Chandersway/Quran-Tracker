@@ -29,6 +29,9 @@ ayahinfo_1260_tmp/
 *.aab
 *.jks
 *.keystore
+/.signing/
+keystore.properties
+signing.properties
 .env
 .env.*
 !.env.example
