@@ -6,6 +6,8 @@ Voor het gebruik van de app: [Nederlandstalige gebruikershandleiding](docs/GEBRU
 
 Voor onderhoud: [technische appgids en volledige bronindex](docs/TECHNISCHE_APPGIDS.md). Voor de online functies: [live chat, typing en push instellen](docs/LIVE_CHAT_SETUP.md), [iOS-push](docs/IOS_PUSH_SETUP.md) en [Apple-aanmelding en accountverwijdering](docs/APPLE_SIGN_IN_SETUP.md).
 
+Voor latere uitbreiding: [plan voor OTA-updates, nieuwe menu-items en een online mushafcatalogus](docs/OTA_EN_MUSHAF_CATALOGUS_PLAN.md). Dit is een uitvoeringsplan; OTA en de dynamische catalogus zijn nog niet ingericht.
+
 ## APK, iOS-bestand en stores
 
 Vanuit `react-native/` zijn deze npm-scripts beschikbaar:

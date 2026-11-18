@@ -1,6 +1,6 @@
 # Documentatie
 
-Begin bij de gids die bij je taak hoort. De documenten hieronder beschrijven de huidige applicatie; oudere implementatieverslagen bewaren het bewijs van eerdere versies.
+Begin bij de gids die bij je taak hoort. De handleidingen beschrijven de huidige applicatie; plannen benoemen wat nog moet worden uitgevoerd. Oudere implementatieverslagen bewaren het bewijs van eerdere versies.
 
 | Ik wil…                                               | Lees dit                                                                                                                            |
 | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -9,6 +9,7 @@ Begin bij de gids die bij je taak hoort. De documenten hieronder beschrijven de 
 | Weten wat uit Kotlin is overgenomen en gerepareerd    | [Tweede controle en resultaten](RECHECK_RESULTS_2026-11-18.md) en [bestandsdekking](recheck-2026-11-18/kotlin-review-coverage.json) |
 | Android lokaal starten of debuggen                    | [Lokale ontwikkeling](LOCAL_DEVELOPMENT.md)                                                                                         |
 | Een APK/AAB/IPA bouwen of publiceren                  | [Releasehandleiding](RELEASE_HANDLEIDING.md)                                                                                        |
+| OTA en nieuwe mushafs later mogelijk maken           | [Uitvoeringsplan voor OTA en de inhoudscatalogus](OTA_EN_MUSHAF_CATALOGUS_PLAN.md) — nog niet geïmplementeerd                         |
 | Supabase-chat, typing en rechten inrichten            | [Live chat instellen](LIVE_CHAT_SETUP.md)                                                                                           |
 | Push op iOS afronden                                  | [iOS-push](IOS_PUSH_SETUP.md)                                                                                                       |
 | Apple-login en accountverwijdering inrichten          | [Sign in with Apple](APPLE_SIGN_IN_SETUP.md)                                                                                        |
