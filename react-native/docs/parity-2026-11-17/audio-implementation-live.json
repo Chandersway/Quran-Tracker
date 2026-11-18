@@ -1,0 +1,99 @@
+{
+  "checkedAt": "2026-11-17T17:44:13.880Z",
+  "scope": "Real audio service and repeat queue functions with real HTTP requests and disk-backed Expo File equivalents. No Supabase or audio mirror configured. No audible/native playback claimed. Only three short recordings fetched; temporary downloaded files removed after SHA/header/cache checks.",
+  "catalogs": {
+    "count": 114,
+    "tracks": 18012,
+    "surah1Options": 158,
+    "categories": [
+      "Hafs",
+      "Qalun",
+      "Shu'bah",
+      "Al-Bazi",
+      "Qunbil",
+      "Al-Duri",
+      "Warsh",
+      "Khalaf",
+      "Al-Susi",
+      "Ibn Dhakwan, on the authority of Ibn Amer",
+      "My novel Royce and Soul"
+    ]
+  },
+  "recordings": [
+    {
+      "reciter": "Ahmed Al-Hawashi",
+      "surah": 1,
+      "sourceUrl": "https://server11.mp3quran.net/hawashi/001.mp3",
+      "bytes": 717115,
+      "sha256": "e1874a63467e1588d76de111d623d0f84150530aa1d858b63bad63f4443887fb",
+      "verifiedHeader": true,
+      "persistedCacheReusedOffline": true
+    },
+    {
+      "reciter": "Mishary Alafasy",
+      "surah": 1,
+      "ayah": 1,
+      "sourceUrl": "https://everyayah.com/data/Alafasy_128kbps/001001.mp3",
+      "bytes": 146830,
+      "sha256": "8808f3fc313d9df87b6090ee9efc8c11859da58b0100ad92621c5ee9a93d7280",
+      "verifiedHeader": true,
+      "persistedCacheReusedOffline": true
+    },
+    {
+      "reciter": "Mahmoud Khalil Al-Husary",
+      "surah": 1,
+      "ayah": 1,
+      "sourceUrl": "https://cdn.mp3quran.net/audio/mahmoud-husary/r3/001.mp3",
+      "bytes": 473723,
+      "sha256": "182bd7ad3599923bf74d050e200c8805f9f56cdd1384d822752ee8924b6c7258",
+      "verifiedHeader": true,
+      "persistedCacheReusedOffline": true
+    }
+  ],
+  "timings": [
+    {
+      "reciter": "Mahmoud Khalil Al-Husary",
+      "readId": 120,
+      "count": 7,
+      "start": 13.24,
+      "end": 56.14,
+      "persistedCacheReusedOffline": true
+    },
+    {
+      "reciter": "Al-Ayoun Al-Kouchi",
+      "readId": 16,
+      "count": 7,
+      "start": 7.2,
+      "end": 34.9,
+      "persistedCacheReusedOffline": true
+    },
+    {
+      "reciter": "Omar Al-Qazabri",
+      "readId": 80,
+      "count": 7,
+      "start": 11.78,
+      "end": 52.4,
+      "persistedCacheReusedOffline": true
+    }
+  ],
+  "requests": [
+    {
+      "url": "https://server11.mp3quran.net/hawashi/001.mp3",
+      "bytes": 717115,
+      "sha256": "e1874a63467e1588d76de111d623d0f84150530aa1d858b63bad63f4443887fb",
+      "contentLength": "717115"
+    },
+    {
+      "url": "https://everyayah.com/data/Alafasy_128kbps/001001.mp3",
+      "bytes": 146830,
+      "sha256": "8808f3fc313d9df87b6090ee9efc8c11859da58b0100ad92621c5ee9a93d7280",
+      "contentLength": "146830"
+    },
+    {
+      "url": "https://cdn.mp3quran.net/audio/mahmoud-husary/r3/001.mp3",
+      "bytes": 473723,
+      "sha256": "182bd7ad3599923bf74d050e200c8805f9f56cdd1384d822752ee8924b6c7258",
+      "contentLength": "473723"
+    }
+  ]
+}

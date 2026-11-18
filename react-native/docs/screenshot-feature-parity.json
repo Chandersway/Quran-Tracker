@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "baselineDirectory": "C:\\Users\\Karma\\Pictures\\pcmo\\oldapp",
+  "scope": "Read-only comparison of all six user-supplied original-app screenshots to current concrete RN implementations.",
+  "screenshots": [
+    {
+      "baseline": "WhatsApp Image 2026-11-13 at 23.07.10.jpeg",
+      "sha256": "2ca41c4f55ca3656e7f454388bb3aec500fc94ce33df4c4b8bd68260699b6701",
+      "observed": "Stats weekly activity and grouped history",
+      "evidence": [
+        {
+          "contract": "Seven-day reading activity bars",
+          "path": "src/features/practice/StatsScreen.tsx",
+          "line": 453,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "title=\"stats\\.weeklyActivity\""
+        },
+        {
+          "contract": "Day/week/month history; newest group expanded; exact ranges and Arabic opening",
+          "path": "src/features/practice/StatisticsHistory.tsx",
+          "line": 9,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "export function StatisticsHistory"
+        },
+        {
+          "contract": "Legacy quarter-per-day summaries preserve original rows",
+          "path": "src/domain/statistics.ts",
+          "line": 144,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "export function statsHistoryDisplayItems"
+        }
+      ]
+    },
+    {
+      "baseline": "WhatsApp Image 2026-11-13 at 23.07.11.jpeg",
+      "sha256": "c3247b9e044f0c75bc1caf2658b6c641ab7f9ca8f682340d6058383e373e95e2",
+      "observed": "Statistics distribution circles",
+      "evidence": [
+        {
+          "contract": "All-time/7-day/30-day selector",
+          "path": "src/features/practice/StatsScreen.tsx",
+          "line": 42,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "const periodLabels"
+        },
+        {
+          "contract": "Three simultaneous circles: type, Hizb/Rub and Surah; count plus percentage legends",
+          "path": "src/features/practice/StatsScreen.tsx",
+          "line": 303,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "\\(\\[\\s*'type',\\s*'hizb',\\s*'surah'\\s*\\]\\s*as\\s*const\\)"
+        },
+        {
+          "contract": "View registrations and full virtualized exact-membership details",
+          "path": "src/features/practice/StatsScreen.tsx",
+          "line": 571,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "testID=\"stats-detail-list\""
+        }
+      ]
+    },
+    {
+      "baseline": "WhatsApp Image 2026-11-13 at 23.07.11 (1).jpeg",
+      "sha256": "53e1fa116d2ee6b91d0d6d3e1f47ec8d5dc75b2c2d7817e19b45b2f0f867f89e",
+      "observed": "Home Today and independent reading-plan circles",
+      "evidence": [
+        {
+          "contract": "Daily goal progress ring and quick check-in",
+          "path": "src/features/home/HomeScreen.tsx",
+          "line": 128,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "value=\\{fraction\\}"
+        },
+        {
+          "contract": "Today scheduled items and empty state",
+          "path": "src/features/home/HomeScreen.tsx",
+          "line": 162,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "app\\.planningToday"
+        },
+        {
+          "contract": "Independent reading-plan ring and configure action",
+          "path": "src/features/planning/ReadingPlanScreen.tsx",
+          "line": 42,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "export function ReadingPlanHomeCard"
+        }
+      ]
+    },
+    {
+      "baseline": "WhatsApp Image 2026-11-13 at 23.07.11 (2).jpeg",
+      "sha256": "38d1f03a49a456f155992600252a9f2d8cab5b9e04f389c7c272aad71fa75f0f",
+      "observed": "Home Hizb chart and date filters",
+      "evidence": [
+        {
+          "contract": "Week/month/year/custom inclusive date range",
+          "path": "src/features/home/HizbOverviewCard.tsx",
+          "line": 17,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "export function HizbOverviewCard"
+        },
+        {
+          "contract": "Sixty horizontal bars, selected detail and expanded chart",
+          "path": "src/features/home/HizbOverviewCard.tsx",
+          "line": 81,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "testID=\"hizb_chart\""
+        },
+        {
+          "contract": "Owner/action/type constrained registration counts",
+          "path": "src/domain/hizbAnalytics.ts",
+          "line": 49,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "export function countHizbReadings"
+        }
+      ]
+    },
+    {
+      "baseline": "WhatsApp Image 2026-11-13 at 23.07.11 (3).jpeg",
+      "sha256": "41ab1bcc41680ee706ef485293cbde21e7f1e9a0e8d99dbebb9ebb9d41e91b10",
+      "observed": "Hizb independent Hifz score dialog",
+      "evidence": [
+        {
+          "contract": "Score 0-100 with zero unassessed; explicit save; preserves reading/memory flags",
+          "path": "src/features/practice/ProgressScreen.tsx",
+          "line": 259,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "tracker\\.hizbScoreQuestion"
+        },
+        {
+          "contract": "Independent hifz reducer validates bounds and preserves memorization/read state",
+          "path": "src/state/reducer.ts",
+          "line": 284,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "case 'hifz':"
+        }
+      ]
+    },
+    {
+      "baseline": "WhatsApp Image 2026-11-13 at 23.07.11 (4).jpeg",
+      "sha256": "47358b10e5a44ba38cea5883e96b976cc8285350faf0743f8de0e975580e6362",
+      "observed": "Home Hifz scope overview and review recommendations",
+      "evidence": [
+        {
+          "contract": "Surah/Hizb/Juz assessment selector, assessed count and mean",
+          "path": "src/features/home/PracticeOverview.tsx",
+          "line": 57,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "const assessments = explicitAssessments"
+        },
+        {
+          "contract": "Horizontal score cards; weak and strong recommendations",
+          "path": "src/features/home/PracticeOverview.tsx",
+          "line": 206,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "app\\.reviewFirst"
+        },
+        {
+          "contract": "Review-due advice and scheduled review action",
+          "path": "src/features/home/PracticeOverview.tsx",
+          "line": 229,
+          "status": "ported; native screenshot and interaction comparison pending",
+          "anchorPattern": "app\\.repeatDue"
+        }
+      ]
+    }
+  ],
+  "openFidelityNotes": [
+    "The screenshots are visual baselines, not proof that an RN workflow has been exercised. All six images were opened and visually inspected.",
+    "Modern composition differs from the source, but no screenshot contract is counted as implemented solely from a route or label.",
+    "Stats Hifdh mastery now uses a circular percentage ring with the original assessed-Hizb definition and explanation; final native comparison remains.",
+    "The original 1/4, 2/4, 3/4 and 4/4 Rub summary labels are restored. Underlying legacy history markers remain unchanged.",
+    "Hifz dialogs now include the continuous 0-100 slider, numeric input/presets, source clear/save/cancel actions and independent-score explanation. Clear immediately commits score 0 and dismisses, preserving reading and memorization flags.",
+    "A new printed-page registration remains in the page bucket. Its known canonical range and recorded edition/page are displayed/opened without falsely counting a whole Surah, Hizb or Juz.",
+    "The Hizb chart source helper text says full check-ins, but its active owner-scoped SQL counts all read/type=hizb registrations, including legacy fractional names. RN follows the query; it does not silently change historical counts.",
+    "No account was created and no live OAuth, email, group message or push credential workflow was performed during this audit."
+  ]
+}

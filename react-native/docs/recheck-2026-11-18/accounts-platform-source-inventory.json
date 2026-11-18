@@ -1,0 +1,337 @@
+{
+  "date": "2026-11-18",
+  "scope": "Account, profile, onboarding, local notifications, settings, Android import and iOS platform audit. These are semantic review scopes, not a claim that every feature was exercised on a device. Shared large files are explicitly partial. Full structural declarations and hashes belong to source-index.json.",
+  "kotlinRoot": "../app/src/main/java/com/Ameender/qurantracker/",
+  "files": [
+    {
+      "path": "data/AuthenticationState.kt",
+      "coverage": "full",
+      "symbols": ["AuthenticationState", "ProtectedAuthAccess", "protectedAccess"],
+      "reactNative": [
+        "src/services/auth/types.ts",
+        "src/features/account/screens/AccountScreen.tsx"
+      ],
+      "rules": "Checking, authenticated and signed-out are distinct; protected screens wait for restored auth."
+    },
+    {
+      "path": "data/AccountManagementPolicy.kt",
+      "coverage": "full",
+      "symbols": ["AccountManagementPolicy"],
+      "reactNative": [
+        "src/features/account/screens/AccountScreen.tsx",
+        "src/services/auth/auth.ts"
+      ],
+      "rules": "New-password bounds for change/recovery (not existing-password sign-in/confirmation), trimmed email format/length, case-insensitive unchanged-email rejection, explicit deletion confirmation."
+    },
+    {
+      "path": "data/ProfileAvatarService.kt",
+      "coverage": "full",
+      "symbols": ["ProfileAvatarService"],
+      "reactNative": [
+        "src/services/profiles/profiles.ts",
+        "src/features/account/hooks/useAccountProfile.ts"
+      ],
+      "rules": "Custom online values, cached custom values, then identity fallback; provider copies must not replace saved custom profile. Cache survives logout; successful deletion removes it. RN uses stable account ID instead of email."
+    },
+    {
+      "path": "ui/AccountManagement.kt",
+      "coverage": "full",
+      "symbols": [
+        "accountManagementText",
+        "AccountManagementPanel",
+        "ForgotPasswordButton",
+        "AccountRecoveryHost",
+        "AccountActionDialog",
+        "AccountPasswordField"
+      ],
+      "reactNative": [
+        "src/features/account/screens/AccountScreen.tsx",
+        "src/features/account/model/accountCopy.ts"
+      ],
+      "rules": "Recovery, current-password change, new-email confirmation, account deletion and localized errors; provider-specific password controls."
+    },
+    {
+      "path": "data/LanguageEntry.kt",
+      "coverage": "full",
+      "symbols": [
+        "AppLanguage",
+        "LanguageEntryStage",
+        "resolveLanguageEntry",
+        "LanguageEntryStore"
+      ],
+      "reactNative": ["src/domain/onboarding.ts", "src/state/persistence/importedPresentation.ts"],
+      "rules": "NL/EN/AR; explicit checkpoint wins; any previous database means an existing installation even if tables and preferences are empty."
+    },
+    {
+      "path": "data/OnboardingStep.kt",
+      "coverage": "full",
+      "symbols": ["OnboardingStep"],
+      "reactNative": ["src/domain/onboarding.ts"],
+      "rules": "Six stable ordered demo steps with resumable checkpoint and explicit finish/skip."
+    },
+    {
+      "path": "ui/LanguageSelectionScreen.kt",
+      "coverage": "full",
+      "symbols": ["LanguageSelectionScreen"],
+      "reactNative": ["src/features/onboarding/screens/OnboardingScreen.tsx"],
+      "rules": "Native language names, three supported selections, RTL presentation before the rest of the onboarding."
+    },
+    {
+      "path": "ui/OnboardingShell.kt",
+      "coverage": "full",
+      "symbols": ["OnboardingShell"],
+      "reactNative": ["src/features/onboarding/components/OnboardingFlow.tsx"],
+      "rules": "Back/next/skip/start and progress follow the active step; demos do not call real persistence or backend services."
+    },
+    {
+      "path": "ui/OnboardingReplay.kt",
+      "coverage": "full",
+      "symbols": ["OnboardingReplay"],
+      "reactNative": ["src/features/onboarding/screens/OnboardingScreen.tsx"],
+      "rules": "Replay from settings does not reset real onboarding completion or user progress."
+    },
+    {
+      "path": "ui/OnboardingReadingPreview.kt",
+      "coverage": "full",
+      "symbols": ["ReadingDemoUnit", "OnboardingReadingPreview"],
+      "reactNative": ["src/features/onboarding/components/OnboardingFlow.tsx"],
+      "rules": "Surah/hizb/rub/juz demo counters remain separate; increments affect example state only."
+    },
+    {
+      "path": "ui/OnboardingHifzPreview.kt",
+      "coverage": "full",
+      "symbols": ["OnboardingHifzPreview"],
+      "reactNative": ["src/features/onboarding/components/OnboardingFlow.tsx"],
+      "rules": "Example score75; zero means unrated; full0–100 input, save/clear/cancel. RN presents numeric input and presets instead of the original slider."
+    },
+    {
+      "path": "ui/FocusDemoTimer.kt",
+      "coverage": "full",
+      "symbols": ["FocusDemoTimer"],
+      "reactNative": ["src/domain/onboarding.ts"],
+      "rules": "25-minute sample, pause, toggle, reset after completion and clamped elapsed time; no production focus session."
+    },
+    {
+      "path": "ui/OnboardingFocusPreview.kt",
+      "coverage": "full",
+      "symbols": ["OnboardingFocusPreview"],
+      "reactNative": ["src/features/onboarding/components/OnboardingFlow.tsx"],
+      "rules": "Demo timer pauses when the app stops being active or the step unmounts."
+    },
+    {
+      "path": "ui/OnboardingPlanningPreview.kt",
+      "coverage": "full",
+      "symbols": ["PlanningDemoItem", "planningDemoDate", "OnboardingPlanningPreview"],
+      "reactNative": ["src/features/onboarding/components/OnboardingFlow.tsx"],
+      "rules": "Tomorrow19:00 default, unit and date choice, reminder toggle and arbitrary valid hour/minute; save/cancel confined to example state."
+    },
+    {
+      "path": "ui/OnboardingStatisticsPreview.kt",
+      "coverage": "full",
+      "symbols": ["DemoReadCount", "OnboardingStatisticsPreview"],
+      "reactNative": ["src/features/onboarding/components/OnboardingFlow.tsx"],
+      "rules": "Fixed example counts5hizb/2juz/3surah and unit switching; never attributed to user totals."
+    },
+    {
+      "path": "ui/OnboardingGroupsPreview.kt",
+      "coverage": "full",
+      "symbols": ["OnboardingGroupsPreview"],
+      "reactNative": ["src/features/onboarding/components/OnboardingFlow.tsx"],
+      "rules": "Three sample members and scores240/180/120, demonstrative create/join information only, no real group writes."
+    },
+    {
+      "path": "data/ReminderScheduler.kt",
+      "coverage": "full",
+      "symbols": ["ReminderScheduler", "AndroidReminderScheduler"],
+      "reactNative": [
+        "src/services/notifications/planningReminders.ts",
+        "src/services/notifications/planningReminderPort.ts"
+      ],
+      "rules": "Injectable scheduling boundary for daily/planning/cancel operations; Android WorkManager replaced by Expo native schedules."
+    },
+    {
+      "path": "notifications/NotificationPreferencesRepository.kt",
+      "coverage": "full",
+      "symbols": ["NotificationPreferencesRepository"],
+      "reactNative": [
+        "src/services/notifications/localReminders.ts",
+        "src/domain/notificationPreferences.ts"
+      ],
+      "rules": "Canonical daily-goal time, separate extra reminder, quiet hours and persisted local toggles; serialized schedule/preference transaction."
+    },
+    {
+      "path": "notifications/NotificationPolicy.kt",
+      "coverage": "full",
+      "symbols": [
+        "NotificationCategory",
+        "GroupNotificationMode",
+        "GroupEventType",
+        "QuietHours",
+        "NotificationPreferences",
+        "NotificationPolicy"
+      ],
+      "reactNative": [
+        "src/domain/notificationPreferences.ts",
+        "src/services/notifications/groupPushPolicy.ts"
+      ],
+      "rules": "Daytime/overnight quiet windows, equal endpoints disabled, next allowed time, daily independent of achieved goal; group categories reviewed jointly with community scope."
+    },
+    {
+      "path": "notifications/NotificationCoordinator.kt",
+      "coverage": "full",
+      "symbols": ["NotificationCoordinator", "NotificationReconcileWorker"],
+      "reactNative": [
+        "src/services/notifications/localReminders.ts",
+        "src/services/notifications/planningReminderLedger.ts"
+      ],
+      "rules": "Stable event identity,35-day ledger retention and12-hour planning catch-up after quiet deferral; RN native daily recurrence is a documented platform adaptation."
+    },
+    {
+      "path": "notifications/NotificationsViewModel.kt",
+      "coverage": "full",
+      "symbols": ["NotificationsState", "NotificationsViewModel"],
+      "reactNative": [
+        "src/features/account/screens/NotificationsScreen.tsx",
+        "src/features/account/components/LocalRemindersPanel.tsx",
+        "src/services/notifications/notificationSystem.ts"
+      ],
+      "rules": "Load/save/error state, system delivery status and actor-scoped online notification preferences."
+    },
+    {
+      "path": "notifications/NotificationText.kt",
+      "coverage": "full",
+      "symbols": ["notificationText", "notificationUnit"],
+      "reactNative": ["src/i18n/source-catalog.json", "src/i18n/index.ts"],
+      "rules": "NL/EN/AR labels, local-vs-group wording and reply-only online push description; iOS wording adapted to permission/capability differences."
+    },
+    {
+      "path": "ui/NotificationsScreen.kt",
+      "coverage": "full",
+      "symbols": [
+        "NotificationsScreen",
+        "NotificationSection",
+        "NotificationSettingsCard",
+        "NotificationToggle",
+        "NotificationTime"
+      ],
+      "reactNative": [
+        "src/features/account/screens/NotificationsScreen.tsx",
+        "src/features/account/components/LocalRemindersPanel.tsx"
+      ],
+      "rules": "Local switch, daily and extra times, plan switch, quiet hours, permission/system links, remote category/per-group controls and normalized time input."
+    },
+    {
+      "path": "QuranReminderWorker.kt",
+      "coverage": "full",
+      "symbols": ["QuranReminderWorker", "scheduleDailyReminder"],
+      "reactNative": ["src/services/notifications/localReminders.ts"],
+      "rules": "Legacy entry initializes the notification coordinator; RN registers native daily recurring alarms."
+    },
+    {
+      "path": "PlanningReminderWorker.kt",
+      "coverage": "full",
+      "symbols": ["PlanningReminderWorker", "schedulePlanningReminder", "cancelPlanningReminder"],
+      "reactNative": [
+        "src/services/notifications/localReminders.ts",
+        "src/services/notifications/planningReminderLedger.ts"
+      ],
+      "rules": "Compatibility planning worker, bounded retries and scheduler/cancel hooks; RN reconciles keyed native schedules."
+    },
+    {
+      "path": "data/NoteScopesMigration.kt",
+      "coverage": "full",
+      "symbols": ["NOTE_SCOPES_MIGRATION"],
+      "reactNative": ["src/migration/legacyRoom.ts", "src/exporting/notesExport.ts"],
+      "rules": "Migration16→17 preserves note metadata and the five scope variants; importer/exporter retains note meaning rather than assuming only juz notes."
+    },
+    {
+      "path": "data/SupabaseService.kt",
+      "coverage": "partial-shared",
+      "scope": "Auth setup/state and profile/cache methods around327–535; sign-in/up/Google/reset/recovery/email/delete/device/signout/deep-link methods1051–end; group/feed methods belong to community audit.",
+      "symbols": ["SupabaseService", "UserAccount", "ProfileUpsert", "ProfileRow"],
+      "reactNative": [
+        "src/services/auth/auth.ts",
+        "src/services/auth/authCallback.ts",
+        "src/services/profiles/profiles.ts",
+        "src/services/notifications/pushDevice.ts"
+      ],
+      "rules": "Single auth source, current actor checks, profile merge/save, typed account operations, native push registration and deletion cleanup."
+    },
+    {
+      "path": "ui/HamburgerMenu.kt",
+      "coverage": "partial-shared",
+      "scope": "Active preferences/menu branches around222–760 and account editor/actions around8680–9040; large unrelated screens audited by peer reports.",
+      "symbols": ["HamburgerMenu"],
+      "reactNative": [
+        "src/features/account/screens/SettingsScreen.tsx",
+        "src/features/account/screens/AccountScreen.tsx",
+        "src/app/navigation/NavigationDock.tsx"
+      ],
+      "rules": "Language, theme, Arabic font, translation, card pattern, hifz colors, mushaf library/media, onboarding replay, account controls and route links."
+    },
+    {
+      "path": "MainActivity.kt",
+      "coverage": "partial-shared",
+      "scope": "Activity initialization85–215, auth/onboarding lifecycle and stored appearance/audio/mushaf preferences; other routes and feature screens belong to peer reports.",
+      "symbols": ["MainActivity"],
+      "reactNative": [
+        "src/app/providers/AppProviders.tsx",
+        "src/features/account/screens/AccountScreen.tsx",
+        "src/state/persistence/hydrateState.ts",
+        "src/app/navigation/AppNavigator.tsx"
+      ],
+      "rules": "Hydrate before writable screens, restore auth, notifications registration, three-language entry and retained display/media settings."
+    },
+    {
+      "path": "data/QuranDatabase.kt",
+      "coverage": "partial-shared",
+      "scope": "Database version20 and migration contracts16→20, initial schema/migration declarations first220lines; entity-specific behavior covered by tracking/content peers.",
+      "symbols": ["QuranDatabase", "ALL_MIGRATIONS"],
+      "reactNative": [
+        "src/migration/legacyAndroid.native.ts",
+        "src/migration/legacyRoom.ts",
+        "src/state/persistence/hydrateState.ts"
+      ],
+      "rules": "Only supported source versions16–20; copy database plus WAL/journal before query-only reads; preserve rows, metadata and import retry state without opening/writing original DB."
+    }
+  ],
+  "additionalReactNativeReview": [
+    "src/domain/themePreferences.ts",
+    "src/domain/layoutDirection.ts",
+    "src/shared/theme/index.tsx",
+    "src/migration/legacyAndroid.native.ts",
+    "src/migration/legacyRoom.ts",
+    "src/state/persistence/decodeState.ts",
+    "src/state/persistence/hydrateState.ts",
+    "src/state/persistence/importedPresentation.ts",
+    "src/state/persistence/snapshotWriter.ts",
+    "src/state/store.tsx",
+    "src/services/storage/readOnlyAssetDatabase.ts",
+    "src/services/storage/deviceStorageCore.ts",
+    "src/services/notifications/pushDevice.ts",
+    "src/services/notifications/groupPushRuntime.ts",
+    "src/services/notifications/planningReminderPort.ts",
+    "src/services/notifications/expoPlanningReminders.ts",
+    "src/services/notifications/notificationSystem.ts",
+    "src/services/notifications/planningReminderLedger.ts",
+    "src/exporting/notesExport.ts"
+  ],
+  "newOrExtendedRegressionTests": [
+    "tests/appearance-preferences.test.ts",
+    "tests/profiles-service.test.ts",
+    "tests/account-profile.test.ts",
+    "tests/auth-service.test.ts",
+    "tests/reference-database-platform.test.ts",
+    "tests/notification-native-permission.test.ts",
+    "tests/local-reminder-reconciliation.test.ts",
+    "tests/independent-reminder-review.test.ts",
+    "tests/onboarding-planning-ui.test.ts",
+    "tests/state-hydration.test.ts"
+  ],
+  "limits": [
+    "Kotlin test classes appear in the root structural index; this inventory does not claim they were executed or all semantically reviewed.",
+    "Shared UI/theme/brand/compatibility UserInfo files were reviewed by the independent reviewer, not this scope.",
+    "Native iOS build, signed entitlements, APNs delivery and physical-device behavior still require the release/device checklist.",
+    "Daily recurring notifications are owned by the OS; there is no added app-level daily catch-up that might replay an OS-delivered notification."
+  ]
+}

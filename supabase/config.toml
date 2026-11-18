@@ -1,3 +1,7 @@
 [functions.group-push]
 # Authentication is performed by a database-verified, Vault-backed dispatcher token.
 verify_jwt = false
+
+[functions.apple-account-delete]
+# User-facing function: keep the platform JWT gate as well as server getUser verification.
+verify_jwt = true

@@ -1,0 +1,31 @@
+{
+  "baseline": {
+    "commit": "4428ece9b5c9ce15b75a86fbe972e8209e1b0df1",
+    "kotlinFiles": 124,
+    "kotlinLines": 43599,
+    "kotlinManifestSha256": "43e4d38fca62eca0d86f416583cafa4d3be457fc4c8496e135b68d610d8e4c06",
+    "trackedOriginalSourceChanges": []
+  },
+  "quranContent": {
+    "compared": {
+      "arabic": 6236,
+      "nl": 6236,
+      "en": 6236,
+      "studyAyahs": 6236,
+      "audioCatalogs": 114
+    },
+    "mismatches": []
+  },
+  "byteCopies": {
+    "compared": 1365,
+    "mismatches": []
+  },
+  "curatedCopy": {
+    "extraction": "{\"entries\": 1712, \"completeEN_NL_AR\": 1671, \"warnings\": 0}",
+    "entries": 1712,
+    "entryDifferencesFromFreshExtraction": [],
+    "bookMetadataEqualToFreshExtraction": true,
+    "rawLiteralInventoryEqualToFreshExtraction": true,
+    "note": "Catalog preservation is not proof that every active RN screen renders the matching original sentence."
+  }
+}

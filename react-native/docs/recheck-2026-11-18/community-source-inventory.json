@@ -1,0 +1,6185 @@
+{
+  "date": "2026-11-18",
+  "scope": "Community/group/realtime/push inventory. Structural declarations are an inventory, not proof of runtime behavior. Shared MainActivity/HamburgerMenu/SupabaseService/notification files were traced only for this scope. Behavioral findings and verification are in community-realtime-push.md.",
+  "counts": {
+    "kotlin": 24,
+    "react_native": 66,
+    "migrations": 26,
+    "server": 3,
+    "sql_tests": 17,
+    "qa_scripts": 17,
+    "rn_tests": 14
+  },
+  "files": [
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+      "lines": 1811,
+      "sha256": "053e352b3b111c1070fdce0ee9a6ed8943596a56e80332ab269213731f4925ae",
+      "declared_symbols": [
+        {
+          "line": 21,
+          "name": "GroupV2Row"
+        },
+        {
+          "line": 43,
+          "name": "GroupLogoRow"
+        },
+        {
+          "line": 45,
+          "name": "SetGroupLogoParams"
+        },
+        {
+          "line": 51,
+          "name": "GroupV2MembershipRow"
+        },
+        {
+          "line": 62,
+          "name": "GroupV2RoleRow"
+        },
+        {
+          "line": 68,
+          "name": "GroupV2MemberListRow"
+        },
+        {
+          "line": 78,
+          "name": "GroupV2RoleListRow"
+        },
+        {
+          "line": 85,
+          "name": "GroupV2InvitationRow"
+        },
+        {
+          "line": 97,
+          "name": "GroupV2JoinRequestRow"
+        },
+        {
+          "line": 109,
+          "name": "GroupV2MediaRow"
+        },
+        {
+          "line": 128,
+          "name": "GroupV2TaskRow"
+        },
+        {
+          "line": 151,
+          "name": "GroupV3ProfileRow"
+        },
+        {
+          "line": 160,
+          "name": "GroupV3TaskProgressRow"
+        },
+        {
+          "line": 168,
+          "name": "GroupV3PointTotalRow"
+        },
+        {
+          "line": 176,
+          "name": "GroupV2EventRow"
+        },
+        {
+          "line": 196,
+          "name": "GroupV2RuleRow"
+        },
+        {
+          "line": 206,
+          "name": "GroupV2NotificationPreferencesRow"
+        },
+        {
+          "line": 214,
+          "name": "GroupV2NotificationRow"
+        },
+        {
+          "line": 226,
+          "name": "GroupV2ModerationReportRow"
+        },
+        {
+          "line": 244,
+          "name": "GroupV2AuditEntryRow"
+        },
+        {
+          "line": 256,
+          "name": "GroupV2PostRow"
+        },
+        {
+          "line": 272,
+          "name": "GroupV2ReactionRow"
+        },
+        {
+          "line": 280,
+          "name": "GroupV2CommentRow"
+        },
+        {
+          "line": 291,
+          "name": "GroupV2ProgressRow"
+        },
+        {
+          "line": 300,
+          "name": "CreateGroupV2Params"
+        },
+        {
+          "line": 313,
+          "name": "UpdateGroupV2Params"
+        },
+        {
+          "line": 326,
+          "name": "JoinGroupV2Params"
+        },
+        {
+          "line": 332,
+          "name": "GroupIdParam"
+        },
+        {
+          "line": 337,
+          "name": "GetGroupDetailV3Params"
+        },
+        {
+          "line": 342,
+          "name": "CreateTextPostV2Params"
+        },
+        {
+          "line": 349,
+          "name": "RecordProgressV2Params"
+        },
+        {
+          "line": 360,
+          "name": "TogglePostLikeV2Params"
+        },
+        {
+          "line": 366,
+          "name": "AddPostCommentV2Params"
+        },
+        {
+          "line": 374,
+          "name": "UpdatePostV2Params"
+        },
+        {
+          "line": 381,
+          "name": "SetPostPinnedV2Params"
+        },
+        {
+          "line": 388,
+          "name": "PostMutationV2Params"
+        },
+        {
+          "line": 394,
+          "name": "TogglePostReactionV2Params"
+        },
+        {
+          "line": 401,
+          "name": "DeletePostCommentV2Params"
+        },
+        {
+          "line": 408,
+          "name": "ReportPostV2Params"
+        },
+        {
+          "line": 416,
+          "name": "SetMemberRoleV2Params"
+        },
+        {
+          "line": 423,
+          "name": "RemoveMemberV2Params"
+        },
+        {
+          "line": 430,
+          "name": "CreateInvitationV2Params"
+        },
+        {
+          "line": 438,
+          "name": "InvitationMutationV2Params"
+        },
+        {
+          "line": 444,
+          "name": "AcceptInvitationV2Params"
+        },
+        {
+          "line": 450,
+          "name": "CreateJoinRequestV2Params"
+        },
+        {
+          "line": 456,
+          "name": "ReviewJoinRequestV2Params"
+        },
+        {
+          "line": 463,
+          "name": "ListGroupMediaV2Params"
+        },
+        {
+          "line": 470,
+          "name": "RegisterGroupMediaV2Params"
+        },
+        {
+          "line": 482,
+          "name": "DeleteGroupMediaV2Params"
+        },
+        {
+          "line": 488,
+          "name": "ListGroupTasksV2Params"
+        },
+        {
+          "line": 494,
+          "name": "CreateGroupTaskV2Params"
+        },
+        {
+          "line": 506,
+          "name": "SetGroupTaskProgressV2Params"
+        },
+        {
+          "line": 513,
+          "name": "SetGroupTaskStatusV2Params"
+        },
+        {
+          "line": 520,
+          "name": "UpdateGroupProfileV2Params"
+        },
+        {
+          "line": 527,
+          "name": "CreateGroupEventV2Params"
+        },
+        {
+          "line": 538,
+          "name": "RespondGroupEventV2Params"
+        },
+        {
+          "line": 545,
+          "name": "SetGroupEventStatusV2Params"
+        },
+        {
+          "line": 552,
+          "name": "PublishGroupRulesV2Params"
+        },
+        {
+          "line": 558,
+          "name": "UpdateGroupNotificationPreferencesV2Params"
+        },
+        {
+          "line": 566,
+          "name": "ListGroupNotificationsV2Params"
+        },
+        {
+          "line": 574,
+          "name": "MarkGroupNotificationReadV2Params"
+        },
+        {
+          "line": 581,
+          "name": "SendGroupNotificationV2Params"
+        },
+        {
+          "line": 591,
+          "name": "ListGroupModerationReportsV2Params"
+        },
+        {
+          "line": 600,
+          "name": "ReviewGroupModerationReportV2Params"
+        },
+        {
+          "line": 608,
+          "name": "ListGroupAuditLogV2Params"
+        },
+        {
+          "line": 614,
+          "name": "GroupV2Repository"
+        },
+        {
+          "line": 617,
+          "name": "createGroup"
+        },
+        {
+          "line": 646,
+          "name": "joinGroup"
+        },
+        {
+          "line": 658,
+          "name": "loadGroup"
+        },
+        {
+          "line": 667,
+          "name": "loadCurrentUserGroups"
+        },
+        {
+          "line": 680,
+          "name": "updateGroup"
+        },
+        {
+          "line": 710,
+          "name": "deleteGroup"
+        },
+        {
+          "line": 715,
+          "name": "loadMembers"
+        },
+        {
+          "line": 738,
+          "name": "loadMyGroupProfile"
+        },
+        {
+          "line": 746,
+          "name": "updateMyGroupProfile"
+        },
+        {
+          "line": 762,
+          "name": "uploadGroupProfileAvatar"
+        },
+        {
+          "line": 785,
+          "name": "loadGroupLogo"
+        },
+        {
+          "line": 791,
+          "name": "setGroupLogo"
+        },
+        {
+          "line": 809,
+          "name": "loadRoles"
+        },
+        {
+          "line": 819,
+          "name": "setMemberRole"
+        },
+        {
+          "line": 827,
+          "name": "removeMember"
+        },
+        {
+          "line": 835,
+          "name": "createInvitation"
+        },
+        {
+          "line": 848,
+          "name": "loadInvitations"
+        },
+        {
+          "line": 856,
+          "name": "revokeInvitation"
+        },
+        {
+          "line": 864,
+          "name": "acceptInvitation"
+        },
+        {
+          "line": 876,
+          "name": "createJoinRequest"
+        },
+        {
+          "line": 883,
+          "name": "loadJoinRequests"
+        },
+        {
+          "line": 891,
+          "name": "reviewJoinRequest"
+        },
+        {
+          "line": 899,
+          "name": "loadMedia"
+        },
+        {
+          "line": 904,
+          "name": "uploadMedia"
+        },
+        {
+          "line": 956,
+          "name": "deleteMedia"
+        },
+        {
+          "line": 967,
+          "name": "loadTasks"
+        },
+        {
+          "line": 975,
+          "name": "createTask"
+        },
+        {
+          "line": 1001,
+          "name": "setTaskProgress"
+        },
+        {
+          "line": 1009,
+          "name": "setTaskStatus"
+        },
+        {
+          "line": 1017,
+          "name": "loadEvents"
+        },
+        {
+          "line": 1025,
+          "name": "createEvent"
+        },
+        {
+          "line": 1049,
+          "name": "respondToEvent"
+        },
+        {
+          "line": 1057,
+          "name": "setEventStatus"
+        },
+        {
+          "line": 1065,
+          "name": "loadRules"
+        },
+        {
+          "line": 1073,
+          "name": "publishRules"
+        },
+        {
+          "line": 1081,
+          "name": "loadNotificationPreferences"
+        },
+        {
+          "line": 1089,
+          "name": "updateNotificationPreferences"
+        },
+        {
+          "line": 1102,
+          "name": "loadNotifications"
+        },
+        {
+          "line": 1120,
+          "name": "markNotificationRead"
+        },
+        {
+          "line": 1132,
+          "name": "sendNotification"
+        },
+        {
+          "line": 1154,
+          "name": "loadModerationReports"
+        },
+        {
+          "line": 1174,
+          "name": "reviewModerationReport"
+        },
+        {
+          "line": 1187,
+          "name": "loadAuditLog"
+        },
+        {
+          "line": 1199,
+          "name": "recordProgress"
+        },
+        {
+          "line": 1223,
+          "name": "sendMessage"
+        },
+        {
+          "line": 1242,
+          "name": "loadFeed"
+        },
+        {
+          "line": 1305,
+          "name": "toggleLike"
+        },
+        {
+          "line": 1313,
+          "name": "addComment"
+        },
+        {
+          "line": 1327,
+          "name": "updatePost"
+        },
+        {
+          "line": 1346,
+          "name": "setPostPinned"
+        },
+        {
+          "line": 1365,
+          "name": "deletePost"
+        },
+        {
+          "line": 1373,
+          "name": "toggleReaction"
+        },
+        {
+          "line": 1382,
+          "name": "deleteComment"
+        },
+        {
+          "line": 1390,
+          "name": "reportPost"
+        },
+        {
+          "line": 1398,
+          "name": "loadLeaderboard"
+        },
+        {
+          "line": 1469,
+          "name": "loadGroupRowByCode"
+        },
+        {
+          "line": 1476,
+          "name": "loadGroupRowById"
+        },
+        {
+          "line": 1489,
+          "name": "loadCurrentRole"
+        },
+        {
+          "line": 1504,
+          "name": "loadRoleKey"
+        },
+        {
+          "line": 1515,
+          "name": "loadMediaForGroup"
+        },
+        {
+          "line": 1547,
+          "name": "GroupV2Row"
+        },
+        {
+          "line": 1569,
+          "name": "GroupV2PostRow"
+        },
+        {
+          "line": 1610,
+          "name": "GroupV2MediaRow"
+        },
+        {
+          "line": 1635,
+          "name": "GroupV2TaskRow"
+        },
+        {
+          "line": 1659,
+          "name": "GroupV3ProfileRow"
+        },
+        {
+          "line": 1667,
+          "name": "GroupV2EventRow"
+        },
+        {
+          "line": 1686,
+          "name": "GroupV2RuleRow"
+        },
+        {
+          "line": 1695,
+          "name": "GroupV2NotificationPreferencesRow"
+        },
+        {
+          "line": 1703,
+          "name": "GroupV2NotificationRow"
+        },
+        {
+          "line": 1714,
+          "name": "GroupV2ModerationReportRow"
+        },
+        {
+          "line": 1731,
+          "name": "GroupV2AuditEntryRow"
+        },
+        {
+          "line": 1742,
+          "name": "GroupV2CommentRow"
+        },
+        {
+          "line": 1754,
+          "name": "GroupV2InvitationRow"
+        },
+        {
+          "line": 1767,
+          "name": "GroupV2JoinRequestRow"
+        },
+        {
+          "line": 1780,
+          "name": "stableUiId"
+        },
+        {
+          "line": 1789,
+          "name": "progressStreak"
+        },
+        {
+          "line": 1807,
+          "name": "dateKeyDaysAgo"
+        }
+      ],
+      "referenced_rpc_names": [
+        "accept_group_invitation_v2",
+        "add_group_post_comment_v2",
+        "create_group_event_v2",
+        "create_group_invitation_v2",
+        "create_group_join_request_v2",
+        "create_group_task_v3",
+        "create_group_text_post_v2",
+        "create_group_v3_full",
+        "delete_group_media_v2",
+        "delete_group_post_comment_v2",
+        "delete_group_post_v2",
+        "get_group_detail_v3",
+        "get_group_logo_v1",
+        "get_group_member_permissions_v1",
+        "get_group_notification_preferences_v2",
+        "get_group_rules_v2",
+        "get_my_group_profile_v2",
+        "list_group_audit_log_v2",
+        "list_group_events_v2",
+        "list_group_invitations_v2",
+        "list_group_join_requests_v2",
+        "list_group_media_v2",
+        "list_group_members_v3",
+        "list_group_moderation_reports_v2",
+        "list_group_notifications_v2",
+        "list_group_point_totals_v2",
+        "list_group_roles_v2",
+        "list_group_tasks_v3",
+        "list_my_groups_v2",
+        "mark_group_notification_read_v2",
+        "publish_group_rules_v2",
+        "record_group_progress_v2",
+        "register_group_media_v2",
+        "remove_group_member_v2",
+        "report_group_post_v2",
+        "respond_group_event_v2",
+        "review_group_join_request_v2",
+        "review_group_moderation_report_v2",
+        "revoke_group_invitation_v2",
+        "send_group_notification_v2",
+        "set_group_event_status_v2",
+        "set_group_logo_v1",
+        "set_group_member_role_v2",
+        "set_group_post_pinned_v2",
+        "set_group_task_progress_v3",
+        "set_group_task_status_v2",
+        "soft_delete_group_v2",
+        "toggle_group_post_like_v2",
+        "toggle_group_post_reaction_v2",
+        "update_group_notification_preferences_v2",
+        "update_group_post_v2",
+        "update_group_v3_full",
+        "update_my_group_profile_v2"
+      ]
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/data/SupabaseService.kt",
+      "lines": 1178,
+      "sha256": "05480f1948169db953ef543e5f491fe1ec1e5180545bd698e1429d7d6d449fa8",
+      "declared_symbols": [
+        {
+          "line": 39,
+          "name": "ReadingGroupDetails"
+        },
+        {
+          "line": 61,
+          "name": "ReadingGroupMemberRow"
+        },
+        {
+          "line": 71,
+          "name": "ReadingGroupRoleRow"
+        },
+        {
+          "line": 77,
+          "name": "ReadingGroupInvitationRow"
+        },
+        {
+          "line": 88,
+          "name": "ReadingGroupJoinRequestRow"
+        },
+        {
+          "line": 99,
+          "name": "ReadingGroupMediaItem"
+        },
+        {
+          "line": 119,
+          "name": "ReadingGroupTaskItem"
+        },
+        {
+          "line": 141,
+          "name": "ReadingGroupProfile"
+        },
+        {
+          "line": 149,
+          "name": "ReadingGroupEventItem"
+        },
+        {
+          "line": 168,
+          "name": "ReadingGroupRule"
+        },
+        {
+          "line": 177,
+          "name": "ReadingGroupNotificationPreferences"
+        },
+        {
+          "line": 184,
+          "name": "ReadingGroupNotification"
+        },
+        {
+          "line": 195,
+          "name": "ReadingGroupModerationReport"
+        },
+        {
+          "line": 212,
+          "name": "ReadingGroupAuditEntry"
+        },
+        {
+          "line": 224,
+          "name": "ProfileUpsert"
+        },
+        {
+          "line": 231,
+          "name": "ProfileRow"
+        },
+        {
+          "line": 237,
+          "name": "ReadingGroupReadingEntry"
+        },
+        {
+          "line": 244,
+          "name": "ReadingGroupLeaderboardRow"
+        },
+        {
+          "line": 262,
+          "name": "ReadingGroupFeedItem"
+        },
+        {
+          "line": 287,
+          "name": "ReadingGroupCommentItem"
+        },
+        {
+          "line": 297,
+          "name": "UserAccount"
+        },
+        {
+          "line": 317,
+          "name": "SupabaseConfig"
+        },
+        {
+          "line": 327,
+          "name": "SupabaseService"
+        },
+        {
+          "line": 359,
+          "name": "consumeAccountDeletionNotice"
+        },
+        {
+          "line": 384,
+          "name": "UserInfo"
+        },
+        {
+          "line": 387,
+          "name": "synchronizeAuthenticationState"
+        },
+        {
+          "line": 397,
+          "name": "authenticatedUserOrNull"
+        },
+        {
+          "line": 407,
+          "name": "currentUserEmail"
+        },
+        {
+          "line": 411,
+          "name": "isAuthenticated"
+        },
+        {
+          "line": 413,
+          "name": "currentUserAccount"
+        },
+        {
+          "line": 452,
+          "name": "isProviderDisplayName"
+        },
+        {
+          "line": 457,
+          "name": "isProviderAvatarUrl"
+        },
+        {
+          "line": 464,
+          "name": "loadProfile"
+        },
+        {
+          "line": 474,
+          "name": "saveProfileName"
+        },
+        {
+          "line": 488,
+          "name": "uploadProfileAvatar"
+        },
+        {
+          "line": 519,
+          "name": "currentDisplayName"
+        },
+        {
+          "line": 523,
+          "name": "ensureProfileExists"
+        },
+        {
+          "line": 536,
+          "name": "createReadingGroup"
+        },
+        {
+          "line": 565,
+          "name": "joinReadingGroup"
+        },
+        {
+          "line": 574,
+          "name": "loadReadingGroup"
+        },
+        {
+          "line": 580,
+          "name": "loadReadingGroupForUser"
+        },
+        {
+          "line": 584,
+          "name": "loadCurrentUserReadingGroups"
+        },
+        {
+          "line": 589,
+          "name": "loadCurrentUserReadingGroup"
+        },
+        {
+          "line": 593,
+          "name": "updateReadingGroup"
+        },
+        {
+          "line": 620,
+          "name": "deleteReadingGroup"
+        },
+        {
+          "line": 626,
+          "name": "loadGroupMembers"
+        },
+        {
+          "line": 630,
+          "name": "loadMyGroupProfile"
+        },
+        {
+          "line": 635,
+          "name": "updateMyGroupProfile"
+        },
+        {
+          "line": 645,
+          "name": "uploadGroupProfileAvatar"
+        },
+        {
+          "line": 654,
+          "name": "loadGroupRoles"
+        },
+        {
+          "line": 659,
+          "name": "loadGroupLogo"
+        },
+        {
+          "line": 661,
+          "name": "setGroupLogo"
+        },
+        {
+          "line": 666,
+          "name": "setGroupMemberRole"
+        },
+        {
+          "line": 672,
+          "name": "removeGroupMember"
+        },
+        {
+          "line": 678,
+          "name": "createGroupInvitation"
+        },
+        {
+          "line": 689,
+          "name": "loadGroupInvitations"
+        },
+        {
+          "line": 694,
+          "name": "revokeGroupInvitation"
+        },
+        {
+          "line": 700,
+          "name": "acceptGroupInvitation"
+        },
+        {
+          "line": 708,
+          "name": "createGroupJoinRequest"
+        },
+        {
+          "line": 714,
+          "name": "loadGroupJoinRequests"
+        },
+        {
+          "line": 719,
+          "name": "reviewGroupJoinRequest"
+        },
+        {
+          "line": 725,
+          "name": "loadGroupMedia"
+        },
+        {
+          "line": 731,
+          "name": "uploadGroupMedia"
+        },
+        {
+          "line": 753,
+          "name": "deleteGroupMedia"
+        },
+        {
+          "line": 759,
+          "name": "loadGroupTasks"
+        },
+        {
+          "line": 764,
+          "name": "createGroupTask"
+        },
+        {
+          "line": 788,
+          "name": "updateGroupTaskProgress"
+        },
+        {
+          "line": 794,
+          "name": "updateGroupTaskStatus"
+        },
+        {
+          "line": 800,
+          "name": "loadGroupEvents"
+        },
+        {
+          "line": 805,
+          "name": "createGroupEvent"
+        },
+        {
+          "line": 819,
+          "name": "respondToGroupEvent"
+        },
+        {
+          "line": 825,
+          "name": "updateGroupEventStatus"
+        },
+        {
+          "line": 831,
+          "name": "loadGroupRules"
+        },
+        {
+          "line": 837,
+          "name": "publishGroupRules"
+        },
+        {
+          "line": 845,
+          "name": "loadGroupNotificationPreferences"
+        },
+        {
+          "line": 851,
+          "name": "loadGroupPushPreferences"
+        },
+        {
+          "line": 859,
+          "name": "saveGroupPushPreferences"
+        },
+        {
+          "line": 871,
+          "name": "updateGroupNotificationPreferences"
+        },
+        {
+          "line": 884,
+          "name": "loadGroupNotifications"
+        },
+        {
+          "line": 895,
+          "name": "markGroupNotificationRead"
+        },
+        {
+          "line": 905,
+          "name": "sendGroupNotification"
+        },
+        {
+          "line": 923,
+          "name": "loadGroupModerationReports"
+        },
+        {
+          "line": 935,
+          "name": "reviewGroupModerationReport"
+        },
+        {
+          "line": 948,
+          "name": "loadGroupAuditLog"
+        },
+        {
+          "line": 958,
+          "name": "recordGroupProgress"
+        },
+        {
+          "line": 982,
+          "name": "sendGroupMessage"
+        },
+        {
+          "line": 991,
+          "name": "loadGroupFeed"
+        },
+        {
+          "line": 995,
+          "name": "toggleGroupFeedLike"
+        },
+        {
+          "line": 1001,
+          "name": "toggleGroupPostReaction"
+        },
+        {
+          "line": 1007,
+          "name": "updateGroupPost"
+        },
+        {
+          "line": 1015,
+          "name": "setGroupPostPinned"
+        },
+        {
+          "line": 1021,
+          "name": "deleteGroupPost"
+        },
+        {
+          "line": 1027,
+          "name": "reportGroupPost"
+        },
+        {
+          "line": 1033,
+          "name": "deleteGroupPostComment"
+        },
+        {
+          "line": 1039,
+          "name": "addGroupFeedComment"
+        },
+        {
+          "line": 1047,
+          "name": "loadGroupLeaderboard"
+        },
+        {
+          "line": 1051,
+          "name": "signIn"
+        },
+        {
+          "line": 1059,
+          "name": "signUp"
+        },
+        {
+          "line": 1067,
+          "name": "signInWithGoogle"
+        },
+        {
+          "line": 1071,
+          "name": "requestPasswordReset"
+        },
+        {
+          "line": 1076,
+          "name": "verifyAccountPassword"
+        },
+        {
+          "line": 1086,
+          "name": "changeAccountPassword"
+        },
+        {
+          "line": 1095,
+          "name": "requestPasswordChangeCode"
+        },
+        {
+          "line": 1097,
+          "name": "completePasswordRecovery"
+        },
+        {
+          "line": 1104,
+          "name": "dismissPasswordRecovery"
+        },
+        {
+          "line": 1106,
+          "name": "changeAccountEmail"
+        },
+        {
+          "line": 1114,
+          "name": "accountDeletionStatus"
+        },
+        {
+          "line": 1117,
+          "name": "deleteOwnAccount"
+        },
+        {
+          "line": 1130,
+          "name": "pushAccountId"
+        },
+        {
+          "line": 1132,
+          "name": "registerPushDevice"
+        },
+        {
+          "line": 1140,
+          "name": "unregisterPushDevice"
+        },
+        {
+          "line": 1144,
+          "name": "GroupPushTarget"
+        },
+        {
+          "line": 1145,
+          "name": "groupPushTarget"
+        },
+        {
+          "line": 1149,
+          "name": "signOut"
+        },
+        {
+          "line": 1155,
+          "name": "handleDeeplinks"
+        },
+        {
+          "line": 1170,
+          "name": "groupUnitLabel"
+        },
+        {
+          "line": 1177,
+          "name": "JsonObject"
+        }
+      ],
+      "referenced_rpc_names": [
+        "account_deletion_status_v1",
+        "delete_my_account_v1",
+        "get_group_push_target_v1",
+        "register_push_device_v1",
+        "unregister_push_device_v1"
+      ]
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/data/GroupMemberPermissions.kt",
+      "lines": 15,
+      "sha256": "d501a5ec840cfcd056afc9d5479cf72ade811fe6f78f6ced014231c53c6ac656",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupMemberPermissions"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/data/GroupAuthorName.kt",
+      "lines": 7,
+      "sha256": "71a92a10736a7f528cf32c4d44917cde45a547965453cf1d46c4a91430b8b34f",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "resolveGroupAuthorName"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/data/PendingNavigationStore.kt",
+      "lines": 60,
+      "sha256": "a0248912191ac4be3d38e70031678c131fc5b26bf6556740720f45bf826a3e43",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "PendingNavigationStore"
+        },
+        {
+          "line": 14,
+          "name": "receive"
+        },
+        {
+          "line": 43,
+          "name": "receive"
+        },
+        {
+          "line": 52,
+          "name": "consumeGroup"
+        },
+        {
+          "line": 57,
+          "name": "consumeNotification"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/HamburgerMenu.kt",
+      "lines": 10963,
+      "sha256": "fc1241fbf031b6ebbb0ebd0d14d24b98ab50aee0a85aa993f9738f078fd1b296",
+      "declared_symbols": [
+        {
+          "line": 136,
+          "name": "SelectorOption"
+        },
+        {
+          "line": 143,
+          "name": "PendingGroupMediaUpload"
+        },
+        {
+          "line": 150,
+          "name": "MembershipAdminSnapshot"
+        },
+        {
+          "line": 157,
+          "name": "PermissionToggleOption"
+        },
+        {
+          "line": 222,
+          "name": "HamburgerMenu"
+        },
+        {
+          "line": 726,
+          "name": "GroupsSettingsPage"
+        },
+        {
+          "line": 767,
+          "name": "AuthenticatedGroupsSettingsPage"
+        },
+        {
+          "line": 862,
+          "name": "friendlyGroupError"
+        },
+        {
+          "line": 958,
+          "name": "invitationLanguage"
+        },
+        {
+          "line": 960,
+          "name": "groupInviteLink"
+        },
+        {
+          "line": 961,
+          "name": "groupAppInviteLink"
+        },
+        {
+          "line": 963,
+          "name": "loadStoredGoalConfig"
+        },
+        {
+          "line": 975,
+          "name": "loadStoredPrivacy"
+        },
+        {
+          "line": 981,
+          "name": "saveStoredGoalConfig"
+        },
+        {
+          "line": 997,
+          "name": "saveStoredPrivacy"
+        },
+        {
+          "line": 1005,
+          "name": "validateGroupForm"
+        },
+        {
+          "line": 1012,
+          "name": "applyGroupDetails"
+        },
+        {
+          "line": 1028,
+          "name": "openGroup"
+        },
+        {
+          "line": 1090,
+          "name": "startCreatingGroup"
+        },
+        {
+          "line": 1117,
+          "name": "cancelCreatingGroup"
+        },
+        {
+          "line": 1123,
+          "name": "openGroup"
+        },
+        {
+          "line": 1141,
+          "name": "loadGroupMembers"
+        },
+        {
+          "line": 1155,
+          "name": "loadGroupMedia"
+        },
+        {
+          "line": 1173,
+          "name": "loadGroupTasks"
+        },
+        {
+          "line": 1189,
+          "name": "loadGroupEvents"
+        },
+        {
+          "line": 1205,
+          "name": "openMyGroupProfile"
+        },
+        {
+          "line": 1215,
+          "name": "saveMyGroupProfile"
+        },
+        {
+          "line": 1250,
+          "name": "uploadPendingGroupMedia"
+        },
+        {
+          "line": 1278,
+          "name": "createGroupTask"
+        },
+        {
+          "line": 1322,
+          "name": "updateTaskProgress"
+        },
+        {
+          "line": 1349,
+          "name": "applyTaskStatusChange"
+        },
+        {
+          "line": 1372,
+          "name": "createGroupEvent"
+        },
+        {
+          "line": 1406,
+          "name": "respondToGroupEvent"
+        },
+        {
+          "line": 1420,
+          "name": "applyEventStatusChange"
+        },
+        {
+          "line": 1436,
+          "name": "confirmDeleteGroupMedia"
+        },
+        {
+          "line": 1457,
+          "name": "loadMembershipAdminData"
+        },
+        {
+          "line": 1480,
+          "name": "secureInvitationLinks"
+        },
+        {
+          "line": 1487,
+          "name": "copySecureInvitation"
+        },
+        {
+          "line": 1494,
+          "name": "shareSecureInvitation"
+        },
+        {
+          "line": 1506,
+          "name": "createSecureInvitation"
+        },
+        {
+          "line": 1526,
+          "name": "revokeInvitation"
+        },
+        {
+          "line": 1539,
+          "name": "saveMemberRole"
+        },
+        {
+          "line": 1554,
+          "name": "confirmRemoveMember"
+        },
+        {
+          "line": 1569,
+          "name": "reviewJoinRequest"
+        },
+        {
+          "line": 1585,
+          "name": "submitJoinRequest"
+        },
+        {
+          "line": 1608,
+          "name": "shareActiveGroupCode"
+        },
+        {
+          "line": 1624,
+          "name": "copyActiveGroupCode"
+        },
+        {
+          "line": 1634,
+          "name": "handleCreateGroup"
+        },
+        {
+          "line": 1673,
+          "name": "saveGroupSettings"
+        },
+        {
+          "line": 1709,
+          "name": "deleteActiveGroup"
+        },
+        {
+          "line": 1773,
+          "name": "loadGroupFeed"
+        },
+        {
+          "line": 1795,
+          "name": "shareGroupProgress"
+        },
+        {
+          "line": 1834,
+          "name": "sendFeedMessage"
+        },
+        {
+          "line": 1863,
+          "name": "reactToFeedPost"
+        },
+        {
+          "line": 1867,
+          "name": "nextCounts"
+        },
+        {
+          "line": 1905,
+          "name": "updateFeedPost"
+        },
+        {
+          "line": 1931,
+          "name": "toggleFeedPostPinned"
+        },
+        {
+          "line": 1949,
+          "name": "confirmDeleteFeedPost"
+        },
+        {
+          "line": 1964,
+          "name": "submitFeedPostReport"
+        },
+        {
+          "line": 1985,
+          "name": "confirmDeleteFeedComment"
+        },
+        {
+          "line": 2010,
+          "name": "submitFeedComment"
+        },
+        {
+          "line": 2056,
+          "name": "loadLeaderboard"
+        },
+        {
+          "line": 2074,
+          "name": "joinOnlineGroup"
+        },
+        {
+          "line": 2640,
+          "name": "GroupCommunityContent"
+        },
+        {
+          "line": 2985,
+          "name": "GroupDialogSystemBars"
+        },
+        {
+          "line": 3001,
+          "name": "GroupCreateWizard"
+        },
+        {
+          "line": 3198,
+          "name": "GroupCreateProgress"
+        },
+        {
+          "line": 3255,
+          "name": "GroupWizardChoiceChip"
+        },
+        {
+          "line": 3285,
+          "name": "GroupEmptyStateCard"
+        },
+        {
+          "line": 3401,
+          "name": "JoinGroupCard"
+        },
+        {
+          "line": 3452,
+          "name": "GroupHomeScreen"
+        },
+        {
+          "line": 3736,
+          "name": "PremiumGroupHeader"
+        },
+        {
+          "line": 3863,
+          "name": "GroupHeaderIconButton"
+        },
+        {
+          "line": 3882,
+          "name": "GroupMetaPill"
+        },
+        {
+          "line": 3897,
+          "name": "GroupHeaderStat"
+        },
+        {
+          "line": 3913,
+          "name": "GroupInlineStatus"
+        },
+        {
+          "line": 3929,
+          "name": "GroupFeatureEmptyState"
+        },
+        {
+          "line": 3951,
+          "name": "GroupMediaTab"
+        },
+        {
+          "line": 4058,
+          "name": "GroupTasksTab"
+        },
+        {
+          "line": 4150,
+          "name": "GroupTaskFilterChip"
+        },
+        {
+          "line": 4167,
+          "name": "GroupTasksSkeleton"
+        },
+        {
+          "line": 4191,
+          "name": "GroupTaskCard"
+        },
+        {
+          "line": 4331,
+          "name": "GroupTaskStatusBadge"
+        },
+        {
+          "line": 4350,
+          "name": "GroupTaskMeta"
+        },
+        {
+          "line": 4358,
+          "name": "GroupMediaSkeleton"
+        },
+        {
+          "line": 4384,
+          "name": "GroupMediaTile"
+        },
+        {
+          "line": 4453,
+          "name": "UploadGroupMediaDialog"
+        },
+        {
+          "line": 4530,
+          "name": "GroupMediaPreviewDialog"
+        },
+        {
+          "line": 4619,
+          "name": "groupPrivacyLabel"
+        },
+        {
+          "line": 4625,
+          "name": "groupRoleLabel"
+        },
+        {
+          "line": 4632,
+          "name": "canManageGroupMembership"
+        },
+        {
+          "line": 4635,
+          "name": "canCreateGroupTasks"
+        },
+        {
+          "line": 4638,
+          "name": "canUploadGroupMedia"
+        },
+        {
+          "line": 4642,
+          "name": "GroupEventsTab"
+        },
+        {
+          "line": 4698,
+          "name": "GroupEventCard"
+        },
+        {
+          "line": 4790,
+          "name": "canCreateGroupEvents"
+        },
+        {
+          "line": 4792,
+          "name": "groupTaskTypeIcon"
+        },
+        {
+          "line": 4799,
+          "name": "groupTaskTypeLabel"
+        },
+        {
+          "line": 4802,
+          "name": "groupTaskUnitLabel"
+        },
+        {
+          "line": 4812,
+          "name": "groupTaskDueLabel"
+        },
+        {
+          "line": 4816,
+          "name": "groupRoleRank"
+        },
+        {
+          "line": 4823,
+          "name": "groupLanguageLabel"
+        },
+        {
+          "line": 4831,
+          "name": "GroupSummaryCard"
+        },
+        {
+          "line": 4911,
+          "name": "GroupTabs"
+        },
+        {
+          "line": 4966,
+          "name": "GroupLeaderboardTab"
+        },
+        {
+          "line": 4991,
+          "name": "GroupDashboardTab"
+        },
+        {
+          "line": 5063,
+          "name": "GroupDashboardMetric"
+        },
+        {
+          "line": 5078,
+          "name": "GroupFeedTab"
+        },
+        {
+          "line": 5187,
+          "name": "GroupFeedSectionTitle"
+        },
+        {
+          "line": 5195,
+          "name": "FeedComposer"
+        },
+        {
+          "line": 5276,
+          "name": "GroupMembersTab"
+        },
+        {
+          "line": 5493,
+          "name": "GroupMembershipEmptyState"
+        },
+        {
+          "line": 5510,
+          "name": "JoinRequestCard"
+        },
+        {
+          "line": 5559,
+          "name": "InvitationStatusCard"
+        },
+        {
+          "line": 5593,
+          "name": "GroupMemberAvatar"
+        },
+        {
+          "line": 5612,
+          "name": "MemberListItem"
+        },
+        {
+          "line": 5680,
+          "name": "MemberRoleBadge"
+        },
+        {
+          "line": 5700,
+          "name": "GroupProgressTab"
+        },
+        {
+          "line": 5784,
+          "name": "GroupProgressCard"
+        },
+        {
+          "line": 5830,
+          "name": "PersonalProgressCard"
+        },
+        {
+          "line": 5849,
+          "name": "AddProgressCard"
+        },
+        {
+          "line": 5920,
+          "name": "GroupProgressPreview"
+        },
+        {
+          "line": 5929,
+          "name": "GroupProgressPreviewCard"
+        },
+        {
+          "line": 5957,
+          "name": "GroupLeaderboardStat"
+        },
+        {
+          "line": 5972,
+          "name": "GroupMetricPill"
+        },
+        {
+          "line": 5986,
+          "name": "GroupFormHeader"
+        },
+        {
+          "line": 6018,
+          "name": "AdminOnlyGuard"
+        },
+        {
+          "line": 6055,
+          "name": "FormSectionCard"
+        },
+        {
+          "line": 6074,
+          "name": "GroupDetailsCard"
+        },
+        {
+          "line": 6117,
+          "name": "GroupFormTextField"
+        },
+        {
+          "line": 6160,
+          "name": "GroupSettingsScreen"
+        },
+        {
+          "line": 6251,
+          "name": "GroupSettingsForm"
+        },
+        {
+          "line": 6386,
+          "name": "GroupDangerZone"
+        },
+        {
+          "line": 6502,
+          "name": "GroupPrimaryActionButton"
+        },
+        {
+          "line": 6535,
+          "name": "GroupLeaderboardSection"
+        },
+        {
+          "line": 6559,
+          "name": "GroupNoActivityCard"
+        },
+        {
+          "line": 6568,
+          "name": "GroupTypeSelector"
+        },
+        {
+          "line": 6610,
+          "name": "ProgressUnitSelector"
+        },
+        {
+          "line": 6652,
+          "name": "GroupGoalCard"
+        },
+        {
+          "line": 6708,
+          "name": "PrivacyAccessCard"
+        },
+        {
+          "line": 6784,
+          "name": "MemberPermissionsCard"
+        },
+        {
+          "line": 6838,
+          "name": "GoalPeriodSelector"
+        },
+        {
+          "line": 6871,
+          "name": "GoalValueInput"
+        },
+        {
+          "line": 6941,
+          "name": "GoalSummary"
+        },
+        {
+          "line": 6966,
+          "name": "SelectionOptionCard"
+        },
+        {
+          "line": 7012,
+          "name": "GroupUnitChips"
+        },
+        {
+          "line": 7032,
+          "name": "GroupBadge"
+        },
+        {
+          "line": 7042,
+          "name": "groupGoalTypeLabel"
+        },
+        {
+          "line": 7047,
+          "name": "GroupLeaderboardRow"
+        },
+        {
+          "line": 7116,
+          "name": "FeedPostCard"
+        },
+        {
+          "line": 7281,
+          "name": "FeedActions"
+        },
+        {
+          "line": 7366,
+          "name": "GroupPostMenuItem"
+        },
+        {
+          "line": 7379,
+          "name": "groupRoleCanModerateContent"
+        },
+        {
+          "line": 7382,
+          "name": "groupRoleCanPinPosts"
+        },
+        {
+          "line": 7384,
+          "name": "groupReactionIcon"
+        },
+        {
+          "line": 7391,
+          "name": "groupReactionColor"
+        },
+        {
+          "line": 7398,
+          "name": "groupReactionLabel"
+        },
+        {
+          "line": 7402,
+          "name": "MemberRoleDialog"
+        },
+        {
+          "line": 7466,
+          "name": "RemoveGroupMemberDialog"
+        },
+        {
+          "line": 7521,
+          "name": "GroupInvitationManagerDialog"
+        },
+        {
+          "line": 7630,
+          "name": "CreateJoinRequestDialog"
+        },
+        {
+          "line": 7687,
+          "name": "EditGroupPostDialog"
+        },
+        {
+          "line": 7744,
+          "name": "CreateGroupTaskDialog"
+        },
+        {
+          "line": 7908,
+          "name": "GroupTaskProgressDialog"
+        },
+        {
+          "line": 7976,
+          "name": "GroupTaskDialogLabel"
+        },
+        {
+          "line": 7981,
+          "name": "GroupTaskChoiceChip"
+        },
+        {
+          "line": 8005,
+          "name": "groupDialogTextFieldColors"
+        },
+        {
+          "line": 8016,
+          "name": "CreateGroupEventDialog"
+        },
+        {
+          "line": 8113,
+          "name": "ConfirmGroupEventStatusDialog"
+        },
+        {
+          "line": 8140,
+          "name": "GroupProfileDialog"
+        },
+        {
+          "line": 8202,
+          "name": "ConfirmGroupTaskStatusDialog"
+        },
+        {
+          "line": 8258,
+          "name": "ConfirmFeedDeleteDialog"
+        },
+        {
+          "line": 8302,
+          "name": "ReportGroupPostDialog"
+        },
+        {
+          "line": 8390,
+          "name": "AccountStrings"
+        },
+        {
+          "line": 8433,
+          "name": "accountStrings"
+        },
+        {
+          "line": 8605,
+          "name": "AccountMenuRow"
+        },
+        {
+          "line": 8651,
+          "name": "AccountSettingsPage"
+        },
+        {
+          "line": 8660,
+          "name": "label"
+        },
+        {
+          "line": 8760,
+          "name": "requireSupabase"
+        },
+        {
+          "line": 8768,
+          "name": "validateEmailLogin"
+        },
+        {
+          "line": 8783,
+          "name": "validateSignup"
+        },
+        {
+          "line": 8793,
+          "name": "authError"
+        },
+        {
+          "line": 9146,
+          "name": "AccountProfilePanel"
+        },
+        {
+          "line": 9268,
+          "name": "ProfileAvatar"
+        },
+        {
+          "line": 9303,
+          "name": "MediaSettingsPage"
+        },
+        {
+          "line": 9412,
+          "name": "MushafLibraryOption"
+        },
+        {
+          "line": 9474,
+          "name": "MushafSettingsPage"
+        },
+        {
+          "line": 9632,
+          "name": "MushafLibraryRow"
+        },
+        {
+          "line": 9692,
+          "name": "MushafLibraryOption"
+        },
+        {
+          "line": 9698,
+          "name": "downloadedMushafPdfFile"
+        },
+        {
+          "line": 9702,
+          "name": "internalMushafPdfFile"
+        },
+        {
+          "line": 9705,
+          "name": "externalMushafPdfFile"
+        },
+        {
+          "line": 9708,
+          "name": "downloadedMushafPageFile"
+        },
+        {
+          "line": 9714,
+          "name": "downloadedMushafPageCount"
+        },
+        {
+          "line": 9720,
+          "name": "downloadedMushafPageExtension"
+        },
+        {
+          "line": 9723,
+          "name": "downloadMushafPdf"
+        },
+        {
+          "line": 9748,
+          "name": "downloadMaknoonPages"
+        },
+        {
+          "line": 9792,
+          "name": "downloadSizeLabel"
+        },
+        {
+          "line": 9819,
+          "name": "SettingsHeader"
+        },
+        {
+          "line": 9836,
+          "name": "SettingsCard"
+        },
+        {
+          "line": 9848,
+          "name": "SettingsGap"
+        },
+        {
+          "line": 9853,
+          "name": "SettingsDivider"
+        },
+        {
+          "line": 9858,
+          "name": "SettingsTextField"
+        },
+        {
+          "line": 9885,
+          "name": "SettingsActionRow"
+        },
+        {
+          "line": 9919,
+          "name": "SettingsSmallNavRow"
+        },
+        {
+          "line": 9941,
+          "name": "SettingsBookmarkRow"
+        },
+        {
+          "line": 9968,
+          "name": "SettingsReciterRow"
+        },
+        {
+          "line": 10017,
+          "name": "SettingsChoiceChip"
+        },
+        {
+          "line": 10054,
+          "name": "SettingsSwatch"
+        },
+        {
+          "line": 10071,
+          "name": "MenuSwitchRow"
+        },
+        {
+          "line": 10107,
+          "name": "MenuItemExpandableRow"
+        },
+        {
+          "line": 10138,
+          "name": "HifzRangeEditor"
+        },
+        {
+          "line": 10204,
+          "name": "HifzRangeField"
+        },
+        {
+          "line": 10253,
+          "name": "DailyGoalEditor"
+        },
+        {
+          "line": 10345,
+          "name": "ReadingJourneyEditor"
+        },
+        {
+          "line": 10464,
+          "name": "StepperRow"
+        },
+        {
+          "line": 10508,
+          "name": "EditableStepperRow"
+        },
+        {
+          "line": 10586,
+          "name": "dailyGoalMaxForUnit"
+        },
+        {
+          "line": 10595,
+          "name": "dailyGoalUnitLabel"
+        },
+        {
+          "line": 10604,
+          "name": "todayDateKey"
+        },
+        {
+          "line": 10607,
+          "name": "hifzRangeMax"
+        },
+        {
+          "line": 10613,
+          "name": "appLanguageLabel"
+        },
+        {
+          "line": 10620,
+          "name": "themeModeLabel"
+        },
+        {
+          "line": 10635,
+          "name": "mushafDisplayName"
+        },
+        {
+          "line": 10638,
+          "name": "rewayaFilterLabel"
+        },
+        {
+          "line": 10652,
+          "name": "buildGroupCode"
+        },
+        {
+          "line": 10665,
+          "name": "formatGroupCodeInput"
+        },
+        {
+          "line": 10674,
+          "name": "isValidGroupCode"
+        },
+        {
+          "line": 10677,
+          "name": "contentUriDisplayName"
+        },
+        {
+          "line": 10698,
+          "name": "formatGroupMediaSize"
+        },
+        {
+          "line": 10704,
+          "name": "defaultGroupEventDate"
+        },
+        {
+          "line": 10709,
+          "name": "parseGroupEventWindow"
+        },
+        {
+          "line": 10719,
+          "name": "groupEventDateLabel"
+        },
+        {
+          "line": 10736,
+          "name": "normalizeGroupType"
+        },
+        {
+          "line": 10746,
+          "name": "normalizeProgressUnit"
+        },
+        {
+          "line": 10757,
+          "name": "normalizeGoalPeriod"
+        },
+        {
+          "line": 10765,
+          "name": "normalizeGroupPrivacy"
+        },
+        {
+          "line": 10771,
+          "name": "groupPrivacyBackendValue"
+        },
+        {
+          "line": 10777,
+          "name": "formatGoalSummary"
+        },
+        {
+          "line": 10794,
+          "name": "formatGoalUnit"
+        },
+        {
+          "line": 10805,
+          "name": "Int"
+        },
+        {
+          "line": 10808,
+          "name": "goalPeriodPhrase"
+        },
+        {
+          "line": 10816,
+          "name": "groupUnitLabel"
+        },
+        {
+          "line": 10825,
+          "name": "groupProgressLabel"
+        },
+        {
+          "line": 10845,
+          "name": "groupProgressPreview"
+        },
+        {
+          "line": 10899,
+          "name": "groupFeedTimeLabel"
+        },
+        {
+          "line": 10907,
+          "name": "profileAvatarInitial"
+        },
+        {
+          "line": 10910,
+          "name": "ReaderBookmarkSummary"
+        },
+        {
+          "line": 10919,
+          "name": "loadAllReaderBookmarkSummaries"
+        },
+        {
+          "line": 10955,
+          "name": "translationMenuStrings"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/GroupsOverviewScreen.kt",
+      "lines": 410,
+      "sha256": "ee0c3bc02882df7b49c5024e396d993690d29e290871479b705154d37bfc267d",
+      "declared_symbols": [
+        {
+          "line": 57,
+          "name": "GroupsOverviewScreen"
+        },
+        {
+          "line": 193,
+          "name": "GroupsOverviewLoading"
+        },
+        {
+          "line": 214,
+          "name": "GroupsOverviewTabs"
+        },
+        {
+          "line": 248,
+          "name": "GroupsSectionTitle"
+        },
+        {
+          "line": 268,
+          "name": "ActiveGroupCard"
+        },
+        {
+          "line": 313,
+          "name": "GroupsEmptyCard"
+        },
+        {
+          "line": 339,
+          "name": "InvitationCard"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/GroupCommentsSheet.kt",
+      "lines": 96,
+      "sha256": "8de6b2d2015ebee41123335e25263f95a3e659ef87d0edd8d4d1e6df70b7ce90",
+      "declared_symbols": [
+        {
+          "line": 24,
+          "name": "GroupCommentsSheet"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/GroupFeedPresentation.kt",
+      "lines": 24,
+      "sha256": "d3f7e367781238ccddf9ab189228bcd7b98a3a3c293fbb1ccfbe926c0a39e602",
+      "declared_symbols": [
+        {
+          "line": 9,
+          "name": "feedCommentLabel"
+        },
+        {
+          "line": 15,
+          "name": "feedTimestamp"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/GroupErrors.kt",
+      "lines": 38,
+      "sha256": "0b3bad9732ec195a243254e91b593f2e7437f6fdb12d020f2691b8b3c4f7d539",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "localizedGroupError"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/GroupJoinRouting.kt",
+      "lines": 9,
+      "sha256": "765f7f77a1121bbaaa0b7229717d8b5ccc2e6126dfaadd7192c5c4982cee60d9",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "requiresGroupAccessRequest"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/GroupLogo.kt",
+      "lines": 139,
+      "sha256": "c22b93fab856c5503c1931008b4b7e258b2929f018dd2ce74bb6f8903bd733de",
+      "declared_symbols": [
+        {
+          "line": 32,
+          "name": "GroupLogo"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/GroupMemberReadingSheet.kt",
+      "lines": 109,
+      "sha256": "9defcc6e75ad40b6a7039fba769f0fce28c391b9df430199156edb40fd6e08e1",
+      "declared_symbols": [
+        {
+          "line": 26,
+          "name": "groupReadingLabel"
+        },
+        {
+          "line": 41,
+          "name": "groupReadingAyahRange"
+        },
+        {
+          "line": 59,
+          "name": "label"
+        },
+        {
+          "line": 67,
+          "name": "groupReadingDate"
+        },
+        {
+          "line": 76,
+          "name": "GroupMemberReadingSheet"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/ui/NotificationsScreen.kt",
+      "lines": 190,
+      "sha256": "32c2e543639df5665fa4bb4a60b00217a7100883cff3e5639d7498d9d11aee67",
+      "declared_symbols": [
+        {
+          "line": 30,
+          "name": "NotificationsScreen"
+        },
+        {
+          "line": 34,
+          "name": "notificationsAllowed"
+        },
+        {
+          "line": 40,
+          "name": "t"
+        },
+        {
+          "line": 134,
+          "name": "NotificationSection"
+        },
+        {
+          "line": 138,
+          "name": "NotificationSettingsCard"
+        },
+        {
+          "line": 145,
+          "name": "NotificationToggle"
+        },
+        {
+          "line": 155,
+          "name": "NotificationTime"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/GroupPushRegistration.kt",
+      "lines": 107,
+      "sha256": "71da4c9e8922f712557f8457101dc023aa76e5cafbcfe38134f67f3496d277be",
+      "declared_symbols": [
+        {
+          "line": 20,
+          "name": "GroupPushRegistration"
+        },
+        {
+          "line": 25,
+          "name": "prefs"
+        },
+        {
+          "line": 26,
+          "name": "installation"
+        },
+        {
+          "line": 29,
+          "name": "initialize"
+        },
+        {
+          "line": 53,
+          "name": "tokenChanged"
+        },
+        {
+          "line": 57,
+          "name": "enqueue"
+        },
+        {
+          "line": 62,
+          "name": "register"
+        },
+        {
+          "line": 81,
+          "name": "beforeSignOut"
+        },
+        {
+          "line": 91,
+          "name": "cancelGroupNotifications"
+        },
+        {
+          "line": 98,
+          "name": "GroupPushRegistrationWorker"
+        },
+        {
+          "line": 99,
+          "name": "doWork"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/GroupPushPreferences.kt",
+      "lines": 16,
+      "sha256": "535a6f75865ad5b2fec3a11b148d78846e1f19d046aa70f8bddfba746a55857c",
+      "declared_symbols": [
+        {
+          "line": 7,
+          "name": "GroupPushPreferences"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/GroupPushGate.kt",
+      "lines": 28,
+      "sha256": "a0b798f92d94af115db237cb42a3be4643cbd10a7b0d4d6411adb4ec3396d6c9",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupPushGate"
+        },
+        {
+          "line": 13,
+          "name": "initialize"
+        },
+        {
+          "line": 15,
+          "name": "dismiss"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/QuranMessagingService.kt",
+      "lines": 128,
+      "sha256": "31337e364790d434e0f639249ebe9acb353d3ea1fb91edc4ddeba766a615c5a2",
+      "declared_symbols": [
+        {
+          "line": 23,
+          "name": "QuranMessagingService"
+        },
+        {
+          "line": 24,
+          "name": "onNewToken"
+        },
+        {
+          "line": 26,
+          "name": "onMessageReceived"
+        },
+        {
+          "line": 64,
+          "name": "initialize"
+        },
+        {
+          "line": 69,
+          "name": "createChannel"
+        },
+        {
+          "line": 78,
+          "name": "validPushUuid"
+        },
+        {
+          "line": 81,
+          "name": "GroupPushDisplayWorker"
+        },
+        {
+          "line": 82,
+          "name": "doWork"
+        }
+      ],
+      "referenced_rpc_names": [
+        "firebase_messages_v1"
+      ]
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/NotificationText.kt",
+      "lines": 72,
+      "sha256": "f20c4c95ad1ee3cb83d35f94ca52f4a8135d26a6101b070c715763ebb6e83bab",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "notificationText"
+        },
+        {
+          "line": 65,
+          "name": "notificationUnit"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/NotificationsViewModel.kt",
+      "lines": 93,
+      "sha256": "6a759384b6bf89bd3516544da2cd05e9bf708c5b231e13a28563336346c16848",
+      "declared_symbols": [
+        {
+          "line": 14,
+          "name": "NotificationsState"
+        },
+        {
+          "line": 27,
+          "name": "NotificationsViewModel"
+        },
+        {
+          "line": 45,
+          "name": "save"
+        },
+        {
+          "line": 59,
+          "name": "retryGroups"
+        },
+        {
+          "line": 60,
+          "name": "loadGroups"
+        },
+        {
+          "line": 71,
+          "name": "saveGroupPush"
+        },
+        {
+          "line": 75,
+          "name": "loadOverride"
+        },
+        {
+          "line": 79,
+          "name": "saveOverride"
+        },
+        {
+          "line": 83,
+          "name": "remoteSave"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/NotificationPreferencesRepository.kt",
+      "lines": 40,
+      "sha256": "32b503d818d5d4aaef54193480a77747df142fb46cbd2e03131e9de14fd892ce",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "NotificationPreferencesRepository"
+        },
+        {
+          "line": 14,
+          "name": "load"
+        },
+        {
+          "line": 28,
+          "name": "save"
+        }
+      ],
+      "referenced_rpc_names": [
+        "notification_preferences_v1"
+      ]
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/NotificationPolicy.kt",
+      "lines": 53,
+      "sha256": "3154279da2b12e6c5534a1152032df4cb7199ea6a7b0ba0592777846085d8d53",
+      "declared_symbols": [
+        {
+          "line": 7,
+          "name": "NotificationCategory"
+        },
+        {
+          "line": 8,
+          "name": "GroupNotificationMode"
+        },
+        {
+          "line": 9,
+          "name": "GroupEventType"
+        },
+        {
+          "line": 11,
+          "name": "QuietHours"
+        },
+        {
+          "line": 13,
+          "name": "nextAllowed"
+        },
+        {
+          "line": 25,
+          "name": "NotificationPreferences"
+        },
+        {
+          "line": 37,
+          "name": "NotificationPolicy"
+        },
+        {
+          "line": 38,
+          "name": "dailyAllowed"
+        },
+        {
+          "line": 41,
+          "name": "planningAllowed"
+        },
+        {
+          "line": 44,
+          "name": "groupAllowed"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/notifications/NotificationCoordinator.kt",
+      "lines": 138,
+      "sha256": "6aacbb163a94df1d68d3e357cb6049b8a3ac32e2b26f67b330f36fe1b674709f",
+      "declared_symbols": [
+        {
+          "line": 24,
+          "name": "NotificationCoordinator"
+        },
+        {
+          "line": 28,
+          "name": "initialize"
+        },
+        {
+          "line": 37,
+          "name": "reconcileSoon"
+        },
+        {
+          "line": 42,
+          "name": "reconcile"
+        },
+        {
+          "line": 68,
+          "name": "scheduleNextReminder"
+        },
+        {
+          "line": 90,
+          "name": "planning"
+        },
+        {
+          "line": 103,
+          "name": "deliver"
+        },
+        {
+          "line": 129,
+          "name": "language"
+        },
+        {
+          "line": 132,
+          "name": "NotificationReconcileWorker"
+        },
+        {
+          "line": 133,
+          "name": "doWork"
+        }
+      ],
+      "referenced_rpc_names": [
+        "notification_check_v1",
+        "notification_delivery_v1",
+        "notification_reconcile_v1",
+        "quran_notifications_v1"
+      ]
+    },
+    {
+      "category": "kotlin",
+      "path": "../app/src/main/java/com/Ameender/qurantracker/MainActivity.kt",
+      "lines": 891,
+      "sha256": "b4ae47e1f89b1859c0c3d326750b2bede2cf33c822774917ff7b92753338c6ed",
+      "declared_symbols": [
+        {
+          "line": 59,
+          "name": "Screen"
+        },
+        {
+          "line": 60,
+          "name": "Dashboard"
+        },
+        {
+          "line": 61,
+          "name": "Hizb"
+        },
+        {
+          "line": 62,
+          "name": "Juzz"
+        },
+        {
+          "line": 63,
+          "name": "Surahs"
+        },
+        {
+          "line": 64,
+          "name": "Reader"
+        },
+        {
+          "line": 65,
+          "name": "Tafsir"
+        },
+        {
+          "line": 66,
+          "name": "Mutashabihat"
+        },
+        {
+          "line": 67,
+          "name": "Translation"
+        },
+        {
+          "line": 68,
+          "name": "BookReader"
+        },
+        {
+          "line": 69,
+          "name": "Notes"
+        },
+        {
+          "line": 70,
+          "name": "Focus"
+        },
+        {
+          "line": 71,
+          "name": "Groups"
+        },
+        {
+          "line": 72,
+          "name": "ReadingPlan"
+        },
+        {
+          "line": 73,
+          "name": "Notifications"
+        },
+        {
+          "line": 74,
+          "name": "ReadingChecklist"
+        },
+        {
+          "line": 75,
+          "name": "DailyGoal"
+        },
+        {
+          "line": 76,
+          "name": "Stats"
+        },
+        {
+          "line": 77,
+          "name": "Agenda"
+        },
+        {
+          "line": 80,
+          "name": "MainActivity"
+        },
+        {
+          "line": 86,
+          "name": "onCreate"
+        },
+        {
+          "line": 262,
+          "name": "onResume"
+        },
+        {
+          "line": 267,
+          "name": "onNewIntent"
+        },
+        {
+          "line": 275,
+          "name": "receiveNavigation"
+        },
+        {
+          "line": 279,
+          "name": "restorePendingNavigation"
+        },
+        {
+          "line": 289,
+          "name": "QuranTrackerApp"
+        },
+        {
+          "line": 345,
+          "name": "countsFor"
+        },
+        {
+          "line": 346,
+          "name": "openNotes"
+        },
+        {
+          "line": 472,
+          "name": "navigateTopLevel"
+        },
+        {
+          "line": 476,
+          "name": "navigateSecondary"
+        },
+        {
+          "line": 482,
+          "name": "navigateReader"
+        },
+        {
+          "line": 488,
+          "name": "navigateBackOrHome"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/chatCopy.ts",
+      "lines": 44,
+      "sha256": "d3cfdd5f8a8caadabc49fe83c078364ecb2affb4722dbe554d2fbee9ed536fc4",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/communityCopy.ts",
+      "lines": 97,
+      "sha256": "f828c3716dc40cca066d3c35665d5a105319974adc7dfddf541ad92a05e26911",
+      "declared_symbols": [
+        {
+          "line": 57,
+          "name": "communityText"
+        },
+        {
+          "line": 60,
+          "name": "groupRoleLabel"
+        },
+        {
+          "line": 74,
+          "name": "groupStatusLabel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/ExpandablePostText.tsx",
+      "lines": 63,
+      "sha256": "8a123820e0aa25fb94d858947420c6440a66e60978c48c882ba9bf2527486f2f",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "ExpandablePostText"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupChatComposer.tsx",
+      "lines": 133,
+      "sha256": "889953ebe698da982822194f388836e27a9a14955ebeb911f68f5d4e876edba8",
+      "declared_symbols": [
+        {
+          "line": 11,
+          "name": "GroupChatComposer"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupCreateWizard.tsx",
+      "lines": 84,
+      "sha256": "e2a3c0b8962dc422bf3c56555c9eb71a687fa3362b64aeaf8b7c12f97bffd37a",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupCreateWizard"
+        },
+        {
+          "line": 24,
+          "name": "create"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupEventsPanel.tsx",
+      "lines": 228,
+      "sha256": "2ce959b580f80aa44b537c3b1126f21c976559c26813e18ba568bcda165a6607",
+      "declared_symbols": [
+        {
+          "line": 12,
+          "name": "GroupEventsPanel"
+        },
+        {
+          "line": 32,
+          "name": "create"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupFeedPanel.tsx",
+      "lines": 586,
+      "sha256": "ab678a0fd0b71d3adebe269edaf45d5c304e9b1466b2bd81c8b31ecbaefeb1fe",
+      "declared_symbols": [
+        {
+          "line": 24,
+          "name": "GroupFeedPanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupFormFields.tsx",
+      "lines": 162,
+      "sha256": "07c20949653eb69950ef57da0f14a7740b44332755e039ca1efd0066f6d78150",
+      "declared_symbols": [
+        {
+          "line": 7,
+          "name": "GroupDraft"
+        },
+        {
+          "line": 32,
+          "name": "GroupFormFields"
+        },
+        {
+          "line": 154,
+          "name": "validGroupDraft"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupGovernancePanels.tsx",
+      "lines": 194,
+      "sha256": "c3f74e8f27518e426bd6014e88f3bbc0ee7f528a2143fd6c0b3e2ccf21f8ed33",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupRulesPanel"
+        },
+        {
+          "line": 60,
+          "name": "GroupReportsPanel"
+        },
+        {
+          "line": 146,
+          "name": "GroupAuditPanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupImage.tsx",
+      "lines": 2,
+      "sha256": "24f9932033ddb3f4768b0c88ddad80aa5377903709d95aff207c5a9352543a06",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupImage.web.tsx",
+      "lines": 52,
+      "sha256": "4538e732801ef6948095914900be10311666aa6360a9937befd8ff318318ea55",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "Props"
+        },
+        {
+          "line": 11,
+          "name": "GroupImage"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/groupImageSource.ts",
+      "lines": 12,
+      "sha256": "849720f91a32eb360bcdbc40ca87f7dceac2d9fedcba2d390d89a7383fc8bf6a",
+      "declared_symbols": [
+        {
+          "line": 2,
+          "name": "isCorsGroupStorageImage"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupJoinFlow.tsx",
+      "lines": 167,
+      "sha256": "c721470d0d9ed2a7e654f726bc180048333521157f8f9002ebca16db179d5fde",
+      "declared_symbols": [
+        {
+          "line": 14,
+          "name": "GroupJoinFlow"
+        },
+        {
+          "line": 40,
+          "name": "join"
+        },
+        {
+          "line": 76,
+          "name": "request"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupJoinLinkHandler.tsx",
+      "lines": 43,
+      "sha256": "8b364f336a08b932045d7eb5842f750c5c00b9315d3c8ee9da7e45a6704c3ab2",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupJoinLinkHandler"
+        },
+        {
+          "line": 17,
+          "name": "restore"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupMediaPanel.tsx",
+      "lines": 169,
+      "sha256": "e804bf499ae3263fa94012b40093dcaaf9701d19ff8bcdb0ed4ca353a4e3f791",
+      "declared_symbols": [
+        {
+          "line": 19,
+          "name": "GroupMediaPanel"
+        },
+        {
+          "line": 31,
+          "name": "pick"
+        },
+        {
+          "line": 42,
+          "name": "share"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupMemberReadingSheet.tsx",
+      "lines": 73,
+      "sha256": "0bc587b8c2232ed36c9475db7a85065eba0b6e1a58aac952088f7264c6f2fb10",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupMemberReadingSheet"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupMembersPanel.tsx",
+      "lines": 347,
+      "sha256": "b81f10980cacc078997da9dc8daa129e8fdd37506573494de139b047c429d87d",
+      "declared_symbols": [
+        {
+          "line": 18,
+          "name": "MembersData"
+        },
+        {
+          "line": 24,
+          "name": "GroupMembersPanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupNoticesPanel.tsx",
+      "lines": 127,
+      "sha256": "edc6783bcc4eda62016f0f3c9c98164522df4c4e6f176146124f46aaf42b9278",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupNoticesPanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupOverviewPanel.tsx",
+      "lines": 79,
+      "sha256": "55690d62996eb686c26e88e9c43bd407be1f20f343ec19c95f41bd82ac359878",
+      "declared_symbols": [
+        {
+          "line": 14,
+          "name": "GroupOverviewPanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupProfilePanel.tsx",
+      "lines": 129,
+      "sha256": "edac6d62759823955242047f76631e9c92b6c292d26cd7f8a424a257c860ea58",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupProfilePanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupProgressPanel.tsx",
+      "lines": 185,
+      "sha256": "37206e1f631e686892bab28a980c2328c4c9ef9345226b6b0ea6c4291fa662de",
+      "declared_symbols": [
+        {
+          "line": 15,
+          "name": "GroupProgressPanel"
+        },
+        {
+          "line": 48,
+          "name": "save"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupProgressSummary.tsx",
+      "lines": 106,
+      "sha256": "c856db0c51869af97819e0db9cd9d362a9d244b949619d7b362026fffb6d477f",
+      "declared_symbols": [
+        {
+          "line": 14,
+          "name": "Metrics"
+        },
+        {
+          "line": 38,
+          "name": "GroupReadingTotals"
+        },
+        {
+          "line": 56,
+          "name": "GroupProgressSummary"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupSettingsPanel.tsx",
+      "lines": 93,
+      "sha256": "23a1bc569259f347516bc3b4d1d3a6412874c9a9af8037df8846f5b2d21751ef",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupSettingsPanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupTasksPanel.tsx",
+      "lines": 296,
+      "sha256": "89a0f68b087c1dc27bf1820dec54ed91a90bd9a4aae7ac43f0968b9fd7a77ed4",
+      "declared_symbols": [
+        {
+          "line": 18,
+          "name": "GroupTasksPanel"
+        },
+        {
+          "line": 39,
+          "name": "makeTask"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/GroupTypingStatus.tsx",
+      "lines": 36,
+      "sha256": "00b3cc2a8382d98747fbb7b10a83889c66f5e7e7ba14606a9548e6b3b8c76233",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "GroupTypingStatus"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/groupUi.tsx",
+      "lines": 138,
+      "sha256": "d23381931f69e0104ae17849c0265e032750474ea747be4d9fd31c5edba4ae11",
+      "declared_symbols": [
+        {
+          "line": 15,
+          "name": "groupError"
+        },
+        {
+          "line": 18,
+          "name": "useGroupResource"
+        },
+        {
+          "line": 32,
+          "name": "reload"
+        },
+        {
+          "line": 46,
+          "name": "run"
+        },
+        {
+          "line": 72,
+          "name": "ResourceState"
+        },
+        {
+          "line": 89,
+          "name": "ConfirmAction"
+        },
+        {
+          "line": 118,
+          "name": "chooseGroupImage"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/components/useGroupFeed.ts",
+      "lines": 76,
+      "sha256": "a98ec92982db931d644bbc2cc76936c7f820bac35efecdd4392d9e74a2819401",
+      "declared_symbols": [
+        {
+          "line": 9,
+          "name": "useGroupFeed"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/groupProgressCopy.ts",
+      "lines": 79,
+      "sha256": "689134a8acf71ed04dda31fb24cc0adf2f4af3e20f9efdc6a877d3fb3c5d49ba",
+      "declared_symbols": [
+        {
+          "line": 43,
+          "name": "groupProgressText"
+        },
+        {
+          "line": 47,
+          "name": "groupReadingLabel"
+        },
+        {
+          "line": 68,
+          "name": "groupLanguageLabel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/groupTypingCopy.ts",
+      "lines": 42,
+      "sha256": "c6c387d40ff56156f10331c87e02fe0ed913ce4fd634b2ee410bfaf3050e5671",
+      "declared_symbols": [
+        {
+          "line": 28,
+          "name": "groupTypingText"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/hooks/useGroupChat.ts",
+      "lines": 103,
+      "sha256": "e7f494f7dba78bfa393dae69f397a97a5dccaf6fa9f3de18021ee7bdcf9b53b5",
+      "declared_symbols": [
+        {
+          "line": 12,
+          "name": "useChatSession"
+        },
+        {
+          "line": 44,
+          "name": "useGroupChat"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/hooks/useGroupTyping.ts",
+      "lines": 58,
+      "sha256": "149852e9c4d607eed8f4d5a08dafd6a7869f89ca8aa76a58f50a6ab15ba97b7c",
+      "declared_symbols": [
+        {
+          "line": 7,
+          "name": "useGroupTyping"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/screens/GroupChatScreen.tsx",
+      "lines": 364,
+      "sha256": "11a2e2c6802cc95ae00bc0ea4af56171b56f9a6ccd703e08a1e4a8f4350c78e6",
+      "declared_symbols": [
+        {
+          "line": 22,
+          "name": "GroupChatScreen"
+        },
+        {
+          "line": 64,
+          "name": "ChatGroup"
+        },
+        {
+          "line": 110,
+          "name": "Conversation"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/screens/GroupScreen.tsx",
+      "lines": 563,
+      "sha256": "e97f05d9d6948006499b9f05fddf611caf966d2440d096502b0ac9334926eee3",
+      "declared_symbols": [
+        {
+          "line": 53,
+          "name": "Tab"
+        },
+        {
+          "line": 67,
+          "name": "Params"
+        },
+        {
+          "line": 69,
+          "name": "GroupScreen"
+        },
+        {
+          "line": 164,
+          "name": "GroupLogo"
+        },
+        {
+          "line": 188,
+          "name": "GroupContent"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/groups/screens/GroupsScreen.tsx",
+      "lines": 263,
+      "sha256": "43279d46fe58d283e4caa4b3056aa5801922ea7faa6cb8a1f53370d320156add",
+      "declared_symbols": [
+        {
+          "line": 29,
+          "name": "GroupsScreen"
+        },
+        {
+          "line": 114,
+          "name": "GroupCard"
+        },
+        {
+          "line": 166,
+          "name": "GroupsContent"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/draftActor.ts",
+      "lines": 22,
+      "sha256": "be493abaf41dd8e78df81bda6d8ecb35d2df1b8c567f0d1888979848293420f3",
+      "declared_symbols": [
+        {
+          "line": 1,
+          "name": "DraftSession"
+        },
+        {
+          "line": 7,
+          "name": "captureDraftActor"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/feedSnapshots.ts",
+      "lines": 38,
+      "sha256": "cb2def1376e927dd8cd5228bc96d6c47451f4a999cd89f678e6912c95f987ba4",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "sameValue"
+        },
+        {
+          "line": 24,
+          "name": "reconcileFeedPosts"
+        },
+        {
+          "line": 36,
+          "name": "sameFeedCursor"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupChat.ts",
+      "lines": 121,
+      "sha256": "4c520dd25f92156d09548f36516981526b0cc8d41ac6186f888fcdfe1f935720",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "GroupChatRequest"
+        },
+        {
+          "line": 12,
+          "name": "GroupChatService"
+        },
+        {
+          "line": 17,
+          "name": "ChatPort"
+        },
+        {
+          "line": 22,
+          "name": "createGroupChatService"
+        },
+        {
+          "line": 63,
+          "name": "chatFeedService"
+        },
+        {
+          "line": 71,
+          "name": "GroupChatScroll"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupDrafts.ts",
+      "lines": 72,
+      "sha256": "4efb0cd655633a507ece19f8951e09482bd9ae2f36693d72821eae9aee3d460f",
+      "declared_symbols": [
+        {
+          "line": 1,
+          "name": "DraftStatus"
+        },
+        {
+          "line": 2,
+          "name": "GroupDraft"
+        },
+        {
+          "line": 3,
+          "name": "GroupDraftState"
+        },
+        {
+          "line": 7,
+          "name": "GroupDraftStore"
+        },
+        {
+          "line": 57,
+          "name": "groupDrafts"
+        },
+        {
+          "line": 61,
+          "name": "groupChatDrafts"
+        },
+        {
+          "line": 64,
+          "name": "scopedDrafts"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupErrors.ts",
+      "lines": 79,
+      "sha256": "8138097210b1bed0e6e0273fde445dc223c631aefa72ebf99a8e170c4dacf220",
+      "declared_symbols": [
+        {
+          "line": 2,
+          "name": "groupErrorKey"
+        },
+        {
+          "line": 63,
+          "name": "requiresGroupAccessRequest"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupFeedController.ts",
+      "lines": 243,
+      "sha256": "9185ed6498e0a4d7efce9f8cdd335303a2c5d9f9d5f99a345222613fe94c355f",
+      "declared_symbols": [
+        {
+          "line": 9,
+          "name": "FeedState"
+        },
+        {
+          "line": 17,
+          "name": "FeedClock"
+        },
+        {
+          "line": 25,
+          "name": "mergeFeedPosts"
+        },
+        {
+          "line": 35,
+          "name": "GroupFeedController"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupFeedReader.ts",
+      "lines": 58,
+      "sha256": "8727febdfc667c43ca7d313d76fb899a3c6801409572c100f39801ceab1b7bf5",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "FeedRow"
+        },
+        {
+          "line": 9,
+          "name": "FeedQuery"
+        },
+        {
+          "line": 18,
+          "name": "GroupFeedReadPort"
+        },
+        {
+          "line": 26,
+          "name": "feedCursorFilter"
+        },
+        {
+          "line": 36,
+          "name": "createGroupFeedReader"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupFeedSubscription.ts",
+      "lines": 41,
+      "sha256": "6ab98e73d366ac5088a6b379b23528d97832ad52557a1d046ffdc093221e9ef7",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "GroupFeedSubscriptionPort"
+        },
+        {
+          "line": 13,
+          "name": "createGroupFeedSubscription"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupJoin.ts",
+      "lines": 104,
+      "sha256": "9c9ee6771ccec222772048218811292a7969dd73541de6c6cc36c8d876d778e3",
+      "declared_symbols": [
+        {
+          "line": 1,
+          "name": "GroupJoinTarget"
+        },
+        {
+          "line": 2,
+          "name": "GroupJoinStorage"
+        },
+        {
+          "line": 9,
+          "name": "parseGroupJoinInput"
+        },
+        {
+          "line": 45,
+          "name": "groupJoinUrl"
+        },
+        {
+          "line": 49,
+          "name": "groupShareUrl"
+        },
+        {
+          "line": 61,
+          "name": "buildGroupCode"
+        },
+        {
+          "line": 73,
+          "name": "createPendingGroupStore"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupJoinCapture.ts",
+      "lines": 20,
+      "sha256": "2f13e53839eed94dadc2986b60ad2cc77ef718616594bc2496b15fd739de9797",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "capture"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupMetrics.ts",
+      "lines": 137,
+      "sha256": "5e8e2083e05732faec815f73961575fb2a2670688b3ad7a4a11d92c29a7619ec",
+      "declared_symbols": [
+        {
+          "line": 6,
+          "name": "groupAyahEquivalent"
+        },
+        {
+          "line": 15,
+          "name": "daysAgo"
+        },
+        {
+          "line": 20,
+          "name": "groupLeaderboard"
+        },
+        {
+          "line": 69,
+          "name": "groupReadingTotals"
+        },
+        {
+          "line": 86,
+          "name": "groupDashboard"
+        },
+        {
+          "line": 108,
+          "name": "groupGoalProgress"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupOperations.ts",
+      "lines": 325,
+      "sha256": "6f4bd4b833c575b73fb81ea38aced3b1745c298a3f41b8d309d424d540d49bc4",
+      "declared_symbols": [
+        {
+          "line": 54,
+          "name": "createGroupOperations"
+        }
+      ],
+      "referenced_rpc_names": [
+        "accept_group_invitation_v2",
+        "create_group_event_v2",
+        "create_group_invitation_v2",
+        "create_group_join_request_v2",
+        "delete_group_media_v2",
+        "delete_group_post_comment_v2",
+        "delete_group_post_v2",
+        "get_group_logo_v1",
+        "get_group_rules_v2",
+        "get_my_group_profile_v2",
+        "list_group_audit_log_v2",
+        "list_group_events_v2",
+        "list_group_invitations_v2",
+        "list_group_join_requests_v2",
+        "list_group_media_v2",
+        "list_group_moderation_reports_v2",
+        "list_group_notifications_v2",
+        "list_group_point_totals_v2",
+        "list_group_roles_v2",
+        "mark_group_notification_read_v2",
+        "publish_group_rules_v2",
+        "record_group_progress_v2",
+        "register_group_media_v2",
+        "remove_group_member_v2",
+        "report_group_post_v2",
+        "respond_group_event_v2",
+        "review_group_join_request_v2",
+        "review_group_moderation_report_v2",
+        "revoke_group_invitation_v2",
+        "send_group_notification_v2",
+        "set_group_event_status_v2",
+        "set_group_logo_v1",
+        "set_group_member_role_v2",
+        "set_group_post_pinned_v2",
+        "set_group_task_status_v2",
+        "soft_delete_group_v2",
+        "update_group_post_v2",
+        "update_my_group_profile_v2"
+      ]
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupProgress.ts",
+      "lines": 32,
+      "sha256": "6ab56e8e7505128982e6b365daa4ceb2b1e78c0bd85b518e522a8682ca15769f",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "canShareGroupProgress"
+        },
+        {
+          "line": 10,
+          "name": "groupProgressInput"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupProgressReader.ts",
+      "lines": 52,
+      "sha256": "b5250e493aeeb1201d2778d32da0196d6c3dfc57add3c530bcd98d3d42c0e0d6",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "ProgressRecord"
+        },
+        {
+          "line": 4,
+          "name": "ReadResult"
+        },
+        {
+          "line": 8,
+          "name": "GroupProgressQuery"
+        },
+        {
+          "line": 14,
+          "name": "GroupProgressClient"
+        },
+        {
+          "line": 23,
+          "name": "readGroupProgressEntries"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupReading.ts",
+      "lines": 47,
+      "sha256": "7607ffb5894218baf94453738b11ec2653c9678c3c0f70b5ae3dc535b1e3319e",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "ReadingPoint"
+        },
+        {
+          "line": 6,
+          "name": "groupReadingReference"
+        },
+        {
+          "line": 21,
+          "name": "groupReadingBounds"
+        },
+        {
+          "line": 38,
+          "name": "groupReadingNumber"
+        },
+        {
+          "line": 44,
+          "name": "groupReadingPointLabel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupTypes.ts",
+      "lines": 244,
+      "sha256": "b05cf49e404839b7f1241dc9703b34d02e3c0f75e7bc6acf001be91fd891e173",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "GroupRole"
+        },
+        {
+          "line": 4,
+          "name": "GroupInvitation"
+        },
+        {
+          "line": 14,
+          "name": "GroupJoinRequest"
+        },
+        {
+          "line": 24,
+          "name": "GroupProfile"
+        },
+        {
+          "line": 31,
+          "name": "GroupMedia"
+        },
+        {
+          "line": 49,
+          "name": "GroupUpload"
+        },
+        {
+          "line": 57,
+          "name": "GroupEvent"
+        },
+        {
+          "line": 75,
+          "name": "GroupEventInput"
+        },
+        {
+          "line": 83,
+          "name": "GroupRule"
+        },
+        {
+          "line": 91,
+          "name": "GroupNotice"
+        },
+        {
+          "line": 101,
+          "name": "GroupReport"
+        },
+        {
+          "line": 117,
+          "name": "GroupAuditEntry"
+        },
+        {
+          "line": 127,
+          "name": "GroupProgressEntry"
+        },
+        {
+          "line": 134,
+          "name": "GroupPointTotal"
+        },
+        {
+          "line": 140,
+          "name": "GroupLeaderboardRow"
+        },
+        {
+          "line": 153,
+          "name": "GroupCursor"
+        },
+        {
+          "line": 155,
+          "name": "GroupOperations"
+        },
+        {
+          "line": 226,
+          "name": "GroupOperationPort"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupTyping.ts",
+      "lines": 159,
+      "sha256": "b238e1e34867a33c71e3666caf592946632012e7083976cd515b04e720a654b0",
+      "declared_symbols": [
+        {
+          "line": 2,
+          "name": "GroupTypingParticipant"
+        },
+        {
+          "line": 3,
+          "name": "GroupTypingSignal"
+        },
+        {
+          "line": 8,
+          "name": "GroupTypingTransport"
+        },
+        {
+          "line": 12,
+          "name": "GroupTypingService"
+        },
+        {
+          "line": 20,
+          "name": "GroupTypingScope"
+        },
+        {
+          "line": 26,
+          "name": "GroupTypingPort"
+        },
+        {
+          "line": 39,
+          "name": "createGroupTypingService"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupTypingController.ts",
+      "lines": 166,
+      "sha256": "69c867291b84412852364ea688e10a3e721a4d623add21d20b9d7e927fb7f700",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "GroupTypingParticipant"
+        },
+        {
+          "line": 4,
+          "name": "GroupTypingService"
+        },
+        {
+          "line": 5,
+          "name": "GroupTypingSignal"
+        },
+        {
+          "line": 6,
+          "name": "GroupTypingTransport"
+        },
+        {
+          "line": 11,
+          "name": "Clock"
+        },
+        {
+          "line": 25,
+          "name": "GroupTypingController"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/groupTypingSupabase.ts",
+      "lines": 91,
+      "sha256": "8db4acb5af862ebcb054b16ff66f0129832a87705c072486cd23451cd07b16d0",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "createSupabaseGroupTyping"
+        }
+      ],
+      "referenced_rpc_names": [
+        "get_group_typing_channel_v1",
+        "list_group_members_v3",
+        "publish_group_typing_v1"
+      ]
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/groups/pendingGroup.ts",
+      "lines": 5,
+      "sha256": "6736794f9b8b937ef3a192d4252eedb300dda1846c84047e068c5601997bc9ac",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/notifications/groupPushPolicy.ts",
+      "lines": 107,
+      "sha256": "fc46c30b53552556b5061cf9a25f3ad67a9ceac5a436f0d226d0a1e96bd1d72c",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "GroupReply"
+        },
+        {
+          "line": 6,
+          "name": "GroupPushTarget"
+        },
+        {
+          "line": 7,
+          "name": "LocalPushPreferences"
+        },
+        {
+          "line": 8,
+          "name": "GroupReplyGate"
+        },
+        {
+          "line": 20,
+          "name": "findGroupReply"
+        },
+        {
+          "line": 40,
+          "name": "parseGroupReply"
+        },
+        {
+          "line": 47,
+          "name": "quietHoursActive"
+        },
+        {
+          "line": 55,
+          "name": "authorizeGroupReply"
+        },
+        {
+          "line": 85,
+          "name": "resolveGroupReplyNavigation"
+        }
+      ],
+      "referenced_rpc_names": [
+        "firebase_messages_v1"
+      ]
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/notifications/groupPushRuntime.ts",
+      "lines": 124,
+      "sha256": "10670429096fe795131aee9acb84f959c4b4ce873c33e12443d6e6bf0b8393d1",
+      "declared_symbols": [
+        {
+          "line": 14,
+          "name": "GroupReplyGate"
+        },
+        {
+          "line": 33,
+          "name": "pushGate"
+        },
+        {
+          "line": 53,
+          "name": "receiveGroupReply"
+        },
+        {
+          "line": 112,
+          "name": "initializeGroupPushHandler"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/notifications/groupPushState.ts",
+      "lines": 12,
+      "sha256": "3a5905d6a6a69bcc269cd743caf176981678b46c93a5a23471cb58168aae3c58",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "withGroupPushLock"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/notifications/groupPushTasks.native.ts",
+      "lines": 25,
+      "sha256": "a07c12bad3138a0e086c9dd79f815547aa9791d24e97fcc79902d99e1d499420",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/notifications/groupPushTasks.ts",
+      "lines": 2,
+      "sha256": "c72cea70aea5e5c2523370b1f8bc04ba2db157427b4ccdc8410c042facf5770c",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/backend/backend.ts",
+      "lines": 620,
+      "sha256": "e817961902be3b3f26ee0067872b03d1c1d80f6304ea0f99139e564b325ee7db",
+      "declared_symbols": [
+        {
+          "line": 26,
+          "name": "FeedRow"
+        },
+        {
+          "line": 27,
+          "name": "GroupFeedReadPort"
+        },
+        {
+          "line": 35,
+          "name": "Backend"
+        },
+        {
+          "line": 43,
+          "name": "unwrap"
+        },
+        {
+          "line": 48,
+          "name": "required"
+        },
+        {
+          "line": 52,
+          "name": "optionalString"
+        },
+        {
+          "line": 55,
+          "name": "DbRow"
+        },
+        {
+          "line": 58,
+          "name": "createBackend"
+        },
+        {
+          "line": 82,
+          "name": "loadPostMedia"
+        },
+        {
+          "line": 136,
+          "name": "hydrateFeed"
+        }
+      ],
+      "referenced_rpc_names": [
+        "add_group_post_comment_v2",
+        "create_group_task_v3",
+        "create_group_text_post_v2",
+        "create_group_v3_full",
+        "get_group_detail_v3",
+        "get_group_member_permissions_v1",
+        "get_group_notification_preferences_v2",
+        "get_group_push_target_v1",
+        "list_group_members_v3",
+        "list_group_tasks_v3",
+        "list_my_groups_v2",
+        "register_push_device_v2",
+        "set_group_task_progress_v3",
+        "toggle_group_post_reaction_v2",
+        "unregister_push_device_v1",
+        "update_group_notification_preferences_v2",
+        "update_group_v3_full"
+      ]
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/backend/types.ts",
+      "lines": 319,
+      "sha256": "39f3d47308fab2c444fb0c4bac4fe71ad63d8f6ea2c53e1f29248133f3b2c1bd",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "BackendConfig"
+        },
+        {
+          "line": 12,
+          "name": "GroupPushPreferences"
+        },
+        {
+          "line": 18,
+          "name": "NotificationPreferences"
+        },
+        {
+          "line": 27,
+          "name": "PushDeviceInput"
+        },
+        {
+          "line": 38,
+          "name": "NotificationService"
+        },
+        {
+          "line": 53,
+          "name": "Group"
+        },
+        {
+          "line": 73,
+          "name": "GroupMemberPermissions"
+        },
+        {
+          "line": 80,
+          "name": "GroupMember"
+        },
+        {
+          "line": 89,
+          "name": "GroupComment"
+        },
+        {
+          "line": 98,
+          "name": "GroupFeedPost"
+        },
+        {
+          "line": 117,
+          "name": "GroupFeedCursor"
+        },
+        {
+          "line": 118,
+          "name": "GroupFeedRequest"
+        },
+        {
+          "line": 119,
+          "name": "GroupFeedPage"
+        },
+        {
+          "line": 124,
+          "name": "GroupFeedConnection"
+        },
+        {
+          "line": 125,
+          "name": "GroupFeedService"
+        },
+        {
+          "line": 134,
+          "name": "GroupTask"
+        },
+        {
+          "line": 155,
+          "name": "GroupTaskInput"
+        },
+        {
+          "line": 164,
+          "name": "GroupUpdateInput"
+        },
+        {
+          "line": 175,
+          "name": "GroupService"
+        },
+        {
+          "line": 216,
+          "name": "Note"
+        },
+        {
+          "line": 242,
+          "name": "PlanItem"
+        },
+        {
+          "line": 258,
+          "name": "ProgressRow"
+        },
+        {
+          "line": 272,
+          "name": "NotesService"
+        },
+        {
+          "line": 277,
+          "name": "PlanningService"
+        },
+        {
+          "line": 283,
+          "name": "ProgressService"
+        },
+        {
+          "line": 294,
+          "name": "AudioTrack"
+        },
+        {
+          "line": 312,
+          "name": "AyahTiming"
+        },
+        {
+          "line": 313,
+          "name": "AudioService"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/config/runtime.ts",
+      "lines": 20,
+      "sha256": "3cc26556dc63b192e407bbd6d10d66095c0540a977b5745783d32fe1e40fda29",
+      "declared_symbols": [
+        {
+          "line": 6,
+          "name": "getBackend"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/notifications/pushDevice.ts",
+      "lines": 162,
+      "sha256": "231a2a171b960f45aa095a98e4756de66f84ab1929b99351d7ddfffef8583a53",
+      "declared_symbols": [
+        {
+          "line": 13,
+          "name": "localPushPreferences"
+        },
+        {
+          "line": 17,
+          "name": "dismissGroupNotifications"
+        },
+        {
+          "line": 36,
+          "name": "syncRegisteredPushDevice"
+        },
+        {
+          "line": 72,
+          "name": "enablePushDevice"
+        },
+        {
+          "line": 142,
+          "name": "unregisterPushDevice"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/services/notifications/pushDeviceKeys.ts",
+      "lines": 17,
+      "sha256": "52f7d818c4f87ebaf14df2599f03a3649fbd7b77be8a52678349e2172c82e5d6",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/account/components/PushNotificationHandler.tsx",
+      "lines": 205,
+      "sha256": "c455a9d21fa30817ba4f3709b8cdffa102d74f1a961ed0b98c0e76ffd466230f",
+      "declared_symbols": [
+        {
+          "line": 18,
+          "name": "LocalNotificationTap"
+        },
+        {
+          "line": 25,
+          "name": "PendingTap"
+        },
+        {
+          "line": 28,
+          "name": "PushNotificationHandler"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "react_native",
+      "path": "src/features/account/screens/NotificationsScreen.tsx",
+      "lines": 497,
+      "sha256": "0208612be180b8081324fff45cc40859f60cbee04a3538eb255f0862271943e4",
+      "declared_symbols": [
+        {
+          "line": 208,
+          "name": "Override"
+        },
+        {
+          "line": 210,
+          "name": "NotificationsScreen"
+        },
+        {
+          "line": 284,
+          "name": "saveGlobal"
+        },
+        {
+          "line": 304,
+          "name": "saveGroup"
+        },
+        {
+          "line": 331,
+          "name": "registerDevice"
+        },
+        {
+          "line": 358,
+          "name": "unregisterDevice"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260904210000_group_detail_v2_foundation.sql",
+      "lines": 826,
+      "sha256": "7691a12ab096032c522bbfa9c49ddef208a996575ee0fbed006e5b59a87bae8e",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "public.groups"
+        },
+        {
+          "line": 27,
+          "name": "public.group_permissions"
+        },
+        {
+          "line": 33,
+          "name": "public.group_roles"
+        },
+        {
+          "line": 46,
+          "name": "public.group_role_permissions"
+        },
+        {
+          "line": 54,
+          "name": "public.group_members"
+        },
+        {
+          "line": 70,
+          "name": "public.group_invitations"
+        },
+        {
+          "line": 88,
+          "name": "public.group_join_requests"
+        },
+        {
+          "line": 104,
+          "name": "public.group_posts"
+        },
+        {
+          "line": 108,
+          "name": "text"
+        },
+        {
+          "line": 132,
+          "name": "public.post_comments"
+        },
+        {
+          "line": 149,
+          "name": "public.post_reactions"
+        },
+        {
+          "line": 160,
+          "name": "public.post_attachments"
+        },
+        {
+          "line": 179,
+          "name": "public.group_media"
+        },
+        {
+          "line": 193,
+          "name": "public.group_events"
+        },
+        {
+          "line": 211,
+          "name": "public.group_event_attendees"
+        },
+        {
+          "line": 221,
+          "name": "public.group_tasks"
+        },
+        {
+          "line": 240,
+          "name": "public.group_task_completions"
+        },
+        {
+          "line": 251,
+          "name": "public.group_progress_entries"
+        },
+        {
+          "line": 264,
+          "name": "public.group_rules"
+        },
+        {
+          "line": 278,
+          "name": "public.group_notification_preferences"
+        },
+        {
+          "line": 288,
+          "name": "public.group_notifications"
+        },
+        {
+          "line": 292,
+          "name": "text"
+        },
+        {
+          "line": 301,
+          "name": "public.moderation_reports"
+        },
+        {
+          "line": 318,
+          "name": "public.group_audit_log"
+        },
+        {
+          "line": 357,
+          "name": "public.group_v2_set_updated_at"
+        },
+        {
+          "line": 367,
+          "name": "groups_set_updated_at"
+        },
+        {
+          "line": 369,
+          "name": "group_roles_set_updated_at"
+        },
+        {
+          "line": 371,
+          "name": "group_members_set_updated_at"
+        },
+        {
+          "line": 373,
+          "name": "group_invitations_set_updated_at"
+        },
+        {
+          "line": 375,
+          "name": "group_join_requests_set_updated_at"
+        },
+        {
+          "line": 377,
+          "name": "group_posts_set_updated_at"
+        },
+        {
+          "line": 379,
+          "name": "post_comments_set_updated_at"
+        },
+        {
+          "line": 381,
+          "name": "group_events_set_updated_at"
+        },
+        {
+          "line": 383,
+          "name": "group_tasks_set_updated_at"
+        },
+        {
+          "line": 385,
+          "name": "group_task_completions_set_updated_at"
+        },
+        {
+          "line": 387,
+          "name": "group_rules_set_updated_at"
+        },
+        {
+          "line": 389,
+          "name": "group_notification_preferences_set_updated_at"
+        },
+        {
+          "line": 391,
+          "name": "moderation_reports_set_updated_at"
+        },
+        {
+          "line": 394,
+          "name": "public.is_group_member"
+        },
+        {
+          "line": 410,
+          "name": "public.can_view_group"
+        },
+        {
+          "line": 431,
+          "name": "public.can_request_group_access"
+        },
+        {
+          "line": 450,
+          "name": "public.group_role_rank"
+        },
+        {
+          "line": 465,
+          "name": "public.has_group_permission"
+        },
+        {
+          "line": 490,
+          "name": "public.group_v2_bootstrap"
+        },
+        {
+          "line": 540,
+          "name": "groups_bootstrap_after_insert"
+        },
+        {
+          "line": 544,
+          "name": "public.create_group_v2"
+        },
+        {
+          "line": 590,
+          "name": "public.soft_delete_group_v2"
+        },
+        {
+          "line": 659,
+          "name": "groups_select_visible"
+        },
+        {
+          "line": 662,
+          "name": "group_permissions_select"
+        },
+        {
+          "line": 664,
+          "name": "group_roles_select_visible"
+        },
+        {
+          "line": 667,
+          "name": "group_role_permissions_select_visible"
+        },
+        {
+          "line": 673,
+          "name": "group_members_select_visible"
+        },
+        {
+          "line": 676,
+          "name": "group_invitations_select_scoped"
+        },
+        {
+          "line": 682,
+          "name": "group_invitations_insert_allowed"
+        },
+        {
+          "line": 685,
+          "name": "group_join_requests_select_scoped"
+        },
+        {
+          "line": 687,
+          "name": "group_join_requests_insert_self"
+        },
+        {
+          "line": 694,
+          "name": "group_posts_select_visible"
+        },
+        {
+          "line": 699,
+          "name": "group_posts_insert_allowed"
+        },
+        {
+          "line": 706,
+          "name": "post_comments_select_visible"
+        },
+        {
+          "line": 711,
+          "name": "post_comments_insert_allowed"
+        },
+        {
+          "line": 718,
+          "name": "post_reactions_select_visible"
+        },
+        {
+          "line": 720,
+          "name": "post_reactions_insert_self"
+        },
+        {
+          "line": 722,
+          "name": "post_reactions_delete_self"
+        },
+        {
+          "line": 725,
+          "name": "post_attachments_select_visible"
+        },
+        {
+          "line": 727,
+          "name": "post_attachments_insert_allowed"
+        },
+        {
+          "line": 730,
+          "name": "group_media_select_visible"
+        },
+        {
+          "line": 733,
+          "name": "group_events_select_visible"
+        },
+        {
+          "line": 735,
+          "name": "group_events_insert_allowed"
+        },
+        {
+          "line": 738,
+          "name": "group_event_attendees_select_visible"
+        },
+        {
+          "line": 740,
+          "name": "group_event_attendees_insert_self"
+        },
+        {
+          "line": 743,
+          "name": "group_tasks_select_visible"
+        },
+        {
+          "line": 745,
+          "name": "group_tasks_insert_allowed"
+        },
+        {
+          "line": 748,
+          "name": "group_task_completions_select_visible"
+        },
+        {
+          "line": 750,
+          "name": "group_task_completions_insert_self"
+        },
+        {
+          "line": 753,
+          "name": "group_progress_select_visible"
+        },
+        {
+          "line": 755,
+          "name": "group_progress_insert_self"
+        },
+        {
+          "line": 758,
+          "name": "group_rules_select_visible"
+        },
+        {
+          "line": 760,
+          "name": "group_rules_insert_allowed"
+        },
+        {
+          "line": 763,
+          "name": "group_notification_preferences_select_self"
+        },
+        {
+          "line": 765,
+          "name": "group_notification_preferences_insert_self"
+        },
+        {
+          "line": 767,
+          "name": "group_notification_preferences_update_self"
+        },
+        {
+          "line": 770,
+          "name": "group_notifications_select_self"
+        },
+        {
+          "line": 772,
+          "name": "group_notifications_update_self"
+        },
+        {
+          "line": 775,
+          "name": "moderation_reports_select_scoped"
+        },
+        {
+          "line": 777,
+          "name": "moderation_reports_insert_self"
+        },
+        {
+          "line": 780,
+          "name": "group_audit_log_select_allowed"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260904211000_fix_post_comment_parent_integrity.sql",
+      "lines": 40,
+      "sha256": "b683395ed044c35deefaef1c336ceddee91bda1af7d3f1821ae2b4c2d6f10983",
+      "declared_symbols": [
+        {
+          "line": 13,
+          "name": "public.validate_post_comment_parent_scope"
+        },
+        {
+          "line": 33,
+          "name": "post_comments_validate_parent_scope"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260904220000_group_detail_v2_legacy_compat.sql",
+      "lines": 73,
+      "sha256": "ffab945a064e6f302f5c59a2f57b3d499d29d031add4911f9277330515ea57b1",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260904221000_migrate_reading_groups_to_v2.sql",
+      "lines": 307,
+      "sha256": "ff0ac63d4ac50b0bb4f500d2f07f32efcd0b618d37531dc29683a3c60f56dfff",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260904230000_group_detail_v2_app_api.sql",
+      "lines": 522,
+      "sha256": "394d8631771f08ce2c16670f38b91cd9a2f9d83e88c194888e00613fe5c10c59",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "public.create_group_v2_full"
+        },
+        {
+          "line": 78,
+          "name": "public.update_group_v2_full"
+        },
+        {
+          "line": 157,
+          "name": "public.join_group_v2_by_code"
+        },
+        {
+          "line": 227,
+          "name": "public.create_group_text_post_v2"
+        },
+        {
+          "line": 262,
+          "name": "public.record_group_progress_v2"
+        },
+        {
+          "line": 320,
+          "name": "public.toggle_group_post_like_v2"
+        },
+        {
+          "line": 362,
+          "name": "public.add_group_post_comment_v2"
+        },
+        {
+          "line": 404,
+          "name": "public.list_my_groups_v2"
+        },
+        {
+          "line": 454,
+          "name": "public.list_group_members_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260904233000_group_feed_v2_actions.sql",
+      "lines": 358,
+      "sha256": "c3fbae839b1d6b91e558136e90aa9cf5f3e445745b0480848b016640d884d877",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "public.update_group_post_v2"
+        },
+        {
+          "line": 50,
+          "name": "public.set_group_post_pinned_v2"
+        },
+        {
+          "line": 97,
+          "name": "public.delete_group_post_v2"
+        },
+        {
+          "line": 156,
+          "name": "public.toggle_group_post_reaction_v2"
+        },
+        {
+          "line": 206,
+          "name": "public.delete_group_post_comment_v2"
+        },
+        {
+          "line": 262,
+          "name": "public.report_group_post_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260904_add_reading_group_owner_delete_policy.sql",
+      "lines": 5,
+      "sha256": "d9f6c484dc3a98ec239e15cf5a621759f50f243a77dca38cc30046faeb47611c",
+      "declared_symbols": [
+        {
+          "line": 1,
+          "name": "\"groups"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260905010000_group_membership_v2_actions.sql",
+      "lines": 581,
+      "sha256": "69f1b387a67ebb9ea57152f9e2c530b87e3c176b05adb721841d257243c1bd54",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "public.list_group_roles_v2"
+        },
+        {
+          "line": 21,
+          "name": "public.set_group_member_role_v2"
+        },
+        {
+          "line": 93,
+          "name": "public.remove_group_member_v2"
+        },
+        {
+          "line": 154,
+          "name": "public.create_group_invitation_v2"
+        },
+        {
+          "line": 245,
+          "name": "public.list_group_invitations_v2"
+        },
+        {
+          "line": 270,
+          "name": "public.revoke_group_invitation_v2"
+        },
+        {
+          "line": 306,
+          "name": "public.accept_group_invitation_v2"
+        },
+        {
+          "line": 392,
+          "name": "public.create_group_join_request_v2"
+        },
+        {
+          "line": 453,
+          "name": "public.list_group_join_requests_v2"
+        },
+        {
+          "line": 486,
+          "name": "public.review_group_join_request_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260905020000_group_media_v2_actions.sql",
+      "lines": 383,
+      "sha256": "7061d5218fe5b939a109fd1956b306a9c04f5c0adc1f453046ccf298b3a7a91b",
+      "declared_symbols": [
+        {
+          "line": 35,
+          "name": "group_media_objects_select_v2"
+        },
+        {
+          "line": 47,
+          "name": "group_media_objects_insert_v2"
+        },
+        {
+          "line": 60,
+          "name": "group_media_objects_delete_v2"
+        },
+        {
+          "line": 75,
+          "name": "public.register_group_media_v2"
+        },
+        {
+          "line": 227,
+          "name": "public.list_group_media_v2"
+        },
+        {
+          "line": 294,
+          "name": "public.delete_group_media_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260905030000_group_tasks_v2_actions.sql",
+      "lines": 253,
+      "sha256": "b4c88b4a188655349716dffe034b3a27d35498c909092eb304778a156c49d7d2",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "public.list_group_tasks_v2"
+        },
+        {
+          "line": 65,
+          "name": "public.create_group_task_v2"
+        },
+        {
+          "line": 131,
+          "name": "public.set_group_task_progress_v2"
+        },
+        {
+          "line": 194,
+          "name": "public.set_group_task_status_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260905040000_group_events_profiles_points_v3.sql",
+      "lines": 517,
+      "sha256": "328ec112b350c8c60b953da6f4a433630c8c9199dd9a2a68ce45f849cd9c6d12",
+      "declared_symbols": [
+        {
+          "line": 14,
+          "name": "if"
+        },
+        {
+          "line": 35,
+          "name": "group_point_awards_select_visible"
+        },
+        {
+          "line": 61,
+          "name": "public.get_my_group_profile_v2"
+        },
+        {
+          "line": 87,
+          "name": "public.update_my_group_profile_v2"
+        },
+        {
+          "line": 142,
+          "name": "public.list_group_members_v3"
+        },
+        {
+          "line": 175,
+          "name": "public.list_group_tasks_v3"
+        },
+        {
+          "line": 246,
+          "name": "public.create_group_task_v3"
+        },
+        {
+          "line": 297,
+          "name": "public.set_group_task_progress_v3"
+        },
+        {
+          "line": 344,
+          "name": "public.list_group_point_totals_v2"
+        },
+        {
+          "line": 361,
+          "name": "public.list_group_events_v2"
+        },
+        {
+          "line": 409,
+          "name": "public.create_group_event_v2"
+        },
+        {
+          "line": 451,
+          "name": "public.respond_group_event_v2"
+        },
+        {
+          "line": 472,
+          "name": "public.set_group_event_status_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260906010000_group_management_api_v2.sql",
+      "lines": 687,
+      "sha256": "ee55e1be05c4383c9648357b56686afece3df15212f20837386f9ddb1a015ff0",
+      "declared_symbols": [
+        {
+          "line": 7,
+          "name": "public.get_group_detail_v3"
+        },
+        {
+          "line": 107,
+          "name": "public.get_group_rules_v2"
+        },
+        {
+          "line": 153,
+          "name": "public.publish_group_rules_v2"
+        },
+        {
+          "line": 229,
+          "name": "public.get_group_notification_preferences_v2"
+        },
+        {
+          "line": 262,
+          "name": "public.update_group_notification_preferences_v2"
+        },
+        {
+          "line": 320,
+          "name": "public.list_group_notifications_v2"
+        },
+        {
+          "line": 328,
+          "name": "text"
+        },
+        {
+          "line": 367,
+          "name": "public.mark_group_notification_read_v2"
+        },
+        {
+          "line": 396,
+          "name": "public.send_group_notification_v2"
+        },
+        {
+          "line": 463,
+          "name": "public.list_group_moderation_reports_v2"
+        },
+        {
+          "line": 538,
+          "name": "public.review_group_moderation_report_v2"
+        },
+        {
+          "line": 600,
+          "name": "public.list_group_audit_log_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260907010000_group_logos.sql",
+      "lines": 68,
+      "sha256": "2384d8dcf176236df4a25450f7f644c243eb6deea2bcc39ad4fac20942d704c4",
+      "declared_symbols": [
+        {
+          "line": 9,
+          "name": "group_logos_read"
+        },
+        {
+          "line": 15,
+          "name": "group_logos_insert"
+        },
+        {
+          "line": 21,
+          "name": "group_logos_delete"
+        },
+        {
+          "line": 28,
+          "name": "public.get_group_logo_v1"
+        },
+        {
+          "line": 42,
+          "name": "public.set_group_logo_v1"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260916010000_notification_delivery_foundation.sql",
+      "lines": 113,
+      "sha256": "277329d2c1a591f31a5ece758e61a5b861d0824026da6fcb4f688e44b1d87640",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "public.notification_preferences"
+        },
+        {
+          "line": 16,
+          "name": "notification_preferences_self"
+        },
+        {
+          "line": 19,
+          "name": "notification_preferences_updated"
+        },
+        {
+          "line": 23,
+          "name": "public.user_devices"
+        },
+        {
+          "line": 40,
+          "name": "user_devices_self"
+        },
+        {
+          "line": 44,
+          "name": "public.notification_deliveries"
+        },
+        {
+          "line": 61,
+          "name": "notification_deliveries_read_self"
+        },
+        {
+          "line": 68,
+          "name": "public.notification_group_push_allowed"
+        },
+        {
+          "line": 96,
+          "name": "public.queue_group_notification_delivery"
+        },
+        {
+          "line": 107,
+          "name": "group_notification_delivery"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20260916020000_notification_grants_and_legacy_lockdown.sql",
+      "lines": 16,
+      "sha256": "75363ffba009a836a9a59673afae5e0232b20ce2bb2d1d5ed22fe90509954d95",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261007010000_account_management.sql",
+      "lines": 99,
+      "sha256": "9ab519321892e3d8f38abf9a59bf94f2380b4b682561a71077c36897410f8168",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "public.account_deletion_status_v1"
+        },
+        {
+          "line": 48,
+          "name": "public.delete_my_account_v1"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261009070000_idempotent_group_invitation_acceptance.sql",
+      "lines": 104,
+      "sha256": "eb88775af65fb9812e174f90c146dccdf70340abf80f920ea09d24570c04c3c4",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "public.accept_group_invitation_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261009120000_group_member_permissions.sql",
+      "lines": 101,
+      "sha256": "f601a8f87181085b8bd76fa22337c3c8ce0dfe8e52875bef8603cdd4b9f6ce29",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "public.get_group_member_permissions_v1"
+        },
+        {
+          "line": 25,
+          "name": "public.set_group_member_permissions_v1"
+        },
+        {
+          "line": 53,
+          "name": "public.create_group_v3_full"
+        },
+        {
+          "line": 69,
+          "name": "public.update_group_v3_full"
+        },
+        {
+          "line": 87,
+          "name": "group_posts_progress_permission"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261009140000_live_group_profile_names.sql",
+      "lines": 73,
+      "sha256": "ab4184620b8edc7881036a6bb24b8c4abd867f3bb66b13cbe4c1fc31e4c6f6ca",
+      "declared_symbols": [
+        {
+          "line": 13,
+          "name": "public.group_join_uses_profile_name"
+        },
+        {
+          "line": 19,
+          "name": "group_join_uses_profile_name"
+        },
+        {
+          "line": 22,
+          "name": "public.sync_group_author_names"
+        },
+        {
+          "line": 42,
+          "name": "profile_name_updates_group_authors"
+        },
+        {
+          "line": 44,
+          "name": "group_alias_updates_authors"
+        },
+        {
+          "line": 47,
+          "name": "public.group_content_uses_current_name"
+        },
+        {
+          "line": 57,
+          "name": "group_post_current_author"
+        },
+        {
+          "line": 59,
+          "name": "group_comment_current_author"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261009160000_allow_redacted_deleted_comments.sql",
+      "lines": 66,
+      "sha256": "6ea86086e18300ae9db7ee7eed8801ea3a4c60bf80a340284406146c5e005ede",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "public.delete_group_post_comment_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261009180000_group_reply_push.sql",
+      "lines": 139,
+      "sha256": "208b0a3c77f595243a64489a644d6a5dff8136540a0be4a3deba626c239926bc",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "public.notify_group_comment"
+        },
+        {
+          "line": 26,
+          "name": "notify_group_comment"
+        },
+        {
+          "line": 31,
+          "name": "public.register_push_device_v1"
+        },
+        {
+          "line": 57,
+          "name": "public.unregister_push_device_v1"
+        },
+        {
+          "line": 67,
+          "name": "public.get_group_push_target_v1"
+        },
+        {
+          "line": 80,
+          "name": "public.claim_group_push_v1"
+        },
+        {
+          "line": 119,
+          "name": "public.finish_group_push_v1"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261009181000_group_push_dispatcher.sql",
+      "lines": 45,
+      "sha256": "52166c25a058901e27b2315fec805dd49bb59746c079a2063d23129209cef9ef",
+      "declared_symbols": [
+        {
+          "line": 12,
+          "name": "public.verify_group_push_dispatcher_v1"
+        },
+        {
+          "line": 17,
+          "name": "public.group_push_claim_allowed_v1"
+        },
+        {
+          "line": 31,
+          "name": "public.dispatch_group_push_v1"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261009190000_immediate_group_push_and_mute.sql",
+      "lines": 65,
+      "sha256": "3ac118db9771eca7551277ea65225044c8074e3da8021b8b6711ebcb08e29d52",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "public.cancel_muted_group_push_v1"
+        },
+        {
+          "line": 14,
+          "name": "cancel_muted_group_push"
+        },
+        {
+          "line": 16,
+          "name": "cancel_disabled_group_push"
+        },
+        {
+          "line": 19,
+          "name": "public.dispatch_group_push_v1"
+        },
+        {
+          "line": 43,
+          "name": "public.notify_group_comment"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261113090000_group_push_ios.sql",
+      "lines": 50,
+      "sha256": "33086bf7b2f08ba9be50abb9a89fe019d9d5cf2ed7f80a9a96a547b8c31a408f",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "public.register_push_device_v2"
+        },
+        {
+          "line": 37,
+          "name": "public.claim_group_push_v2"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261114120000_group_feed_realtime.sql",
+      "lines": 29,
+      "sha256": "cac3681b2a5a06a738c867791e04cd686188afd655c5b6b18ef65d8ee1af6a4c",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "migrations",
+      "path": "../supabase/migrations/20261115090000_group_typing_private.sql",
+      "lines": 120,
+      "sha256": "36e0cffaccb84b34d953eaaa6544635170fcf95ac2693dde5c297040f54a4c06",
+      "declared_symbols": [
+        {
+          "line": 7,
+          "name": "public.can_receive_group_typing_v1"
+        },
+        {
+          "line": 31,
+          "name": "public.get_group_typing_channel_v1"
+        },
+        {
+          "line": 52,
+          "name": "public.publish_group_typing_v1"
+        },
+        {
+          "line": 103,
+          "name": "group_typing_receive_v1"
+        },
+        {
+          "line": 109,
+          "name": "group_typing_read_guard_v1"
+        },
+        {
+          "line": 116,
+          "name": "group_typing_write_guard_v1"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "server",
+      "path": "../supabase/functions/group-push/apns-contract.ts",
+      "lines": 33,
+      "sha256": "5c97115f9efb0c8b3e5afe9752e5bc0f40426e75ea65de9d2c366a3bea1e53de",
+      "declared_symbols": [
+        {
+          "line": 3,
+          "name": "ApnsDelivery"
+        },
+        {
+          "line": 6,
+          "name": "ApnsAuth"
+        },
+        {
+          "line": 8,
+          "name": "buildApnsRequest"
+        },
+        {
+          "line": 29,
+          "name": "apnsOutcome"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "server",
+      "path": "../supabase/functions/group-push/index.ts",
+      "lines": 122,
+      "sha256": "9e110fdbad5f5c7ed4b7ef2f0445015b08085d136adaf2364b6d05e2fec943b8",
+      "declared_symbols": [
+        {
+          "line": 6,
+          "name": "rpc"
+        },
+        {
+          "line": 18,
+          "name": "credentials"
+        },
+        {
+          "line": 38,
+          "name": "apnsCredentials"
+        },
+        {
+          "line": 60,
+          "name": "sendApns"
+        }
+      ],
+      "referenced_rpc_names": [
+        "claim_group_push_v2",
+        "finish_group_push_v1",
+        "group_push_claim_allowed_v1",
+        "verify_group_push_dispatcher_v1"
+      ]
+    },
+    {
+      "category": "server",
+      "path": "../supabase/functions/group-push/notification-copy.ts",
+      "lines": 9,
+      "sha256": "5f8db2bda0249a9cb98273fbfe8053fab07259dbfaf26a356a04392e740f1893",
+      "declared_symbols": [
+        {
+          "line": 9,
+          "name": "curatedReplyText"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_comment_deletion.sql",
+      "lines": 34,
+      "sha256": "de96f5c54d4d1a4a039b6df57474f67fd0ebcf018ed5ce426410c1c8f0abd305",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_detail_v2_app_api.sql",
+      "lines": 108,
+      "sha256": "4939e9a25d9483ae47fb80f819108d09ade668e5523fc9b7c36427aa622999f3",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_detail_v2_authorization.sql",
+      "lines": 108,
+      "sha256": "09ad3dcc20dc63023be5c44619d6fbbff96f49c1b54fa4ddf7456985fd3ee9cc",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_detail_v2_foundation.sql",
+      "lines": 92,
+      "sha256": "4c239ecb97b1208ed7b469b75a70658faece768b7f6cfb721cd8fe21a72557c7",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_detail_v2_legacy_migration.sql",
+      "lines": 120,
+      "sha256": "335928803a0f5097d5dc574db4a0b8d24ac96482d0abb4b63e25be3e391e46b5",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_events_profiles_points_v3.sql",
+      "lines": 88,
+      "sha256": "1ee9e0d847c4ea5eda66a71ce6acb72d88a30cdc560fe77c67e06bcd4a034d4c",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_feed_v2_actions.sql",
+      "lines": 125,
+      "sha256": "8177d8ea2bc07e0a896d5186095b909f55318f6fbcdf81ce4a0caa76dc932fc9",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_logos.sql",
+      "lines": 37,
+      "sha256": "dc128f4a9cb858c0928720f4742ad5d15f6f53e2c10b89c1cc9beeb428001152",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_management_api_v2.sql",
+      "lines": 142,
+      "sha256": "0be97b7f7c9dfc06c5809fabfc72321742fb7bd20e6d2f15b71c4f41678b84b6",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_media_v2_actions.sql",
+      "lines": 142,
+      "sha256": "684afc9d946a5a5875302d7333674046c6c12f6a8d1e8df89c3f6ed662e59f47",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_member_permissions.sql",
+      "lines": 84,
+      "sha256": "1052a87ce8eb607449e539f1496e8ae1268c822106dd0c36b6fb3718ee06a489",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_membership_v2_actions.sql",
+      "lines": 133,
+      "sha256": "1f5117dac19d207167474644578980f2650956eae4be4b096f1581d1c4ddd6f8",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_profile_names.sql",
+      "lines": 33,
+      "sha256": "eb1ab8f4e35f86cf4fda6260b0a0776875c3caa7ac71286e3d6b10a29e6b34d0",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_reply_push.sql",
+      "lines": 55,
+      "sha256": "30a157ba755f78be5f4bdff3ce84c133023cc04bf03b3ac69381b15260c51465",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_reply_push_ios.sql",
+      "lines": 37,
+      "sha256": "b22e4f6b514e5adae9d2d3b50f2bd7c215b731655346e1812415f8f6acfeb3ce",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_tasks_v2_actions.sql",
+      "lines": 90,
+      "sha256": "7d180696ce63cc684009f3ee4b2da074a4ad94b7f8161358eae0455afd1541f3",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "sql_tests",
+      "path": "../supabase/tests/group_typing_private.sql",
+      "lines": 82,
+      "sha256": "072fef87df9a14aa371d3ba80be9bff0db1137fa8901faded3dcb92ddd1af6ad",
+      "declared_symbols": [
+        {
+          "line": 50,
+          "name": "qa_typing_broad_read"
+        },
+        {
+          "line": 51,
+          "name": "qa_typing_broad_write"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/bootstrap.sql",
+      "lines": 20,
+      "sha256": "9fe1c42d017fe4548d5ed5f5472268e6a400452bac5bd184647db5c1407083de",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "public.profiles"
+        },
+        {
+          "line": 7,
+          "name": "qa_profile_owner"
+        },
+        {
+          "line": 8,
+          "name": "public.reading_groups"
+        },
+        {
+          "line": 9,
+          "name": "public.reading_group_members"
+        },
+        {
+          "line": 10,
+          "name": "public.reading_group_feed"
+        },
+        {
+          "line": 11,
+          "name": "public.reading_group_feed_comments"
+        },
+        {
+          "line": 12,
+          "name": "public.reading_group_feed_likes"
+        },
+        {
+          "line": 13,
+          "name": "public.reading_group_progress"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/chat-runtime.mts",
+      "lines": 439,
+      "sha256": "cc2d22ba7b31029a3cbde27eb069c09acbc001c1665203b906ec691e4943875d",
+      "declared_symbols": [
+        {
+          "line": 73,
+          "name": "actor"
+        },
+        {
+          "line": 97,
+          "name": "until"
+        },
+        {
+          "line": 103,
+          "name": "check"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/community-runtime.mts",
+      "lines": 450,
+      "sha256": "758a4d452e324dc5f66915f97eba4482b5771f4de868bc317176efe50ffcdb8e",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "FeedRow"
+        },
+        {
+          "line": 45,
+          "name": "ok"
+        },
+        {
+          "line": 58,
+          "name": "until"
+        },
+        {
+          "line": 64,
+          "name": "check"
+        }
+      ],
+      "referenced_rpc_names": [
+        "create_group_text_post_v2",
+        "get_group_detail_v3"
+      ]
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/disable-outbound.sql",
+      "lines": 10,
+      "sha256": "f52789221ed5a9ccf96bff7704ee58c947ad359910f5537cfd6158c1d35d2650",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "public.dispatch_group_push_v1"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/groups.mts",
+      "lines": 440,
+      "sha256": "871609393aec2a2627a32b7d2f0592299b29d552f851ece8111db9cc9240db11",
+      "declared_symbols": [
+        {
+          "line": 47,
+          "name": "check"
+        }
+      ],
+      "referenced_rpc_names": [
+        "add_group_post_comment_v2",
+        "create_group_text_post_v2",
+        "create_group_v3_full",
+        "get_group_detail_v3",
+        "list_group_members_v3",
+        "list_my_groups_v2",
+        "set_group_member_permissions_v1",
+        "toggle_group_post_reaction_v2"
+      ]
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/prepare.mjs",
+      "lines": 160,
+      "sha256": "aadeef566055d4691318a66d2a887c678dfbc9438f2f7ee295c82b4fde4bad54",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/progress-parity.mjs",
+      "lines": 40,
+      "sha256": "ba1ce1b06e11e74ce4b98049e115e03ccb1847ae2b9b7d107de866dae7bedf4f",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/progress-parity.sql",
+      "lines": 55,
+      "sha256": "8ff188eec4d794e7477516df4d78e7b0ef3b0354359125dc55654b2dfd85e8ae",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/scope.mjs",
+      "lines": 9,
+      "sha256": "ba34cd4bfc0f8352467f872ed44c8fe41835aa7858b649b4b014762478eee377",
+      "declared_symbols": [
+        {
+          "line": 4,
+          "name": "assertLocalQaScope"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/seed-native.mts",
+      "lines": 128,
+      "sha256": "4aa0dc884572243f0989015811a4ec55a633dd5cc0df55ad2a3b91ccde0e6b18",
+      "declared_symbols": [
+        {
+          "line": 25,
+          "name": "signIn"
+        }
+      ],
+      "referenced_rpc_names": [
+        "add_group_post_comment_v2",
+        "create_group_text_post_v2",
+        "get_group_detail_v3",
+        "toggle_group_post_reaction_v2"
+      ]
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/source-sql.mjs",
+      "lines": 58,
+      "sha256": "8be83da02e32ff18cc32019817fe20172762b42e10f041b8e314add2ed6d3af8",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/start.ps1",
+      "lines": 25,
+      "sha256": "b1aca88b751b180966b8120cbad7dbcc4cf9e2d773ceeddc46869466a0b555ad",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/stop.ps1",
+      "lines": 10,
+      "sha256": "ce93f135800d94d4c21e6fc56b3149040b490d1b998fd153d27ee9c1d7294479",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/typing-native.mts",
+      "lines": 133,
+      "sha256": "a0297c7b345d4a74d9eafd3302621c2b78a581ffd0e01c3ca1a9424b75936fee",
+      "declared_symbols": [],
+      "referenced_rpc_names": [
+        "get_group_detail_v3",
+        "get_group_typing_channel_v1",
+        "publish_group_typing_v1"
+      ]
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/typing-runtime.mts",
+      "lines": 407,
+      "sha256": "b513015d9665a77dbf569a74fc09847bee438eb8bbde726921809082a154131e",
+      "declared_symbols": [
+        {
+          "line": 68,
+          "name": "actor"
+        },
+        {
+          "line": 89,
+          "name": "until"
+        },
+        {
+          "line": 95,
+          "name": "check"
+        },
+        {
+          "line": 104,
+          "name": "rawActor"
+        },
+        {
+          "line": 118,
+          "name": "rawChannel"
+        },
+        {
+          "line": 129,
+          "name": "channelSettled"
+        }
+      ],
+      "referenced_rpc_names": [
+        "get_group_typing_channel_v1",
+        "publish_group_typing_v1"
+      ]
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/local-backend-qa/typing-sql.mjs",
+      "lines": 50,
+      "sha256": "be6f422da96156b6746eb3f7243368c8aa55a83714bcc46bc6736eef99489b71",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "qa_scripts",
+      "path": "scripts/check-realtime-readiness.mjs",
+      "lines": 160,
+      "sha256": "fea4f7605130e18251e322c0c713c06c4c27ca3c4c035694810c999325563402",
+      "declared_symbols": [
+        {
+          "line": 16,
+          "name": "publicRealtimeConfig"
+        },
+        {
+          "line": 48,
+          "name": "redactRealtimeError"
+        },
+        {
+          "line": 60,
+          "name": "probeRealtimeTable"
+        },
+        {
+          "line": 94,
+          "name": "main"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-chat-composer.test.ts",
+      "lines": 148,
+      "sha256": "e7245e8ed559d276116ce2b087799bbc8c3b9745da26f1ae899803503d1e9e02",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "Node"
+        },
+        {
+          "line": 10,
+          "name": "nodes"
+        },
+        {
+          "line": 17,
+          "name": "conversation"
+        },
+        {
+          "line": 85,
+          "name": "load"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-chat.test.ts",
+      "lines": 227,
+      "sha256": "30872a7ea8492254ec20e1ac196c64d8920bf14f0f2f15ae2bc2ac36b75f1409",
+      "declared_symbols": [
+        {
+          "line": 32,
+          "name": "fixture"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-join-route.test.ts",
+      "lines": 134,
+      "sha256": "1f65621f42c72ea2429578d92cf56186c571d075159a03a6ad9a4024b3b361a6",
+      "declared_symbols": [
+        {
+          "line": 10,
+          "name": "Node"
+        },
+        {
+          "line": 12,
+          "name": "nodes"
+        },
+        {
+          "line": 88,
+          "name": "load"
+        },
+        {
+          "line": 111,
+          "name": "render"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-join.test.ts",
+      "lines": 116,
+      "sha256": "65bb5cd71ded8d3e4f4ca599ac002cd34663d3311398f9aacd58bf850e40727e",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-keyboard-layout.test.ts",
+      "lines": 376,
+      "sha256": "1a4f4ba9d4c97e2201c7a2e9b9dc9f3935c658e5dd6130a6850c00cbf74d1bc4",
+      "declared_symbols": [
+        {
+          "line": 9,
+          "name": "Node"
+        },
+        {
+          "line": 11,
+          "name": "mountKeyboardScreen"
+        },
+        {
+          "line": 129,
+          "name": "load"
+        },
+        {
+          "line": 156,
+          "name": "nodes"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-operations.test.ts",
+      "lines": 212,
+      "sha256": "3ba6ec067ba66974018152c4f3d554dd873a51e5c7eff062afe657ac79e52ca7",
+      "declared_symbols": [
+        {
+          "line": 27,
+          "name": "fixture"
+        }
+      ],
+      "referenced_rpc_names": [
+        "create_group_join_request_v2",
+        "record_group_progress_v2",
+        "set_group_member_role_v2"
+      ]
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-parity-ui.test.ts",
+      "lines": 212,
+      "sha256": "4fbece180ba1d7c678473057fd359d1d99109c2ebd9fcbd6e776dbf35e310f9f",
+      "declared_symbols": [
+        {
+          "line": 11,
+          "name": "Node"
+        },
+        {
+          "line": 12,
+          "name": "renderModule"
+        },
+        {
+          "line": 103,
+          "name": "progressPanel"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-progress-parity.test.ts",
+      "lines": 204,
+      "sha256": "642317774a215c6c66c2831d5d5e98aea66a8b9a98d6693997f57af3b996c400",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-progress-reader.test.ts",
+      "lines": 160,
+      "sha256": "9b9c74224ee1ebd0195b372e76ab246808c0a6b4ca49053b72cd956fdb0a142d",
+      "declared_symbols": [
+        {
+          "line": 5,
+          "name": "GroupProgressClient"
+        },
+        {
+          "line": 12,
+          "name": "Row"
+        },
+        {
+          "line": 23,
+          "name": "clientFixture"
+        },
+        {
+          "line": 84,
+          "name": "service"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-push-policy.test.ts",
+      "lines": 205,
+      "sha256": "872cac5536573f7919a441c68b60442958e5ea0fe4eb796589a50bd038a70dd0",
+      "declared_symbols": [
+        {
+          "line": 9,
+          "name": "GroupReplyGate"
+        },
+        {
+          "line": 17,
+          "name": "gate"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-reading.test.ts",
+      "lines": 36,
+      "sha256": "0b9a825edf2d8ba7ea1ed815f127cca13f6efe59210bfe69783fd94a6679363d",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/group-typing.test.ts",
+      "lines": 497,
+      "sha256": "e39cb9f1b46ca5532ae40bd94db7efa31e6a5b13d5a5cb26379c57083fef4eab",
+      "declared_symbols": [
+        {
+          "line": 8,
+          "name": "GroupTypingPort"
+        },
+        {
+          "line": 9,
+          "name": "GroupTypingSignal"
+        },
+        {
+          "line": 10,
+          "name": "GroupTypingService"
+        },
+        {
+          "line": 18,
+          "name": "fixture"
+        },
+        {
+          "line": 146,
+          "name": "portFixture"
+        },
+        {
+          "line": 364,
+          "name": "Controller"
+        },
+        {
+          "line": 447,
+          "name": "Element"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/community-feed.test.ts",
+      "lines": 844,
+      "sha256": "5b04f67930b3a43d82a450f24d6389d754ac0db8ce7005290d3572fc2ec12678",
+      "declared_symbols": [
+        {
+          "line": 6,
+          "name": "FeedQuery"
+        },
+        {
+          "line": 28,
+          "name": "post"
+        },
+        {
+          "line": 47,
+          "name": "deferred"
+        },
+        {
+          "line": 57,
+          "name": "controlledFeed"
+        },
+        {
+          "line": 101,
+          "name": "fixture"
+        }
+      ],
+      "referenced_rpc_names": []
+    },
+    {
+      "category": "rn_tests",
+      "path": "tests/realtime-readiness.test.ts",
+      "lines": 92,
+      "sha256": "d81302a6f8dd91747b3a19bb995c491455377302de6adb635414bf0c1fde5244",
+      "declared_symbols": [],
+      "referenced_rpc_names": []
+    }
+  ]
+}

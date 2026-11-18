@@ -1,0 +1,7 @@
+# Notificaties
+
+`localReminders.ts` combineert voorkeuren en gewenste dag-/planningsmeldingen; `planningReminderPort.ts` is de actieve Expo-grens. `planningReminders.ts` coördineert vervanging, commit en annulering. De oudere `expoPlanningReminders.ts`-adapter blijft beschikbaar voor zijn afzonderlijke aanroepen. `notificationSystem.ts` deelt de toestemmingstoets, inclusief voorlopige iOS-toestemming.
+
+`planningReminderLedger.ts` bewaart een reservering vóór een native planningsaanvraag. Alleen aantoonbaar nog niet ingediende eenmalige plannen binnen twaalf uur na de toegestane tijd kunnen worden ingehaald. De identiteit blijft gelijk bij taal- of stille-urenwijzigingen. Bij een onzekere eerdere aflevering wordt geen herhaling aangeboden. Het eerste gebruik onderdrukt onbekende reeds verstreken oude plannen; aanwezige OS-schema's worden overgenomen. Dagelijkse herhaling blijft bij het OS en krijgt geen tweede appgestuurde inhaalroute. Zie het [auditrapport](../../../docs/recheck-2026-11-18/accounts-platform.md) voor de grensgevallen.
+
+`groupPushRuntime.ts`, `pushDevice.ts` en platformtaken verzorgen groepspush. Lokale leesschakelaars overschrijven geen groepspushstatus: alleen stille-urenvelden worden gedeeld. Bestemmingen en voorkeuren hebben eigen modules. Bewaar transacties en platformverschillen bij wijzigingen; daadwerkelijke push vereist geconfigureerde platformdiensten en apparaatcontrole. Zie [iOS-pushconfiguratie](../../../docs/IOS_PUSH_SETUP.md).

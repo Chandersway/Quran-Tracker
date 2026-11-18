@@ -1,0 +1,44 @@
+{
+  "viewport": "390x844",
+  "deviceDocumentDirection": "ltr",
+  "locales": [
+    {
+      "locale": "en",
+      "direction": "pass",
+      "row": "pass",
+      "dock": "pass",
+      "modal": "pass",
+      "fields": "pass",
+      "quran": "pass",
+      "selectedChip": "pass",
+      "slider": "pass",
+      "preservedState": "pass"
+    },
+    {
+      "locale": "ar",
+      "direction": "pass",
+      "row": "pass",
+      "dock": "pass",
+      "modal": "pass",
+      "fields": "pass",
+      "quran": "pass",
+      "selectedChip": "pass",
+      "slider": "pass",
+      "preservedState": "pass"
+    },
+    {
+      "locale": "nl",
+      "direction": "pass",
+      "row": "pass",
+      "dock": "pass",
+      "modal": "pass",
+      "fields": "pass",
+      "quran": "pass",
+      "selectedChip": "pass",
+      "slider": "pass",
+      "preservedState": "pass"
+    }
+  ],
+  "themeSelections": 13,
+  "errors": []
+}

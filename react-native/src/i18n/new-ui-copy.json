@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 1,
+  "origin": "New React Native functional UI; these labels are not claimed to be curated Kotlin source copy.",
+  "reviewStatus": "requires-user-copy-review",
+  "entries": {
+    "ui.mushaf.browseMode": {
+      "en": "Browse",
+      "nl": "Bladeren",
+      "ar": "تصفح",
+      "reason": "Book interaction mode with page swipes and word actions, without native text selection."
+    },
+    "ui.mushaf.selectionOpensWarsh": {
+      "en": "Select opens Warsh Unicode text at this page; the line layout is reconstructed.",
+      "nl": "Selecteren opent de Warsh-Unicodetekst op deze pagina; de regelindeling is gereconstrueerd.",
+      "ar": "يفتح التحديد نص ورش الرقمي في هذه الصفحة؛ وتوزيع الأسطر معاد بناؤه.",
+      "reason": "Explains that Warsh selection uses its own Unicode book rather than an overlay on the scan."
+    },
+    "ui.mushaf.warshSelectionHint": {
+      "en": "Select the Warsh text. The line layout is reconstructed.",
+      "nl": "Selecteer de Warsh-tekst. De regelindeling is gereconstrueerd.",
+      "ar": "حدد نص ورش. توزيع الأسطر معاد بناؤه.",
+      "reason": "Identifies Warsh Unicode and its reconstructed line layout."
+    },
+    "ui.bookPresentation.warshSelectable": {
+      "en": "Selectable Warsh text",
+      "nl": "Selecteerbare Warsh-tekst",
+      "ar": "نص ورش قابل للتحديد",
+      "reason": "Distinguishes Warsh Unicode from the original printed artwork."
+    },
+    "ui.selectableMushaf.warshCredit": {
+      "en": "Warsh Unicode text · reconstructed lines · Quran.ws / KFGQPC",
+      "nl": "Warsh-Unicodetekst · gereconstrueerde regels · Quran.ws / KFGQPC",
+      "ar": "نص ورش الرقمي · أسطر معاد بناؤها · Quran.ws / KFGQPC",
+      "reason": "Identifies the Warsh text source and does not claim an exact printed layout."
+    },
+    "ui.selectableMushaf.warshWordUnavailable": {
+      "en": "Word information is not available for this Warsh text.",
+      "nl": "Woordgegevens zijn niet beschikbaar voor deze Warsh-tekst.",
+      "ar": "معلومات الكلمة غير متاحة لهذا النص برواية ورش.",
+      "reason": "Warsh words must not be linked to unverified Hafs lexical data."
+    },
+    "ui.mushaf.selectionMode": {
+      "en": "Select",
+      "nl": "Selecteren",
+      "ar": "تحديد",
+      "reason": "Explicit native text selection mode; page swipes are disabled while it is active."
+    },
+    "ui.mushaf.selectionHint": {
+      "en": "Hold a word to select and copy. Use the page controls to turn pages.",
+      "nl": "Houd een woord ingedrukt om te selecteren en kopiëren. Blader met de paginaknoppen.",
+      "ar": "اضغط مطولاً على كلمة لتحديد النص ونسخه. استخدم أدوات الصفحات للتنقل.",
+      "reason": "Explain native selection and the remaining explicit page controls."
+    },
+    "ui.mushaf.selectionOpensHafs": {
+      "en": "Printed scan. Select opens the matching passage in selectable Hafs text.",
+      "nl": "Afdruk. Selecteren opent dezelfde passage in selecteerbare Hafs-tekst.",
+      "ar": "صورة مطبوعة. يفتح التحديد المقطع نفسه في نص حفص القابل للتحديد.",
+      "reason": "A scan cannot select words; an explicit action opens real Unicode Hafs at a verified reference."
+    },
+    "ui.mushaf.selectionUnavailable": {
+      "en": "This edition has no verified selectable text. You can continue browsing it.",
+      "nl": "Deze uitgave heeft geen gecontroleerde selecteerbare tekst. Je kunt erin blijven bladeren.",
+      "ar": "لا يتوفر لهذه الطبعة نص قابل للتحديد تم التحقق منه. يمكنك متابعة تصفحها.",
+      "reason": "Never silently replace Warsh or claim selectable coordinates for an unsupported edition."
+    },
+    "ui.mushaf.selectionUnknownPage": {
+      "en": "This printed page has no verified text mapping. Open a known verse in text view to select it.",
+      "nl": "Deze afdrukpagina heeft geen gecontroleerde tekstkoppeling. Open een bekend vers in de tekstweergave om het te selecteren.",
+      "ar": "لا يوجد ربط نصي موثّق لهذه الصفحة المطبوعة. افتح آية معروفة في عرض النص لتحديدها.",
+      "reason": "Explain an unknown original-page mapping without inventing Hafs page correspondence."
+    },
+    "ui.mushaf.scrollPercent": {
+      "en": "%1$s percent down the page.",
+      "nl": "%1$s procent op de pagina.",
+      "ar": "الموضع عند %1$s بالمئة من الصفحة.",
+      "reason": "Accessible scroll position replaces the inactive page-fits message."
+    },
+    "ui.mushaf.scrollFits": {
+      "en": "The full page is visible",
+      "nl": "De hele pagina is zichtbaar",
+      "ar": "الصفحة كاملة ظاهرة",
+      "reason": "Accessible state of the visible but non-interactive fullscreen scroll rail when the page fits."
+    },
+    "ui.hizb.showTranslation": {
+      "en": "Show translation · %1$s",
+      "nl": "Toon vertaling · %1$s",
+      "ar": "إظهار الترجمة · %1$s",
+      "reason": "Optional per-Hizb opening-ayah translation; the language label comes from the bundled translation registry."
+    },
+    "ui.hizb.hideTranslation": {
+      "en": "Hide translation · %1$s",
+      "nl": "Verberg vertaling · %1$s",
+      "ar": "إخفاء الترجمة · %1$s",
+      "reason": "Collapses a complete opening-ayah translation without opening the reader or changing progress."
+    },
+    "ui.mushaf.manualRegistration": {
+      "en": "For this edition, save the passage you read using Quick check-in.",
+      "nl": "Sla voor deze editie je gelezen gedeelte op via Snelle check-in.",
+      "ar": "لتسجيل ما قرأته في هذه النسخة، استخدم التسجيل السريع.",
+      "reason": "Unknown PDF page-to-ayah mapping must not count a cover as Quran reading"
+    },
+    "ui.mushaf.markPage": {
+      "en": "Mark this page as read",
+      "nl": "Deze pagina als gelezen opslaan",
+      "ar": "تسجيل قراءة هذه الصفحة",
+      "reason": "Explicit printed-page reading registration; opening a page never records reading automatically"
+    },
+    "ui.mushaf.markPages": {
+      "en": "Mark these pages as read",
+      "nl": "Deze pagina’s als gelezen opslaan",
+      "ar": "تسجيل قراءة هاتين الصفحتين",
+      "reason": "Explicit right-to-left book-spread reading registration"
+    },
+    "ui.mushaf.removePageMark": {
+      "en": "Remove reading mark",
+      "nl": "Leesmarkering verwijderen",
+      "ar": "إزالة علامة القراءة",
+      "reason": "Reverses only this account's explicit page mark, preserving earlier reading history."
+    },
+    "ui.mushaf.removePageMarks": {
+      "en": "Remove reading marks",
+      "nl": "Leesmarkeringen verwijderen",
+      "ar": "إزالة علامتَي القراءة",
+      "reason": "Reverses the explicit page marks for both pages in the current book spread."
+    },
+    "ui.mushaf.previousReadingsKept": {
+      "en": "Earlier reading records are kept.",
+      "nl": "Eerdere leesregistraties blijven behouden.",
+      "ar": "تُحفظ سجلات القراءة السابقة.",
+      "reason": "Explains why historical page coverage may remain after the reversible page mark is removed."
+    },
+    "ui.nav.destinations": {
+      "en": "Destinations",
+      "nl": "Pagina’s",
+      "ar": "الصفحات",
+      "reason": "Heading for destinations in More"
+    },
+    "ui.nav.select": {
+      "en": "Select",
+      "nl": "Selecteren",
+      "ar": "اختيار",
+      "reason": "Opens bottom navigation selection"
+    },
+    "ui.nav.selectTitle": {
+      "en": "Choose bottom navigation",
+      "nl": "Kies de onderste navigatie",
+      "ar": "اختيار شريط التنقل السفلي",
+      "reason": "Title of the bottom navigation selector"
+    },
+    "ui.nav.selectionCount": {
+      "en": "%1$s of %2$s selected.",
+      "nl": "%1$s van %2$s geselecteerd.",
+      "ar": "تم اختيار %1$s من %2$s.",
+      "reason": "Current selection count and maximum"
+    },
+    "ui.nav.selectionHint": {
+      "en": "Choose up to three destinations. More is always available.",
+      "nl": "Kies maximaal drie pagina’s. Meer blijft altijd beschikbaar.",
+      "ar": "اختر ثلاث صفحات كحد أقصى. يبقى خيار المزيد متاحًا دائمًا.",
+      "reason": "Explains the navigation selection limit"
+    },
+    "ui.nav.restoreDefaults": {
+      "en": "Restore defaults",
+      "nl": "Standaard herstellen",
+      "ar": "استعادة الإعدادات الافتراضية",
+      "reason": "Restores the original bottom navigation"
+    },
+    "ui.nav.done": {
+      "en": "Done",
+      "nl": "Gereed",
+      "ar": "تم",
+      "reason": "Returns from navigation selection to More"
+    },
+    "ui.nav.library": {
+      "en": "Mushaf library",
+      "nl": "Mushafbibliotheek",
+      "ar": "مكتبة المصاحف",
+      "reason": "Distinguishes the library from resuming the Mushaf"
+    },
+    "ui.more": {
+      "en": "More",
+      "nl": "Meer",
+      "ar": "المزيد",
+      "reason": "New overflow navigation affordance"
+    },
+    "ui.groups.rules": {
+      "en": "Group rules",
+      "nl": "Groepsregels",
+      "ar": "قواعد المجموعة",
+      "reason": "UI for the existing source group-rules API"
+    },
+    "ui.groups.publishRules": {
+      "en": "Publish rules",
+      "nl": "Regels publiceren",
+      "ar": "نشر القواعد",
+      "reason": "UI for the existing source publishRules operation"
+    },
+    "ui.groups.moderation": {
+      "en": "Moderation",
+      "nl": "Moderatie",
+      "ar": "الإشراف",
+      "reason": "UI for the existing source moderation-review API"
+    },
+    "ui.groups.auditLog": {
+      "en": "Activity log",
+      "nl": "Activiteitenlogboek",
+      "ar": "سجل النشاط",
+      "reason": "UI for the existing source audit-log API"
+    },
+    "ui.groups.reportOpen": {
+      "en": "Open",
+      "nl": "Open",
+      "ar": "مفتوح",
+      "reason": "Report status, distinct from the existing open action"
+    },
+    "ui.groups.reportReviewing": {
+      "en": "Under review",
+      "nl": "In behandeling",
+      "ar": "قيد المراجعة",
+      "reason": "Moderation report status"
+    },
+    "ui.groups.reportResolved": {
+      "en": "Resolved",
+      "nl": "Afgehandeld",
+      "ar": "تمت المعالجة",
+      "reason": "Moderation report status"
+    },
+    "ui.groups.reportDismissed": {
+      "en": "Closed without action",
+      "nl": "Gesloten zonder actie",
+      "ar": "أُغلق دون إجراء",
+      "reason": "Moderation report status"
+    },
+    "ui.groups.resolutionNote": {
+      "en": "Resolution note",
+      "nl": "Toelichting bij afhandeling",
+      "ar": "ملاحظة بشأن المعالجة",
+      "reason": "Existing source report-resolution input"
+    },
+    "ui.groups.publish": {
+      "en": "Publish",
+      "nl": "Publiceren",
+      "ar": "نشر",
+      "reason": "Existing source rules publication operation"
+    },
+    "ui.groups.markAllRead": {
+      "en": "Mark all as read",
+      "nl": "Alles als gelezen markeren",
+      "ar": "تحديد الكل كمقروء",
+      "reason": "Existing source notification-read API"
+    },
+    "ui.groups.markRead": {
+      "en": "Mark as read",
+      "nl": "Als gelezen markeren",
+      "ar": "تحديد كمقروء",
+      "reason": "Existing source notification-read API"
+    },
+    "ui.groups.unread": {
+      "en": "Unread",
+      "nl": "Ongelezen",
+      "ar": "غير مقروء",
+      "reason": "Existing source notification-read state"
+    },
+    "ui.groups.ruleVersion": {
+      "en": "Version %d",
+      "nl": "Versie %d",
+      "ar": "الإصدار %d",
+      "reason": "Existing source rule version field"
+    },
+    "ui.groups.history": {
+      "en": "History",
+      "nl": "Geschiedenis",
+      "ar": "السجل",
+      "reason": "Existing source rule revision history"
+    },
+    "ui.groups.sendAnnouncement": {
+      "en": "Send announcement",
+      "nl": "Aankondiging versturen",
+      "ar": "إرسال إعلان",
+      "reason": "Existing source group-notification API"
+    },
+    "ui.notes.contentRequired": {
+      "en": "Add a title or write a note before saving.",
+      "nl": "Vul een titel of notitie in voordat je opslaat.",
+      "ar": "أضف عنوانًا أو اكتب ملاحظة قبل الحفظ.",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.saved": {
+      "en": "Note saved.",
+      "nl": "Notitie opgeslagen.",
+      "ar": "تم حفظ الملاحظة.",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.heading": {
+      "en": "Heading",
+      "nl": "Kop",
+      "ar": "عنوان",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.list": {
+      "en": "List style",
+      "nl": "Lijststijl",
+      "ar": "نمط القائمة",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.color": {
+      "en": "Text colour",
+      "nl": "Tekstkleur",
+      "ar": "لون النص",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.fontLarger": {
+      "en": "Increase font size",
+      "nl": "Tekst vergroten",
+      "ar": "تكبير الخط",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.bold": {
+      "en": "Bold",
+      "nl": "Vet",
+      "ar": "عريض",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.italic": {
+      "en": "Italic",
+      "nl": "Cursief",
+      "ar": "مائل",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.underline": {
+      "en": "Underline",
+      "nl": "Onderstrepen",
+      "ar": "تسطير",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.strike": {
+      "en": "Strikethrough",
+      "nl": "Doorhalen",
+      "ar": "شطب",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.none": {
+      "en": "Plain text",
+      "nl": "Gewone tekst",
+      "ar": "نص عادي",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.bullet": {
+      "en": "Bulleted list",
+      "nl": "Opsomming",
+      "ar": "قائمة نقطية",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.numbered": {
+      "en": "Numbered list",
+      "nl": "Genummerde lijst",
+      "ar": "قائمة مرقّمة",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.notes.todo": {
+      "en": "Checklist",
+      "nl": "Takenlijst",
+      "ar": "قائمة مهام",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.books.search": {
+      "en": "Search books or authors",
+      "nl": "Zoek boeken of auteurs",
+      "ar": "ابحث عن كتاب أو مؤلف",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.books.previous": {
+      "en": "Previous page",
+      "nl": "Vorige pagina",
+      "ar": "الصفحة السابقة",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.books.next": {
+      "en": "Next page",
+      "nl": "Volgende pagina",
+      "ar": "الصفحة التالية",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.books.back": {
+      "en": "Back to books",
+      "nl": "Terug naar boeken",
+      "ar": "العودة إلى الكتب",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.words": {
+      "en": "Word by word",
+      "nl": "Woord voor woord",
+      "ar": "كلمة بكلمة",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.transliteration": {
+      "en": "Transliteration",
+      "nl": "Transliteratie",
+      "ar": "النقل الصوتي",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.meaning": {
+      "en": "Meaning",
+      "nl": "Betekenis",
+      "ar": "المعنى",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.previous": {
+      "en": "Previous ayah",
+      "nl": "Vorige aya",
+      "ar": "الآية السابقة",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.next": {
+      "en": "Next ayah",
+      "nl": "Volgende aya",
+      "ar": "الآية التالية",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.loadingWords": {
+      "en": "Loading word-by-word data…",
+      "nl": "Woordgegevens laden…",
+      "ar": "جارٍ تحميل بيانات الكلمات…",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.wordsUnavailable": {
+      "en": "Word-by-word data is unavailable for this ayah.",
+      "nl": "Er zijn geen woordgegevens beschikbaar voor deze aya.",
+      "ar": "لا تتوفر بيانات الكلمات لهذه الآية.",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.loadingGrammar": {
+      "en": "Loading grammar analysis…",
+      "nl": "Grammaticale analyse laden…",
+      "ar": "جارٍ تحميل التحليل النحوي…",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.study.grammarUnavailable": {
+      "en": "Grammar analysis is unavailable for this ayah.",
+      "nl": "Er is geen grammaticale analyse beschikbaar voor deze aya.",
+      "ar": "لا يتوفر تحليل نحوي لهذه الآية.",
+      "reason": "Accessible RN control or local-data feedback; no matching curated Kotlin sentence exists."
+    },
+    "ui.reader.jumpToAyah": {
+      "en": "Go to ayah",
+      "nl": "Ga naar aya",
+      "ar": "انتقل إلى آية",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.ayahNumberRange": {
+      "en": "Ayah (%1$s–%2$s)",
+      "nl": "Aya (%1$s–%2$s)",
+      "ar": "الآية (%1$s–%2$s)",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.ayahRangeInvalid": {
+      "en": "Choose an ayah from %1$s to %2$s in this reading.",
+      "nl": "Kies in deze lezing een aya van %1$s tot %2$s.",
+      "ar": "اختر آية من %1$s إلى %2$s ضمن هذه القراءة.",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.scrollFailed": {
+      "en": "Could not reach that ayah. Scroll to it or try again.",
+      "nl": "Deze aya kan niet worden bereikt. Scrol ernaartoe of probeer opnieuw.",
+      "ar": "تعذّر الانتقال إلى هذه الآية. مرّر للوصول إليها أو أعد المحاولة.",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.audioSaved": {
+      "en": "Recitation saved on this device for offline listening.",
+      "nl": "De recitatie is op dit apparaat opgeslagen om offline te beluisteren.",
+      "ar": "حُفظت التلاوة على هذا الجهاز للاستماع دون اتصال بالإنترنت.",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.audioSaveFailed": {
+      "en": "Could not download this recitation. Check your connection and available storage, then try again.",
+      "nl": "De recitatie kan niet worden gedownload. Controleer je internetverbinding en de vrije opslagruimte en probeer opnieuw.",
+      "ar": "تعذّر تنزيل التلاوة. تحقّق من اتصال الإنترنت والمساحة المتاحة، ثم أعد المحاولة.",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.audioOfflineHint": {
+      "en": "Recitations may need an internet connection until downloaded.",
+      "nl": "Zolang je de recitatie niet hebt gedownload, kan een internetverbinding nodig zijn.",
+      "ar": "قد تحتاج إلى اتصال بالإنترنت للاستماع إلى التلاوة قبل تنزيلها.",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.saveAudio": {
+      "en": "Save audio for offline listening",
+      "nl": "Audio opslaan om offline te beluisteren",
+      "ar": "حفظ الصوت للاستماع دون اتصال",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.previousSurah": {
+      "en": "Previous surah",
+      "nl": "Vorige soera",
+      "ar": "السورة السابقة",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.nextSurah": {
+      "en": "Next surah",
+      "nl": "Volgende soera",
+      "ar": "السورة التالية",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.arabicOnly": {
+      "en": "Arabic only",
+      "nl": "Alleen Arabisch",
+      "ar": "العربية فقط",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.themeSystem": {
+      "en": "Follow device setting",
+      "nl": "Apparaatinstelling volgen",
+      "ar": "اتباع إعداد الجهاز",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.languageEnglish": {
+      "en": "English",
+      "nl": "Engels",
+      "ar": "الإنجليزية",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.reader.languageDutch": {
+      "en": "Dutch",
+      "nl": "Nederlands",
+      "ar": "الهولندية",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.repeat.countHelp": {
+      "en": "Choose 0 for continuous playback or 1–100 repetitions.",
+      "nl": "Kies 0 om doorlopend af te spelen, of kies 1 tot 100 herhalingen.",
+      "ar": "اختر 0 للتشغيل المستمر، أو عددًا من 1 إلى 100 للتكرار.",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.repeat.ayahRangeInvalid": {
+      "en": "Choose ayahs from 1 to %s. The last ayah must not precede the first.",
+      "nl": "Kies ayaat van 1 tot %s. De laatste aya mag niet vóór de eerste liggen.",
+      "ar": "اختر آيات من 1 إلى %s. يجب ألا تسبق الآية الأخيرة الآية الأولى.",
+      "reason": "Existing RN reader/repeat control or offline/error state without a matching whole curated Kotlin sentence; explicit functional copy for review."
+    },
+    "ui.repeat.pagesInvalid": {
+      "en": "Choose pages from 1 to %s. The last page must not precede the first.",
+      "nl": "Kies pagina’s van 1 tot %s. De laatste pagina mag niet vóór de eerste liggen.",
+      "ar": "اختر صفحات من 1 إلى %s. يجب ألا تسبق الصفحة الأخيرة الصفحة الأولى.",
+      "reason": "Repeat page validation uses the actual edition length, including the 638-page Muhammadi edition."
+    },
+    "ui.books.zoomIn": {
+      "en": "Zoom in",
+      "nl": "Inzoomen",
+      "ar": "تكبير",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.books.zoomOut": {
+      "en": "Zoom out",
+      "nl": "Uitzoomen",
+      "ar": "تصغير",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.audio.player": {
+      "en": "Audio player",
+      "nl": "Audiospeler",
+      "ar": "مشغّل الصوت",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.reader.searchInsideSurah": {
+      "en": "You can search Quran text inside each surah reader.",
+      "nl": "Je kunt in de tekstweergave van iedere soera zoeken naar Koranverzen.",
+      "ar": "يمكنك البحث في نص القرآن داخل قارئ كل سورة.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.removed": {
+      "en": "%s was removed from planning.",
+      "nl": "%s is uit de planning verwijderd.",
+      "ar": "تمت إزالة %s من الجدول.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.undo": {
+      "en": "Undo",
+      "nl": "Ongedaan maken",
+      "ar": "تراجع",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.markComplete": {
+      "en": "Mark %s as completed",
+      "nl": "%s als voltooid markeren",
+      "ar": "تحديد %s كمكتمل",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.removePlan": {
+      "en": "Remove %s from planning",
+      "nl": "%s uit de planning verwijderen",
+      "ar": "إزالة %s من الجدول",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.editReminder": {
+      "en": "Edit reminder",
+      "nl": "Herinnering wijzigen",
+      "ar": "تعديل التذكير",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.reminderCleared": {
+      "en": "The reading reminder was removed.",
+      "nl": "De leesherinnering is verwijderd.",
+      "ar": "تم حذف تذكير القراءة.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.firstRub": {
+      "en": "First rub (1–240)",
+      "nl": "Eerste rub (1–240)",
+      "ar": "أول ربع (1–240)",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.lastRub": {
+      "en": "Last rub (1–240)",
+      "nl": "Laatste rub (1–240)",
+      "ar": "آخر ربع (1–240)",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.numberRange": {
+      "en": "Number (1–%s)",
+      "nl": "Nummer (1–%s)",
+      "ar": "الرقم (1–%s)",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.numberInvalid": {
+      "en": "Choose a number from 1 to %s.",
+      "nl": "Kies een nummer van 1 tot %s.",
+      "ar": "اختر رقمًا من 1 إلى %s.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.duplicate": {
+      "en": "This reading is already planned for that day.",
+      "nl": "Deze lezing staat al voor die dag gepland.",
+      "ar": "هذه القراءة مُدرجة في جدول ذلك اليوم بالفعل.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.dateInvalid": {
+      "en": "Enter a valid date in YYYY-MM-DD format.",
+      "nl": "Vul een geldige datum in met de notatie YYYY-MM-DD.",
+      "ar": "أدخل تاريخًا صالحًا بصيغة YYYY-MM-DD.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.endInvalid": {
+      "en": "Choose an end date on or after the start date, within ten years.",
+      "nl": "Kies een einddatum op of na de begindatum, binnen tien jaar.",
+      "ar": "اختر تاريخ انتهاء لا يسبق تاريخ البدء، وخلال عشر سنوات منه.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.rubInvalid": {
+      "en": "Choose a rub range from 1 to 240. The last rub must not precede the first.",
+      "nl": "Kies een bereik van rub 1 tot 240. De laatste rub mag niet vóór de eerste liggen.",
+      "ar": "اختر نطاقًا من الربع 1 إلى 240. يجب ألا يسبق الربع الأخير الربع الأول.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.timeInvalid": {
+      "en": "Choose a valid hour from 0 to 23 and minute from 0 to 59.",
+      "nl": "Kies een geldig uur van 0 tot 23 en een minuut van 0 tot 59.",
+      "ar": "اختر ساعة من 0 إلى 23 ودقيقة من 0 إلى 59.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.reminderPast": {
+      "en": "Choose a reminder time that has not passed.",
+      "nl": "Kies een tijdstip voor de herinnering dat nog niet voorbij is.",
+      "ar": "اختر وقتًا للتذكير لم يَمضِ بعد.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.dstTime": {
+      "en": "That local time does not exist because of the daylight-saving change. Choose another time.",
+      "nl": "Dit tijdstip bestaat niet door de overgang naar de zomertijd. Kies een ander tijdstip.",
+      "ar": "هذا الوقت المحلي غير موجود بسبب الانتقال إلى التوقيت الصيفي. اختر وقتًا آخر.",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.journeyRange": {
+      "en": "%1$s to %2$s · Rub %3$s–%4$s",
+      "nl": "%1$s tot %2$s · Rub %3$s–%4$s",
+      "ar": "من %1$s إلى %2$s · الأرباع %3$s–%4$s",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.planning.goalProgress": {
+      "en": "%1$s of %2$s %3$s",
+      "nl": "%1$s van %2$s %3$s",
+      "ar": "%1$s من %2$s %3$s",
+      "reason": "Existing RN functional control, accessibility label or validation state without an equivalent whole Kotlin sentence; explicit reviewable RN copy."
+    },
+    "ui.mushaf.pdfTextPosition": {
+      "en": "Text opens at your last known Quran position; this PDF page is not mapped to an ayah.",
+      "nl": "De tekst opent bij je laatst bekende Quran-positie; deze PDF-pagina is niet aan een ayah gekoppeld.",
+      "ar": "يفتح النص عند آخر موضع معروف لك؛ صفحة PDF هذه غير مرتبطة بآية.",
+      "reason": "PDF page-to-ayah mapping is unavailable; the switch uses the known reading position without implying an exact match."
+    },
+    "ui.bookTranslation.explanation": {
+      "en": "Read the complete verses from this book page in your chosen language. The original translation is available offline.",
+      "nl": "Lees de volledige verzen van deze boekpagina in de gekozen taal. De oorspronkelijke vertaling is ook offline beschikbaar.",
+      "ar": "اقرأ الآيات الكاملة من هذه الصفحة باللغة التي تختارها. الترجمة الأصلية متاحة أيضًا دون اتصال بالإنترنت.",
+      "reason": "A page can start or end within an ayah; present its complete original translation without inventing line-by-line meanings."
+    },
+    "ui.bookTranslation.unmapped": {
+      "en": "This edition has no verified link between this page and its verses. Open the text reader at your last known verse to read its translation.",
+      "nl": "Deze pagina is niet betrouwbaar aan verzen gekoppeld. Open de tekstweergave bij je laatst bekende vers om de vertaling te lezen.",
+      "ar": "لا يوجد ربط موثوق بين هذه الصفحة وآياتها. افتح عرض النص عند آخر آية معروفة لقراءة ترجمتها.",
+      "reason": "Never attach a guessed translation to an unmapped PDF page."
+    },
+    "ui.bookTranslation.continueAt": {
+      "en": "Continue reading from %s",
+      "nl": "Verder lezen vanaf %s",
+      "ar": "متابعة القراءة من %s",
+      "reason": "Open the original text reader at the exact displayed verse, preserving reading context."
+    },
+    "ui.bookTranslation.verse": {
+      "en": "Translation of the complete verse",
+      "nl": "Vertaling van het volledige vers",
+      "ar": "ترجمة الآية كاملة",
+      "reason": "Distinguish a sentence-level translation from an English contextual word gloss."
+    },
+    "ui.bookPresentation.selectable": {
+      "en": "Selectable book text",
+      "nl": "Selecteerbare boektekst",
+      "ar": "نص المصحف القابل للتحديد",
+      "reason": "Name the selectable book presentation, distinct from an original scanned edition."
+    },
+    "ui.bookPresentation.original": {
+      "en": "Original printed edition",
+      "nl": "Originele gedrukte uitgave",
+      "ar": "النسخة المطبوعة الأصلية",
+      "reason": "Keep original scans and PDFs available without implying native text selection."
+    },
+    "ui.bookPresentation.originalHint": {
+      "en": "Printed scan · text selection unavailable",
+      "nl": "Afdruk · tekstselectie niet beschikbaar",
+      "ar": "صورة مطبوعة · تحديد النص غير متاح",
+      "reason": "Expose the actual capability of an explicitly chosen original scan."
+    },
+    "ui.selectableMushaf.show": {
+      "en": "Selectable page (online)",
+      "nl": "Selecteerbare pagina (online)",
+      "ar": "صفحة قابلة للتحديد (عبر الإنترنت)",
+      "reason": "Separate QPC Unicode layer loads online and does not overlay scan coordinates."
+    },
+    "ui.selectableMushaf.scan": {
+      "en": "Printed page",
+      "nl": "Gedrukte pagina",
+      "ar": "الصفحة المطبوعة",
+      "reason": "Switch back to the bundled printed page."
+    },
+    "ui.selectableMushaf.loading": {
+      "en": "Loading the selectable page online…",
+      "nl": "Selecteerbare pagina wordt online geladen…",
+      "ar": "جارٍ تحميل الصفحة عبر الإنترنت…",
+      "reason": "Network-backed QPC page loading state."
+    },
+    "ui.selectableMushaf.preparing": {
+      "en": "Preparing the page…",
+      "nl": "Pagina wordt klaargezet…",
+      "ar": "جارٍ تجهيز الصفحة…",
+      "reason": "Stable loading shell while the native book text reaches its measured size."
+    },
+    "ui.selectableMushaf.wordInfo": {
+      "en": "Word information",
+      "nl": "Woordgegevens",
+      "ar": "معلومات الكلمة",
+      "reason": "Title for the source word and contextual gloss, not a dictionary definition."
+    },
+    "ui.selectableMushaf.error": {
+      "en": "This selectable page could not be loaded. Check your connection and retry.",
+      "nl": "Deze selecteerbare pagina kon niet worden geladen. Controleer je verbinding en probeer opnieuw.",
+      "ar": "تعذر تحميل الصفحة. تحقق من الاتصال وأعد المحاولة.",
+      "reason": "Network-backed QPC page error state."
+    },
+    "ui.selectableMushaf.unavailable": {
+      "en": "This word could not be matched to the verified source.",
+      "nl": "Dit woord kon niet worden gekoppeld aan de geverifieerde bron.",
+      "ar": "تعذر مطابقة هذه الكلمة مع المصدر الموثق.",
+      "reason": "Do not attach morphology to an unverified alignment."
+    },
+    "ui.selectableMushaf.gloss": {
+      "en": "Contextual gloss (English)",
+      "nl": "Betekenis in context (Engels)",
+      "ar": "المعنى في السياق (بالإنجليزية)",
+      "reason": "Existing source word-by-word gloss language."
+    },
+    "ui.selectableMushaf.credit": {
+      "en": "QPC Hafs text and Quran Foundation page data",
+      "nl": "QPC Hafs-tekst en paginagegevens van Quran Foundation",
+      "ar": "نص حفص من QPC وبيانات الصفحات من Quran Foundation",
+      "reason": "Credit for separate Unicode page surface."
+    },
+    "ui.selectableMushaf.fromPdf": {
+      "en": "Word selection in Hafs (last known position)",
+      "nl": "Woordselectie in Hafs (laatst bekende positie)",
+      "ar": "تحديد الكلمات في حفص (آخر موضع معروف)",
+      "reason": "PDF pages have no verified word mapping; open the known Quran reference in the distinct selectable Hafs surface."
+    },
+    "ui.mushaf.scrubberLabel": {
+      "en": "Page position",
+      "nl": "Paginapositie",
+      "ar": "موضع الصفحة",
+      "reason": "Accessible name for the Mushaf page scrubber"
+    },
+    "ui.mushaf.scrubberHint": {
+      "en": "Drag to choose a page. Use the page number to jump to a specific page.",
+      "nl": "Sleep om een pagina te kiezen. Gebruik het paginanummer om naar een specifieke pagina te gaan.",
+      "ar": "اسحب لاختيار صفحة. استخدم رقم الصفحة للانتقال إلى صفحة محددة.",
+      "reason": "Explains the page scrubber and exact page jump"
+    },
+    "ui.mushaf.jumpHint": {
+      "en": "Open the page jump.",
+      "nl": "Open de paginakeuze.",
+      "ar": "افتح الانتقال إلى صفحة.",
+      "reason": "Explains the exact page jump control"
+    },
+    "ui.mushaf.markCompact": {
+      "en": "Mark as read",
+      "nl": "Markeren als gelezen",
+      "ar": "تحديد كمقروء",
+      "reason": "Compact explicit reading registration in the Mushaf footer"
+    },
+    "ui.mushaf.zoomCaption": {
+      "en": "Zoom",
+      "nl": "Zoom",
+      "ar": "التكبير",
+      "reason": "Caption for the Mushaf zoom controls"
+    },
+    "ui.mushaf.pageCaption": {
+      "en": "Page",
+      "nl": "Pagina",
+      "ar": "الصفحة",
+      "reason": "Caption for the Mushaf page index"
+    },
+    "ui.mushaf.enterFullscreen": {
+      "en": "Enter full screen",
+      "nl": "Volledig scherm openen",
+      "ar": "فتح ملء الشاشة",
+      "reason": "Enter a focused Mushaf reading view"
+    },
+    "ui.mushaf.exitFullscreen": {
+      "en": "Exit full screen",
+      "nl": "Volledig scherm sluiten",
+      "ar": "إغلاق ملء الشاشة",
+      "reason": "Return to the regular Mushaf reader"
+    },
+    "ui.mushaf.scrollPosition": {
+      "en": "Position on page",
+      "nl": "Positie op de pagina",
+      "ar": "الموضع في الصفحة",
+      "reason": "Accessible name for the full-screen vertical scroll control"
+    }
+  }
+}

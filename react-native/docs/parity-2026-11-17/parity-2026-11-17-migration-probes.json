@@ -1,0 +1,82 @@
+{
+  "note": "Isolated pure importer probes; no installed app or user storage changed.",
+  "themeResults": [
+    {
+      "oldTheme": "light",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "dark",
+      "activeTheme": "dark",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "pink",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "mint",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "lavender",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "ember",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "inferno",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "ocean",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "sand",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "matte_forest",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "matte_charcoal",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    },
+    {
+      "oldTheme": "matte_manuscript",
+      "activeTheme": "light",
+      "originalRetainedInSnapshot": true
+    }
+  ],
+  "onboarding": [
+    {
+      "name": "existing settings without the newer stage flag",
+      "complete": false,
+      "step": "language"
+    },
+    {
+      "name": "explicit existing user flag",
+      "complete": true,
+      "step": "language"
+    },
+    {
+      "name": "explicit introduction in progress",
+      "complete": false,
+      "step": "planning"
+    }
+  ]
+}

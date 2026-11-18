@@ -1,0 +1,6 @@
+{
+  "hafs_maknoon": { "type": "png", "pages": 604, "url": "https://maknoon.com/download/quran/hafs" },
+  "warsh_maknoon": { "type": "svgz", "pages": 604, "url": "https://maknoon.com/quran/warsh" },
+  "hafs_madina_pdf": { "type": "pdf", "pages": 1, "url": "https://pdf.quran.ws/pdfs/hafs/quran-hafs-mushaf.pdf" },
+  "hafs_indopak_15": { "type": "pdf", "pages": 1, "url": "https://downloadthequran.com/wp-content/uploads/2023/01/15-Line-Standard-Quran-PDF.pdf" }
+}

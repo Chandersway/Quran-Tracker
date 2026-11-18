@@ -1,0 +1,1644 @@
+[
+  {
+    "id": "navigation.top-level",
+    "title": "Seven top-level destinations and tab root restoration",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/MainActivity.kt",
+        "line": 452,
+        "symbol": "val bottomItems"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/app/navigation/MainTabs.tsx",
+        "line": 10,
+        "symbol": "export function MainTabs"
+      }
+    ],
+    "reactNativeSearchScope": "src/app/navigation/MainTabs.tsx",
+    "reactNativeSearchTerm": "export function MainTabs",
+    "gap": "Original destinations remain reachable through the current stack, preserved tab routes and grouped configurable dock. Lexicon/Study/Books are additive. Native root restoration/back/large-text acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "copy.source-values",
+    "title": "Curated source UI wording with provenance",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/AppText.kt",
+        "line": 702,
+        "symbol": "object AppText"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/i18n/index.ts",
+        "line": 17,
+        "symbol": "sourceCatalog"
+      }
+    ],
+    "reactNativeSearchScope": "src/i18n/index.ts",
+    "reactNativeSearchTerm": "sourceCatalog",
+    "gap": "Source catalog and semantic lookup are restored. Remaining screen-local language maps and pending new RN-only copy require reconciliation.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/i18n.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "locale.french",
+    "title": "Legacy French helper translations (not a selectable source language)",
+    "status": "unverified",
+    "priority": "P2",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/LanguageEntry.kt",
+        "line": 5,
+        "symbol": "enum class AppLanguage"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/i18n/index.ts",
+        "line": 7,
+        "symbol": "type Locale"
+      }
+    ],
+    "reactNativeSearchScope": "src/i18n/index.ts",
+    "reactNativeSearchTerm": "type Locale",
+    "gap": "Source AppLanguage offers only Dutch/English/Arabic. Preserve French helper values as data; do not count an unsupported French locale as a confirmed parity omission.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "home.motivation",
+    "title": "Motivation points, bonus, levels and history",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/DashboardScreen.kt",
+        "line": 1297,
+        "symbol": "fun MotivationPointsCard"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/home/components/PracticeOverview.tsx",
+        "line": 16,
+        "symbol": "motivationStats"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/home/components/PracticeOverview.tsx",
+    "reactNativeSearchTerm": "motivationStats",
+    "gap": "Source integer conversions, bonus/levels and UI have been ported; native display/persistence verification remains.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "home.hifz-recommendations",
+    "title": "Weak/strong scores and review-due recommendations",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/DashboardScreen.kt",
+        "line": 1583,
+        "symbol": "fun HifzOverviewCard"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/home/components/PracticeOverview.tsx",
+        "line": 12,
+        "symbol": "reviewDue"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/home/components/PracticeOverview.tsx",
+    "reactNativeSearchTerm": "reviewDue",
+    "gap": "Explicit assessments, weak/strong scores and review-due recommendations are now present; verify source presentation and actions on device.",
+    "dependencies": [
+      "hifz.consistency"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "home.hizb-analytics",
+    "title": "Hizb check-in chart with custom date range and detail",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/HizbOverviewCard.kt",
+        "line": 30,
+        "symbol": "fun HizbOverviewCard"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/home/components/HizbOverviewCard.tsx",
+        "line": 17,
+        "symbol": "HizbOverviewCard"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/home/components/HizbOverviewCard.tsx",
+    "reactNativeSearchTerm": "HizbOverviewCard",
+    "gap": "Week/month/year/custom range, owner-scoped SQL-equivalent registration counts, all 60 bars, selection and expansion are ported. Domain tests cover DST, month-end clamping and owner/type filtering; native interaction remains to verify.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/hizb-analytics.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "stats.drilldown",
+    "title": "Statistics grouping, range drilldown and ayah details",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/StatsDrilldown.kt",
+        "line": 13,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
+        "line": 90,
+        "symbol": "type: statsReadingBuckets"
+      },
+      {
+        "path": "src/features/practice/components/ReadingStatisticsSummary.tsx",
+        "line": 35,
+        "symbol": "export function ReadingStatisticsSummary"
+      },
+      {
+        "path": "src/features/practice/components/ReadingDistributionRing.tsx",
+        "line": 10,
+        "symbol": "export function ReadingDistributionRing"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/practice/components/ReadingStatisticsOverview.tsx",
+    "reactNativeSearchTerm": "type: statsReadingBuckets",
+    "gap": "Three simultaneous source registration-count rings, count/percentage legends, exact top-eight membership, period boundaries, clockwise hit testing and complete virtualized details are ported and shared with Home. Day/week/month collapsible history includes ISO week-year boundaries and source legacy Rub/day summaries. Exact recorded Mushaf page/edition takes precedence when opening detail; canonical ranges never imply full partition completion for page reads. Twelve source contracts pass; compare screenshots and device interactions before marking verified.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/statistics.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "stats.reading-metrics",
+    "title": "Ayah equivalent, pages, coverage and motivation statistics",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/ReadingMetrics.kt",
+        "line": 40,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/domain/statistics.ts",
+        "line": 238,
+        "symbol": "export function statsOverview"
+      }
+    ],
+    "reactNativeSearchScope": "src/domain/statistics.ts",
+    "reactNativeSearchTerm": "export function statsOverview",
+    "gap": "Source summary quantities/points, repeated Surah reads, Rub markers, max(explicit, complete-quarter) Hizb/Juz progress, today/Monday-week/month equivalents and read+memorized streak are restored. Seven-day chart and explicit assessed-Hizb mastery remain present. New page registrations use trustworthy exact canonical bounds where available; legacy conversions remain unchanged. Native screenshot comparison remains.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "stats.clear-reading",
+    "title": "Scoped clear-reading-data action preserving hifz/plans/settings",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/StatsScreen.kt",
+        "line": 198,
+        "symbol": "stats.clearHistoryTitle"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
+        "line": 221,
+        "symbol": "function clearReading"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/practice/components/ReadingStatisticsOverview.tsx",
+    "reactNativeSearchTerm": "function clearReading",
+    "gap": "Source-confirmed scoped reset is reachable with the exact confirmation copy. Regression tests prove reading history/counts clear while hifz, memory flags, plans and settings remain. Verify durable native flow.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/statistics.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.discovery",
+    "title": "Search/filter the user's groups and creation wizard",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/GroupsOverviewScreen.kt",
+        "line": 57,
+        "symbol": "fun GroupsOverviewScreen"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/screens/GroupsScreen.tsx",
+        "line": 172,
+        "symbol": "create"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/screens/GroupsScreen.tsx",
+    "reactNativeSearchTerm": "create",
+    "gap": "The source discovery-labelled view searches the current user groups. Creation/filtering/join contracts remain; no public-discovery backend is invented. Native authenticated acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.feed",
+    "title": "Messages, comment threads and likes",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 1242,
+        "symbol": "suspend fun loadFeed"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/screens/GroupScreen.tsx",
+        "line": 55,
+        "symbol": "feed"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/screens/GroupScreen.tsx",
+    "reactNativeSearchTerm": "feed",
+    "gap": "Group-specific posts/replies/reactions remain. F26 adds in-process account/group drafts, cursor pagination, separate pins and realtime invalidation with polling recovery. Realtime publication is prepared, not deployed; authenticated multi-account/native acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.post-edit-pin",
+    "title": "Edit/pin/delete posts and richer reactions",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 1346,
+        "symbol": "suspend fun setPostPinned"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/components/GroupFeedPanel.tsx",
+        "line": 380,
+        "symbol": "pinPost"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/components/GroupFeedPanel.tsx",
+    "reactNativeSearchTerm": "pinPost",
+    "gap": "Backend adapter and group UI omit edit-post/pin/unpin and source reaction types.",
+    "dependencies": [
+      "groups.feed"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.member-reading",
+    "title": "Member reading summary with individual surah details",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/GroupMemberReadingSheet.kt",
+        "line": 76,
+        "symbol": "fun GroupMemberReadingSheet"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/components/GroupMemberReadingSheet.tsx",
+        "line": 44,
+        "symbol": "member?.entries"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/components/GroupMemberReadingSheet.tsx",
+    "reactNativeSearchTerm": "member?.entries",
+    "gap": "RN member list has no source reading activity sheet.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.permissions",
+    "title": "Custom roles, role assignment, remove and block members",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 819,
+        "symbol": "suspend fun setMemberRole"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/groups/groupOperations.ts",
+        "line": 78,
+        "symbol": "setMemberRole"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/groups/groupOperations.ts",
+    "reactNativeSearchTerm": "setMemberRole",
+    "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.invitations",
+    "title": "Create/revoke/accept invitations and pending states",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 835,
+        "symbol": "suspend fun createInvitation"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/groups/groupOperations.ts",
+        "line": 125,
+        "symbol": "createInvitation"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/groups/groupOperations.ts",
+    "reactNativeSearchTerm": "createInvitation",
+    "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.join-requests",
+    "title": "Request access and approve/reject join requests",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 891,
+        "symbol": "suspend fun reviewJoinRequest"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/groups/groupOperations.ts",
+        "line": 153,
+        "symbol": "reviewJoinRequest"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/groups/groupOperations.ts",
+    "reactNativeSearchTerm": "reviewJoinRequest",
+    "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.media",
+    "title": "Media upload/list/preview/download/delete",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 904,
+        "symbol": "suspend fun uploadMedia"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/groups/groupOperations.ts",
+        "line": 166,
+        "symbol": "uploadMedia"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/groups/groupOperations.ts",
+    "reactNativeSearchTerm": "uploadMedia",
+    "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.events",
+    "title": "Create events, RSVP, cancel/complete events",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 1025,
+        "symbol": "suspend fun createEvent"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/groups/groupOperations.ts",
+        "line": 202,
+        "symbol": "createEvent"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/groups/groupOperations.ts",
+    "reactNativeSearchTerm": "createEvent",
+    "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.tasks",
+    "title": "Task creation, targets, participant progress and status",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 975,
+        "symbol": "suspend fun createTask"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/screens/GroupScreen.tsx",
+        "line": 56,
+        "symbol": "task"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/screens/GroupScreen.tsx",
+    "reactNativeSearchTerm": "task",
+    "gap": "RN task creation/progress exists; source statuses, filters, permissions and edit/close paths require checks.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.rules",
+    "title": "Published group rules and history",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 1073,
+        "symbol": "suspend fun publishRules"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/groups/groupOperations.ts",
+        "line": 229,
+        "symbol": "publishRules"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/groups/groupOperations.ts",
+    "reactNativeSearchTerm": "publishRules",
+    "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "kotlinRuntimeExposure": "Repository API only; no source UI callers located. New RN operational panels use explicitly new functional copy, not fabricated source provenance.",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.moderation",
+    "title": "Report posts, review reports and audit log",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 1174,
+        "symbol": "suspend fun reviewModerationReport"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/components/GroupGovernancePanels.tsx",
+        "line": 105,
+        "symbol": "reviewReport"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/components/GroupGovernancePanels.tsx",
+    "reactNativeSearchTerm": "reviewReport",
+    "gap": "No report queue, moderation review or group audit log.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "kotlinRuntimeExposure": "Repository API only; no source UI callers located. New RN operational panels use explicitly new functional copy, not fabricated source provenance.",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.leaderboard",
+    "title": "Reading/task points leaderboard and group progress dashboard",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 1398,
+        "symbol": "suspend fun loadLeaderboard"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/components/GroupProgressPanel.tsx",
+        "line": 18,
+        "symbol": "listLeaderboard"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/components/GroupProgressPanel.tsx",
+    "reactNativeSearchTerm": "listLeaderboard",
+    "gap": "RN member counts and task cards omit source points leaderboard/dashboard.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.profile-logo",
+    "title": "Per-group display name/avatar and group logo",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 746,
+        "symbol": "suspend fun updateMyGroupProfile"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/groups/components/GroupProfilePanel.tsx",
+        "line": 56,
+        "symbol": "updateMyProfile"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/groups/components/GroupProfilePanel.tsx",
+    "reactNativeSearchTerm": "updateMyProfile",
+    "gap": "Account-wide avatar does not provide source per-group identity and group logo lifecycle.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.delete",
+    "title": "Group deletion and destructive confirmation",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/GroupV2Repository.kt",
+        "line": 710,
+        "symbol": "suspend fun deleteGroup"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/groups/groupOperations.ts",
+        "line": 74,
+        "symbol": "deleteGroup"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/groups/groupOperations.ts",
+    "reactNativeSearchTerm": "deleteGroup",
+    "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features.",
+    "dependencies": [
+      "groups.permissions"
+    ],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "groups.notification-routing",
+    "title": "Push notification target, preferences and in-group notices",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/notifications/QuranMessagingService.kt",
+        "line": 23,
+        "symbol": "class QuranMessagingService"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/notifications/pushDevice.ts",
+        "line": 74,
+        "symbol": "export async function enablePushDevice"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/notifications/pushDevice.ts",
+    "reactNativeSearchTerm": "export async function enablePushDevice",
+    "gap": "RN push/preferences adapter exists; source remote notification behavior, read state and per-group mute policy need device/backend validation.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "reader.selection-toolbar",
+    "title": "Selected-ayah toolbar: copy, play, repeat, bookmark, share and study",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/QuranReaderScreen.kt",
+        "line": 3157,
+        "symbol": "fun AyahSelectionToolbar"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/quran/components/AyahActionsSheet.tsx",
+        "line": 21,
+        "symbol": "export function AyahActionsSheet"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/quran/components/AyahActionsSheet.tsx",
+    "reactNativeSearchTerm": "export function AyahActionsSheet",
+    "gap": "Contextual copy, bookmark, share, note and study are present. F26 connects book Play to the complete selected surah and Repeat to the existing queue; verified Hafs words open aya actions/lexicon. Original Play was not clipped selected-aya audio. Native selection/audio lifecycle acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "reader.immersive",
+    "title": "Reader mode hides outer navigation chrome",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/QuranReaderScreen.kt",
+        "line": 139,
+        "symbol": "onReaderModeChanged"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/quran/screens/ReaderScreen.tsx",
+        "line": 269,
+        "symbol": "setImmersiveReader((immersive || shortLandscape) && focused)"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/quran/screens/ReaderScreen.tsx",
+    "reactNativeSearchTerm": "setImmersiveReader((immersive || shortLandscape) && focused)",
+    "gap": "F26 text/image readers use focus-aware AppChrome including short landscape, hardware Back and blur/unmount cleanup. Source text/fonts are unchanged. Native navigation, rotation and accessibility acceptance remain separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "reader.word-by-word",
+    "title": "Word-by-word grammar/translation study",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/QuranReaderScreen.kt",
+        "line": 91,
+        "symbol": "WordByWord"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/study/screens/StudyScreen.tsx",
+        "line": 29,
+        "symbol": "word"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/study/screens/StudyScreen.tsx",
+    "reactNativeSearchTerm": "word",
+    "gap": "Separate RN study screen exists; source inline reader interaction still requires behavioral comparison.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "reader.cursor-bookmarks",
+    "title": "Persistent position, page and ayah bookmarks",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/HamburgerMenu.kt",
+        "line": 260,
+        "symbol": "loadAllReaderBookmarkSummaries"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/state/reducer.ts",
+        "line": 374,
+        "symbol": "case 'mushaf/position'"
+      },
+      {
+        "path": "src/state/reducer.ts",
+        "line": 385,
+        "symbol": "case 'mushaf/bookmark'"
+      },
+      {
+        "path": "src/features/quran/providers/readingModeContext.ts",
+        "line": 6,
+        "symbol": "export function textToBook"
+      }
+    ],
+    "reactNativeSearchScope": "src/state/reducer.ts",
+    "reactNativeSearchTerm": "case 'mushaf/position'",
+    "gap": "Ayah cursor, edition-specific positions and page bookmarks persist. Mode/fullscreen changes retain context and source-relative scroll position; unmapped pages do not claim a canonical resume aya. Restart and all-edition acceptance remain separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "mushaf.library",
+    "title": "Mushaf library with full-edition download and install state",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/HamburgerMenu.kt",
+        "line": 9474,
+        "symbol": "fun MushafSettingsPage"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/quran/screens/MushafLibraryScreen.tsx",
+        "line": 115,
+        "symbol": "MushafLibraryScreen"
+      },
+      {
+        "path": "src/services/mushaf/backgroundManager.ts",
+        "line": 17,
+        "symbol": "export function createBackgroundMushafManager"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/quran/screens/MushafLibraryScreen.tsx",
+    "reactNativeSearchTerm": "MushafLibraryScreen",
+    "gap": "Original edition library and file/PDF rendering remain. F26 adds OS-owned Android DownloadManager/JobService and iOS URLSession queues, durable recovery and atomic installation. Read final QA for actually exercised native completion/interruption; source presence is not delivery evidence.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "mushaf.warsh-geometry",
+    "title": "Warsh Maknoon geometry and Warsh-to-Hafs ayah mapping",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/WarshMaknoonGeometry.kt",
+        "line": 18,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/content/mushafGeometry.ts",
+        "line": 28,
+        "symbol": "hafsReferences"
+      }
+    ],
+    "reactNativeSearchScope": "src/content/mushafGeometry.ts",
+    "reactNativeSearchTerm": "hafsReferences",
+    "gap": "Geometry and reference mapping are ported, but source instrumented fixtures must pass and installed editions/page dimensions need parity checks.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "audio.repeat",
+    "title": "Whole-surah/ayah/page repeat queue and reciter timing",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/RepeatSequence.kt",
+        "line": 4,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/audio/components/RepeatSheet.tsx",
+        "line": 28,
+        "symbol": "export function RepeatSheet"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/audio/components/RepeatSheet.tsx",
+    "reactNativeSearchTerm": "export function RepeatSheet",
+    "gap": "RN repeat domain/queue exists; preserve source reciter compatibility, gap/round semantics, Warsh boundary rules, recovery and actual device completion.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "audio.global-controls",
+    "title": "Global audio player, skip interval, autoplay and sleep timer",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/GlobalAudioPlayer.kt",
+        "line": 110,
+        "symbol": "class GlobalAudioPlayer"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/audio/providers/AudioProvider.tsx",
+        "line": 22,
+        "symbol": "MiniPlayer"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/audio/providers/AudioProvider.tsx",
+    "reactNativeSearchTerm": "MiniPlayer",
+    "gap": "RN global player exists; compare all source controls and lifecycle/error behavior, not player visibility alone.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "focus.intentions",
+    "title": "Focus goal selection and link to reading/memorization/review/tafsir",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/FocusSessionScreen.kt",
+        "line": 52,
+        "symbol": "data class FocusGoal"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/practice/screens/FocusScreen.tsx",
+        "line": 94,
+        "symbol": "focus.goals"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/practice/screens/FocusScreen.tsx",
+    "reactNativeSearchTerm": "focus.goals",
+    "gap": "Four source intentions and the global persisted timer are ported; verify foreground/background completion and floating controls.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "focus.custom-duration",
+    "title": "Custom focus session duration",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/FocusSessionScreen.kt",
+        "line": 62,
+        "symbol": "customPlaceholder"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/practice/screens/FocusScreen.tsx",
+        "line": 118,
+        "symbol": "focus.custom"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/practice/screens/FocusScreen.tsx",
+    "reactNativeSearchTerm": "focus.custom",
+    "gap": "Source 10/15/25/45-minute presets and custom 1–180-minute duration are ported; native control verification remains.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "hifz.consistency",
+    "title": "Independent explicit Hifz assessments and non-mutating consistency advice",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/DashboardScreen.kt",
+        "line": 2019,
+        "symbol": "shouldConfirmJuzHifzScore"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/domain/hifz.ts",
+        "line": 44,
+        "symbol": "export function inconsistentJuz"
+      }
+    ],
+    "reactNativeSearchScope": "src/domain/hifz.ts",
+    "reactNativeSearchTerm": "export function inconsistentJuz",
+    "gap": "The active source Dashboard uses explicit independent Juz/Hizb scores and threshold-20 advisory. derivedJuzHifzScore and Juz-leading confirmation strings are dormant source helpers/copy, not shipped behavior requirements. RN assessment/range/advice ports require native comparison.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "hifz.bulk-range",
+    "title": "Bulk score range editor and multi-select",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/HamburgerMenu.kt",
+        "line": 10138,
+        "symbol": "fun HifzRangeEditor"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/practice/screens/ProgressScreen.tsx",
+        "line": 40,
+        "symbol": "selected"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/practice/screens/ProgressScreen.tsx",
+    "reactNativeSearchTerm": "selected",
+    "gap": "RN selected-item check-in exists; source score-range assignment and independent Juz/Hizb handling require checks.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "onboarding.interactive",
+    "title": "Interactive reading/hifz/planning/statistics/focus/groups previews",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/OnboardingReadingPreview.kt",
+        "line": 22,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/onboarding/components/OnboardingFlow.tsx",
+        "line": 37,
+        "symbol": "function ReadingDemo"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/onboarding/components/OnboardingFlow.tsx",
+    "reactNativeSearchTerm": "function ReadingDemo",
+    "gap": "Six source preview steps and isolated demo state are ported; device tests must establish no demo side effects and complete navigation behavior.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "onboarding.checkpoint",
+    "title": "Onboarding step checkpoint, process restoration and replay",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/OnboardingStep.kt",
+        "line": 4,
+        "symbol": "enum class OnboardingStep"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/onboarding/components/OnboardingFlow.tsx",
+        "line": 569,
+        "symbol": "resolveOnboardingStep(state.preferences.onboardingStep)"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/onboarding/components/OnboardingFlow.tsx",
+    "reactNativeSearchTerm": "resolveOnboardingStep(state.preferences.onboardingStep)",
+    "gap": "Stable source step IDs, persisted checkpoint and replay are now present; process-death restoration remains a native acceptance gate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "notes.scopes",
+    "title": "Juz/Hizb/Rub/Surah/Ayah note targets and migration",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/QuranNoteTarget.kt",
+        "line": 9,
+        "symbol": "data class QuranNoteTarget"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/notes/components/NoteTargetControl.tsx",
+        "line": 16,
+        "symbol": "NoteTargetControl"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/notes/components/NoteTargetControl.tsx",
+    "reactNativeSearchTerm": "NoteTargetControl",
+    "gap": "All five source note scopes have a searchable target picker, hierarchy-preserving transitions, full-Hizb/quarter/Juz level controls and verse opening summary. Scoped route/context updates and source migration contracts are retained. Native workflows remain to verify.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/notes-format.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      },
+      {
+        "path": "tests/legacy-room-migration.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "notes.rich-export",
+    "title": "Rich text, folders/tags/pins and exact notes export (no source file import)",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/AyahNotesScreen.kt",
+        "line": 999,
+        "symbol": "fun FormattedNoteText"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/notes/components/FormattedNote.tsx",
+        "line": 54,
+        "symbol": "FormattedNote"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/notes/components/FormattedNote.tsx",
+    "reactNativeSearchTerm": "FormattedNote",
+    "gap": "Source export schema v2/nullable fields/ordering/UTF-8/UTC filename are unchanged and existing compatibility tests pass. Six source color keys, span precedence/colors, TODO presentation, display-size clamp, title/excerpt fallback, pin timestamp and editor back/preview behavior are restored. Native editor now forwards per-span styled Text children to native TextInput (without value/defaultValue), matching RN attributed-string support; web keeps plain editing plus rich preview. Mixed-style typing, selections, IME, back/discard and process restoration remain native acceptance gates.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/notes-format.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      },
+      {
+        "path": "tests/import-compatibility.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "planning.agenda",
+    "title": "Calendar, one-off planning, reminders and completion",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/AgendaScreen.kt",
+        "line": 174,
+        "symbol": "fun AgendaScreen"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/planning/screens/PlanningScreen.tsx",
+        "line": 26,
+        "symbol": "AgendaCalendar"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/planning/screens/PlanningScreen.tsx",
+    "reactNativeSearchTerm": "AgendaCalendar",
+    "gap": "Source selected-day plans, Monday-first week strip/expandable month, day status, ordering, goal entrypoints, three session types, upcoming/all and missed lists are ported; source regression contracts pass. Native date/reminder transitions remain to verify.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/agenda.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "planning.reading-plan",
+    "title": "Quantity-based reading plan independent of daily goal",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/ReadingPlanScreen.kt",
+        "line": 71,
+        "symbol": "fun ReadingPlanScreen"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/planning/screens/ReadingPlanScreen.tsx",
+        "line": 42,
+        "symbol": "ReadingPlanScreen"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/planning/screens/ReadingPlanScreen.tsx",
+    "reactNativeSearchTerm": "ReadingPlanScreen",
+    "gap": "Independent quantity plan now has its own persistent sidecar, source unit conversion, optional finish date, manual total correction and Home card. Eight tests cover counting/normalization/migration/corrupt storage/atomic commit. Native flow remains to verify.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/reading-plan.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "planning.journey",
+    "title": "Khatma journey and optional automatic daily goal link",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/ReadingJourneyDialog.kt",
+        "line": 22,
+        "symbol": "fun ReadingJourneyDialog"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/planning/components/ReadingJourneyPanel.tsx",
+        "line": 29,
+        "symbol": "ReadingJourneyPanel"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/planning/components/ReadingJourneyPanel.tsx",
+    "reactNativeSearchTerm": "ReadingJourneyPanel",
+    "gap": "Source single 604-page journey follows the current reading goal and logged progress; pages/day or finish-date dialog saves the daily goal and retained-start journey together. Scheduled khatma itineraries remain separate. Domain contracts pass; native display remains to verify.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/reading-journey.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "goals.unfinished-days",
+    "title": "Three daily goal types with carry/spread/skip decisions",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/GoalHubPanel.kt",
+        "line": 38,
+        "symbol": "fun GoalHubPanel"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/practice/screens/GoalsScreen.tsx",
+        "line": 194,
+        "symbol": "matchingPlans"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/practice/screens/GoalsScreen.tsx",
+    "reactNativeSearchTerm": "matchingPlans",
+    "gap": "Three goal types, reminder editing, carry/spread/skip, Agenda scheduling and exact matching-plan completion are now ported. Linked registration is idempotent and clears the plan reminder; tests cover mismatches and duplicate prevention. Native flows remain to verify.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/agenda.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "notifications.policy",
+    "title": "Quiet hours, dual daily reminder and preference rollback",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/notifications/NotificationPolicy.kt",
+        "line": 13,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/account/screens/NotificationsScreen.tsx",
+        "line": 47,
+        "symbol": "quiet"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/account/screens/NotificationsScreen.tsx",
+    "reactNativeSearchTerm": "quiet",
+    "gap": "RN screens/preferences exist; background delivery, timezone/DST, permission denial, quiet-hour rescheduling and atomic rollback need device validation.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "account.management",
+    "title": "Optional account, Google/email auth, password/email/deletion policies",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/AccountManagement.kt",
+        "line": 29,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/account/screens/AccountScreen.tsx",
+        "line": 29,
+        "symbol": "delete"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/account/screens/AccountScreen.tsx",
+    "reactNativeSearchTerm": "delete",
+    "gap": "RN account flows exist; server eligibility, recent login, ownership-linked restrictions, OTP and native deep-link completion need validation.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "migration.room",
+    "title": "Legacy Room data migration preserving local progress and notes",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/QuranDatabase.kt",
+        "line": 24,
+        "symbol": "class QuranDatabase"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/migration/legacyRoom.ts",
+        "line": 170,
+        "symbol": "export function normalizeLegacyRoomRows"
+      },
+      {
+        "path": "src/migration/legacyAndroid.native.ts",
+        "line": 183,
+        "symbol": "export async function importLegacyAndroidData"
+      }
+    ],
+    "reactNativeSearchScope": "src/migration/legacyRoom.ts",
+    "reactNativeSearchTerm": "export function normalizeLegacyRoomRows",
+    "gap": "RN importer exists; original Room schema versions and scope migrations must each have fixtures and durable commit validation.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "account.google-oauth",
+    "title": "Google OAuth launch, secure PKCE and strict native callbacks",
+    "status": "partial",
+    "priority": "P0",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/SupabaseService.kt",
+        "line": 1067,
+        "symbol": "suspend fun signInWithGoogle"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/auth/googleOAuth.ts",
+        "line": 5,
+        "symbol": "googleOAuthUrl"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/auth/googleOAuth.ts",
+    "reactNativeSearchTerm": "googleOAuthUrl",
+    "gap": "Signed-out Account uses exact source Google labels, trusted Supabase authorize URL, secure native CSPRNG/S256 and durable secure verifier/session storage. Callback rejects userinfo/ports/paths/duplicates/mixed credentials and preserves reset/email policies. Six local no-network contracts pass; rebuilt native launch/callback/recovery and session-refresh workflows remain to verify.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/auth-callback.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "checklist.coverage",
+    "title": "Tahajjud checklist partition coverage and separate stopping position",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/data/ReadingChecklist.kt",
+        "line": 6,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/practice/screens/ChecklistScreen.tsx",
+        "line": 31,
+        "symbol": "ChecklistScreen"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/practice/screens/ChecklistScreen.tsx",
+    "reactNativeSearchTerm": "ChecklistScreen",
+    "gap": "Partition coverage and independent saved position are present; verify source reset operations, parent/child synchronization and process persistence.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "study.translation",
+    "title": "Translation source selection and per-ayah reading",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/TranslationScreen.kt",
+        "line": 55,
+        "symbol": "fun TranslationScreen"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/study/screens/StudySourceContent.tsx",
+        "line": 27,
+        "symbol": "translationProviders"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/study/screens/StudySourceContent.tsx",
+    "reactNativeSearchTerm": "translationProviders",
+    "gap": "Bundled Dutch/English reading translations and original selectable providers remain reachable. F26 study rendering and requests bind source/reference identity. Live source/device acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "study.tafsir",
+    "title": "Arabic tafsir provider selection and ayah retrieval",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/TafsirScreen.kt",
+        "line": 89,
+        "symbol": "fun TafsirScreen"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/services/study/studyProviders.ts",
+        "line": 4,
+        "symbol": "tafsirProviders"
+      }
+    ],
+    "reactNativeSearchScope": "src/services/study/studyProviders.ts",
+    "reactNativeSearchTerm": "tafsirProviders",
+    "gap": "Concrete providers/retrieval exist; compare all source options, HTML cleaning, caching and source availability behavior.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "study.irab",
+    "title": "Book-based grammatical commentary and reliable reference mapping",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/IrabScreen.kt",
+        "line": 25,
+        "symbol": "fun IrabScreen"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/study/screens/StudySourceContent.tsx",
+        "line": 31,
+        "symbol": "createStudyRequestController"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/study/screens/StudySourceContent.tsx",
+    "reactNativeSearchTerm": "createStudyRequestController",
+    "gap": "Contextual F26 Irab opens the original Quranpedia book source automatically. Bundled grammar stays separate. Fixed references, original Warsh identity, immutable requests, selectable excerpts and complete citations are implemented. Online/native acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "study.asbab",
+    "title": "Asbab availability and source-report reading",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/AsbabAvailability.kt",
+        "line": 13,
+        "symbol": "fun "
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/study/screens/StudySourceContent.tsx",
+        "line": 127,
+        "symbol": "hasStudySource(availability"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/study/screens/StudySourceContent.tsx",
+    "reactNativeSearchTerm": "hasStudySource(availability",
+    "gap": "F26 retains every fixed reliable reference and original Warsh context. Missing coverage stays unavailable; late source responses cannot replace current content. Full native/online acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "study.books",
+    "title": "Fiqh book library, metadata, contents, text search and page reading",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 204,
+        "symbol": "fun BookReaderScreen"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/study/screens/BooksScreen.tsx",
+        "line": 9,
+        "symbol": "export function BooksScreen"
+      },
+      {
+        "path": "src/features/study/screens/BookReaderScreen.tsx",
+        "line": 21,
+        "symbol": "export function BookReaderScreen"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/study/screens/BooksScreen.tsx",
+    "reactNativeSearchTerm": "export function BooksScreen",
+    "gap": "All seven source catalog definitions/biographies and source text are extracted verbatim with provenance. Book/chapter dropdowns, ordered page reading, 60-result text/chapter search, biography expansion and selectable Arabic text are ported; source printf page/count labels use the shared formatter. Source has no active madhhab filter, bookmarks, adjustable font or persistent book position, so those are not claimed as omitted features. Native database/selection/dropdown verification remains.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/book-catalog.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  },
+  {
+    "id": "study.mutashabihat-global",
+    "title": "Global similar-passage search by Juz and query",
+    "status": "partial",
+    "priority": "P1",
+    "kotlinEvidence": [
+      {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/MutashabihatScreen.kt",
+        "line": 111,
+        "symbol": "selectedJuz"
+      }
+    ],
+    "reactNativeEvidence": [
+      {
+        "path": "src/features/study/screens/MutashabihatScreen.tsx",
+        "line": 45,
+        "symbol": "selectedJuz"
+      }
+    ],
+    "reactNativeSearchScope": "src/features/study/screens/MutashabihatScreen.tsx",
+    "reactNativeSearchTerm": "selectedJuz",
+    "gap": "Global screen now loads all 1344 original groups, filters all/Juz 1-30 and source/match references/Surah names, expands every match, retains source context and attribution, and opens canonical Mushaf references. Exact asset equality and four source-domain contracts pass. Native filter/expansion/navigation acceptance remains separate.",
+    "dependencies": [],
+    "verification": "static source inspection; device behavior requires acceptance checks",
+    "acceptanceEvidence": [
+      {
+        "path": "tests/mutashabihat.test.ts",
+        "status": "source-contract test present; execution and native/backend acceptance are recorded separately"
+      }
+    ],
+    "workKind": "acceptance-or-semantic-review"
+  }
+]

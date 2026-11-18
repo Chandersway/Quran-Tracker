@@ -1,0 +1,359 @@
+[
+  {
+    "id": "nawawi_minhaj",
+    "assetFile": "0676Nawawi.ManahijTalibin.txt",
+    "titleAr": "منهاج الطالبين",
+    "titleEn": "Minhaj al-Talibin",
+    "author": "Imam al-Nawawi (631-676 AH / 1233-1277 CE)",
+    "summary": {
+      "en": "Shafi'i jurist and hadith scholar. This work belongs to Shafi'i fiqh and became one of the central manuals of the madhhab.",
+      "nl": "Shafi'i jurist en hadithgeleerde. Dit werk hoort bij de Shafi'i fiqh en werd een centraal handboek van de madhhab.",
+      "ar": "فقيه شافعي ومحدث، وهذا الكتاب من متون المذهب الشافعي.",
+      "fr": "Juriste shafi'i et savant du hadith. Ce livre appartient au fiqh shafi'i et fait partie des manuels centraux de cette ecole."
+    },
+    "provenance": {
+      "id": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 125
+      },
+      "assetFile": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 126
+      },
+      "titleAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 127
+      },
+      "titleEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 128
+      },
+      "author": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 129
+      },
+      "summaryNl": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 130
+      },
+      "summaryEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 131
+      },
+      "summaryAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 132
+      },
+      "summaryFr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 133
+      }
+    }
+  },
+  {
+    "id": "shafii_umm",
+    "assetFile": "0204Shafici.Umm.txt",
+    "titleAr": "الأم",
+    "titleEn": "al-Umm",
+    "author": "Imam Muhammad ibn Idris al-Shafi'i (150-204 AH / 767-820 CE)",
+    "summary": {
+      "en": "A foundational work by Imam al-Shafi'i and a major source for the Shafi'i school of law.",
+      "nl": "Een fundamenteel werk van Imam al-Shafi'i en een hoofdbron voor de Shafi'i wetschool.",
+      "ar": "كتاب أساسي للإمام الشافعي ومن أهم مصادر المذهب الشافعي.",
+      "fr": "Ouvrage fondamental de l'imam al-Shafi'i et source majeure de l'ecole shafi'ie."
+    },
+    "provenance": {
+      "id": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 136
+      },
+      "assetFile": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 137
+      },
+      "titleAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 138
+      },
+      "titleEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 139
+      },
+      "author": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 140
+      },
+      "summaryNl": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 141
+      },
+      "summaryEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 142
+      },
+      "summaryAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 143
+      },
+      "summaryFr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 144
+      }
+    }
+  },
+  {
+    "id": "ibn_muflih_furu",
+    "assetFile": "0763IbnMuflihHanbaliMuqaddasi.FurucWaTashihFuruc..txt",
+    "titleAr": "الفروع وتصحيح الفروع",
+    "titleEn": "al-Furu' wa Tashih al-Furu'",
+    "author": "Ibn Muflih al-Hanbali (d. 763 AH / 1362 CE)",
+    "summary": {
+      "en": "An important Hanbali fiqh work by Ibn Muflih, covering legal branches and their correction.",
+      "nl": "Een belangrijk Hanbali fiqhwerk van Ibn Muflih, met bespreking en correctie van juridische vertakkingen.",
+      "ar": "من كتب الفقه الحنبلي المهمة لابن مفلح.",
+      "fr": "Ouvrage important de fiqh hanbalite d'Ibn Muflih."
+    },
+    "provenance": {
+      "id": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 147
+      },
+      "assetFile": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 148
+      },
+      "titleAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 149
+      },
+      "titleEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 150
+      },
+      "author": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 151
+      },
+      "summaryNl": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 152
+      },
+      "summaryEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 153
+      },
+      "summaryAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 154
+      },
+      "summaryFr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 155
+      }
+    }
+  },
+  {
+    "id": "qadi_abu_yala_masail",
+    "assetFile": "0458QadiAbuYacla.MasailFiqhyya.txt",
+    "titleAr": "مسائل فقهية",
+    "titleEn": "Masa'il Fiqhiyya",
+    "author": "Qadi Abu Ya'la al-Hanbali (380-458 AH / 990-1066 CE)",
+    "summary": {
+      "en": "Hanbali legal questions and fiqh issues by Qadi Abu Ya'la.",
+      "nl": "Hanbali fiqhvragen en juridische kwesties van Qadi Abu Ya'la.",
+      "ar": "مسائل فقهية على مذهب الحنابلة للقاضي أبي يعلى.",
+      "fr": "Questions juridiques hanbalites de Qadi Abu Ya'la."
+    },
+    "provenance": {
+      "id": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 158
+      },
+      "assetFile": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 159
+      },
+      "titleAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 160
+      },
+      "titleEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 161
+      },
+      "author": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 162
+      },
+      "summaryNl": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 163
+      },
+      "summaryEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 164
+      },
+      "summaryAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 165
+      },
+      "summaryFr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 166
+      }
+    }
+  },
+  {
+    "id": "malik_muwatta",
+    "assetFile": "0179MalikIbnAnas.Muwatta.txt",
+    "titleAr": "الموطأ",
+    "titleEn": "al-Muwatta'",
+    "author": "Imam Malik ibn Anas (93-179 AH / 711-795 CE)",
+    "summary": {
+      "en": "An early work of hadith and fiqh by Imam Malik, central to the Maliki tradition.",
+      "nl": "Vroeg werk van hadith en fiqh van Imam Malik, centraal voor de Maliki traditie.",
+      "ar": "كتاب مبكر في الحديث والفقه للإمام مالك.",
+      "fr": "Ouvrage ancien de hadith et de fiqh de l'imam Malik, central dans la tradition malikite."
+    },
+    "provenance": {
+      "id": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 169
+      },
+      "assetFile": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 170
+      },
+      "titleAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 171
+      },
+      "titleEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 172
+      },
+      "author": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 173
+      },
+      "summaryNl": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 174
+      },
+      "summaryEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 175
+      },
+      "summaryAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 176
+      },
+      "summaryFr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 177
+      }
+    }
+  },
+  {
+    "id": "ibn_abi_zayd_nawadir",
+    "assetFile": "0386IbnAbiZaydQayrawani.NawadirWaZiyadat.txt",
+    "titleAr": "النوادر والزيادات",
+    "titleEn": "al-Nawadir wa al-Ziyadat",
+    "author": "Ibn Abi Zayd al-Qayrawani (310-386 AH / 922-996 CE)",
+    "summary": {
+      "en": "A major Maliki fiqh work by Ibn Abi Zayd al-Qayrawani.",
+      "nl": "Uitgebreid Maliki fiqhwerk van Ibn Abi Zayd al-Qayrawani.",
+      "ar": "من أهم كتب الفقه المالكي لابن أبي زيد القيرواني.",
+      "fr": "Important ouvrage de fiqh malikite d'Ibn Abi Zayd al-Qayrawani."
+    },
+    "provenance": {
+      "id": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 180
+      },
+      "assetFile": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 181
+      },
+      "titleAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 182
+      },
+      "titleEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 183
+      },
+      "author": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 184
+      },
+      "summaryNl": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 185
+      },
+      "summaryEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 186
+      },
+      "summaryAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 187
+      },
+      "summaryFr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 188
+      }
+    }
+  },
+  {
+    "id": "ibn_qudama_mughni",
+    "assetFile": "0620IbnQudamaMaqdisi.MughniFiFiqh.txt",
+    "titleAr": "المغني",
+    "titleEn": "al-Mughni",
+    "author": "Ibn Qudama al-Maqdisi (541-620 AH / 1147-1223 CE)",
+    "summary": {
+      "en": "A major comparative fiqh work by Ibn Qudama, rooted in the Hanbali school.",
+      "nl": "Groot vergelijkend fiqhwerk van Ibn Qudama, sterk geworteld in de Hanbali school.",
+      "ar": "كتاب فقهي مقارن كبير لابن قدامة المقدسي.",
+      "fr": "Grand ouvrage de fiqh compare d'Ibn Qudama, enracine dans l'ecole hanbalite."
+    },
+    "provenance": {
+      "id": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 191
+      },
+      "assetFile": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 192
+      },
+      "titleAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 193
+      },
+      "titleEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 194
+      },
+      "author": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 195
+      },
+      "summaryNl": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 196
+      },
+      "summaryEn": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 197
+      },
+      "summaryAr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 198
+      },
+      "summaryFr": {
+        "path": "app/src/main/java/com/Ameender/qurantracker/ui/BookReaderScreen.kt",
+        "line": 199
+      }
+    }
+  }
+]

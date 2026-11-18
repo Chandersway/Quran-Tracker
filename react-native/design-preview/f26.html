@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Onbewerkte Android-captures uit de F26-controle van Quran Tracker, inclusief de nieuwe groepschat.">
+    <title>Quran Tracker · F26 Android-captures</title>
+    <style>
+      :root { color-scheme: light; --paper: #f3efe4; --ink: #18382e; --muted: #53685d; --line: #c9d1c3; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+      main { max-width: 1320px; margin-inline: auto; padding: clamp(20px, 4vw, 56px); }
+      header { padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+      h1 { margin: 8px 0 14px; font-size: clamp(32px, 5vw, 56px); line-height: 1.08; letter-spacing: -.035em; }
+      p { margin: 10px 0; color: var(--muted); max-width: 78ch; }
+      a { color: inherit; text-underline-offset: .2em; }
+      a:focus-visible { outline: 3px solid #a65b39; outline-offset: 5px; }
+      nav { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 18px; }
+      .eyebrow, .note { font-size: 14px; }
+      .gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 28px; align-items: start; }
+      .gallery.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      figure { min-width: 0; margin: 0; }
+      figure > a { display: block; }
+      img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+      figcaption { padding: 12px 0 0; }
+      figcaption h2 { margin: 0 0 5px; font-size: 18px; line-height: 1.3; }
+      figcaption p { margin: 0; font-size: 14px; line-height: 1.55; }
+      .landscape { margin-top: 32px; padding-block: 28px; border-block: 1px solid var(--line); }
+      .landscape figcaption { max-width: 85ch; }
+      footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+      @media (max-width: 900px) { .gallery, .gallery.three { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; } }
+      @media (max-width: 520px) { .gallery, .gallery.three { grid-template-columns: 1fr; } figure { width: 100%; max-width: 440px; margin-inline: auto; } .landscape { max-width: none; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="eyebrow">F26 · Android-testemulator · 15 november 2026</div>
+        <h1>Quran Tracker, in de app</h1>
+        <p>Bekeken, onbewerkte schermcaptures uit de native Android-controles. Open een afbeelding voor de volledige opname. De beelden tonen verschillende controlepunten; de actuele geïnstalleerde build staat in het QA-verslag.</p>
+        <p class="note">Het grijze tandwiel ‘Tools’ dat op sommige beelden staat, is de Expo-debugoverlay. De selectiegrepen en het menu ‘Copy / Share’ zijn echte Android-bediening.</p>
+        <nav aria-label="Documentatie bij deze captures">
+          <a href="../docs/IMPLEMENTATION_F26.md">Implementatie F26</a>
+          <a href="../docs/NATIVE_QA.md">Uitgevoerde controles en open punten</a>
+          <a href="index.html">Eerdere captures</a>
+        </nav>
+      </header>
+
+      <div class="gallery three" aria-label="Laatste release en PDF-controle">
+        <figure>
+          <a href="screens/f26-delivery-stats.png"><img src="screens/f26-delivery-stats.png" width="1080" height="2400" alt="Definitieve Android-release met Stats, leescirkels, zellijmotief en één Mushaf-ingang" decoding="async"></a>
+          <figcaption><h2>De zelfstandige Android-release</h2><p>Laatste APK op de testemulator, zonder Metro of debugoverlay. De bestaande testregistratie en leespositie bleven behouden.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-delivery-text.png"><img src="screens/f26-delivery-text.png" width="1080" height="2400" alt="Definitieve tekstlezer met Al-Ikhlas, Nederlandse vertaling en zichtbare knop Luisteren" decoding="async"></a>
+          <figcaption><h2>Boek en tekst in dezelfde lezer</h2><p>De release toont de Nederlandse vertaling en Luisteren direct naast de soera. Werkelijk afspelen startte vanuit de boekweergave en ging automatisch door naar volgende soera’s.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-pdf-fullscreen.png"><img src="screens/f26-pdf-fullscreen.png" width="1080" height="2400" alt="Gedownloade IndoPak-PDF op pagina 73 in fullscreen met zoomknoppen en paginarail" decoding="async"></a>
+          <figcaption><h2>De echte PDF in fullscreen</h2><p>Gecontroleerd in de definitieve Android-release: de oorspronkelijke PDF blijft scherp na terugkeren uit selectiemodus, zoomen en bladeren. Er wordt geen woordlaag over de scan verzonnen.</p></figcaption>
+        </figure>
+      </div>
+
+      <div class="gallery" aria-label="Overzicht, navigatie en tekstlezer">
+        <figure>
+          <a href="screens/f26-restart-loaded.png"><img src="screens/f26-restart-loaded.png" width="1080" height="2400" alt="Nederlands Stats-scherm met Verder lezen, periodekeuze en drie statistiekringen" decoding="async"></a>
+          <figcaption><h2>Stats met drie ringen</h2><p>Eén bestaande paginaregistratie, naast de ringen voor Hizb en soera. De tekst onder de ringen licht toe wat de registratieverdeling betekent.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-more-ready.png"><img src="screens/f26-more-ready.png" width="1080" height="2400" alt="Geopend Meer-menu met leesroutes, Mushafbibliotheek, Lexicon en Studiebronnen" decoding="async"></a>
+          <figcaption><h2>Meer, gegroepeerd</h2><p>Lees- en studiepagina’s staan in een doorlopende lijst. De knop Selecteren opent de keuze voor de onderste navigatie.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-reader-text-portrait.png"><img src="screens/f26-reader-text-portrait.png" width="1080" height="2400" alt="Tekstlezer bij At-Tin 95:1 met Arabische tekst en Nederlandse vertaling direct in beeld" decoding="async"></a>
+          <figcaption><h2>De eerste aya meteen zichtbaar</h2><p>At-Tin 95:1 met Nederlandse vertaling. Wisselen tussen Nederlands en Engels en terug behield dezelfde aya; schermvullend lezen en Android Back zijn gecontroleerd.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-reader-text-font13.png"><img src="screens/f26-reader-text-font13.png" width="1080" height="2400" alt="Nederlandse tekstlezer bij Al-Fatihah met systeemlettergrootte 1,3" decoding="async"></a>
+          <figcaption><h2>Systeemtekst op 1,3</h2><p>Al-Fatihah 1:1 blijft met vertaling en beide bedieningsrijen zichtbaar bij systeemlettergrootte 1,3.</p></figcaption>
+        </figure>
+      </div>
+
+      <figure class="landscape">
+        <a href="screens/f26-reader-book-landscape-settled.png"><img src="screens/f26-reader-book-landscape-settled.png" width="2400" height="1080" alt="Hafs-boekpagina 597 in landscape, met compacte bovenbalk, verticale scrollrail, paginarail, zoom en leesvink" loading="lazy" decoding="async"></a>
+        <figcaption><h2>Het boek in landscape</h2><p>De zichtbare boekruimte meet hier 736 van 1080 schermpixels. Paginastreepjes, zoom en leesvink blijven bereikbaar. De verticale rail is apart van 0 naar 69 procent versleept; deze capture bewijst geen landscape-paginaswipe.</p></figcaption>
+      </figure>
+
+      <div class="gallery three" aria-label="Selectie, woordgegevens en Arabische weergave">
+        <figure>
+          <a href="screens/f26-reader-book-native-selection-handles.png"><img src="screens/f26-reader-book-native-selection-handles.png" width="1080" height="2400" alt="Echte Android-tekstselectie op het Hafs-woord ar-Rahman op pagina 1, met grepen en kopieermenu" loading="lazy" decoding="async"></a>
+          <figcaption><h2>Native tekstselectie</h2><p>Selecteren en lang indrukken tonen echte Android-grepen bij 1:1:3. In Bladeren is de paginaswipe van 1 naar 2 gecontroleerd.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-reader-fullscreen-final-lexicon-ok.png"><img src="screens/f26-reader-fullscreen-final-lexicon-ok.png" width="1080" height="2400" alt="Geladen QAC-woordgegevens voor Al-Fatihah 1:1:3 met transcriptie, wortel, lemma en contextbetekenis" loading="lazy" decoding="async"></a>
+          <figcaption><h2>Van woord naar bron</h2><p>QAC laadt voor exact 1:1:3. Ook het volledige Lane-artikel is geopend; dat bronbewijs staat in het QA-verslag. Eén Android Back keerde terug naar de schermvullende Mushaf.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-reader-ar-book-final.png"><img src="screens/f26-reader-ar-book-final.png" width="1080" height="2400" alt="Hafs-boekpagina 1 met Arabische bediening en donker app-thema; de drukpagina behoudt de lichte bronweergave" loading="lazy" decoding="async"></a>
+          <figcaption><h2>Arabisch en donker thema</h2><p>Arabische bediening en leesrichting zijn bekeken in boek en tekst. De drukpagina behoudt haar eigen lichte bronweergave. Deze controle gebruikte systeemlettergrootte 1,0.</p></figcaption>
+        </figure>
+      </div>
+
+      <div class="gallery" aria-label="Groepschat op de lokale testbackend">
+        <figure>
+          <a href="screens/f26-chat-native.png"><img src="screens/f26-chat-native.png" width="1080" height="2400" alt="Groepschat met fictieve owner- en memberberichten, verbindingsstatus en vaste invoerbalk" loading="lazy" decoding="async"></a>
+          <figcaption><h2>Groepschat naast de feed</h2><p>Chronologische berichten gebruiken hetzelfde beveiligde tekstberichtcontract als de Kotlin-app. Deze debugcontrole gebruikte uitsluitend fictieve accounts op de lokale testbackend. Twee afzonderlijke clients ontvingen elkaars berichten.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="screens/f26-chat-native-keyboard.png"><img src="screens/f26-chat-native-keyboard.png" width="1080" height="2400" alt="Groepschat met geopend Android-toetsenbord en zichtbare berichtinvoer en verzendknop" loading="lazy" decoding="async"></a>
+          <figcaption><h2>Blijven typen met het toetsenbord open</h2><p>Invoer en verzenden blijven boven het toetsenbord. Het ongestuurde concept keerde exact terug na verlaten en opnieuw openen van de chat. Er staan geen accountgegevens in deze capture.</p></figcaption>
+        </figure>
+      </div>
+
+      <footer>
+        <p class="note">Dit is een selectie Android-bewijs. De actuele status van release-offlinegebruik, achtergrondgedrag, overige combinaties en iOS staat in <a href="../docs/NATIVE_QA.md">NATIVE_QA.md</a>.</p>
+      </footer>
+    </main>
+  </body>
+</html>
