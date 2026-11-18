@@ -1,0 +1,27 @@
+{
+  "branch": "work/react-native-complete-audit-20261118",
+  "sourceCommit": "e286430c8693aff0ee0b807cdccffcb6b36b1cb7",
+  "sourceRemoteShaMatched": true,
+  "sourceStagedFiles": 3165,
+  "secretFindings": 0,
+  "sensitiveCredentialFilenames": [],
+  "deletedFiles": [],
+  "remoteRun": "https://github.com/Chandersway/Quran-Tracker/actions/runs/44216713503",
+  "remoteRunConclusion": "failure",
+  "remoteStepsExecuted": 0,
+  "remoteFailure": "The job was not started because your account is locked due to a billing issue.",
+  "localVerification": {
+    "tests": 760,
+    "failed": 0,
+    "typecheck": true,
+    "eslint": true,
+    "format": true,
+    "platformBundles": [
+      "android",
+      "ios",
+      "web"
+    ],
+    "androidApkBuilt": true
+  },
+  "boundary": "No main merge/push, store release or hosted deployment. Remote CI is blocked, not passed. Documentation-only follow-up commits do not change the tested application source."
+}

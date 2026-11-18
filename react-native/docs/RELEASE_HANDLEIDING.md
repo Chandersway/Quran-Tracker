@@ -121,6 +121,8 @@ De workflow staat in [react-native-release.yml](../../.github/workflows/react-na
 
 GitHub toont een handmatige workflow pas normaal in Actions wanneer de workflow op de defaultbranch aanwezig is. Deze migratie wordt eerst op een **nieuwe branch** gepusht. Staat de workflow nog niet op `main`, gebruik voorlopig de lokale npm/EAS-opdrachten, of voeg de workflow na review toe aan de defaultbranch. Een nieuwe branch pushen is geen toestemming om die automatisch te mergen.
 
+Bij de eerste branchpush op 18 november startte GitHub geen runner wegens een **billingblokkade op het account**. De run had geen uitgevoerde stappen en meldde `The job was not started because your account is locked due to a billing issue.` De accounteigenaar moet deze blokkade in GitHub oplossen en daarna de workflow opnieuw starten. Een nieuwe codewijziging of het opnieuw instellen van appsecrets lost een billingblokkade niet op. De lokale npm-bouwopdrachten blijven beschikbaar; cloudbuilds vereisen daarnaast de eigen EAS-inrichting.
+
 ## 8. Wat moet vóór een echte release nog bewezen worden?
 
 - Signing en updategedrag over een bestaande installatie, met behoud van persoonlijke gegevens.
