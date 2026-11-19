@@ -2,7 +2,7 @@
 
 Gegenereerd met `node scripts/build-code-reference.mjs`. Dit is de vindplaats van bestanden, benoemde functies, klassen, interfaces en types; **het bestaan van een naam bewijst geen functionele gelijkwaardigheid**. De inhoudelijke beoordeling staat in de deelrapporten van deze controle.
 
-198 oorspronkelijke Kotlin-bestanden, 584 React Native-bron-/test-/toolbestanden en 51 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
+198 oorspronkelijke Kotlin-bestanden, 600 React Native-bron-/test-/toolbestanden en 51 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
 
 De [JSON-index](source-index.json) bevat de volledige lijst, regelverwijzingen, rollen, hashes, routes en persistente voorkeuren. Dit is geen lijst waarin iedere bronregel een aparte feature is. Gebruik de bronlink om de volledige implementatie te lezen.
 
@@ -4774,14 +4774,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/audio/components/MediaSettings.tsx
 
-[Volledige bron](../../src/features/audio/components/MediaSettings.tsx), 244 regels, rol: implementation.
+[Volledige bron](../../src/features/audio/components/MediaSettings.tsx), 270 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `MediaSettings` | [27](../../src/features/audio/components/MediaSettings.tsx#L27) |
-| function | `MediaSettings.choose` | [68](../../src/features/audio/components/MediaSettings.tsx#L68) |
-| function | `MediaSettings.download` | [89](../../src/features/audio/components/MediaSettings.tsx#L89) |
-| function | `MediaSettingsSheet` | [228](../../src/features/audio/components/MediaSettings.tsx#L228) |
+| function | `MediaSettings.choose` | [76](../../src/features/audio/components/MediaSettings.tsx#L76) |
+| function | `MediaSettings.download` | [98](../../src/features/audio/components/MediaSettings.tsx#L98) |
+| function | `MediaSettingsSheet` | [241](../../src/features/audio/components/MediaSettings.tsx#L241) |
 
 ### src/features/audio/components/MiniPlayer.tsx
 
@@ -4791,6 +4791,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `MiniPlayer` | [13](../../src/features/audio/components/MiniPlayer.tsx#L13) |
 | function-variable | `MiniPlayer.claim` | [22](../../src/features/audio/components/MiniPlayer.tsx#L22) |
+
+### src/features/audio/components/ReaderAudioBar.tsx
+
+[Volledige bron](../../src/features/audio/components/ReaderAudioBar.tsx), 203 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `ReaderAudioBar` | [15](../../src/features/audio/components/ReaderAudioBar.tsx#L15) |
+| function-variable | `ReaderAudioBar.claim` | [35](../../src/features/audio/components/ReaderAudioBar.tsx#L35) |
 
 ### src/features/audio/components/RepeatSheet.tsx
 
@@ -4804,11 +4813,11 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/audio/model/audioCopy.ts
 
-[Volledige bron](../../src/features/audio/model/audioCopy.ts), 60 regels, rol: implementation.
+[Volledige bron](../../src/features/audio/model/audioCopy.ts), 65 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `audioCopy` | [57](../../src/features/audio/model/audioCopy.ts#L57) |
+| function | `audioCopy` | [62](../../src/features/audio/model/audioCopy.ts#L62) |
 
 ### src/features/audio/model/audioLabels.ts
 
@@ -4818,6 +4827,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `audioTime` | [4](../../src/features/audio/model/audioLabels.ts#L4) |
 | function | `selectionTitle` | [9](../../src/features/audio/model/audioLabels.ts#L9) |
+
+### src/features/audio/model/readerAudioCopy.ts
+
+[Volledige bron](../../src/features/audio/model/readerAudioCopy.ts), 18 regels, rol: implementation.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/audio/providers/AudioProvider.tsx
 
@@ -4921,6 +4936,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `ExpandablePostText` | [8](../../src/features/groups/components/ExpandablePostText.tsx#L8) |
 
+### src/features/groups/components/FeedAvatar.tsx
+
+[Volledige bron](../../src/features/groups/components/FeedAvatar.tsx), 53 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `FeedAvatar` | [8](../../src/features/groups/components/FeedAvatar.tsx#L8) |
+
 ### src/features/groups/components/GroupChatComposer.tsx
 
 [Volledige bron](../../src/features/groups/components/GroupChatComposer.tsx), 134 regels, rol: implementation.
@@ -4942,6 +4965,16 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `GroupCreateWizard` | [10](../../src/features/groups/components/GroupCreateWizard.tsx#L10) |
 | function | `GroupCreateWizard.create` | [24](../../src/features/groups/components/GroupCreateWizard.tsx#L24) |
 
+### src/features/groups/components/GroupDiscussionSheet.tsx
+
+[Volledige bron](../../src/features/groups/components/GroupDiscussionSheet.tsx), 251 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `GroupDiscussionSheet` | [19](../../src/features/groups/components/GroupDiscussionSheet.tsx#L19) |
+| function | `GroupDiscussionSheet.sendComment` | [57](../../src/features/groups/components/GroupDiscussionSheet.tsx#L57) |
+| function-variable | `GroupDiscussionSheet.deleteAfterDismiss` | [66](../../src/features/groups/components/GroupDiscussionSheet.tsx#L66) |
+
 ### src/features/groups/components/GroupEventsPanel.tsx
 
 [Volledige bron](../../src/features/groups/components/GroupEventsPanel.tsx), 229 regels, rol: implementation.
@@ -4953,14 +4986,21 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/groups/components/GroupFeedPanel.tsx
 
-[Volledige bron](../../src/features/groups/components/GroupFeedPanel.tsx), 587 regels, rol: implementation.
+[Volledige bron](../../src/features/groups/components/GroupFeedPanel.tsx), 368 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `GroupFeedPanel` | [24](../../src/features/groups/components/GroupFeedPanel.tsx#L24) |
-| function-variable | `GroupFeedPanel.dateText` | [42](../../src/features/groups/components/GroupFeedPanel.tsx#L42) |
-| function-variable | `GroupFeedPanel.setMessage` | [50](../../src/features/groups/components/GroupFeedPanel.tsx#L50) |
-| function-variable | `GroupFeedPanel.copy` | [51](../../src/features/groups/components/GroupFeedPanel.tsx#L51) |
+| function | `GroupFeedPanel` | [18](../../src/features/groups/components/GroupFeedPanel.tsx#L18) |
+| function-variable | `GroupFeedPanel.copy` | [37](../../src/features/groups/components/GroupFeedPanel.tsx#L37) |
+| function-variable | `GroupFeedPanel.returnToDiscussion` | [50](../../src/features/groups/components/GroupFeedPanel.tsx#L50) |
+
+### src/features/groups/components/GroupFeedPostCard.tsx
+
+[Volledige bron](../../src/features/groups/components/GroupFeedPostCard.tsx), 293 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `GroupFeedPostCard` | [22](../../src/features/groups/components/GroupFeedPostCard.tsx#L22) |
 
 ### src/features/groups/components/GroupFormFields.tsx
 
@@ -5064,6 +5104,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `GroupOverviewPanel` | [14](../../src/features/groups/components/GroupOverviewPanel.tsx#L14) |
 
+### src/features/groups/components/GroupPostComposer.tsx
+
+[Volledige bron](../../src/features/groups/components/GroupPostComposer.tsx), 150 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `GroupPostComposer` | [13](../../src/features/groups/components/GroupPostComposer.tsx#L13) |
+| function-variable | `GroupPostComposer.send` | [52](../../src/features/groups/components/GroupPostComposer.tsx#L52) |
+
 ### src/features/groups/components/GroupProfilePanel.tsx
 
 [Volledige bron](../../src/features/groups/components/GroupProfilePanel.tsx), 130 regels, rol: implementation.
@@ -5117,6 +5166,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `GroupTypingStatus` | [8](../../src/features/groups/components/GroupTypingStatus.tsx#L8) |
 
+### src/features/groups/components/feedPresentation.ts
+
+[Volledige bron](../../src/features/groups/components/feedPresentation.ts), 19 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `formatFeedTime` | [4](../../src/features/groups/components/feedPresentation.ts#L4) |
+| function-variable | `formatFeedTime.number` | [8](../../src/features/groups/components/feedPresentation.ts#L8) |
+
 ### src/features/groups/components/groupImageSource.ts
 
 [Volledige bron](../../src/features/groups/components/groupImageSource.ts), 13 regels, rol: implementation.
@@ -5149,6 +5207,16 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `useGroupFeed` | [9](../../src/features/groups/components/useGroupFeed.ts#L9) |
 | function-variable | `useGroupFeed.run` | [45](../../src/features/groups/components/useGroupFeed.ts#L45) |
 
+### src/features/groups/feedCopy.ts
+
+[Volledige bron](../../src/features/groups/feedCopy.ts), 112 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| type | `FeedLocale` | [1](../../src/features/groups/feedCopy.ts#L1) |
+| type | `FeedReaction` | [2](../../src/features/groups/feedCopy.ts#L2) |
+| function | `arabicCount` | [4](../../src/features/groups/feedCopy.ts#L4) |
+
 ### src/features/groups/groupProgressCopy.ts
 
 [Volledige bron](../../src/features/groups/groupProgressCopy.ts), 80 regels, rol: implementation.
@@ -5166,6 +5234,21 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `groupTypingText` | [28](../../src/features/groups/groupTypingCopy.ts#L28) |
+
+### src/features/groups/hooks/useFeedWindow.ts
+
+[Volledige bron](../../src/features/groups/hooks/useFeedWindow.ts), 113 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| type | `Position` | [5](../../src/features/groups/hooks/useFeedWindow.ts#L5) |
+| type | `WindowSnapshot` | [6](../../src/features/groups/hooks/useFeedWindow.ts#L6) |
+| type | `FeedWindowResult` | [14](../../src/features/groups/hooks/useFeedWindow.ts#L14) |
+| function | `compareAge` | [21](../../src/features/groups/hooks/useFeedWindow.ts#L21) |
+| function | `oldestPosition` | [27](../../src/features/groups/hooks/useFeedWindow.ts#L27) |
+| function | `openWindow` | [37](../../src/features/groups/hooks/useFeedWindow.ts#L37) |
+| function | `reconcileWindow` | [49](../../src/features/groups/hooks/useFeedWindow.ts#L49) |
+| function | `useFeedWindow` | [95](../../src/features/groups/hooks/useFeedWindow.ts#L95) |
 
 ### src/features/groups/hooks/useGroupChat.ts
 
@@ -5200,7 +5283,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/groups/screens/GroupScreen.tsx
 
-[Volledige bron](../../src/features/groups/screens/GroupScreen.tsx), 564 regels, rol: implementation.
+[Volledige bron](../../src/features/groups/screens/GroupScreen.tsx), 565 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5372,11 +5455,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/notes/components/NoteEditorView.tsx
 
-[Volledige bron](../../src/features/notes/components/NoteEditorView.tsx), 408 regels, rol: implementation.
+[Volledige bron](../../src/features/notes/components/NoteEditorView.tsx), 415 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `NoteEditorView` | [35](../../src/features/notes/components/NoteEditorView.tsx#L35) |
+| function-variable | `NoteEditorView.onSavePress` | [65](../../src/features/notes/components/NoteEditorView.tsx#L65) |
 
 ### src/features/notes/components/NoteFilterSheet.tsx
 
@@ -5510,7 +5594,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/notes/hooks/useNoteEditor.ts
 
-[Volledige bron](../../src/features/notes/hooks/useNoteEditor.ts), 244 regels, rol: implementation.
+[Volledige bron](../../src/features/notes/hooks/useNoteEditor.ts), 261 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5521,10 +5605,11 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `useNoteEditor.closeEditor` | [100](../../src/features/notes/hooks/useNoteEditor.ts#L100) |
 | function | `useNoteEditor.clearEditor` | [111](../../src/features/notes/hooks/useNoteEditor.ts#L111) |
 | function | `useNoteEditor.saveNote` | [121](../../src/features/notes/hooks/useNoteEditor.ts#L121) |
-| function | `useNoteEditor.deleteNote` | [155](../../src/features/notes/hooks/useNoteEditor.ts#L155) |
-| function | `useNoteEditor.pinNote` | [180](../../src/features/notes/hooks/useNoteEditor.ts#L180) |
-| function | `useNoteEditor.exportNotes` | [194](../../src/features/notes/hooks/useNoteEditor.ts#L194) |
-| type | `NoteEditor` | [243](../../src/features/notes/hooks/useNoteEditor.ts#L243) |
+| function | `useNoteEditor.deleteNote` | [168](../../src/features/notes/hooks/useNoteEditor.ts#L168) |
+| function | `useNoteEditor.pinNote` | [193](../../src/features/notes/hooks/useNoteEditor.ts#L193) |
+| function | `useNoteEditor.exportNotes` | [207](../../src/features/notes/hooks/useNoteEditor.ts#L207) |
+| function | `useNoteEditor.changeFields` | [227](../../src/features/notes/hooks/useNoteEditor.ts#L227) |
+| type | `NoteEditor` | [260](../../src/features/notes/hooks/useNoteEditor.ts#L260) |
 
 ### src/features/notes/hooks/useNoteFilters.ts
 
@@ -5885,15 +5970,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/quran/components/FloatingReaderAudio.tsx
 
-[Volledige bron](../../src/features/quran/components/FloatingReaderAudio.tsx), 33 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/components/FloatingReaderAudio.tsx), 43 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `FloatingReaderAudio` | [8](../../src/features/quran/components/FloatingReaderAudio.tsx#L8) |
+| function | `FloatingReaderAudio` | [9](../../src/features/quran/components/FloatingReaderAudio.tsx#L9) |
 
 ### src/features/quran/components/FloatingReaderButton.tsx
 
-[Volledige bron](../../src/features/quran/components/FloatingReaderButton.tsx), 133 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/components/FloatingReaderButton.tsx), 144 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -6735,7 +6820,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/backend/backend.ts
 
-[Volledige bron](../../src/services/backend/backend.ts), 635 regels, rol: implementation.
+[Volledige bron](../../src/services/backend/backend.ts), 638 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -6748,38 +6833,38 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function-variable | `createBackend.draftActor` | [91](../../src/services/backend/backend.ts#L91) |
 | function | `createBackend.loadPostMedia` | [97](../../src/services/backend/backend.ts#L97) |
 | function | `createBackend.hydrateFeed` | [151](../../src/services/backend/backend.ts#L151) |
-| method | `createBackend.read` | [222](../../src/services/backend/backend.ts#L222) |
-| method | `createBackend.rpc` | [254](../../src/services/backend/backend.ts#L254) |
-| method | `createBackend.select` | [257](../../src/services/backend/backend.ts#L257) |
-| method | `createBackend.upload` | [266](../../src/services/backend/backend.ts#L266) |
-| method | `createBackend.remove` | [272](../../src/services/backend/backend.ts#L272) |
-| method | `createBackend.signedUrl` | [276](../../src/services/backend/backend.ts#L276) |
-| method | `createBackend.list` | [289](../../src/services/backend/backend.ts#L289) |
-| method | `createBackend.get` | [292](../../src/services/backend/backend.ts#L292) |
-| method | `createBackend.create` | [298](../../src/services/backend/backend.ts#L298) |
-| method | `createBackend.join` | [320](../../src/services/backend/backend.ts#L320) |
-| method | `createBackend.listMembers` | [330](../../src/services/backend/backend.ts#L330) |
-| method | `createBackend.open` | [349](../../src/services/backend/backend.ts#L349) |
-| method | `createBackend.listFeed` | [386](../../src/services/backend/backend.ts#L386) |
-| method | `createBackend.createTextPost` | [392](../../src/services/backend/backend.ts#L392) |
-| method | `createBackend.addComment` | [424](../../src/services/backend/backend.ts#L424) |
-| method | `createBackend.toggleReaction` | [449](../../src/services/backend/backend.ts#L449) |
-| method | `createBackend.listTasks` | [460](../../src/services/backend/backend.ts#L460) |
-| method | `createBackend.createTask` | [487](../../src/services/backend/backend.ts#L487) |
-| method | `createBackend.setTaskProgress` | [502](../../src/services/backend/backend.ts#L502) |
-| method | `createBackend.update` | [514](../../src/services/backend/backend.ts#L514) |
-| method | `createBackend.getMemberPermissions` | [532](../../src/services/backend/backend.ts#L532) |
-| method | `createBackend.groupPushTarget` | [541](../../src/services/backend/backend.ts#L541) |
-| method | `createBackend.loadGroupPushPreferences` | [550](../../src/services/backend/backend.ts#L550) |
-| method | `createBackend.saveGroupPushPreferences` | [569](../../src/services/backend/backend.ts#L569) |
-| method | `createBackend.loadGroupPreferences` | [577](../../src/services/backend/backend.ts#L577) |
-| method | `createBackend.updateGroupPreferences` | [593](../../src/services/backend/backend.ts#L593) |
-| method | `createBackend.registerPushDevice` | [612](../../src/services/backend/backend.ts#L612) |
-| method | `createBackend.unregisterPushDevice` | [627](../../src/services/backend/backend.ts#L627) |
+| method | `createBackend.read` | [225](../../src/services/backend/backend.ts#L225) |
+| method | `createBackend.rpc` | [257](../../src/services/backend/backend.ts#L257) |
+| method | `createBackend.select` | [260](../../src/services/backend/backend.ts#L260) |
+| method | `createBackend.upload` | [269](../../src/services/backend/backend.ts#L269) |
+| method | `createBackend.remove` | [275](../../src/services/backend/backend.ts#L275) |
+| method | `createBackend.signedUrl` | [279](../../src/services/backend/backend.ts#L279) |
+| method | `createBackend.list` | [292](../../src/services/backend/backend.ts#L292) |
+| method | `createBackend.get` | [295](../../src/services/backend/backend.ts#L295) |
+| method | `createBackend.create` | [301](../../src/services/backend/backend.ts#L301) |
+| method | `createBackend.join` | [323](../../src/services/backend/backend.ts#L323) |
+| method | `createBackend.listMembers` | [333](../../src/services/backend/backend.ts#L333) |
+| method | `createBackend.open` | [352](../../src/services/backend/backend.ts#L352) |
+| method | `createBackend.listFeed` | [389](../../src/services/backend/backend.ts#L389) |
+| method | `createBackend.createTextPost` | [395](../../src/services/backend/backend.ts#L395) |
+| method | `createBackend.addComment` | [427](../../src/services/backend/backend.ts#L427) |
+| method | `createBackend.toggleReaction` | [452](../../src/services/backend/backend.ts#L452) |
+| method | `createBackend.listTasks` | [463](../../src/services/backend/backend.ts#L463) |
+| method | `createBackend.createTask` | [490](../../src/services/backend/backend.ts#L490) |
+| method | `createBackend.setTaskProgress` | [505](../../src/services/backend/backend.ts#L505) |
+| method | `createBackend.update` | [517](../../src/services/backend/backend.ts#L517) |
+| method | `createBackend.getMemberPermissions` | [535](../../src/services/backend/backend.ts#L535) |
+| method | `createBackend.groupPushTarget` | [544](../../src/services/backend/backend.ts#L544) |
+| method | `createBackend.loadGroupPushPreferences` | [553](../../src/services/backend/backend.ts#L553) |
+| method | `createBackend.saveGroupPushPreferences` | [572](../../src/services/backend/backend.ts#L572) |
+| method | `createBackend.loadGroupPreferences` | [580](../../src/services/backend/backend.ts#L580) |
+| method | `createBackend.updateGroupPreferences` | [596](../../src/services/backend/backend.ts#L596) |
+| method | `createBackend.registerPushDevice` | [615](../../src/services/backend/backend.ts#L615) |
+| method | `createBackend.unregisterPushDevice` | [630](../../src/services/backend/backend.ts#L630) |
 
 ### src/services/backend/types.ts
 
-[Volledige bron](../../src/services/backend/types.ts), 320 regels, rol: implementation.
+[Volledige bron](../../src/services/backend/types.ts), 321 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -6799,56 +6884,56 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | type | `GroupMemberPermissions` | [73](../../src/services/backend/types.ts#L73) |
 | type | `GroupMember` | [80](../../src/services/backend/types.ts#L80) |
 | type | `GroupComment` | [89](../../src/services/backend/types.ts#L89) |
-| type | `GroupFeedPost` | [98](../../src/services/backend/types.ts#L98) |
-| type | `GroupFeedCursor` | [117](../../src/services/backend/types.ts#L117) |
-| type | `GroupFeedRequest` | [118](../../src/services/backend/types.ts#L118) |
-| type | `GroupFeedPage` | [119](../../src/services/backend/types.ts#L119) |
-| type | `GroupFeedConnection` | [124](../../src/services/backend/types.ts#L124) |
-| type | `GroupFeedService` | [125](../../src/services/backend/types.ts#L125) |
-| method | `GroupFeedService.listFeedPage` | [126](../../src/services/backend/types.ts#L126) |
-| method | `GroupFeedService.subscribeFeed` | [128](../../src/services/backend/types.ts#L128) |
-| type | `GroupTask` | [134](../../src/services/backend/types.ts#L134) |
-| type | `GroupTaskInput` | [155](../../src/services/backend/types.ts#L155) |
-| type | `GroupUpdateInput` | [164](../../src/services/backend/types.ts#L164) |
-| type | `GroupService` | [175](../../src/services/backend/types.ts#L175) |
-| method | `GroupService.list` | [179](../../src/services/backend/types.ts#L179) |
-| method | `GroupService.get` | [180](../../src/services/backend/types.ts#L180) |
-| method | `GroupService.create` | [181](../../src/services/backend/types.ts#L181) |
-| method | `GroupService.join` | [192](../../src/services/backend/types.ts#L192) |
-| method | `GroupService.listMembers` | [193](../../src/services/backend/types.ts#L193) |
-| method | `GroupService.listFeed` | [194](../../src/services/backend/types.ts#L194) |
-| method | `GroupService.createTextPost` | [195](../../src/services/backend/types.ts#L195) |
-| method | `GroupService.addComment` | [201](../../src/services/backend/types.ts#L201) |
-| method | `GroupService.toggleReaction` | [208](../../src/services/backend/types.ts#L208) |
-| method | `GroupService.listTasks` | [209](../../src/services/backend/types.ts#L209) |
-| method | `GroupService.createTask` | [210](../../src/services/backend/types.ts#L210) |
-| method | `GroupService.setTaskProgress` | [211](../../src/services/backend/types.ts#L211) |
-| method | `GroupService.update` | [212](../../src/services/backend/types.ts#L212) |
-| method | `GroupService.getMemberPermissions` | [213](../../src/services/backend/types.ts#L213) |
-| type | `Note` | [216](../../src/services/backend/types.ts#L216) |
-| type | `PlanItem` | [242](../../src/services/backend/types.ts#L242) |
-| type | `ProgressRow` | [258](../../src/services/backend/types.ts#L258) |
-| type | `NotesService` | [272](../../src/services/backend/types.ts#L272) |
-| method | `NotesService.list` | [273](../../src/services/backend/types.ts#L273) |
-| method | `NotesService.save` | [274](../../src/services/backend/types.ts#L274) |
-| method | `NotesService.delete` | [275](../../src/services/backend/types.ts#L275) |
-| type | `PlanningService` | [277](../../src/services/backend/types.ts#L277) |
-| method | `PlanningService.list` | [278](../../src/services/backend/types.ts#L278) |
-| method | `PlanningService.add` | [279](../../src/services/backend/types.ts#L279) |
-| method | `PlanningService.toggleDone` | [280](../../src/services/backend/types.ts#L280) |
-| method | `PlanningService.delete` | [281](../../src/services/backend/types.ts#L281) |
-| type | `ProgressService` | [283](../../src/services/backend/types.ts#L283) |
-| method | `ProgressService.list` | [284](../../src/services/backend/types.ts#L284) |
-| method | `ProgressService.checkIn` | [285](../../src/services/backend/types.ts#L285) |
-| method | `ProgressService.updateHifz` | [291](../../src/services/backend/types.ts#L291) |
-| type | `AudioTrack` | [294](../../src/services/backend/types.ts#L294) |
-| type | `AyahTiming` | [312](../../src/services/backend/types.ts#L312) |
-| type | `AudioService` | [313](../../src/services/backend/types.ts#L313) |
-| method | `AudioService.listSurah` | [314](../../src/services/backend/types.ts#L314) |
-| method | `AudioService.getAyahTimings` | [315](../../src/services/backend/types.ts#L315) |
-| method | `AudioService.resolve` | [316](../../src/services/backend/types.ts#L316) |
-| method | `AudioService.getDownloadedUri` | [317](../../src/services/backend/types.ts#L317) |
-| method | `AudioService.download` | [318](../../src/services/backend/types.ts#L318) |
+| type | `GroupFeedPost` | [99](../../src/services/backend/types.ts#L99) |
+| type | `GroupFeedCursor` | [118](../../src/services/backend/types.ts#L118) |
+| type | `GroupFeedRequest` | [119](../../src/services/backend/types.ts#L119) |
+| type | `GroupFeedPage` | [120](../../src/services/backend/types.ts#L120) |
+| type | `GroupFeedConnection` | [125](../../src/services/backend/types.ts#L125) |
+| type | `GroupFeedService` | [126](../../src/services/backend/types.ts#L126) |
+| method | `GroupFeedService.listFeedPage` | [127](../../src/services/backend/types.ts#L127) |
+| method | `GroupFeedService.subscribeFeed` | [129](../../src/services/backend/types.ts#L129) |
+| type | `GroupTask` | [135](../../src/services/backend/types.ts#L135) |
+| type | `GroupTaskInput` | [156](../../src/services/backend/types.ts#L156) |
+| type | `GroupUpdateInput` | [165](../../src/services/backend/types.ts#L165) |
+| type | `GroupService` | [176](../../src/services/backend/types.ts#L176) |
+| method | `GroupService.list` | [180](../../src/services/backend/types.ts#L180) |
+| method | `GroupService.get` | [181](../../src/services/backend/types.ts#L181) |
+| method | `GroupService.create` | [182](../../src/services/backend/types.ts#L182) |
+| method | `GroupService.join` | [193](../../src/services/backend/types.ts#L193) |
+| method | `GroupService.listMembers` | [194](../../src/services/backend/types.ts#L194) |
+| method | `GroupService.listFeed` | [195](../../src/services/backend/types.ts#L195) |
+| method | `GroupService.createTextPost` | [196](../../src/services/backend/types.ts#L196) |
+| method | `GroupService.addComment` | [202](../../src/services/backend/types.ts#L202) |
+| method | `GroupService.toggleReaction` | [209](../../src/services/backend/types.ts#L209) |
+| method | `GroupService.listTasks` | [210](../../src/services/backend/types.ts#L210) |
+| method | `GroupService.createTask` | [211](../../src/services/backend/types.ts#L211) |
+| method | `GroupService.setTaskProgress` | [212](../../src/services/backend/types.ts#L212) |
+| method | `GroupService.update` | [213](../../src/services/backend/types.ts#L213) |
+| method | `GroupService.getMemberPermissions` | [214](../../src/services/backend/types.ts#L214) |
+| type | `Note` | [217](../../src/services/backend/types.ts#L217) |
+| type | `PlanItem` | [243](../../src/services/backend/types.ts#L243) |
+| type | `ProgressRow` | [259](../../src/services/backend/types.ts#L259) |
+| type | `NotesService` | [273](../../src/services/backend/types.ts#L273) |
+| method | `NotesService.list` | [274](../../src/services/backend/types.ts#L274) |
+| method | `NotesService.save` | [275](../../src/services/backend/types.ts#L275) |
+| method | `NotesService.delete` | [276](../../src/services/backend/types.ts#L276) |
+| type | `PlanningService` | [278](../../src/services/backend/types.ts#L278) |
+| method | `PlanningService.list` | [279](../../src/services/backend/types.ts#L279) |
+| method | `PlanningService.add` | [280](../../src/services/backend/types.ts#L280) |
+| method | `PlanningService.toggleDone` | [281](../../src/services/backend/types.ts#L281) |
+| method | `PlanningService.delete` | [282](../../src/services/backend/types.ts#L282) |
+| type | `ProgressService` | [284](../../src/services/backend/types.ts#L284) |
+| method | `ProgressService.list` | [285](../../src/services/backend/types.ts#L285) |
+| method | `ProgressService.checkIn` | [286](../../src/services/backend/types.ts#L286) |
+| method | `ProgressService.updateHifz` | [292](../../src/services/backend/types.ts#L292) |
+| type | `AudioTrack` | [295](../../src/services/backend/types.ts#L295) |
+| type | `AyahTiming` | [313](../../src/services/backend/types.ts#L313) |
+| type | `AudioService` | [314](../../src/services/backend/types.ts#L314) |
+| method | `AudioService.listSurah` | [315](../../src/services/backend/types.ts#L315) |
+| method | `AudioService.getAyahTimings` | [316](../../src/services/backend/types.ts#L316) |
+| method | `AudioService.resolve` | [317](../../src/services/backend/types.ts#L317) |
+| method | `AudioService.getDownloadedUri` | [318](../../src/services/backend/types.ts#L318) |
+| method | `AudioService.download` | [319](../../src/services/backend/types.ts#L319) |
 
 ### src/services/groups/draftActor.ts
 
@@ -8560,7 +8645,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/audio-ui.test.ts
 
-[Volledige bron](../../tests/audio-ui.test.ts), 423 regels, rol: test.
+[Volledige bron](../../tests/audio-ui.test.ts), 458 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -8568,11 +8653,11 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `fixture` | [23](../../tests/audio-ui.test.ts#L23) |
 | function-variable | `fixture.record` | [26](../../tests/audio-ui.test.ts#L26) |
 | function-variable | `mountMedia` | [121](../../tests/audio-ui.test.ts#L121) |
-| method | `onClose` | [230](../../tests/audio-ui.test.ts#L230) |
-| method | `onClose` | [262](../../tests/audio-ui.test.ts#L262) |
-| method | `onClose` | [283](../../tests/audio-ui.test.ts#L283) |
-| method | `onClose` | [310](../../tests/audio-ui.test.ts#L310) |
-| function-variable | `event` | [400](../../tests/audio-ui.test.ts#L400) |
+| method | `onClose` | [265](../../tests/audio-ui.test.ts#L265) |
+| method | `onClose` | [297](../../tests/audio-ui.test.ts#L297) |
+| method | `onClose` | [318](../../tests/audio-ui.test.ts#L318) |
+| method | `onClose` | [345](../../tests/audio-ui.test.ts#L345) |
+| function-variable | `event` | [435](../../tests/audio-ui.test.ts#L435) |
 
 ### tests/audio.test.ts
 
@@ -8775,13 +8860,28 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | type | `Feature` | [8](../../tests/feature-ledger.test.ts#L8) |
 | function | `currentEvidence` | [23](../../tests/feature-ledger.test.ts#L23) |
 
-### tests/floating-reader-audio.test.ts
+### tests/feed-window.test.ts
 
-[Volledige bron](../../tests/floating-reader-audio.test.ts), 76 regels, rol: test.
+[Volledige bron](../../tests/feed-window.test.ts), 148 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `render` | [54](../../tests/floating-reader-audio.test.ts#L54) |
+| function | `post` | [8](../../tests/feed-window.test.ts#L8) |
+| function | `mount` | [27](../../tests/feed-window.test.ts#L27) |
+| function-variable | `mount.render` | [37](../../tests/feed-window.test.ts#L37) |
+| method | `mount.update` | [44](../../tests/feed-window.test.ts#L44) |
+| method | `mount.focus` | [49](../../tests/feed-window.test.ts#L49) |
+| function-variable | `ids` | [55](../../tests/feed-window.test.ts#L55) |
+
+### tests/floating-reader-audio.test.ts
+
+[Volledige bron](../../tests/floating-reader-audio.test.ts), 69 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `render` | [28](../../tests/floating-reader-audio.test.ts#L28) |
+| function-variable | `button` | [30](../../tests/floating-reader-audio.test.ts#L30) |
+| function-variable | `dismiss` | [31](../../tests/floating-reader-audio.test.ts#L31) |
 
 ### tests/focus.test.ts
 
@@ -8840,6 +8940,44 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function-variable | `post` | [15](../../tests/group-chat.test.ts#L15) |
 | function | `fixture` | [32](../../tests/group-chat.test.ts#L32) |
 | function-variable | `invalidate` | [165](../../tests/group-chat.test.ts#L165) |
+
+### tests/group-discussion-sheet.test.ts
+
+[Volledige bron](../../tests/group-discussion-sheet.test.ts), 263 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `mount` | [53](../../tests/group-discussion-sheet.test.ts#L53) |
+| function-variable | `mount.request` | [60](../../tests/group-discussion-sheet.test.ts#L60) |
+| function-variable | `mount.render` | [112](../../tests/group-discussion-sheet.test.ts#L112) |
+| function-variable | `input` | [153](../../tests/group-discussion-sheet.test.ts#L153) |
+| function-variable | `send` | [154](../../tests/group-discussion-sheet.test.ts#L154) |
+
+### tests/group-feed-controls.test.ts
+
+[Volledige bron](../../tests/group-feed-controls.test.ts), 256 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `flush` | [42](../../tests/group-feed-controls.test.ts#L42) |
+| function | `mount` | [43](../../tests/group-feed-controls.test.ts#L43) |
+| function-variable | `mount.operation` | [86](../../tests/group-feed-controls.test.ts#L86) |
+| method | `mount.reveal` | [96](../../tests/group-feed-controls.test.ts#L96) |
+| function-variable | `mount.render` | [123](../../tests/group-feed-controls.test.ts#L123) |
+| method | `mount.render.clearFocus` | [140](../../tests/group-feed-controls.test.ts#L140) |
+| function-variable | `mount.card` | [143](../../tests/group-feed-controls.test.ts#L143) |
+| function-variable | `confirm` | [234](../../tests/group-feed-controls.test.ts#L234) |
+
+### tests/group-feed-post-card.test.ts
+
+[Volledige bron](../../tests/group-feed-post-card.test.ts), 263 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `mount` | [33](../../tests/group-feed-post-card.test.ts#L33) |
+| method | `mount.set` | [60](../../tests/group-feed-post-card.test.ts#L60) |
+| function-variable | `number` | [226](../../tests/group-feed-post-card.test.ts#L226) |
+| function-variable | `render` | [255](../../tests/group-feed-post-card.test.ts#L255) |
 
 ### tests/group-join-route.test.ts
 
@@ -8905,6 +9043,18 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function-variable | `renderModule.find` | [92](../../tests/group-parity-ui.test.ts#L92) |
 | function | `progressPanel` | [103](../../tests/group-parity-ui.test.ts#L103) |
 | function-variable | `visible` | [194](../../tests/group-parity-ui.test.ts#L194) |
+
+### tests/group-post-composer.test.ts
+
+[Volledige bron](../../tests/group-post-composer.test.ts), 112 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `mount` | [13](../../tests/group-post-composer.test.ts#L13) |
+| function-variable | `mount.render` | [38](../../tests/group-post-composer.test.ts#L38) |
+| function-variable | `mount.open` | [47](../../tests/group-post-composer.test.ts#L47) |
+| function-variable | `mount.sheet` | [50](../../tests/group-post-composer.test.ts#L50) |
+| function-variable | `mount.submit` | [51](../../tests/group-post-composer.test.ts#L51) |
 
 ### tests/group-progress-parity.test.ts
 
@@ -9473,6 +9623,20 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | method | `setValue` | [139](../../tests/notes-library-adapters.test.ts#L139) |
 | method | `getTranslateTransform` | [140](../../tests/notes-library-adapters.test.ts#L140) |
 
+### tests/notes-save-control.test.ts
+
+[Volledige bron](../../tests/notes-save-control.test.ts), 287 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `editorScreen` | [24](../../tests/notes-save-control.test.ts#L24) |
+| function-variable | `editorScreen.disk` | [35](../../tests/notes-save-control.test.ts#L35) |
+| method | `editorScreen.alert` | [43](../../tests/notes-save-control.test.ts#L43) |
+| method | `editorScreen.dismiss` | [59](../../tests/notes-save-control.test.ts#L59) |
+| function-variable | `editorScreen.render` | [94](../../tests/notes-save-control.test.ts#L94) |
+| function-variable | `editorScreen.saveButton` | [113](../../tests/notes-save-control.test.ts#L113) |
+| function-variable | `editorScreen.tapSave` | [117](../../tests/notes-save-control.test.ts#L117) |
+
 ### tests/notification-destinations.test.ts
 
 [Volledige bron](../../tests/notification-destinations.test.ts), 66 regels, rol: test.
@@ -9622,6 +9786,20 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `loader` | [7](../../tests/readOnlyAssetDatabase.test.ts#L7) |
 | function-variable | `loader.record` | [9](../../tests/readOnlyAssetDatabase.test.ts#L9) |
+
+### tests/reader-audio-bar.test.ts
+
+[Volledige bron](../../tests/reader-audio-bar.test.ts), 177 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `mount` | [17](../../tests/reader-audio-bar.test.ts#L17) |
+| method | `mount.pause` | [33](../../tests/reader-audio-bar.test.ts#L33) |
+| method | `mount.resume` | [38](../../tests/reader-audio-bar.test.ts#L38) |
+| method | `mount.stop` | [43](../../tests/reader-audio-bar.test.ts#L43) |
+| method | `mount.setRate` | [46](../../tests/reader-audio-bar.test.ts#L46) |
+| method | `mount.setValue` | [61](../../tests/reader-audio-bar.test.ts#L61) |
+| method | `mount.getTranslateTransform` | [64](../../tests/reader-audio-bar.test.ts#L64) |
 
 ### tests/reader-chrome-owners.test.ts
 

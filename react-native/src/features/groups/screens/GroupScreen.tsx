@@ -350,8 +350,9 @@ function GroupContent({
           <Button
             title={chatText('open', locale)}
             icon="message-circle"
+            variant="quiet"
             onPress={() => navigation.navigate('GroupChat', { code: group.code })}
-            style={{ marginTop: 14, marginBottom: 6 }}
+            style={{ alignSelf: 'flex-end', paddingHorizontal: 0, marginTop: 2, marginBottom: 0 }}
           />
           <View
             accessibilityRole="tablist"
@@ -451,7 +452,7 @@ function GroupContent({
               ))}
           </Sheet>
           <GroupRefreshContext value={refresh}>
-            <View key={tab} style={{ paddingTop: 16 }}>
+            <View key={tab} style={{ paddingTop: tab === 'feed' ? 10 : 16 }}>
               {tab === 'overview' ? (
                 <View style={{ gap: 14 }}>
                   <Card style={{ gap: 14 }}>

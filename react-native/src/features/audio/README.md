@@ -11,3 +11,5 @@
 Source and local-file I/O remain in `services/audio`; pure playback/repeat rules and metadata types live in `domain`. Source catalogs and import pipelines are unchanged. New feature copy is isolated in `model/audioCopy.ts` for NL/EN/AR.
 
 Verification: `tests/audio-provider.test.ts` executes real provider hooks/effects; `tests/audio-ui.test.ts` executes actual media, repeat, mini and seek callbacks; `tests/audio-repeat-selection.test.ts` checks source mappings including all 604 Hafs Maknoon pages. Native background/interruption/gesture/audio validation is separate from these deterministic harnesses. See `docs/parity-2026-11-17/audio-implementation.md`.
+
+`ReaderAudioBar` is the compact fullscreen-reader overlay. Its visibility belongs to `FloatingReaderAudio`; dismissing it never changes playback. The reciter caption opens `MediaSettingsSheet` with `recitersOnly`, exposing search and selection immediately. It shares `AudioProvider` with the other players and preserves the existing active-repeat-queue policy. Whole-sentence NL/EN/AR copy lives in `model/readerAudioCopy.ts`.

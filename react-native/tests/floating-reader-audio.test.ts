@@ -1,11 +1,10 @@
-import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+﻿import assert from 'node:assert/strict';
 import test from 'node:test';
-import vm from 'node:vm';
-import ts from 'typescript';
 import { readerCopy } from '../src/features/quran/model/readerCopy';
+import { componentHarness, elements, loadComponentModule, press } from './helpers/componentHarness';
 
-test('floating play controls the active recitation and never restarts a paused queue', () => {
+test('floating play reveals the compact player and preserves central playback and queue controls', () => {
+  const hooks = componentHarness();
   let starts = 0,
     pauses = 0,
     resumes = 0;
@@ -16,60 +15,54 @@ test('floating play controls the active recitation and never restarts a paused q
     pause: () => pauses++,
     resume: () => resumes++,
   };
-  const modules: Record<string, unknown> = {
-    react: { createElement: (type: unknown, props: unknown) => ({ type, props }) },
+  const { FloatingReaderAudio } = loadComponentModule<{
+    FloatingReaderAudio: (props: { surah: number; onListen: () => void }) => unknown;
+  }>(new URL('../src/features/quran/components/FloatingReaderAudio.tsx', import.meta.url), {
+    react: hooks.react,
     '../../../i18n': { useI18n: () => ({ locale: 'nl' }) },
     '../../audio/providers/audioContext': { useAudio: () => audio },
     '../model/readerCopy': { readerCopy },
     './FloatingReaderButton': { FloatingReaderButton: 'FloatingReaderButton' },
-  };
-  const exports: {
-    FloatingReaderAudio?: (props: { surah: number; onListen: () => void }) => {
-      props: {
-        onPress: () => void;
-        icon: string;
-        initialCorner: string;
-        disabled: boolean;
-        label: string;
-      };
-    };
-  } = {};
-  const output = ts.transpileModule(
-    readFileSync('src/features/quran/components/FloatingReaderAudio.tsx', 'utf8'),
-    {
-      compilerOptions: {
-        module: ts.ModuleKind.CommonJS,
-        jsx: ts.JsxEmit.React,
-        esModuleInterop: true,
-      },
-    },
-  ).outputText;
-  vm.runInNewContext(output, {
-    exports,
-    require: (name: string) => {
-      assert.ok(name in modules, name);
-      return modules[name];
-    },
+    '../../audio/components/ReaderAudioBar': { ReaderAudioBar: 'ReaderAudioBar' },
   });
-  const render = () => exports.FloatingReaderAudio!({ surah: 2, onListen: () => starts++ }).props;
-  assert.equal(render().initialCorner, 'bottomRight');
-  assert.equal(render().icon, 'play');
-  render().onPress();
+  const render = () =>
+    hooks.render(() => FloatingReaderAudio({ surah: 2, onListen: () => starts++ }));
+  const button = () => elements(render(), 'FloatingReaderButton')[0]!;
+  const dismiss = () => (elements(render(), 'ReaderAudioBar')[0]!.props.onDismiss as () => void)();
+  assert.equal(button().props.initialCorner, 'bottomRight');
+  assert.equal(button().props.emphasized, true);
+  assert.equal(button().props.visible, true);
+  press(button());
+  assert.equal(starts, 1);
+  assert.equal(elements(render(), 'ReaderAudioBar').length, 1);
+  assert.equal(button().props.visible, false, 'the bar owns play controls while open');
+  dismiss();
+  assert.equal(button().props.visible, true, 'dismissing restores the same floating control');
   assert.equal(starts, 1);
   audio.track = { surah: 2 };
   audio.isPlaying = true;
   audio.status = 'playing';
-  assert.equal(render().icon, 'pause');
-  render().onPress();
+  assert.equal(button().props.icon, 'pause');
+  press(button());
   assert.equal(pauses, 1);
+  assert.equal(elements(render(), 'ReaderAudioBar').length, 1);
+  dismiss();
   audio.isPlaying = false;
   audio.status = 'paused';
-  render().onPress();
+  press(button());
   assert.equal(resumes, 1);
-  assert.equal(starts, 1);
+  assert.equal(starts, 1, 'a paused queue must resume instead of being rebuilt');
+  dismiss();
   audio.status = 'loading';
-  assert.equal(render().disabled, true);
+  press(button());
+  assert.equal(
+    elements(render(), 'ReaderAudioBar').length,
+    1,
+    'reciter settings remain reachable while loading',
+  );
+  assert.equal(starts, 1, 'opening the loading player does not submit playback twice');
+  dismiss();
   audio.track = { surah: 3 };
-  render().onPress();
+  press(button());
   assert.equal(starts, 2);
 });

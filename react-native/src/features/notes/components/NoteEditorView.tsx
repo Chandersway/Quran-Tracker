@@ -58,17 +58,14 @@ export function NoteEditorView({
     error,
     busy,
     noteTarget,
-    validTarget,
-    editorOriginal,
     closeEditor,
     saveNote,
     deleteNote,
   } = editor;
-  const saveDisabled =
-    busy ||
-    !validTarget ||
-    (!fields.title.trim() && !fields.note.trim()) ||
-    JSON.stringify(fields) === editorOriginal;
+  const onSavePress = () => {
+    Keyboard.dismiss();
+    return saveNote();
+  };
   return (
     <Screen scroll={false} style={{ padding: 12, gap: 0 }}>
       <KeyboardAvoidingView
@@ -104,8 +101,8 @@ export function NoteEditorView({
           <IconButton
             name="check"
             label={busy ? copy.saving : copy.save}
-            onPress={saveNote}
-            disabled={saveDisabled}
+            onPress={onSavePress}
+            disabled={busy}
           />
         </View>
         {message && message !== 'new' && <Notice message={message} />}
@@ -336,8 +333,18 @@ export function NoteEditorView({
         translateTitle={false}
         avoidKeyboard
         onClose={() => setShowMetadata(false)}
+        footer={
+          <Button
+            title={copy.save}
+            icon="check"
+            loading={busy}
+            disabled={busy}
+            onPress={onSavePress}
+          />
+        }
       >
         <View style={{ gap: 12 }}>
+          {error && <Notice error message={error} />}
           <NoteTargetControl
             target={noteTarget}
             onChange={(target) => setFields((current) => ({ ...current, target }))}

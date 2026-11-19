@@ -17,6 +17,8 @@ export function FloatingReaderButton({
   initialCorner = 'topLeft',
   testID = 'fullscreen-exit-button',
   disabled = false,
+  emphasized = false,
+  visible = true,
 }: {
   label: string;
   onPress: () => void;
@@ -24,6 +26,9 @@ export function FloatingReaderButton({
   initialCorner?: 'topLeft' | 'bottomRight';
   testID?: string;
   disabled?: boolean;
+  /** Audio is a primary entry; the fullscreen exit retains its discreet default. */
+  emphasized?: boolean;
+  visible?: boolean;
 }) {
   const palette = usePalette();
   const window = useWindowDimensions();
@@ -88,6 +93,7 @@ export function FloatingReaderButton({
       }),
     [move],
   );
+  if (!visible) return null;
   return (
     <Animated.View
       {...responder.panHandlers}
@@ -117,15 +123,20 @@ export function FloatingReaderButton({
       <View
         pointerEvents="none"
         style={{
-          width: 32,
-          height: 32,
-          borderRadius: 16,
+          width: emphasized ? 44 : 32,
+          height: emphasized ? 44 : 32,
+          borderRadius: emphasized ? 22 : 16,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: palette.surface + 'A6',
+          backgroundColor: emphasized ? palette.primary + 'F2' : palette.surface + 'A6',
+          ...(emphasized ? { borderWidth: 1, borderColor: palette.onPrimary + 'B3' } : {}),
         }}
       >
-        <Icon name={icon} size={17} />
+        <Icon
+          name={icon}
+          size={emphasized ? 22 : 17}
+          color={emphasized ? palette.onPrimary : undefined}
+        />
       </View>
     </Animated.View>
   );

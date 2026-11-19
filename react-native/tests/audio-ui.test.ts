@@ -118,12 +118,12 @@ function fixture(preferences: Partial<typeof initialState.preferences> = {}) {
   };
   return { modules, calls, audio, store, service };
 }
-const mountMedia = (f: ReturnType<typeof fixture>) =>
+const mountMedia = (f: ReturnType<typeof fixture>, props: Record<string, unknown> = {}) =>
   mountHookComponent(
     'src/features/audio/components/MediaSettings.tsx',
     'MediaSettings',
     f.modules,
-    { surah: 1 },
+    { surah: 1, ...props },
   );
 
 test('actual media selection saves without starting, filters names and riwaya, and has a separate start action', async () => {
@@ -177,6 +177,41 @@ test('actual media choice replaces an existing paused surah through the preserva
   app.find('Pressable', (node) => node.props.testID === 'audio-reciter-3').props.onPress();
   await app.settle();
   assert.equal(f.calls.filter((call) => call.kind === 'play' || call.kind === 'replace').length, 1);
+  assert.ok(app.find('Notice').props.error);
+});
+
+test('reader reciter-only mode opens the actual searchable choices without general playback controls', async () => {
+  const f = fixture();
+  f.audio.track = track();
+  let selected = 0;
+  const app = mountMedia(f, { recitersOnly: true, onSelected: () => selected++ });
+  await app.settle();
+  assert.equal(
+    app.nodes.some((node) => node.type === 'Button' && node.props.title === 'Start now'),
+    false,
+  );
+  assert.equal(
+    app.nodes.some(
+      (node) => node.type === 'Section' && node.props.title === 'app.quranAudioPlaybackSpeed',
+    ),
+    false,
+  );
+  assert.equal(app.find('Field').props.label, 'Search reciters');
+  assert.equal(app.nodes.filter((node) => node.props.accessibilityRole === 'radio').length, 3);
+  app.find('Pressable', (node) => node.props.testID === 'audio-reciter-2').props.onPress();
+  await app.settle();
+  assert.equal(selected, 1);
+  assert.deepEqual(
+    f.calls.map((call) => call.kind),
+    ['commit', 'replace'],
+  );
+  f.store.commit = async () => {
+    throw new Error('Disk full');
+  };
+  app.render();
+  app.find('Pressable', (node) => node.props.testID === 'audio-reciter-3').props.onPress();
+  await app.settle();
+  assert.equal(selected, 1, 'a failed choice must stay open with its error');
   assert.ok(app.find('Notice').props.error);
 });
 

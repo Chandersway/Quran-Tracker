@@ -24,7 +24,15 @@ import { audioCopy } from '../model/audioCopy';
 
 const service = createAudioService(process.env.EXPO_PUBLIC_AUDIO_BASE_URL);
 
-export function MediaSettings({ surah }: { surah?: number }) {
+export function MediaSettings({
+  surah,
+  recitersOnly = false,
+  onSelected,
+}: {
+  surah?: number;
+  recitersOnly?: boolean;
+  onSelected?: () => void;
+}) {
   const audio = useAudio();
   const { state, commit } = useAppStore();
   const { t, format, locale } = useI18n();
@@ -79,6 +87,7 @@ export function MediaSettings({ surah }: { surah?: number }) {
         !audio.selection
       )
         audio.replaceTrack(track);
+      onSelected?.();
     } catch {
       setError(audioCopy(locale, 'saveError'));
     } finally {
@@ -107,7 +116,7 @@ export function MediaSettings({ surah }: { surah?: number }) {
       <T translate={false} bold size={20}>
         {chapterById(currentSurah).name}
       </T>
-      {selected && (
+      {selected && !recitersOnly && (
         <>
           <T muted size={13} style={{ marginTop: 12 }}>
             {audioCopy(locale, 'chosen')}
@@ -151,18 +160,22 @@ export function MediaSettings({ surah }: { surah?: number }) {
         />
       )}
       <T muted size={13} style={{ marginVertical: 12 }}>
-        {audioCopy(locale, 'chooseHint')}
+        {audioCopy(locale, recitersOnly && audio.selection ? 'queueReciterHint' : 'chooseHint')}
       </T>
-      <Section title={t('app.quranAudioPlaybackSpeed')} />
-      <Segments
-        value={String(audio.rate)}
-        onChange={(value) => audio.setRate(Number(value))}
-        options={playbackSpeeds.map((value) => ({
-          value: String(value),
-          label: format('app.quranAudioPlaybackSpeedValue', value),
-        }))}
-      />
-      <Section title={t('repeat.reciter')} />
+      {!recitersOnly && (
+        <>
+          <Section title={t('app.quranAudioPlaybackSpeed')} />
+          <Segments
+            value={String(audio.rate)}
+            onChange={(value) => audio.setRate(Number(value))}
+            options={playbackSpeeds.map((value) => ({
+              value: String(value),
+              label: format('app.quranAudioPlaybackSpeedValue', value),
+            }))}
+          />
+        </>
+      )}
+      {!recitersOnly && <Section title={t('repeat.reciter')} />}
       <Field
         label={audioCopy(locale, 'search')}
         value={query}
@@ -229,15 +242,28 @@ export function MediaSettingsSheet({
   visible,
   onClose,
   surah,
+  recitersOnly = false,
 }: {
   visible: boolean;
   onClose: () => void;
   surah?: number;
+  recitersOnly?: boolean;
 }) {
   const { t } = useI18n();
   return (
-    <Sheet visible={visible} onClose={onClose} title={t('app.media')} avoidKeyboard>
-      {visible && <MediaSettings surah={surah} />}
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      title={t(recitersOnly ? 'repeat.reciter' : 'app.media')}
+      avoidKeyboard
+    >
+      {visible && (
+        <MediaSettings
+          surah={surah}
+          recitersOnly={recitersOnly}
+          onSelected={recitersOnly ? onClose : undefined}
+        />
+      )}
     </Sheet>
   );
 }

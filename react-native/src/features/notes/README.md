@@ -18,6 +18,10 @@ De bestaande teksten staan ongewijzigd in `i18n/notes.ts`, met dezelfde bronhers
 `tests/notes-editor.test.ts` controleert nieuwe en gewijzigde notities, validatie, filters, bevestigingen, exportcallbacks en native/web-bestandsafhandeling. `tests/notes-format.test.ts`, `tests/attributed-editor-sync.test.ts` en `tests/import-compatibility.test.ts` controleren de opmaak- en exportcontracten. Voer `npm run verify` uit na wijzigingen; controleer native toetsenbord en selectie daarnaast op een emulator.
 
 
+## Opslaan in de editor
+
+Het vinkje in de editor blijft bedienbaar totdat een opslagactie loopt. Een ontbrekende of ongeldige verwijzing opent de metadata met een zichtbare uitleg; na de correctie kan daar direct **Notitie opslaan** worden gekozen. Een lege titel én lege tekst geeft een validatiemelding. Een bestaande ongewijzigde notitie sluit zonder overbodige opslagopdracht. Een mislukte schijfopslag behoudt het concept en de identiteit voor opnieuw proberen; ook het terugdraaien van een optimistische wijziging wordt alsnog duurzaam opgeslagen. `tests/notes-save-control.test.ts` doorloopt hiervoor de echte editorhook, de view en de headerknop, inclusief alle vijf verwijzingstypen.
+
 ## Importeren en algemene mappen
 
 `NotesScreen` biedt **Notities importeren** naast exporteren. De platformbestandskiezer leest op native een cachekopie en op web het geselecteerde browserbestand. Beide controleren de bestandsgrootte vóór het inlezen van de tekst. De limieten zijn 10 MiB en 10.000 notities. `domain/notesLibrary.ts` leest de Kotlin/RN-export `notes_export` met schemaversie 2. De import bewaart alle vijf verwijzingstypen, tekst, opmaakspans, labels, map en tijdstempel. Een ongeldig record weigert het hele bestand, ook als het velden van verschillende verwijzingstypen combineert.

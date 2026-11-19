@@ -186,6 +186,9 @@ export function createBackend(config: BackendConfig): Backend {
           content: String(comment.content ?? ''),
           createdAt: String(comment.created_at ?? ''),
           isMine: comment.created_by === userId,
+          ...(members.get(String(comment.created_by))?.avatarUrl
+            ? { avatarUrl: members.get(String(comment.created_by))!.avatarUrl }
+            : {}),
         }));
       const counts: Record<string, number> = {};
       for (const reaction of postReactions)

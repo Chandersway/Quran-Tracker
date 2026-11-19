@@ -2,6 +2,10 @@
 
 The Kotlin source is the specification. This is an implementation checkpoint, not a declaration of complete migration or store readiness.
 
+## Compacte feed, leesaudio en opslaan van notities - 19 november 2026
+
+De compacte socialmediafeed, directe reciteurkeuze onderin de fullscreen lezer en het reagerende notitievinkje zijn geimplementeerd. **862/862 tests**, TypeScript, ESLint, formatting en Android/iOS/webexports slagen. Nieuwe lokale APK: `fe5f308f84dc416002a3a5b587695f18b47e9ae231de165365d96e88c2d9479d`. Native feed-, toetsenbord-, RTL- en audiocontroles en de precieze grenzen staan in [het afleveringsverslag](FEED_AUDIO_NOTES_2026-11-19.md). Notitieherstel via de ontbrekende koppeling, opslaan, ongewijzigd afsluiten en behoud na herstart zijn op QA gezien. Alleen de tijdelijke testnotitie is daarna verwijderd. De teruggelezen QA-APK heeft dezelfde hash; dev is weer verbonden met Metro 8081.
+
 ## Schermfeedback en onafhankelijke eindcontrole — 19 november 2026
 
 Drie Astra MAX-reviewers controleren de lezer, notities/navigatie en notificaties naast de hoofdagent. De wijzigingen omvatten fullscreen openen, verplaatsbare leesknoppen, originele ayahselectie, pinchzoom, paginering per presentatie, bladwijzers, notitie-import en mappen, duidelijkere khatma-regels, instellingen, statistieken en lokale herinneringen. Zie [de concrete wijzigingen en actuele afleveringsstatus](FEEDBACK_IMPLEMENTATIE_2026-11-19.md).

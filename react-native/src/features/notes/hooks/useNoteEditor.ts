@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, type SetStateAction } from 'react';
 import { Alert } from 'react-native';
 import { useI18n } from '../../../i18n';
 import type { NoteLabels } from '../../../i18n/notes';
@@ -120,9 +120,22 @@ export function useNoteEditor({
   }
   async function saveNote() {
     if (inFlight.current) return;
+    const stored = editorId === null ? undefined : notes.find((note) => note.id === editorId);
+    if (
+      stored &&
+      JSON.stringify(fields) === editorOriginal &&
+      JSON.stringify(fieldsForNote(stored)) === editorOriginal
+    ) {
+      // An unchanged note can finish immediately, but an optimistic failed
+      // write may have changed the store and still needs a durable correction.
+      clearEditor();
+      return;
+    }
     const result = prepareNoteSave(fields, notes, editorId ?? newDraftId.current, Date.now());
     if (!result.ok) {
       setError(copy[result.reason]);
+      if (result.reason === 'chooseScope' || result.reason === 'targetInvalid')
+        setShowMetadata(true);
       return;
     }
     const note = result.note;
@@ -211,9 +224,13 @@ export function useNoteEditor({
   const tagSuggestions = [
     ...new Set([...notes.flatMap((note) => noteTagList(note.tags)), ...copy.tagSuggestions]),
   ];
+  function changeFields(next: SetStateAction<EditorFields>) {
+    setFields(next);
+    setError(null);
+  }
   return {
     fields,
-    setFields,
+    setFields: changeFields,
     editorId,
     activeNote,
     tagSuggestions,

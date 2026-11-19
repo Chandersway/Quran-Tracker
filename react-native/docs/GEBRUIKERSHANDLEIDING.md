@@ -181,7 +181,7 @@ Houd voldoende opslagruimte vrij. Het besturingssysteem kan achtergrondwerk onde
 
 ### Gewoon luisteren
 
-Tik in fullscreen op de kleine afspeelknop rechtsonder, of buiten fullscreen op **Luisteren**, om de geselecteerde soera te beluisteren. De knop verandert tijdens het afspelen in pauzeren of hervatten. Via aya-acties en de herhaalselectie kun je een kleiner gedeelte beluisteren.
+Tik in fullscreen op de duidelijkere afspeelknop rechtsonder, of buiten fullscreen op **Luisteren**, om de geselecteerde soera te beluisteren. De fullscreenknop opent onderaan een compacte speler met reciteur, afspelen/pauzeren, snelheid en tijd. Tik op de reciteurnaam of het pijltje om direct te zoeken en een reciteur te kiezen. Veeg de balk opzij of omlaag, of gebruik het kruisje, om hem te verbergen; de audio blijft dan spelen en de zwevende knop keert terug. Via aya-acties en de herhaalselectie kun je een kleiner gedeelte beluisteren. Een lopende herhaalwachtrij behoudt haar eigen reciteurinstelling; de kiezer legt dat uit zonder de wachtrij stilzwijgend te vervangen.
 
 De kleine speler blijft beschikbaar wanneer je andere schermen opent. Tik erop of veeg hem omhoog voor de uitgebreide speler. Daar vind je:
 
@@ -346,6 +346,10 @@ Open een groep en kies **Open groepschat** om de gespreksweergave te gebruiken. 
 De groepschat en de feed gebruiken **dezelfde groepsberichten**. Een bericht in de chat hoort dus ook bij de groep; het is geen afzonderlijk privégesprek. Via de feed kun je, afhankelijk van je rechten, media of leesvoortgang delen, reageren, opmerkingen plaatsen en berichten beheren. Vastzetten, bewerken, verwijderen en rapporteren zijn alleen beschikbaar wanneer de betreffende actie is toegestaan.
 
 Een chatconcept wordt per account en groep bewaard zolang het appproces draait. Sluit de app niet geforceerd als je een belangrijk onverstuurd concept wilt behouden.
+
+In de feed opent **Wat wil je delen?** de volledige berichtinvoer. Onder ieder bericht staan **Vind ik leuk** en **Reageren** op één regel. Een gewone tik zet je waardering aan of uit. Houd de waarderingsactie ingedrukt of tik op het uitklappijltje voor **Vind ik leuk, Mooi, Dua** en **Inzichtelijk**. De gekozen waardering krijgt haar eigen icoon en label; nulwaarden worden weggelaten.
+
+**Reageren** opent een compacte discussie. De reacties scrollen boven de vaste invoerbalk; typ bij **Schrijf een reactie…** en gebruik het verzendicoon. Sluiten en heropenen behoudt je concept, ook wanneer verzenden mislukt. Dit geldt zolang het appproces blijft draaien en afzonderlijk per account, groep en bericht. De drie puntjes bewaren de bestaande beheer-, deel- en rapporteeracties volgens je rechten.
 
 ### Ranglijst en beheer
 

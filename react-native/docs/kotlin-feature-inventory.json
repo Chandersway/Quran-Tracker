@@ -628,7 +628,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/groups/components/GroupFeedPanel.tsx",
-          "line": 380,
+          "line": 259,
           "symbol": "pinPost"
         }
       ],
@@ -3463,8 +3463,8 @@
               "symbol": "reset"
             },
             {
-              "path": "src/features/account/model/accountCopy.ts",
-              "line": 14,
+              "path": "src/features/groups/hooks/useFeedWindow.ts",
+              "line": 93,
               "symbol": "reset"
             }
           ],
@@ -3691,7 +3691,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 514,
+              "line": 517,
               "symbol": "update"
             },
             {
@@ -3846,7 +3846,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 64,
+              "line": 62,
               "symbol": "saveNote"
             }
           ],
@@ -3868,12 +3868,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/notes/hooks/useNoteEditor.ts",
-              "line": 155,
+              "line": 168,
               "symbol": "deleteNote"
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 65,
+              "line": 63,
               "symbol": "deleteNote"
             },
             {
@@ -3937,7 +3937,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 64,
+              "line": 62,
               "symbol": "saveNote"
             }
           ],
@@ -3959,12 +3959,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/notes/hooks/useNoteEditor.ts",
-              "line": 155,
+              "line": 168,
               "symbol": "deleteNote"
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 65,
+              "line": 63,
               "symbol": "deleteNote"
             },
             {
@@ -4408,7 +4408,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 316,
+              "line": 317,
               "symbol": "resolve"
             },
             {
@@ -4676,7 +4676,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 316,
+              "line": 317,
               "symbol": "resolve"
             },
             {
@@ -5771,12 +5771,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 487,
+              "line": 490,
               "symbol": "createTask"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 210,
+              "line": 211,
               "symbol": "createTask"
             },
             {
@@ -5795,12 +5795,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 502,
+              "line": 505,
               "symbol": "setTaskProgress"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 211,
+              "line": 212,
               "symbol": "setTaskProgress"
             },
             {
@@ -6067,17 +6067,17 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 424,
+              "line": 427,
               "symbol": "addComment"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 201,
+              "line": 202,
               "symbol": "addComment"
             },
             {
-              "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 499,
+              "path": "src/features/groups/components/GroupDiscussionSheet.tsx",
+              "line": 61,
               "symbol": "addComment"
             }
           ],
@@ -6101,7 +6101,7 @@
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 329,
+              "line": 208,
               "symbol": "updatePost"
             }
           ],
@@ -6133,7 +6133,7 @@
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 410,
+              "line": 289,
               "symbol": "deletePost"
             }
           ],
@@ -6147,17 +6147,17 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 449,
+              "line": 452,
               "symbol": "toggleReaction"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 208,
+              "line": 209,
               "symbol": "toggleReaction"
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 247,
+              "line": 152,
               "symbol": "toggleReaction"
             }
           ],
@@ -6180,8 +6180,18 @@
               "symbol": "deleteComment"
             },
             {
+              "path": "src/features/groups/feedCopy.ts",
+              "line": 38,
+              "symbol": "deleteComment"
+            },
+            {
+              "path": "src/features/groups/components/GroupDiscussionSheet.tsx",
+              "line": 223,
+              "symbol": "deleteComment"
+            },
+            {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 555,
+              "line": 338,
               "symbol": "deleteComment"
             }
           ],
@@ -6205,7 +6215,7 @@
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 358,
+              "line": 237,
               "symbol": "reportPost"
             }
           ],
@@ -6510,7 +6520,7 @@
             },
             {
               "path": "src/features/quran/components/FloatingReaderButton.tsx",
-              "line": 47,
+              "line": 52,
               "symbol": "bounds"
             },
             {
@@ -7342,7 +7352,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/types.ts",
-              "line": 280,
+              "line": 281,
               "symbol": "toggleDone"
             }
           ],
@@ -7418,7 +7428,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/types.ts",
-              "line": 280,
+              "line": 281,
               "symbol": "toggleDone"
             }
           ],
@@ -9303,7 +9313,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 514,
+              "line": 517,
               "symbol": "update"
             },
             {
@@ -10685,7 +10695,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 550,
+              "line": 553,
               "symbol": "loadGroupPushPreferences"
             },
             {
@@ -10719,7 +10729,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 569,
+              "line": 572,
               "symbol": "saveGroupPushPreferences"
             },
             {
@@ -11229,7 +11239,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 541,
+              "line": 544,
               "symbol": "groupPushTarget"
             },
             {
@@ -12002,7 +12012,7 @@
             },
             {
               "path": "src/features/groups/screens/GroupScreen.tsx",
-              "line": 525,
+              "line": 526,
               "symbol": "Groups"
             },
             {
@@ -12439,7 +12449,12 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 100,
+              "line": 66,
+              "symbol": "dismiss"
+            },
+            {
+              "path": "src/features/audio/components/ReaderAudioBar.tsx",
+              "line": 14,
               "symbol": "dismiss"
             }
           ],
@@ -12532,7 +12547,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 615,
+              "line": 618,
               "symbol": "installation"
             },
             {
@@ -14643,12 +14658,22 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 159,
+              "line": 156,
               "symbol": "arabicUi"
             },
             {
               "path": "src/features/groups/components/GroupChatComposer.tsx",
               "line": 79,
+              "symbol": "arabicUi"
+            },
+            {
+              "path": "src/features/groups/components/GroupDiscussionSheet.tsx",
+              "line": 107,
+              "symbol": "arabicUi"
+            },
+            {
+              "path": "src/features/groups/components/GroupPostComposer.tsx",
+              "line": 140,
               "symbol": "arabicUi"
             }
           ],
@@ -14923,7 +14948,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 98,
+              "line": 95,
               "symbol": "AyahNotesScreen"
             },
             {
@@ -16626,7 +16651,7 @@
             },
             {
               "path": "src/features/quran/components/FloatingReaderAudio.tsx",
-              "line": 14,
+              "line": 16,
               "symbol": "pause"
             },
             {
@@ -16905,7 +16930,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 294,
+              "line": 295,
               "symbol": "AudioTrack"
             },
             {
@@ -17059,7 +17084,7 @@
             },
             {
               "path": "src/features/quran/components/FloatingReaderAudio.tsx",
-              "line": 7,
+              "line": 8,
               "symbol": "play"
             },
             {
@@ -17160,7 +17185,7 @@
             },
             {
               "path": "src/features/quran/components/FloatingReaderAudio.tsx",
-              "line": 14,
+              "line": 16,
               "symbol": "pause"
             },
             {
@@ -17219,7 +17244,7 @@
             },
             {
               "path": "src/features/quran/components/FloatingReaderAudio.tsx",
-              "line": 21,
+              "line": 26,
               "symbol": "resume"
             },
             {
@@ -22863,7 +22888,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 514,
+              "line": 517,
               "symbol": "update"
             },
             {
@@ -23401,7 +23426,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 250,
+              "line": 251,
               "symbol": "done"
             },
             {
@@ -25573,7 +25598,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 64,
+              "line": 62,
               "symbol": "saveNote"
             }
           ],
@@ -25587,12 +25612,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/notes/hooks/useNoteEditor.ts",
-              "line": 155,
+              "line": 168,
               "symbol": "deleteNote"
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 65,
+              "line": 63,
               "symbol": "deleteNote"
             },
             {
@@ -25745,7 +25770,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 316,
+              "line": 317,
               "symbol": "resolve"
             },
             {
@@ -26026,7 +26051,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/types.ts",
-              "line": 280,
+              "line": 281,
               "symbol": "toggleDone"
             }
           ],

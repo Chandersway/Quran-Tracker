@@ -1,25 +1,19 @@
-import { GroupImage } from './GroupImage';
-import React, { useEffect, useState, useSyncExternalStore } from 'react';
-import { Pressable, Share, View } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { Platform, Share, View } from 'react-native';
 import type { Backend } from '../../../services/backend/backend';
 import type { Group, GroupFeedPost } from '../../../services/backend/types';
 import { useI18n } from '../../../i18n';
-import {
-  Button,
-  Card,
-  Empty,
-  Field,
-  IconButton,
-  Segments,
-  Sheet,
-  T,
-} from '../../../shared/components';
+import { Button, Empty, Field, Segments, Sheet, T } from '../../../shared/components';
 import { ConfirmAction, permitted, ResourceState } from './groupUi';
 import { usePalette } from '../../../shared/theme';
 import type { GroupDraftStore } from '../../../services/groups/groupDrafts';
 import { useGroupFeed } from './useGroupFeed';
 import { communityText } from '../communityCopy';
-import { ExpandablePostText } from './ExpandablePostText';
+import { GroupFeedPostCard } from './GroupFeedPostCard';
+import { GroupPostComposer } from './GroupPostComposer';
+import { GroupDiscussionSheet } from './GroupDiscussionSheet';
+import { useFeedWindow } from '../hooks/useFeedWindow';
+import { feedCopy } from '../feedCopy';
 
 export function GroupFeedPanel({
   backend,
@@ -36,18 +30,10 @@ export function GroupFeedPanel({
   draftStore: GroupDraftStore;
   composerRef?: React.RefObject<React.ComponentRef<typeof View> | null>;
 }) {
-  const { t, format, locale } = useI18n();
+  const { t, locale } = useI18n();
   const palette = usePalette();
-  const direction = 'row';
-  const dateText = (date: string) => new Date(date).toLocaleString(locale);
   const resource = useGroupFeed(backend.groups, group.code, postId);
-  const drafts = useSyncExternalStore(
-    draftStore.subscribe,
-    draftStore.snapshot,
-    draftStore.snapshot,
-  );
-  const message = drafts.post.text;
-  const setMessage = (text: string) => draftStore.set(text);
+  const feedWindow = useFeedWindow(resource.value, postId);
   const copy = (key: Parameters<typeof communityText>[0]) => communityText(key, locale);
   const [selected, setSelected] = useState<GroupFeedPost | null>(null);
   const [edit, setEdit] = useState(false);
@@ -60,66 +46,49 @@ export function GroupFeedPanel({
     null,
   );
   const discussion = resource.value.find((post) => post.id === discussionId);
+  const pendingDiscussion = useRef<string | null>(null);
+  const returnToDiscussion = (id: string) => {
+    setDeletingComment(null);
+    if (Platform.OS === 'ios') pendingDiscussion.current = id;
+    else setDiscussionId(id);
+  };
   useEffect(() => {
     setDiscussionId(postId ?? null);
   }, [postId]);
   return (
-    <View style={{ gap: 14 }}>
-      <View style={{ flexDirection: direction, alignItems: 'center', gap: 8 }}>
-        <View
-          style={{
-            width: 7,
-            height: 7,
-            borderRadius: 4,
-            backgroundColor: resource.connection === 'live' ? palette.primary : palette.muted,
-          }}
-        />
-        <T translate={false} muted size={12} style={{ flex: 1 }} accessibilityLiveRegion="polite">
-          {copy(resource.connection)}
+    <View style={{ gap: 10, position: 'relative' }}>
+      {feedWindow.unseenCount > 0 ? (
+        <View style={{ position: 'absolute', top: 0, start: 8, end: 8, zIndex: 2 }}>
+          <Button
+            title={feedCopy[locale].newPosts(feedWindow.unseenCount)}
+            icon="arrow-up"
+            variant="secondary"
+            onPress={feedWindow.reveal}
+            style={{ backgroundColor: palette.surface }}
+          />
+        </View>
+      ) : null}
+      {resource.connection === 'offline' && !resource.error ? (
+        <T translate={false} muted size={12} accessibilityLiveRegion="polite">
+          {copy('offline')}
         </T>
-      </View>
-      <ResourceState {...resource} onRetry={() => void resource.retry()} />
+      ) : null}
+      <ResourceState
+        busy={resource.busy && !resource.value.length}
+        error={resource.error}
+        onRetry={() => void resource.retry()}
+      />
       {postId ? (
         <Button title={t('groups.feed.closeDiscussion')} variant="secondary" onPress={clearFocus} />
       ) : null}
       {permitted(group, 'post.create') ? (
-        <View ref={composerRef} collapsable={false}>
-          <Card style={{ gap: 10 }}>
-            <Field
-              label={t('app.groupFeed.placeholder')}
-              value={message}
-              onChangeText={setMessage}
-              multiline
-              maxLength={500}
-              style={{ maxHeight: 160, textAlignVertical: 'top' }}
-            />
-            <Button
-              title={drafts.post.status === 'failed' ? t('common.retry') : t('groups.detail.post')}
-              icon="send"
-              disabled={drafts.post.status === 'sending' || !message.trim()}
-              loading={drafts.post.status === 'sending'}
-              onPress={() =>
-                void draftStore
-                  .send((text, actorId) =>
-                    backend.groups.createTextPost(group.code, text, undefined, actorId),
-                  )
-                  .then((sent) => {
-                    if (sent) void resource.reload();
-                  })
-              }
-            />
-            {drafts.post.status !== 'idle' ? (
-              <T
-                translate={false}
-                size={13}
-                color={drafts.post.status === 'failed' ? palette.danger : palette.muted}
-                accessibilityLiveRegion="polite"
-              >
-                {copy(drafts.post.status)}
-              </T>
-            ) : null}
-          </Card>
-        </View>
+        <GroupPostComposer
+          backend={backend}
+          groupCode={group.code}
+          draftStore={draftStore}
+          composerRef={composerRef}
+          onSent={() => void resource.reload()}
+        />
       ) : null}
       {resource.busy && !resource.value.length ? (
         <View
@@ -172,117 +141,27 @@ export function GroupFeedPanel({
           message={t('app.groupManagement.noActivityBody')}
         />
       ) : null}
-      {[...resource.value]
-        .sort((left, right) => Number(right.isPinned) - Number(left.isPinned))
-        .map((post) => (
-          <Card key={post.id} style={{ gap: 12 }}>
-            <View style={{ flexDirection: direction, gap: 10, alignItems: 'center' }}>
-              {post.avatarUrl ? (
-                <GroupImage
-                  source={{ uri: post.avatarUrl }}
-                  style={{ width: 38, height: 38, borderRadius: 19 }}
-                  accessibilityLabel={post.displayName}
-                />
-              ) : (
-                <View
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: 19,
-                    backgroundColor: palette.subtle,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <T translate={false} bold color={palette.primary}>
-                    {post.displayName.trim().slice(0, 1)}
-                  </T>
-                </View>
-              )}
-              <View style={{ flex: 1 }}>
-                <T translate={false} bold>
-                  {post.displayName}
-                </T>
-                <T muted size={12}>
-                  {dateText(post.createdAt)}
-                  {post.editedAt ? ` · ${t('groups.feed.edited')}` : ''}
-                  {post.isPinned ? ` · ${t('groups.detail.pinned')}` : ''}
-                </T>
-              </View>
-              <IconButton
-                name="more-horizontal"
-                label={t('groups.feed.moreActions')}
-                onPress={() => {
-                  setSelected(post);
-                  setEdit(false);
-                  setReport(false);
-                  setEdited(post.content);
-                  setDetails('');
-                  setReason('spam');
-                }}
-              />
-            </View>
-            {post.media ? (
-              <GroupImage
-                source={{ uri: post.media.signedUrl }}
-                style={{ width: '100%', aspectRatio: 1.5, borderRadius: 10 }}
-                accessibilityLabel={post.media.caption || post.media.file_name}
-              />
-            ) : null}
-            <ExpandablePostText key={`${post.id}:${post.editedAt ?? ''}`} content={post.content} />
-            {permitted(group, 'reaction.create') ? (
-              <View style={{ flexDirection: direction, flexWrap: 'wrap', gap: 6 }}>
-                {['like', 'love', 'dua', 'insightful'].map((reaction) => (
-                  <Pressable
-                    key={reaction}
-                    accessibilityRole="button"
-                    accessibilityLabel={t(`groups.feed.reaction.${reaction}`)}
-                    accessibilityState={{
-                      selected: post.myReaction === reaction,
-                      disabled: resource.busy,
-                    }}
-                    disabled={resource.busy}
-                    onPress={() =>
-                      void resource.run(() =>
-                        backend.groups.toggleReaction(group.code, post.id, reaction),
-                      )
-                    }
-                    style={{
-                      minHeight: 48,
-                      paddingHorizontal: 10,
-                      paddingVertical: 8,
-                      borderRadius: 20,
-                      backgroundColor:
-                        post.myReaction === reaction ? palette.subtle : palette.surface,
-                      borderWidth: 1,
-                      borderColor: palette.line,
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <T size={12} bold={post.myReaction === reaction}>
-                      {t(`groups.feed.reaction.${reaction}`)} · {post.reactionCounts[reaction] ?? 0}
-                    </T>
-                  </Pressable>
-                ))}
-              </View>
-            ) : null}
-            <Button
-              title={
-                post.comments.length
-                  ? format(
-                      post.comments.length === 1
-                        ? 'groups.feed.comment.one'
-                        : 'groups.feed.comment.other',
-                      post.comments.length,
-                    )
-                  : t('app.groupFeed.reply')
-              }
-              variant="quiet"
-              icon="message-circle"
-              onPress={() => setDiscussionId(post.id)}
-            />
-          </Card>
-        ))}
+      {feedWindow.posts.map((post) => (
+        <GroupFeedPostCard
+          key={post.id}
+          post={post}
+          locale={locale}
+          busy={resource.busy}
+          canReact={permitted(group, 'reaction.create')}
+          onReact={(reaction) =>
+            void resource.run(() => backend.groups.toggleReaction(group.code, post.id, reaction))
+          }
+          onReply={() => setDiscussionId(post.id)}
+          onMore={() => {
+            setSelected(post);
+            setEdit(false);
+            setReport(false);
+            setEdited(post.content);
+            setDetails('');
+            setReason('spam');
+          }}
+        />
+      ))}
       {!postId && resource.nextCursor ? (
         <Button
           title={copy('older')}
@@ -416,127 +295,31 @@ export function GroupFeedPanel({
           </View>
         ) : null}
       </Sheet>
-      <Sheet
-        avoidKeyboard
-        visible={Boolean(discussion)}
-        title={t('groups.feed.discussion')}
+      <GroupDiscussionSheet
+        discussion={discussion}
+        group={group}
+        backend={backend}
+        draftStore={draftStore}
+        busy={resource.busy}
         onClose={() => setDiscussionId(null)}
-      >
-        <ResourceState {...resource} />
-        {discussion ? (
-          <View style={{ gap: 16 }}>
-            <T translate={false} bold>
-              {discussion.displayName}
-            </T>
-            <T translate={false}>{discussion.content}</T>
-            {!discussion.comments.length ? <T muted>{t('groups.feed.noComments')}</T> : null}
-            {discussion.comments.map((comment) => (
-              <View
-                key={comment.id}
-                style={{
-                  paddingStart: 14,
-                  borderStartWidth: 1,
-                  borderStartColor: palette.line,
-                  gap: 4,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: direction,
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
-                  <View style={{ flex: 1 }}>
-                    <T translate={false} bold size={13}>
-                      {comment.displayName}
-                    </T>
-                    <T muted size={11}>
-                      {dateText(comment.createdAt)}
-                    </T>
-                  </View>
-                  {comment.isMine || permitted(group, 'comment.moderate') ? (
-                    <IconButton
-                      name="trash-2"
-                      label={t('groups.feed.comment.delete.action')}
-                      disabled={resource.busy}
-                      onPress={() => {
-                        setDeletingComment({ postId: discussion.id, id: comment.id });
-                        setDiscussionId(null);
-                      }}
-                    />
-                  ) : null}
-                </View>
-                <T translate={false} size={14}>
-                  {comment.content}
-                </T>
-              </View>
-            ))}
-            {permitted(group, 'comment.create') ? (
-              <>
-                <Field
-                  label={t('app.groupManagement.feedReplyPlaceholder')}
-                  value={drafts.comments[discussion.id]?.text ?? ''}
-                  onChangeText={(content) => draftStore.set(content, discussion.id)}
-                  maxLength={400}
-                  multiline
-                />
-                <Button
-                  title={
-                    drafts.comments[discussion.id]?.status === 'failed'
-                      ? t('common.retry')
-                      : t('app.groupManagement.feedReplySubmit')
-                  }
-                  disabled={
-                    drafts.comments[discussion.id]?.status === 'sending' ||
-                    !drafts.comments[discussion.id]?.text.trim()
-                  }
-                  loading={drafts.comments[discussion.id]?.status === 'sending'}
-                  onPress={() =>
-                    void draftStore
-                      .send(
-                        (text, actorId) =>
-                          backend.groups.addComment(
-                            group.code,
-                            discussion.id,
-                            text,
-                            undefined,
-                            actorId,
-                          ),
-                        discussion.id,
-                      )
-                      .then((sent) => {
-                        if (sent) void resource.reload();
-                      })
-                  }
-                />
-                {drafts.comments[discussion.id]?.status &&
-                drafts.comments[discussion.id]?.status !== 'idle' ? (
-                  <T
-                    translate={false}
-                    size={13}
-                    color={
-                      drafts.comments[discussion.id]?.status === 'failed'
-                        ? palette.danger
-                        : palette.muted
-                    }
-                    accessibilityLiveRegion="polite"
-                  >
-                    {copy(drafts.comments[discussion.id]!.status as 'sending' | 'failed' | 'sent')}
-                  </T>
-                ) : null}
-              </>
-            ) : null}
-          </View>
-        ) : null}
-      </Sheet>
+        onSent={() => void resource.reload()}
+        onDeleteComment={(parentId, id) => {
+          setDeletingComment({ postId: parentId, id });
+          setDiscussionId(null);
+        }}
+      />
       <Sheet
         visible={deletingComment !== null}
         title={t('groups.feed.comment.delete.title')}
+        onDismiss={() => {
+          if (pendingDiscussion.current) {
+            setDiscussionId(pendingDiscussion.current);
+            pendingDiscussion.current = null;
+          }
+        }}
         onClose={() => {
           if (!resource.busy && deletingComment) {
-            setDiscussionId(deletingComment.postId);
-            setDeletingComment(null);
+            returnToDiscussion(deletingComment.postId);
           }
         }}
       >
@@ -563,8 +346,7 @@ export function GroupFeedPanel({
                       : post,
                   ),
                 );
-                setDeletingComment(null);
-                setDiscussionId(pending.postId);
+                returnToDiscussion(pending.postId);
               },
               'groups.feed.comment.delete.error',
               false,
@@ -576,8 +358,7 @@ export function GroupFeedPanel({
           variant="quiet"
           disabled={resource.busy}
           onPress={() => {
-            if (deletingComment) setDiscussionId(deletingComment.postId);
-            setDeletingComment(null);
+            if (deletingComment) returnToDiscussion(deletingComment.postId);
           }}
         />
       </Sheet>

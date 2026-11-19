@@ -28,6 +28,11 @@ const copy = {
     nl: 'Je keuze wordt bewaard. Als deze soera al in de speler staat, blijven bij wisselen de tijd en de speel- of pauzestand behouden.',
     ar: 'يُحفظ اختيارك. عند وجود هذه السورة في المشغل، يحافظ تغيير القارئ على الموضع وحالة التشغيل أو الإيقاف المؤقت.',
   },
+  queueReciterHint: {
+    en: 'This choice applies to surah recordings. To change the reciter of an active verse repetition, use its repetition settings.',
+    nl: 'Deze keuze geldt voor soera-opnamen. De reciteur van een lopende ayahherhaling wijzig je in de herhaalinstellingen.',
+    ar: 'يُطبّق هذا الاختيار على تسجيلات السور. لتغيير قارئ تكرار الآيات الجاري، استخدم إعدادات التكرار.',
+  },
   noMatches: {
     en: 'No reciters match these filters.',
     nl: 'Geen reciteurs voor deze filters.',

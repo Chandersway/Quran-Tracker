@@ -94,6 +94,7 @@ export type GroupComment = {
   content: string;
   createdAt: string;
   isMine: boolean;
+  avatarUrl?: string | null;
 };
 export type GroupFeedPost = {
   id: string;

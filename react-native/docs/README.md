@@ -5,6 +5,7 @@ Begin bij de gids die bij je taak hoort. De handleidingen beschrijven de huidige
 | Ik wil…                                                    | Lees dit                                                                                                                            |
 | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | De app gebruiken en instellingen begrijpen                 | [Gebruikershandleiding](GEBRUIKERSHANDLEIDING.md)                                                                                   |
+| De compacte groepsfeed, leesaudio en notitievinkje controleren | [Wijzigingen en controles](FEED_AUDIO_NOTES_2026-11-19.md) |
 | De wijzigingen uit de laatste schermfeedback volgen       | [Schermfeedback en controles van 19 november](FEEDBACK_IMPLEMENTATIE_2026-11-19.md)                                                 |
 | Een scherm, component, service of gedragsregel vinden      | [Technische appgids](TECHNISCHE_APPGIDS.md), [bronindex](recheck-2026-11-18/CODE_INDEX.md) en de README's onder `src/`              |
 | Weten wat uit Kotlin is overgenomen en gerepareerd         | [Tweede controle en resultaten](RECHECK_RESULTS_2026-11-18.md) en [bestandsdekking](recheck-2026-11-18/kotlin-review-coverage.json) |
