@@ -343,7 +343,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/groups/components/GroupFeedPanel.tsx",
-        "line": 259,
+        "line": 264,
         "symbol": "pinPost"
       }
     ],

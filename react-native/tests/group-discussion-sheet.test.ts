@@ -204,6 +204,7 @@ test('footer remains separate from the scrollable discussion, grows within bound
   let tree = app.render();
   const sheet = elements(tree, 'Sheet')[0]!;
   assert.equal(sheet.props.avoidKeyboard, true);
+  assert.equal(sheet.props.size, 'expanded');
   assert.ok(sheet.props.footer);
   assert.equal(elements(sheet.props.children, 'TextInput').length, 0);
   assert.equal((input(tree).props.style as { textAlign: string }).textAlign, 'right');
@@ -230,7 +231,7 @@ test('footer remains separate from the scrollable discussion, grows within bound
   );
 });
 
-test('readonly and moderation permissions remain distinct, and iOS deletes wait for native dismissal', async () => {
+test('comment menus preserve permissions and require a separate delete action before iOS dismissal handoff', async () => {
   for (const platform of ['ios', 'android']) {
     const app = mount(platform);
     app.group.permissions = [];
@@ -238,7 +239,7 @@ test('readonly and moderation permissions remain distinct, and iOS deletes wait 
     assert.equal(elements(tree, 'TextInput').length, 0);
     assert.equal(
       elements(tree, 'Pressable').filter((node) =>
-        String(node.props.testID).startsWith('group-comment-delete'),
+        String(node.props.testID).startsWith('group-comment-more'),
       ).length,
       1,
     );
@@ -246,10 +247,19 @@ test('readonly and moderation permissions remain distinct, and iOS deletes wait 
     tree = app.render();
     assert.equal(
       elements(tree, 'Pressable').filter((node) =>
-        String(node.props.testID).startsWith('group-comment-delete'),
+        String(node.props.testID).startsWith('group-comment-more'),
       ).length,
       2,
     );
+    assert.equal(
+      elements(tree, 'Pressable').filter((node) =>
+        String(node.props.testID).startsWith('group-comment-delete'),
+      ).length,
+      0,
+    );
+    await press(findElement(tree, 'Pressable', 'testID', 'group-comment-more-other'));
+    assert.deepEqual(app.order, []);
+    tree = app.render();
     await press(findElement(tree, 'Pressable', 'testID', 'group-comment-delete-other'));
     if (platform === 'ios') {
       assert.deepEqual(app.order, [['close']]);
@@ -259,4 +269,59 @@ test('readonly and moderation permissions remain distinct, and iOS deletes wait 
     }
     assert.deepEqual(app.order, [['close'], ['delete', 'post', 'other']]);
   }
+});
+
+test('three-dot menus toggle independently without a visible trash icon, and close without losing the draft', async () => {
+  const app = mount();
+  app.group.permissions = ['comment.create', 'comment.moderate'];
+  app.draftStore.set('Preserve this draft', 'post');
+  let tree = app.render();
+  assert.equal(
+    elements(tree, 'Icon').some((icon) => icon.props.name === 'trash-2'),
+    false,
+  );
+  const bubble = findElement(tree, 'View', 'testID', 'group-comment-bubble-mine');
+  assert.equal((bubble.props.style as { backgroundColor: string }).backgroundColor, light.subtle);
+  await press(findElement(tree, 'Pressable', 'testID', 'group-comment-more-mine'));
+  tree = app.render();
+  assert.equal(
+    elements(tree, 'View').filter((node) =>
+      String(node.props.testID).startsWith('group-comment-actions'),
+    ).length,
+    1,
+  );
+  await press(findElement(tree, 'Pressable', 'testID', 'group-comment-more-other'));
+  tree = app.render();
+  assert.equal(
+    elements(tree, 'View').filter((node) =>
+      String(node.props.testID).startsWith('group-comment-actions'),
+    ).length,
+    1,
+  );
+  assert.equal(
+    findElement(tree, 'Pressable', 'testID', 'group-comment-more-other').props.accessibilityLabel,
+    feedCopy.nl.closeCommentActions,
+  );
+  await press(findElement(tree, 'Pressable', 'testID', 'group-comment-more-other'));
+  assert.equal(
+    elements(app.render(), 'View').filter((node) =>
+      String(node.props.testID).startsWith('group-comment-actions'),
+    ).length,
+    0,
+  );
+  app.setLocale('ar');
+  tree = app.render();
+  assert.equal(
+    findElement(tree, 'Pressable', 'testID', 'group-comment-more-mine').props.accessibilityLabel,
+    feedCopy.ar.commentActions,
+  );
+  (elements(tree, 'Sheet')[0]!.props.onClose as () => void)();
+  app.open();
+  assert.equal(input(app.render()).props.value, 'Preserve this draft');
+  assert.equal(
+    elements(app.render(), 'View').filter((node) =>
+      String(node.props.testID).startsWith('group-comment-actions'),
+    ).length,
+    0,
+  );
 });

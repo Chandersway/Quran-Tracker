@@ -4,6 +4,7 @@ import type { Group, GroupFeedPost } from '../src/services/backend/types';
 import { GroupDraftStore } from '../src/services/groups/groupDrafts';
 import { light } from '../src/shared/theme/colors';
 import { feedCopy } from '../src/features/groups/feedCopy';
+import * as feedReactions from '../src/services/groups/feedReactions';
 import {
   componentHarness,
   elements,
@@ -87,11 +88,30 @@ function mount(platform = 'android') {
     (name: string) =>
     async (...args: unknown[]) => {
       calls.push([name, ...args]);
+      return null;
     };
+  const backend = {
+    auth: { getSession: async () => ({ user: { id: 'actor' } }), onChange: () => () => {} },
+    groups: Object.fromEntries(
+      ['toggleReaction', 'updatePost', 'pinPost', 'reportPost', 'deletePost', 'deleteComment'].map(
+        (name) => [name, operation(name)],
+      ),
+    ),
+  };
+  const reactionHook = loadComponentModule(
+    new URL('../src/features/groups/hooks/useFeedReactions.ts', import.meta.url),
+    {
+      react: hooks.react,
+      '../../../services/groups/feedReactions': feedReactions,
+      '../components/groupUi': { groupError: () => 'failed' },
+      '../../../i18n': { useI18n: () => ({ t: (key: string) => key }) },
+    },
+  );
   const { GroupFeedPanel } = loadComponentModule<{ GroupFeedPanel: (props: object) => unknown }>(
     new URL('../src/features/groups/components/GroupFeedPanel.tsx', import.meta.url),
     {
       react: hooks.react,
+      '../hooks/useFeedReactions': reactionHook,
       '../hooks/useFeedWindow': {
         useFeedWindow: (value: GroupFeedPost[]) => ({ posts: value, unseenCount: 0, reveal() {} }),
       },
@@ -123,18 +143,7 @@ function mount(platform = 'android') {
   const render = () =>
     hooks.render(() =>
       GroupFeedPanel({
-        backend: {
-          groups: Object.fromEntries(
-            [
-              'toggleReaction',
-              'updatePost',
-              'pinPost',
-              'reportPost',
-              'deletePost',
-              'deleteComment',
-            ].map((name) => [name, operation(name)]),
-          ),
-        },
+        backend,
         group,
         draftStore: store,
         clearFocus() {},

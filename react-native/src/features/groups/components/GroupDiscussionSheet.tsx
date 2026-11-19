@@ -45,10 +45,14 @@ export function GroupDiscussionSheet({
   );
   const draft = discussion ? drafts.comments[discussion.id] : undefined;
   const [inputHeight, setInputHeight] = useState(MIN_INPUT_HEIGHT);
+  const [actionComment, setActionComment] = useState<string | null>(null);
   const pendingDelete = useRef<{ postId: string; id: string } | null>(null);
   const latestDelete = useRef(onDeleteComment);
   latestDelete.current = onDeleteComment;
-  useEffect(() => setInputHeight(MIN_INPUT_HEIGHT), [discussion?.id]);
+  useEffect(() => {
+    setInputHeight(MIN_INPUT_HEIGHT);
+    setActionComment(null);
+  }, [discussion?.id]);
   const sending = draft?.status === 'sending';
   const inputLineHeight = locale === 'ar' || /[\u0600-\u06ff]/u.test(draft?.text ?? '') ? 27 : 22;
   const canComment = permitted(group, 'comment.create');
@@ -72,7 +76,7 @@ export function GroupDiscussionSheet({
     discussion && canComment ? (
       <View
         testID="group-comment-composer"
-        style={{ borderTopWidth: 1, borderColor: p.line, paddingTop: 10, gap: 6 }}
+        style={{ borderTopWidth: 1, borderColor: p.line, paddingTop: 12, gap: 6 }}
       >
         <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 8 }}>
           <TextInput
@@ -102,7 +106,7 @@ export function GroupDiscussionSheet({
               borderRadius: 12,
               paddingHorizontal: 12,
               paddingVertical: 11,
-              backgroundColor: p.surface,
+              backgroundColor: p.subtle,
               color: p.ink,
               fontFamily: locale === 'ar' ? fonts.arabicUi : fonts.regular,
               fontSize: 15,
@@ -159,15 +163,16 @@ export function GroupDiscussionSheet({
       title={copy.commentsCount(discussion?.comments.length ?? 0)}
       translateTitle={false}
       avoidKeyboard
+      size="expanded"
       onClose={onClose}
       onDismiss={deleteAfterDismiss}
       footer={footer}
     >
       {discussion ? (
-        <View style={{ gap: 12 }}>
+        <View style={{ gap: 16 }}>
           <View
             testID="group-discussion-summary"
-            style={{ paddingBottom: 10, borderBottomWidth: 1, borderColor: p.line, gap: 3 }}
+            style={{ paddingBottom: 12, borderBottomWidth: 1, borderColor: p.line, gap: 4 }}
           >
             <T translate={false} muted size={12} numberOfLines={1}>
               {discussion.displayName}
@@ -187,58 +192,102 @@ export function GroupDiscussionSheet({
               testID={`group-comment-${comment.id}`}
               style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start' }}
             >
-              <FeedAvatar name={comment.displayName} uri={comment.avatarUrl} size={28} />
-              <View style={{ flex: 1, minWidth: 0, gap: 2 }}>
+              <FeedAvatar name={comment.displayName} uri={comment.avatarUrl} size={32} />
+              <View style={{ flex: 1, minWidth: 0, gap: 4 }}>
                 <View
+                  testID={`group-comment-bubble-${comment.id}`}
                   style={{
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    alignItems: 'baseline',
-                    columnGap: 6,
-                    rowGap: 0,
+                    alignSelf: 'flex-start',
+                    maxWidth: '100%',
+                    backgroundColor: p.subtle,
+                    borderRadius: 14,
+                    paddingHorizontal: 12,
+                    paddingVertical: 8,
+                    gap: 2,
                   }}
                 >
                   <T translate={false} bold size={13} style={{ flexShrink: 1 }}>
                     {comment.displayName}
                   </T>
-                  <T translate={false} muted size={11}>
-                    {formatFeedTime(comment.createdAt, locale)}
+                  <T
+                    translate={false}
+                    size={15}
+                    style={{
+                      lineHeight:
+                        locale === 'ar' || /[\u0600-\u06ff]/u.test(comment.content) ? 27 : 22,
+                    }}
+                  >
+                    {comment.content}
                   </T>
                 </View>
-                <T
-                  translate={false}
-                  size={15}
-                  style={{
-                    lineHeight:
-                      locale === 'ar' || /[\u0600-\u06ff]/u.test(comment.content) ? 27 : 22,
-                  }}
-                >
-                  {comment.content}
+                <T translate={false} muted size={11} style={{ paddingHorizontal: 12 }}>
+                  {formatFeedTime(comment.createdAt, locale)}
                 </T>
+                {actionComment === comment.id &&
+                (comment.isMine || permitted(group, 'comment.moderate')) ? (
+                  <View
+                    testID={`group-comment-actions-${comment.id}`}
+                    style={{
+                      alignSelf: 'flex-start',
+                      backgroundColor: p.surface,
+                      borderWidth: 1,
+                      borderColor: p.line,
+                      borderRadius: 12,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Pressable
+                      testID={`group-comment-delete-${comment.id}`}
+                      accessibilityRole="button"
+                      accessibilityLabel={copy.deleteComment}
+                      accessibilityState={{ disabled: busy || sending }}
+                      disabled={busy || sending}
+                      onPress={() => {
+                        setActionComment(null);
+                        pendingDelete.current = { postId: discussion.id, id: comment.id };
+                        onClose();
+                        // UIKit must finish dismissing before the confirmation is presented.
+                        if (Platform.OS !== 'ios') deleteAfterDismiss();
+                      }}
+                      style={({ pressed }) => ({
+                        minHeight: 48,
+                        paddingHorizontal: 16,
+                        justifyContent: 'center',
+                        backgroundColor: pressed ? p.subtle : p.surface,
+                        opacity: busy || sending ? 0.45 : 1,
+                      })}
+                    >
+                      <T translate={false} size={14} color={p.danger}>
+                        {copy.deleteComment}
+                      </T>
+                    </Pressable>
+                  </View>
+                ) : null}
               </View>
               {comment.isMine || permitted(group, 'comment.moderate') ? (
                 <Pressable
-                  testID={`group-comment-delete-${comment.id}`}
+                  testID={`group-comment-more-${comment.id}`}
                   accessibilityRole="button"
-                  accessibilityLabel={copy.deleteComment}
-                  accessibilityState={{ disabled: busy || sending }}
+                  accessibilityLabel={
+                    actionComment === comment.id ? copy.closeCommentActions : copy.commentActions
+                  }
+                  accessibilityState={{
+                    disabled: busy || sending,
+                    expanded: actionComment === comment.id,
+                  }}
                   disabled={busy || sending}
                   onPress={() => {
-                    pendingDelete.current = { postId: discussion.id, id: comment.id };
-                    onClose();
-                    // UIKit cannot present the confirmation while the native sheet dismisses.
-                    if (Platform.OS !== 'ios') deleteAfterDismiss();
+                    setActionComment((current) => (current === comment.id ? null : comment.id));
                   }}
                   style={({ pressed }) => ({
                     width: 48,
                     minHeight: 48,
-                    marginTop: -8,
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: busy || sending ? 0.45 : pressed ? 0.7 : 1,
                   })}
                 >
-                  <Icon name="trash-2" size={20} color={p.muted} />
+                  <Icon name="more-horizontal" size={20} color={p.muted} />
                 </Pressable>
               ) : null}
             </View>

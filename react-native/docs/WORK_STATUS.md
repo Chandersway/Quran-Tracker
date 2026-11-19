@@ -2,6 +2,12 @@
 
 The Kotlin source is the specification. This is an implementation checkpoint, not a declaration of complete migration or store readiness.
 
+## Directe likes en Facebook-geïnspireerd reactiepaneel - 20 november 2026
+
+Waarderingen verschijnen vóór het serverantwoord; alleen het betreffende bericht krijgt een tijdelijke togglevergrendeling. De kiezer zweeft zonder feedreflow. Reageren en het reactieaantal openen een groter paneel met commentaarballonnen en een vaste toetsenbordveilige invoer. Verwijderen staat bij reacties achter drie puntjes en behoudt bevestiging en rechtencontrole.
+
+**882 app-tests en 4 servertests**, TypeScript, ESLint en formatter slagen; de iOS-bundel is geëxporteerd. Native gecontroleerd met een geïsoleerde vertraagde fixture, echt toetsenbord en Arabisch/RTL op 130%. De nieuwe APK is gebouwd en op QA geïnstalleerd met identieke hash `af4bcc19109024a38acacc2e29f8fa76d7c7d29d9c7104dc9769d38cb26fdfc9`. [Gedrag, bronbestanden en controlebewijs](FEED_INTERACTIES_2026-11-20.md). Geen echte groepsmutaties tijdens QA en geen wijziging aan hosted Realtime of pushinrichting.
+
 ## Dagdoelherinneringen en Firebase-groepspush - 19 november 2026
 
 Nieuwe voorkeuren hebben 08:00 en 21:00. Het leesdagdoel bepaalt of de resterende meldingen van vandaag nodig zijn; undo herstelt toekomstige tijden. De native datumplanning wordt maximaal veertien dagen vooruit bijgehouden binnen het gezamenlijke agendabudget. Bestaande opt-outs blijven behouden. Nieuwe groepsposts hebben een eigen event/payload, categorie en veilige ontvanger-/tapcontrole naast bestaande antwoorden. De dispatcherorigin is configureerbaar via Vault.

@@ -14,6 +14,7 @@ import { GroupPostComposer } from './GroupPostComposer';
 import { GroupDiscussionSheet } from './GroupDiscussionSheet';
 import { useFeedWindow } from '../hooks/useFeedWindow';
 import { feedCopy } from '../feedCopy';
+import { useFeedReactions } from '../hooks/useFeedReactions';
 
 export function GroupFeedPanel({
   backend,
@@ -33,7 +34,8 @@ export function GroupFeedPanel({
   const { t, locale } = useI18n();
   const palette = usePalette();
   const resource = useGroupFeed(backend.groups, group.code, postId);
-  const feedWindow = useFeedWindow(resource.value, postId);
+  const reactions = useFeedReactions(backend, group.code, resource.value, resource.setValue);
+  const feedWindow = useFeedWindow(reactions.posts, postId);
   const copy = (key: Parameters<typeof communityText>[0]) => communityText(key, locale);
   const [selected, setSelected] = useState<GroupFeedPost | null>(null);
   const [edit, setEdit] = useState(false);
@@ -75,8 +77,11 @@ export function GroupFeedPanel({
       ) : null}
       <ResourceState
         busy={resource.busy && !resource.value.length}
-        error={resource.error}
-        onRetry={() => void resource.retry()}
+        error={reactions.error || resource.error}
+        onRetry={() => {
+          reactions.clearError();
+          void resource.retry();
+        }}
       />
       {postId ? (
         <Button title={t('groups.feed.closeDiscussion')} variant="secondary" onPress={clearFocus} />
@@ -146,10 +151,10 @@ export function GroupFeedPanel({
           key={post.id}
           post={post}
           locale={locale}
-          busy={resource.busy}
+          busy={reactions.busy(post.id)}
           canReact={permitted(group, 'reaction.create')}
           onReact={(reaction) =>
-            void resource.run(() => backend.groups.toggleReaction(group.code, post.id, reaction))
+            permitted(group, 'reaction.create') && reactions.toggle(post, reaction)
           }
           onReply={() => setDiscussionId(post.id)}
           onMore={() => {

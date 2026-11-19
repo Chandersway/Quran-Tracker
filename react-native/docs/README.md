@@ -2,6 +2,8 @@
 
 Begin bij de gids die bij je taak hoort. De handleidingen beschrijven de huidige applicatie; plannen benoemen wat nog moet worden uitgevoerd. Oudere implementatieverslagen bewaren het bewijs van eerdere versies.
 
+Laatste feedwijziging: [directe likes, zwevende waarderingen en het grotere reactiepaneel](FEED_INTERACTIES_2026-11-20.md).
+
 | Ik wil…                                                        | Lees dit                                                                                                                            |
 | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | De app gebruiken en instellingen begrijpen                     | [Gebruikershandleiding](GEBRUIKERSHANDLEIDING.md)                                                                                   |

@@ -3,10 +3,10 @@
   "meaning": "Structural source index, not an assertion of semantic parity or native acceptance. Kotlin is a lexical named-declaration index; TypeScript/JavaScript use the compiler AST. Other native sources list lexically identified type declarations (not all methods). SQL is indexed at file level, with schema/RPC behavior documented in the backend guide. Generated native projects, build caches and dependencies are excluded.",
   "counts": {
     "kotlinFiles": 198,
-    "reactNativeFiles": 609,
+    "reactNativeFiles": 613,
     "backendFiles": 55,
     "kotlinDeclarations": 1932,
-    "reactNativeDeclarations": 2745,
+    "reactNativeDeclarations": 2756,
     "backendDeclarations": 37
   },
   "routes": [
@@ -16121,8 +16121,8 @@
       "path": "src/features/groups/components/GroupDiscussionSheet.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 251,
-      "sha256": "a5ebb41806a52fbe8b7ee491651b4eb64a7d17d41f97324d5adf13bbbe316bcc",
+      "lines": 300,
+      "sha256": "a7fa3488abc68e45e490da4a3e83537cbf18cb12fb5dc6f352eac279428dd20b",
       "declarations": [
         {
           "kind": "function",
@@ -16132,12 +16132,12 @@
         {
           "kind": "function",
           "name": "GroupDiscussionSheet.sendComment",
-          "line": 57
+          "line": 61
         },
         {
           "kind": "function-variable",
           "name": "GroupDiscussionSheet.deleteAfterDismiss",
-          "line": 66
+          "line": 70
         }
       ]
     },
@@ -16164,23 +16164,23 @@
       "path": "src/features/groups/components/GroupFeedPanel.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 368,
-      "sha256": "67132aee33df8fd264a73256fc3887a81ffe61342b2c928a1e35ff1a030c020e",
+      "lines": 373,
+      "sha256": "392c29c67d1f241250fc16056995ccec9d1dd881f09c1a799dee3fd6130adee4",
       "declarations": [
         {
           "kind": "function",
           "name": "GroupFeedPanel",
-          "line": 18
+          "line": 19
         },
         {
           "kind": "function-variable",
           "name": "GroupFeedPanel.copy",
-          "line": 37
+          "line": 39
         },
         {
           "kind": "function-variable",
           "name": "GroupFeedPanel.returnToDiscussion",
-          "line": 50
+          "line": 52
         }
       ]
     },
@@ -16188,8 +16188,8 @@
       "path": "src/features/groups/components/GroupFeedPostCard.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 293,
-      "sha256": "9d5fa672c7b979863061c6c633c38dafed6dd3b7a748268899eb3a5076a68fe6",
+      "lines": 323,
+      "sha256": "c36c10b3f7514e71b4459a191570ba5b20aeab76d04ca7e76b4c18242f87ca39",
       "declarations": [
         {
           "kind": "function",
@@ -16659,8 +16659,8 @@
       "path": "src/features/groups/feedCopy.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 112,
-      "sha256": "8cf1fb1ce5aa6b70bd13ed51ce5d2ca47d4bf87ccbd54ecd9aa1bacc5b997a90",
+      "lines": 118,
+      "sha256": "d50deaa7c9f5f15ec68f26ae4471074fb2191f98877db0a8fa232086a1043cf0",
       "declarations": [
         {
           "kind": "type",
@@ -16714,6 +16714,25 @@
           "kind": "function",
           "name": "groupTypingText",
           "line": 28
+        }
+      ]
+    },
+    {
+      "path": "src/features/groups/hooks/useFeedReactions.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 74,
+      "sha256": "15c41b5505a396f31e7d881de150d58c1225d820bc083c95a639dbfb5e474ed7",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "useFeedReactions",
+          "line": 8
+        },
+        {
+          "kind": "method",
+          "name": "useFeedReactions.toggle",
+          "line": 54
         }
       ]
     },
@@ -21628,6 +21647,40 @@
       ]
     },
     {
+      "path": "src/services/groups/feedReactions.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 73,
+      "sha256": "cda4f7e7f09812ac4e5484523f25aafb330322ae37c5804df356d8c0438f20c2",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "withFeedReaction",
+          "line": 4
+        },
+        {
+          "kind": "class",
+          "name": "FeedReactions",
+          "line": 19
+        },
+        {
+          "kind": "method",
+          "name": "FeedReactions.emit",
+          "line": 30
+        },
+        {
+          "kind": "method",
+          "name": "FeedReactions.setActor",
+          "line": 38
+        },
+        {
+          "kind": "method",
+          "name": "FeedReactions.toggle",
+          "line": 47
+        }
+      ]
+    },
+    {
       "path": "src/services/groups/feedSnapshots.ts",
       "side": "react-native",
       "role": "implementation",
@@ -25615,8 +25668,8 @@
       "path": "src/shared/components/Sheet.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 109,
-      "sha256": "834873fffb44573671e2a09633a375cded5a4e8acc583771c04608c861ea4df6",
+      "lines": 112,
+      "sha256": "6e3a99700065e4bb803367893d0d99e1ea93193c5cea4f9eadc8f81e62b94e70",
       "declarations": [
         {
           "kind": "function",
@@ -27305,6 +27358,44 @@
       ]
     },
     {
+      "path": "tests/feed-reaction-immediate.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 159,
+      "sha256": "38ff4007d1bbf59bae56e673ead7678c81036b21e13ec627966d7bc49e49176c",
+      "declarations": [
+        {
+          "kind": "function-variable",
+          "name": "authChanged",
+          "line": 38
+        },
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 112
+        }
+      ]
+    },
+    {
+      "path": "tests/feed-reactions.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 168,
+      "sha256": "962d23693e43e7cb9083b4da51d60f33becd1c8c88c6f6f26042ee755680599d",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "deferred",
+          "line": 21
+        },
+        {
+          "kind": "function-variable",
+          "name": "commit",
+          "line": 37
+        }
+      ]
+    },
+    {
       "path": "tests/feed-window.test.ts",
       "side": "react-native",
       "role": "test",
@@ -27513,8 +27604,8 @@
       "path": "tests/group-discussion-sheet.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 263,
-      "sha256": "3c98153b3f0ef54bb4f3be88f6036a95a9201e1d48f7ca8429338a1b510435eb",
+      "lines": 328,
+      "sha256": "3b5bba2074e3f84982a9171f7069f477d4cacb9dfc8c7987fdea441ae443fa05",
       "declarations": [
         {
           "kind": "function",
@@ -27547,48 +27638,48 @@
       "path": "tests/group-feed-controls.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 256,
-      "sha256": "b1f615c23c20a2e88cf1bbecf7aed67dc748affd0bbe40b52ba44a981d4bc169",
+      "lines": 265,
+      "sha256": "ba5e5e501d51753fde9874c30bc68469ccdb2acaf1369908b64a3450ae1ba5e1",
       "declarations": [
         {
           "kind": "function-variable",
           "name": "flush",
-          "line": 42
+          "line": 43
         },
         {
           "kind": "function",
           "name": "mount",
-          "line": 43
+          "line": 44
         },
         {
           "kind": "function-variable",
           "name": "mount.operation",
-          "line": 86
+          "line": 87
         },
         {
           "kind": "method",
           "name": "mount.reveal",
-          "line": 96
+          "line": 116
         },
         {
           "kind": "function-variable",
           "name": "mount.render",
-          "line": 123
+          "line": 143
         },
         {
           "kind": "method",
           "name": "mount.render.clearFocus",
-          "line": 140
+          "line": 149
         },
         {
           "kind": "function-variable",
           "name": "mount.card",
-          "line": 143
+          "line": 152
         },
         {
           "kind": "function-variable",
           "name": "confirm",
-          "line": 234
+          "line": 243
         }
       ]
     },
@@ -27596,8 +27687,8 @@
       "path": "tests/group-feed-post-card.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 263,
-      "sha256": "151ab3262605c6e49be3735e951a3c24805a17e2b9f9f212de9b9d84c88ebb3c",
+      "lines": 265,
+      "sha256": "b9dc1af056a542759651a24e99d8c911c0111b7a3dea9d486929c533e69cbe52",
       "declarations": [
         {
           "kind": "function",
@@ -27612,12 +27703,12 @@
         {
           "kind": "function-variable",
           "name": "number",
-          "line": 226
+          "line": 228
         },
         {
           "kind": "function-variable",
           "name": "render",
-          "line": 255
+          "line": 257
         }
       ]
     },

@@ -2,7 +2,7 @@
 
 Gegenereerd met `node scripts/build-code-reference.mjs`. Dit is de vindplaats van bestanden, benoemde functies, klassen, interfaces en types; **het bestaan van een naam bewijst geen functionele gelijkwaardigheid**. De inhoudelijke beoordeling staat in de deelrapporten van deze controle.
 
-198 oorspronkelijke Kotlin-bestanden, 609 React Native-bron-/test-/toolbestanden en 55 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
+198 oorspronkelijke Kotlin-bestanden, 613 React Native-bron-/test-/toolbestanden en 55 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
 
 De [JSON-index](source-index.json) bevat de volledige lijst, regelverwijzingen, rollen, hashes, routes en persistente voorkeuren. Dit is geen lijst waarin iedere bronregel een aparte feature is. Gebruik de bronlink om de volledige implementatie te lezen.
 
@@ -4981,13 +4981,13 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/groups/components/GroupDiscussionSheet.tsx
 
-[Volledige bron](../../src/features/groups/components/GroupDiscussionSheet.tsx), 251 regels, rol: implementation.
+[Volledige bron](../../src/features/groups/components/GroupDiscussionSheet.tsx), 300 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `GroupDiscussionSheet` | [19](../../src/features/groups/components/GroupDiscussionSheet.tsx#L19) |
-| function | `GroupDiscussionSheet.sendComment` | [57](../../src/features/groups/components/GroupDiscussionSheet.tsx#L57) |
-| function-variable | `GroupDiscussionSheet.deleteAfterDismiss` | [66](../../src/features/groups/components/GroupDiscussionSheet.tsx#L66) |
+| function | `GroupDiscussionSheet.sendComment` | [61](../../src/features/groups/components/GroupDiscussionSheet.tsx#L61) |
+| function-variable | `GroupDiscussionSheet.deleteAfterDismiss` | [70](../../src/features/groups/components/GroupDiscussionSheet.tsx#L70) |
 
 ### src/features/groups/components/GroupEventsPanel.tsx
 
@@ -5000,17 +5000,17 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/groups/components/GroupFeedPanel.tsx
 
-[Volledige bron](../../src/features/groups/components/GroupFeedPanel.tsx), 368 regels, rol: implementation.
+[Volledige bron](../../src/features/groups/components/GroupFeedPanel.tsx), 373 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `GroupFeedPanel` | [18](../../src/features/groups/components/GroupFeedPanel.tsx#L18) |
-| function-variable | `GroupFeedPanel.copy` | [37](../../src/features/groups/components/GroupFeedPanel.tsx#L37) |
-| function-variable | `GroupFeedPanel.returnToDiscussion` | [50](../../src/features/groups/components/GroupFeedPanel.tsx#L50) |
+| function | `GroupFeedPanel` | [19](../../src/features/groups/components/GroupFeedPanel.tsx#L19) |
+| function-variable | `GroupFeedPanel.copy` | [39](../../src/features/groups/components/GroupFeedPanel.tsx#L39) |
+| function-variable | `GroupFeedPanel.returnToDiscussion` | [52](../../src/features/groups/components/GroupFeedPanel.tsx#L52) |
 
 ### src/features/groups/components/GroupFeedPostCard.tsx
 
-[Volledige bron](../../src/features/groups/components/GroupFeedPostCard.tsx), 293 regels, rol: implementation.
+[Volledige bron](../../src/features/groups/components/GroupFeedPostCard.tsx), 323 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5223,7 +5223,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/groups/feedCopy.ts
 
-[Volledige bron](../../src/features/groups/feedCopy.ts), 112 regels, rol: implementation.
+[Volledige bron](../../src/features/groups/feedCopy.ts), 118 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5248,6 +5248,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `groupTypingText` | [28](../../src/features/groups/groupTypingCopy.ts#L28) |
+
+### src/features/groups/hooks/useFeedReactions.ts
+
+[Volledige bron](../../src/features/groups/hooks/useFeedReactions.ts), 74 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `useFeedReactions` | [8](../../src/features/groups/hooks/useFeedReactions.ts#L8) |
+| method | `useFeedReactions.toggle` | [54](../../src/features/groups/hooks/useFeedReactions.ts#L54) |
 
 ### src/features/groups/hooks/useFeedWindow.ts
 
@@ -6967,6 +6976,18 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | type | `DraftSession` | [1](../../src/services/groups/draftActor.ts#L1) |
 | function | `captureDraftActor` | [7](../../src/services/groups/draftActor.ts#L7) |
 
+### src/services/groups/feedReactions.ts
+
+[Volledige bron](../../src/services/groups/feedReactions.ts), 73 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `withFeedReaction` | [4](../../src/services/groups/feedReactions.ts#L4) |
+| class | `FeedReactions` | [19](../../src/services/groups/feedReactions.ts#L19) |
+| method | `FeedReactions.emit` | [30](../../src/services/groups/feedReactions.ts#L30) |
+| method | `FeedReactions.setActor` | [38](../../src/services/groups/feedReactions.ts#L38) |
+| method | `FeedReactions.toggle` | [47](../../src/services/groups/feedReactions.ts#L47) |
+
 ### src/services/groups/feedSnapshots.ts
 
 [Volledige bron](../../src/services/groups/feedSnapshots.ts), 39 regels, rol: implementation.
@@ -8265,7 +8286,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/shared/components/Sheet.tsx
 
-[Volledige bron](../../src/shared/components/Sheet.tsx), 109 regels, rol: implementation.
+[Volledige bron](../../src/shared/components/Sheet.tsx), 112 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -8908,6 +8929,24 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | type | `Feature` | [8](../../tests/feature-ledger.test.ts#L8) |
 | function | `currentEvidence` | [23](../../tests/feature-ledger.test.ts#L23) |
 
+### tests/feed-reaction-immediate.test.ts
+
+[Volledige bron](../../tests/feed-reaction-immediate.test.ts), 159 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `authChanged` | [38](../../tests/feed-reaction-immediate.test.ts#L38) |
+| function-variable | `render` | [112](../../tests/feed-reaction-immediate.test.ts#L112) |
+
+### tests/feed-reactions.test.ts
+
+[Volledige bron](../../tests/feed-reactions.test.ts), 168 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `deferred` | [21](../../tests/feed-reactions.test.ts#L21) |
+| function-variable | `commit` | [37](../../tests/feed-reactions.test.ts#L37) |
+
 ### tests/feed-window.test.ts
 
 [Volledige bron](../../tests/feed-window.test.ts), 148 regels, rol: test.
@@ -8991,7 +9030,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/group-discussion-sheet.test.ts
 
-[Volledige bron](../../tests/group-discussion-sheet.test.ts), 263 regels, rol: test.
+[Volledige bron](../../tests/group-discussion-sheet.test.ts), 328 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -9003,29 +9042,29 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/group-feed-controls.test.ts
 
-[Volledige bron](../../tests/group-feed-controls.test.ts), 256 regels, rol: test.
+[Volledige bron](../../tests/group-feed-controls.test.ts), 265 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `flush` | [42](../../tests/group-feed-controls.test.ts#L42) |
-| function | `mount` | [43](../../tests/group-feed-controls.test.ts#L43) |
-| function-variable | `mount.operation` | [86](../../tests/group-feed-controls.test.ts#L86) |
-| method | `mount.reveal` | [96](../../tests/group-feed-controls.test.ts#L96) |
-| function-variable | `mount.render` | [123](../../tests/group-feed-controls.test.ts#L123) |
-| method | `mount.render.clearFocus` | [140](../../tests/group-feed-controls.test.ts#L140) |
-| function-variable | `mount.card` | [143](../../tests/group-feed-controls.test.ts#L143) |
-| function-variable | `confirm` | [234](../../tests/group-feed-controls.test.ts#L234) |
+| function-variable | `flush` | [43](../../tests/group-feed-controls.test.ts#L43) |
+| function | `mount` | [44](../../tests/group-feed-controls.test.ts#L44) |
+| function-variable | `mount.operation` | [87](../../tests/group-feed-controls.test.ts#L87) |
+| method | `mount.reveal` | [116](../../tests/group-feed-controls.test.ts#L116) |
+| function-variable | `mount.render` | [143](../../tests/group-feed-controls.test.ts#L143) |
+| method | `mount.render.clearFocus` | [149](../../tests/group-feed-controls.test.ts#L149) |
+| function-variable | `mount.card` | [152](../../tests/group-feed-controls.test.ts#L152) |
+| function-variable | `confirm` | [243](../../tests/group-feed-controls.test.ts#L243) |
 
 ### tests/group-feed-post-card.test.ts
 
-[Volledige bron](../../tests/group-feed-post-card.test.ts), 263 regels, rol: test.
+[Volledige bron](../../tests/group-feed-post-card.test.ts), 265 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `mount` | [33](../../tests/group-feed-post-card.test.ts#L33) |
 | method | `mount.set` | [60](../../tests/group-feed-post-card.test.ts#L60) |
-| function-variable | `number` | [226](../../tests/group-feed-post-card.test.ts#L226) |
-| function-variable | `render` | [255](../../tests/group-feed-post-card.test.ts#L255) |
+| function-variable | `number` | [228](../../tests/group-feed-post-card.test.ts#L228) |
+| function-variable | `render` | [257](../../tests/group-feed-post-card.test.ts#L257) |
 
 ### tests/group-join-route.test.ts
 

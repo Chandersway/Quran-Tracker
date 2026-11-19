@@ -628,7 +628,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/groups/components/GroupFeedPanel.tsx",
-          "line": 259,
+          "line": 264,
           "symbol": "pinPost"
         }
       ],
@@ -3443,6 +3443,11 @@
               "symbol": "reset"
             },
             {
+              "path": "src/services/groups/feedReactions.ts",
+              "line": 33,
+              "symbol": "reset"
+            },
+            {
               "path": "src/services/groups/groupMetrics.ts",
               "line": 41,
               "symbol": "reset"
@@ -3460,11 +3465,6 @@
             {
               "path": "src/features/notes/hooks/useNoteFilters.ts",
               "line": 65,
-              "symbol": "reset"
-            },
-            {
-              "path": "src/features/groups/hooks/useFeedWindow.ts",
-              "line": 93,
               "symbol": "reset"
             }
           ],
@@ -6077,7 +6077,7 @@
             },
             {
               "path": "src/features/groups/components/GroupDiscussionSheet.tsx",
-              "line": 61,
+              "line": 65,
               "symbol": "addComment"
             }
           ],
@@ -6101,7 +6101,7 @@
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 208,
+              "line": 213,
               "symbol": "updatePost"
             }
           ],
@@ -6133,7 +6133,7 @@
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 289,
+              "line": 294,
               "symbol": "deletePost"
             }
           ],
@@ -6156,8 +6156,8 @@
               "symbol": "toggleReaction"
             },
             {
-              "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 152,
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
+              "line": 60,
               "symbol": "toggleReaction"
             }
           ],
@@ -6186,12 +6186,12 @@
             },
             {
               "path": "src/features/groups/components/GroupDiscussionSheet.tsx",
-              "line": 223,
+              "line": 242,
               "symbol": "deleteComment"
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 338,
+              "line": 343,
               "symbol": "deleteComment"
             }
           ],
@@ -6215,7 +6215,7 @@
             },
             {
               "path": "src/features/groups/components/GroupFeedPanel.tsx",
-              "line": 237,
+              "line": 242,
               "symbol": "reportPost"
             }
           ],
@@ -13652,7 +13652,7 @@
               "symbol": "t"
             },
             {
-              "path": "src/features/groups/hooks/useGroupChat.ts",
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
               "line": 1,
               "symbol": "t"
             }
@@ -13725,7 +13725,7 @@
               "symbol": "t"
             },
             {
-              "path": "src/features/groups/hooks/useGroupChat.ts",
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
               "line": 1,
               "symbol": "t"
             }
@@ -14480,7 +14480,7 @@
               "symbol": "t"
             },
             {
-              "path": "src/features/groups/hooks/useGroupChat.ts",
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
               "line": 1,
               "symbol": "t"
             }
@@ -14673,7 +14673,7 @@
             },
             {
               "path": "src/features/groups/components/GroupDiscussionSheet.tsx",
-              "line": 107,
+              "line": 111,
               "symbol": "arabicUi"
             },
             {
@@ -16699,6 +16699,16 @@
               "symbol": "toggle"
             },
             {
+              "path": "src/services/groups/feedReactions.ts",
+              "line": 18,
+              "symbol": "toggle"
+            },
+            {
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
+              "line": 54,
+              "symbol": "toggle"
+            },
+            {
               "path": "src/state/store.tsx",
               "line": 124,
               "symbol": "toggle"
@@ -16716,16 +16726,6 @@
             {
               "path": "src/features/practice/screens/FocusScreen.tsx",
               "line": 161,
-              "symbol": "toggle"
-            },
-            {
-              "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 356,
-              "symbol": "toggle"
-            },
-            {
-              "path": "src/features/home/components/TodayPlanning.tsx",
-              "line": 44,
               "symbol": "toggle"
             }
           ],
@@ -17285,6 +17285,11 @@
               "symbol": "retry"
             },
             {
+              "path": "src/services/groups/feedReactions.ts",
+              "line": 18,
+              "symbol": "retry"
+            },
+            {
               "path": "src/services/groups/groupFeedController.ts",
               "line": 235,
               "symbol": "retry"
@@ -17312,11 +17317,6 @@
             {
               "path": "src/services/notifications/planningReminderLedger.ts",
               "line": 144,
-              "symbol": "retry"
-            },
-            {
-              "path": "src/services/planning/independentReadingPlan.ts",
-              "line": 32,
               "symbol": "retry"
             }
           ],
@@ -21575,7 +21575,7 @@
               "symbol": "t"
             },
             {
-              "path": "src/features/groups/hooks/useGroupChat.ts",
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
               "line": 1,
               "symbol": "t"
             }
@@ -22361,6 +22361,16 @@
               "symbol": "toggle"
             },
             {
+              "path": "src/services/groups/feedReactions.ts",
+              "line": 18,
+              "symbol": "toggle"
+            },
+            {
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
+              "line": 54,
+              "symbol": "toggle"
+            },
+            {
               "path": "src/state/store.tsx",
               "line": 124,
               "symbol": "toggle"
@@ -22378,16 +22388,6 @@
             {
               "path": "src/features/practice/screens/FocusScreen.tsx",
               "line": 161,
-              "symbol": "toggle"
-            },
-            {
-              "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 356,
-              "symbol": "toggle"
-            },
-            {
-              "path": "src/features/home/components/TodayPlanning.tsx",
-              "line": 44,
               "symbol": "toggle"
             }
           ],
@@ -22979,7 +22979,7 @@
               "symbol": "t"
             },
             {
-              "path": "src/features/groups/hooks/useGroupChat.ts",
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
               "line": 1,
               "symbol": "t"
             }
@@ -23550,7 +23550,7 @@
               "symbol": "t"
             },
             {
-              "path": "src/features/groups/hooks/useGroupChat.ts",
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
               "line": 1,
               "symbol": "t"
             }
@@ -23623,7 +23623,7 @@
               "symbol": "t"
             },
             {
-              "path": "src/features/groups/hooks/useGroupChat.ts",
+              "path": "src/features/groups/hooks/useFeedReactions.ts",
               "line": 1,
               "symbol": "t"
             }
@@ -25952,6 +25952,11 @@
               "symbol": "retry"
             },
             {
+              "path": "src/services/groups/feedReactions.ts",
+              "line": 18,
+              "symbol": "retry"
+            },
+            {
               "path": "src/services/groups/groupFeedController.ts",
               "line": 235,
               "symbol": "retry"
@@ -25979,11 +25984,6 @@
             {
               "path": "src/services/notifications/planningReminderLedger.ts",
               "line": 144,
-              "symbol": "retry"
-            },
-            {
-              "path": "src/services/planning/independentReadingPlan.ts",
-              "line": 32,
               "symbol": "retry"
             }
           ],

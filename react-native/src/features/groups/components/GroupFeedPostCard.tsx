@@ -18,7 +18,7 @@ const reactionIcons: Record<FeedReaction, IconName> = {
 };
 const reactions = Object.keys(reactionIcons) as FeedReaction[];
 
-/** A plain, content-sized feed item. Only the requested reaction picker adds temporary space. */
+/** A plain, content-sized feed item with a floating reaction toolbar. */
 export function GroupFeedPostCard({
   post,
   canReact,
@@ -55,7 +55,8 @@ export function GroupFeedPostCard({
         borderRadius: 12,
         paddingHorizontal: 12,
         paddingTop: 8,
-        overflow: 'hidden',
+        position: 'relative',
+        zIndex: picker ? 3 : 0,
         direction: locale === 'ar' ? 'rtl' : 'ltr',
       }}
     >
@@ -76,7 +77,14 @@ export function GroupFeedPostCard({
             {post.isPinned ? ` · ${copy.pinned}` : ''}
           </T>
         </View>
-        <IconButton name="more-horizontal" label={copy.more} onPress={onMore} />
+        <IconButton
+          name="more-horizontal"
+          label={copy.more}
+          onPress={() => {
+            setPicker(false);
+            onMore();
+          }}
+        />
       </View>
       <View style={{ paddingTop: 6, paddingBottom: 8, gap: 8 }}>
         <ExpandablePostText key={`${post.id}:${post.editedAt ?? ''}`} content={post.content} />
@@ -116,9 +124,21 @@ export function GroupFeedPostCard({
             <View />
           )}
           {post.comments.length > 0 ? (
-            <T translate={false} muted size={12}>
-              {copy.commentsCount(post.comments.length)}
-            </T>
+            <Pressable
+              testID="feed-comment-count"
+              accessibilityRole="button"
+              accessibilityLabel={copy.commentsCount(post.comments.length)}
+              hitSlop={10}
+              onPress={() => {
+                setPicker(false);
+                onReply();
+              }}
+              style={{ minHeight: 28, justifyContent: 'center', paddingStart: 8 }}
+            >
+              <T translate={false} muted size={12}>
+                {copy.commentsCount(post.comments.length)}
+              </T>
+            </Pressable>
           ) : null}
         </View>
       ) : null}
@@ -127,11 +147,18 @@ export function GroupFeedPostCard({
           testID="feed-reaction-picker"
           accessibilityLabel={copy.chooseReaction}
           style={{
+            position: 'absolute',
+            bottom: 52,
+            start: 8,
+            end: 8,
+            zIndex: 4,
             flexDirection: 'row',
-            backgroundColor: p.subtle,
-            borderRadius: 10,
-            marginVertical: 4,
-            padding: 3,
+            backgroundColor: p.background,
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: p.line,
+            borderRadius: 20,
+            padding: 6,
+            gap: 3,
           }}
         >
           {reactions.map((reaction) => (
@@ -267,7 +294,10 @@ export function GroupFeedPostCard({
           testID="feed-comment-action"
           accessibilityRole="button"
           accessibilityLabel={copy.reply}
-          onPress={onReply}
+          onPress={() => {
+            setPicker(false);
+            onReply();
+          }}
           style={({ pressed }) => ({
             flex: 1,
             minWidth: 0,

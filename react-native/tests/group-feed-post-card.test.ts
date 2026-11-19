@@ -190,6 +190,8 @@ test('long names, an image, nonzero summary and Arabic UI retain flexible layout
     'long names have two lines while the full accessible name is retained',
   );
   assert.equal(elements(tree, 'GroupImage')[0]!.props.accessibilityLabel, 'A shared photo');
+  press(findElement(tree, 'Pressable', 'testID', 'feed-comment-count'));
+  assert.equal(app.replies, 1, 'the comment count opens the same discussion as the action');
   assert.equal(
     findElement(tree, 'Pressable', 'testID', 'feed-comment-action').props.accessibilityLabel,
     feedCopy.ar.reply,

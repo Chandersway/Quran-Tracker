@@ -25,6 +25,7 @@ export function Sheet({
   translateTitle = true,
   footer,
   avoidKeyboard = false,
+  size = 'content',
 }: React.PropsWithChildren<{
   visible: boolean;
   title: string;
@@ -33,6 +34,7 @@ export function Sheet({
   translateTitle?: boolean;
   footer?: React.ReactNode;
   avoidKeyboard?: boolean;
+  size?: 'content' | 'expanded';
 }>) {
   const p = usePalette();
   const { t, locale } = useI18n();
@@ -71,6 +73,7 @@ export function Sheet({
             borderTopLeftRadius: 24,
             borderTopRightRadius: 24,
             maxHeight: shortLandscape ? '96%' : '90%',
+            height: size === 'expanded' ? (shortLandscape ? '96%' : '90%') : undefined,
             width: '100%',
             maxWidth: 700,
             alignSelf: 'center',
@@ -92,7 +95,7 @@ export function Sheet({
           </View>
           <ScrollView
             keyboardShouldPersistTaps="handled"
-            style={{ flexShrink: 1 }}
+            style={{ flexShrink: 1, flex: size === 'expanded' ? 1 : undefined }}
             contentContainerStyle={{
               paddingHorizontal: 24,
               paddingBottom: footer ? 12 : shortLandscape ? 16 : 32,

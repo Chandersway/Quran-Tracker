@@ -347,9 +347,9 @@ De groepschat en de feed gebruiken **dezelfde groepsberichten**. Een bericht in 
 
 Een chatconcept wordt per account en groep bewaard zolang het appproces draait. Sluit de app niet geforceerd als je een belangrijk onverstuurd concept wilt behouden.
 
-In de feed opent **Wat wil je delen?** de volledige berichtinvoer. Onder ieder bericht staan **Vind ik leuk** en **Reageren** op één regel. Een gewone tik zet je waardering aan of uit. Houd de waarderingsactie ingedrukt of tik op het uitklappijltje voor **Vind ik leuk, Mooi, Dua** en **Inzichtelijk**. De gekozen waardering krijgt haar eigen icoon en label; nulwaarden worden weggelaten.
+In de feed opent **Wat wil je delen?** de volledige berichtinvoer. Onder ieder bericht staan **Vind ik leuk** en **Reageren** op één regel. Een gewone tik zet je waardering aan of uit en werkt icoon en teller direct bij. Tijdens opslaan wordt alleen die waarderingsactie kort vergrendeld om dubbele toggles te voorkomen. Bij een fout wordt de stand hersteld. Houd de waarderingsactie ingedrukt of tik op het uitklappijltje voor de zwevende kiezer met **Vind ik leuk, Mooi, Dua** en **Inzichtelijk**. Die verschuift de feed niet. De gekozen waardering krijgt haar eigen icoon en label; nulwaarden worden weggelaten.
 
-**Reageren** opent een compacte discussie. De reacties scrollen boven de vaste invoerbalk; typ bij **Schrijf een reactie…** en gebruik het verzendicoon. Sluiten en heropenen behoudt je concept, ook wanneer verzenden mislukt. Dit geldt zolang het appproces blijft draaien en afzonderlijk per account, groep en bericht. De drie puntjes bewaren de bestaande beheer-, deel- en rapporteeracties volgens je rechten.
+**Reageren** of het aantal reacties opent een groot reactiepaneel. Compacte commentaarballonnen met avatar, naam en tijd scrollen boven de vaste invoerbalk; typ bij **Schrijf een reactie…** en gebruik het verzendicoon. Sluiten en heropenen behoudt je concept, ook wanneer verzenden mislukt. Dit geldt zolang het appproces blijft draaien en afzonderlijk per account, groep en bericht. Bij berichten en beheerbare reacties beginnen acties met drie puntjes. Verwijderen verschijnt pas in het menu en vraagt bevestiging; de bestaande beheer-, deel- en rapporteeracties blijven afhankelijk van je rechten.
 
 ### Ranglijst en beheer
 
