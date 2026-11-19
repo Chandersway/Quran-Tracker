@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
-import { localDate } from '../../domain/localDate';
 import {
   decodeNotificationPreferences,
   localNotificationDefaults,
@@ -10,6 +9,11 @@ import {
 import { sourceText } from '../../i18n';
 import type { AppState } from '../../state/models';
 import { desiredPlanReminders, type DesiredPlanReminder } from './planningReminders';
+import {
+  dailyReadingReminders,
+  reminderWindow,
+  pendingReminderCapacity,
+} from './dailyReadingReminders';
 import { reconcileTrackedPlanReminders } from './planningReminderLedger';
 import {
   expoPlanReminderPort,
@@ -58,6 +62,7 @@ function desiredLocalReminders(
   preferences: LocalNotificationPreferences,
   now: Date,
   firstGrantAt: number | null = null,
+  capacity?: number,
 ): DesiredPlanReminder[] {
   if (!preferences.enabled) return [];
   const language = state.preferences.language;
@@ -72,58 +77,20 @@ function desiredLocalReminders(
         };
       })
     : [];
-  const minutes = new Set([
-    ...(preferences.daily ? [preferences.dailyMinute] : []),
-    ...(preferences.extra ? [preferences.extraMinute] : []),
-  ]);
-  const times = new Set<number>();
-  for (const minute of minutes) {
-    const due = new Date(now);
-    due.setHours(Math.floor(minute / 60), minute % 60, 0, 0);
-    const dueAt = nextAllowedReminder(due, preferences);
-    const allowedMinute = dueAt.getHours() * 60 + dueAt.getMinutes();
-    if (times.has(allowedMinute)) continue;
-    times.add(allowedMinute);
-    const daily: DesiredPlanReminder = {
-      key: `daily:${allowedMinute}:${language}`,
-      planId: 'daily',
-      sourceId: 'daily',
-      dueAt,
-      date: '',
-      repeatDaily: true,
-      title: sourceText('notifications.reminder', language),
-      body: sourceText('notifications.readingReminderBody', language),
-    };
-    plans.push(daily);
-    if (
-      firstGrantAt === null ||
-      localDate(new Date(firstGrantAt)) !== localDate(now) ||
-      dueAt.getTime() > firstGrantAt
-    )
-      continue;
-
-    // The first native DAILY can only fire in the future. Kotlin also offers
-    // today's passed slot, in local time, once. Quiet hours may defer it today.
-    const soon = new Date(now.getTime() + 5000);
-    const allowed = nextAllowedReminder(soon, preferences);
-    const day = localDate(now);
-    if (localDate(allowed) !== day) continue;
-    const firstAllowed = nextAllowedReminder(new Date(firstGrantAt + 5000), preferences);
-    const scheduleTime = allowed === soon ? firstAllowed.getTime() : allowed.getTime();
-    const deliveryKey = `daily-catchup:${day}:${minute}`;
-    plans.push({
-      ...daily,
-      repeatDaily: false,
-      firstGrantSlot: allowedMinute,
-      deliveryKey,
-      deliveryDueAt: dueAt.getTime(),
-      key: `${deliveryKey}:at:${scheduleTime}:${language}`,
-      dueAt: allowed,
-      date: day,
-    });
-  }
-  return plans;
+  return reminderWindow(
+    dailyReadingReminders(state, preferences, now, firstGrantAt),
+    plans,
+    now,
+    capacity,
+  );
 }
+async function nativeReminderCapacity(): Promise<number> {
+  const scheduled = await expoPlanReminderPort.list();
+  return pendingReminderCapacity(
+    scheduled.filter((item) => typeof item.data.planReminderKey !== 'string').length,
+  );
+}
+
 export function reconcileLocalReminders(
   state: AppState,
   commit?: () => Promise<void>,
@@ -132,13 +99,9 @@ export function reconcileLocalReminders(
     if (Platform.OS === 'web') return commit?.();
     const preferences = await loadLocalNotifications(state);
     const opened = new Date();
-    const hasUpcoming =
-      preferences.enabled &&
-      (preferences.daily ||
-        preferences.extra ||
-        desiredLocalReminders(state, preferences, opened).some(
-          (reminder) => reminder.dueAt > opened,
-        ));
+    const hasUpcoming = desiredLocalReminders(state, preferences, opened).some(
+      (reminder) => reminder.dueAt > opened,
+    );
     const permitted =
       !commit && state.preferences.onboardingComplete && hasUpcoming
         ? await initialPlanReminderPermission()
@@ -147,8 +110,9 @@ export function reconcileLocalReminders(
       throw new Error(sourceText('notifications.blocked', state.preferences.language));
     const firstGrant = permitted ? await firstPlanReminderGrantAt() : null;
     const now = new Date();
+    const capacity = permitted ? await nativeReminderCapacity() : undefined;
     const result = await reconcileTrackedPlanReminders(
-      permitted ? desiredLocalReminders(state, preferences, now, firstGrant) : [],
+      permitted ? desiredLocalReminders(state, preferences, now, firstGrant, capacity) : [],
       expoPlanReminderPort,
       AsyncStorage,
       {
@@ -176,8 +140,9 @@ export function saveLocalNotifications(
     const permitted = await hasPlanReminderPermission();
     const firstGrant = permitted ? await firstPlanReminderGrantAt() : null;
     const now = new Date();
+    const capacity = permitted ? await nativeReminderCapacity() : undefined;
     const result = await reconcileTrackedPlanReminders(
-      permitted ? desiredLocalReminders(state, validated, now, firstGrant) : [],
+      permitted ? desiredLocalReminders(state, validated, now, firstGrant, capacity) : [],
       expoPlanReminderPort,
       AsyncStorage,
       {

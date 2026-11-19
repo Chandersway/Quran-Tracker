@@ -6,6 +6,10 @@ Voor het gebruik van de app: [Nederlandstalige gebruikershandleiding](docs/GEBRU
 
 Voor onderhoud: [technische appgids en volledige bronindex](docs/TECHNISCHE_APPGIDS.md). Voor de online functies: [live chat, typing en push instellen](docs/LIVE_CHAT_SETUP.md), [iOS-push](docs/IOS_PUSH_SETUP.md) en [Apple-aanmelding en accountverwijdering](docs/APPLE_SIGN_IN_SETUP.md).
 
+Voor **Firebase-meldingen bij nieuwe groepsberichten**: [volledige installatie-, build- en testhandleiding](docs/GROUP_PUSH_SETUP.md). Deze gids bevat de directe projectlinks, serversecrets, SQL-migratie, functiondeployment, toestelregistratie en controles voor gedempte groepen. Alleen een nieuwe APK installeren activeert de server niet.
+
+Voor **twee dagelijkse herinneringen zolang je leesdoel niet gehaald is**: [instellingen, offline planning en toesteltests](docs/DAILY_REMINDERS_SETUP.md). Deze werken zonder Firebase; bestaande uitgeschakelde tijden blijven uitgeschakeld.
+
 Voor latere uitbreiding: [plan voor OTA-updates, nieuwe menu-items en een online mushafcatalogus](docs/OTA_EN_MUSHAF_CATALOGUS_PLAN.md). Dit is een uitvoeringsplan; OTA en de dynamische catalogus zijn nog niet ingericht.
 
 ## APK, iOS-bestand en stores

@@ -57,7 +57,7 @@ async function apnsCredentials() {
   return apnsCached;
 }
 
-async function sendApns(item: { token: string; event_id: string; recipient: string; group_code: string; post_id: string; language: string }) {
+async function sendApns(item: { token: string; event_id: string; recipient: string; group_code: string; post_id: string; language: string; kind: "group_post" | "group_reply" }) {
   const auth = await apnsCredentials();
   const request = buildApnsRequest(item, auth);
   const response = await fetch(request.url, {
@@ -75,13 +75,13 @@ Deno.serve(async (request) => {
   if (bearer.length < 32 || bearer.length > 256) return new Response("Unauthorized", { status: 401 });
   try {
     if (!await rpc("verify_group_push_dispatcher_v1", { p_token: bearer })) return new Response("Unauthorized", { status: 401 });
-    const deliveries = await rpc("claim_group_push_v2");
+    const deliveries = await rpc("claim_group_push_v3");
     let sent = 0;
     for (const item of deliveries) {
       let outcome = "retry";
       try {
         // Recheck preferences and membership immediately before each outbound request.
-        if (!await rpc("group_push_claim_allowed_v1", { p_delivery: item.delivery_id, p_claim: item.claim })) {
+        if (!["group_post", "group_reply"].includes(item.kind) || !await rpc("group_push_claim_allowed_v1", { p_delivery: item.delivery_id, p_claim: item.claim })) {
           outcome = "failed";
         } else {
           if (item.platform === "ios") {
@@ -95,7 +95,7 @@ Deno.serve(async (request) => {
             method: "POST", signal: AbortSignal.timeout(10000),
             headers: { Authorization: `Bearer ${auth.token}`, "Content-Type": "application/json" },
             body: JSON.stringify({ message: { token: item.token,
-              data: { kind: "group_reply", event_id: item.event_id, recipient: item.recipient },
+              data: { kind: item.kind, event_id: item.event_id, recipient: item.recipient },
               android: { priority: "HIGH", ttl: "86400s" } } }),
           });
           if (response.ok) { outcome = "sent"; sent++; }

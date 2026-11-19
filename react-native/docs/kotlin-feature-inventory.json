@@ -986,7 +986,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/services/notifications/pushDevice.ts",
-          "line": 74,
+          "line": 84,
           "symbol": "export async function enablePushDevice"
         }
       ],
@@ -3691,7 +3691,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 517,
+              "line": 518,
               "symbol": "update"
             },
             {
@@ -4185,7 +4185,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 122,
+              "line": 123,
               "symbol": "all"
             }
           ],
@@ -4408,7 +4408,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 317,
+              "line": 321,
               "symbol": "resolve"
             },
             {
@@ -4437,7 +4437,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 112,
+              "line": 88,
               "symbol": "schedule"
             },
             {
@@ -4607,7 +4607,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 112,
+              "line": 88,
               "symbol": "schedule"
             },
             {
@@ -4676,7 +4676,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 317,
+              "line": 321,
               "symbol": "resolve"
             },
             {
@@ -4831,7 +4831,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 73,
+              "line": 77,
               "symbol": "GroupMemberPermissions"
             },
             {
@@ -5771,12 +5771,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 490,
+              "line": 491,
               "symbol": "createTask"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 211,
+              "line": 215,
               "symbol": "createTask"
             },
             {
@@ -5795,12 +5795,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 505,
+              "line": 506,
               "symbol": "setTaskProgress"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 212,
+              "line": 216,
               "symbol": "setTaskProgress"
             },
             {
@@ -6067,12 +6067,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 427,
+              "line": 428,
               "symbol": "addComment"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 202,
+              "line": 206,
               "symbol": "addComment"
             },
             {
@@ -6147,12 +6147,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 452,
+              "line": 453,
               "symbol": "toggleReaction"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 209,
+              "line": 213,
               "symbol": "toggleReaction"
             },
             {
@@ -6735,7 +6735,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 103,
+              "line": 104,
               "symbol": "select"
             },
             {
@@ -6754,6 +6754,11 @@
               "symbol": "select"
             },
             {
+              "path": "src/services/notifications/groupPushPolicy.ts",
+              "line": 86,
+              "symbol": "select"
+            },
+            {
               "path": "src/services/profiles/initializeProviderName.ts",
               "line": 15,
               "symbol": "select"
@@ -6761,11 +6766,6 @@
             {
               "path": "src/services/profiles/profiles.ts",
               "line": 93,
-              "symbol": "select"
-            },
-            {
-              "path": "src/features/quran/components/SelectableMushafPage.tsx",
-              "line": 21,
               "symbol": "select"
             }
           ],
@@ -7352,7 +7352,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/types.ts",
-              "line": 281,
+              "line": 285,
               "symbol": "toggleDone"
             }
           ],
@@ -7428,7 +7428,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/types.ts",
-              "line": 281,
+              "line": 285,
               "symbol": "toggleDone"
             }
           ],
@@ -7443,6 +7443,11 @@
             {
               "path": "src/content/mushafPageMetrics.ts",
               "line": 54,
+              "symbol": "complete"
+            },
+            {
+              "path": "src/domain/dailyReadingGoal.ts",
+              "line": 4,
               "symbol": "complete"
             },
             {
@@ -7473,11 +7478,6 @@
             {
               "path": "src/services/audio/audio.ts",
               "line": 33,
-              "symbol": "complete"
-            },
-            {
-              "path": "src/services/audio/audioDownload.ts",
-              "line": 2,
               "symbol": "complete"
             }
           ],
@@ -8359,6 +8359,11 @@
               "symbol": "target"
             },
             {
+              "path": "src/domain/dailyReadingGoal.ts",
+              "line": 7,
+              "symbol": "target"
+            },
+            {
               "path": "src/domain/goals.ts",
               "line": 84,
               "symbol": "target"
@@ -8386,11 +8391,6 @@
             {
               "path": "src/domain/readingJourney.ts",
               "line": 45,
-              "symbol": "target"
-            },
-            {
-              "path": "src/domain/readingPlan.ts",
-              "line": 8,
               "symbol": "target"
             }
           ],
@@ -9214,6 +9214,11 @@
               "symbol": "read"
             },
             {
+              "path": "src/domain/dailyReadingGoal.ts",
+              "line": 4,
+              "symbol": "read"
+            },
+            {
               "path": "src/domain/hizbAnalytics.ts",
               "line": 31,
               "symbol": "read"
@@ -9241,11 +9246,6 @@
             {
               "path": "src/domain/readingJourney.ts",
               "line": 20,
-              "symbol": "read"
-            },
-            {
-              "path": "src/domain/readingPlan.ts",
-              "line": 5,
               "symbol": "read"
             }
           ],
@@ -9313,7 +9313,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 517,
+              "line": 518,
               "symbol": "update"
             },
             {
@@ -10695,22 +10695,22 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 553,
+              "line": 548,
               "symbol": "loadGroupPushPreferences"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 40,
+              "line": 44,
               "symbol": "loadGroupPushPreferences"
             },
             {
               "path": "src/services/notifications/groupPushRuntime.ts",
-              "line": 48,
+              "line": 49,
               "symbol": "loadGroupPushPreferences"
             },
             {
               "path": "src/services/notifications/pushDevice.ts",
-              "line": 55,
+              "line": 65,
               "symbol": "loadGroupPushPreferences"
             },
             {
@@ -10729,12 +10729,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 572,
+              "line": 567,
               "symbol": "saveGroupPushPreferences"
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 41,
+              "line": 45,
               "symbol": "saveGroupPushPreferences"
             },
             {
@@ -11172,12 +11172,12 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 49,
+              "line": 53,
               "symbol": "registerPushDevice"
             },
             {
               "path": "src/services/notifications/pushDevice.ts",
-              "line": 57,
+              "line": 67,
               "symbol": "registerPushDevice"
             }
           ],
@@ -11196,12 +11196,12 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 50,
+              "line": 54,
               "symbol": "unregisterPushDevice"
             },
             {
               "path": "src/services/notifications/pushDevice.ts",
-              "line": 139,
+              "line": 149,
               "symbol": "unregisterPushDevice"
             },
             {
@@ -11225,7 +11225,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/notifications/groupPushPolicy.ts",
-              "line": 6,
+              "line": 8,
               "symbol": "GroupPushTarget"
             }
           ],
@@ -11239,7 +11239,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 544,
+              "line": 545,
+              "symbol": "groupPushTarget"
+            },
+            {
+              "path": "src/services/backend/notificationTargets.ts",
+              "line": 8,
               "symbol": "groupPushTarget"
             },
             {
@@ -11249,7 +11254,7 @@
             },
             {
               "path": "src/services/notifications/groupPushRuntime.ts",
-              "line": 47,
+              "line": 48,
               "symbol": "groupPushTarget"
             },
             {
@@ -12547,7 +12552,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/backend.ts",
-              "line": 618,
+              "line": 613,
               "symbol": "installation"
             },
             {
@@ -12567,7 +12572,7 @@
             },
             {
               "path": "src/services/notifications/pushDevice.ts",
-              "line": 51,
+              "line": 61,
               "symbol": "installation"
             },
             {
@@ -12795,7 +12800,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 12,
+              "line": 11,
               "symbol": "planning"
             },
             {
@@ -13145,7 +13150,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 41,
+              "line": 45,
               "symbol": "save"
             },
             {
@@ -13230,7 +13235,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 41,
+              "line": 45,
               "symbol": "save"
             },
             {
@@ -13419,7 +13424,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/notifications/groupPushPolicy.ts",
-              "line": 15,
+              "line": 17,
               "symbol": "validPushUuid"
             },
             {
@@ -14982,7 +14987,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 50,
+              "line": 51,
               "symbol": "label"
             },
             {
@@ -16930,7 +16935,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 295,
+              "line": 299,
               "symbol": "AudioTrack"
             },
             {
@@ -17136,7 +17141,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 115,
+              "line": 116,
               "symbol": "ready"
             },
             {
@@ -18209,7 +18214,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 50,
+              "line": 51,
               "symbol": "label"
             },
             {
@@ -19972,7 +19977,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 50,
+              "line": 51,
               "symbol": "label"
             },
             {
@@ -21430,7 +21435,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 50,
+              "line": 51,
               "symbol": "label"
             },
             {
@@ -22622,7 +22627,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 50,
+              "line": 51,
               "symbol": "label"
             },
             {
@@ -22888,7 +22893,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 517,
+              "line": 518,
               "symbol": "update"
             },
             {
@@ -23235,7 +23240,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 50,
+              "line": 51,
               "symbol": "label"
             },
             {
@@ -23426,7 +23431,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 251,
+              "line": 255,
               "symbol": "done"
             },
             {
@@ -24351,7 +24356,7 @@
             },
             {
               "path": "src/services/backend/backend.ts",
-              "line": 50,
+              "line": 51,
               "symbol": "label"
             },
             {
@@ -25770,7 +25775,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 317,
+              "line": 321,
               "symbol": "resolve"
             },
             {
@@ -25799,7 +25804,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 112,
+              "line": 88,
               "symbol": "schedule"
             },
             {
@@ -26051,7 +26056,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/services/backend/types.ts",
-              "line": 281,
+              "line": 285,
               "symbol": "toggleDone"
             }
           ],
@@ -26178,7 +26183,7 @@
             },
             {
               "path": "src/services/backend/types.ts",
-              "line": 65,
+              "line": 69,
               "symbol": "create"
             },
             {

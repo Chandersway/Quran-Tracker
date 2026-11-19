@@ -2,7 +2,7 @@
 
 Gegenereerd met `node scripts/build-code-reference.mjs`. Dit is de vindplaats van bestanden, benoemde functies, klassen, interfaces en types; **het bestaan van een naam bewijst geen functionele gelijkwaardigheid**. De inhoudelijke beoordeling staat in de deelrapporten van deze controle.
 
-198 oorspronkelijke Kotlin-bestanden, 600 React Native-bron-/test-/toolbestanden en 51 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
+198 oorspronkelijke Kotlin-bestanden, 609 React Native-bron-/test-/toolbestanden en 55 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
 
 De [JSON-index](source-index.json) bevat de volledige lijst, regelverwijzingen, rollen, hashes, routes en persistente voorkeuren. Dit is geen lijst waarin iedere bronregel een aparte feature is. Gebruik de bronlink om de volledige implementatie te lezen.
 
@@ -4074,6 +4074,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `clearChecklistCoverage` | [105](../../src/domain/checklist.ts#L105) |
 | function | `clearChecklistPosition` | [108](../../src/domain/checklist.ts#L108) |
 
+### src/domain/dailyReadingGoal.ts
+
+[Volledige bron](../../src/domain/dailyReadingGoal.ts), 19 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `needsDailyReadingReminder` | [5](../../src/domain/dailyReadingGoal.ts#L5) |
+
 ### src/domain/dockPreferences.ts
 
 [Volledige bron](../../src/domain/dockPreferences.ts), 41 regels, rol: implementation.
@@ -4640,16 +4648,16 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/account/components/LocalRemindersPanel.tsx
 
-[Volledige bron](../../src/features/account/components/LocalRemindersPanel.tsx), 230 regels, rol: implementation.
+[Volledige bron](../../src/features/account/components/LocalRemindersPanel.tsx), 235 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `TimeKey` | [25](../../src/features/account/components/LocalRemindersPanel.tsx#L25) |
-| function-variable | `clock` | [26](../../src/features/account/components/LocalRemindersPanel.tsx#L26) |
-| function | `LocalRemindersPanel` | [29](../../src/features/account/components/LocalRemindersPanel.tsx#L29) |
-| function | `LocalRemindersPanel.save` | [60](../../src/features/account/components/LocalRemindersPanel.tsx#L60) |
-| function-variable | `LocalRemindersPanel.toggle` | [115](../../src/features/account/components/LocalRemindersPanel.tsx#L115) |
-| function | `LocalRemindersPanel.time` | [131](../../src/features/account/components/LocalRemindersPanel.tsx#L131) |
+| type | `TimeKey` | [26](../../src/features/account/components/LocalRemindersPanel.tsx#L26) |
+| function-variable | `clock` | [27](../../src/features/account/components/LocalRemindersPanel.tsx#L27) |
+| function | `LocalRemindersPanel` | [30](../../src/features/account/components/LocalRemindersPanel.tsx#L30) |
+| function | `LocalRemindersPanel.save` | [62](../../src/features/account/components/LocalRemindersPanel.tsx#L62) |
+| function-variable | `LocalRemindersPanel.toggle` | [117](../../src/features/account/components/LocalRemindersPanel.tsx#L117) |
+| function | `LocalRemindersPanel.time` | [133](../../src/features/account/components/LocalRemindersPanel.tsx#L133) |
 
 ### src/features/account/components/NotificationSystemPanel.tsx
 
@@ -4682,6 +4690,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `useAccountProfile` | [12](../../src/features/account/hooks/useAccountProfile.ts#L12) |
 | function | `useAccountProfile.changeProfileName` | [58](../../src/features/account/hooks/useAccountProfile.ts#L58) |
 | function | `useAccountProfile.updateProfile` | [63](../../src/features/account/hooks/useAccountProfile.ts#L63) |
+
+### src/features/account/localReminderCopy.ts
+
+[Volledige bron](../../src/features/account/localReminderCopy.ts), 22 regels, rol: implementation.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/account/model/accountCopy.ts
 
@@ -4736,17 +4750,17 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/account/screens/NotificationsScreen.tsx
 
-[Volledige bron](../../src/features/account/screens/NotificationsScreen.tsx), 498 regels, rol: implementation.
+[Volledige bron](../../src/features/account/screens/NotificationsScreen.tsx), 503 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `Override` | [208](../../src/features/account/screens/NotificationsScreen.tsx#L208) |
 | function | `NotificationsScreen` | [210](../../src/features/account/screens/NotificationsScreen.tsx#L210) |
 | function | `NotificationsScreen.saveGlobal` | [284](../../src/features/account/screens/NotificationsScreen.tsx#L284) |
-| function | `NotificationsScreen.saveGroup` | [304](../../src/features/account/screens/NotificationsScreen.tsx#L304) |
-| function | `NotificationsScreen.registerDevice` | [331](../../src/features/account/screens/NotificationsScreen.tsx#L331) |
-| function | `NotificationsScreen.unregisterDevice` | [358](../../src/features/account/screens/NotificationsScreen.tsx#L358) |
-| function-variable | `NotificationsScreen.level` | [373](../../src/features/account/screens/NotificationsScreen.tsx#L373) |
+| function | `NotificationsScreen.saveGroup` | [308](../../src/features/account/screens/NotificationsScreen.tsx#L308) |
+| function | `NotificationsScreen.registerDevice` | [336](../../src/features/account/screens/NotificationsScreen.tsx#L336) |
+| function | `NotificationsScreen.unregisterDevice` | [363](../../src/features/account/screens/NotificationsScreen.tsx#L363) |
+| function-variable | `NotificationsScreen.level` | [378](../../src/features/account/screens/NotificationsScreen.tsx#L378) |
 
 ### src/features/account/screens/SettingsScreen.tsx
 
@@ -5684,13 +5698,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/planning/components/PlanningReminderCoordinator.tsx
 
-[Volledige bron](../../src/features/planning/components/PlanningReminderCoordinator.tsx), 58 regels, rol: implementation.
+[Volledige bron](../../src/features/planning/components/PlanningReminderCoordinator.tsx), 78 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `PlanningReminderCoordinator` | [18](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L18) |
 | function-variable | `PlanningReminderCoordinator.reconcile` | [26](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L26) |
-| function | `LocalReminderFailureNotice` | [47](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L47) |
+| function-variable | `PlanningReminderCoordinator.scheduleMidnight` | [30](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L30) |
+| function | `LocalReminderFailureNotice` | [67](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L67) |
 
 ### src/features/planning/components/ReadingJourneyPanel.tsx
 
@@ -6820,51 +6835,59 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/backend/backend.ts
 
-[Volledige bron](../../src/services/backend/backend.ts), 638 regels, rol: implementation.
+[Volledige bron](../../src/services/backend/backend.ts), 633 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `Backend` | [37](../../src/services/backend/backend.ts#L37) |
-| function | `unwrap` | [45](../../src/services/backend/backend.ts#L45) |
-| function | `required` | [50](../../src/services/backend/backend.ts#L50) |
-| function | `optionalString` | [54](../../src/services/backend/backend.ts#L54) |
-| type | `DbRow` | [57](../../src/services/backend/backend.ts#L57) |
-| function | `createBackend` | [60](../../src/services/backend/backend.ts#L60) |
-| function-variable | `createBackend.draftActor` | [91](../../src/services/backend/backend.ts#L91) |
-| function | `createBackend.loadPostMedia` | [97](../../src/services/backend/backend.ts#L97) |
-| function | `createBackend.hydrateFeed` | [151](../../src/services/backend/backend.ts#L151) |
-| method | `createBackend.read` | [225](../../src/services/backend/backend.ts#L225) |
-| method | `createBackend.rpc` | [257](../../src/services/backend/backend.ts#L257) |
-| method | `createBackend.select` | [260](../../src/services/backend/backend.ts#L260) |
-| method | `createBackend.upload` | [269](../../src/services/backend/backend.ts#L269) |
-| method | `createBackend.remove` | [275](../../src/services/backend/backend.ts#L275) |
-| method | `createBackend.signedUrl` | [279](../../src/services/backend/backend.ts#L279) |
-| method | `createBackend.list` | [292](../../src/services/backend/backend.ts#L292) |
-| method | `createBackend.get` | [295](../../src/services/backend/backend.ts#L295) |
-| method | `createBackend.create` | [301](../../src/services/backend/backend.ts#L301) |
-| method | `createBackend.join` | [323](../../src/services/backend/backend.ts#L323) |
-| method | `createBackend.listMembers` | [333](../../src/services/backend/backend.ts#L333) |
-| method | `createBackend.open` | [352](../../src/services/backend/backend.ts#L352) |
-| method | `createBackend.listFeed` | [389](../../src/services/backend/backend.ts#L389) |
-| method | `createBackend.createTextPost` | [395](../../src/services/backend/backend.ts#L395) |
-| method | `createBackend.addComment` | [427](../../src/services/backend/backend.ts#L427) |
-| method | `createBackend.toggleReaction` | [452](../../src/services/backend/backend.ts#L452) |
-| method | `createBackend.listTasks` | [463](../../src/services/backend/backend.ts#L463) |
-| method | `createBackend.createTask` | [490](../../src/services/backend/backend.ts#L490) |
-| method | `createBackend.setTaskProgress` | [505](../../src/services/backend/backend.ts#L505) |
-| method | `createBackend.update` | [517](../../src/services/backend/backend.ts#L517) |
-| method | `createBackend.getMemberPermissions` | [535](../../src/services/backend/backend.ts#L535) |
-| method | `createBackend.groupPushTarget` | [544](../../src/services/backend/backend.ts#L544) |
-| method | `createBackend.loadGroupPushPreferences` | [553](../../src/services/backend/backend.ts#L553) |
-| method | `createBackend.saveGroupPushPreferences` | [572](../../src/services/backend/backend.ts#L572) |
-| method | `createBackend.loadGroupPreferences` | [580](../../src/services/backend/backend.ts#L580) |
-| method | `createBackend.updateGroupPreferences` | [596](../../src/services/backend/backend.ts#L596) |
-| method | `createBackend.registerPushDevice` | [615](../../src/services/backend/backend.ts#L615) |
-| method | `createBackend.unregisterPushDevice` | [630](../../src/services/backend/backend.ts#L630) |
+| type | `Backend` | [38](../../src/services/backend/backend.ts#L38) |
+| function | `unwrap` | [46](../../src/services/backend/backend.ts#L46) |
+| function | `required` | [51](../../src/services/backend/backend.ts#L51) |
+| function | `optionalString` | [55](../../src/services/backend/backend.ts#L55) |
+| type | `DbRow` | [58](../../src/services/backend/backend.ts#L58) |
+| function | `createBackend` | [61](../../src/services/backend/backend.ts#L61) |
+| function-variable | `createBackend.draftActor` | [92](../../src/services/backend/backend.ts#L92) |
+| function | `createBackend.loadPostMedia` | [98](../../src/services/backend/backend.ts#L98) |
+| function | `createBackend.hydrateFeed` | [152](../../src/services/backend/backend.ts#L152) |
+| method | `createBackend.read` | [226](../../src/services/backend/backend.ts#L226) |
+| method | `createBackend.rpc` | [258](../../src/services/backend/backend.ts#L258) |
+| method | `createBackend.select` | [261](../../src/services/backend/backend.ts#L261) |
+| method | `createBackend.upload` | [270](../../src/services/backend/backend.ts#L270) |
+| method | `createBackend.remove` | [276](../../src/services/backend/backend.ts#L276) |
+| method | `createBackend.signedUrl` | [280](../../src/services/backend/backend.ts#L280) |
+| method | `createBackend.list` | [293](../../src/services/backend/backend.ts#L293) |
+| method | `createBackend.get` | [296](../../src/services/backend/backend.ts#L296) |
+| method | `createBackend.create` | [302](../../src/services/backend/backend.ts#L302) |
+| method | `createBackend.join` | [324](../../src/services/backend/backend.ts#L324) |
+| method | `createBackend.listMembers` | [334](../../src/services/backend/backend.ts#L334) |
+| method | `createBackend.open` | [353](../../src/services/backend/backend.ts#L353) |
+| method | `createBackend.listFeed` | [390](../../src/services/backend/backend.ts#L390) |
+| method | `createBackend.createTextPost` | [396](../../src/services/backend/backend.ts#L396) |
+| method | `createBackend.addComment` | [428](../../src/services/backend/backend.ts#L428) |
+| method | `createBackend.toggleReaction` | [453](../../src/services/backend/backend.ts#L453) |
+| method | `createBackend.listTasks` | [464](../../src/services/backend/backend.ts#L464) |
+| method | `createBackend.createTask` | [491](../../src/services/backend/backend.ts#L491) |
+| method | `createBackend.setTaskProgress` | [506](../../src/services/backend/backend.ts#L506) |
+| method | `createBackend.update` | [518](../../src/services/backend/backend.ts#L518) |
+| method | `createBackend.getMemberPermissions` | [536](../../src/services/backend/backend.ts#L536) |
+| method | `createBackend.groupPushTarget` | [545](../../src/services/backend/backend.ts#L545) |
+| method | `createBackend.loadGroupPushPreferences` | [548](../../src/services/backend/backend.ts#L548) |
+| method | `createBackend.saveGroupPushPreferences` | [567](../../src/services/backend/backend.ts#L567) |
+| method | `createBackend.loadGroupPreferences` | [575](../../src/services/backend/backend.ts#L575) |
+| method | `createBackend.updateGroupPreferences` | [591](../../src/services/backend/backend.ts#L591) |
+| method | `createBackend.registerPushDevice` | [610](../../src/services/backend/backend.ts#L610) |
+| method | `createBackend.unregisterPushDevice` | [625](../../src/services/backend/backend.ts#L625) |
+
+### src/services/backend/notificationTargets.ts
+
+[Volledige bron](../../src/services/backend/notificationTargets.ts), 21 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `readGroupPushTarget` | [5](../../src/services/backend/notificationTargets.ts#L5) |
 
 ### src/services/backend/types.ts
 
-[Volledige bron](../../src/services/backend/types.ts), 321 regels, rol: implementation.
+[Volledige bron](../../src/services/backend/types.ts), 325 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -6874,66 +6897,66 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | type | `PushDeviceInput` | [27](../../src/services/backend/types.ts#L27) |
 | type | `NotificationService` | [38](../../src/services/backend/types.ts#L38) |
 | method | `NotificationService.groupPushTarget` | [39](../../src/services/backend/types.ts#L39) |
-| method | `NotificationService.loadGroupPushPreferences` | [40](../../src/services/backend/types.ts#L40) |
-| method | `NotificationService.saveGroupPushPreferences` | [41](../../src/services/backend/types.ts#L41) |
-| method | `NotificationService.loadGroupPreferences` | [42](../../src/services/backend/types.ts#L42) |
-| method | `NotificationService.updateGroupPreferences` | [43](../../src/services/backend/types.ts#L43) |
-| method | `NotificationService.registerPushDevice` | [49](../../src/services/backend/types.ts#L49) |
-| method | `NotificationService.unregisterPushDevice` | [50](../../src/services/backend/types.ts#L50) |
-| type | `Group` | [53](../../src/services/backend/types.ts#L53) |
-| type | `GroupMemberPermissions` | [73](../../src/services/backend/types.ts#L73) |
-| type | `GroupMember` | [80](../../src/services/backend/types.ts#L80) |
-| type | `GroupComment` | [89](../../src/services/backend/types.ts#L89) |
-| type | `GroupFeedPost` | [99](../../src/services/backend/types.ts#L99) |
-| type | `GroupFeedCursor` | [118](../../src/services/backend/types.ts#L118) |
-| type | `GroupFeedRequest` | [119](../../src/services/backend/types.ts#L119) |
-| type | `GroupFeedPage` | [120](../../src/services/backend/types.ts#L120) |
-| type | `GroupFeedConnection` | [125](../../src/services/backend/types.ts#L125) |
-| type | `GroupFeedService` | [126](../../src/services/backend/types.ts#L126) |
-| method | `GroupFeedService.listFeedPage` | [127](../../src/services/backend/types.ts#L127) |
-| method | `GroupFeedService.subscribeFeed` | [129](../../src/services/backend/types.ts#L129) |
-| type | `GroupTask` | [135](../../src/services/backend/types.ts#L135) |
-| type | `GroupTaskInput` | [156](../../src/services/backend/types.ts#L156) |
-| type | `GroupUpdateInput` | [165](../../src/services/backend/types.ts#L165) |
-| type | `GroupService` | [176](../../src/services/backend/types.ts#L176) |
-| method | `GroupService.list` | [180](../../src/services/backend/types.ts#L180) |
-| method | `GroupService.get` | [181](../../src/services/backend/types.ts#L181) |
-| method | `GroupService.create` | [182](../../src/services/backend/types.ts#L182) |
-| method | `GroupService.join` | [193](../../src/services/backend/types.ts#L193) |
-| method | `GroupService.listMembers` | [194](../../src/services/backend/types.ts#L194) |
-| method | `GroupService.listFeed` | [195](../../src/services/backend/types.ts#L195) |
-| method | `GroupService.createTextPost` | [196](../../src/services/backend/types.ts#L196) |
-| method | `GroupService.addComment` | [202](../../src/services/backend/types.ts#L202) |
-| method | `GroupService.toggleReaction` | [209](../../src/services/backend/types.ts#L209) |
-| method | `GroupService.listTasks` | [210](../../src/services/backend/types.ts#L210) |
-| method | `GroupService.createTask` | [211](../../src/services/backend/types.ts#L211) |
-| method | `GroupService.setTaskProgress` | [212](../../src/services/backend/types.ts#L212) |
-| method | `GroupService.update` | [213](../../src/services/backend/types.ts#L213) |
-| method | `GroupService.getMemberPermissions` | [214](../../src/services/backend/types.ts#L214) |
-| type | `Note` | [217](../../src/services/backend/types.ts#L217) |
-| type | `PlanItem` | [243](../../src/services/backend/types.ts#L243) |
-| type | `ProgressRow` | [259](../../src/services/backend/types.ts#L259) |
-| type | `NotesService` | [273](../../src/services/backend/types.ts#L273) |
-| method | `NotesService.list` | [274](../../src/services/backend/types.ts#L274) |
-| method | `NotesService.save` | [275](../../src/services/backend/types.ts#L275) |
-| method | `NotesService.delete` | [276](../../src/services/backend/types.ts#L276) |
-| type | `PlanningService` | [278](../../src/services/backend/types.ts#L278) |
-| method | `PlanningService.list` | [279](../../src/services/backend/types.ts#L279) |
-| method | `PlanningService.add` | [280](../../src/services/backend/types.ts#L280) |
-| method | `PlanningService.toggleDone` | [281](../../src/services/backend/types.ts#L281) |
-| method | `PlanningService.delete` | [282](../../src/services/backend/types.ts#L282) |
-| type | `ProgressService` | [284](../../src/services/backend/types.ts#L284) |
-| method | `ProgressService.list` | [285](../../src/services/backend/types.ts#L285) |
-| method | `ProgressService.checkIn` | [286](../../src/services/backend/types.ts#L286) |
-| method | `ProgressService.updateHifz` | [292](../../src/services/backend/types.ts#L292) |
-| type | `AudioTrack` | [295](../../src/services/backend/types.ts#L295) |
-| type | `AyahTiming` | [313](../../src/services/backend/types.ts#L313) |
-| type | `AudioService` | [314](../../src/services/backend/types.ts#L314) |
-| method | `AudioService.listSurah` | [315](../../src/services/backend/types.ts#L315) |
-| method | `AudioService.getAyahTimings` | [316](../../src/services/backend/types.ts#L316) |
-| method | `AudioService.resolve` | [317](../../src/services/backend/types.ts#L317) |
-| method | `AudioService.getDownloadedUri` | [318](../../src/services/backend/types.ts#L318) |
-| method | `AudioService.download` | [319](../../src/services/backend/types.ts#L319) |
+| method | `NotificationService.loadGroupPushPreferences` | [44](../../src/services/backend/types.ts#L44) |
+| method | `NotificationService.saveGroupPushPreferences` | [45](../../src/services/backend/types.ts#L45) |
+| method | `NotificationService.loadGroupPreferences` | [46](../../src/services/backend/types.ts#L46) |
+| method | `NotificationService.updateGroupPreferences` | [47](../../src/services/backend/types.ts#L47) |
+| method | `NotificationService.registerPushDevice` | [53](../../src/services/backend/types.ts#L53) |
+| method | `NotificationService.unregisterPushDevice` | [54](../../src/services/backend/types.ts#L54) |
+| type | `Group` | [57](../../src/services/backend/types.ts#L57) |
+| type | `GroupMemberPermissions` | [77](../../src/services/backend/types.ts#L77) |
+| type | `GroupMember` | [84](../../src/services/backend/types.ts#L84) |
+| type | `GroupComment` | [93](../../src/services/backend/types.ts#L93) |
+| type | `GroupFeedPost` | [103](../../src/services/backend/types.ts#L103) |
+| type | `GroupFeedCursor` | [122](../../src/services/backend/types.ts#L122) |
+| type | `GroupFeedRequest` | [123](../../src/services/backend/types.ts#L123) |
+| type | `GroupFeedPage` | [124](../../src/services/backend/types.ts#L124) |
+| type | `GroupFeedConnection` | [129](../../src/services/backend/types.ts#L129) |
+| type | `GroupFeedService` | [130](../../src/services/backend/types.ts#L130) |
+| method | `GroupFeedService.listFeedPage` | [131](../../src/services/backend/types.ts#L131) |
+| method | `GroupFeedService.subscribeFeed` | [133](../../src/services/backend/types.ts#L133) |
+| type | `GroupTask` | [139](../../src/services/backend/types.ts#L139) |
+| type | `GroupTaskInput` | [160](../../src/services/backend/types.ts#L160) |
+| type | `GroupUpdateInput` | [169](../../src/services/backend/types.ts#L169) |
+| type | `GroupService` | [180](../../src/services/backend/types.ts#L180) |
+| method | `GroupService.list` | [184](../../src/services/backend/types.ts#L184) |
+| method | `GroupService.get` | [185](../../src/services/backend/types.ts#L185) |
+| method | `GroupService.create` | [186](../../src/services/backend/types.ts#L186) |
+| method | `GroupService.join` | [197](../../src/services/backend/types.ts#L197) |
+| method | `GroupService.listMembers` | [198](../../src/services/backend/types.ts#L198) |
+| method | `GroupService.listFeed` | [199](../../src/services/backend/types.ts#L199) |
+| method | `GroupService.createTextPost` | [200](../../src/services/backend/types.ts#L200) |
+| method | `GroupService.addComment` | [206](../../src/services/backend/types.ts#L206) |
+| method | `GroupService.toggleReaction` | [213](../../src/services/backend/types.ts#L213) |
+| method | `GroupService.listTasks` | [214](../../src/services/backend/types.ts#L214) |
+| method | `GroupService.createTask` | [215](../../src/services/backend/types.ts#L215) |
+| method | `GroupService.setTaskProgress` | [216](../../src/services/backend/types.ts#L216) |
+| method | `GroupService.update` | [217](../../src/services/backend/types.ts#L217) |
+| method | `GroupService.getMemberPermissions` | [218](../../src/services/backend/types.ts#L218) |
+| type | `Note` | [221](../../src/services/backend/types.ts#L221) |
+| type | `PlanItem` | [247](../../src/services/backend/types.ts#L247) |
+| type | `ProgressRow` | [263](../../src/services/backend/types.ts#L263) |
+| type | `NotesService` | [277](../../src/services/backend/types.ts#L277) |
+| method | `NotesService.list` | [278](../../src/services/backend/types.ts#L278) |
+| method | `NotesService.save` | [279](../../src/services/backend/types.ts#L279) |
+| method | `NotesService.delete` | [280](../../src/services/backend/types.ts#L280) |
+| type | `PlanningService` | [282](../../src/services/backend/types.ts#L282) |
+| method | `PlanningService.list` | [283](../../src/services/backend/types.ts#L283) |
+| method | `PlanningService.add` | [284](../../src/services/backend/types.ts#L284) |
+| method | `PlanningService.toggleDone` | [285](../../src/services/backend/types.ts#L285) |
+| method | `PlanningService.delete` | [286](../../src/services/backend/types.ts#L286) |
+| type | `ProgressService` | [288](../../src/services/backend/types.ts#L288) |
+| method | `ProgressService.list` | [289](../../src/services/backend/types.ts#L289) |
+| method | `ProgressService.checkIn` | [290](../../src/services/backend/types.ts#L290) |
+| method | `ProgressService.updateHifz` | [296](../../src/services/backend/types.ts#L296) |
+| type | `AudioTrack` | [299](../../src/services/backend/types.ts#L299) |
+| type | `AyahTiming` | [317](../../src/services/backend/types.ts#L317) |
+| type | `AudioService` | [318](../../src/services/backend/types.ts#L318) |
+| method | `AudioService.listSurah` | [319](../../src/services/backend/types.ts#L319) |
+| method | `AudioService.getAyahTimings` | [320](../../src/services/backend/types.ts#L320) |
+| method | `AudioService.resolve` | [321](../../src/services/backend/types.ts#L321) |
+| method | `AudioService.getDownloadedUri` | [322](../../src/services/backend/types.ts#L322) |
+| method | `AudioService.download` | [323](../../src/services/backend/types.ts#L323) |
 
 ### src/services/groups/draftActor.ts
 
@@ -7617,6 +7640,16 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `loadBundledWarshWords` | [6](../../src/services/mushaf/warshOffline.ts#L6) |
 
+### src/services/notifications/dailyReadingReminders.ts
+
+[Volledige bron](../../src/services/notifications/dailyReadingReminders.ts), 111 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `pendingReminderCapacity` | [17](../../src/services/notifications/dailyReadingReminders.ts#L17) |
+| function | `dailyReadingReminders` | [22](../../src/services/notifications/dailyReadingReminders.ts#L22) |
+| function | `reminderWindow` | [89](../../src/services/notifications/dailyReadingReminders.ts#L89) |
+
 ### src/services/notifications/expoPlanningReminders.ts
 
 [Volledige bron](../../src/services/notifications/expoPlanningReminders.ts), 54 regels, rol: implementation.
@@ -7630,37 +7663,42 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/notifications/groupPushPolicy.ts
 
-[Volledige bron](../../src/services/notifications/groupPushPolicy.ts), 108 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/groupPushPolicy.ts), 136 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `GroupReply` | [3](../../src/services/notifications/groupPushPolicy.ts#L3) |
-| type | `GroupPushTarget` | [6](../../src/services/notifications/groupPushPolicy.ts#L6) |
-| type | `LocalPushPreferences` | [7](../../src/services/notifications/groupPushPolicy.ts#L7) |
-| type | `GroupReplyGate` | [8](../../src/services/notifications/groupPushPolicy.ts#L8) |
-| method | `GroupReplyGate.account` | [9](../../src/services/notifications/groupPushPolicy.ts#L9) |
-| method | `GroupReplyGate.local` | [10](../../src/services/notifications/groupPushPolicy.ts#L10) |
-| method | `GroupReplyGate.target` | [11](../../src/services/notifications/groupPushPolicy.ts#L11) |
-| method | `GroupReplyGate.preferences` | [12](../../src/services/notifications/groupPushPolicy.ts#L12) |
-| method | `GroupReplyGate.groupPreferences` | [13](../../src/services/notifications/groupPushPolicy.ts#L13) |
-| function-variable | `validPushUuid` | [15](../../src/services/notifications/groupPushPolicy.ts#L15) |
-| function | `findGroupReply` | [20](../../src/services/notifications/groupPushPolicy.ts#L20) |
-| function-variable | `isGroupReplyMessage` | [39](../../src/services/notifications/groupPushPolicy.ts#L39) |
-| function | `parseGroupReply` | [40](../../src/services/notifications/groupPushPolicy.ts#L40) |
-| function | `quietHoursActive` | [47](../../src/services/notifications/groupPushPolicy.ts#L47) |
-| function | `authorizeGroupReply` | [55](../../src/services/notifications/groupPushPolicy.ts#L55) |
-| function-variable | `authorizeGroupReply.allowedHere` | [63](../../src/services/notifications/groupPushPolicy.ts#L63) |
-| function | `resolveGroupReplyNavigation` | [85](../../src/services/notifications/groupPushPolicy.ts#L85) |
+| type | `GroupPushKind` | [4](../../src/services/notifications/groupPushPolicy.ts#L4) |
+| type | `GroupPush` | [5](../../src/services/notifications/groupPushPolicy.ts#L5) |
+| type | `GroupPushTarget` | [8](../../src/services/notifications/groupPushPolicy.ts#L8) |
+| type | `LocalPushPreferences` | [9](../../src/services/notifications/groupPushPolicy.ts#L9) |
+| type | `GroupReplyGate` | [10](../../src/services/notifications/groupPushPolicy.ts#L10) |
+| method | `GroupReplyGate.account` | [11](../../src/services/notifications/groupPushPolicy.ts#L11) |
+| method | `GroupReplyGate.local` | [12](../../src/services/notifications/groupPushPolicy.ts#L12) |
+| method | `GroupReplyGate.target` | [13](../../src/services/notifications/groupPushPolicy.ts#L13) |
+| method | `GroupReplyGate.preferences` | [14](../../src/services/notifications/groupPushPolicy.ts#L14) |
+| method | `GroupReplyGate.groupPreferences` | [15](../../src/services/notifications/groupPushPolicy.ts#L15) |
+| function-variable | `validPushUuid` | [17](../../src/services/notifications/groupPushPolicy.ts#L17) |
+| function | `findGroupReply` | [22](../../src/services/notifications/groupPushPolicy.ts#L22) |
+| function-variable | `isGroupPushMessage` | [41](../../src/services/notifications/groupPushPolicy.ts#L41) |
+| function-variable | `isGroupReplyMessage` | [42](../../src/services/notifications/groupPushPolicy.ts#L42) |
+| function | `parseGroupPush` | [44](../../src/services/notifications/groupPushPolicy.ts#L44) |
+| function | `parseGroupReply` | [50](../../src/services/notifications/groupPushPolicy.ts#L50) |
+| function | `quietHoursActive` | [57](../../src/services/notifications/groupPushPolicy.ts#L57) |
+| function | `authorizeGroupReply` | [65](../../src/services/notifications/groupPushPolicy.ts#L65) |
+| function | `authorizeGroupPush` | [73](../../src/services/notifications/groupPushPolicy.ts#L73) |
+| function-variable | `authorizeGroupPush.allowedHere` | [81](../../src/services/notifications/groupPushPolicy.ts#L81) |
+| function | `resolveGroupReplyNavigation` | [106](../../src/services/notifications/groupPushPolicy.ts#L106) |
 
 ### src/services/notifications/groupPushRuntime.ts
 
-[Volledige bron](../../src/services/notifications/groupPushRuntime.ts), 126 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/groupPushRuntime.ts), 128 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `pushGate` | [34](../../src/services/notifications/groupPushRuntime.ts#L34) |
-| function | `receiveGroupReply` | [54](../../src/services/notifications/groupPushRuntime.ts#L54) |
-| function | `initializeGroupPushHandler` | [113](../../src/services/notifications/groupPushRuntime.ts#L113) |
+| function | `pushGate` | [35](../../src/services/notifications/groupPushRuntime.ts#L35) |
+| function | `receiveGroupReply` | [55](../../src/services/notifications/groupPushRuntime.ts#L55) |
+| function | `initializeGroupPushHandler` | [115](../../src/services/notifications/groupPushRuntime.ts#L115) |
 
 ### src/services/notifications/groupPushState.ts
 
@@ -7686,18 +7724,19 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/notifications/localReminders.ts
 
-[Volledige bron](../../src/services/notifications/localReminders.ts), 194 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/localReminders.ts), 159 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `getReminderFailure` | [25](../../src/services/notifications/localReminders.ts#L25) |
-| function | `onReminderFailureChanged` | [26](../../src/services/notifications/localReminders.ts#L26) |
-| function | `setReminderFailure` | [32](../../src/services/notifications/localReminders.ts#L32) |
-| function | `ordered` | [37](../../src/services/notifications/localReminders.ts#L37) |
-| function | `loadLocalNotifications` | [42](../../src/services/notifications/localReminders.ts#L42) |
-| function | `desiredLocalReminders` | [56](../../src/services/notifications/localReminders.ts#L56) |
-| function | `reconcileLocalReminders` | [127](../../src/services/notifications/localReminders.ts#L127) |
-| function | `saveLocalNotifications` | [166](../../src/services/notifications/localReminders.ts#L166) |
+| function-variable | `getReminderFailure` | [29](../../src/services/notifications/localReminders.ts#L29) |
+| function | `onReminderFailureChanged` | [30](../../src/services/notifications/localReminders.ts#L30) |
+| function | `setReminderFailure` | [36](../../src/services/notifications/localReminders.ts#L36) |
+| function | `ordered` | [41](../../src/services/notifications/localReminders.ts#L41) |
+| function | `loadLocalNotifications` | [46](../../src/services/notifications/localReminders.ts#L46) |
+| function | `desiredLocalReminders` | [60](../../src/services/notifications/localReminders.ts#L60) |
+| function | `nativeReminderCapacity` | [87](../../src/services/notifications/localReminders.ts#L87) |
+| function | `reconcileLocalReminders` | [94](../../src/services/notifications/localReminders.ts#L94) |
+| function | `saveLocalNotifications` | [130](../../src/services/notifications/localReminders.ts#L130) |
 
 ### src/services/notifications/notificationDestinations.ts
 
@@ -7805,16 +7844,16 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/notifications/pushDevice.ts
 
-[Volledige bron](../../src/services/notifications/pushDevice.ts), 166 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/pushDevice.ts), 176 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `localPushPreferences` | [14](../../src/services/notifications/pushDevice.ts#L14) |
-| function | `dismissGroupNotifications` | [19](../../src/services/notifications/pushDevice.ts#L19) |
-| function-variable | `dismissGroupNotifications.matches` | [21](../../src/services/notifications/pushDevice.ts#L21) |
-| function | `syncRegisteredPushDevice` | [38](../../src/services/notifications/pushDevice.ts#L38) |
-| function | `enablePushDevice` | [74](../../src/services/notifications/pushDevice.ts#L74) |
-| function | `unregisterPushDevice` | [145](../../src/services/notifications/pushDevice.ts#L145) |
+| function | `localPushPreferences` | [19](../../src/services/notifications/pushDevice.ts#L19) |
+| function | `dismissGroupNotifications` | [24](../../src/services/notifications/pushDevice.ts#L24) |
+| function-variable | `dismissGroupNotifications.matches` | [29](../../src/services/notifications/pushDevice.ts#L29) |
+| function | `syncRegisteredPushDevice` | [48](../../src/services/notifications/pushDevice.ts#L48) |
+| function | `enablePushDevice` | [84](../../src/services/notifications/pushDevice.ts#L84) |
+| function | `unregisterPushDevice` | [155](../../src/services/notifications/pushDevice.ts#L155) |
 
 ### src/services/notifications/pushDeviceKeys.ts
 
@@ -8827,6 +8866,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | method | `reader.render.onError` | [67](../../tests/continuous-mushaf-lifecycle.test.ts#L67) |
 | method | `reader.render.scrollTo` | [75](../../tests/continuous-mushaf-lifecycle.test.ts#L75) |
 
+### tests/daily-reading-reminders.test.ts
+
+[Volledige bron](../../tests/daily-reading-reminders.test.ts), 121 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `state` | [19](../../tests/daily-reading-reminders.test.ts#L19) |
+| function-variable | `entry` | [25](../../tests/daily-reading-reminders.test.ts#L25) |
+
 ### tests/device-storage.test.ts
 
 [Volledige bron](../../tests/device-storage.test.ts), 143 regels, rol: test.
@@ -9056,6 +9104,23 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function-variable | `mount.sheet` | [50](../../tests/group-post-composer.test.ts#L50) |
 | function-variable | `mount.submit` | [51](../../tests/group-post-composer.test.ts#L51) |
 
+### tests/group-post-notification-tap.test.ts
+
+[Volledige bron](../../tests/group-post-notification-tap.test.ts), 113 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `sub` | [29](../../tests/group-post-notification-tap.test.ts#L29) |
+
+### tests/group-post-push.test.ts
+
+[Volledige bron](../../tests/group-post-push.test.ts), 150 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `gate` | [17](../../tests/group-post-push.test.ts#L17) |
+| method | `handleNotification` | [75](../../tests/group-post-push.test.ts#L75) |
+
 ### tests/group-progress-parity.test.ts
 
 [Volledige bron](../../tests/group-progress-parity.test.ts), 205 regels, rol: test.
@@ -9089,6 +9154,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `gate` | [17](../../tests/group-push-policy.test.ts#L17) |
+
+### tests/group-push-target.test.ts
+
+[Volledige bron](../../tests/group-push-target.test.ts), 59 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| type | `Response` | [6](../../tests/group-push-target.test.ts#L6) |
+| function | `fixture` | [7](../../tests/group-push-target.test.ts#L7) |
 
 ### tests/group-reading.test.ts
 
@@ -9320,26 +9394,26 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/local-reminder-reconciliation.test.ts
 
-[Volledige bron](../../tests/local-reminder-reconciliation.test.ts), 405 regels, rol: test.
+[Volledige bron](../../tests/local-reminder-reconciliation.test.ts), 467 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `time` | [14](../../tests/local-reminder-reconciliation.test.ts#L14) |
-| function | `planned` | [15](../../tests/local-reminder-reconciliation.test.ts#L15) |
-| function | `fixture` | [34](../../tests/local-reminder-reconciliation.test.ts#L34) |
-| function | `fixture.load` | [70](../../tests/local-reminder-reconciliation.test.ts#L70) |
-| class | `fixture.load.ClockDate` | [95](../../tests/local-reminder-reconciliation.test.ts#L95) |
-| method | `fixture.load.ClockDate.now` | [99](../../tests/local-reminder-reconciliation.test.ts#L99) |
+| function-variable | `time` | [64](../../tests/local-reminder-reconciliation.test.ts#L64) |
+| function | `planned` | [65](../../tests/local-reminder-reconciliation.test.ts#L65) |
+| function | `fixture` | [84](../../tests/local-reminder-reconciliation.test.ts#L84) |
+| function | `fixture.load` | [120](../../tests/local-reminder-reconciliation.test.ts#L120) |
+| class | `fixture.load.ClockDate` | [146](../../tests/local-reminder-reconciliation.test.ts#L146) |
+| method | `fixture.load.ClockDate.now` | [150](../../tests/local-reminder-reconciliation.test.ts#L150) |
 
 ### tests/local-reminders-panel.test.ts
 
-[Volledige bron](../../tests/local-reminders-panel.test.ts), 169 regels, rol: test.
+[Volledige bron](../../tests/local-reminders-panel.test.ts), 171 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `fixture` | [17](../../tests/local-reminders-panel.test.ts#L17) |
-| function-variable | `fixture.render` | [71](../../tests/local-reminders-panel.test.ts#L71) |
-| function | `fixture.edit` | [72](../../tests/local-reminders-panel.test.ts#L72) |
+| function | `fixture` | [18](../../tests/local-reminders-panel.test.ts#L18) |
+| function-variable | `fixture.render` | [73](../../tests/local-reminders-panel.test.ts#L73) |
+| function | `fixture.edit` | [74](../../tests/local-reminders-panel.test.ts#L74) |
 
 ### tests/metro-native-artifacts.test.ts
 
@@ -9645,14 +9719,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/notification-native-permission.test.ts
 
-[Volledige bron](../../tests/notification-native-permission.test.ts), 393 regels, rol: test.
+[Volledige bron](../../tests/notification-native-permission.test.ts), 435 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `module` | [13](../../tests/notification-native-permission.test.ts#L13) |
 | function | `fixture` | [33](../../tests/notification-native-permission.test.ts#L33) |
-| function | `startupFixture` | [107](../../tests/notification-native-permission.test.ts#L107) |
-| function-variable | `startupFixture.load` | [117](../../tests/notification-native-permission.test.ts#L117) |
+| function | `startupFixture` | [149](../../tests/notification-native-permission.test.ts#L149) |
+| function-variable | `startupFixture.load` | [159](../../tests/notification-native-permission.test.ts#L159) |
 
 ### tests/notification-system.test.ts
 
@@ -9912,6 +9986,22 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function-variable | `row` | [16](../../tests/reading-plan.test.ts#L16) |
 | function-variable | `closeTo` | [29](../../tests/reading-plan.test.ts#L29) |
+
+### tests/reading-reminder-coordinator.test.ts
+
+[Volledige bron](../../tests/reading-reminder-coordinator.test.ts), 122 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| class | `Clock` | [16](../../tests/reading-reminder-coordinator.test.ts#L16) |
+| method | `Clock.now` | [20](../../tests/reading-reminder-coordinator.test.ts#L20) |
+| method | `useRef` | [25](../../tests/reading-reminder-coordinator.test.ts#L25) |
+| method | `useEffect` | [30](../../tests/reading-reminder-coordinator.test.ts#L30) |
+| method | `setReminderFailure` | [62](../../tests/reading-reminder-coordinator.test.ts#L62) |
+| method | `getReminderFailure` | [63](../../tests/reading-reminder-coordinator.test.ts#L63) |
+| method | `onReminderFailureChanged` | [64](../../tests/reading-reminder-coordinator.test.ts#L64) |
+| method | `notifyNotificationPreferencesChanged` | [73](../../tests/reading-reminder-coordinator.test.ts#L73) |
+| function-variable | `render` | [88](../../tests/reading-reminder-coordinator.test.ts#L88) |
 
 ### tests/reading-statistics-page-navigation.test.ts
 
@@ -10258,11 +10348,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### supabase/functions/group-push/notification-copy.ts
 
-[Volledige bron](../../../supabase/functions/group-push/notification-copy.ts), 10 regels, rol: implementation.
+[Volledige bron](../../../supabase/functions/group-push/notification-copy.ts), 20 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `curatedReplyText` | [9](../../../supabase/functions/group-push/notification-copy.ts#L9) |
+| function | `curatedGroupPushText` | [17](../../../supabase/functions/group-push/notification-copy.ts#L17) |
 
 ### supabase/migrations/20260904210000_group_detail_v2_foundation.sql
 
@@ -10420,6 +10511,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
+### supabase/migrations/20261120090000_group_post_push.sql
+
+[Volledige bron](../../../supabase/migrations/20261120090000_group_post_push.sql), 147 regels, rol: implementation.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
+
 ### supabase/tests/group_comment_deletion.sql
 
 [Volledige bron](../../../supabase/tests/group_comment_deletion.sql), 35 regels, rol: test.
@@ -10492,15 +10589,35 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
+### supabase/tests/group_post_push.sql
+
+[Volledige bron](../../../supabase/tests/group_post_push.sql), 76 regels, rol: test.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
+
 ### supabase/tests/group_profile_names.sql
 
 [Volledige bron](../../../supabase/tests/group_profile_names.sql), 34 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
+### supabase/tests/group_push_contract.test.ts
+
+[Volledige bron](../../../supabase/tests/group_push_contract.test.ts), 63 regels, rol: test.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
+
+### supabase/tests/group_push_fcm.test.ts
+
+[Volledige bron](../../../supabase/tests/group_push_fcm.test.ts), 76 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `fetchMock` | [27](../../../supabase/tests/group_push_fcm.test.ts#L27) |
+
 ### supabase/tests/group_reply_push.sql
 
-[Volledige bron](../../../supabase/tests/group_reply_push.sql), 56 regels, rol: test.
+[Volledige bron](../../../supabase/tests/group_reply_push.sql), 59 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 

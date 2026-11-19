@@ -1,6 +1,6 @@
 import * as TaskManager from 'expo-task-manager';
 import * as Notifications from 'expo-notifications';
-import { GROUP_PUSH_TASK, parseGroupReply } from './groupPushPolicy';
+import { GROUP_PUSH_TASK, parseGroupPush } from './groupPushPolicy';
 import { initializeGroupPushHandler, receiveGroupReply } from './groupPushRuntime';
 
 initializeGroupPushHandler();
@@ -9,7 +9,7 @@ initializeGroupPushHandler();
 TaskManager.defineTask<Notifications.NotificationTaskPayload>(
   GROUP_PUSH_TASK,
   async ({ data, error }) => {
-    if (error || !data || 'actionIdentifier' in data || !parseGroupReply(data))
+    if (error || !data || 'actionIdentifier' in data || !parseGroupPush(data))
       return Notifications.BackgroundNotificationTaskResult.NoData;
     // APNs alert payloads are already presented by iOS in the background; avoid a duplicate local alert.
     if ('aps' in data && data.aps && typeof data.aps === 'object' && 'alert' in data.aps)

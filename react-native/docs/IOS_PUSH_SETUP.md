@@ -1,5 +1,7 @@
 # iOS-push: van broncode naar een gecontroleerde bezorging
 
+Bijgewerkt voor nieuwe-postpush op 19 november 2026. De hieronder genoemde provider-/signingcontroles blijven vereist; de nieuwe code is geen bewijs dat hosted APNs al werkt. Zie ook [Groepspush instellen](GROUP_PUSH_SETUP.md).
+
 Gecontroleerd tegen de broncode en officiële documentatie op **18 november 2026**. Dit document beschrijft de resterende inrichting. Er is tijdens de recheck geen Apple-account gewijzigd, provisioningprofiel gemaakt, productiegeheim geplaatst, Edge Function gedeployed of echte push verzonden. Een geslaagde TypeScript-test of iOS-JavaScript-export bewijst geen ondertekende iOS-build of APNs-bezorging.
 
 Voor IPA/TestFlight/App Store-stappen: [releasehandleiding](RELEASE_HANDLEIDING.md). Voor migraties, dispatcher, groepsrechten en Realtime: [live chat en backend](LIVE_CHAT_SETUP.md). Realtime en push hebben verschillende infrastructuur: een werkende chatsocket bewijst niets over APNs, en omgekeerd.
@@ -16,11 +18,11 @@ De app gebruikt **native APNs-tokens en een eigen Supabase Edge Function**. Zij 
 | Autorisatie                   | Zowel volledige als iOS-provisional toestemming is bruikbaar. Provisional kan stil in het meldingencentrum bezorgen. Lokale leesherinneringen hebben een eigen schakelaar; deze overschrijft de globale groepspushkeuze niet.                                      |
 | Registratie vernieuwen        | Tokenlistener, accountlevenscyclus, taalwijziging en terugkeer naar de app synchroniseren een bestaande opt-in. Een andere account wordt niet stilzwijgend aangemeld.                                                                                              |
 | Afmelden                      | Lokale accountgate wordt eerst ingetrokken; native meldingen/taak en remote registratie worden opgeruimd. Bij offline remote cleanup blijft serververificatie noodzakelijk.                                                                                        |
-| Serververzending              | Commenttrigger → `notification_deliveries` → dispatcher → `group-push` → `claim_group_push_v2` → actuele ontvangercontrole → APNs → `finish_group_push_v1`.                                                                                                        |
-| Payload                       | Generieke, gelokaliseerde melding; `kind=group_reply`, event/recipient/group/post-identificatie. De zichtbare tekst bevat geen discussie-inhoud.                                                                                                                   |
-| Tikken                        | De app vraagt de bestemming opnieuw op via de geauthenticeerde `get_group_push_target_v1`; een willekeurige URL in een payload wordt niet vertrouwd.                                                                                                               |
+| Serververzending              | Post-/commenttrigger → `notification_deliveries` → dispatcher → `group-push` → `claim_group_push_v3` → actuele ontvangercontrole → APNs → `finish_group_push_v1`.                                                                                                  |
+| Payload                       | Generieke, gelokaliseerde melding; `kind=group_reply` of `group_post`, event/recipient/group/post-identificatie. De zichtbare tekst bevat geen discussie-inhoud.                                                                                                   |
+| Tikken                        | De app vraagt de bestemming opnieuw op via de geauthenticeerde `get_group_push_target_v2`; een willekeurige URL in een payload wordt niet vertrouwd.                                                                                                               |
 
-**De huidige producer stuurt antwoorden op een discussie.** De postauthor en eerdere commentauthors kunnen een melding krijgen; de nieuwe commentauthor zelf niet. Een nieuwe losse chattekst of ieder ander feedbericht heeft geen algemene pushproducer. Dat is ook de oorspronkelijke Kotlin-grens. Alleen een toggle aanzetten maakt zo'n producer niet aan.
+**De producer ondersteunt nieuwe gepubliceerde posts en discussie-antwoorden.** Voor nieuwe posts is migratie `20261120090000_group_post_push.sql`, de bijpassende function en nieuwe clientbuild nodig. Andere actieve leden ontvangen gewone nieuwe posts alleen met **Groepsberichten en updates** aan en groepsmodus Alles; Belangrijk, Alleen vermeldingen en Gedempt zijn daarvan uitgesloten. Antwoorden behouden het bestaande deelnemers-/Reactiesbeleid. De auteur krijgt geen eigen melding. Zie [de volledige groepspushhandleiding](GROUP_PUSH_SETUP.md) voor de nieuwe migratie, Vaultorigin, deployvolgorde en tweeaccounttest.
 
 ## 2. Apple App ID en ondertekening
 
@@ -67,7 +69,7 @@ Voer de deploymentcommando's vanuit de bovenliggende `Quran-Tracker`-repository 
 
 Daarna: `supabase functions deploy group-push --project-ref <project-ref>`. De repositoryconfiguratie gebruikt voor deze function `verify_jwt=false`: de function controleert haar bearer zelf via het Vault-backed dispatchercontract. Zij is geen publiek endpoint waar de app een eigen token/ontvanger/bericht kan aanleveren. [Supabase: functiondeployments](https://supabase.com/docs/guides/functions/quickstart).
 
-Controleer ook het endpoint in de **actuele** databasefunctie `dispatch_group_push_v1`. De historische migraties bevatten de oorspronkelijke vaste projecthost. Voor een ander project hoort een nieuwe, gerichte migratie dit doel aan te passen; het wijzigen van de publieke app-URL doet dat niet. Herschrijf geen reeds toegepaste migratiegeschiedenis.
+Pas ook `20261120090000_group_post_push.sql` toe en stel Vault `group_push_base_url` in op `https://<project-ref>.supabase.co`, zonder pad. De actuele dispatcher voegt `/functions/v1/group-push` toe en gebruikt geen vaste fallbackhost. Deploy pas daarna de nieuwe `group-push`-worker die claim v3 verwacht. De publieke app-URL wijzigt deze serverconfiguratie niet. De volledige volgorde staat in [Groepspush instellen](GROUP_PUSH_SETUP.md); herschrijf geen historische migratie.
 
 ## 6. Backend uitsluitend-lezen controleren
 
@@ -75,7 +77,7 @@ Deze queries tonen geen keys, tokens, e-mails of berichtinhoud. Voer ze als behe
 
 ```sql
 select to_regprocedure('public.register_push_device_v2(uuid,text,text,boolean,text,boolean,integer,integer,text)') as register_ios,
-       to_regprocedure('public.claim_group_push_v2()') as claim_ios,
+       to_regprocedure('public.claim_group_push_v3()') as claim_ios,
        to_regprocedure('public.dispatch_group_push_v1()') as dispatcher;
 
 select jobname, schedule, active
@@ -100,7 +102,7 @@ Ontbrekende RPC's betekenen dat de juiste servermigratie nog niet aanwezig is. E
 1. Installeer de passende ondertekende build via de [releasehandleiding](RELEASE_HANDLEIDING.md). Gebruik deze eigen binary voor de test; een webexport of een generieke Expo Go-sessie is niet de acceptatieomgeving.
 2. Start de app en log in met een afgesproken testaccount A. Ga naar **Instellingen → Meldingen**.
 3. Controleer de systeemstatus. Sta meldingen toe of controleer iOS Instellingen → Apps → Quran Tracker → Meldingen. Stil/provisional toegestaan verschilt van een blokkering; de app toont dat onderscheid.
-4. Zet globale groepsmeldingen en de relevante reactie-/antwoordcategorie aan. Kies bij de testgroep een niet-gedempte modus die reacties toestaat. Controleer stille uren en de tijdzone van het toestel.
+4. Zet globale groepsmeldingen en Reacties aan voor antwoorden, of **Groepsberichten en updates** voor nieuwe posts. Kies voor nieuwe posts bij de testgroep Alles; voor replies geldt het bestaande niet-gedempte reactiebeleid. Controleer stille uren en de tijdzone van het toestel.
 5. Gebruik **Push op dit apparaat inschakelen**. De app haalt het native APNs-token zelf op en verstuurt dit geauthenticeerd. Handmatig tokens kopiëren is niet nodig voor de gewone end-to-endtest.
 6. Controleer dat registratie zonder fout eindigt en dat de backend een actieve/enabled iOS-registratie heeft. Bewaar het resultaat en buildnummer in het acceptatierapport, niet het token.
 
@@ -122,17 +124,17 @@ Apple's [Push Notification Console](https://developer.apple.com/documentation/us
 
 ## 9. Fouten gericht oplossen
 
-| Waarneming                                      | Controle                                                                                                                           |
-| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Geen native token / entitlementfout             | Ondertekende `aps-environment`, juiste App ID/team en vernieuwd profiel; maak opnieuw een native build.                            |
-| `APNS_CONFIGURATION`                            | Exacte vijf secretwaarden; geldige PEM en omgeving.                                                                                |
-| `BadDeviceToken` / `DeviceTokenNotForTopic`     | Tokenomgeving, ondertekende bundle-ID en `APNS_TOPIC`; daarna opnieuw aanmelden met de bedoelde build.                             |
-| `InvalidProviderToken` / `ExpiredProviderToken` | Team/Key ID/keyscope, `.p8`-inhoud en serverklok. De function reset haar JWT-cache bij 403.                                        |
-| `Unregistered`                                  | Token is ongeldig geworden. De function markeert dit als invalid token; geen oude queue blind opnieuw afspelen.                    |
-| Geen queue-item                                 | Test een antwoord, geen losse chattekst; controleer post/commentauthor, actief lidmaatschap, categorie en mutevoorkeuren.          |
-| Queue blijft pending                            | Stille uren/tijdzone, cron, dispatcherhost, functiondeployment en retries.                                                         |
-| Function geeft `Unauthorized`                   | Dispatcher/Vault-contract controleren; geen anon-key of willekeurig Bearer-token gebruiken om de function handmatig aan te roepen. |
-| `sent`, maar geen zichtbare banner              | OS-autorisatie, provisional/stille bezorging, Focus-modus, appstatus, toestelverbinding en Apple-console.                          |
+| Waarneming                                      | Controle                                                                                                                                  |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Geen native token / entitlementfout             | Ondertekende `aps-environment`, juiste App ID/team en vernieuwd profiel; maak opnieuw een native build.                                   |
+| `APNS_CONFIGURATION`                            | Exacte vijf secretwaarden; geldige PEM en omgeving.                                                                                       |
+| `BadDeviceToken` / `DeviceTokenNotForTopic`     | Tokenomgeving, ondertekende bundle-ID en `APNS_TOPIC`; daarna opnieuw aanmelden met de bedoelde build.                                    |
+| `InvalidProviderToken` / `ExpiredProviderToken` | Team/Key ID/keyscope, `.p8`-inhoud en serverklok. De function reset haar JWT-cache bij 403.                                               |
+| `Unregistered`                                  | Token is ongeldig geworden. De function markeert dit als invalid token; geen oude queue blind opnieuw afspelen.                           |
+| Geen queue-item                                 | Controleer juiste post-/replyproducer, migratie/function, actief lidmaatschap, Updates of Reacties en bij nieuwe posts groepsmodus Alles. |
+| Queue blijft pending                            | Stille uren/tijdzone, cron, dispatcherhost, functiondeployment en retries.                                                                |
+| Function geeft `Unauthorized`                   | Dispatcher/Vault-contract controleren; geen anon-key of willekeurig Bearer-token gebruiken om de function handmatig aan te roepen.        |
+| `sent`, maar geen zichtbare banner              | OS-autorisatie, provisional/stille bezorging, Focus-modus, appstatus, toestelverbinding en Apple-console.                                 |
 
 De huidige function slaat niet ieder APNs-redendetail duurzaam op; interpreteer een generieke `failed` niet als een specifieke Applefout zonder providerdiagnostiek. Log geen device-token, Authorization-header, `.p8` of volledige notificatiepayload om dit te onderzoeken.
 
@@ -143,4 +145,4 @@ De huidige function slaat niet ieder APNs-redendetail duurzaam op; interpreteer 
 - Migraties, actuele dispatcherhost, Vault, cron en functionsecrets zijn op de bedoelde backend ingericht.
 - Een fysieke iOS-test doorloopt registratie, foreground/background/koude start, taprouting en account-/mute-/quiet-hourgevallen.
 - De test bewijst zowel provideracceptatie als de zichtbare toesteluitkomst; lokale unit tests en een bundel-export worden apart vermeld.
-- Algemene chatpush wordt niet als bestaande functie beloofd. iOS-gesture/PDF/achtergrondaudioacceptatie blijft onderdeel van de bredere native releasecheck.
+- Nieuwe-postpush afzonderlijk getest met Updates en Alles volgens de groepspushhandleiding; broncode alleen bewijst geen deployment. iOS-gesture/PDF/achtergrondaudioacceptatie blijft onderdeel van de bredere native releasecheck.

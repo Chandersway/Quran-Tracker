@@ -1,5 +1,8 @@
 begin;
 -- Transaction-scoped fixtures: no notifications or device records survive this test.
+-- Keep fabricated notifications inside this transaction and off hosted workers.
+delete from vault.secrets where name = 'group_push_base_url';
+select vault.create_secret('http://127.0.0.1:9', 'group_push_base_url');
 do $$
 declare a uuid; b uuid; g public.groups%rowtype; p public.group_posts%rowtype;
  c public.post_comments%rowtype; e uuid; d uuid; installation uuid := gen_random_uuid();

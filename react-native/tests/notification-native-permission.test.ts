@@ -104,6 +104,48 @@ test('native iOS provisional authorization schedules reminders and registers pus
   assert.equal(f.calls.includes('permission prompt'), false);
 });
 
+test('muting removes new-post alerts and category changes preserve unrelated replies and groups', async () => {
+  const removed: string[] = [];
+  const cancelled: string[] = [];
+  const rows = [
+    { identifier: 'post-a', data: { kind: 'group_post', group_code: 'A' } },
+    { identifier: 'reply-a', data: { kind: 'group_reply', group_code: 'A' } },
+    { identifier: 'post-b', data: { kind: 'group_post', group_code: 'B' } },
+    { identifier: 'local', data: { kind: 'daily_reading' } },
+  ];
+  const service = module<typeof PushDevice>('src/services/notifications/pushDevice.ts', {
+    'react-native': { Platform: { OS: 'android' } },
+    'expo-notifications': {
+      getPresentedNotificationsAsync: async () =>
+        rows.map((row) => ({
+          request: { identifier: row.identifier, content: { data: row.data } },
+        })),
+      getAllScheduledNotificationsAsync: async () =>
+        rows.map((row) => ({ identifier: row.identifier, content: { data: row.data } })),
+      dismissNotificationAsync: async (id: string) => {
+        removed.push(id);
+      },
+      cancelScheduledNotificationAsync: async (id: string) => {
+        cancelled.push(id);
+      },
+    },
+    '../storage/deviceStorage': { deviceStorage: {} },
+    './pushDeviceKeys': { pushDeviceKeys },
+    './groupPushPolicy': {},
+    './groupPushState': { invalidateGroupPush: () => undefined },
+    './localReminders': {},
+    './notificationSystem': notificationSystem,
+  });
+  await service.dismissGroupNotifications('A', 'group_post');
+  assert.deepEqual(removed, ['post-a']);
+  assert.deepEqual(cancelled, ['post-a']);
+  removed.length = 0;
+  cancelled.length = 0;
+  await service.dismissGroupNotifications('A');
+  assert.deepEqual(removed, ['post-a', 'reply-a']);
+  assert.deepEqual(cancelled, ['post-a', 'reply-a']);
+});
+
 function startupFixture(os = 'android', version = 37) {
   const values = new Map<string, string>();
   const app = { currentState: 'active' };

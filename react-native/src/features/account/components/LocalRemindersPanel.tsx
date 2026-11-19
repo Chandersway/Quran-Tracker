@@ -21,6 +21,7 @@ import {
 } from '../../../services/notifications/notificationPreferenceEvents';
 import { syncRegisteredPushDevice } from '../../../services/notifications/pushDevice';
 import { getBackend } from '../../../config/runtime';
+import { localReminderCopy } from '../localReminderCopy';
 
 type TimeKey = 'dailyMinute' | 'extraMinute' | 'quietStart' | 'quietEnd';
 const clock = (value: number) =>
@@ -30,6 +31,7 @@ export function LocalRemindersPanel() {
   const { state, commit } = useAppStore();
   const { t } = useI18n();
   const p = usePalette();
+  const copy = localReminderCopy[state.preferences.language];
   const [preferences, setPreferences] = useState(localNotificationDefaults);
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -164,7 +166,7 @@ export function LocalRemindersPanel() {
         {toggle('daily', 'notifications.daily')}
         {preferences.daily && time('dailyMinute', 'notifications.time')}
         <T size={13} muted style={{ paddingVertical: 12 }}>
-          {t('notifications.dailyHelp')}
+          {copy.dailyHelp}
         </T>
         {toggle('extra', 'notifications.extra')}
         {preferences.extra && time('extraMinute', 'notifications.extraTime')}
@@ -181,6 +183,9 @@ export function LocalRemindersPanel() {
         )}
         <T muted size={12} style={{ paddingVertical: 16 }}>
           {t('notifications.timing')}
+        </T>
+        <T translate={false} muted size={12} style={{ paddingBottom: 12 }}>
+          {copy.forecast}
         </T>
       </Card>
       {!editing && !!error && (

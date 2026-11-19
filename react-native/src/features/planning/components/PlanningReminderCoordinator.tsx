@@ -26,18 +26,38 @@ export function PlanningReminderCoordinator() {
     const reconcile = () => {
       void reconcileLocalReminders(current.current).catch(() => setReminderFailure('restore'));
     };
+    let midnightTimer: ReturnType<typeof setTimeout>;
+    const scheduleMidnight = () => {
+      clearTimeout(midnightTimer);
+      const now = new Date();
+      const next = new Date(now);
+      next.setDate(next.getDate() + 1);
+      next.setHours(0, 0, 1, 0);
+      midnightTimer = setTimeout(() => {
+        reconcile();
+        scheduleMidnight();
+      }, next.getTime() - now.getTime());
+    };
     reconcile();
+    scheduleMidnight();
     const unlisten = onNotificationPreferencesChanged(reconcile);
     const subscription = AppState.addEventListener('change', (next) => {
-      if (next === 'active') reconcile();
+      if (next === 'active') {
+        reconcile();
+        scheduleMidnight();
+      }
     });
     return () => {
       unlisten();
       subscription.remove();
+      clearTimeout(midnightTimer);
     };
   }, [
     ready,
     state.plans,
+    state.history,
+    state.goals,
+    state.goalDays,
     state.preferences.language,
     state.preferences.onboardingComplete,
     minute,

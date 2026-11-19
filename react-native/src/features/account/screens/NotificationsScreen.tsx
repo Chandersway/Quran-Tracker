@@ -186,7 +186,7 @@ const categoryLabels = {
     'Announcements',
     'Invitations',
     'Join requests',
-    'Important updates',
+    'Group posts and updates',
   ],
   nl: [
     'Vermeldingen',
@@ -194,7 +194,7 @@ const categoryLabels = {
     'Aankondigingen',
     'Uitnodigingen',
     'Toetredingsverzoeken',
-    'Belangrijke updates',
+    'Groepsberichten en updates',
   ],
   ar: [
     'الإشارات',
@@ -202,7 +202,7 @@ const categoryLabels = {
     'الإعلانات',
     'الدعوات',
     'طلبات الانضمام',
-    'التحديثات المهمة',
+    'منشورات المجموعة والتحديثات',
   ],
 } as const;
 type Override = GroupPushPreferences;
@@ -291,7 +291,11 @@ export function NotificationsScreen() {
       invalidateGroupPush();
       await backend.notifications.saveGroupPushPreferences(next);
       setGlobal(next);
-      if (!next.enabled || !next.reaction) await dismissGroupNotifications();
+      if (!next.enabled) await dismissGroupNotifications();
+      else {
+        if (!next.reaction) await dismissGroupNotifications(undefined, 'group_reply');
+        if (!next.update) await dismissGroupNotifications(undefined, 'group_post');
+      }
       await syncRegisteredPushDevice(backend, state.preferences.language);
       setNotice(t.saved);
     } catch {
@@ -319,6 +323,7 @@ export function NotificationsScreen() {
         updated.mutedUntil
       )
         await dismissGroupNotifications(group.code);
+      else if (updated.level !== 'all') await dismissGroupNotifications(group.code, 'group_post');
       setOverrides((current) => ({ ...current, [group.code]: updated }));
       setNotice(t.saved);
     } catch {

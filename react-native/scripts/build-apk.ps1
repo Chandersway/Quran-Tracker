@@ -58,6 +58,12 @@ if (-not $SkipChecks) {
     Invoke-Checked 'npm.cmd' @('run', 'verify')
     Invoke-Checked 'npm.cmd' @('run', 'format:check')
 }
+# Metro clears its transform cache for a release bundle. Keep that cache apart
+# from a running dev server or export, including other projects on this PC.
+$apkBuildTemp = Join-Path $projectRoot '.tooling/apk-build-temp'
+New-Item -ItemType Directory -Path $apkBuildTemp -Force | Out-Null
+$env:TEMP = $apkBuildTemp
+$env:TMP = $apkBuildTemp
 Invoke-Checked 'node.exe' @('scripts/check-config.mjs', '--local')
 Invoke-Checked 'node.exe' @('node_modules/expo/bin/cli', 'prebuild', '--platform', 'android', '--no-install', '--no-clean')
 Invoke-Checked (Join-Path $projectRoot 'android/gradlew.bat') @(

@@ -13,7 +13,7 @@ export const localNotificationDefaults: LocalNotificationPreferences = {
   enabled: true,
   daily: true,
   dailyMinute: 480,
-  extra: false,
+  extra: true,
   extraMinute: 1260,
   planning: true,
   quiet: false,

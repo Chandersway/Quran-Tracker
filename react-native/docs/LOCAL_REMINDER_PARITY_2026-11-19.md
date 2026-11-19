@@ -1,5 +1,7 @@
 # Dagelijkse meldingen: controle tegen Kotlin
 
+> **Actuele wijziging:** de dagelijkse leesherinneringen zijn inmiddels doelafhankelijk en gebruiken een begrensd datumschema met standaard 08:00 en 21:00. Zie [Dagelijkse leesherinneringen](DAILY_REMINDERS_SETUP.md) voor de huidige regels, bestaande opt-outs, gesloten-app-beperkingen en testprocedure. Onderstaand verslag blijft bewaard als historische vergelijking met Kotlin; de oorspronkelijke regel die vaste herinneringen onafhankelijk van het dagdoel maakte, geldt niet meer voor de nieuwe React Native-flow.
+
 Gecontroleerd op 19 november 2026. Dit verslag gaat over lokale lees- en agendaherinneringen. Groepspush via Firebase/APNs is een afzonderlijke afleverroute.
 
 ## Wat de oorspronkelijke app doet

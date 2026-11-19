@@ -4,6 +4,7 @@ import { initialState } from '../src/state/models';
 import type { Action } from '../src/state/reducer';
 import { localNotificationDefaults } from '../src/domain/notificationPreferences';
 import { light } from '../src/shared/theme/colors';
+import { localReminderCopy } from '../src/features/account/localReminderCopy';
 import {
   componentHarness,
   elements,
@@ -66,6 +67,7 @@ function fixture(permission = true) {
         syncRegisteredPushDevice: async () => undefined,
       },
       '../../../config/runtime': { getBackend: () => null },
+      '../localReminderCopy': { localReminderCopy },
     },
   );
   const render = () => hooks.render(LocalRemindersPanel);

@@ -36,7 +36,11 @@ export type PushDeviceInput = {
   platform: 'android' | 'ios';
 };
 export type NotificationService = {
-  groupPushTarget(eventId: string): Promise<{ groupCode: string; postId: string } | null>;
+  groupPushTarget(eventId: string): Promise<{
+    groupCode: string;
+    postId: string;
+    kind?: 'group_reply' | 'group_post';
+  } | null>;
   loadGroupPushPreferences(): Promise<NotificationPreferences>;
   saveGroupPushPreferences(preferences: NotificationPreferences): Promise<void>;
   loadGroupPreferences(code: string): Promise<GroupPushPreferences>;

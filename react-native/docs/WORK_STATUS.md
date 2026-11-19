@@ -2,6 +2,14 @@
 
 The Kotlin source is the specification. This is an implementation checkpoint, not a declaration of complete migration or store readiness.
 
+## Dagdoelherinneringen en Firebase-groepspush - 19 november 2026
+
+Nieuwe voorkeuren hebben 08:00 en 21:00. Het leesdagdoel bepaalt of de resterende meldingen van vandaag nodig zijn; undo herstelt toekomstige tijden. De native datumplanning wordt maximaal veertien dagen vooruit bijgehouden binnen het gezamenlijke agendabudget. Bestaande opt-outs blijven behouden. Nieuwe groepsposts hebben een eigen event/payload, categorie en veilige ontvanger-/tapcontrole naast bestaande antwoorden. De dispatcherorigin is configureerbaar via Vault.
+
+**877 app-tests en 4 servertests**, TypeScript, ESLint en formatter slagen. De nieuwe APK is gebouwd en op QA geïnstalleerd met identieke teruggelezen hash `e46080060109711898fa627219c7a69026a151cb82e0057e6114570d3234f7f0`. iOS- en webbundels zijn succesvol geëxporteerd. De tweede tijd 21:00 staat op QA nu aan naast 08:00; native toestemming en alarmregistratie zijn bevestigd zonder een ontvangstbewijs te claimen. De [groepspushhandleiding](GROUP_PUSH_SETUP.md) bevat actuele projectlinks, secrets, uitrol, bouwen en tests; de [dagelijkse handleiding](DAILY_REMINDERS_SETUP.md) beschrijft instellingen en de begrensde offline planning. [Implementatiebewijs en open acceptatiestappen](NOTIFICATIONS_IMPLEMENTATION_2026-11-19.md).
+
+Hosted deployment en zichtbare Firebase/APNs-bezorging zijn niet uitgevoerd. Na de volle schijf herstelde Docker niet; de laatste SQL-herhaling van twee beleidsdefaults ontbreekt, ondanks een eerdere geslaagde lokale nieuwe-post-/iOS-SQL-proef. De onafhankelijke code- en providermocktests slagen. Dit punt is expliciet opgenomen in het verslag en de SQL-testopdrachten staan in de handleiding.
+
 ## Compacte feed, leesaudio en opslaan van notities - 19 november 2026
 
 De compacte socialmediafeed, directe reciteurkeuze onderin de fullscreen lezer en het reagerende notitievinkje zijn geimplementeerd. **862/862 tests**, TypeScript, ESLint, formatting en Android/iOS/webexports slagen. Nieuwe lokale APK: `fe5f308f84dc416002a3a5b587695f18b47e9ae231de165365d96e88c2d9479d`. Native feed-, toetsenbord-, RTL- en audiocontroles en de precieze grenzen staan in [het afleveringsverslag](FEED_AUDIO_NOTES_2026-11-19.md). Notitieherstel via de ontbrekende koppeling, opslaan, ongewijzigd afsluiten en behoud na herstart zijn op QA gezien. Alleen de tijdelijke testnotitie is daarna verwijderd. De teruggelezen QA-APK heeft dezelfde hash; dev is weer verbonden met Metro 8081.

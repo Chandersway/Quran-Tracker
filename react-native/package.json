@@ -26,7 +26,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\" \"scripts/*.{ts,mjs}\" \"plugins/*.{ts,js}\" App.tsx index.ts app.config.ts metro.config.js eslint.config.mjs",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\" \"scripts/*.{ts,mjs}\" \"plugins/*.{ts,js}\" App.tsx index.ts app.config.ts metro.config.js eslint.config.mjs",
     "test": "tsx --test tests/*.test.ts",
-    "verify": "npm run typecheck && npm run lint && npm test",
+    "test:push-server": "tsx --test ../supabase/tests/group_push_contract.test.ts ../supabase/tests/group_push_fcm.test.ts",
+    "verify": "npm run typecheck && npm run lint && npm test && npm run test:push-server",
     "export": "expo export --platform all",
     "content:generate": "python scripts/prepare-content.py",
     "config:check": "node scripts/check-config.mjs"

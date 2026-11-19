@@ -361,7 +361,7 @@ Bevoegde beheerders kunnen groepsgegevens, privacy, logo, rollen, aanvragen, uit
 
 Bij de servercontrole van **18 november 2026** was Supabase Realtime nog niet beschikbaar voor deze configuratie. De app haalt daarom aanvullend periodiek berichten op; nieuwe berichten kunnen vertraagd verschijnen. De indicator dat iemand typt vereist ook de inrichting van de privékanalen.
 
-Alleen notificaties op je telefoon toestaan maakt deze serverfuncties niet actief. Push voor ieder nieuw chatbericht is niet geïmplementeerd; de bestaande groepspush gaat over antwoorden in een discussie waaraan je deelneemt. De technische inrichting en controles staan in de [handleiding voor live chat](LIVE_CHAT_SETUP.md).
+Alleen notificaties op je telefoon toestaan maakt deze serverfuncties niet actief. De app ondersteunt push voor nieuwe gepubliceerde groepsberichten en antwoorden op discussies waaraan je deelneemt. Hiervoor moeten de nieuwe servermigratie, verzendfunctie en providercredentials zijn ingericht. Zie de [volledige groepspushhandleiding](GROUP_PUSH_SETUP.md); de chatverbinding staat afzonderlijk in de [handleiding voor live chat](LIVE_CHAT_SETUP.md).
 
 ## 14. Account en meldingen
 
@@ -384,7 +384,7 @@ Inloggen is geen automatische synchronisatie van al je persoonlijke leesgegevens
 Open **Instellingen → Meldingen en stille uren**. Hier beheer je onder andere:
 
 - Toestemming voor meldingen op dit apparaat.
-- Een dagelijkse herinnering en een optionele tweede tijd.
+- Twee dagelijkse leesherinneringen, voor nieuwe instellingen standaard om 08:00 en 21:00. Bestaande uitgeschakelde tijden blijven uitgeschakeld.
 - Herinneringen bij agenda-items.
 - Stille uren.
 - Groepscategorieën en de voorkeur per groep: alles, belangrijk, vermeldingen of dempen.
@@ -397,7 +397,9 @@ Controleer **Meldingen toestaan**, de dagelijkse schakelaar, de opgeslagen tijd,
 
 Een nog niet ingeplande agendaherinnering kan bij hervatten maximaal twaalf uur na de toegestane tijd alsnog worden aangeboden, buiten je stille uren. De instellingen van Android of iOS zelf kunnen meldingen daarnaast blokkeren; open zo nodig de systeeminstellingen vanuit dit scherm.
 
-**Lokale herinneringen en online pushmeldingen zijn verschillende functies.** Zie de [controle van dagelijkse meldingen tegen Kotlin](LOCAL_REMINDER_PARITY_2026-11-19.md) voor de gevonden correcties, toestelproef en overblijvende platformverschillen; de huidige implementatie is nog geen bewijs van volledig identieke aflevering op ieder toestel. Lokale herinneringen worden op je toestel ingepland. Online groepsmeldingen vereisen bovendien een geregistreerd toestel en een werkende pushserver. De aflevering via Android en iOS moet nog volledig worden bevestigd. Het aanwezige serverpad ondersteunt discussie-antwoorden; push voor ieder nieuw chatbericht is niet geïmplementeerd.
+**Lokale herinneringen en online pushmeldingen zijn verschillende functies.** De dagelijkse tijden worden op het toestel ingepland. Zodra het leesdagdoel is gehaald, vervallen de resterende tijden van vandaag; morgen begint opnieuw. Na het verwijderen van leesregistraties wordt opnieuw berekend of je onder het doel zit. Beide tijden, meldingsrechten en stille uren blijven instelbaar. De vooruitplanning wordt bij appgebruik vernieuwd; de technische grenzen staan in de [actuele handleiding voor dagelijkse herinneringen](DAILY_REMINDERS_SETUP.md).
+
+Online groepsmeldingen vereisen daarnaast een aangemeld toestel en een ingerichte pushserver. Zet **Groepsberichten en updates** aan en kies bij je groep **Alles** voor nieuwe berichten, afbeeldingen en gedeelde voortgang. **Gedempt** ontvangt deze meldingen niet; **Alleen vermeldingen** en **Belangrijk** ontvangen geen gewone nieuwe-postpush. Antwoorden op je discussies volgen de afzonderlijke reactiecategorie. Tikken controleert je actuele toegang voordat het bericht opent. Voor de exacte installatie en toesteltests: [groepspush instellen](GROUP_PUSH_SETUP.md). De aanwezigheid van code bewijst geen Firebase/APNs-bezorging op jouw telefoon.
 
 ## 15. Studiebronnen en boeken
 

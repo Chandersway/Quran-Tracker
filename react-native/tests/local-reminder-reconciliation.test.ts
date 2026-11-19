@@ -8,9 +8,59 @@ import * as preferences from '../src/domain/notificationPreferences';
 import { localDate } from '../src/domain/localDate';
 import * as planning from '../src/services/notifications/planningReminders';
 import * as ledger from '../src/services/notifications/planningReminderLedger';
+import * as readingReminders from '../src/services/notifications/dailyReadingReminders';
 import type * as LocalReminders from '../src/services/notifications/localReminders';
 
 const ledgerKey = 'wirdna:plan-reminder-submissions:v1';
+
+test('default local reading reminders enable 08:00 and 21:00', () => {
+  assert.equal(preferences.localNotificationDefaults.dailyMinute, 8 * 60);
+  assert.equal(preferences.localNotificationDefaults.extraMinute, 21 * 60);
+  assert.equal(preferences.localNotificationDefaults.daily, true);
+  assert.equal(preferences.localNotificationDefaults.extra, true);
+});
+
+test('a completed read goal cancels today only and undo restores its remaining reminders', async () => {
+  const f = fixture();
+  f.state.plans = [];
+  f.state.goals = [{ ...initialState.goals[0]!, id: 1, unit: 'rub', target: 1 }];
+  f.advance(time(7));
+  f.preferences({ daily: true, extra: true });
+  const service = f.load();
+  await service.reconcileLocalReminders(f.state);
+  const before = f.rows.map((row) => row.data.planReminderKey);
+  f.state.history = [
+    {
+      id: 'read-goal',
+      sourceKey: 'read-goal',
+      ownerId: '',
+      type: 'rub',
+      contentType: 'rub',
+      amount: 1,
+      action: 'read',
+      surahId: 1,
+      surahName: 'Rub 1',
+      timestamp: time(7),
+      dateKey: '2026-11-18',
+    },
+  ];
+  await service.reconcileLocalReminders(f.state);
+  assert.equal(
+    f.rows.filter((row) => String(row.data.planReminderKey).includes('2026-11-18')).length,
+    0,
+  );
+  assert.ok(
+    f.rows.some((row) => String(row.data.planReminderKey).includes('2026-11-19')),
+    'tomorrow remains scheduled while the app is closed',
+  );
+  assert.ok(f.cancelled.length >= 2, 'both pending times today are cancelled after reading');
+  f.state.history = [];
+  await service.reconcileLocalReminders(f.state);
+  assert.ok(
+    before.every((key) => f.rows.some((row) => row.data.planReminderKey === key)),
+    'undo restores today without losing future dates',
+  );
+});
 const time = (hour: number, minute = 0) => new Date(2026, 10, 18, hour, minute).getTime();
 function planned(id = 'late', hour = 10): Plan {
   return {
@@ -39,7 +89,7 @@ function fixture(permission = true, grantAt: number | null = null) {
     [ledgerKey, JSON.stringify({ version: 1, initializedAt: time(0), entries: {} })],
     [
       'wirdna:notification-preferences:v1',
-      JSON.stringify({ ...preferences.localNotificationDefaults, daily: false }),
+      JSON.stringify({ ...preferences.localNotificationDefaults, daily: false, extra: false }),
     ],
   ]);
   const rows: planning.ExistingPlanReminder[] = [];
@@ -81,6 +131,7 @@ function fixture(permission = true, grantAt: number | null = null) {
       '../../domain/localDate': { localDate },
       '../../i18n': { sourceText: (key: string) => key },
       './planningReminders': planning,
+      './dailyReadingReminders': readingReminders,
       './planningReminderLedger': ledger,
       './planningReminderPort': {
         expoPlanReminderPort: port,
@@ -129,13 +180,18 @@ function fixture(permission = true, grantAt: number | null = null) {
     preferences: (patch: Partial<preferences.LocalNotificationPreferences>) => {
       values.set(
         'wirdna:notification-preferences:v1',
-        JSON.stringify({ ...preferences.localNotificationDefaults, daily: false, ...patch }),
+        JSON.stringify({
+          ...preferences.localNotificationDefaults,
+          daily: false,
+          extra: false,
+          ...patch,
+        }),
       );
     },
   };
 }
 
-test('granting after 08:00 submits the default DAILY and exactly one same-day DATE, even after dismissal and restart', async () => {
+test('granting after 08:00 submits a dated forecast and exactly one same-day catch-up, even after dismissal and restart', async () => {
   const f = fixture(false, time(12));
   f.state.plans = [];
   f.preferences({ daily: true });
@@ -146,16 +202,21 @@ test('granting after 08:00 submits the default DAILY and exactly one same-day DA
   f.state.preferences = { ...f.state.preferences, onboardingComplete: true };
   await service.reconcileLocalReminders(f.state);
   await service.reconcileLocalReminders(f.state);
-  assert.equal(f.scheduled.length, 2);
-  assert.equal(f.scheduled[0]?.repeatDaily, true);
-  assert.equal(f.scheduled[0]?.dueAt.getHours(), 8);
-  assert.equal(f.scheduled[0]?.dueAt.getMinutes(), 0);
-  const catchUp = f.scheduled[1]!;
+  assert.equal(f.scheduled.length, 14); // Today's catch-up plus thirteen future dates.
+  const future = f.scheduled.filter((row) => row.firstGrantSlot === undefined);
+  assert.equal(future.length, 13);
+  assert.ok(future.every((row) => row.repeatDaily === false));
+  assert.equal(future[0]?.dueAt.getHours(), 8);
+  assert.equal(future[0]?.dueAt.getMinutes(), 0);
+  const catchUp = f.scheduled.find((row) => row.firstGrantSlot !== undefined)!;
   assert.equal(catchUp.repeatDaily, false);
   assert.equal(catchUp.firstGrantSlot, 480);
   assert.equal(catchUp.deliveryKey, 'daily-catchup:2026-11-18:480');
   assert.equal(catchUp.dueAt.getTime(), time(12) + 5000);
-  f.rows.splice(1, 1);
+  f.rows.splice(
+    f.rows.findIndex((row) => row.data.planReminderKey === catchUp.key),
+    1,
+  );
   await f.load().reconcileLocalReminders(f.state);
   f.advance(time(18));
   f.state.preferences = { ...f.state.preferences, language: 'en' };
@@ -163,7 +224,7 @@ test('granting after 08:00 submits the default DAILY and exactly one same-day DA
   f.advance(time(24 + 12));
   await f.load().reconcileLocalReminders(f.state);
   assert.equal(f.scheduled.filter((item) => item.firstGrantSlot !== undefined).length, 1);
-  assert.equal(f.rows.length, 1);
+  assert.equal(f.rows.length, 13);
 });
 
 test('an early grant, disabled daily slot or existing same-minute Kotlin/RN alarm cannot produce a duplicate catch-up', async () => {
@@ -177,7 +238,7 @@ test('an early grant, disabled daily slot or existing same-minute Kotlin/RN alar
       f.scheduled.some((item) => item.firstGrantSlot !== undefined),
       false,
     );
-    assert.equal(f.rows.length, 1);
+    assert.equal(f.rows.length, 13);
   }
   const disabled = fixture(true, time(12));
   disabled.state.plans = [];
@@ -210,8 +271,8 @@ test('a late first grant defers across same-day quiet hours, deduplicates equal 
   night.state.plans = [];
   night.preferences({ daily: true, quiet: true, quietStart: 22 * 60, quietEnd: 7 * 60 });
   await night.load().reconcileLocalReminders(night.state);
-  assert.equal(night.scheduled.length, 1);
-  assert.equal(night.scheduled[0]?.repeatDaily, true);
+  assert.equal(night.scheduled.length, 13);
+  assert.ok(night.scheduled.every((row) => row.repeatDaily === false && row.date !== '2026-11-18'));
 });
 
 test('daily first-grant catch-up can exceed twelve hours and keeps independent extra and regular slots', async () => {
@@ -224,10 +285,11 @@ test('daily first-grant catch-up can exceed twelve hours and keeps independent e
     f.scheduled.filter((r) => r.firstGrantSlot !== undefined).map((r) => r.firstGrantSlot),
     [480, 1260],
   );
-  assert.equal(f.scheduled.filter((r) => r.repeatDaily).length, 2);
+  assert.equal(f.scheduled.filter((r) => r.firstGrantSlot === undefined).length, 26);
+  assert.ok(f.scheduled.every((row) => row.repeatDaily === false));
 });
 
-test('an uncertain first-grant DATE retains the regular DAILY and its reservation prevents an immediate retry', async () => {
+test('an uncertain first-grant DATE retains the future forecast and its reservation prevents an immediate retry', async () => {
   const f = fixture(true, time(12));
   f.state.plans = [];
   f.preferences({ daily: true });
@@ -241,11 +303,11 @@ test('an uncertain first-grant DATE retains the regular DAILY and its reservatio
   const service = f.load();
   await service.reconcileLocalReminders(f.state);
   assert.equal(service.getReminderFailure(), 'restore');
-  assert.equal(f.rows.length, 1);
-  assert.equal(f.scheduled[0]?.repeatDaily, true);
+  assert.equal(f.rows.length, 13);
+  assert.ok(f.scheduled.every((row) => row.repeatDaily === false && row.date !== '2026-11-18'));
   await f.load().reconcileLocalReminders(f.state);
   assert.equal(oneShotAttempts, 1);
-  assert.equal(f.rows.length, 1);
+  assert.equal(f.rows.length, 13);
 });
 
 test('onboarding and restart never offer permission for disabled local alerts', async () => {
@@ -374,7 +436,7 @@ test('failed reservation writes preserve old native alarms and schedule nothing 
 test('a failed settings commit rolls back a pending catch-up and its reservation for safe retry', async () => {
   const f = fixture();
   f.failWrite('wirdna:notification-preferences:v1');
-  const prefs = { ...preferences.localNotificationDefaults, daily: false };
+  const prefs = { ...preferences.localNotificationDefaults, daily: false, extra: false };
   await assert.rejects(f.load().saveLocalNotifications(f.state, prefs), /storage full/);
   assert.equal(f.rows.length, 0);
   assert.deepEqual(JSON.parse(f.values.get(ledgerKey)!).entries, {});

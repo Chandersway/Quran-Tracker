@@ -1,21 +1,23 @@
 # Live chat, private typing en groepspush instellen
 
+Bijgewerkt voor nieuwe-postpush op 19 november 2026. De historische hosted controle hieronder blijft een uitsluitend-lezen momentopname; de nieuwe code is daarmee niet als gedeployed of bezorgd aangetoond. Voor het complete nieuwe pushpad: [Groepspush instellen](GROUP_PUSH_SETUP.md).
+
 Gecontroleerd op 18 november 2026. Dit document beschrijft de **werkelijk aanwezige code** en de afzonderlijke stappen voor lokale verificatie en productieconfiguratie. Paden beginnen in `react-native/`; `../supabase/` en `../app/` zijn de gedeelde backend en de oorspronkelijke Kotlin-app. Voor Android/iOS-builds en winkels: [releasehandleiding](RELEASE_HANDLEIDING.md).
 
 **Huidige status:** de appcode en lokale Supabase-integratie voor chat zijn aanwezig. De uitsluitend-lezen hosted controle van 18 november 2026, 00:30:59 UTC, gaf voor **alle vijf feedtabellen** `CHANNEL_ERROR / RealtimeDisabledForConfiguration`; er zijn nul berichten ontvangen. Dat is geen bewijs dat productie live is. Tijdens deze recheck zijn geen hosted migraties, instellingen, secrets, gebruikers of berichten gewijzigd. Private typing en echte FCM/APNs-bezorging zijn evenmin als werkend in productie aangetoond.
 
 ## 1. Drie functies met verschillende vereisten
 
-| Functie | Opslag/transport | Nodig | Werkt zonder Realtime? |
-|---|---|---|---|
-| Groepschat en feed lezen/versturen | Bestaande `group_posts`, `post_comments`, RPC's en PostgREST | Publieke appconfiguratie, geldige gebruikerssessie, bestaande groepsdatabase en rechten | Ja: actieve chat leest elke 5 seconden opnieuw; feed elke 30 seconden |
-| Direct nieuwe inhoud zien | Supabase `postgres_changes` als signaal om geautoriseerd opnieuw te lezen | Realtime aan, vijf tabellen in `supabase_realtime`, SELECT-grants/RLS, werkende WebSocket | Dezelfde lees-/schrijfacties blijven via polling beschikbaar |
-| “... typt” | Private Broadcast via server-RPC en persoonlijke ontvangsttopic | Typingmigratie, private channel authorization en actuele groepsrechten | Nee; indicator verdwijnt zonder chat te blokkeren |
-| Push bij antwoord in discussie | SQL-trigger → bezorgqueue → Edge Function → FCM/APNs | Pushmigraties, dispatcher, providercredentials, device-registratie en instellingen | Ja; push staat los van de chatsocket |
+| Functie                                       | Opslag/transport                                                          | Nodig                                                                                     | Werkt zonder Realtime?                                                |
+| --------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Groepschat en feed lezen/versturen            | Bestaande `group_posts`, `post_comments`, RPC's en PostgREST              | Publieke appconfiguratie, geldige gebruikerssessie, bestaande groepsdatabase en rechten   | Ja: actieve chat leest elke 5 seconden opnieuw; feed elke 30 seconden |
+| Direct nieuwe inhoud zien                     | Supabase `postgres_changes` als signaal om geautoriseerd opnieuw te lezen | Realtime aan, vijf tabellen in `supabase_realtime`, SELECT-grants/RLS, werkende WebSocket | Dezelfde lees-/schrijfacties blijven via polling beschikbaar          |
+| “... typt”                                    | Private Broadcast via server-RPC en persoonlijke ontvangsttopic           | Typingmigratie, private channel authorization en actuele groepsrechten                    | Nee; indicator verdwijnt zonder chat te blokkeren                     |
+| Push bij nieuwe post of antwoord in discussie | SQL-trigger → bezorgqueue → Edge Function → FCM/APNs                      | Pushmigraties, dispatcher, providercredentials, device-registratie en instellingen        | Ja; push staat los van de chatsocket                                  |
 
 Er bestaat geen aparte `messages`-tabel, publiek chat-Broadcast-kanaal, leesbevestiging, aanwezigheidslijst, online-status of `EXPO_PUBLIC_ENABLE_CHAT`-schakelaar. Chat is een extra chronologische weergave van **tekstposts** uit dezelfde groepenfeed als Kotlin. Systeem-, voortgangs- en mediaposts worden vóór paginering uit de chatquery gefilterd; ze blijven beschikbaar in de feed.
 
-De huidige pushfunctie verstuurt **reacties op discussies waaraan de ontvanger deelneemt**. Een nieuw los chatbericht of nieuwe tekstpost geeft niet automatisch een push aan alle groepsleden. Ook Kotlin beschrijft precies deze replyfunctionaliteit. De opties voor andere notificatiecategorieën zijn geen bewijs van een providerbezorging voor iedere categorie. Realtime activeren verandert dit pushcontract niet.
+De pushcode ondersteunt **nieuwe gepubliceerde groepsposts** en **reacties op discussies waaraan de ontvanger deelneemt**. Nieuwe posts vereisen migratie `20261120090000_group_post_push.sql`, de bijpassende function en clientbuild, categorie Updates en groepsmodus Alles. Belangrijk, Alleen vermeldingen en Gedempt ontvangen geen gewone nieuwe-postpush. De oorspronkelijke replyfunctionaliteit blijft onafhankelijk via Reacties. Realtime activeren deployt deze uitbreiding niet. Zie [de volledige groepspushinrichting](GROUP_PUSH_SETUP.md) voor Firebase, Vault, deployvolgorde en toesteltests. Hosted bezorging is geen bewezen resultaat van de lokale controles.
 
 ## 2. Configuratie: publieke waarden en servergeheimen
 
@@ -31,13 +33,13 @@ EXPO_PROJECT_ID=<expo-project-uuid-voor-builds>
 GOOGLE_SERVICES_JSON=<pad-naar-Android-clientconfiguratie>
 ```
 
-| Exacte naam | Waar gebruikt | Voor live chat vereist? |
-|---|---|---|
-| `EXPO_PUBLIC_SUPABASE_URL` | `src/config/runtime.ts` → `createBackend` | Ja; HTTPS-projectorigin in productie |
-| `EXPO_PUBLIC_SUPABASE_ANON_KEY` | Dezelfde client en geïsoleerde typingsocket | Ja; de naam blijft zo, ook met een publishable key |
-| `EXPO_PUBLIC_AUDIO_BASE_URL` | Audio/downloads | Nee |
-| `EXPO_PROJECT_ID` | `app.config.ts`, `extra.eas.projectId` | Nee voor chat; wel onderdeel van de releaseconfiguratie |
-| `GOOGLE_SERVICES_JSON` | `app.config.ts`, Android `googleServicesFile` | Nee voor chat; Android Firebase-pushconfiguratie. Lokale fallback: `../app/google-services.json` indien aanwezig |
+| Exacte naam                     | Waar gebruikt                                 | Voor live chat vereist?                                                                                          |
+| ------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `EXPO_PUBLIC_SUPABASE_URL`      | `src/config/runtime.ts` → `createBackend`     | Ja; HTTPS-projectorigin in productie                                                                             |
+| `EXPO_PUBLIC_SUPABASE_ANON_KEY` | Dezelfde client en geïsoleerde typingsocket   | Ja; de naam blijft zo, ook met een publishable key                                                               |
+| `EXPO_PUBLIC_AUDIO_BASE_URL`    | Audio/downloads                               | Nee                                                                                                              |
+| `EXPO_PROJECT_ID`               | `app.config.ts`, `extra.eas.projectId`        | Nee voor chat; wel onderdeel van de releaseconfiguratie                                                          |
+| `GOOGLE_SERVICES_JSON`          | `app.config.ts`, Android `googleServicesFile` | Nee voor chat; Android Firebase-pushconfiguratie. Lokale fallback: `../app/google-services.json` indien aanwezig |
 
 `getBackend()` retourneert `null` wanneer de URL/key ontbreken; de groepsschermen tonen dan ontbrekende configuratie. Er is geen automatische backendkeuze of chatserver-URL naast Supabase. Herstart Metro na wijzigingen aan de appomgeving; maak voor een uitgebrachte app een nieuwe passende bundle/build. Een gewijzigde lokale `.env.local` verandert een reeds geïnstalleerde productiebuild niet.
 
@@ -45,43 +47,44 @@ De normale client bewaart de authsessie via `services/storage/sessionStorage`, g
 
 ### Alleen voor de server, uitsluitend voor push
 
-| Exacte naam | Bestemming | Betekenis |
-|---|---|---|
-| `SUPABASE_URL` | Edge Function-omgeving | Backendorigin; standaard beschikbaar bij gehoste Supabase Functions |
-| `SUPABASE_SERVICE_ROLE_KEY` | Edge Function-omgeving | Server-RPC's voor claim/finish/dispatchercontrole; nooit in de mobiele app |
-| `FCM_PROJECT_ID` | Function secret | Moet gelijk zijn aan `project_id` in de FCM-serviceaccount |
-| `FCM_SERVICE_ACCOUNT_JSON` | Function secret | JSON met serveraccount, private key en client email voor FCM HTTP v1 |
-| `APNS_TEAM_ID` | Function secret | Apple Developer-team |
-| `APNS_KEY_ID` | Function secret | ID van de APNs signing key |
-| `APNS_TOPIC` | Function secret | Bundle-ID, hier `com.Ameender.qurantracker` |
-| `APNS_PRIVATE_KEY` | Function secret | APNs `.p8`-sleutel; code verwerkt ook letterlijke `\\n` |
-| `APNS_ENVIRONMENT` | Function secret | `sandbox` of `production`; code-default is `production` |
-| `group_push_dispatcher` | **Supabase Vault secretnaam**, geen app-env | Door SQL intern gegenereerd token voor database → Function |
+| Exacte naam                 | Bestemming                                  | Betekenis                                                                  |
+| --------------------------- | ------------------------------------------- | -------------------------------------------------------------------------- |
+| `SUPABASE_URL`              | Edge Function-omgeving                      | Backendorigin; standaard beschikbaar bij gehoste Supabase Functions        |
+| `SUPABASE_SERVICE_ROLE_KEY` | Edge Function-omgeving                      | Server-RPC's voor claim/finish/dispatchercontrole; nooit in de mobiele app |
+| `FCM_PROJECT_ID`            | Function secret                             | Moet gelijk zijn aan `project_id` in de FCM-serviceaccount                 |
+| `FCM_SERVICE_ACCOUNT_JSON`  | Function secret                             | JSON met serveraccount, private key en client email voor FCM HTTP v1       |
+| `APNS_TEAM_ID`              | Function secret                             | Apple Developer-team                                                       |
+| `APNS_KEY_ID`               | Function secret                             | ID van de APNs signing key                                                 |
+| `APNS_TOPIC`                | Function secret                             | Bundle-ID, hier `com.Ameender.qurantracker`                                |
+| `APNS_PRIVATE_KEY`          | Function secret                             | APNs `.p8`-sleutel; code verwerkt ook letterlijke `\\n`                    |
+| `APNS_ENVIRONMENT`          | Function secret                             | `sandbox` of `production`; code-default is `production`                    |
+| `group_push_dispatcher`     | **Supabase Vault secretnaam**, geen app-env | Door SQL intern gegenereerd token voor database → Function                 |
+| `group_push_base_url`       | **Supabase Vault**, geen app-env            | HTTPS-projectorigin zonder pad voor de actuele dispatcher                  |
 
 De dispatcher haalt het Vault-token zelf op. Kopieer het niet naar clientconfiguratie of logs. Een Supabase CLI-accounttoken (`SUPABASE_ACCESS_TOKEN`) en databasewachtwoord (`SUPABASE_DB_PASSWORD`) zijn eventuele operatorcredentials voor deployment, geen appinstellingen. Zet productieprovidergeheimen niet in de lokale QA-omgeving.
 
 ## 3. Exacte koppeling in de code
 
-| Bestand/symbool | Verantwoordelijkheid |
-|---|---|
-| `src/config/runtime.ts` / `getBackend` | Lazy backendinstantie uit de twee publieke envwaarden |
-| `src/services/backend/backend.ts` / `createBackend` | Auth, RPC-adapters, geautoriseerde feedquery en Realtime-abonnement |
-| `backend.ts` / `feedPort.read`, `hydrateFeed` | `status=published`, groepsfilter, tekstfilter voor chat, sortering, namen/reacties/reacties-op-post/media hydrateren |
-| `src/services/groups/groupChat.ts` / `createGroupChatService` | `listChatPage`, `sendChatMessage`, maximaal 500 tekens, geen pins bovenaan |
-| `groupFeedReader.ts` / `createGroupFeedReader`, `feedCursorFilter` | Keysetcursor `(created_at,id)`, standaard 30 en maximaal 60 posts per pagina; aparte pins voor feed |
-| `groupFeedSubscription.ts` / `createGroupFeedSubscription` | Asynchrone groepslookup veilig annuleren bij verlaten scherm |
-| `groupFeedController.ts` / `GroupFeedController` | Start/stop, refresh, oudere pagina's, deduplicatie, reconnectcatch-up, altijd polling |
-| `features/groups/components/useGroupFeed.ts` | Start alleen op actief gefocust scherm; stop socket/timer bij blur, background en inactive |
-| `features/groups/hooks/useGroupChat.ts` | Chat gebruikt dezelfde controller met `5_000` ms; behoudt concept en ontvangen bevestiging |
-| `features/groups/screens/GroupChatScreen.tsx` | Account-/groepsgrens, status, geschiedenis, ongelezen-teller, composer, typing |
-| `groupDrafts.ts`, `draftActor.ts` | Concepten per account + groep + oppervlak; vastgelegde afzender voor een lopende verzending |
-| `groupTypingSupabase.ts` / `createSupabaseGroupTyping` | RPC voor topic/klok/leden, aparte geauthenticeerde private socket, RPC om typen te publiceren |
-| `groupTyping.ts` / `createGroupTypingService` | Autorisatie opnieuw lezen elke 30s, accountwissel afsluiten, writes ordenen, ontvangen identiteit valideren |
-| `groupTypingController.ts` / `GroupTypingController` | Alleen echte gefocuste invoer, 2s inactief, max één start per 3s, maximaal 8s zichtbaar |
-| `features/groups/hooks/useGroupTyping.ts` | Typinglifecycle volgt focus/AppState; herstelde focus publiceert pas na nieuwe toetsaanslag |
-| `features/groups/components/GroupTypingStatus.tsx` | Complete NL/EN/AR-zinnen, letterlijke namen, gereserveerde regelhoogte |
-| `services/notifications/groupPushRuntime.ts`, `groupPushPolicy.ts`, `pushDevice.ts` | Device-opt-in, ontvanger/rechten/voorkeuren opnieuw toetsen, deduplicatie, generieke melding |
-| `features/account/components/PushNotificationHandler.tsx` | Notificatietap opnieuw autoriseren en naar groepsdiscussie navigeren |
+| Bestand/symbool                                                                     | Verantwoordelijkheid                                                                                                 |
+| ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `src/config/runtime.ts` / `getBackend`                                              | Lazy backendinstantie uit de twee publieke envwaarden                                                                |
+| `src/services/backend/backend.ts` / `createBackend`                                 | Auth, RPC-adapters, geautoriseerde feedquery en Realtime-abonnement                                                  |
+| `backend.ts` / `feedPort.read`, `hydrateFeed`                                       | `status=published`, groepsfilter, tekstfilter voor chat, sortering, namen/reacties/reacties-op-post/media hydrateren |
+| `src/services/groups/groupChat.ts` / `createGroupChatService`                       | `listChatPage`, `sendChatMessage`, maximaal 500 tekens, geen pins bovenaan                                           |
+| `groupFeedReader.ts` / `createGroupFeedReader`, `feedCursorFilter`                  | Keysetcursor `(created_at,id)`, standaard 30 en maximaal 60 posts per pagina; aparte pins voor feed                  |
+| `groupFeedSubscription.ts` / `createGroupFeedSubscription`                          | Asynchrone groepslookup veilig annuleren bij verlaten scherm                                                         |
+| `groupFeedController.ts` / `GroupFeedController`                                    | Start/stop, refresh, oudere pagina's, deduplicatie, reconnectcatch-up, altijd polling                                |
+| `features/groups/components/useGroupFeed.ts`                                        | Start alleen op actief gefocust scherm; stop socket/timer bij blur, background en inactive                           |
+| `features/groups/hooks/useGroupChat.ts`                                             | Chat gebruikt dezelfde controller met `5_000` ms; behoudt concept en ontvangen bevestiging                           |
+| `features/groups/screens/GroupChatScreen.tsx`                                       | Account-/groepsgrens, status, geschiedenis, ongelezen-teller, composer, typing                                       |
+| `groupDrafts.ts`, `draftActor.ts`                                                   | Concepten per account + groep + oppervlak; vastgelegde afzender voor een lopende verzending                          |
+| `groupTypingSupabase.ts` / `createSupabaseGroupTyping`                              | RPC voor topic/klok/leden, aparte geauthenticeerde private socket, RPC om typen te publiceren                        |
+| `groupTyping.ts` / `createGroupTypingService`                                       | Autorisatie opnieuw lezen elke 30s, accountwissel afsluiten, writes ordenen, ontvangen identiteit valideren          |
+| `groupTypingController.ts` / `GroupTypingController`                                | Alleen echte gefocuste invoer, 2s inactief, max één start per 3s, maximaal 8s zichtbaar                              |
+| `features/groups/hooks/useGroupTyping.ts`                                           | Typinglifecycle volgt focus/AppState; herstelde focus publiceert pas na nieuwe toetsaanslag                          |
+| `features/groups/components/GroupTypingStatus.tsx`                                  | Complete NL/EN/AR-zinnen, letterlijke namen, gereserveerde regelhoogte                                               |
+| `services/notifications/groupPushRuntime.ts`, `groupPushPolicy.ts`, `pushDevice.ts` | Device-opt-in, ontvanger/rechten/voorkeuren opnieuw toetsen, deduplicatie, generieke melding                         |
+| `features/account/components/PushNotificationHandler.tsx`                           | Notificatietap opnieuw autoriseren en naar groepsdiscussie navigeren                                                 |
 
 **Datapad bij verzenden:** composer → accountgebonden draft → `sendChatMessage` → `createTextPost` → RPC `create_group_text_post_v2` → databasecontrole `post.create` → bevestigde post direct in lokale lijst → geautoriseerde refresh. De sessietoken wordt vóór de mutatie vastgelegd; een andere later aangemelde gebruiker wordt niet stilzwijgend de auteur.
 
@@ -91,36 +94,37 @@ De dispatcher haalt het Vault-token zelf op. Kopieer het niet naar clientconfigu
 
 ## 4. Database en migratievolgorde
 
-De repository bevat **26 historische migraties**. Gebruik de migratiegeschiedenis van het doelproject om te bepalen wat ontbreekt. De vroegste migraties verwachten een bestaande historische database met onder andere `profiles` en `reading_*`-tabellen. Ze zijn geen volledige installatie van een lege productieomgeving. `scripts/local-backend-qa/bootstrap.sql` maakt bewust minimale **QA-only** afhankelijkheden en is geen productiebootstrap.
+De onderstaande reeks bevat **26 historische migraties plus de nieuwe groepspostpushmigratie**. Gebruik de migratiegeschiedenis van het doelproject om te bepalen wat ontbreekt. De vroegste migraties verwachten een bestaande historische database met onder andere `profiles` en `reading_*`-tabellen. Ze zijn geen volledige installatie van een lege productieomgeving. `scripts/local-backend-qa/bootstrap.sql` maakt bewust minimale **QA-only** afhankelijkheden en is geen productiebootstrap.
 
-| Volgorde | Bestand in `../supabase/migrations/` | Onderdeel |
-|---|---|---|
-| 1 | `20260904_add_reading_group_owner_delete_policy.sql` | Historische eigenaarpolicy op `reading_groups` |
-| 2 | `20260904210000_group_detail_v2_foundation.sql` | Groepen, rollen, leden, posts, comments, media, taken, events, regels, meldingen, audit en RLS |
-| 3 | `20260904211000_fix_post_comment_parent_integrity.sql` | Reactie/parent-integriteit |
-| 4 | `20260904220000_group_detail_v2_legacy_compat.sql` | Legacycompatibiliteit |
-| 5 | `20260904221000_migrate_reading_groups_to_v2.sql` | Bestaande groepgegevens naar v2 |
-| 6 | `20260904230000_group_detail_v2_app_api.sql` | App-RPC's, tekstpost, comment, voortgang |
-| 7 | `20260904233000_group_feed_v2_actions.sql` | Edit, pin, verwijderen, reacties, melden |
-| 8 | `20260905010000_group_membership_v2_actions.sql` | Rollen, uitnodigingen, toegangsverzoeken |
-| 9 | `20260905020000_group_media_v2_actions.sql` | Private Storage en mediametadata |
-| 10 | `20260905030000_group_tasks_v2_actions.sql` | Taken en voortgang |
-| 11 | `20260905040000_group_events_profiles_points_v3.sql` | Events, groepsprofiel en taakpunten |
-| 12 | `20260906010000_group_management_api_v2.sql` | Groepsdetails en volledige instellingen |
-| 13 | `20260907010000_group_logos.sql` | Groepslogo |
-| 14 | `20260916010000_notification_delivery_foundation.sql` | Devices, voorkeuren en bezorgqueue |
-| 15 | `20260916020000_notification_grants_and_legacy_lockdown.sql` | Grants en oude notificatiepaden afsluiten |
-| 16 | `20261007010000_account_management.sql` | Gedeelde accountbeheerafhankelijkheden |
-| 17 | `20261009070000_idempotent_group_invitation_acceptance.sql` | Uitnodiging veilig opnieuw accepteren |
-| 18 | `20261009120000_group_member_permissions.sql` | Vier ledenschakelaars en create/update v3 |
-| 19 | `20261009140000_live_group_profile_names.sql` | Actuele groepsnamen boven historische snapshots |
-| 20 | `20261009160000_allow_redacted_deleted_comments.sql` | Verwijderde reacties als geredigeerde records |
-| 21 | `20261009180000_group_reply_push.sql` | Replyqueue, Android v1, claim/finish/target |
-| 22 | `20261009181000_group_push_dispatcher.sql` | `pg_net`, `pg_cron`, Vault en dispatcher |
-| 23 | `20261009190000_immediate_group_push_and_mute.sql` | Direct dispatch na commit en muteannulering |
-| 24 | `20261113090000_group_push_ios.sql` | Platformregistratie v2, platformbewuste claim; Android v1 blijft bestaan |
-| 25 | `20261114120000_group_feed_realtime.sql` | Vijf tabellen toevoegen aan `supabase_realtime` |
-| 26 | `20261115090000_group_typing_private.sql` | Drie typing-RPC's en drie private topicpolicies |
+| Volgorde | Bestand in `../supabase/migrations/`                         | Onderdeel                                                                                      |
+| -------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| 1        | `20260904_add_reading_group_owner_delete_policy.sql`         | Historische eigenaarpolicy op `reading_groups`                                                 |
+| 2        | `20260904210000_group_detail_v2_foundation.sql`              | Groepen, rollen, leden, posts, comments, media, taken, events, regels, meldingen, audit en RLS |
+| 3        | `20260904211000_fix_post_comment_parent_integrity.sql`       | Reactie/parent-integriteit                                                                     |
+| 4        | `20260904220000_group_detail_v2_legacy_compat.sql`           | Legacycompatibiliteit                                                                          |
+| 5        | `20260904221000_migrate_reading_groups_to_v2.sql`            | Bestaande groepgegevens naar v2                                                                |
+| 6        | `20260904230000_group_detail_v2_app_api.sql`                 | App-RPC's, tekstpost, comment, voortgang                                                       |
+| 7        | `20260904233000_group_feed_v2_actions.sql`                   | Edit, pin, verwijderen, reacties, melden                                                       |
+| 8        | `20260905010000_group_membership_v2_actions.sql`             | Rollen, uitnodigingen, toegangsverzoeken                                                       |
+| 9        | `20260905020000_group_media_v2_actions.sql`                  | Private Storage en mediametadata                                                               |
+| 10       | `20260905030000_group_tasks_v2_actions.sql`                  | Taken en voortgang                                                                             |
+| 11       | `20260905040000_group_events_profiles_points_v3.sql`         | Events, groepsprofiel en taakpunten                                                            |
+| 12       | `20260906010000_group_management_api_v2.sql`                 | Groepsdetails en volledige instellingen                                                        |
+| 13       | `20260907010000_group_logos.sql`                             | Groepslogo                                                                                     |
+| 14       | `20260916010000_notification_delivery_foundation.sql`        | Devices, voorkeuren en bezorgqueue                                                             |
+| 15       | `20260916020000_notification_grants_and_legacy_lockdown.sql` | Grants en oude notificatiepaden afsluiten                                                      |
+| 16       | `20261007010000_account_management.sql`                      | Gedeelde accountbeheerafhankelijkheden                                                         |
+| 17       | `20261009070000_idempotent_group_invitation_acceptance.sql`  | Uitnodiging veilig opnieuw accepteren                                                          |
+| 18       | `20261009120000_group_member_permissions.sql`                | Vier ledenschakelaars en create/update v3                                                      |
+| 19       | `20261009140000_live_group_profile_names.sql`                | Actuele groepsnamen boven historische snapshots                                                |
+| 20       | `20261009160000_allow_redacted_deleted_comments.sql`         | Verwijderde reacties als geredigeerde records                                                  |
+| 21       | `20261009180000_group_reply_push.sql`                        | Replyqueue, Android v1, claim/finish/target                                                    |
+| 22       | `20261009181000_group_push_dispatcher.sql`                   | `pg_net`, `pg_cron`, Vault en dispatcher                                                       |
+| 23       | `20261009190000_immediate_group_push_and_mute.sql`           | Direct dispatch na commit en muteannulering                                                    |
+| 24       | `20261113090000_group_push_ios.sql`                          | Platformregistratie v2, platformbewuste claim; Android v1 blijft bestaan                       |
+| 25       | `20261114120000_group_feed_realtime.sql`                     | Vijf tabellen toevoegen aan `supabase_realtime`                                                |
+| 26       | `20261115090000_group_typing_private.sql`                    | Drie typing-RPC's en drie private topicpolicies                                                |
+| 27       | `20261120090000_group_post_push.sql`                         | Nieuwe-postpush, claim v3/target v2 en Vault-configureerbare dispatcherorigin                  |
 
 De korte historische versie `20260904` is bewust vermeld. Hernoem geen reeds toegepaste versies en laat `migration list`/dry-run leidend zijn bij verschillen met de remote administratie. Publicatie- en typingmigraties zijn additief; de publicatiemigratie maakt een ontbrekende publicatie aan en voegt uitsluitend ontbrekende tabellen toe. Ze verwijdert geen bestaande publicatietabellen en wijzigt geen bestaande groeps-RLS. Typing veronderstelt dat Supabase Realtime's schema, `realtime.messages`, `realtime.send` en `realtime.topic` beschikbaar zijn.
 
@@ -142,7 +146,7 @@ Controleer dat de dry-run alleen verwachte ontbrekende migraties bevat en dat hi
 npx.cmd --yes supabase@3.1.0 db push --linked
 ```
 
-Voor een project dat al tot en met 24 is bijgewerkt, zijn voor de nieuwe livefunctie alleen 25 en 26 nieuw. De CLI beschrijft `--dry-run`, linked deployment en migratieadministratie in de [officiële CLI-reference](https://supabase.com/docs/reference/cli/supabase-db-push).
+Voor een project dat al tot en met 24 is bijgewerkt, zijn voor Realtime/typing 25 en 26 nieuw; nieuwe-postpush voegt 27 toe en vereist bovendien Vault, de bijpassende function en nieuwe clientbuild volgens [Groepspush instellen](GROUP_PUSH_SETUP.md). De CLI beschrijft `--dry-run`, linked deployment en migratieadministratie in de [officiële CLI-reference](https://supabase.com/docs/reference/cli/supabase-db-push).
 
 ## 5. Supabase Dashboard: exacte onderdelen
 
@@ -161,19 +165,19 @@ De officiële pagina's wijzen op **Publications**, niet op een verzonnen aparte 
 
 ### Bestaande groeps-RLS en rechten
 
-| Actie/tabel | Bestaand contract |
-|---|---|
-| `groups` lezen | `can_view_group`: niet verwijderd; eigenaar, actief lid, of ingelogde lezer bij een publieke groep |
-| `group_posts` SELECT | `can_view_group(group_id)` en gepubliceerd óf `post.moderate`; de appquery vraagt alleen gepubliceerd |
-| `post_comments` SELECT | Zichtbare groep en gepubliceerd óf `comment.moderate` |
-| `post_reactions` SELECT | `can_view_group(group_id)` |
-| `group_media` SELECT | Zichtbare groep en `status='visible'` |
-| `post_attachments` SELECT | Zichtbare groep en `status='ready'` |
-| Tekstpost schrijven | `post.create`, actuele actor, actieve groep, bestaande RPC-validatie |
-| Reactie schrijven | `comment.create`; server koppelt post/groep/parent |
-| Voortgang privé bewaren | `progress.create` |
-| Voortgang expliciet delen | Zowel `progress.create` als `post.create`, één atomische RPC |
-| UI-groepschat openen | Geldige sessie en een rol anders dan `guest` |
+| Actie/tabel               | Bestaand contract                                                                                     |
+| ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `groups` lezen            | `can_view_group`: niet verwijderd; eigenaar, actief lid, of ingelogde lezer bij een publieke groep    |
+| `group_posts` SELECT      | `can_view_group(group_id)` en gepubliceerd óf `post.moderate`; de appquery vraagt alleen gepubliceerd |
+| `post_comments` SELECT    | Zichtbare groep en gepubliceerd óf `comment.moderate`                                                 |
+| `post_reactions` SELECT   | `can_view_group(group_id)`                                                                            |
+| `group_media` SELECT      | Zichtbare groep en `status='visible'`                                                                 |
+| `post_attachments` SELECT | Zichtbare groep en `status='ready'`                                                                   |
+| Tekstpost schrijven       | `post.create`, actuele actor, actieve groep, bestaande RPC-validatie                                  |
+| Reactie schrijven         | `comment.create`; server koppelt post/groep/parent                                                    |
+| Voortgang privé bewaren   | `progress.create`                                                                                     |
+| Voortgang expliciet delen | Zowel `progress.create` als `post.create`, één atomische RPC                                          |
+| UI-groepschat openen      | Geldige sessie en een rol anders dan `guest`                                                          |
 
 De bestaande server laat geauthenticeerde niet-leden publieke groepsinhoud lezen via `can_view_group`; een publicatiemigratie verandert die bestaande privacykeuze niet. Typing is strenger en vereist altijd actief lidmaatschap. Verwijder geen RLS en voeg geen `USING (true)`-policy toe om een fout te maskeren.
 
@@ -181,12 +185,12 @@ De bestaande server laat geauthenticeerde niet-leden publieke groepsinhoud lezen
 
 Deze instellingen worden als rechten van de rol **member** opgeslagen, niet als losse lokale voorkeur:
 
-| Formulierwaarde | SQL-recht | Standaard nieuwe groep |
-|---|---|---|
-| `canPostMessages` | `post.create` | Aan |
-| `canShareProgress` | `progress.create` | Aan |
-| `canComment` | `comment.create` | Aan |
-| `canInviteMembers` | `invitation.create` | Uit |
+| Formulierwaarde    | SQL-recht           | Standaard nieuwe groep |
+| ------------------ | ------------------- | ---------------------- |
+| `canPostMessages`  | `post.create`       | Aan                    |
+| `canShareProgress` | `progress.create`   | Aan                    |
+| `canComment`       | `comment.create`    | Aan                    |
+| `canInviteMembers` | `invitation.create` | Uit                    |
 
 `get_group_member_permissions_v1` leest ze; `create_group_v3_full` en `update_group_v3_full` schrijven ze. Alleen een actor met `group.update` kan ze aanpassen. De RN-servicefallback is tijdens deze recheck gelijkgetrokken met de al juiste wizard en Kotlin-default: uitnodigen staat standaard uit. Bestaande groepen zijn niet gewijzigd. Typing verzenden volgt `post.create`; ontvangen volgt `member.read`.
 
@@ -371,28 +375,28 @@ Doe dit op staging of een expliciet gekozen testgroep met bevoegde accounts; dit
 
 ## 9. Herstel, status, verwijderingen en exacte grenzen
 
-| Situatie | Werkelijk gedrag |
-|---|---|
-| `connecting` | Groepslookup/socket gereedheid nog bezig |
-| `live` | Subscribe-bevestiging; polling blijft actief |
-| `polling` | Socketfout/timeout/gesloten of lookup voor transport mislukt; geautoriseerde reads gaan door |
-| `offline` | Leesactie faalde; eerder geladen data/concept blijft, retry beschikbaar |
-| Chatpolling | Elke 5s zolang gefocust én foreground, ook met live socket |
-| Feedpolling | Elke 30s onder dezelfde lifecyclevoorwaarden, ook met live socket |
-| Reconnect | Extra geautoriseerde catch-upread; meerdere invalideringen worden samengevoegd |
-| Duplicaten | Post-ID deduplicatie; keysetcursor met datum én UUID; serverbevestiging mag niet door oudere lopende fetch verdwijnen |
-| Background/blur | Timer en abonnement stoppen; late callbacks uit oude generatie tellen niet mee |
-| Hard DELETE | Geen DELETE-listener: groepsfiltering/RLS ondersteunt dit niet als betrouwbare inhoudsroute |
-| Soft delete/hide | UPDATE kan door nieuwe SELECT-RLS onzichtbaar zijn; opnieuw lezen/poll verwijdert de verdwenen rij |
-| Reactie intrekken | Kan hard DELETE zijn; UI van andere leden reconcilieert uiterlijk na de volgende succesvolle poll |
-| Concepten | Alleen sessiegeheugen, per account/groep/feed-of-chat; niet naar schijf geschreven. Een volledige appkill garandeert geen conceptbehoud |
-| Verzending | Dubbele taps tijdens één request geblokkeerd; alleen exact bevestigde conceptversie gewist; latere edits blijven |
+| Situatie                | Werkelijk gedrag                                                                                                                                          |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `connecting`            | Groepslookup/socket gereedheid nog bezig                                                                                                                  |
+| `live`                  | Subscribe-bevestiging; polling blijft actief                                                                                                              |
+| `polling`               | Socketfout/timeout/gesloten of lookup voor transport mislukt; geautoriseerde reads gaan door                                                              |
+| `offline`               | Leesactie faalde; eerder geladen data/concept blijft, retry beschikbaar                                                                                   |
+| Chatpolling             | Elke 5s zolang gefocust én foreground, ook met live socket                                                                                                |
+| Feedpolling             | Elke 30s onder dezelfde lifecyclevoorwaarden, ook met live socket                                                                                         |
+| Reconnect               | Extra geautoriseerde catch-upread; meerdere invalideringen worden samengevoegd                                                                            |
+| Duplicaten              | Post-ID deduplicatie; keysetcursor met datum én UUID; serverbevestiging mag niet door oudere lopende fetch verdwijnen                                     |
+| Background/blur         | Timer en abonnement stoppen; late callbacks uit oude generatie tellen niet mee                                                                            |
+| Hard DELETE             | Geen DELETE-listener: groepsfiltering/RLS ondersteunt dit niet als betrouwbare inhoudsroute                                                               |
+| Soft delete/hide        | UPDATE kan door nieuwe SELECT-RLS onzichtbaar zijn; opnieuw lezen/poll verwijdert de verdwenen rij                                                        |
+| Reactie intrekken       | Kan hard DELETE zijn; UI van andere leden reconcilieert uiterlijk na de volgende succesvolle poll                                                         |
+| Concepten               | Alleen sessiegeheugen, per account/groep/feed-of-chat; niet naar schijf geschreven. Een volledige appkill garandeert geen conceptbehoud                   |
+| Verzending              | Dubbele taps tijdens één request geblokkeerd; alleen exact bevestigde conceptversie gewist; latere edits blijven                                          |
 | Onzeker netwerkantwoord | Er is geen client-idempotency-key voor tekstposts. Een servercommit waarvan het antwoord verloren gaat kan bij handmatige retry een tweede post opleveren |
-| Typing start/stop | Alleen gefocuste nieuwe invoer; stopt bij 2s inactiviteit, leeg veld, send, blur, achtergrond of verloren verzendrecht |
-| Typingbeperking | Startsignalen maximaal elke 3s per client, één lopende + één gewenste pending RPC; dit is geen server-rate-limit |
-| Typingexpiry | Server zet `expires_at=clock_timestamp()+8s`; client corrigeert klokverschil, tolereert beperkte meetonzekerheid en kapt zichtbaarheid op 8s |
-| Typingvolgorde | Serverexpiry fungeert als ordering key voor start én stop; oude starts kunnen nieuwere stops niet terugdraaien |
-| Typingfout | Fail closed; indicator weg, geen publiek alternatief. Na gesloten resolver heropent hij bij nieuwe scherm-/foregroundlifecycle |
+| Typing start/stop       | Alleen gefocuste nieuwe invoer; stopt bij 2s inactiviteit, leeg veld, send, blur, achtergrond of verloren verzendrecht                                    |
+| Typingbeperking         | Startsignalen maximaal elke 3s per client, één lopende + één gewenste pending RPC; dit is geen server-rate-limit                                          |
+| Typingexpiry            | Server zet `expires_at=clock_timestamp()+8s`; client corrigeert klokverschil, tolereert beperkte meetonzekerheid en kapt zichtbaarheid op 8s              |
+| Typingvolgorde          | Serverexpiry fungeert als ordering key voor start én stop; oude starts kunnen nieuwere stops niet terugdraaien                                            |
+| Typingfout              | Fail closed; indicator weg, geen publiek alternatief. Na gesloten resolver heropent hij bij nieuwe scherm-/foregroundlifecycle                            |
 
 Realtime is geen gegarandeerd afleverkanaal. De autoritatieve bron blijft de database; refetch/reconnect/polling zijn daarom onderdeel van het ontwerp. Supabase bespreekt de levering en de configuratiecontrole in [Postgres Changes troubleshooting](https://supabase.com/kb/troubleshooting/realtime-postgres-changes-troubleshooting). De vijf seconden zijn een pollinterval, geen latencygarantie bij netwerkfouten of een langzaam backendantwoord.
 
@@ -402,9 +406,9 @@ Typing maakt geen eigen historietabel of onlineprofiel aan. Database Broadcast g
 
 ### Server en provider
 
-1. Controleer migraties 14–15 en 21–24; `user_devices`, `notification_preferences`, `group_notification_preferences`, `group_notifications` en `notification_deliveries` moeten bestaan.
+1. Controleer migraties 14–15, 21–24 en 27; `user_devices`, `notification_preferences`, `group_notification_preferences`, `group_notifications` en `notification_deliveries` moeten bestaan. De nieuwe categorie heet in de app **Groepsberichten en updates** (`update`).
 2. Controleer `pg_net`, `pg_cron` en Vault. Migratie 22 maakt het dispatcher-Vault-token indien nodig; cron `group-push-dispatch-v1` hoort iedere minuut de dispatcher te roepen. Migratie 23 probeert daarnaast direct na een commentcommit te dispatchen.
-3. **Controleer het vaste endpoint** in `dispatch_group_push_v1`: beide historische dispatchermigraties bevatten de bestaande projecthost. Voor een ander Supabase-project moet een nieuwe gerichte migratie dit endpoint aanpassen; de clientenv verandert dat niet. Bewerk geen al toegepaste historische migratie om de geschiedenis te herschrijven.
+3. Stel na migratie 27 **Vault `group_push_base_url`** in op de HTTPS-projectorigin zonder pad. De actuele dispatcher voegt `/functions/v1/group-push` toe. Ontbrekende/ongeldige origin blokkeert outboundverzoeken met behoud van de queue. De oude vaste host is geen fallback; herschrijf historische migraties niet. Volg [de volledige deploymentprocedure](GROUP_PUSH_SETUP.md).
 4. Zet uitsluitend benodigde providersecrets in Supabase **Edge Functions → Secrets**, of via een beschermd secretsbestand met `supabase secrets set --env-file <bestand> --project-ref <ref>`. Deel het bestand/de waarden niet in terminaluitvoer of Git. De [secretsdocumentatie](https://supabase.com/docs/guides/functions/secrets) beschrijft de serveromgeving.
 5. Deploy de aanwezige functie vanuit de repositoryroot:
 
@@ -425,7 +429,7 @@ Voor replypush moeten tegelijk kloppen: actueel account = ontvanger, geactiveerd
 
 Alleen de auteur van de post en eerdere auteurs van gepubliceerde comments krijgen een nieuw commentevent; de commentauteur zelf wordt uitgesloten. `source_key='comment:<id>'` dedupliceert per ontvanger. Claim werkt in batches van vijf, lease twee minuten, maximaal vijf pogingen en 24 uur ouderdom. De immediate dispatcher begrenst fan-out; cron vangt resterend werk/retries op. Muting cancelt pending/processing en later inschakelen wekt oude gecancelde meldingen niet opnieuw tot leven.
 
-De client dedupliceert bovendien op event-ID, toetst identiteit na async calls opnieuw en haalt een tapbestemming via `get_group_push_target_v1` op. Niet op groeps-/postvelden uit een willekeurige pushpayload vertrouwen. De tap opent de betreffende **feeddiscussie**; een algemene nieuwe-chatpush is niet geïmplementeerd.
+Nieuwe-postevents gebruiken `source_key='post:<id>'`, globale `update` en uitsluitend groepsniveau `all`; iedere andere actuele actieve deelnemer kan ontvanger zijn. Er is geen auteursmelding en een postedit maakt geen nieuw INSERT-event. De nieuwe worker claimt via `claim_group_push_v3`; de payload onderscheidt `group_post` en `group_reply`. De client dedupliceert op event-ID, toetst identiteit na async calls opnieuw en haalt de tapbestemming via `get_group_push_target_v2` op. Vertrouw geen groeps-/postvelden uit een willekeurige pushpayload. De tap opent de betreffende **feeddiscussie**. Bestaande v1/v2-RPC's blijven voor oudere clients beschikbaar, maar een oude clientbuild ondersteunt de nieuwe `group_post`-payload niet.
 
 ### Read-only pushdiagnose
 
@@ -437,11 +441,11 @@ select status, count(*) from public.notification_deliveries group by status;
 select platform, active, enabled, count(*) from public.user_devices group by platform,active,enabled;
 select signature, to_regprocedure(signature) is not null as present
 from (values
- ('public.claim_group_push_v2()'),
+ ('public.claim_group_push_v3()'),
  ('public.verify_group_push_dispatcher_v1(text)'),
  ('public.group_push_claim_allowed_v1(uuid,uuid)'),
  ('public.finish_group_push_v1(uuid,uuid,text)'),
- ('public.get_group_push_target_v1(uuid)')
+ ('public.get_group_push_target_v2(uuid)')
 ) as expected(signature);
 ```
 
@@ -449,29 +453,29 @@ Voer extensie-afhankelijke queries alleen uit wanneer hun schema bestaat. Select
 
 ## 11. Fouten herkennen en gericht oplossen
 
-| Waarneming/code | Controle / oplossing |
-|---|---|
-| `RealtimeDisabledForConfiguration` | Controleer project-Realtime, precieze vijf tabellen, schema, INSERT/UPDATE-publicatie en `group_id`-filters. Huidige hosted bevinding; niet bewezen welk dashboardonderdeel ontbreekt |
-| `RealtimeDisabledForTenant` | Project-/tenant-Realtime uit; controleer Settings en providerstatus |
-| `PrivateOnly` | Globale public access uit terwijl huidige feed zonder private config joined; zie sectie 5 |
-| `CHANNEL_ERROR` | Algemeen subscribe-resultaat; lees de onderliggende reden in Realtime logs/probe |
-| `TIMED_OUT` / `PROBE_TIMEOUT` | WebSocketbereikbaarheid, proxy/firewall/VPN, projectpauze, belasting en limieten; REST kan ondertussen nog werken |
-| `SUBSCRIBED` maar geen wijziging | Test echte ingelogde sessie/rechten, juiste groep, gepubliceerde rij, juiste tabel/event. Een nul-UUID-probe verwacht geen inhoud |
-| Post verdwijnt pas na enkele seconden | Hard delete of nieuwe RLS-zichtbaarheid wordt via polling hersteld; geen DELETE-listener toevoegen zonder autorisatiemodel te herzien |
-| `PGRST202` / ontbrekende typing-RPC | Migratie 26/schema cache controleren. Gewone chat blijft bruikbaar. Na reparatie scherm heropenen |
-| `AUTH_REQUIRED`, verlopen JWT | Sessiestatus/account/refresh controleren, opnieuw aanmelden indien nodig; geen service key in app gebruiken |
-| `GROUP_ACCESS_DENIED` / `GROUP_ACCESS_FORBIDDEN` | Groep, lidstatus, `member.read`, `post.create` en eigenaarsexceptie controleren |
-| `GROUP_POST_FORBIDDEN` | Ledenschakelaar/rolrecht voor posten uit; dat is een geldige weigering |
-| `INVALID_CONTENT` | Lege of >500 tekens lange chattekst; app truncatie is niet de oplossing |
-| Typing bij één richting ontbreekt | Eigen topic + recipient UUID, private flag, actuele ledenlijst, `member.read`, RPC `post.create`; geen self-typing verwacht |
-| Typing blijft kort na verbreking | Stop kan wegvallen; TTL verwijdert de indicator. Het is geen online-status |
-| `WarnSendingBroadcastMessage`, `MissingPartition` | Private clientconnectie en Realtime-managed messagespartitions/logs controleren |
-| `Unauthorized` bij `group-push` | POST, Vault-backed dispatchertoken en function-config controleren; geen anonieme app-aanroep gebruiken |
-| `FCM_CONFIGURATION` / `APNS_CONFIGURATION` | Exacte serversecretnamen, project/topic/omgeving en sleutelinhoud controleren |
-| `FCM_AUTH_*`, provider 401/403 | Providercredential/signature/configuratie; geen tokens in logs opnemen |
-| `invalid_token` / APNs `Unregistered` | Toesteltoken ongeldig; nieuwe native registratie, geen blinde queue-replay |
-| Push voor nieuw chatbericht ontbreekt | Verwacht met huidig contract; test een comment op een discussie met een andere deelnemer |
-| Lokale QA-project-ID mismatch | Metadata/config horen niet bij elkaar; de gedeelde scopecheck weigert terecht. Geen hardcoded oud project-ID terugzetten |
+| Waarneming/code                                   | Controle / oplossing                                                                                                                                                                  |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RealtimeDisabledForConfiguration`                | Controleer project-Realtime, precieze vijf tabellen, schema, INSERT/UPDATE-publicatie en `group_id`-filters. Huidige hosted bevinding; niet bewezen welk dashboardonderdeel ontbreekt |
+| `RealtimeDisabledForTenant`                       | Project-/tenant-Realtime uit; controleer Settings en providerstatus                                                                                                                   |
+| `PrivateOnly`                                     | Globale public access uit terwijl huidige feed zonder private config joined; zie sectie 5                                                                                             |
+| `CHANNEL_ERROR`                                   | Algemeen subscribe-resultaat; lees de onderliggende reden in Realtime logs/probe                                                                                                      |
+| `TIMED_OUT` / `PROBE_TIMEOUT`                     | WebSocketbereikbaarheid, proxy/firewall/VPN, projectpauze, belasting en limieten; REST kan ondertussen nog werken                                                                     |
+| `SUBSCRIBED` maar geen wijziging                  | Test echte ingelogde sessie/rechten, juiste groep, gepubliceerde rij, juiste tabel/event. Een nul-UUID-probe verwacht geen inhoud                                                     |
+| Post verdwijnt pas na enkele seconden             | Hard delete of nieuwe RLS-zichtbaarheid wordt via polling hersteld; geen DELETE-listener toevoegen zonder autorisatiemodel te herzien                                                 |
+| `PGRST202` / ontbrekende typing-RPC               | Migratie 26/schema cache controleren. Gewone chat blijft bruikbaar. Na reparatie scherm heropenen                                                                                     |
+| `AUTH_REQUIRED`, verlopen JWT                     | Sessiestatus/account/refresh controleren, opnieuw aanmelden indien nodig; geen service key in app gebruiken                                                                           |
+| `GROUP_ACCESS_DENIED` / `GROUP_ACCESS_FORBIDDEN`  | Groep, lidstatus, `member.read`, `post.create` en eigenaarsexceptie controleren                                                                                                       |
+| `GROUP_POST_FORBIDDEN`                            | Ledenschakelaar/rolrecht voor posten uit; dat is een geldige weigering                                                                                                                |
+| `INVALID_CONTENT`                                 | Lege of >500 tekens lange chattekst; app truncatie is niet de oplossing                                                                                                               |
+| Typing bij één richting ontbreekt                 | Eigen topic + recipient UUID, private flag, actuele ledenlijst, `member.read`, RPC `post.create`; geen self-typing verwacht                                                           |
+| Typing blijft kort na verbreking                  | Stop kan wegvallen; TTL verwijdert de indicator. Het is geen online-status                                                                                                            |
+| `WarnSendingBroadcastMessage`, `MissingPartition` | Private clientconnectie en Realtime-managed messagespartitions/logs controleren                                                                                                       |
+| `Unauthorized` bij `group-push`                   | POST, Vault-backed dispatchertoken en function-config controleren; geen anonieme app-aanroep gebruiken                                                                                |
+| `FCM_CONFIGURATION` / `APNS_CONFIGURATION`        | Exacte serversecretnamen, project/topic/omgeving en sleutelinhoud controleren                                                                                                         |
+| `FCM_AUTH_*`, provider 401/403                    | Providercredential/signature/configuratie; geen tokens in logs opnemen                                                                                                                |
+| `invalid_token` / APNs `Unregistered`             | Toesteltoken ongeldig; nieuwe native registratie, geen blinde queue-replay                                                                                                            |
+| Push voor nieuw chatbericht ontbreekt             | Controleer nieuwe migratie/function/clientbuild, Vaultorigin, Updates, groepsmodus Alles en device-opt-in; zie GROUP_PUSH_SETUP.md                                                    |
+| Lokale QA-project-ID mismatch                     | Metadata/config horen niet bij elkaar; de gedeelde scopecheck weigert terecht. Geen hardcoded oud project-ID terugzetten                                                              |
 
 Supabase onderhoudt de betekenissen van Realtimefoutcodes in [Operational Error Codes](https://supabase.com/docs/guides/realtime/error_codes). Gebruik de code plus de concrete projectcontrole; de algemene `CHANNEL_ERROR` zegt niet op zichzelf dat RLS moet worden versoepeld.
 
@@ -488,7 +492,7 @@ Supabase onderhoudt de betekenissen van Realtimefoutcodes in [Operational Error 
 - [ ] Typing stopt en expireert; geen tekstinhoud/aanwezigheidsprofiel opgeslagen door de app.
 - [ ] Indien push gewenst: function + providersecrets + correct dispatcherendpoint + cron/Vault + device-opt-in bevestigd.
 - [ ] Replypush werkelijk ontvangen/getapt op Android én iOS, inclusief stille uren/mute/accountwissel.
-- [ ] Productverwachting expliciet: algemene nieuwe-chatpush en leesbevestigingen zijn geen huidige functies.
+- [ ] Nieuwe-postpush afzonderlijk met twee accounts/toestel getest na deployment; leesbevestigingen zijn geen huidige functie.
 - [ ] Logs/screenshots/testrapport bevatten geen geheimen of echte privéberichten.
 
 De [scoped recheck](recheck-2026-11-18/community-realtime-push.md) geeft de Kotlin→RN-mapping, concrete reparaties en het exacte inspectiebereik. Configuratiegereedheid, lokale integratietests en productieacceptatie zijn afzonderlijke bewijzen; een vinkje bij de ene vervangt de andere niet.

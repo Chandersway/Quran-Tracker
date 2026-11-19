@@ -6,11 +6,12 @@ import { Platform } from 'react-native';
 import { getBackend } from '../../config/runtime';
 import { localPushPreferences } from './pushDevice';
 import {
-  authorizeGroupReply,
+  authorizeGroupPush,
   groupReplyCopy,
+  groupPostCopy,
   GROUP_PUSH_CHANNEL,
-  isGroupReplyMessage,
-  parseGroupReply,
+  isGroupPushMessage,
+  parseGroupPush,
   type GroupReplyGate,
 } from './groupPushPolicy';
 import { groupPushRevision, withGroupPushLock } from './groupPushState';
@@ -53,12 +54,12 @@ async function pushGate(): Promise<GroupReplyGate | null> {
 /** Both the foreground receiver and native headless task enter this ordered, deduplicated gate. */
 export function receiveGroupReply(value: unknown): Promise<boolean> {
   return withGroupPushLock(async () => {
-    const reply = parseGroupReply(value);
+    const reply = parseGroupPush(value);
     if (!reply || (Platform.OS !== 'android' && Platform.OS !== 'ios')) return false;
     const revision = groupPushRevision();
     const gate = await pushGate();
     if (!gate) return false;
-    const target = await authorizeGroupReply(reply, gate);
+    const target = await authorizeGroupPush(reply, gate);
     if (!target || revision !== groupPushRevision()) return false;
     const now = Date.now();
     const raw = await deviceStorage.getItem(pushDeviceKeys.delivered);
@@ -68,10 +69,11 @@ export function receiveGroupReply(value: unknown): Promise<boolean> {
     const language = stateRaw
       ? (JSON.parse(stateRaw) as { preferences?: { language?: string } }).preferences?.language
       : 'en';
-    const copy = groupReplyCopy[language === 'ar' || language === 'nl' ? language : 'en'];
+    const catalog = reply.kind === 'group_post' ? groupPostCopy : groupReplyCopy;
+    const copy = catalog[language === 'ar' || language === 'nl' ? language : 'en'];
     if (revision !== groupPushRevision() || (await gate.account()) !== reply.recipient)
       return false;
-    const identifier = `group-reply:${reply.eventId}`;
+    const identifier = `${reply.kind === 'group_post' ? 'group-post' : 'group-reply'}:${reply.eventId}`;
     approvedLocal.set(identifier, revision);
     try {
       await Notifications.scheduleNotificationAsync({
@@ -80,7 +82,7 @@ export function receiveGroupReply(value: unknown): Promise<boolean> {
           title: copy.title,
           body: copy.body,
           data: {
-            kind: 'group_reply',
+            kind: reply.kind,
             event_id: reply.eventId,
             recipient: reply.recipient,
             group_code: target.groupCode,
@@ -115,7 +117,7 @@ export function initializeGroupPushHandler(): void {
   initialized = true;
   Notifications.setNotificationHandler({
     handleNotification: async (notification) => {
-      if (!isGroupReplyMessage(notification)) return shown;
+      if (!isGroupPushMessage(notification)) return shown;
       if (approvedLocal.get(notification.request.identifier) === groupPushRevision()) return shown;
       // SDK 58 shows a notification when this handler times out. Never await network work here.
       void receiveGroupReply(notification).catch(() => undefined);

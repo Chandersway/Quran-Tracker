@@ -1,7 +1,7 @@
-import { curatedReplyText } from './notification-copy.ts';
+import { curatedGroupPushText } from './notification-copy.ts';
 
 export type ApnsDelivery = {
-  token: string; event_id: string; recipient: string; group_code: string; post_id: string; language: string;
+  token: string; event_id: string; recipient: string; group_code: string; post_id: string; language: string; kind?: "group_post" | "group_reply";
 };
 export type ApnsAuth = { token: string; topic: string; host: string };
 
@@ -16,8 +16,8 @@ export function buildApnsRequest(delivery: ApnsDelivery, auth: ApnsAuth) {
       "Content-Type": "application/json",
     },
     body: {
-      aps: { alert: curatedReplyText(delivery.language), sound: "default" },
-      kind: "group_reply",
+      aps: { alert: curatedGroupPushText(delivery.kind ?? "group_reply", delivery.language), sound: "default" },
+      kind: delivery.kind ?? "group_reply",
       event_id: delivery.event_id,
       recipient: delivery.recipient,
       group_code: delivery.group_code,

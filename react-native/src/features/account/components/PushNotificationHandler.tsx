@@ -6,7 +6,7 @@ import { pushDeviceKeys } from '../../../services/notifications/pushDeviceKeys';
 import { getBackend } from '../../../config/runtime';
 import { useAppStore } from '../../../state/store';
 import {
-  parseGroupReply,
+  parseGroupPush,
   resolveGroupReplyNavigation,
   validPushUuid,
 } from '../../../services/notifications/groupPushPolicy';
@@ -102,9 +102,9 @@ export function PushNotificationHandler() {
         void consume.current();
         return;
       }
-      const reply = parseGroupReply(response);
+      const reply = parseGroupPush(response);
       if (!reply) return;
-      pending.current = { kind: 'group', ...reply };
+      pending.current = { kind: 'group', eventId: reply.eventId, recipient: reply.recipient };
       void consume.current();
     };
     const handleUrl = (raw: string | null) => {

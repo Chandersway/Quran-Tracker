@@ -32,6 +32,7 @@ import { createGroupFeedSubscription } from '../groups/groupFeedSubscription';
 import { createGroupChatService } from '../groups/groupChat';
 import { createSupabaseGroupTyping } from '../groups/groupTypingSupabase';
 import { captureDraftActor } from '../groups/draftActor';
+import { readGroupPushTarget } from './notificationTargets';
 import type { GroupMedia } from '../groups/groupTypes';
 
 export type Backend = {
@@ -542,13 +543,7 @@ export function createBackend(config: BackendConfig): Backend {
 
   const notifications: NotificationService = {
     async groupPushTarget(eventId) {
-      const rows = unwrap(
-        await client.rpc('get_group_push_target_v1', { p_event: eventId }),
-      ) as DbRow[];
-      const row = rows[0];
-      return row && typeof row.group_code === 'string' && typeof row.post_id === 'string'
-        ? { groupCode: row.group_code, postId: row.post_id }
-        : null;
+      return readGroupPushTarget(client, eventId);
     },
     async loadGroupPushPreferences() {
       const user = required((await client.auth.getUser()).data.user, 'Current session');

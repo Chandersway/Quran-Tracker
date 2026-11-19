@@ -4,7 +4,12 @@ import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import type { Backend } from '../backend/backend';
 import type { Language } from '../../state/models';
-import { GROUP_PUSH_CHANNEL, GROUP_PUSH_TASK, type LocalPushPreferences } from './groupPushPolicy';
+import {
+  GROUP_PUSH_CHANNEL,
+  GROUP_PUSH_TASK,
+  type GroupPushKind,
+  type LocalPushPreferences,
+} from './groupPushPolicy';
 import { groupPushRevision, invalidateGroupPush } from './groupPushState';
 import { loadLocalNotifications } from './localReminders';
 import { notificationDeliveryAllowed } from './notificationSystem';
@@ -16,10 +21,15 @@ export async function localPushPreferences(): Promise<LocalPushPreferences> {
   return { quiet, quietStart, quietEnd };
 }
 
-export async function dismissGroupNotifications(groupCode?: string): Promise<void> {
+export async function dismissGroupNotifications(
+  groupCode?: string,
+  kind?: GroupPushKind,
+): Promise<void> {
   invalidateGroupPush();
   const matches = (data: Record<string, unknown> | undefined) =>
-    data?.kind === 'group_reply' && (!groupCode || data.group_code === groupCode);
+    (data?.kind === 'group_reply' || data?.kind === 'group_post') &&
+    (!kind || data.kind === kind) &&
+    (!groupCode || data.group_code === groupCode);
   const presented = await Notifications.getPresentedNotificationsAsync();
   await Promise.all(
     presented
