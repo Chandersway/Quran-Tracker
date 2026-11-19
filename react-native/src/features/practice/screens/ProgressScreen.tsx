@@ -31,7 +31,10 @@ import { hifzCardColors } from '../../../domain/hifzPresentation';
 import { firstUnreadPartition, partitionReadStatus } from '../../../domain/progressActions';
 import { NoteCountButton } from '../../notes/components/NoteCountButton';
 
-export function ProgressScreen({ initialMode = 'hizb' }: { initialMode?: QuranProgressKind } = {}) {
+export function ProgressScreen({
+  initialMode = 'hizb',
+  dedicated = false,
+}: { initialMode?: QuranProgressKind; dedicated?: boolean } = {}) {
   const p = usePalette();
   const nav = useAppNavigation();
   const { state, dispatch, commit, ownerId } = useAppStore();
@@ -128,23 +131,27 @@ export function ProgressScreen({ initialMode = 'hizb' }: { initialMode?: QuranPr
           onPress={() => nav.navigate('Stats')}
         />
       </View>
-      <T muted style={{ marginTop: 8, marginBottom: 16 }}>
-        {t(mode === 'juz' ? 'hifz.independent' : 'tracker.hizbSubtitle')}
-      </T>
-      <Segments
-        value={mode}
-        onChange={(m) => {
-          if (submission.isSaving() || submission.draftLocked) return;
-          submission.reset();
-          setMode(m);
-          setSelected([]);
-          setMessage('');
-        }}
-        options={(['hizb', 'juz', 'rub', 'surah'] as const).map((value) => ({
-          value,
-          label: t(`unit.${value}`),
-        }))}
-      />
+      {!dedicated && mode !== 'juz' && (
+        <T muted style={{ marginTop: 8, marginBottom: 16 }}>
+          {t('tracker.hizbSubtitle')}
+        </T>
+      )}
+      {!dedicated && (
+        <Segments
+          value={mode}
+          onChange={(m) => {
+            if (submission.isSaving() || submission.draftLocked) return;
+            submission.reset();
+            setMode(m);
+            setSelected([]);
+            setMessage('');
+          }}
+          options={(['hizb', 'juz', 'rub', 'surah'] as const).map((value) => ({
+            value,
+            label: t(`unit.${value}`),
+          }))}
+        />
+      )}
       {message ? <Notice message={message} /> : null}
       {submission.failed && (
         <Notice error message={t('readingPlan.Opslaan mislukt. Probeer opnieuw.')} />

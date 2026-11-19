@@ -2,6 +2,12 @@
 
 The Kotlin source is the specification. This is an implementation checkpoint, not a declaration of complete migration or store readiness.
 
+## Schermfeedback en onafhankelijke eindcontrole — 19 november 2026
+
+Drie Astra MAX-reviewers controleren de lezer, notities/navigatie en notificaties naast de hoofdagent. De wijzigingen omvatten fullscreen openen, verplaatsbare leesknoppen, originele ayahselectie, pinchzoom, paginering per presentatie, bladwijzers, notitie-import en mappen, duidelijkere khatma-regels, instellingen, statistieken en lokale herinneringen. Zie [de concrete wijzigingen en actuele afleveringsstatus](FEEDBACK_IMPLEMENTATIE_2026-11-19.md).
+
+**828/828 tests, TypeScript, ESLint, formatting en Android/iOS/webexports slagen.** De definitieve lokale APK is gebouwd, op QA geïnstalleerd en teruggelezen met identieke hash. Fullscreen, oorspronkelijke ayahselectie, diagonaal verplaatsen van de sluitknop en de kleine focustimer zijn native gezien. Ook de lokale dagelijkse inhaalmelding is na de echte OS-toestemming ontvangen op de emulator. Het gekoppelde verslag bevat de exacte APK-identiteit en grenzen. Testenaantallen en hashes uit de oudere verslagen hieronder gelden voor hun eigen versie. Hosted Realtime, serverpush en ondertekende native iOS-acceptatie blijven afzonderlijke configuratie- en toestelstappen.
+
 ## Tweede controle en bouwopdrachten — 18 november 2026
 
 Vijf inhoudelijke werkpakketten en een onafhankelijke controle hebben de oorspronkelijke app opnieuw vergeleken. Alle 198 Kotlin-bestanden blijven ongewijzigd; alle 125 productiebronnen hebben een expliciete reviewscope. Nieuwe reparaties omvatten Warsh-studie, audioherstel, notitiecontext, checklist/kwartierweergave, historische doelen, agenda, accountgebonden mutaties/profielcache, herinneringen en onboarding. Native Apple-login en beveiligde providerintrekking bij accountverwijdering zijn toegevoegd.

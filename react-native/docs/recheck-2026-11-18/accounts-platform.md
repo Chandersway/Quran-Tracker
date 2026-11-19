@@ -66,6 +66,8 @@ Op de eerste installatie van deze administratie kan RN niet weten of een oude, i
 
 Kotlin controleerde dagelijks werk via WorkManager. RN draagt dagelijkse herhaling over aan het OS. Er is bewust geen tweede appgestuurde dagelijkse inhaalroute bovenop die native herhaling: zonder volledige OS-afleverhistorie kan die dubbele dagelijkse meldingen veroorzaken. De 12-uursroute hierboven geldt voor eenmalige planning. Native klok-/tijdzonewijzigingen, Doze, iOS Focus en echte aflevering moeten op apparaten worden getest.
 
+Aanvulling van 19 november 2026. Bij een vastgestelde eerste toestemming na het ingestelde tijdstip wordt nu een eenmalige melding voor dezelfde lokale dag gereserveerd. De reguliere dagherhaling blijft bij het OS. [Bijgewerkte vergelijking met Kotlin](../LOCAL_REMINDER_PARITY_2026-11-19.md)
+
 ## Import, export en duurzaam opstarten
 
 De bron is Room v16–20. De native Android-brug maakt een unieke cachekopie van de database plus aanwezig WAL/journal en opent alleen die kopie met `query_only`. Dit voorkomt een checkpoint op de originele bron. v20 controleert ook de Room-identiteit. De whitelist bevat alleen `settings`, `reader_state`, `reader_bookmarks`, `reading_checklist_v1`, `independent_reading_plan`, `notification_preferences_v1`; niet de account-, push- of uitnodigingstores.

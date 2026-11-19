@@ -9,9 +9,16 @@ export type NotificationChannelState = 'enabled' | 'blocked' | 'notCreated';
 /** iOS provisional authorization permits quiet delivery without another OS prompt. */
 export function notificationDeliveryAllowed(permission: {
   granted: boolean;
+  status?: string;
+  android?: { importance?: number };
   ios?: { status?: number };
 }): boolean {
-  return permission.granted || permission.ios?.status === 3;
+  return (
+    (permission.granted &&
+      permission.status !== 'denied' &&
+      permission.android?.importance !== 0) ||
+    permission.ios?.status === 3
+  );
 }
 
 export type NotificationSystemStatus = {
@@ -42,11 +49,16 @@ export async function readNotificationSystem(
     port.permission(),
     port.platform === 'android' ? port.channels() : Promise.resolve([]),
   ]);
+  const allowed = notificationDeliveryAllowed({
+    granted: permission.granted,
+    status: permission.status,
+    android: { importance: permission.androidImportance },
+  });
   return {
     permission:
       permission.iosStatus === 3
         ? 'provisional'
-        : permission.granted && permission.androidImportance !== 0
+        : allowed
           ? 'allowed'
           : permission.status === 'undetermined'
             ? 'undetermined'

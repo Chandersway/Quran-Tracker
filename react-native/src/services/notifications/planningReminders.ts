@@ -10,6 +10,8 @@ export type DesiredPlanReminder = {
   title: string;
   body: string;
   repeatDaily?: boolean;
+  /** Effective wall-clock minute of the repeating alarm paired with this first-grant DATE. */
+  firstGrantSlot?: number;
   /** Stable plan/reminder identity, independent of UI language and quiet-hour deferral. */
   deliveryKey?: string;
   /** Original allowed time when a bounded catch-up is scheduled a few seconds ahead. */
@@ -26,6 +28,7 @@ export type ReminderReconcileResult = {
   scheduled: string[];
   cancelled: string[];
   cleanupFailures: string[];
+  catchUpFailures: string[];
 };
 
 export function planningReminderDueAt(dateKey: string, hour: number, minute: number): Date {
@@ -116,6 +119,7 @@ export async function reconcilePlanReminders(
   commit?: () => Promise<void>,
 ): Promise<ReminderReconcileResult> {
   const scheduled: string[] = [];
+  const catchUpFailures: string[] = [];
   const cancelled: string[] = [];
   const notificationIds: Record<string, string> = {};
   const desiredByKey = new Map(desired.map((item) => [item.key, item]));
@@ -139,7 +143,15 @@ export async function reconcilePlanReminders(
   try {
     for (const reminder of desired) {
       if (seen.has(reminder.key)) continue;
-      const id = await port.schedule(reminder);
+      let id: string;
+      try {
+        id = await port.schedule(reminder);
+      } catch (error) {
+        // The supplemental DATE must not undo the regular DAILY for tomorrow.
+        if (reminder.firstGrantSlot === undefined) throw error;
+        catchUpFailures.push(reminder.key);
+        continue;
+      }
       notificationIds[reminder.key] = id;
       scheduled.push(id);
     }
@@ -157,7 +169,7 @@ export async function reconcilePlanReminders(
       cleanupFailures.push(id);
     }
   }
-  return { notificationIds, scheduled, cancelled, cleanupFailures };
+  return { notificationIds, scheduled, cancelled, cleanupFailures, catchUpFailures };
 }
 
 export function planReminderCopy(language: Language): {

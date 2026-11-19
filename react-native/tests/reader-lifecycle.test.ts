@@ -206,6 +206,23 @@ function mountReader(
   };
 }
 
+test('switching from ordinary text reading to book always requests fullscreen at the same verse', () => {
+  const reader = mountReader({ surah: 2, ayah: 5, fullscreen: false, planId: 'daily-plan' });
+  const tree = reader.render();
+  assert.equal(reader.chrome.at(-1), false, 'the text reader begins outside fullscreen');
+  tree.find((node) => node.type === 'ReadingModeSwitch')!.props.onBook();
+  const [route, context] = reader.navigations.at(-1) as [
+    string,
+    { fullscreen: boolean; surah: number; ayah: number; planId: string; edition: string },
+  ];
+  assert.equal(route, 'Mushaf');
+  assert.equal(context.fullscreen, true);
+  assert.equal(context.surah, 2);
+  assert.equal(context.ayah, 5);
+  assert.equal(context.planId, 'daily-plan');
+  assert.equal(context.edition, 'warsh_maknoon');
+});
+
 test('text fullscreen hides global chrome and restores it on blur and unmount without losing the passage', () => {
   const reader = mountReader();
   let tree = reader.render();
@@ -310,6 +327,19 @@ test('repeat reciters and page geometry follow the explicit Reader edition befor
     const sheet = reader.render().find((node) => node.type === 'RepeatSheet')!;
     assert.equal(sheet.props.warsh, warsh, `${edition ?? 'default'} must use its own reciters`);
     assert.equal(sheet.props.pageEdition, pageEdition);
+    reader.unmount();
+  }
+});
+
+test('text-reader page audio preserves the source presentation before the global preference', () => {
+  for (const presentation of ['original', 'selectable'] as const) {
+    const reader = mountReader(
+      { edition: 'hafs', bookPresentation: presentation, surah: 5, ayah: 77 },
+      'android',
+      { bookPresentation: presentation === 'original' ? 'selectable' : 'original' },
+    );
+    const sheet = reader.render().find((node) => node.type === 'RepeatSheet')!;
+    assert.equal(sheet.props.pagePresentation, presentation);
     reader.unmount();
   }
 });

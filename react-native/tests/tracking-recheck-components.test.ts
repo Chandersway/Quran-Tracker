@@ -60,17 +60,27 @@ test('checklist restores its saved stop, exposes quarter controls, and does not 
     },
     { setTimeout, clearTimeout },
   );
-  let tree = hooks.render(ChecklistScreen);
+  function renderChecklist() {
+    const tree = hooks.render(ChecklistScreen);
+    const list = elements(tree, 'FlatList')[0]!;
+    // Native FlatList renders its header separately from renderItem. The generic
+    // callback harness only expands rows, so expand the real header here too.
+    const header = list.props.ListHeaderComponent;
+    assert.ok(header, 'The introduction and mode controls scroll with the checklist');
+    list.props.children = [list.props.children, typeof header === 'function' ? header() : header];
+    return tree;
+  }
+  let tree = renderChecklist();
   const ref = elements(tree, 'FlatList')[0]!.props.ref as { current: unknown };
   ref.current = { scrollToIndex: ({ index }: { index: number }) => scrolls.push(index) };
   await new Promise(setImmediate);
-  tree = hooks.render(ChecklistScreen);
+  tree = renderChecklist();
   assert.equal(elements(tree, 'Segments')[0]!.props.value, 'hizb');
   assert.deepEqual(scrolls, [39]);
   const child = findElement(tree, 'View', 'testID', 'part-rub-157');
   press(elements(child, 'Pressable').find((node) => node.props.accessibilityRole === 'checkbox')!);
   await new Promise(setImmediate);
-  tree = hooks.render(ChecklistScreen);
+  tree = renderChecklist();
   assert.deepEqual(
     saved.coverage,
     checklist.toggleCoverage([], { scope: 'rub', number: 157 }, true),
@@ -83,12 +93,12 @@ test('checklist restores its saved stop, exposes quarter controls, and does not 
   const nextChild = findElement(tree, 'View', 'testID', 'part-rub-158');
   press(findElement(nextChild, 'Button', 'title', 'checklist.stop'));
   await new Promise(setImmediate);
-  tree = hooks.render(ChecklistScreen);
+  tree = renderChecklist();
   (elements(tree, 'FlatList')[0]!.props.onContentSizeChange as () => void)();
   assert.deepEqual(scrolls, [39]);
   assert.deepEqual(saved.position, { scope: 'rub', number: 158 });
   change(elements(tree, 'Segments')[0]!, 'juz');
-  tree = hooks.render(ChecklistScreen);
+  tree = renderChecklist();
   assert.deepEqual(scrolls, [39, 19]);
   for (const number of [153, 154, 155, 156, 157, 158, 159, 160])
     assert.ok(findElement(tree, 'View', 'testID', `part-rub-${number}`));

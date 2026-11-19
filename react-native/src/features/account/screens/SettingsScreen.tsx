@@ -9,6 +9,7 @@ import { usePalette } from '../../../shared/theme';
 import { OnboardingFlow } from '../../onboarding/components/OnboardingFlow';
 import { ThemePicker } from '../../../shared/theme/ThemePicker';
 import { appearanceCopy } from '../appearanceCopy';
+import { bookmarkCopy } from '../../bookmarks/bookmarkCopy';
 import { MediaSettingsSheet } from '../../audio/components/MediaSettings';
 import {
   MIN_ARABIC_FONT_SIZE,
@@ -158,71 +159,25 @@ export function SettingsScreen() {
         {t.subtitle}
       </T>
 
-      <Section title={t.appearance} />
-      <ThemePicker
-        value={preferences.theme}
-        labels={appearance.themes}
-        label={appearance.theme}
-        onChange={(theme) => dispatch({ type: 'preferences', patch: { theme } })}
+      <Section title={t.account} />
+      <Row
+        icon="user"
+        title={t.accountButton}
+        subtitle={t.accountHelp}
+        onPress={() => navigation.navigate('Account')}
       />
-      <Card style={{ marginTop: 12 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 16,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <T bold>{t.cardPatterns}</T>
-            <T muted size={14} style={{ marginTop: 4 }}>
-              {t.cardPatternsHelp}
-            </T>
-          </View>
-          <Switch
-            testID="card-patterns-switch"
-            accessibilityLabel={t.cardPatterns}
-            accessibilityHint={t.cardPatternsHelp}
-            value={preferences.cardPatterns}
-            onValueChange={(cardPatterns) =>
-              dispatch({ type: 'preferences', patch: { cardPatterns } })
-            }
-            trackColor={{ false: p.line, true: p.primary }}
-            thumbColor={preferences.cardPatterns ? p.onPrimary : p.muted}
-            style={{ minHeight: 48 }}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 16,
-            marginTop: 16,
-            paddingTop: 16,
-            borderTopWidth: 1,
-            borderTopColor: p.line,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <T bold>{appearance.hifzColors}</T>
-            <T muted size={14} style={{ marginTop: 4 }}>
-              {appearance.hifzColorsHelp}
-            </T>
-          </View>
-          <Switch
-            testID="hifz-colors-switch"
-            accessibilityLabel={appearance.hifzColors}
-            accessibilityHint={appearance.hifzColorsHelp}
-            value={preferences.hifzColorsEnabled}
-            onValueChange={(hifzColorsEnabled) =>
-              dispatch({ type: 'preferences', patch: { hifzColorsEnabled } })
-            }
-            trackColor={{ false: p.line, true: p.primary }}
-            thumbColor={preferences.hifzColorsEnabled ? p.onPrimary : p.muted}
-            style={{ minHeight: 48 }}
-          />
-        </View>
-      </Card>
+      <Row icon="users" title={t.groupsButton} onPress={() => navigation.navigate('Groups')} />
+      <Row
+        icon="bell"
+        title={
+          state.preferences.language === 'nl'
+            ? 'Meldingen en stille uren'
+            : state.preferences.language === 'ar'
+              ? 'الإشعارات وساعات الهدوء'
+              : 'Notifications and quiet hours'
+        }
+        onPress={() => navigation.navigate('Notifications')}
+      />
 
       <Section title={t.language} />
       <Segments
@@ -250,6 +205,14 @@ export function SettingsScreen() {
       </View>
 
       <Section title={t.reading} />
+      <Row
+        icon="bookmark"
+        title={bookmarkCopy[preferences.language].title}
+        subtitle={bookmarkCopy[preferences.language].help}
+        translateTitle={false}
+        translateSubtitle={false}
+        onPress={() => navigation.navigate('Bookmarks')}
+      />
       <Row icon="book-open" title={t.mushaf} onPress={() => navigation.navigate('MushafLibrary')} />
       <Card style={{ borderWidth: 1, borderColor: p.line, gap: 14 }}>
         <View
@@ -317,25 +280,6 @@ export function SettingsScreen() {
       />
       <MediaSettingsSheet visible={mediaOpen} onClose={() => setMediaOpen(false)} />
 
-      <Section title={t.account} />
-      <Row
-        icon="user"
-        title={t.accountButton}
-        subtitle={t.accountHelp}
-        onPress={() => navigation.navigate('Account')}
-      />
-      <Row icon="users" title={t.groupsButton} onPress={() => navigation.navigate('Groups')} />
-      <Row
-        icon="bell"
-        title={
-          state.preferences.language === 'nl'
-            ? 'Meldingen en stille uren'
-            : state.preferences.language === 'ar'
-              ? 'الإشعارات وساعات الهدوء'
-              : 'Notifications and quiet hours'
-        }
-        onPress={() => navigation.navigate('Notifications')}
-      />
       <View style={{ marginTop: 24, gap: 8 }}>
         <T bold>{t.restart}</T>
         <T size={14} muted>
@@ -351,6 +295,82 @@ export function SettingsScreen() {
           {replay && <OnboardingFlow replay onClose={() => setReplay(false)} />}
         </Modal>
       </View>
+
+      <Section title={t.appearance} />
+      <ThemePicker
+        value={preferences.theme}
+        labels={appearance.themes}
+        label={appearance.theme}
+        onChange={(theme) =>
+          dispatch({
+            type: 'preferences',
+            patch: {
+              theme,
+              ...(['matte_night', 'matte_ocean', 'matte_plum'].includes(theme)
+                ? { cardPatterns: false }
+                : {}),
+            },
+          })
+        }
+      />
+      <Card style={{ marginTop: 12 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 16,
+          }}
+        >
+          <View style={{ flex: 1 }}>
+            <T bold>{t.cardPatterns}</T>
+            <T muted size={14} style={{ marginTop: 4 }}>
+              {t.cardPatternsHelp}
+            </T>
+          </View>
+          <Switch
+            testID="card-patterns-switch"
+            accessibilityLabel={t.cardPatterns}
+            accessibilityHint={t.cardPatternsHelp}
+            value={preferences.cardPatterns}
+            onValueChange={(cardPatterns) =>
+              dispatch({ type: 'preferences', patch: { cardPatterns } })
+            }
+            trackColor={{ false: p.line, true: p.primary }}
+            thumbColor={preferences.cardPatterns ? p.onPrimary : p.muted}
+            style={{ minHeight: 48 }}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 16,
+            marginTop: 16,
+            paddingTop: 16,
+            borderTopWidth: 1,
+            borderTopColor: p.line,
+          }}
+        >
+          <View style={{ flex: 1 }}>
+            <T bold>{appearance.hifzColors}</T>
+            <T muted size={14} style={{ marginTop: 4 }}>
+              {appearance.hifzColorsHelp}
+            </T>
+          </View>
+          <Switch
+            testID="hifz-colors-switch"
+            accessibilityLabel={appearance.hifzColors}
+            accessibilityHint={appearance.hifzColorsHelp}
+            value={preferences.hifzColorsEnabled}
+            onValueChange={(hifzColorsEnabled) =>
+              dispatch({ type: 'preferences', patch: { hifzColorsEnabled } })
+            }
+            trackColor={{ false: p.line, true: p.primary }}
+            thumbColor={preferences.hifzColorsEnabled ? p.onPrimary : p.muted}
+            style={{ minHeight: 48 }}
+          />
+        </View>
+      </Card>
     </Screen>
   );
 }

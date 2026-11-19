@@ -21,9 +21,9 @@ const emptyRows: LegacyRoomRows = {
   journey: [],
 };
 
-test('all twelve Android themes and system survive persistence with localized names', () => {
-  assert.equal(themeModes.length, 13);
-  assert.equal(new Set(themeModes).size, 13);
+test('all original themes, matte midnight and system survive persistence with localized names', () => {
+  assert.equal(themeModes.length, 16);
+  assert.equal(new Set(themeModes).size, 16);
   for (const theme of themeModes) {
     const saved = { ...initialState, preferences: { ...initialState.preferences, theme } };
     assert.equal(decodeState(JSON.stringify(saved)).preferences.theme, theme);
@@ -38,7 +38,16 @@ test('all twelve Android themes and system survive persistence with localized na
 });
 
 test('every palette keeps body, secondary, action and state text readable and uses the correct status-bar contrast', () => {
-  const nightThemes = ['dark', 'inferno', 'matte_forest', 'matte_charcoal', 'matte_manuscript'];
+  const nightThemes = [
+    'dark',
+    'inferno',
+    'matte_forest',
+    'matte_charcoal',
+    'matte_manuscript',
+    'matte_night',
+    'matte_ocean',
+    'matte_plum',
+  ];
   for (const [name, palette] of Object.entries(palettes)) {
     for (const foreground of ['ink', 'muted', 'primary', 'clay', 'blue'] as const) {
       for (const background of ['background', 'surface', 'subtle'] as const) {

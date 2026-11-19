@@ -15,7 +15,17 @@ import {
   versePoint,
   type ChecklistState,
 } from '../../../domain/checklist';
-import { Button, Icon, Notice, Screen, Segments, Sheet, T, s } from '../../../shared/components';
+import {
+  Button,
+  Icon,
+  Notice,
+  Screen,
+  Segments,
+  Sheet,
+  T,
+  s,
+  IconButton,
+} from '../../../shared/components';
 import { usePalette } from '../../../shared/theme';
 import { useAppNavigation } from '../../../app/navigation/types';
 import { useI18n } from '../../../i18n';
@@ -34,6 +44,7 @@ export function ChecklistScreen() {
   const { t, locale } = useI18n();
   const [mode, setMode] = useState<Exclude<NoteScope, 'ayah'>>('hizb');
   const [expanded, setExpanded] = useState(0);
+  const [showTools, setShowTools] = useState(false);
   const [data, setData] = useState<ChecklistState>({ coverage: [], position: null });
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -42,7 +53,7 @@ export function ChecklistScreen() {
   const live = useRef(true);
   const current = useRef(data);
   const anchor = usePracticeListAnchor(
-    ready ? checklistAnchor(data.position, mode) - 1 : null,
+    ready && data.position ? checklistAnchor(data.position, mode) - 1 : null,
     mode,
   );
   const load = useCallback(async () => {
@@ -180,11 +191,8 @@ export function ChecklistScreen() {
       </View>
     );
   }
-  return (
-    <Screen scroll={false}>
-      <T size={30} bold>
-        {t('checklist.title')}
-      </T>
+  const listHeader = (
+    <View style={{ gap: 12, paddingBottom: 12 }}>
       {failure && (
         <Notice
           error
@@ -192,42 +200,68 @@ export function ChecklistScreen() {
           onRetry={() => (failure === 'load' ? void load() : save(current.current))}
         />
       )}
-      <View style={{ gap: 8, marginVertical: 14 }}>
-        <T bold>{t('checklist.here')}</T>
-        <T translate={false} muted>
-          {data.position
-            ? `${name(data.position)} · ${point(versePoint(checklistRange(data.position)[1] - 1))}`
-            : t('checklist.empty')}
-        </T>
-        <T translate={false} muted>
-          {next ? `${t('checklist.next')}: ${point(next)}` : t('checklist.end')}
-        </T>
-        {next && (
-          <Button
-            title={t('checklist.continue')}
-            icon="book-open"
-            disabled={!ready}
-            onPress={() => nav.navigate('Mushaf', next)}
-          />
-        )}
-        <View style={[s.row, { flexWrap: 'wrap' }]}>
-          <Button
-            title={t('checklist.clearPosition')}
-            variant="quiet"
-            disabled={disabled || !data.position}
-            onPress={() => setClearing('position')}
-          />
-          <Button
-            title={t('checklist.clearChecklist')}
-            variant="quiet"
-            disabled={disabled || data.coverage.length === 0}
-            onPress={() => setClearing('checklist')}
+
+      <View style={{ gap: 8, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: p.line }}>
+        <View style={[s.row, { alignItems: 'center' }]}>
+          <View style={{ flex: 1, gap: 4 }}>
+            <T bold size={15}>
+              {t('checklist.here')}
+            </T>
+            <T translate={false} muted size={12}>
+              {data.position
+                ? `${name(data.position)} \u00b7 ${point(versePoint(checklistRange(data.position)[1] - 1))}`
+                : t('checklist.empty')}
+            </T>
+          </View>
+          <IconButton
+            name={showTools ? 'chevron-up' : 'more-horizontal'}
+            label={t('checklist.title')}
+            onPress={() => setShowTools((value) => !value)}
           />
         </View>
+        {next && (
+          <View style={[s.row, { alignItems: 'center' }]}>
+            <T
+              translate={false}
+              muted
+              size={12}
+              style={{ flex: 1 }}
+            >{`${t('checklist.next')}: ${point(next)}`}</T>
+            <Button
+              title={t('checklist.continue')}
+              icon="book-open"
+              disabled={!ready}
+              onPress={() => nav.navigate('Mushaf', next)}
+            />
+          </View>
+        )}
+        {!next && (
+          <T muted size={12}>
+            {t('checklist.end')}
+          </T>
+        )}
+        {showTools && (
+          <View style={{ gap: 8 }}>
+            <View style={[s.row, { flexWrap: 'wrap' }]}>
+              <Button
+                title={t('checklist.clearPosition')}
+                variant="quiet"
+                disabled={disabled || !data.position}
+                onPress={() => setClearing('position')}
+              />
+              <Button
+                title={t('checklist.clearChecklist')}
+                variant="quiet"
+                disabled={disabled || data.coverage.length === 0}
+                onPress={() => setClearing('checklist')}
+              />
+            </View>
+            <T muted size={12}>
+              {t('checklist.help')}
+            </T>
+          </View>
+        )}
       </View>
-      <T muted size={13}>
-        {t('checklist.help')}
-      </T>
       <Segments
         value={mode}
         onChange={setMode}
@@ -236,9 +270,16 @@ export function ChecklistScreen() {
           label: t(`checklist.${value}`),
         }))}
       />
+    </View>
+  );
+  return (
+    <Screen scroll={false}>
       <FlatList
         {...anchor.listProps}
         key={mode}
+        style={{ flex: 1 }}
+        ListHeaderComponent={listHeader}
+        contentContainerStyle={{ paddingBottom: 24 }}
         data={Array.from({ length: maximum }, (_, i) => i + 1)}
         keyExtractor={(n) => `${mode}:${n}`}
         renderItem={({ item: n }) => {

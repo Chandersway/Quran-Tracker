@@ -1,4 +1,5 @@
 import { chapters } from '../../../content/quran';
+import { nextFreeNoteId } from '../../../domain/notesLibrary';
 import { noteTagList, type ExportableNote } from '../../../exporting/notesExport';
 import {
   targetQuarter,
@@ -192,7 +193,7 @@ export function prepareNoteSave(
     ok: true,
     target: fields.target,
     note: {
-      id: editorId ?? Math.max(0, ...notes.map((note) => note.id).filter(Number.isFinite)) + 1,
+      id: editorId ?? nextFreeNoteId(new Set(notes.map((note) => note.id))),
       ...targetFields,
       surahName: targetFields.surahId ? (chapters[targetFields.surahId - 1]?.name ?? '') : '',
       title: fields.title.trim(),

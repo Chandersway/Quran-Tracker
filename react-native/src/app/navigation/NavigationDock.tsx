@@ -1,6 +1,8 @@
 import { navigationCopy } from './navigationCopy';
+import { bookmarkCopy } from '../../features/bookmarks/bookmarkCopy';
+import { MediaSettingsSheet } from '../../features/audio/components/MediaSettings';
 import React, { useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppStore } from '../../state/store';
@@ -14,12 +16,14 @@ import {
   defaultDockDestinations,
   maxDockDestinations,
   normalizeDockDestinations,
+  visibleDockDestinations,
   type DockDestinationId,
 } from '../../domain/dockPreferences';
 import { dockDestinations, type DockDestination } from './dockDestinations';
 
 export function NavigationDock({ state, navigation }: BottomTabBarProps) {
   const [more, setMore] = useState(false);
+  const [media, setMedia] = useState<'closed' | 'afterMore' | 'open'>('closed');
   const [selecting, setSelecting] = useState(false);
   const { t, format, locale } = useI18n();
   const copy = navigationCopy[locale];
@@ -31,8 +35,11 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
   const { state: app, dispatch } = useAppStore();
   const stack = useAppNavigation();
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
   const selectedIds = normalizeDockDestinations(app.preferences.dockDestinations);
-  const selected = selectedIds.map((id) => dockDestinations.find((item) => item.id === id)!);
+  const visibleIds = visibleDockDestinations(selectedIds);
+  const selected = visibleIds.map((id) => dockDestinations.find((item) => item.id === id)!);
+  const itemWidth = Math.max(48, (width - insets.left - insets.right - 12) / (selected.length + 1));
   const active = state.routes[state.index]?.name;
   function goTab(route: string) {
     const target = state.routes.find((item) => item.name === route);
@@ -99,8 +106,8 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
           if (target) navigation.emit({ type: 'tabLongPress', target: target.key });
         }}
         style={({ pressed }) => ({
-          flex: 1,
-          minHeight: 69,
+          width: itemWidth,
+          minHeight: 60,
           alignItems: 'center',
           justifyContent: 'center',
           gap: 4,
@@ -141,16 +148,15 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
           backgroundColor: p.surface,
           borderTopWidth: 1,
           borderTopColor: p.line,
-          paddingHorizontal: 12,
-          paddingTop: 7,
+          paddingHorizontal: 6,
+          paddingTop: 3,
           paddingBottom: Math.max(insets.bottom, 6),
           flexDirection: 'row',
         }}
       >
-        {selected.map(dockItem)}
-        {Array.from({ length: maxDockDestinations - selected.length }, (_, index) => (
-          <View key={`empty-${index}`} style={{ flex: 1 }} />
-        ))}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
+          {selected.map(dockItem)}
+        </ScrollView>
         <Pressable
           accessibilityRole="tab"
           accessibilityLabel={t('ui.more')}
@@ -160,8 +166,8 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
             setMore(true);
           }}
           style={({ pressed }) => ({
-            flex: 1,
-            minHeight: 69,
+            width: itemWidth,
+            minHeight: 60,
             alignItems: 'center',
             justifyContent: 'center',
             gap: 4,
@@ -195,6 +201,9 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
         onClose={() => {
           setMore(false);
           setSelecting(false);
+        }}
+        onDismiss={() => {
+          if (media === 'afterMore') setMedia('open');
         }}
       >
         {selecting ? (
@@ -263,6 +272,27 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
           </>
         ) : (
           <>
+            <Row
+              icon="headphones"
+              title={bookmarkCopy[locale].audio}
+              subtitle={bookmarkCopy[locale].audioHelp}
+              translateTitle={false}
+              translateSubtitle={false}
+              onPress={() => {
+                setMore(false);
+                // UIKit can present the reciter sheet once the previous controller has dismissed.
+                setMedia(Platform.OS === 'ios' ? 'afterMore' : 'open');
+              }}
+            />
+            <Row
+              icon="bookmark"
+              title={bookmarkCopy[locale].title}
+              translateTitle={false}
+              onPress={() => {
+                setMore(false);
+                stack.navigate('Bookmarks');
+              }}
+            />
             <View
               style={{
                 flexDirection: 'row',
@@ -284,7 +314,7 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
             {(['reading', 'practice', 'organize'] as const).map((group) => {
               const destinations = dockDestinations.filter(
                 (destination) =>
-                  destination.group === group && !selectedIds.includes(destination.id),
+                  destination.group === group && !visibleIds.includes(destination.id),
               );
               return destinations.length > 0 ? (
                 <View key={group} style={{ marginTop: 20 }}>
@@ -324,6 +354,7 @@ export function NavigationDock({ state, navigation }: BottomTabBarProps) {
           </>
         )}
       </Sheet>
+      <MediaSettingsSheet visible={media === 'open'} onClose={() => setMedia('closed')} />
     </>
   );
 }

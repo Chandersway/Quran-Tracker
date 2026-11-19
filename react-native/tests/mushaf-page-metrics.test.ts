@@ -8,7 +8,10 @@ test('ayah counts deduplicate printed segments and use the selected edition', ()
   assert.equal(mushafPageAyahCount('hafs', 2), 5);
   assert.equal(mushafPageAyahCount('warsh_maknoon', 2), 4);
   assert.equal(mushafPageAyahCount('hafs', 50), 9);
-  assert.equal(mushafPageAyahCount('muhammadi', 50), 7);
+  assert.equal(mushafPageAyahCount('muhammadi', 1), 7); // Illuminated frame is not an ayah.
+  assert.equal(mushafPageAyahCount('muhammadi', 2), 4);
+  assert.equal(mushafPageAyahCount('muhammadi', 3), 11); // Includes the next ayah's visible opening.
+  assert.equal(mushafPageAyahCount('muhammadi', 50), 8); // Seven medallions plus printed Warsh 3:21.
   assert.equal(mushafPageAyahCount('muhammadi', 638), 15);
   assert.equal(mushafPageAyahCount('hafs', 120), 6);
   assert.equal(mushafPageAyahCount('hafs_maknoon', 120), 7);

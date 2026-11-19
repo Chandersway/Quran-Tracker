@@ -1,6 +1,8 @@
+import * as continuousCrop from '../src/features/quran/layout/continuousMushafCrop';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import ts from 'typescript';
 import * as quran from '../src/content/quran';
 import * as geometry from '../src/content/mushafGeometry';
@@ -187,7 +189,10 @@ const assets = evaluate('src/content/generated/printedPages.ts', {}, (name) => {
   return name;
 }).printedPages;
 const printedModules = {
-  react,
+  react: {
+    ...react,
+    useState: (initial: unknown) => [initial === null ? '<svg/>' : initial, () => {}],
+  },
   'react-native': {
     ActivityIndicator: 'ActivityIndicator',
     Image: 'Image',
@@ -201,10 +206,13 @@ const printedModules = {
   '../../../content/generated/printedPages': { printedPages: assets },
   '../../../content/quran': quran,
   '../../../content/mushafGeometry': geometry,
-  '../../../services/mushaf/storage': { mushafFile: () => ({ uri: 'file:///hafs.png' }) },
+  '../../../services/mushaf/storage': {
+    mushafFile: () => ({ uri: 'file:///hafs.png', exists: true }),
+  },
   '../../../shared/components': { T: 'T' },
   '../../../i18n': i18n,
   '../layout/mushafCrop': crop,
+  '../layout/continuousMushafCrop': continuousCrop,
 };
 const PrintedMushafPage = evaluate(
   'src/features/quran/components/PrintedMushafPage.tsx',
@@ -235,13 +243,12 @@ test('all 638 Muhammadi asset entries render the matching bundled original image
   }
 });
 
-test('all original Hafs Maknoon pages retain the source strips and known canonical reading ranges', () => {
+test('all original Hafs Maknoon and Medina PNGs match publisher pagination at their own physical coordinates', () => {
   for (let page = 1; page <= 604; page++) {
     assert.deepEqual(
-      geometry.pageSegments('hafs_maknoon', page),
-      geometry.pageSegments('hafs', page),
+      mushafPageRange('hafs_maknoon', page),
+      mushafPageRange('hafs', page, 'original'),
     );
-    assert.deepEqual(mushafPageRange('hafs_maknoon', page), mushafPageRange('hafs', page));
   }
   assert.equal(mushafPageRange('hafs_indopak_15', 50), undefined);
 });
@@ -290,6 +297,176 @@ test('Maknoon 115%/112% crops transform original tap regions and highlights toge
       );
       assert.equal(highlight.props.style.left, selectedFirstStrip.x * page.props.style.width);
     }
+  }
+});
+
+test('continuous printed crop keeps click, long-press and highlight on the same original aya', () => {
+  for (const edition of ['hafs', 'hafs_maknoon', 'warsh_maknoon'] as const) {
+    const pageNumber = 50;
+    const segment = geometry
+      .pageSegments(edition, pageNumber, 'original')
+      .find((row) => row.x > 0.1 && row.x < 0.8 && row.y > 0.1 && row.y < 0.8)!;
+    const edge = continuousCrop.continuousMushafCrop(edition, pageNumber);
+    const transformed = crop.cropSegment(segment, crop.mushafCropZoom(edition));
+    const selected: Array<{ segment: geometry.Segment | null; page: number }> = [];
+    const tree = nodes(
+      PrintedMushafPage({
+        edition,
+        page: pageNumber,
+        maxWidth: 400,
+        maxHeight: 100000,
+        zoom: 1,
+        retry: 0,
+        continuous: true,
+        onLongPressSelect: true,
+        selected: segment,
+        onSelect: (value: geometry.Segment | null, page: number) =>
+          selected.push({ segment: value, page }),
+        onError: () => {},
+      }),
+    );
+    const surface = tree.find((node) => node.type === 'Pressable')!;
+    const originalWidth = surface.props.style.width / (1 - edge.left - edge.right);
+    const originalHeight = surface.props.style.height / (1 - edge.top - edge.bottom);
+    const event = {
+      nativeEvent: {
+        locationX: (transformed.x + transformed.width / 2 - edge.left) * originalWidth,
+        locationY: (transformed.y + transformed.height / 2 - edge.top) * originalHeight,
+      },
+    };
+    surface.props.onPress(event);
+    surface.props.onLongPress(event);
+    assert.equal(selected.length, 2);
+    for (const value of selected) {
+      assert.equal(value.page, pageNumber);
+      assert.equal(value.segment?.surah, segment.surah);
+      assert.equal(value.segment?.ayah, segment.ayah);
+    }
+    const firstStrip = geometry
+      .pageSegments(edition, pageNumber, 'original')
+      .find((row) => row.surah === segment.surah && row.ayah === segment.ayah)!;
+    const shownStrip = crop.cropSegment(firstStrip, crop.mushafCropZoom(edition));
+    const highlight = tree.find((node) => node.props.style?.backgroundColor === '#D5B56B44')!;
+    assert.ok(highlight);
+    assert.equal(highlight.props.style.left, (shownStrip.x - edge.left) * originalWidth);
+    assert.equal(highlight.props.style.top, (shownStrip.y - edge.top) * originalHeight);
+  }
+});
+
+test('measured source pixels hit the printed verse after continuous crop and zoom, excluding illuminated ornament', () => {
+  for (const [filename, digest] of [
+    [
+      'hafs_madina_page_001.png',
+      '9e6def8f0b5ef74547ccfca26e7964450365b62686626b067dec42298a61dc86',
+    ],
+    [
+      'hafs_madina_page_050.png',
+      '863544700d81412d202f79b09f976b801fe641eaaab0aa63e4188ec35bb198c2',
+    ],
+    ['warsh_page_001.png', '8fe254234b24a1a58c0ffa176d621aa965f6e661021b47d00d73dbfc0920d70f'],
+    ['warsh_page_046.png', '876365c78d38003161f73539ddeeaad644b61cd6fec3bc81009ec980bfb9f97b'],
+  ])
+    assert.equal(
+      createHash('sha256')
+        .update(readFileSync(`assets/mushaf/${filename}`))
+        .digest('hex'),
+      digest,
+    );
+  const fixtures = [
+    ['hafs', 1, 622, 917, 245, 408, [1, 1]],
+    ['hafs', 1, 622, 917, 216, 442, [1, 2]],
+    ['hafs', 1, 622, 917, 246, 147, null],
+    ['hafs', 50, 622, 917, 509, 197, [3, 1]],
+    ['hafs', 50, 622, 917, 245, 198, [3, 2]],
+    ['hafs_maknoon', 50, 944, 1549, 798, 361, [3, 1]],
+    ['hafs_maknoon', 50, 944, 1549, 366, 362, [3, 2]],
+    ['muhammadi', 1, 850, 1223, 344, 470, [1, 1]],
+    ['muhammadi', 1, 850, 1223, 200, 802, null],
+    ['muhammadi', 2, 850, 1245, 190, 810, null],
+    ['muhammadi', 3, 865, 1273, 502, 150, [2, 5]],
+    ['muhammadi', 46, 850, 1245, 400, 900, [2, 281]],
+  ] as const;
+  for (const [edition, page, nativeWidth, nativeHeight, px, py, expected] of fixtures) {
+    const edge = continuousCrop.continuousMushafCrop(edition, page);
+    const magnification = crop.mushafCropZoom(edition);
+    const received: Array<geometry.Segment | null> = [];
+    const render = (selected: geometry.Segment | null) =>
+      nodes(
+        PrintedMushafPage({
+          edition,
+          page,
+          maxWidth: 400,
+          maxHeight: 100000,
+          zoom: 1.75,
+          retry: 0,
+          selected,
+          onSelect: (row: geometry.Segment | null) => received.push(row),
+          onError: () => {},
+          continuous: true,
+          onLongPressSelect: true,
+        }),
+      );
+    const surface = render(null).find((node) => node.type === 'Pressable')!;
+    const scale = surface.props.style.width / (1 - edge.left - edge.right) / nativeWidth;
+    const locationX =
+      ((px - nativeWidth / 2) * magnification + nativeWidth / 2 - edge.left * nativeWidth) * scale;
+    const locationY =
+      ((py - nativeHeight / 2) * magnification + nativeHeight / 2 - edge.top * nativeHeight) *
+      scale;
+    const event = { nativeEvent: { locationX, locationY } };
+    surface.props.onPress(event);
+    surface.props.onLongPress(event);
+    assert.equal(received.length, 2);
+    for (const row of received)
+      assert.deepEqual(
+        row ? [row.surah, row.ayah] : null,
+        expected,
+        `${edition} ${page} @ ${px},${py}`,
+      );
+    if (!expected) continue;
+    const highlights = render(received[0]!).filter(
+      (node) => node.props.style?.backgroundColor === '#D5B56B44',
+    );
+    assert.ok(
+      highlights.some(
+        ({ props: { style } }) =>
+          locationX >= style.left &&
+          locationX <= style.left + style.width &&
+          locationY >= style.top &&
+          locationY <= style.top + style.height,
+      ),
+    );
+  }
+  for (const edition of ['hafs', 'hafs_maknoon'] as const)
+    assert.equal(geometry.findMushafAyah(edition, 0, 0, 'original'), null);
+});
+
+test('unavailable original artwork cannot select an invisible mapped verse', () => {
+  const missing = evaluate('src/features/quran/components/PrintedMushafPage.tsx', {
+    ...printedModules,
+    react,
+    '../../../services/mushaf/storage': {
+      mushafFile: () => ({ uri: 'file:///missing', exists: false }),
+    },
+  }).PrintedMushafPage;
+  for (const edition of ['warsh_maknoon', 'hafs_maknoon'] as const) {
+    const surface = nodes(
+      missing({
+        edition,
+        page: 1,
+        zoom: 1,
+        maxWidth: 400,
+        maxHeight: 800,
+        retry: 0,
+        selected: null,
+        onSelect: () => assert.fail('invisible aya'),
+        onError: () => {},
+        onLongPressSelect: true,
+      }),
+    ).find((node) => node.type === 'Pressable')!;
+    const event = { nativeEvent: { locationX: 200, locationY: 180 } };
+    surface.props.onPress(event);
+    surface.props.onLongPress(event);
   }
 });
 

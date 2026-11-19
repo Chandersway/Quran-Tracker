@@ -36,6 +36,7 @@ import { useI18n } from '../../../i18n';
 import type { RootStack } from '../../../app/navigation/types';
 import {
   findMushafAyah,
+  printedHafsPage,
   hafsReferences,
   pageSegments,
   type Edition,
@@ -44,6 +45,7 @@ import {
 import { importLegacyMushafs } from '../../../services/mushaf/storage';
 import { DownloadedPdfMushaf } from '../components/DownloadedPdfMushaf';
 import { PrintedMushafPage } from '../components/PrintedMushafPage';
+import { ContinuousMushafPages } from '../components/ContinuousMushafPages';
 import { SelectableMushafPage } from '../components/SelectableMushafPage';
 import { MushafReadingActions } from '../components/MushafReadingActions';
 import { MushafFooter } from '../components/MushafFooter';
@@ -74,9 +76,23 @@ import { readPageMetrics } from '../model/readPageMetrics';
 import { readerCopy } from '../model/readerCopy';
 import { bookOffsetForAnchor, bookScrollAnchor } from '../layout/bookScrollPosition';
 import { ReaderListenButton } from '../components/ReaderListenButton';
+import { FloatingReaderAudio } from '../components/FloatingReaderAudio';
 import { resolveReaderEntry } from '../../../domain/quranNavigation';
+import { matchesMushafBookmarkPage } from '../../../domain/mushafBookmarks';
 
 const audioService = createAudioService(process.env.EXPO_PUBLIC_AUDIO_BASE_URL);
+
+function pointOnPage(
+  point: { surah: number; ayah: number },
+  range: ReturnType<typeof mushafPageRange>,
+) {
+  if (!range) return point;
+  const index = point.surah * 1000 + point.ayah;
+  return index >= range.start.surah * 1000 + range.start.ayah &&
+    index <= range.end.surah * 1000 + range.end.ayah
+    ? point
+    : range.start;
+}
 
 export function MushafScreen(props: NativeStackScreenProps<RootStack, 'Mushaf'>) {
   const { state } = useAppStore();
@@ -94,10 +110,23 @@ export function MushafScreen(props: NativeStackScreenProps<RootStack, 'Mushaf'>)
   );
   const entry = resolveBookEntry(state, requestedEntry);
   const edition = entry.edition;
+  // New passage intent remounts the reader; visible-page/cursor writes do not.
+  const entryKey = JSON.stringify([
+    edition,
+    entry.bookPresentation,
+    requestedEntry.surah,
+    requestedEntry.ayah,
+    requestedEntry.page,
+    requestedEntry.endSurah,
+    requestedEntry.endAyah,
+    requestedEntry.planId,
+  ]);
   const pdf = edition === 'hafs_madina_pdf' || edition === 'hafs_indopak_15';
   useLayoutEffect(() => {
-    props.navigation.setOptions({ headerShown: pdf && !shortLandscape });
-  }, [props.navigation, shortLandscape, pdf]);
+    props.navigation.setOptions({
+      headerShown: pdf && !shortLandscape && entry.fullscreen === false,
+    });
+  }, [props.navigation, shortLandscape, pdf, entry.fullscreen]);
   const [checking, setChecking] = useState(true);
   const [migrationError, setMigrationError] = useState(false);
   useEffect(() => {
@@ -122,7 +151,7 @@ export function MushafScreen(props: NativeStackScreenProps<RootStack, 'Mushaf'>)
   if (migrationError)
     return (
       <Screen>
-        {(!pdf || shortLandscape) && (
+        {(!pdf || shortLandscape || entry.fullscreen !== false) && (
           <IconButton
             name="arrow-left"
             mirrorInRtl
@@ -147,12 +176,10 @@ export function MushafScreen(props: NativeStackScreenProps<RootStack, 'Mushaf'>)
   if (edition === 'hafs_madina_pdf' || edition === 'hafs_indopak_15') {
     const initial =
       entry.page ??
-      (edition === 'hafs_indopak_15'
-        ? 1
-        : (findMushafAyah('hafs', entry.surah, entry.ayah ?? 1)?.page ?? 1));
+      (edition === 'hafs_indopak_15' ? 1 : printedHafsPage(entry.surah, entry.ayah ?? 1) + 1);
     return (
       <DownloadedPdfMushaf
-        key={edition}
+        key={entryKey}
         shortLandscape={shortLandscape}
         onBack={() => props.navigation.goBack()}
         onSelectable={(page, zoom) =>
@@ -188,13 +215,7 @@ export function MushafScreen(props: NativeStackScreenProps<RootStack, 'Mushaf'>)
       />
     );
   }
-  return (
-    <ImageMushaf
-      {...props}
-      key={`${entry.edition}:${entry.bookPresentation}`}
-      route={{ ...props.route, params: entry }}
-    />
-  );
+  return <ImageMushaf {...props} key={entryKey} route={{ ...props.route, params: entry }} />;
 }
 function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'Mushaf'>) {
   const { state, dispatch } = useAppStore();
@@ -215,14 +236,40 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
         : preferred === 'hafs_maknoon'
           ? 'hafs_maknoon'
           : 'hafs';
+  const selectablePage =
+    (edition === 'hafs' || edition === 'warsh_maknoon') &&
+    route.params.bookPresentation === 'selectable';
+  const initialFullscreen = route.params.fullscreen ?? true;
+  const initialPresentation = initialFullscreen || !selectablePage ? 'original' : 'selectable';
+  const entryPoint = useMemo(() => {
+    if (route.params.ayah === undefined && route.params.page !== undefined) {
+      const known = mushafPageRange(edition, route.params.page, route.params.bookPresentation);
+      if (known) return known.start;
+    }
+    return { surah: route.params.surah, ayah: route.params.ayah ?? 1 };
+  }, [
+    edition,
+    route.params.surah,
+    route.params.ayah,
+    route.params.page,
+    route.params.bookPresentation,
+  ]);
   const initial = useMemo(
-    () => findMushafAyah(edition, route.params.surah, route.params.ayah ?? 1),
-    [edition, route.params.surah, route.params.ayah],
+    () => findMushafAyah(edition, entryPoint.surah, entryPoint.ayah, initialPresentation),
+    [edition, entryPoint, initialPresentation],
   );
-  const [page, setPage] = useState(route.params.page ?? initial?.page ?? 1);
+  // A QPC page number cannot address an original Medina scan. Both views can
+  // address the same canonical verse, including the first verse of a saved page.
+  const entryPage =
+    edition === 'hafs' && selectablePage && initialFullscreen
+      ? (initial?.page ?? 1)
+      : (route.params.page ?? initial?.page ?? 1);
+  const [page, setPage] = useState(entryPage);
+  const readingPoint = useRef(entryPoint);
   const [readingSessionId] = useState(newId);
   const [zoom, setZoom] = useState(route.params.bookView?.zoom ?? 1);
-  const [fullscreen, setFullscreen] = useState(route.params.fullscreen ?? false);
+  const [fullscreen, setFullscreenState] = useState(initialFullscreen);
+  const presentation = fullscreen || !selectablePage ? 'original' : 'selectable';
   const audio = useAudio();
   const [repeatTarget, setRepeatTarget] = useState<{
     surah: number;
@@ -264,9 +311,6 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
   const imageGesture = useRef(createMushafTextGesture());
   const imagePageRefs = useRef<Record<number, React.ComponentRef<typeof View> | null>>({});
   const imageEdges = useRef(verticalEdges);
-  const selectablePage =
-    (edition === 'hafs' || edition === 'warsh_maknoon') &&
-    route.params.bookPresentation === 'selectable';
   const [selectionMode, setSelectionMode] = useState(route.params.selectionMode === true);
   const [selectedWord, setSelectedWord] = useState<CanonicalMushafWord | null>(null);
   const [wordInfo, setWordInfo] = useState<{
@@ -290,19 +334,12 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
   useEffect(() => {
     if (!fullscreen || !focused) return;
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (
-        panel !== null ||
-        wordInfo !== null ||
-        selected !== null ||
-        selectedCanonical !== null ||
-        repeatOpen
-      )
-        return false;
+      if (panel !== null || wordInfo !== null || repeatOpen) return false;
       setFullscreen(false);
       return true;
     });
     return () => subscription.remove();
-  }, [fullscreen, focused, panel, wordInfo, selected, selectedCanonical, repeatOpen]);
+  }, [fullscreen, focused, panel, wordInfo, selected, selectedCanonical, repeatOpen, page]);
   const [jump, setJump] = useState('');
   const [viewport, setViewport] = useState({
     width: window.width,
@@ -328,10 +365,8 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
   const showRail = shortLandscape || zoom > 1 || (selectablePage && edition === 'warsh_maknoon');
   const reserveRail = !fullscreen && showRail;
   const bookWidth = Math.max(1, viewport.width - (reserveRail ? 48 : 0));
-  const topGutter = fullscreen ? Math.max(56, insets.top + 56) : 0;
-  const bottomGutter = fullscreen
-    ? Math.max(shortLandscape ? 56 : 120, insets.bottom + (shortLandscape ? 52 : 116))
-    : 0;
+  const topGutter = 0;
+  const bottomGutter = 0;
   const freePan = zoom > 1 && !selectionMode;
   const panConfig = useRef({
     zoom,
@@ -488,41 +523,52 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
     horizontalOffset.current = 0;
     horizontalScroll.current?.scrollTo({ x: 0, animated: false });
   }, [pageIdentity]);
-  const range = useMemo(() => mushafPageRange(edition, page), [edition, page]);
+  const range = useMemo(
+    () => mushafPageRange(edition, page, presentation),
+    [edition, page, presentation],
+  );
   const targetHighlight = useMemo(() => {
     if (!route.params.ayah || page !== initial?.page) return null;
     return (
-      pageSegments(edition, page).find(
+      pageSegments(edition, page, presentation).find(
         (segment) =>
           segment.surah === route.params.surah &&
           hafsReferences(edition, segment.surah, segment.ayah).includes(route.params.ayah!),
       ) ?? null
     );
-  }, [edition, page, initial?.page, route.params.surah, route.params.ayah]);
-  const chapter = chapterById(range?.start.surah ?? route.params.surah);
+  }, [edition, page, presentation, initial?.page, route.params.surah, route.params.ayah]);
+  const currentPoint =
+    selected?.page === page
+      ? {
+          surah: selected.segment.surah,
+          ayah: hafsReferences(edition, selected.segment.surah, selected.segment.ayah)[0]!,
+        }
+      : selectedCanonical
+        ? { surah: selectedCanonical.surah, ayah: selectedCanonical.number }
+        : pointOnPage(readingPoint.current, range);
+  const chapter = chapterById(currentPoint.surah);
   const getTickMetrics = useMemo(
-    () => readPageMetrics(state.history, edition, maximum),
-    [state.history, edition, maximum],
+    () => readPageMetrics(state.history, edition, maximum, undefined, presentation),
+    [state.history, edition, maximum, presentation],
   );
   useEffect(() => {
-    setPage(
-      edition === route.params.edition && route.params.page
-        ? route.params.page
-        : (initial?.page ?? 1),
-    );
+    setPage(entryPage);
+    readingPoint.current = entryPoint;
     setSelected(null);
     setSelectedCanonical(null);
-  }, [initial, edition, route.params.edition, route.params.page]);
+  }, [entryPage, entryPoint]);
   useEffect(() => {
     if (!focused) return;
-    dispatch({ type: 'mushaf/position', edition, page });
-    if (range)
-      dispatch({
-        type: 'cursor',
-        ...(page === initial?.page && route.params.ayah
-          ? { surah: route.params.surah, ayah: route.params.ayah }
-          : range.start),
-      });
+    dispatch({
+      type: 'mushaf/position',
+      edition,
+      page,
+      ...(edition === 'hafs' ? { bookPresentation: presentation } : {}),
+    });
+    if (range) {
+      readingPoint.current = { surah: currentPoint.surah, ayah: currentPoint.ayah };
+      dispatch({ type: 'cursor', ...readingPoint.current });
+    }
   }, [
     dispatch,
     edition,
@@ -532,10 +578,15 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
     route.params.surah,
     route.params.ayah,
     focused,
+    selected,
+    selectedCanonical,
+    presentation,
+    currentPoint.surah,
+    currentPoint.ayah,
   ]);
   useEffect(() => {
     setError('');
-    setSelected(null);
+    setSelected((current) => (current?.page === page ? current : null));
     setSelectedCanonical(null);
     wordRequest.current++;
     setWordInfo(null);
@@ -557,10 +608,21 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
     : selectedCanonical
       ? [selectedCanonical]
       : [];
-  const openText = (
-    surah = range?.start.surah ?? route.params.surah,
-    ayah = range?.start.ayah ?? route.params.ayah,
-  ) =>
+  function setFullscreen(next: boolean | ((current: boolean) => boolean)) {
+    const value = typeof next === 'function' ? next(fullscreen) : next;
+    if (value !== fullscreen && selectablePage && edition === 'hafs') {
+      const point = readingPoint.current;
+      const target = findMushafAyah(
+        edition,
+        point.surah,
+        point.ayah,
+        value ? 'original' : 'selectable',
+      );
+      if (target) setPage(target.page);
+    }
+    setFullscreenState(value);
+  }
+  const openText = (surah = readingPoint.current.surah, ayah = readingPoint.current.ayah) =>
     navigation.replace(
       'Reader',
       bookToText(
@@ -576,7 +638,9 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
         },
         { surah, ayah },
         edition,
-        page,
+        edition === 'hafs' && selectablePage && fullscreen
+          ? (findMushafAyah(edition, surah, ayah, 'selectable')?.page ?? page)
+          : (selected?.page ?? page),
       ),
     );
   async function playSelectedSurah(surah: number) {
@@ -647,7 +711,7 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
     selectablePage ||
     edition === 'warsh_maknoon' ||
     ((edition === 'hafs' || edition === 'hafs_maknoon') && Boolean(range)) ||
-    Boolean(pageSegments(edition, page).length);
+    Boolean(pageSegments(edition, page, presentation).length);
   const selectionHint = selectablePage
     ? edition === 'warsh_maknoon'
       ? 'ui.mushaf.warshSelectionHint'
@@ -665,12 +729,10 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
         state,
         {
           ...route.params,
-          ...(range && page === initial?.page && route.params.ayah
-            ? { surah: route.params.surah, ayah: route.params.ayah }
-            : (range?.start ?? state.cursor)),
+          ...currentPoint,
           edition,
           page,
-          bookPresentation,
+          bookPresentation: edition === 'warsh_maknoon' ? bookPresentation : presentation,
           selectionOrigin: undefined,
           bookView: undefined,
         },
@@ -691,7 +753,12 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
     if (!select && route.params.selectionOrigin) {
       const stack = navigation.getState();
       const distance = bookSelectionReturnDistance(route.params, stack.routes, stack.index);
-      const restored = restoreBookSelection({ ...route.params, edition, page });
+      const restored = restoreBookSelection({
+        ...route.params,
+        edition,
+        page,
+        bookPresentation: presentation,
+      });
       if (distance) {
         if (restored.page !== route.params.selectionOrigin.page)
           navigation.dispatch({
@@ -791,18 +858,19 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
     <IconButton
       name="bookmark"
       label={t('app.bookmarks')}
-      selected={state.mushafBookmarks.some(
-        (item) => item.edition === edition && item.page === page,
+      selected={state.mushafBookmarks.some((item) =>
+        matchesMushafBookmarkPage(item, edition, page, presentation),
       )}
       onPress={() => {
-        const existing = state.mushafBookmarks.find(
-          (item) => item.edition === edition && item.page === page,
+        const existing = state.mushafBookmarks.find((item) =>
+          matchesMushafBookmarkPage(item, edition, page, presentation),
         );
         dispatch({
           type: 'mushaf/bookmark',
           edition,
           surah: existing?.surah ?? chapter.id,
           page,
+          ...(edition === 'hafs' ? { bookPresentation: presentation } : {}),
         });
       }}
     />
@@ -888,7 +956,17 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
           )}
         </View>
       )}
-      {error && <Notice error message={error} onRetry={() => setRetry((value) => value + 1)} />}
+      {error ? (
+        <Notice
+          error
+          message={error}
+          onRetry={() => {
+            setError('');
+            if (error === 'audio.error.unavailable') void playSelectedSurah(chapter.id);
+            else setRetry((value) => value + 1);
+          }}
+        />
+      ) : null}
       <View
         style={{ flex: 1, backgroundColor: fullscreen ? '#E8E0CC' : p.subtle }}
         onLayout={(event) => {
@@ -898,324 +976,298 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
           );
         }}
       >
-        <View
-          ref={panViewport}
-          testID="mushaf-pan-viewport"
-          style={{ flex: 1, direction: 'ltr' }}
-          onLayout={() =>
-            panViewport.current?.measureInWindow((left, top) => {
-              viewportOrigin.current = { left, top };
-            })
-          }
-          {...bookGesture.current.handlers}
-        >
-          <ScrollView
-            ref={verticalScroll}
-            scrollEnabled={!freePan}
-            style={reserveRail ? { marginRight: 48, direction: 'ltr' } : undefined}
-            onTouchMove={
-              selectablePage ? undefined : (event) => imageGesture.current.move(imagePoint(event))
-            }
-            onTouchEnd={
-              selectablePage
-                ? undefined
-                : (event) => {
-                    const direction = imageGesture.current.end(
-                      imagePoint(event),
-                      imageEdges.current,
-                    );
-                    if (direction && !selectionMode && zoom === 1 && panel === null && !selected)
-                      turn(direction);
-                  }
-            }
-            onTouchCancel={selectablePage ? undefined : () => imageGesture.current.cancel()}
-            scrollEventThrottle={16}
-            onContentSizeChange={(_width, height) => {
-              if (contentKeyRef.current !== contentKey) return;
-              bookExtent.current.height = height;
-              bookGesture.current.layout();
-              if (contentKeyRef.current === contentKey)
-                setContentMeasure({ key: contentKey, height });
-              setVerticalEdges({
-                top: verticalOffset.current <= 1,
-                bottom: verticalOffset.current + viewport.height >= height - 1,
-              });
-            }}
-            onScroll={(event) => {
-              const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-              bookExtent.current.height = contentSize.height;
-              verticalOffset.current = contentOffset.y;
-              if (!pendingScrollRestore.current && measuredBookHeight > 0)
-                scrollAnchor.current = bookScrollAnchor(
-                  contentOffset.y,
-                  measuredBookHeight,
-                  topGutter,
+        {fullscreen ? (
+          <ContinuousMushafPages
+            edition={edition}
+            initialPage={page}
+            maximum={maximum}
+            width={viewport.width}
+            retry={retry}
+            zoom={zoom}
+            onZoom={setZoom}
+            initialHighlight={targetHighlight}
+            onPageChange={(current) => {
+              if (!selected) {
+                // The hardware Back event can follow visibility before React renders again.
+                readingPoint.current = pointOnPage(
+                  readingPoint.current,
+                  mushafPageRange(edition, current, 'original'),
                 );
-              // Update the rail without rerendering all SVG/text content on each frame.
-              verticalRail.current?.update(contentOffset.y);
-              if (contentKeyRef.current === contentKey)
-                setContentMeasure((current) =>
-                  current?.key === contentKey && current.height === contentSize.height
-                    ? current
-                    : { key: contentKey, height: contentSize.height },
-                );
-              const next = {
-                top: contentOffset.y <= 1,
-                bottom: contentOffset.y + layoutMeasurement.height >= contentSize.height - 1,
-              };
-              setVerticalEdges((current) =>
-                current.top === next.top && current.bottom === next.bottom ? current : next,
-              );
+                setPage(current);
+              }
             }}
-            contentContainerStyle={{
-              minHeight: viewport.height,
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingTop: topGutter,
-              paddingBottom: bottomGutter,
+            onExit={() => setFullscreen(false)}
+            exitLabel={t('ui.mushaf.exitFullscreen')}
+            onError={setError}
+            selected={selected}
+            onSelect={(segment, selectedPage) => {
+              setSelected(segment ? { segment, page: selectedPage } : null);
+              if (segment) {
+                setPage(selectedPage);
+                readingPoint.current = {
+                  surah: segment.surah,
+                  ayah: hafsReferences(edition, segment.surah, segment.ayah)[0]!,
+                };
+                dispatch({ type: 'cursor', ...readingPoint.current });
+              }
             }}
+          />
+        ) : (
+          <View
+            ref={panViewport}
+            testID="mushaf-pan-viewport"
+            style={{ flex: 1, direction: 'ltr' }}
+            onLayout={() =>
+              panViewport.current?.measureInWindow((left, top) => {
+                viewportOrigin.current = { left, top };
+              })
+            }
+            {...bookGesture.current.handlers}
           >
             <ScrollView
-              ref={horizontalScroll}
-              horizontal
-              scrollEnabled={zoom > 1 && !freePan}
-              contentOffset={initialHorizontalOffset.current}
+              ref={verticalScroll}
+              scrollEnabled={!freePan}
+              style={reserveRail ? { marginRight: 48, direction: 'ltr' } : undefined}
+              onTouchMove={
+                selectablePage ? undefined : (event) => imageGesture.current.move(imagePoint(event))
+              }
+              onTouchEnd={
+                selectablePage
+                  ? undefined
+                  : (event) => {
+                      const direction = imageGesture.current.end(
+                        imagePoint(event),
+                        imageEdges.current,
+                      );
+                      if (direction && !selectionMode && zoom === 1 && panel === null && !selected)
+                        turn(direction);
+                    }
+              }
+              onTouchCancel={selectablePage ? undefined : () => imageGesture.current.cancel()}
               scrollEventThrottle={16}
-              onContentSizeChange={(width) => {
-                if (frameKeyRef.current !== frameKey) return;
-                bookExtent.current.width = width;
-                // Android may retain an out-of-bounds offset while this scroll
-                // view is disabled for two-axis panning. Clamp after the new
-                // content arrives, including when zoom returns to page width.
-                const x = Math.max(0, Math.min(horizontalOffset.current, width - bookWidth));
-                if (x !== horizontalOffset.current) {
-                  horizontalOffset.current = x;
-                  horizontalScroll.current?.scrollTo({ x, animated: false });
-                }
+              onContentSizeChange={(_width, height) => {
+                if (contentKeyRef.current !== contentKey) return;
+                bookExtent.current.height = height;
                 bookGesture.current.layout();
+                if (contentKeyRef.current === contentKey)
+                  setContentMeasure({ key: contentKey, height });
+                setVerticalEdges({
+                  top: verticalOffset.current <= 1,
+                  bottom: verticalOffset.current + viewport.height >= height - 1,
+                });
               }}
               onScroll={(event) => {
-                horizontalOffset.current = event.nativeEvent.contentOffset.x;
+                const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+                bookExtent.current.height = contentSize.height;
+                verticalOffset.current = contentOffset.y;
+                if (!pendingScrollRestore.current && measuredBookHeight > 0)
+                  scrollAnchor.current = bookScrollAnchor(
+                    contentOffset.y,
+                    measuredBookHeight,
+                    topGutter,
+                  );
+                // Update the rail without rerendering all SVG/text content on each frame.
+                verticalRail.current?.update(contentOffset.y);
+                if (contentKeyRef.current === contentKey)
+                  setContentMeasure((current) =>
+                    current?.key === contentKey && current.height === contentSize.height
+                      ? current
+                      : { key: contentKey, height: contentSize.height },
+                  );
+                const next = {
+                  top: contentOffset.y <= 1,
+                  bottom: contentOffset.y + layoutMeasurement.height >= contentSize.height - 1,
+                };
+                setVerticalEdges((current) =>
+                  current.top === next.top && current.bottom === next.bottom ? current : next,
+                );
               }}
               contentContainerStyle={{
-                minWidth: bookWidth,
+                minHeight: viewport.height,
                 alignItems: 'center',
                 justifyContent: 'center',
+                paddingTop: topGutter,
+                paddingBottom: bottomGutter,
               }}
             >
-              <View
-                ref={bookFrame}
-                collapsable={false}
-                testID="mushaf-book-content"
-                onLayout={(event) => {
-                  const { width, height } = event.nativeEvent.layout;
-                  if (frameKeyRef.current !== frameKey || !Number.isFinite(height) || height <= 0)
-                    return;
-                  bookSize.current = { width, height };
+              <ScrollView
+                ref={horizontalScroll}
+                horizontal
+                scrollEnabled={zoom > 1 && !freePan}
+                contentOffset={initialHorizontalOffset.current}
+                scrollEventThrottle={16}
+                onContentSizeChange={(width) => {
+                  if (frameKeyRef.current !== frameKey) return;
+                  bookExtent.current.width = width;
+                  // Android may retain an out-of-bounds offset while this scroll
+                  // view is disabled for two-axis panning. Clamp after the new
+                  // content arrives, including when zoom returns to page width.
+                  const x = Math.max(0, Math.min(horizontalOffset.current, width - bookWidth));
+                  if (x !== horizontalOffset.current) {
+                    horizontalOffset.current = x;
+                    horizontalScroll.current?.scrollTo({ x, animated: false });
+                  }
                   bookGesture.current.layout();
-                  setBookMeasure((current) =>
-                    current?.key === frameKey && current.height === height
-                      ? current
-                      : { key: frameKey, height },
-                  );
                 }}
-                style={{
-                  flexDirection: 'row',
+                onScroll={(event) => {
+                  horizontalOffset.current = event.nativeEvent.contentOffset.x;
+                }}
+                contentContainerStyle={{
+                  minWidth: bookWidth,
                   alignItems: 'center',
-                  backgroundColor: '#E8E0CC',
-                  padding: 5,
-                  borderRadius: 3,
-                  borderWidth: 1,
-                  borderColor: '#C4BCA5',
-                  shadowColor: '#10251C',
-                  shadowOffset: { width: 0, height: 3 },
-                  shadowOpacity: 0.12,
-                  shadowRadius: 5,
-                  elevation: 3,
+                  justifyContent: 'center',
                 }}
               >
-                {pages.map((value, index) => (
-                  <React.Fragment key={String(value)}>
-                    {index > 0 && (
-                      <View
-                        style={{
-                          width: 10,
-                          alignSelf: 'stretch',
-                          backgroundColor: '#DBD2BE',
-                          borderLeftWidth: 1,
-                          borderRightWidth: 1,
-                          borderColor: '#BFB49C',
-                        }}
-                      />
-                    )}
-                    <View
-                      collapsable={false}
-                      ref={(node) => {
-                        imagePageRefs.current[value] = node;
-                      }}
-                      onTouchStart={
-                        selectablePage
-                          ? undefined
-                          : (event) => {
-                              const setBounds = imageGesture.current.start(imagePoint(event));
-                              imageEdges.current = verticalEdges;
-                              imagePageRefs.current[value]?.measure(
-                                (_x, _y, width, _height, pageX) =>
-                                  setBounds({ left: pageX, width }),
-                              );
-                            }
-                      }
-                    >
-                      {selectablePage ? (
-                        <SelectableMushafPage
-                          page={value}
-                          edition={edition === 'warsh_maknoon' ? 'warsh_maknoon' : 'hafs'}
-                          maxWidth={((bookWidth - 30) / pages.length) * zoom}
-                          maxHeight={100000}
-                          labels={{
-                            loading: t('ui.selectableMushaf.loading'),
-                            preparing: t('ui.selectableMushaf.preparing'),
-                            error: t('ui.selectableMushaf.error'),
-                            retry: t('notifications.retry'),
-                            credit: t(
-                              edition === 'warsh_maknoon'
-                                ? 'ui.selectableMushaf.warshCredit'
-                                : 'ui.selectableMushaf.credit',
-                            ),
-                            page: format('repeat.page', value),
+                <View
+                  ref={bookFrame}
+                  collapsable={false}
+                  testID="mushaf-book-content"
+                  onLayout={(event) => {
+                    const { width, height } = event.nativeEvent.layout;
+                    if (frameKeyRef.current !== frameKey || !Number.isFinite(height) || height <= 0)
+                      return;
+                    bookSize.current = { width, height };
+                    bookGesture.current.layout();
+                    setBookMeasure((current) =>
+                      current?.key === frameKey && current.height === height
+                        ? current
+                        : { key: frameKey, height },
+                    );
+                  }}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: '#E8E0CC',
+                    padding: 5,
+                    borderRadius: 3,
+                    borderWidth: 1,
+                    borderColor: '#C4BCA5',
+                    shadowColor: '#10251C',
+                    shadowOffset: { width: 0, height: 3 },
+                    shadowOpacity: 0.12,
+                    shadowRadius: 5,
+                    elevation: 3,
+                  }}
+                >
+                  {pages.map((value, index) => (
+                    <React.Fragment key={String(value)}>
+                      {index > 0 && (
+                        <View
+                          style={{
+                            width: 10,
+                            alignSelf: 'stretch',
+                            backgroundColor: '#DBD2BE',
+                            borderLeftWidth: 1,
+                            borderRightWidth: 1,
+                            borderColor: '#BFB49C',
                           }}
-                          onWordPress={openWord}
-                          selectedWord={selectedWord}
-                          onPageTurn={turn}
-                          selectionEnabled={selectionMode}
-                          pageTurnEnabled={
-                            !selectionMode && zoom === 1 && panel === null && wordInfo === null
-                          }
-                          verticalEdges={verticalEdges}
-                          onUnavailableWord={() => {
-                            wordRequest.current++;
-                            setWordInfo(null);
-                            setSelectedWord(null);
-                            setError(
-                              edition === 'warsh_maknoon'
-                                ? 'ui.selectableMushaf.warshWordUnavailable'
-                                : 'ui.selectableMushaf.unavailable',
-                            );
-                          }}
-                        />
-                      ) : (
-                        <PrintedMushafPage
-                          edition={edition}
-                          page={value}
-                          maxWidth={(bookWidth - 30) / pages.length}
-                          maxHeight={shortLandscape ? 100000 : Math.max(160, viewport.height - 20)}
-                          zoom={zoom}
-                          retry={retry}
-                          selected={
-                            selected?.page === value
-                              ? selected.segment
-                              : value === page
-                                ? targetHighlight
-                                : null
-                          }
-                          onSelect={(segment, selectedPage) => {
-                            const pressedAt = Date.now();
-                            // A full-page Pressable releases before the ancestor's
-                            // raw touch-end. Let that event classify the swipe
-                            // before wordTap consumes the completed touch record.
-                            queueMicrotask(() => {
-                              if (selectionMode && imageGesture.current.wordTap(0, pressedAt)) {
-                                setSelected(segment ? { segment, page: selectedPage } : null);
-                                if (segment)
-                                  dispatch({
-                                    type: 'cursor',
-                                    surah: segment.surah,
-                                    ayah: hafsReferences(edition, segment.surah, segment.ayah)[0]!,
-                                  });
-                              }
-                            });
-                          }}
-                          onError={setError}
                         />
                       )}
-                    </View>
-                  </React.Fragment>
-                ))}
-              </View>
+                      <View
+                        collapsable={false}
+                        ref={(node) => {
+                          imagePageRefs.current[value] = node;
+                        }}
+                        onTouchStart={
+                          selectablePage
+                            ? undefined
+                            : (event) => {
+                                const setBounds = imageGesture.current.start(imagePoint(event));
+                                imageEdges.current = verticalEdges;
+                                imagePageRefs.current[value]?.measure(
+                                  (_x, _y, width, _height, pageX) =>
+                                    setBounds({ left: pageX, width }),
+                                );
+                              }
+                        }
+                      >
+                        {selectablePage ? (
+                          <SelectableMushafPage
+                            page={value}
+                            edition={edition === 'warsh_maknoon' ? 'warsh_maknoon' : 'hafs'}
+                            maxWidth={((bookWidth - 30) / pages.length) * zoom}
+                            maxHeight={100000}
+                            labels={{
+                              loading: t('ui.selectableMushaf.loading'),
+                              preparing: t('ui.selectableMushaf.preparing'),
+                              error: t('ui.selectableMushaf.error'),
+                              retry: t('notifications.retry'),
+                              credit: t(
+                                edition === 'warsh_maknoon'
+                                  ? 'ui.selectableMushaf.warshCredit'
+                                  : 'ui.selectableMushaf.credit',
+                              ),
+                              page: format('repeat.page', value),
+                            }}
+                            onWordPress={openWord}
+                            selectedWord={selectedWord}
+                            onPageTurn={turn}
+                            selectionEnabled={selectionMode}
+                            pageTurnEnabled={
+                              !selectionMode && zoom === 1 && panel === null && wordInfo === null
+                            }
+                            verticalEdges={verticalEdges}
+                            onUnavailableWord={() => {
+                              wordRequest.current++;
+                              setWordInfo(null);
+                              setSelectedWord(null);
+                              setError(
+                                edition === 'warsh_maknoon'
+                                  ? 'ui.selectableMushaf.warshWordUnavailable'
+                                  : 'ui.selectableMushaf.unavailable',
+                              );
+                            }}
+                          />
+                        ) : (
+                          <PrintedMushafPage
+                            edition={edition}
+                            page={value}
+                            maxWidth={(bookWidth - 30) / pages.length}
+                            maxHeight={
+                              shortLandscape ? 100000 : Math.max(160, viewport.height - 20)
+                            }
+                            zoom={zoom}
+                            retry={retry}
+                            selected={
+                              selected?.page === value
+                                ? selected.segment
+                                : value === page
+                                  ? targetHighlight
+                                  : null
+                            }
+                            onSelect={(segment, selectedPage) => {
+                              const pressedAt = Date.now();
+                              // A full-page Pressable releases before the ancestor's
+                              // raw touch-end. Let that event classify the swipe
+                              // before wordTap consumes the completed touch record.
+                              queueMicrotask(() => {
+                                if (selectionMode && imageGesture.current.wordTap(0, pressedAt)) {
+                                  setSelected(segment ? { segment, page: selectedPage } : null);
+                                  if (segment)
+                                    dispatch({
+                                      type: 'cursor',
+                                      surah: segment.surah,
+                                      ayah: hafsReferences(
+                                        edition,
+                                        segment.surah,
+                                        segment.ayah,
+                                      )[0]!,
+                                    });
+                                }
+                              });
+                            }}
+                            onError={setError}
+                          />
+                        )}
+                      </View>
+                    </React.Fragment>
+                  ))}
+                </View>
+              </ScrollView>
             </ScrollView>
-          </ScrollView>
-        </View>
-        {fullscreen && (
-          <>
-            <View
-              style={{
-                position: 'absolute',
-                top: insets.top,
-                left: 4,
-                right: 56,
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 6,
-              }}
-            >
-              {selectionControl}
-              <ReaderListenButton
-                compact
-                surah={chapter.id}
-                onListen={() => void playSelectedSurah(chapter.id)}
-              />
-            </View>
-            <View
-              pointerEvents="box-none"
-              style={{ position: 'absolute', top: insets.top, right: 4 }}
-            >
-              <View style={{ borderRadius: 24, backgroundColor: p.surface }}>
-                <IconButton
-                  name="minimize"
-                  label={t('ui.mushaf.exitFullscreen')}
-                  onPress={() => setFullscreen(false)}
-                />
-              </View>
-            </View>
-            <View
-              pointerEvents="box-none"
-              style={{
-                position: 'absolute',
-                bottom: Math.max(0, insets.bottom),
-                left: 0,
-                right: 0,
-                direction: 'ltr',
-                backgroundColor: p.surface,
-                borderTopWidth: 1,
-                borderTopColor: p.line,
-              }}
-            >
-              <MushafFooter
-                compact={shortLandscape}
-                page={page}
-                maximum={maximum}
-                onPageChange={goToPage}
-                onNext={() => goToPage(page + 1)}
-                onPrevious={() => goToPage(page - 1)}
-                canNext={page < maximum}
-                canPrevious={page > 1}
-                zoom={zoom}
-                onZoomIn={() => setZoom((value) => Math.min(3, value + 0.25))}
-                onZoomOut={() => setZoom((value) => Math.max(1, value - 0.25))}
-                edition={edition}
-                pages={pages}
-                context={route.params}
-                readingSessionId={readingSessionId}
-                onJump={() => {
-                  setJump(String(page));
-                  setPanel('jump');
-                }}
-                getTickMetrics={getTickMetrics}
-              />
-            </View>
-          </>
+          </View>
         )}
-        {showRail && (
+        {!fullscreen && showRail && (
           <View
             testID="mushaf-vertical-overlay"
             pointerEvents="box-none"
@@ -1237,6 +1289,12 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
           </View>
         )}
       </View>
+      {fullscreen && (
+        <FloatingReaderAudio
+          surah={chapter.id}
+          onListen={() => void playSelectedSurah(chapter.id)}
+        />
+      )}
       {!fullscreen && (
         <MushafFooter
           compact={shortLandscape}
@@ -1252,7 +1310,7 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
           onZoomOut={() => setZoom((value) => Math.max(1, value - 0.25))}
           edition={edition}
           pages={pages}
-          context={route.params}
+          context={{ ...route.params, bookPresentation: presentation }}
           readingSessionId={readingSessionId}
           getTickMetrics={getTickMetrics}
           onJump={() => {
@@ -1264,6 +1322,7 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
       <BookTranslationSheet
         visible={panel === 'translation'}
         edition={edition}
+        bookPresentation={presentation}
         pages={pages}
         onClose={() => setPanel(null)}
         onReadText={(surah, ayah) => {
@@ -1335,7 +1394,7 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
           <MushafReadingActions
             edition={edition}
             pages={pages}
-            context={route.params}
+            context={{ ...route.params, bookPresentation: presentation }}
             sessionId={readingSessionId}
           />
         )}
@@ -1508,7 +1567,7 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
       />
       {repeatTarget && (
         <RepeatSheet
-          key={`${repeatTarget.mode}:${repeatTarget.surah}:${repeatTarget.ayah}`}
+          key={`${edition}:${presentation}:${repeatTarget.mode}:${repeatTarget.surah}:${repeatTarget.ayah}`}
           visible={repeatOpen}
           onClose={() => setRepeatOpen(false)}
           surah={repeatTarget.surah}
@@ -1516,6 +1575,7 @@ function ImageMushaf({ route, navigation }: NativeStackScreenProps<RootStack, 'M
           initialEndAyah={repeatTarget.endAyah}
           initialMode={repeatTarget.mode}
           pageEdition={edition}
+          pagePresentation={presentation}
           currentPage={page}
           warsh={edition === 'warsh_maknoon' || edition === 'muhammadi'}
         />

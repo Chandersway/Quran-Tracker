@@ -2,7 +2,7 @@
 
 Gegenereerd met `node scripts/build-code-reference.mjs`. Dit is de vindplaats van bestanden, benoemde functies, klassen, interfaces en types; **het bestaan van een naam bewijst geen functionele gelijkwaardigheid**. De inhoudelijke beoordeling staat in de deelrapporten van deze controle.
 
-198 oorspronkelijke Kotlin-bestanden, 555 React Native-bron-/test-/toolbestanden en 51 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
+198 oorspronkelijke Kotlin-bestanden, 584 React Native-bron-/test-/toolbestanden en 51 Supabase-bron-/migratie-/testbestanden. Gegenereerde Android/iOS-projecten, dependencies en buildcaches zijn uitgesloten. Kotlin-declaraties worden lexicaal gevonden buiten commentaar en strings; TypeScript/JavaScript-declaraties worden met de compiler-AST gelezen. Anonieme callbacks zijn geen afzonderlijk benoemde functie. Overige native bronnen hebben een lexicale typenindex; niet alle native methoden worden afzonderlijk ontleed. SQL staat op bestandsniveau in deze index; tabellen, RPC's en rechten worden inhoudelijk uitgelegd in de backendhandleiding.
 
 De [JSON-index](source-index.json) bevat de volledige lijst, regelverwijzingen, rollen, hashes, routes en persistente voorkeuren. Dit is geen lijst waarin iedere bronregel een aparte feature is. Gebruik de bronlink om de volledige implementatie te lezen.
 
@@ -3754,11 +3754,11 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/app/navigation/AppNavigator.tsx
 
-[Volledige bron](../../src/app/navigation/AppNavigator.tsx), 262 regels, rol: implementation.
+[Volledige bron](../../src/app/navigation/AppNavigator.tsx), 270 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `AppNavigator` | [58](../../src/app/navigation/AppNavigator.tsx#L58) |
+| function | `AppNavigator` | [59](../../src/app/navigation/AppNavigator.tsx#L59) |
 
 ### src/app/navigation/DockGlyph.tsx
 
@@ -3771,25 +3771,26 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/app/navigation/MainTabs.tsx
 
-[Volledige bron](../../src/app/navigation/MainTabs.tsx), 28 regels, rol: implementation.
+[Volledige bron](../../src/app/navigation/MainTabs.tsx), 31 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `MainTabs` | [10](../../src/app/navigation/MainTabs.tsx#L10) |
 | function | `JuzScreen` | [25](../../src/app/navigation/MainTabs.tsx#L25) |
+| function | `HizbScreen` | [28](../../src/app/navigation/MainTabs.tsx#L28) |
 
 ### src/app/navigation/NavigationDock.tsx
 
-[Volledige bron](../../src/app/navigation/NavigationDock.tsx), 330 regels, rol: implementation.
+[Volledige bron](../../src/app/navigation/NavigationDock.tsx), 361 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `NavigationDock` | [21](../../src/app/navigation/NavigationDock.tsx#L21) |
-| function-variable | `NavigationDock.destinationLabel` | [26](../../src/app/navigation/NavigationDock.tsx#L26) |
-| function | `NavigationDock.goTab` | [37](../../src/app/navigation/NavigationDock.tsx#L37) |
-| function | `NavigationDock.go` | [47](../../src/app/navigation/NavigationDock.tsx#L47) |
-| function | `NavigationDock.toggle` | [80](../../src/app/navigation/NavigationDock.tsx#L80) |
-| function-variable | `NavigationDock.dockItem` | [88](../../src/app/navigation/NavigationDock.tsx#L88) |
+| function | `NavigationDock` | [24](../../src/app/navigation/NavigationDock.tsx#L24) |
+| function-variable | `NavigationDock.destinationLabel` | [30](../../src/app/navigation/NavigationDock.tsx#L30) |
+| function | `NavigationDock.goTab` | [44](../../src/app/navigation/NavigationDock.tsx#L44) |
+| function | `NavigationDock.go` | [54](../../src/app/navigation/NavigationDock.tsx#L54) |
+| function | `NavigationDock.toggle` | [87](../../src/app/navigation/NavigationDock.tsx#L87) |
+| function-variable | `NavigationDock.dockItem` | [95](../../src/app/navigation/NavigationDock.tsx#L95) |
 
 ### src/app/navigation/dockDestinations.ts
 
@@ -3813,12 +3814,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/app/navigation/types.ts
 
-[Volledige bron](../../src/app/navigation/types.ts), 61 regels, rol: implementation.
+[Volledige bron](../../src/app/navigation/types.ts), 62 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `RootStack` | [6](../../src/app/navigation/types.ts#L6) |
-| function-variable | `useAppNavigation` | [60](../../src/app/navigation/types.ts#L60) |
+| function-variable | `useAppNavigation` | [61](../../src/app/navigation/types.ts#L61) |
 
 ### src/app/providers/AppChromeContext.ts
 
@@ -3909,30 +3910,32 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/content/mushafGeometry.ts
 
-[Volledige bron](../../src/content/mushafGeometry.ts), 87 regels, rol: implementation.
+[Volledige bron](../../src/content/mushafGeometry.ts), 108 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `Segment` | [6](../../src/content/mushafGeometry.ts#L6) |
-| type | `Edition` | [14](../../src/content/mushafGeometry.ts#L14) |
-| function-variable | `toSegment` | [19](../../src/content/mushafGeometry.ts#L19) |
-| function | `hafsReferences` | [28](../../src/content/mushafGeometry.ts#L28) |
-| function | `pageSegments` | [34](../../src/content/mushafGeometry.ts#L34) |
-| function | `pageSegments.add` | [45](../../src/content/mushafGeometry.ts#L45) |
-| function | `findMushafAyah` | [68](../../src/content/mushafGeometry.ts#L68) |
-| function | `maknoonRatio` | [83](../../src/content/mushafGeometry.ts#L83) |
+| type | `Segment` | [11](../../src/content/mushafGeometry.ts#L11) |
+| type | `Edition` | [19](../../src/content/mushafGeometry.ts#L19) |
+| type | `Scan` | [24](../../src/content/mushafGeometry.ts#L24) |
+| function | `printedHafsPage` | [35](../../src/content/mushafGeometry.ts#L35) |
+| function | `printedPageRatio` | [42](../../src/content/mushafGeometry.ts#L42) |
+| function-variable | `toSegment` | [47](../../src/content/mushafGeometry.ts#L47) |
+| function | `hafsReferences` | [56](../../src/content/mushafGeometry.ts#L56) |
+| function | `pageSegments` | [62](../../src/content/mushafGeometry.ts#L62) |
+| function | `findMushafAyah` | [82](../../src/content/mushafGeometry.ts#L82) |
+| function | `maknoonRatio` | [104](../../src/content/mushafGeometry.ts#L104) |
 
 ### src/content/mushafPageMetrics.ts
 
-[Volledige bron](../../src/content/mushafPageMetrics.ts), 100 regels, rol: implementation.
+[Volledige bron](../../src/content/mushafPageMetrics.ts), 113 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `Profile` | [7](../../src/content/mushafPageMetrics.ts#L7) |
 | function | `countAyahs` | [16](../../src/content/mushafPageMetrics.ts#L16) |
 | function | `profileFor` | [22](../../src/content/mushafPageMetrics.ts#L22) |
-| function | `mushafPageAyahCount` | [68](../../src/content/mushafPageMetrics.ts#L68) |
-| function | `mushafPageDensity` | [78](../../src/content/mushafPageMetrics.ts#L78) |
+| function | `mushafPageAyahCount` | [76](../../src/content/mushafPageMetrics.ts#L76) |
+| function | `mushafPageDensity` | [90](../../src/content/mushafPageMetrics.ts#L90) |
 
 ### src/content/quran.ts
 
@@ -4029,24 +4032,24 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/domain/bookPresentation.ts
 
-[Volledige bron](../../src/domain/bookPresentation.ts), 162 regels, rol: implementation.
+[Volledige bron](../../src/domain/bookPresentation.ts), 207 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `BookEntryState` | [6](../../src/domain/bookPresentation.ts#L6) |
-| type | `ResolvedBookEntry` | [7](../../src/domain/bookPresentation.ts#L7) |
-| function | `normalizeBookPresentation` | [14](../../src/domain/bookPresentation.ts#L14) |
-| function | `preferredMushafEdition` | [18](../../src/domain/bookPresentation.ts#L18) |
-| function | `canonicalHafsPage` | [22](../../src/domain/bookPresentation.ts#L22) |
-| function | `verifiedHafsPage` | [28](../../src/domain/bookPresentation.ts#L28) |
-| function | `resolveBookEntry` | [40](../../src/domain/bookPresentation.ts#L40) |
-| function | `beginBookSelection` | [98](../../src/domain/bookPresentation.ts#L98) |
-| function | `restoreBookSelection` | [124](../../src/domain/bookPresentation.ts#L124) |
-| function | `bookSelectionReturnDistance` | [151](../../src/domain/bookPresentation.ts#L151) |
+| type | `BookEntryState` | [7](../../src/domain/bookPresentation.ts#L7) |
+| type | `ResolvedBookEntry` | [8](../../src/domain/bookPresentation.ts#L8) |
+| function | `normalizeBookPresentation` | [15](../../src/domain/bookPresentation.ts#L15) |
+| function | `preferredMushafEdition` | [19](../../src/domain/bookPresentation.ts#L19) |
+| function | `canonicalHafsPage` | [23](../../src/domain/bookPresentation.ts#L23) |
+| function | `verifiedHafsPage` | [29](../../src/domain/bookPresentation.ts#L29) |
+| function | `resolveBookEntry` | [41](../../src/domain/bookPresentation.ts#L41) |
+| function | `beginBookSelection` | [121](../../src/domain/bookPresentation.ts#L121) |
+| function | `restoreBookSelection` | [147](../../src/domain/bookPresentation.ts#L147) |
+| function | `bookSelectionReturnDistance` | [196](../../src/domain/bookPresentation.ts#L196) |
 
 ### src/domain/bookTranslation.ts
 
-[Volledige bron](../../src/domain/bookTranslation.ts), 29 regels, rol: implementation.
+[Volledige bron](../../src/domain/bookTranslation.ts), 30 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -4073,12 +4076,13 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/domain/dockPreferences.ts
 
-[Volledige bron](../../src/domain/dockPreferences.ts), 36 regels, rol: implementation.
+[Volledige bron](../../src/domain/dockPreferences.ts), 41 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `DockDestinationId` | [18](../../src/domain/dockPreferences.ts#L18) |
-| function | `normalizeDockDestinations` | [23](../../src/domain/dockPreferences.ts#L23) |
+| function | `visibleDockDestinations` | [23](../../src/domain/dockPreferences.ts#L23) |
+| function | `normalizeDockDestinations` | [28](../../src/domain/dockPreferences.ts#L28) |
 
 ### src/domain/focus.ts
 
@@ -4204,33 +4208,37 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/domain/mushafBookmarks.ts
 
-[Volledige bron](../../src/domain/mushafBookmarks.ts), 16 regels, rol: implementation.
+[Volledige bron](../../src/domain/mushafBookmarks.ts), 43 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `legacyWarshBookmarks` | [4](../../src/domain/mushafBookmarks.ts#L4) |
+| function | `bookmarkPresentation` | [9](../../src/domain/mushafBookmarks.ts#L9) |
+| function | `matchesMushafBookmarkPage` | [17](../../src/domain/mushafBookmarks.ts#L17) |
+| function | `legacyWarshBookmarks` | [31](../../src/domain/mushafBookmarks.ts#L31) |
 
 ### src/domain/mushafReading.ts
 
-[Volledige bron](../../src/domain/mushafReading.ts), 130 regels, rol: implementation.
+[Volledige bron](../../src/domain/mushafReading.ts), 155 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `mushafPageRange` | [5](../../src/domain/mushafReading.ts#L5) |
-| function | `mushafSpread` | [21](../../src/domain/mushafReading.ts#L21) |
-| function | `mushafPageEntry` | [27](../../src/domain/mushafReading.ts#L27) |
-| function | `mushafPageMarkKey` | [55](../../src/domain/mushafReading.ts#L55) |
-| function | `mushafPageMark` | [59](../../src/domain/mushafReading.ts#L59) |
-| type | `MushafPageMarkChange` | [80](../../src/domain/mushafReading.ts#L80) |
-| function | `setMushafPageMarks` | [90](../../src/domain/mushafReading.ts#L90) |
+| function | `mushafSpread` | [25](../../src/domain/mushafReading.ts#L25) |
+| function | `mushafPageEntry` | [31](../../src/domain/mushafReading.ts#L31) |
+| function | `mushafPageMarkKey` | [60](../../src/domain/mushafReading.ts#L60) |
+| function | `mushafPageMark` | [70](../../src/domain/mushafReading.ts#L70) |
+| type | `MushafPageMarkChange` | [94](../../src/domain/mushafReading.ts#L94) |
+| function | `setMushafPageMarks` | [105](../../src/domain/mushafReading.ts#L105) |
 
 ### src/domain/mushafResume.ts
 
-[Volledige bron](../../src/domain/mushafResume.ts), 29 regels, rol: implementation.
+[Volledige bron](../../src/domain/mushafResume.ts), 42 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `mushafResume` | [9](../../src/domain/mushafResume.ts#L9) |
+| type | `SavedPositions` | [8](../../src/domain/mushafResume.ts#L8) |
+| function | `savedMushafPage` | [11](../../src/domain/mushafResume.ts#L11) |
+| function | `mushafResume` | [22](../../src/domain/mushafResume.ts#L22) |
 
 ### src/domain/mutashabihat.ts
 
@@ -4257,6 +4265,27 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `countNotesForTarget` | [5](../../src/domain/noteCounts.ts#L5) |
 
+### src/domain/notesLibrary.ts
+
+[Volledige bron](../../src/domain/notesLibrary.ts), 182 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `normalizeNoteFolder` | [4](../../src/domain/notesLibrary.ts#L4) |
+| function | `nextFreeNoteId` | [9](../../src/domain/notesLibrary.ts#L9) |
+| function | `mergeImportedNotes` | [22](../../src/domain/notesLibrary.ts#L22) |
+| function-variable | `mergeImportedNotes.fingerprint` | [26](../../src/domain/notesLibrary.ts#L26) |
+| type | `DropBounds` | [57](../../src/domain/notesLibrary.ts#L57) |
+| type | `FolderDropRect` | [63](../../src/domain/notesLibrary.ts#L63) |
+| function | `folderAtPoint` | [64](../../src/domain/notesLibrary.ts#L64) |
+| function-variable | `folderAtPoint.contains` | [70](../../src/domain/notesLibrary.ts#L70) |
+| function | `parseNotesImport` | [84](../../src/domain/notesLibrary.ts#L84) |
+| function-variable | `parseNotesImport.record` | [87](../../src/domain/notesLibrary.ts#L87) |
+| function-variable | `parseNotesImport.str` | [101](../../src/domain/notesLibrary.ts#L101) |
+| function-variable | `parseNotesImport.num` | [105](../../src/domain/notesLibrary.ts#L105) |
+| function-variable | `parseNotesImport.nullable` | [110](../../src/domain/notesLibrary.ts#L110) |
+| function-variable | `parseNotesImport.bool` | [112](../../src/domain/notesLibrary.ts#L112) |
+
 ### src/domain/notificationPreferences.ts
 
 [Volledige bron](../../src/domain/notificationPreferences.ts), 61 regels, rol: implementation.
@@ -4281,6 +4310,17 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `sampleDemoTimer` | [25](../../src/domain/onboarding.ts#L25) |
 | function | `toggleDemoTimer` | [30](../../src/domain/onboarding.ts#L30) |
 | function | `validDemoPlan` | [34](../../src/domain/onboarding.ts#L34) |
+
+### src/domain/plannedPassage.ts
+
+[Volledige bron](../../src/domain/plannedPassage.ts), 43 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `rubPassage` | [5](../../src/domain/plannedPassage.ts#L5) |
+| function | `rubPassageLabel` | [25](../../src/domain/plannedPassage.ts#L25) |
+| function-variable | `rubPassageLabel.name` | [28](../../src/domain/plannedPassage.ts#L28) |
+| function | `plannedPassageTitle` | [35](../../src/domain/plannedPassage.ts#L35) |
 
 ### src/domain/planning.ts
 
@@ -4527,15 +4567,15 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/domain/themePreferences.ts
 
-[Volledige bron](../../src/domain/themePreferences.ts), 32 regels, rol: implementation.
+[Volledige bron](../../src/domain/themePreferences.ts), 35 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `ThemeMode` | [18](../../src/domain/themePreferences.ts#L18) |
-| type | `FixedThemeMode` | [19](../../src/domain/themePreferences.ts#L19) |
-| function | `isThemeMode` | [21](../../src/domain/themePreferences.ts#L21) |
-| function | `normalizeThemeMode` | [25](../../src/domain/themePreferences.ts#L25) |
-| function | `resolvedThemeMode` | [29](../../src/domain/themePreferences.ts#L29) |
+| type | `ThemeMode` | [21](../../src/domain/themePreferences.ts#L21) |
+| type | `FixedThemeMode` | [22](../../src/domain/themePreferences.ts#L22) |
+| function | `isThemeMode` | [24](../../src/domain/themePreferences.ts#L24) |
+| function | `normalizeThemeMode` | [28](../../src/domain/themePreferences.ts#L28) |
+| function | `resolvedThemeMode` | [32](../../src/domain/themePreferences.ts#L32) |
 
 ### src/exporting/notesExport.ts
 
@@ -4554,7 +4594,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/account/appearanceCopy.ts
 
-[Volledige bron](../../src/features/account/appearanceCopy.ts), 90 regels, rol: implementation.
+[Volledige bron](../../src/features/account/appearanceCopy.ts), 99 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -4600,7 +4640,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/account/components/LocalRemindersPanel.tsx
 
-[Volledige bron](../../src/features/account/components/LocalRemindersPanel.tsx), 226 regels, rol: implementation.
+[Volledige bron](../../src/features/account/components/LocalRemindersPanel.tsx), 230 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -4608,8 +4648,8 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function-variable | `clock` | [26](../../src/features/account/components/LocalRemindersPanel.tsx#L26) |
 | function | `LocalRemindersPanel` | [29](../../src/features/account/components/LocalRemindersPanel.tsx#L29) |
 | function | `LocalRemindersPanel.save` | [60](../../src/features/account/components/LocalRemindersPanel.tsx#L60) |
-| function-variable | `LocalRemindersPanel.toggle` | [113](../../src/features/account/components/LocalRemindersPanel.tsx#L113) |
-| function | `LocalRemindersPanel.time` | [129](../../src/features/account/components/LocalRemindersPanel.tsx#L129) |
+| function-variable | `LocalRemindersPanel.toggle` | [115](../../src/features/account/components/LocalRemindersPanel.tsx#L115) |
+| function | `LocalRemindersPanel.time` | [131](../../src/features/account/components/LocalRemindersPanel.tsx#L131) |
 
 ### src/features/account/components/NotificationSystemPanel.tsx
 
@@ -4710,11 +4750,11 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/account/screens/SettingsScreen.tsx
 
-[Volledige bron](../../src/features/account/screens/SettingsScreen.tsx), 357 regels, rol: implementation.
+[Volledige bron](../../src/features/account/screens/SettingsScreen.tsx), 377 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `SettingsScreen` | [137](../../src/features/account/screens/SettingsScreen.tsx#L137) |
+| function | `SettingsScreen` | [138](../../src/features/account/screens/SettingsScreen.tsx#L138) |
 
 ### src/features/audio/components/AudioPlayerSheet.tsx
 
@@ -4754,13 +4794,13 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/audio/components/RepeatSheet.tsx
 
-[Volledige bron](../../src/features/audio/components/RepeatSheet.tsx), 370 regels, rol: implementation.
+[Volledige bron](../../src/features/audio/components/RepeatSheet.tsx), 376 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `RepeatSheet` | [28](../../src/features/audio/components/RepeatSheet.tsx#L28) |
-| function | `RepeatSheet.downloadSelection` | [102](../../src/features/audio/components/RepeatSheet.tsx#L102) |
-| function | `RepeatSheet.start` | [151](../../src/features/audio/components/RepeatSheet.tsx#L151) |
+| function | `RepeatSheet` | [29](../../src/features/audio/components/RepeatSheet.tsx#L29) |
+| function | `RepeatSheet.downloadSelection` | [106](../../src/features/audio/components/RepeatSheet.tsx#L106) |
+| function | `RepeatSheet.start` | [156](../../src/features/audio/components/RepeatSheet.tsx#L156) |
 
 ### src/features/audio/model/audioCopy.ts
 
@@ -4826,6 +4866,34 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | method | `AudioControls.setAutoplay` | [37](../../src/features/audio/providers/audioContext.ts#L37) |
 | method | `AudioControls.setSleepTimer` | [38](../../src/features/audio/providers/audioContext.ts#L38) |
 | function | `useAudio` | [41](../../src/features/audio/providers/audioContext.ts#L41) |
+
+### src/features/bookmarks/bookmarkCopy.ts
+
+[Volledige bron](../../src/features/bookmarks/bookmarkCopy.ts), 49 regels, rol: implementation.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
+
+### src/features/bookmarks/bookmarks.ts
+
+[Volledige bron](../../src/features/bookmarks/bookmarks.ts), 82 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| type | `BookmarkSort` | [5](../../src/features/bookmarks/bookmarks.ts#L5) |
+| type | `Bookmark` | [6](../../src/features/bookmarks/bookmarks.ts#L6) |
+| type | `SavedBookmark` | [9](../../src/features/bookmarks/bookmarks.ts#L9) |
+| function | `pageBookmarkKey` | [11](../../src/features/bookmarks/bookmarks.ts#L11) |
+| function | `savedBookmarks` | [17](../../src/features/bookmarks/bookmarks.ts#L17) |
+| function | `savedBookmarkTarget` | [55](../../src/features/bookmarks/bookmarks.ts#L55) |
+| function | `bookmarkEditionName` | [77](../../src/features/bookmarks/bookmarks.ts#L77) |
+
+### src/features/bookmarks/screens/BookmarksScreen.tsx
+
+[Volledige bron](../../src/features/bookmarks/screens/BookmarksScreen.tsx), 75 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `BookmarksScreen` | [16](../../src/features/bookmarks/screens/BookmarksScreen.tsx#L16) |
 
 ### src/features/groups/chatCopy.ts
 
@@ -5159,7 +5227,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/home/components/HizbOverviewCard.tsx
 
-[Volledige bron](../../src/features/home/components/HizbOverviewCard.tsx), 188 regels, rol: implementation.
+[Volledige bron](../../src/features/home/components/HizbOverviewCard.tsx), 189 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5168,7 +5236,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/home/components/PracticeOverview.tsx
 
-[Volledige bron](../../src/features/home/components/PracticeOverview.tsx), 340 regels, rol: implementation.
+[Volledige bron](../../src/features/home/components/PracticeOverview.tsx), 375 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5202,20 +5270,20 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/home/model/resumeReference.ts
 
-[Volledige bron](../../src/features/home/model/resumeReference.ts), 18 regels, rol: implementation.
+[Volledige bron](../../src/features/home/model/resumeReference.ts), 19 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `resumeReference` | [5](../../src/features/home/model/resumeReference.ts#L5) |
-| function-variable | `resumeReference.key` | [15](../../src/features/home/model/resumeReference.ts#L15) |
+| function-variable | `resumeReference.key` | [16](../../src/features/home/model/resumeReference.ts#L16) |
 
 ### src/features/home/screens/MainScreen.tsx
 
-[Volledige bron](../../src/features/home/screens/MainScreen.tsx), 168 regels, rol: implementation.
+[Volledige bron](../../src/features/home/screens/MainScreen.tsx), 163 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `MainScreen` | [33](../../src/features/home/screens/MainScreen.tsx#L33) |
+| function | `MainScreen` | [32](../../src/features/home/screens/MainScreen.tsx#L32) |
 
 ### src/features/lexicon/components/LexiconDetail.tsx
 
@@ -5294,13 +5362,21 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `NoteCountButton` | [11](../../src/features/notes/components/NoteCountButton.tsx#L11) |
 
-### src/features/notes/components/NoteEditorView.tsx
+### src/features/notes/components/NoteDragHandle.tsx
 
-[Volledige bron](../../src/features/notes/components/NoteEditorView.tsx), 398 regels, rol: implementation.
+[Volledige bron](../../src/features/notes/components/NoteDragHandle.tsx), 88 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `NoteEditorView` | [27](../../src/features/notes/components/NoteEditorView.tsx#L27) |
+| function | `NoteDragHandle` | [5](../../src/features/notes/components/NoteDragHandle.tsx#L5) |
+
+### src/features/notes/components/NoteEditorView.tsx
+
+[Volledige bron](../../src/features/notes/components/NoteEditorView.tsx), 408 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `NoteEditorView` | [35](../../src/features/notes/components/NoteEditorView.tsx#L35) |
 
 ### src/features/notes/components/NoteFilterSheet.tsx
 
@@ -5310,9 +5386,20 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `NoteFilterSheet` | [10](../../src/features/notes/components/NoteFilterSheet.tsx#L10) |
 
+### src/features/notes/components/NoteFoldersBar.tsx
+
+[Volledige bron](../../src/features/notes/components/NoteFoldersBar.tsx), 130 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `NoteFoldersBar` | [9](../../src/features/notes/components/NoteFoldersBar.tsx#L9) |
+| function-variable | `NoteFoldersBar.measureTarget` | [34](../../src/features/notes/components/NoteFoldersBar.tsx#L34) |
+| function-variable | `NoteFoldersBar.measure` | [38](../../src/features/notes/components/NoteFoldersBar.tsx#L38) |
+| function-variable | `NoteFoldersBar.measureViewport` | [39](../../src/features/notes/components/NoteFoldersBar.tsx#L39) |
+
 ### src/features/notes/components/NoteRow.tsx
 
-[Volledige bron](../../src/features/notes/components/NoteRow.tsx), 88 regels, rol: implementation.
+[Volledige bron](../../src/features/notes/components/NoteRow.tsx), 91 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5373,22 +5460,22 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/notes/editor/noteEditor.ts
 
-[Volledige bron](../../src/features/notes/editor/noteEditor.ts), 208 regels, rol: implementation.
+[Volledige bron](../../src/features/notes/editor/noteEditor.ts), 209 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `EditorFields` | [17](../../src/features/notes/editor/noteEditor.ts#L17) |
-| function-variable | `blankFields` | [35](../../src/features/notes/editor/noteEditor.ts#L35) |
-| function | `targetForNote` | [53](../../src/features/notes/editor/noteEditor.ts#L53) |
-| function | `fieldsForNote` | [72](../../src/features/notes/editor/noteEditor.ts#L72) |
-| function | `targetTitle` | [92](../../src/features/notes/editor/noteEditor.ts#L92) |
-| function | `toggleTag` | [109](../../src/features/notes/editor/noteEditor.ts#L109) |
-| function | `noteTargetFields` | [117](../../src/features/notes/editor/noteEditor.ts#L117) |
-| function | `sameTarget` | [128](../../src/features/notes/editor/noteEditor.ts#L128) |
-| function | `saveFormatInfo` | [132](../../src/features/notes/editor/noteEditor.ts#L132) |
-| function | `updateEditorText` | [146](../../src/features/notes/editor/noteEditor.ts#L146) |
-| type | `NoteSaveResult` | [172](../../src/features/notes/editor/noteEditor.ts#L172) |
-| function | `prepareNoteSave` | [177](../../src/features/notes/editor/noteEditor.ts#L177) |
+| type | `EditorFields` | [18](../../src/features/notes/editor/noteEditor.ts#L18) |
+| function-variable | `blankFields` | [36](../../src/features/notes/editor/noteEditor.ts#L36) |
+| function | `targetForNote` | [54](../../src/features/notes/editor/noteEditor.ts#L54) |
+| function | `fieldsForNote` | [73](../../src/features/notes/editor/noteEditor.ts#L73) |
+| function | `targetTitle` | [93](../../src/features/notes/editor/noteEditor.ts#L93) |
+| function | `toggleTag` | [110](../../src/features/notes/editor/noteEditor.ts#L110) |
+| function | `noteTargetFields` | [118](../../src/features/notes/editor/noteEditor.ts#L118) |
+| function | `sameTarget` | [129](../../src/features/notes/editor/noteEditor.ts#L129) |
+| function | `saveFormatInfo` | [133](../../src/features/notes/editor/noteEditor.ts#L133) |
+| function | `updateEditorText` | [147](../../src/features/notes/editor/noteEditor.ts#L147) |
+| type | `NoteSaveResult` | [173](../../src/features/notes/editor/noteEditor.ts#L173) |
+| function | `prepareNoteSave` | [178](../../src/features/notes/editor/noteEditor.ts#L178) |
 
 ### src/features/notes/editor/noteFilters.ts
 
@@ -5441,24 +5528,35 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/notes/hooks/useNoteFilters.ts
 
-[Volledige bron](../../src/features/notes/hooks/useNoteFilters.ts), 102 regels, rol: implementation.
+[Volledige bron](../../src/features/notes/hooks/useNoteFilters.ts), 103 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `useNoteFilters` | [10](../../src/features/notes/hooks/useNoteFilters.ts#L10) |
-| function | `useNoteFilters.reset` | [64](../../src/features/notes/hooks/useNoteFilters.ts#L64) |
-| type | `NoteFilterState` | [101](../../src/features/notes/hooks/useNoteFilters.ts#L101) |
+| function | `useNoteFilters.reset` | [65](../../src/features/notes/hooks/useNoteFilters.ts#L65) |
+| type | `NoteFilterState` | [102](../../src/features/notes/hooks/useNoteFilters.ts#L102) |
+
+### src/features/notes/libraryCopy.ts
+
+[Volledige bron](../../src/features/notes/libraryCopy.ts), 66 regels, rol: implementation.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/notes/screens/NotesScreen.tsx
 
-[Volledige bron](../../src/features/notes/screens/NotesScreen.tsx), 271 regels, rol: implementation.
+[Volledige bron](../../src/features/notes/screens/NotesScreen.tsx), 461 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `Props` | [32](../../src/features/notes/screens/NotesScreen.tsx#L32) |
-| function | `NotesScreen` | [34](../../src/features/notes/screens/NotesScreen.tsx#L34) |
-| method | `NotesScreen.onSaved` | [72](../../src/features/notes/screens/NotesScreen.tsx#L72) |
-| function | `NotesScreen.startNew` | [98](../../src/features/notes/screens/NotesScreen.tsx#L98) |
+| type | `Props` | [46](../../src/features/notes/screens/NotesScreen.tsx#L46) |
+| function | `NotesScreen` | [48](../../src/features/notes/screens/NotesScreen.tsx#L48) |
+| method | `NotesScreen.onSaved` | [104](../../src/features/notes/screens/NotesScreen.tsx#L104) |
+| function | `NotesScreen.runLibrary` | [130](../../src/features/notes/screens/NotesScreen.tsx#L130) |
+| function | `NotesScreen.importNotes` | [145](../../src/features/notes/screens/NotesScreen.tsx#L145) |
+| function | `NotesScreen.moveNote` | [170](../../src/features/notes/screens/NotesScreen.tsx#L170) |
+| function-variable | `NotesScreen.clearDrag` | [177](../../src/features/notes/screens/NotesScreen.tsx#L177) |
+| function-variable | `NotesScreen.folderHit` | [181](../../src/features/notes/screens/NotesScreen.tsx#L181) |
+| function | `NotesScreen.startNew` | [185](../../src/features/notes/screens/NotesScreen.tsx#L185) |
 
 ### src/features/onboarding/components/OnboardingFlow.tsx
 
@@ -5501,13 +5599,13 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/planning/components/PlanningReminderCoordinator.tsx
 
-[Volledige bron](../../src/features/planning/components/PlanningReminderCoordinator.tsx), 52 regels, rol: implementation.
+[Volledige bron](../../src/features/planning/components/PlanningReminderCoordinator.tsx), 58 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `PlanningReminderCoordinator` | [18](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L18) |
 | function-variable | `PlanningReminderCoordinator.reconcile` | [26](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L26) |
-| function | `LocalReminderFailureNotice` | [41](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L41) |
+| function | `LocalReminderFailureNotice` | [47](../../src/features/planning/components/PlanningReminderCoordinator.tsx#L47) |
 
 ### src/features/planning/components/ReadingJourneyPanel.tsx
 
@@ -5522,7 +5620,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/planning/components/ReadingPlanHomeCard.tsx
 
-[Volledige bron](../../src/features/planning/components/ReadingPlanHomeCard.tsx), 57 regels, rol: implementation.
+[Volledige bron](../../src/features/planning/components/ReadingPlanHomeCard.tsx), 60 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -5540,17 +5638,17 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/planning/screens/PlanningScreen.tsx
 
-[Volledige bron](../../src/features/planning/screens/PlanningScreen.tsx), 684 regels, rol: implementation.
+[Volledige bron](../../src/features/planning/screens/PlanningScreen.tsx), 680 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `PlanningScreen` | [43](../../src/features/planning/screens/PlanningScreen.tsx#L43) |
-| function | `PlanningScreen.planningError` | [95](../../src/features/planning/screens/PlanningScreen.tsx#L95) |
-| function | `PlanningScreen.savePlan` | [117](../../src/features/planning/screens/PlanningScreen.tsx#L117) |
-| function | `PlanningScreen.saveJourney` | [168](../../src/features/planning/screens/PlanningScreen.tsx#L168) |
-| function | `PlanningScreen.openPlan` | [191](../../src/features/planning/screens/PlanningScreen.tsx#L191) |
-| function | `PlanningScreen.openReminder` | [217](../../src/features/planning/screens/PlanningScreen.tsx#L217) |
-| function | `PlanningScreen.saveReminder` | [224](../../src/features/planning/screens/PlanningScreen.tsx#L224) |
+| function | `PlanningScreen` | [44](../../src/features/planning/screens/PlanningScreen.tsx#L44) |
+| function | `PlanningScreen.planningError` | [96](../../src/features/planning/screens/PlanningScreen.tsx#L96) |
+| function | `PlanningScreen.savePlan` | [118](../../src/features/planning/screens/PlanningScreen.tsx#L118) |
+| function | `PlanningScreen.saveJourney` | [169](../../src/features/planning/screens/PlanningScreen.tsx#L169) |
+| function | `PlanningScreen.openPlan` | [192](../../src/features/planning/screens/PlanningScreen.tsx#L192) |
+| function | `PlanningScreen.openReminder` | [210](../../src/features/planning/screens/PlanningScreen.tsx#L210) |
+| function | `PlanningScreen.saveReminder` | [217](../../src/features/planning/screens/PlanningScreen.tsx#L217) |
 
 ### src/features/planning/screens/ReadingPlanScreen.tsx
 
@@ -5598,18 +5696,18 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/practice/components/ReadingStatisticsOverview.tsx
 
-[Volledige bron](../../src/features/practice/components/ReadingStatisticsOverview.tsx), 772 regels, rol: implementation.
+[Volledige bron](../../src/features/practice/components/ReadingStatisticsOverview.tsx), 777 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `StatisticsSection` | [49](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L49) |
 | function | `ReadingStatisticsOverview` | [74](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L74) |
-| function-variable | `ReadingStatisticsOverview.unitLabel` | [104](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L104) |
-| function-variable | `ReadingStatisticsOverview.label` | [117](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L117) |
-| function | `ReadingStatisticsOverview.referenceLabel` | [155](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L155) |
-| function-variable | `ReadingStatisticsOverview.referenceLabel.number` | [157](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L157) |
-| function | `ReadingStatisticsOverview.historyRow` | [160](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L160) |
-| function | `ReadingStatisticsOverview.clearReading` | [221](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L221) |
+| function-variable | `ReadingStatisticsOverview.unitLabel` | [110](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L110) |
+| function-variable | `ReadingStatisticsOverview.label` | [123](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L123) |
+| function | `ReadingStatisticsOverview.referenceLabel` | [161](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L161) |
+| function-variable | `ReadingStatisticsOverview.referenceLabel.number` | [163](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L163) |
+| function | `ReadingStatisticsOverview.historyRow` | [166](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L166) |
+| function | `ReadingStatisticsOverview.clearReading` | [225](../../src/features/practice/components/ReadingStatisticsOverview.tsx#L225) |
 
 ### src/features/practice/components/ReadingStatisticsSummary.tsx
 
@@ -5654,28 +5752,28 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/practice/providers/FocusProvider.tsx
 
-[Volledige bron](../../src/features/practice/providers/FocusProvider.tsx), 157 regels, rol: implementation.
+[Volledige bron](../../src/features/practice/providers/FocusProvider.tsx), 162 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `FocusContext` | [27](../../src/features/practice/providers/FocusProvider.tsx#L27) |
-| function | `FocusProvider` | [35](../../src/features/practice/providers/FocusProvider.tsx#L35) |
-| function-variable | `FocusProvider.sample` | [92](../../src/features/practice/providers/FocusProvider.tsx#L92) |
-| function | `useFocus` | [116](../../src/features/practice/providers/FocusProvider.tsx#L116) |
-| function | `FocusFloatingTimer` | [121](../../src/features/practice/providers/FocusProvider.tsx#L121) |
+| type | `FocusContext` | [28](../../src/features/practice/providers/FocusProvider.tsx#L28) |
+| function | `FocusProvider` | [36](../../src/features/practice/providers/FocusProvider.tsx#L36) |
+| function-variable | `FocusProvider.sample` | [93](../../src/features/practice/providers/FocusProvider.tsx#L93) |
+| function | `useFocus` | [117](../../src/features/practice/providers/FocusProvider.tsx#L117) |
+| function | `FocusFloatingTimer` | [122](../../src/features/practice/providers/FocusProvider.tsx#L122) |
 
 ### src/features/practice/screens/ChecklistScreen.tsx
 
-[Volledige bron](../../src/features/practice/screens/ChecklistScreen.tsx), 288 regels, rol: implementation.
+[Volledige bron](../../src/features/practice/screens/ChecklistScreen.tsx), 329 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `ChecklistScreen` | [31](../../src/features/practice/screens/ChecklistScreen.tsx#L31) |
-| function | `ChecklistScreen.save` | [83](../../src/features/practice/screens/ChecklistScreen.tsx#L83) |
-| function-variable | `ChecklistScreen.number` | [106](../../src/features/practice/screens/ChecklistScreen.tsx#L106) |
-| function-variable | `ChecklistScreen.point` | [107](../../src/features/practice/screens/ChecklistScreen.tsx#L107) |
-| function-variable | `ChecklistScreen.name` | [109](../../src/features/practice/screens/ChecklistScreen.tsx#L109) |
-| function | `ChecklistScreen.partRow` | [115](../../src/features/practice/screens/ChecklistScreen.tsx#L115) |
+| function | `ChecklistScreen` | [41](../../src/features/practice/screens/ChecklistScreen.tsx#L41) |
+| function | `ChecklistScreen.save` | [94](../../src/features/practice/screens/ChecklistScreen.tsx#L94) |
+| function-variable | `ChecklistScreen.number` | [117](../../src/features/practice/screens/ChecklistScreen.tsx#L117) |
+| function-variable | `ChecklistScreen.point` | [118](../../src/features/practice/screens/ChecklistScreen.tsx#L118) |
+| function-variable | `ChecklistScreen.name` | [120](../../src/features/practice/screens/ChecklistScreen.tsx#L120) |
+| function | `ChecklistScreen.partRow` | [126](../../src/features/practice/screens/ChecklistScreen.tsx#L126) |
 
 ### src/features/practice/screens/FocusScreen.tsx
 
@@ -5689,29 +5787,30 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/practice/screens/GoalsScreen.tsx
 
-[Volledige bron](../../src/features/practice/screens/GoalsScreen.tsx), 470 regels, rol: implementation.
+[Volledige bron](../../src/features/practice/screens/GoalsScreen.tsx), 506 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `GoalsScreen` | [42](../../src/features/practice/screens/GoalsScreen.tsx#L42) |
-| function | `GoalsScreen.save` | [75](../../src/features/practice/screens/GoalsScreen.tsx#L75) |
-| function | `GoalsScreen.record` | [93](../../src/features/practice/screens/GoalsScreen.tsx#L93) |
-| function | `GoalsScreen.resolve` | [180](../../src/features/practice/screens/GoalsScreen.tsx#L180) |
-| function | `GoalsScreen.openRecord` | [201](../../src/features/practice/screens/GoalsScreen.tsx#L201) |
+| function | `GoalsScreen` | [47](../../src/features/practice/screens/GoalsScreen.tsx#L47) |
+| function | `GoalsScreen.save` | [82](../../src/features/practice/screens/GoalsScreen.tsx#L82) |
+| function-variable | `GoalsScreen.save.persist` | [96](../../src/features/practice/screens/GoalsScreen.tsx#L96) |
+| function | `GoalsScreen.record` | [122](../../src/features/practice/screens/GoalsScreen.tsx#L122) |
+| function | `GoalsScreen.resolve` | [209](../../src/features/practice/screens/GoalsScreen.tsx#L209) |
+| function | `GoalsScreen.openRecord` | [230](../../src/features/practice/screens/GoalsScreen.tsx#L230) |
 
 ### src/features/practice/screens/ProgressScreen.tsx
 
-[Volledige bron](../../src/features/practice/screens/ProgressScreen.tsx), 438 regels, rol: implementation.
+[Volledige bron](../../src/features/practice/screens/ProgressScreen.tsx), 445 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `ProgressScreen` | [34](../../src/features/practice/screens/ProgressScreen.tsx#L34) |
-| function-variable | `ProgressScreen.reference` | [54](../../src/features/practice/screens/ProgressScreen.tsx#L54) |
-| function-variable | `ProgressScreen.label` | [58](../../src/features/practice/screens/ProgressScreen.tsx#L58) |
-| function | `ProgressScreen.open` | [66](../../src/features/practice/screens/ProgressScreen.tsx#L66) |
-| function | `ProgressScreen.checkIn` | [79](../../src/features/practice/screens/ProgressScreen.tsx#L79) |
-| function | `ProgressScreen.editScore` | [100](../../src/features/practice/screens/ProgressScreen.tsx#L100) |
-| function | `ProgressScreen.toggleSelection` | [105](../../src/features/practice/screens/ProgressScreen.tsx#L105) |
+| function-variable | `ProgressScreen.reference` | [57](../../src/features/practice/screens/ProgressScreen.tsx#L57) |
+| function-variable | `ProgressScreen.label` | [61](../../src/features/practice/screens/ProgressScreen.tsx#L61) |
+| function | `ProgressScreen.open` | [69](../../src/features/practice/screens/ProgressScreen.tsx#L69) |
+| function | `ProgressScreen.checkIn` | [82](../../src/features/practice/screens/ProgressScreen.tsx#L82) |
+| function | `ProgressScreen.editScore` | [103](../../src/features/practice/screens/ProgressScreen.tsx#L103) |
+| function | `ProgressScreen.toggleSelection` | [108](../../src/features/practice/screens/ProgressScreen.tsx#L108) |
 
 ### src/features/practice/screens/StatsScreen.tsx
 
@@ -5743,21 +5842,32 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/quran/components/BookTranslationSheet.tsx
 
-[Volledige bron](../../src/features/quran/components/BookTranslationSheet.tsx), 94 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/components/BookTranslationSheet.tsx), 96 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `BookTranslationSheet` | [14](../../src/features/quran/components/BookTranslationSheet.tsx#L14) |
 
-### src/features/quran/components/DownloadedPdfMushaf.native.tsx
+### src/features/quran/components/ContinuousMushafPages.tsx
 
-[Volledige bron](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx), 392 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/components/ContinuousMushafPages.tsx), 241 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `DownloadedPdfMushaf` | [31](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx#L31) |
-| function-variable | `DownloadedPdfMushaf.changeFullscreen` | [112](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx#L112) |
-| function | `DownloadedPdfMushaf.listen` | [129](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx#L129) |
+| function | `ContinuousMushafPages` | [11](../../src/features/quran/components/ContinuousMushafPages.tsx#L11) |
+| function-variable | `ContinuousMushafPages.scrollTo` | [67](../../src/features/quran/components/ContinuousMushafPages.tsx#L67) |
+| function-variable | `ContinuousMushafPages.publishVisible` | [97](../../src/features/quran/components/ContinuousMushafPages.tsx#L97) |
+| function-variable | `ContinuousMushafPages.restoreLayout` | [111](../../src/features/quran/components/ContinuousMushafPages.tsx#L111) |
+
+### src/features/quran/components/DownloadedPdfMushaf.native.tsx
+
+[Volledige bron](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx), 407 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `DownloadedPdfMushaf` | [33](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx#L33) |
+| function-variable | `DownloadedPdfMushaf.changeFullscreen` | [114](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx#L114) |
+| function | `DownloadedPdfMushaf.listen` | [131](../../src/features/quran/components/DownloadedPdfMushaf.native.tsx#L131) |
 
 ### src/features/quran/components/DownloadedPdfMushaf.tsx
 
@@ -5772,6 +5882,30 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `DownloadedPdfMushaf` | [7](../../src/features/quran/components/DownloadedPdfMushaf.web.tsx#L7) |
+
+### src/features/quran/components/FloatingReaderAudio.tsx
+
+[Volledige bron](../../src/features/quran/components/FloatingReaderAudio.tsx), 33 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `FloatingReaderAudio` | [8](../../src/features/quran/components/FloatingReaderAudio.tsx#L8) |
+
+### src/features/quran/components/FloatingReaderButton.tsx
+
+[Volledige bron](../../src/features/quran/components/FloatingReaderButton.tsx), 133 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `FloatingReaderButton` | [13](../../src/features/quran/components/FloatingReaderButton.tsx#L13) |
+
+### src/features/quran/components/FullscreenExitButton.tsx
+
+[Volledige bron](../../src/features/quran/components/FullscreenExitButton.tsx), 7 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `FullscreenExitButton` | [4](../../src/features/quran/components/FullscreenExitButton.tsx#L4) |
 
 ### src/features/quran/components/HizbOpeningPreview.tsx
 
@@ -5792,24 +5926,24 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/quran/components/MushafFooter.tsx
 
-[Volledige bron](../../src/features/quran/components/MushafFooter.tsx), 398 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/components/MushafFooter.tsx), 404 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `MushafTickMetrics` | [22](../../src/features/quran/components/MushafFooter.tsx#L22) |
 | function | `MushafPageRail` | [25](../../src/features/quran/components/MushafFooter.tsx#L25) |
-| function-variable | `MushafPageRail.cancelDrag` | [53](../../src/features/quran/components/MushafFooter.tsx#L53) |
-| function-variable | `MushafPageRail.update` | [58](../../src/features/quran/components/MushafFooter.tsx#L58) |
-| function | `MushafFooter` | [181](../../src/features/quran/components/MushafFooter.tsx#L181) |
+| function-variable | `MushafPageRail.cancelDrag` | [55](../../src/features/quran/components/MushafFooter.tsx#L55) |
+| function-variable | `MushafPageRail.update` | [60](../../src/features/quran/components/MushafFooter.tsx#L60) |
+| function | `MushafFooter` | [185](../../src/features/quran/components/MushafFooter.tsx#L185) |
 
 ### src/features/quran/components/MushafReadingActions.tsx
 
-[Volledige bron](../../src/features/quran/components/MushafReadingActions.tsx), 160 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/components/MushafReadingActions.tsx), 165 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `MushafReadingActions` | [16](../../src/features/quran/components/MushafReadingActions.tsx#L16) |
-| function | `MushafReadingActions.markPages` | [51](../../src/features/quran/components/MushafReadingActions.tsx#L51) |
+| function | `MushafReadingActions.markPages` | [55](../../src/features/quran/components/MushafReadingActions.tsx#L55) |
 
 ### src/features/quran/components/MushafVerticalRail.tsx
 
@@ -5835,12 +5969,13 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/quran/components/PrintedMushafPage.tsx
 
-[Volledige bron](../../src/features/quran/components/PrintedMushafPage.tsx), 213 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/components/PrintedMushafPage.tsx), 237 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `warshPage` | [22](../../src/features/quran/components/PrintedMushafPage.tsx#L22) |
-| function | `PrintedMushafPage` | [56](../../src/features/quran/components/PrintedMushafPage.tsx#L56) |
+| function | `warshPage` | [23](../../src/features/quran/components/PrintedMushafPage.tsx#L23) |
+| function | `PrintedMushafPage` | [57](../../src/features/quran/components/PrintedMushafPage.tsx#L57) |
+| function-variable | `PrintedMushafPage.selectAt` | [130](../../src/features/quran/components/PrintedMushafPage.tsx#L130) |
 
 ### src/features/quran/components/ReaderListenButton.tsx
 
@@ -5962,6 +6097,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `bookScrollAnchor` | [4](../../src/features/quran/layout/bookScrollPosition.ts#L4) |
 | function | `bookOffsetForAnchor` | [9](../../src/features/quran/layout/bookScrollPosition.ts#L9) |
 
+### src/features/quran/layout/continuousMushafCrop.ts
+
+[Volledige bron](../../src/features/quran/layout/continuousMushafCrop.ts), 16 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `continuousMushafCrop` | [5](../../src/features/quran/layout/continuousMushafCrop.ts#L5) |
+
 ### src/features/quran/layout/mushafCrop.ts
 
 [Volledige bron](../../src/features/quran/layout/mushafCrop.ts), 23 regels, rol: implementation.
@@ -6052,7 +6195,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/quran/model/readPageMetrics.ts
 
-[Volledige bron](../../src/features/quran/model/readPageMetrics.ts), 63 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/model/readPageMetrics.ts), 69 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -6074,56 +6217,58 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/features/quran/providers/readingModeContext.ts
 
-[Volledige bron](../../src/features/quran/providers/readingModeContext.ts), 32 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/providers/readingModeContext.ts), 28 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `Point` | [4](../../src/features/quran/providers/readingModeContext.ts#L4) |
 | function | `textToBook` | [6](../../src/features/quran/providers/readingModeContext.ts#L6) |
-| function | `bookToText` | [24](../../src/features/quran/providers/readingModeContext.ts#L24) |
+| function | `bookToText` | [20](../../src/features/quran/providers/readingModeContext.ts#L20) |
 
 ### src/features/quran/screens/MushafLibraryScreen.tsx
 
-[Volledige bron](../../src/features/quran/screens/MushafLibraryScreen.tsx), 342 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/screens/MushafLibraryScreen.tsx), 343 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `MushafLibraryScreen` | [115](../../src/features/quran/screens/MushafLibraryScreen.tsx#L115) |
-| function | `MushafLibraryScreen.select` | [136](../../src/features/quran/screens/MushafLibraryScreen.tsx#L136) |
-| function | `MushafLibraryScreen.askDownload` | [142](../../src/features/quran/screens/MushafLibraryScreen.tsx#L142) |
-| function | `MushafLibraryScreen.askRemove` | [173](../../src/features/quran/screens/MushafLibraryScreen.tsx#L173) |
+| function | `MushafLibraryScreen` | [116](../../src/features/quran/screens/MushafLibraryScreen.tsx#L116) |
+| function | `MushafLibraryScreen.select` | [137](../../src/features/quran/screens/MushafLibraryScreen.tsx#L137) |
+| function | `MushafLibraryScreen.askDownload` | [143](../../src/features/quran/screens/MushafLibraryScreen.tsx#L143) |
+| function | `MushafLibraryScreen.askRemove` | [174](../../src/features/quran/screens/MushafLibraryScreen.tsx#L174) |
 
 ### src/features/quran/screens/MushafScreen.tsx
 
-[Volledige bron](../../src/features/quran/screens/MushafScreen.tsx), 1547 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/screens/MushafScreen.tsx), 1607 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `MushafScreen` | [81](../../src/features/quran/screens/MushafScreen.tsx#L81) |
-| function | `ImageMushaf` | [199](../../src/features/quran/screens/MushafScreen.tsx#L199) |
-| function-variable | `ImageMushaf.openText` | [560](../../src/features/quran/screens/MushafScreen.tsx#L560) |
-| function | `ImageMushaf.playSelectedSurah` | [582](../../src/features/quran/screens/MushafScreen.tsx#L582) |
-| function | `ImageMushaf.openRepeat` | [593](../../src/features/quran/screens/MushafScreen.tsx#L593) |
-| function | `ImageMushaf.openWord` | [603](../../src/features/quran/screens/MushafScreen.tsx#L603) |
-| function-variable | `ImageMushaf.goToPage` | [621](../../src/features/quran/screens/MushafScreen.tsx#L621) |
-| function-variable | `ImageMushaf.turn` | [629](../../src/features/quran/screens/MushafScreen.tsx#L629) |
-| function-variable | `ImageMushaf.imagePoint` | [630](../../src/features/quran/screens/MushafScreen.tsx#L630) |
-| function-variable | `ImageMushaf.choosePresentation` | [658](../../src/features/quran/screens/MushafScreen.tsx#L658) |
-| function-variable | `ImageMushaf.chooseSelectionMode` | [683](../../src/features/quran/screens/MushafScreen.tsx#L683) |
+| function | `pointOnPage` | [85](../../src/features/quran/screens/MushafScreen.tsx#L85) |
+| function | `MushafScreen` | [97](../../src/features/quran/screens/MushafScreen.tsx#L97) |
+| function | `ImageMushaf` | [220](../../src/features/quran/screens/MushafScreen.tsx#L220) |
+| function | `ImageMushaf.setFullscreen` | [611](../../src/features/quran/screens/MushafScreen.tsx#L611) |
+| function-variable | `ImageMushaf.openText` | [625](../../src/features/quran/screens/MushafScreen.tsx#L625) |
+| function | `ImageMushaf.playSelectedSurah` | [646](../../src/features/quran/screens/MushafScreen.tsx#L646) |
+| function | `ImageMushaf.openRepeat` | [657](../../src/features/quran/screens/MushafScreen.tsx#L657) |
+| function | `ImageMushaf.openWord` | [667](../../src/features/quran/screens/MushafScreen.tsx#L667) |
+| function-variable | `ImageMushaf.goToPage` | [685](../../src/features/quran/screens/MushafScreen.tsx#L685) |
+| function-variable | `ImageMushaf.turn` | [693](../../src/features/quran/screens/MushafScreen.tsx#L693) |
+| function-variable | `ImageMushaf.imagePoint` | [694](../../src/features/quran/screens/MushafScreen.tsx#L694) |
+| function-variable | `ImageMushaf.choosePresentation` | [722](../../src/features/quran/screens/MushafScreen.tsx#L722) |
+| function-variable | `ImageMushaf.chooseSelectionMode` | [745](../../src/features/quran/screens/MushafScreen.tsx#L745) |
 
 ### src/features/quran/screens/QuranScreen.tsx
 
-[Volledige bron](../../src/features/quran/screens/QuranScreen.tsx), 364 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/screens/QuranScreen.tsx), 362 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `QuranScreen` | [25](../../src/features/quran/screens/QuranScreen.tsx#L25) |
-| function | `QuranScreen.openPart` | [54](../../src/features/quran/screens/QuranScreen.tsx#L54) |
-| function | `QuranScreen.partActions` | [74](../../src/features/quran/screens/QuranScreen.tsx#L74) |
+| function | `QuranScreen` | [30](../../src/features/quran/screens/QuranScreen.tsx#L30) |
+| function | `QuranScreen.openPart` | [59](../../src/features/quran/screens/QuranScreen.tsx#L59) |
+| function | `QuranScreen.partActions` | [79](../../src/features/quran/screens/QuranScreen.tsx#L79) |
 
 ### src/features/quran/screens/ReaderScreen.tsx
 
-[Volledige bron](../../src/features/quran/screens/ReaderScreen.tsx), 943 regels, rol: implementation.
+[Volledige bron](../../src/features/quran/screens/ReaderScreen.tsx), 940 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -6409,18 +6554,18 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/audio/repeatSelection.ts
 
-[Volledige bron](../../src/services/audio/repeatSelection.ts), 145 regels, rol: implementation.
+[Volledige bron](../../src/services/audio/repeatSelection.ts), 148 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `RepeatMode` | [13](../../src/services/audio/repeatSelection.ts#L13) |
-| type | `RepeatPoint` | [14](../../src/services/audio/repeatSelection.ts#L14) |
-| type | `RepeatSelectionInput` | [15](../../src/services/audio/repeatSelection.ts#L15) |
-| function | `printedVerseCount` | [26](../../src/services/audio/repeatSelection.ts#L26) |
-| function | `printedVerseForCanonical` | [29](../../src/services/audio/repeatSelection.ts#L29) |
-| function | `repeatInitialPage` | [35](../../src/services/audio/repeatSelection.ts#L35) |
-| function | `repeatSelection` | [42](../../src/services/audio/repeatSelection.ts#L42) |
-| function | `createRepeatQueue` | [100](../../src/services/audio/repeatSelection.ts#L100) |
+| type | `RepeatMode` | [14](../../src/services/audio/repeatSelection.ts#L14) |
+| type | `RepeatPoint` | [15](../../src/services/audio/repeatSelection.ts#L15) |
+| type | `RepeatSelectionInput` | [16](../../src/services/audio/repeatSelection.ts#L16) |
+| function | `printedVerseCount` | [28](../../src/services/audio/repeatSelection.ts#L28) |
+| function | `printedVerseForCanonical` | [31](../../src/services/audio/repeatSelection.ts#L31) |
+| function | `repeatInitialPage` | [37](../../src/services/audio/repeatSelection.ts#L37) |
+| function | `repeatSelection` | [45](../../src/services/audio/repeatSelection.ts#L45) |
+| function | `createRepeatQueue` | [103](../../src/services/audio/repeatSelection.ts#L103) |
 
 ### src/services/auth/accountMutation.ts
 
@@ -7456,18 +7601,18 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/notifications/localReminders.ts
 
-[Volledige bron](../../src/services/notifications/localReminders.ts), 141 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/localReminders.ts), 194 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `getReminderFailure` | [19](../../src/services/notifications/localReminders.ts#L19) |
-| function | `onReminderFailureChanged` | [20](../../src/services/notifications/localReminders.ts#L20) |
-| function | `setReminderFailure` | [26](../../src/services/notifications/localReminders.ts#L26) |
-| function | `ordered` | [31](../../src/services/notifications/localReminders.ts#L31) |
-| function | `loadLocalNotifications` | [36](../../src/services/notifications/localReminders.ts#L36) |
-| function | `desiredLocalReminders` | [50](../../src/services/notifications/localReminders.ts#L50) |
-| function | `reconcileLocalReminders` | [93](../../src/services/notifications/localReminders.ts#L93) |
-| function | `saveLocalNotifications` | [114](../../src/services/notifications/localReminders.ts#L114) |
+| function-variable | `getReminderFailure` | [25](../../src/services/notifications/localReminders.ts#L25) |
+| function | `onReminderFailureChanged` | [26](../../src/services/notifications/localReminders.ts#L26) |
+| function | `setReminderFailure` | [32](../../src/services/notifications/localReminders.ts#L32) |
+| function | `ordered` | [37](../../src/services/notifications/localReminders.ts#L37) |
+| function | `loadLocalNotifications` | [42](../../src/services/notifications/localReminders.ts#L42) |
+| function | `desiredLocalReminders` | [56](../../src/services/notifications/localReminders.ts#L56) |
+| function | `reconcileLocalReminders` | [127](../../src/services/notifications/localReminders.ts#L127) |
+| function | `saveLocalNotifications` | [166](../../src/services/notifications/localReminders.ts#L166) |
 
 ### src/services/notifications/notificationDestinations.ts
 
@@ -7490,25 +7635,25 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/notifications/notificationSystem.ts
 
-[Volledige bron](../../src/services/notifications/notificationSystem.ts), 99 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/notificationSystem.ts), 111 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `NotificationPermission` | [1](../../src/services/notifications/notificationSystem.ts#L1) |
 | type | `NotificationChannelState` | [7](../../src/services/notifications/notificationSystem.ts#L7) |
 | function | `notificationDeliveryAllowed` | [10](../../src/services/notifications/notificationSystem.ts#L10) |
-| type | `NotificationSystemStatus` | [17](../../src/services/notifications/notificationSystem.ts#L17) |
-| type | `NotificationSystemPort` | [21](../../src/services/notifications/notificationSystem.ts#L21) |
-| method | `NotificationSystemPort.permission` | [23](../../src/services/notifications/notificationSystem.ts#L23) |
-| method | `NotificationSystemPort.channels` | [29](../../src/services/notifications/notificationSystem.ts#L29) |
-| method | `NotificationSystemPort.openAndroidSettings` | [30](../../src/services/notifications/notificationSystem.ts#L30) |
-| method | `NotificationSystemPort.openSettings` | [31](../../src/services/notifications/notificationSystem.ts#L31) |
-| method | `NotificationSystemPort.onResume` | [32](../../src/services/notifications/notificationSystem.ts#L32) |
-| function | `readNotificationSystem` | [36](../../src/services/notifications/notificationSystem.ts#L36) |
-| function | `openNotificationSettings` | [58](../../src/services/notifications/notificationSystem.ts#L58) |
-| function | `observeNotificationSystem` | [71](../../src/services/notifications/notificationSystem.ts#L71) |
-| function-variable | `observeNotificationSystem.refresh` | [78](../../src/services/notifications/notificationSystem.ts#L78) |
-| method | `observeNotificationSystem.dispose` | [92](../../src/services/notifications/notificationSystem.ts#L92) |
+| type | `NotificationSystemStatus` | [24](../../src/services/notifications/notificationSystem.ts#L24) |
+| type | `NotificationSystemPort` | [28](../../src/services/notifications/notificationSystem.ts#L28) |
+| method | `NotificationSystemPort.permission` | [30](../../src/services/notifications/notificationSystem.ts#L30) |
+| method | `NotificationSystemPort.channels` | [36](../../src/services/notifications/notificationSystem.ts#L36) |
+| method | `NotificationSystemPort.openAndroidSettings` | [37](../../src/services/notifications/notificationSystem.ts#L37) |
+| method | `NotificationSystemPort.openSettings` | [38](../../src/services/notifications/notificationSystem.ts#L38) |
+| method | `NotificationSystemPort.onResume` | [39](../../src/services/notifications/notificationSystem.ts#L39) |
+| function | `readNotificationSystem` | [43](../../src/services/notifications/notificationSystem.ts#L43) |
+| function | `openNotificationSettings` | [70](../../src/services/notifications/notificationSystem.ts#L70) |
+| function | `observeNotificationSystem` | [83](../../src/services/notifications/notificationSystem.ts#L83) |
+| function-variable | `observeNotificationSystem.refresh` | [90](../../src/services/notifications/notificationSystem.ts#L90) |
+| method | `observeNotificationSystem.dispose` | [104](../../src/services/notifications/notificationSystem.ts#L104) |
 
 ### src/services/notifications/notificationSystemPort.ts
 
@@ -7522,7 +7667,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/services/notifications/planningReminderLedger.ts
 
-[Volledige bron](../../src/services/notifications/planningReminderLedger.ts), 173 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/planningReminderLedger.ts), 188 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -7534,37 +7679,44 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `decodeLedger` | [17](../../src/services/notifications/planningReminderLedger.ts#L17) |
 | function | `reconcileTrackedPlanReminders` | [45](../../src/services/notifications/planningReminderLedger.ts#L45) |
 | function-variable | `reconcileTrackedPlanReminders.existingFor` | [63](../../src/services/notifications/planningReminderLedger.ts#L63) |
-| function-variable | `reconcileTrackedPlanReminders.persist` | [100](../../src/services/notifications/planningReminderLedger.ts#L100) |
-| method | `reconcileTrackedPlanReminders.schedule` | [124](../../src/services/notifications/planningReminderLedger.ts#L124) |
-| method | `reconcileTrackedPlanReminders.cancel` | [157](../../src/services/notifications/planningReminderLedger.ts#L157) |
+| function-variable | `reconcileTrackedPlanReminders.persist` | [110](../../src/services/notifications/planningReminderLedger.ts#L110) |
+| method | `reconcileTrackedPlanReminders.schedule` | [139](../../src/services/notifications/planningReminderLedger.ts#L139) |
+| method | `reconcileTrackedPlanReminders.cancel` | [172](../../src/services/notifications/planningReminderLedger.ts#L172) |
 
 ### src/services/notifications/planningReminderPort.ts
 
-[Volledige bron](../../src/services/notifications/planningReminderPort.ts), 64 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/planningReminderPort.ts), 176 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `hasPlanReminderPermission` | [8](../../src/services/notifications/planningReminderPort.ts#L8) |
-| function | `requestPlanReminderPermission` | [13](../../src/services/notifications/planningReminderPort.ts#L13) |
-| method | `list` | [26](../../src/services/notifications/planningReminderPort.ts#L26) |
-| method | `schedule` | [36](../../src/services/notifications/planningReminderPort.ts#L36) |
+| function | `rememberFirstGrant` | [20](../../src/services/notifications/planningReminderPort.ts#L20) |
+| function | `promptForPermission` | [26](../../src/services/notifications/planningReminderPort.ts#L26) |
+| function | `firstPlanReminderGrantAt` | [51](../../src/services/notifications/planningReminderPort.ts#L51) |
+| function | `hasPreviousAndroidDenial` | [59](../../src/services/notifications/planningReminderPort.ts#L59) |
+| method | `hasPreviousAndroidDenial.shouldShowRequestPermissionRationale` | [62](../../src/services/notifications/planningReminderPort.ts#L62) |
+| function | `ensureReminderChannel` | [72](../../src/services/notifications/planningReminderPort.ts#L72) |
+| function | `hasPlanReminderPermission` | [82](../../src/services/notifications/planningReminderPort.ts#L82) |
+| function | `requestPlanReminderPermission` | [87](../../src/services/notifications/planningReminderPort.ts#L87) |
+| function | `initialPlanReminderPermission` | [96](../../src/services/notifications/planningReminderPort.ts#L96) |
+| method | `list` | [121](../../src/services/notifications/planningReminderPort.ts#L121) |
+| method | `schedule` | [143](../../src/services/notifications/planningReminderPort.ts#L143) |
 
 ### src/services/notifications/planningReminders.ts
 
-[Volledige bron](../../src/services/notifications/planningReminders.ts), 192 regels, rol: implementation.
+[Volledige bron](../../src/services/notifications/planningReminders.ts), 204 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `DesiredPlanReminder` | [4](../../src/services/notifications/planningReminders.ts#L4) |
-| type | `ExistingPlanReminder` | [18](../../src/services/notifications/planningReminders.ts#L18) |
-| type | `PlanReminderPort` | [19](../../src/services/notifications/planningReminders.ts#L19) |
-| type | `ReminderReconcileResult` | [24](../../src/services/notifications/planningReminders.ts#L24) |
-| function | `planningReminderDueAt` | [31](../../src/services/notifications/planningReminders.ts#L31) |
-| function | `planReminderKey` | [68](../../src/services/notifications/planningReminders.ts#L68) |
-| function | `desiredPlanReminders` | [76](../../src/services/notifications/planningReminders.ts#L76) |
-| function | `reconcilePlanReminders` | [113](../../src/services/notifications/planningReminders.ts#L113) |
-| function | `planReminderCopy` | [163](../../src/services/notifications/planningReminders.ts#L163) |
-| function | `reminderCopy` | [189](../../src/services/notifications/planningReminders.ts#L189) |
+| type | `ExistingPlanReminder` | [20](../../src/services/notifications/planningReminders.ts#L20) |
+| type | `PlanReminderPort` | [21](../../src/services/notifications/planningReminders.ts#L21) |
+| type | `ReminderReconcileResult` | [26](../../src/services/notifications/planningReminders.ts#L26) |
+| function | `planningReminderDueAt` | [34](../../src/services/notifications/planningReminders.ts#L34) |
+| function | `planReminderKey` | [71](../../src/services/notifications/planningReminders.ts#L71) |
+| function | `desiredPlanReminders` | [79](../../src/services/notifications/planningReminders.ts#L79) |
+| function | `reconcilePlanReminders` | [116](../../src/services/notifications/planningReminders.ts#L116) |
+| function | `planReminderCopy` | [175](../../src/services/notifications/planningReminders.ts#L175) |
+| function | `reminderCopy` | [201](../../src/services/notifications/planningReminders.ts#L201) |
 
 ### src/services/notifications/pushDevice.ts
 
@@ -7695,6 +7847,28 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | method | `createDeviceStorage.multiSet` | [83](../../src/services/storage/deviceStorageCore.ts#L83) |
 | method | `createDeviceStorage.multiRemove` | [88](../../src/services/storage/deviceStorageCore.ts#L88) |
 | method | `createDeviceStorage.migrate` | [92](../../src/services/storage/deviceStorageCore.ts#L92) |
+
+### src/services/storage/pickNotesFile.native.ts
+
+[Volledige bron](../../src/services/storage/pickNotesFile.native.ts), 16 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `pickNotesFile` | [4](../../src/services/storage/pickNotesFile.native.ts#L4) |
+
+### src/services/storage/pickNotesFile.ts
+
+[Volledige bron](../../src/services/storage/pickNotesFile.ts), 2 regels, rol: implementation.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
+
+### src/services/storage/pickNotesFile.web.ts
+
+[Volledige bron](../../src/services/storage/pickNotesFile.web.ts), 14 regels, rol: implementation.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `pickNotesFile` | [3](../../src/services/storage/pickNotesFile.web.ts#L3) |
 
 ### src/services/storage/readOnlyAssetDatabase.ts
 
@@ -7967,7 +8141,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/shared/components/Sheet.tsx
 
-[Volledige bron](../../src/shared/components/Sheet.tsx), 101 regels, rol: implementation.
+[Volledige bron](../../src/shared/components/Sheet.tsx), 109 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -8017,14 +8191,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/shared/theme/colors.ts
 
-[Volledige bron](../../src/shared/theme/colors.ts), 191 regels, rol: implementation.
+[Volledige bron](../../src/shared/theme/colors.ts), 242 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `Palette` | [39](../../src/shared/theme/colors.ts#L39) |
-| function | `relativeLuminance` | [173](../../src/shared/theme/colors.ts#L173) |
-| function | `contrastRatio` | [181](../../src/shared/theme/colors.ts#L181) |
-| function | `isDarkPalette` | [186](../../src/shared/theme/colors.ts#L186) |
+| function | `relativeLuminance` | [224](../../src/shared/theme/colors.ts#L224) |
+| function | `contrastRatio` | [232](../../src/shared/theme/colors.ts#L232) |
+| function | `isDarkPalette` | [237](../../src/shared/theme/colors.ts#L237) |
 
 ### src/shared/theme/index.tsx
 
@@ -8050,7 +8224,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/state/models.ts
 
-[Volledige bron](../../src/state/models.ts), 224 regels, rol: implementation.
+[Volledige bron](../../src/state/models.ts), 233 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -8071,12 +8245,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | type | `Bookmark` | [143](../../src/state/models.ts#L143) |
 | type | `MushafEdition` | [144](../../src/state/models.ts#L144) |
 | type | `MushafBookmark` | [151](../../src/state/models.ts#L151) |
-| type | `FocusSession` | [152](../../src/state/models.ts#L152) |
-| type | `AppState` | [153](../../src/state/models.ts#L153) |
+| type | `FocusSession` | [157](../../src/state/models.ts#L157) |
+| type | `AppState` | [158](../../src/state/models.ts#L158) |
 
 ### src/state/persistence/decodeState.ts
 
-[Volledige bron](../../src/state/persistence/decodeState.ts), 268 regels, rol: implementation.
+[Volledige bron](../../src/state/persistence/decodeState.ts), 287 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -8090,8 +8264,8 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function-variable | `array` | [24](../../src/state/persistence/decodeState.ts#L24) |
 | function-variable | `record` | [28](../../src/state/persistence/decodeState.ts#L28) |
 | function-variable | `fields` | [32](../../src/state/persistence/decodeState.ts#L32) |
-| function-variable | `legacyPreference` | [145](../../src/state/persistence/decodeState.ts#L145) |
-| function | `decodeState` | [208](../../src/state/persistence/decodeState.ts#L208) |
+| function-variable | `legacyPreference` | [151](../../src/state/persistence/decodeState.ts#L151) |
+| function | `decodeState` | [214](../../src/state/persistence/decodeState.ts#L214) |
 
 ### src/state/persistence/hydrateState.ts
 
@@ -8132,18 +8306,19 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### src/state/reducer.ts
 
-[Volledige bron](../../src/state/reducer.ts), 519 regels, rol: implementation.
+[Volledige bron](../../src/state/reducer.ts), 577 regels, rol: implementation.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `newId` | [27](../../src/state/reducer.ts#L27) |
-| type | `CheckInAction` | [28](../../src/state/reducer.ts#L28) |
-| type | `Action` | [40](../../src/state/reducer.ts#L40) |
-| function-variable | `progressKey` | [119](../../src/state/reducer.ts#L119) |
-| function | `validMushafPage` | [122](../../src/state/reducer.ts#L122) |
-| function | `checkIn` | [134](../../src/state/reducer.ts#L134) |
-| function | `completePlan` | [205](../../src/state/reducer.ts#L205) |
-| function | `appReducer` | [254](../../src/state/reducer.ts#L254) |
+| function-variable | `newId` | [31](../../src/state/reducer.ts#L31) |
+| type | `CheckInAction` | [32](../../src/state/reducer.ts#L32) |
+| type | `Action` | [44](../../src/state/reducer.ts#L44) |
+| function-variable | `progressKey` | [131](../../src/state/reducer.ts#L131) |
+| function | `validMushafPage` | [134](../../src/state/reducer.ts#L134) |
+| function | `checkIn` | [146](../../src/state/reducer.ts#L146) |
+| function | `completePlan` | [217](../../src/state/reducer.ts#L217) |
+| function | `appReducer` | [266](../../src/state/reducer.ts#L266) |
+| function-variable | `appReducer.matches` | [451](../../src/state/reducer.ts#L451) |
 
 ### src/state/store.tsx
 
@@ -8240,29 +8415,28 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/appearance-controls.test.ts
 
-[Volledige bron](../../tests/appearance-controls.test.ts), 170 regels, rol: test.
+[Volledige bron](../../tests/appearance-controls.test.ts), 193 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `settingsHarness` | [25](../../tests/appearance-controls.test.ts#L25) |
-| method | `settingsHarness.navigate` | [40](../../tests/appearance-controls.test.ts#L40) |
-| method | `settingsHarness.dispatch` | [44](../../tests/appearance-controls.test.ts#L44) |
-| function-variable | `toggle` | [65](../../tests/appearance-controls.test.ts#L65) |
-| method | `onClose` | [120](../../tests/appearance-controls.test.ts#L120) |
-| method | `remove` | [125](../../tests/appearance-controls.test.ts#L125) |
-| function-variable | `render` | [141](../../tests/appearance-controls.test.ts#L141) |
-| method | `render.onClose` | [145](../../tests/appearance-controls.test.ts#L145) |
+| function | `settingsHarness` | [26](../../tests/appearance-controls.test.ts#L26) |
+| method | `settingsHarness.dispatch` | [48](../../tests/appearance-controls.test.ts#L48) |
+| function-variable | `toggle` | [88](../../tests/appearance-controls.test.ts#L88) |
+| method | `onClose` | [143](../../tests/appearance-controls.test.ts#L143) |
+| method | `remove` | [148](../../tests/appearance-controls.test.ts#L148) |
+| function-variable | `render` | [164](../../tests/appearance-controls.test.ts#L164) |
+| method | `render.onClose` | [168](../../tests/appearance-controls.test.ts#L168) |
 
 ### tests/appearance-preferences.test.ts
 
-[Volledige bron](../../tests/appearance-preferences.test.ts), 150 regels, rol: test.
+[Volledige bron](../../tests/appearance-preferences.test.ts), 159 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `imported` | [84](../../tests/appearance-preferences.test.ts#L84) |
-| method | `getItem` | [114](../../tests/appearance-preferences.test.ts#L114) |
-| method | `setItem` | [117](../../tests/appearance-preferences.test.ts#L117) |
-| function-variable | `importer` | [122](../../tests/appearance-preferences.test.ts#L122) |
+| function-variable | `imported` | [93](../../tests/appearance-preferences.test.ts#L93) |
+| method | `getItem` | [123](../../tests/appearance-preferences.test.ts#L123) |
+| method | `setItem` | [126](../../tests/appearance-preferences.test.ts#L126) |
+| function-variable | `importer` | [131](../../tests/appearance-preferences.test.ts#L131) |
 
 ### tests/apple-auth.test.ts
 
@@ -8467,9 +8641,21 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/book-presentation.test.ts
 
-[Volledige bron](../../tests/book-presentation.test.ts), 268 regels, rol: test.
+[Volledige bron](../../tests/book-presentation.test.ts), 314 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
+
+### tests/book-translation-sheet.test.ts
+
+[Volledige bron](../../tests/book-translation-sheet.test.ts), 76 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| method | `dispatch` | [42](../../tests/book-translation-sheet.test.ts#L42) |
+| function-variable | `render` | [50](../../tests/book-translation-sheet.test.ts#L50) |
+| method | `render.onClose` | [57](../../tests/book-translation-sheet.test.ts#L57) |
+| method | `render.onReadText` | [58](../../tests/book-translation-sheet.test.ts#L58) |
+| function-variable | `verses` | [61](../../tests/book-translation-sheet.test.ts#L61) |
 
 ### tests/book-translation.test.ts
 
@@ -8490,6 +8676,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | method | `harness.zoom` | [38](../../tests/book-viewport-gestures.test.ts#L38) |
 | method | `harness.claimed` | [42](../../tests/book-viewport-gestures.test.ts#L42) |
 | function | `claim` | [48](../../tests/book-viewport-gestures.test.ts#L48) |
+
+### tests/bookmarks.test.ts
+
+[Volledige bron](../../tests/bookmarks.test.ts), 207 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `render` | [49](../../tests/bookmarks.test.ts#L49) |
 
 ### tests/checklist-input.test.ts
 
@@ -8524,6 +8718,30 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
+### tests/continuous-mushaf-lifecycle.test.ts
+
+[Volledige bron](../../tests/continuous-mushaf-lifecycle.test.ts), 152 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| type | `Ref` | [9](../../tests/continuous-mushaf-lifecycle.test.ts#L9) |
+| type | `Frame` | [10](../../tests/continuous-mushaf-lifecycle.test.ts#L10) |
+| method | `Frame.measureInWindow` | [11](../../tests/continuous-mushaf-lifecycle.test.ts#L11) |
+| method | `Frame.onLayout` | [12](../../tests/continuous-mushaf-lifecycle.test.ts#L12) |
+| type | `List` | [16](../../tests/continuous-mushaf-lifecycle.test.ts#L16) |
+| method | `List.scrollToOffset` | [17](../../tests/continuous-mushaf-lifecycle.test.ts#L17) |
+| method | `List.onContentSizeChange` | [18](../../tests/continuous-mushaf-lifecycle.test.ts#L18) |
+| method | `List.onScroll` | [19](../../tests/continuous-mushaf-lifecycle.test.ts#L19) |
+| method | `List.onViewableItemsChanged` | [20](../../tests/continuous-mushaf-lifecycle.test.ts#L20) |
+| function | `touch` | [23](../../tests/continuous-mushaf-lifecycle.test.ts#L23) |
+| function | `reader` | [31](../../tests/continuous-mushaf-lifecycle.test.ts#L31) |
+| function | `reader.render` | [52](../../tests/continuous-mushaf-lifecycle.test.ts#L52) |
+| method | `reader.render.onExit` | [64](../../tests/continuous-mushaf-lifecycle.test.ts#L64) |
+| method | `reader.render.onZoom` | [65](../../tests/continuous-mushaf-lifecycle.test.ts#L65) |
+| method | `reader.render.onSelect` | [66](../../tests/continuous-mushaf-lifecycle.test.ts#L66) |
+| method | `reader.render.onError` | [67](../../tests/continuous-mushaf-lifecycle.test.ts#L67) |
+| method | `reader.render.scrollTo` | [75](../../tests/continuous-mushaf-lifecycle.test.ts#L75) |
+
 ### tests/device-storage.test.ts
 
 [Volledige bron](../../tests/device-storage.test.ts), 143 regels, rol: test.
@@ -8537,7 +8755,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/dockPreferences.test.ts
 
-[Volledige bron](../../tests/dockPreferences.test.ts), 124 regels, rol: test.
+[Volledige bron](../../tests/dockPreferences.test.ts), 139 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
@@ -8557,11 +8775,43 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | type | `Feature` | [8](../../tests/feature-ledger.test.ts#L8) |
 | function | `currentEvidence` | [23](../../tests/feature-ledger.test.ts#L23) |
 
+### tests/floating-reader-audio.test.ts
+
+[Volledige bron](../../tests/floating-reader-audio.test.ts), 76 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `render` | [54](../../tests/floating-reader-audio.test.ts#L54) |
+
 ### tests/focus.test.ts
 
 [Volledige bron](../../tests/focus.test.ts), 43 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
+
+### tests/fullscreen-exit-drag.test.ts
+
+[Volledige bron](../../tests/fullscreen-exit-drag.test.ts), 113 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| method | `setValue` | [34](../../tests/fullscreen-exit-drag.test.ts#L34) |
+| method | `getTranslateTransform` | [37](../../tests/fullscreen-exit-drag.test.ts#L37) |
+| type | `Gesture` | [49](../../tests/fullscreen-exit-drag.test.ts#L49) |
+| type | `Handlers` | [50](../../tests/fullscreen-exit-drag.test.ts#L50) |
+| function-variable | `render` | [77](../../tests/fullscreen-exit-drag.test.ts#L77) |
+
+### tests/goal-reminder-permission.test.ts
+
+[Volledige bron](../../tests/goal-reminder-permission.test.ts), 144 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `fixture` | [21](../../tests/goal-reminder-permission.test.ts#L21) |
+| function-variable | `fixture.apply` | [26](../../tests/goal-reminder-permission.test.ts#L26) |
+| method | `fixture.setParams` | [37](../../tests/goal-reminder-permission.test.ts#L37) |
+| function-variable | `fixture.render` | [79](../../tests/goal-reminder-permission.test.ts#L79) |
+| function | `fixture.save` | [80](../../tests/goal-reminder-permission.test.ts#L80) |
 
 ### tests/goals.test.ts
 
@@ -8829,7 +9079,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/home-resume-reference.test.ts
 
-[Volledige bron](../../tests/home-resume-reference.test.ts), 23 regels, rol: test.
+[Volledige bron](../../tests/home-resume-reference.test.ts), 35 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
@@ -8920,26 +9170,26 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/local-reminder-reconciliation.test.ts
 
-[Volledige bron](../../tests/local-reminder-reconciliation.test.ts), 271 regels, rol: test.
+[Volledige bron](../../tests/local-reminder-reconciliation.test.ts), 405 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `time` | [13](../../tests/local-reminder-reconciliation.test.ts#L13) |
-| function | `planned` | [14](../../tests/local-reminder-reconciliation.test.ts#L14) |
-| function | `fixture` | [33](../../tests/local-reminder-reconciliation.test.ts#L33) |
-| function | `fixture.load` | [68](../../tests/local-reminder-reconciliation.test.ts#L68) |
-| class | `fixture.load.ClockDate` | [87](../../tests/local-reminder-reconciliation.test.ts#L87) |
-| method | `fixture.load.ClockDate.now` | [91](../../tests/local-reminder-reconciliation.test.ts#L91) |
+| function-variable | `time` | [14](../../tests/local-reminder-reconciliation.test.ts#L14) |
+| function | `planned` | [15](../../tests/local-reminder-reconciliation.test.ts#L15) |
+| function | `fixture` | [34](../../tests/local-reminder-reconciliation.test.ts#L34) |
+| function | `fixture.load` | [70](../../tests/local-reminder-reconciliation.test.ts#L70) |
+| class | `fixture.load.ClockDate` | [95](../../tests/local-reminder-reconciliation.test.ts#L95) |
+| method | `fixture.load.ClockDate.now` | [99](../../tests/local-reminder-reconciliation.test.ts#L99) |
 
 ### tests/local-reminders-panel.test.ts
 
-[Volledige bron](../../tests/local-reminders-panel.test.ts), 139 regels, rol: test.
+[Volledige bron](../../tests/local-reminders-panel.test.ts), 169 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | function | `fixture` | [17](../../tests/local-reminders-panel.test.ts#L17) |
-| function-variable | `fixture.render` | [64](../../tests/local-reminders-panel.test.ts#L64) |
-| function | `fixture.edit` | [65](../../tests/local-reminders-panel.test.ts#L65) |
+| function-variable | `fixture.render` | [71](../../tests/local-reminders-panel.test.ts#L71) |
+| function | `fixture.edit` | [72](../../tests/local-reminders-panel.test.ts#L72) |
 
 ### tests/metro-native-artifacts.test.ts
 
@@ -8956,11 +9206,11 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/mushaf-download-lifecycle.test.ts
 
-[Volledige bron](../../tests/mushaf-download-lifecycle.test.ts), 127 regels, rol: test.
+[Volledige bron](../../tests/mushaf-download-lifecycle.test.ts), 128 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function-variable | `find` | [103](../../tests/mushaf-download-lifecycle.test.ts#L103) |
+| function-variable | `find` | [104](../../tests/mushaf-download-lifecycle.test.ts#L104) |
 
 ### tests/mushaf-download-manager.test.ts
 
@@ -8971,6 +9221,16 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | function | `deferred` | [6](../../tests/mushaf-download-manager.test.ts#L6) |
 | function | `clock` | [13](../../tests/mushaf-download-manager.test.ts#L13) |
 | method | `clock.advance` | [18](../../tests/mushaf-download-manager.test.ts#L18) |
+
+### tests/mushaf-fullscreen.test.ts
+
+[Volledige bron](../../tests/mushaf-fullscreen.test.ts), 139 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| type | `Element` | [25](../../tests/mushaf-fullscreen.test.ts#L25) |
+| function-variable | `render` | [72](../../tests/mushaf-fullscreen.test.ts#L72) |
+| function | `find` | [76](../../tests/mushaf-fullscreen.test.ts#L76) |
 
 ### tests/mushaf-gesture-bridge.test.ts
 
@@ -8983,7 +9243,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/mushaf-library.test.ts
 
-[Volledige bron](../../tests/mushaf-library.test.ts), 158 regels, rol: test.
+[Volledige bron](../../tests/mushaf-library.test.ts), 168 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -9024,13 +9284,19 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/mushaf-page-metrics.test.ts
 
-[Volledige bron](../../tests/mushaf-page-metrics.test.ts), 93 regels, rol: test.
+[Volledige bron](../../tests/mushaf-page-metrics.test.ts), 96 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/mushaf-page-turn.test.ts
 
 [Volledige bron](../../tests/mushaf-page-turn.test.ts), 56 regels, rol: test.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
+
+### tests/mushaf-presentation-propagation.test.ts
+
+[Volledige bron](../../tests/mushaf-presentation-propagation.test.ts), 94 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
@@ -9054,7 +9320,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/mushaf-resume.test.ts
 
-[Volledige bron](../../tests/mushaf-resume.test.ts), 33 regels, rol: test.
+[Volledige bron](../../tests/mushaf-resume.test.ts), 78 regels, rol: test.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
@@ -9093,25 +9359,25 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/mushaf-word-selection.test.ts
 
-[Volledige bron](../../tests/mushaf-word-selection.test.ts), 1178 regels, rol: test.
+[Volledige bron](../../tests/mushaf-word-selection.test.ts), 1166 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `Node` | [21](../../tests/mushaf-word-selection.test.ts#L21) |
-| function-variable | `event` | [53](../../tests/mushaf-word-selection.test.ts#L53) |
-| function | `screen` | [78](../../tests/mushaf-word-selection.test.ts#L78) |
-| function-variable | `screen.same` | [107](../../tests/mushaf-word-selection.test.ts#L107) |
-| method | `screen.useState` | [116](../../tests/mushaf-word-selection.test.ts#L116) |
-| method | `screen.useRef` | [128](../../tests/mushaf-word-selection.test.ts#L128) |
-| method | `screen.useMemo` | [133](../../tests/mushaf-word-selection.test.ts#L133) |
-| method | `screen.useEffect` | [139](../../tests/mushaf-word-selection.test.ts#L139) |
-| method | `screen.useLayoutEffect` | [157](../../tests/mushaf-word-selection.test.ts#L157) |
-| function-variable | `screen.setImmersive` | [167](../../tests/mushaf-word-selection.test.ts#L167) |
-| function | `screen.render` | [308](../../tests/mushaf-word-selection.test.ts#L308) |
-| function | `screen.render.visit` | [332](../../tests/mushaf-word-selection.test.ts#L332) |
-| function-variable | `native` | [388](../../tests/mushaf-word-selection.test.ts#L388) |
-| function-variable | `horizontal` | [419](../../tests/mushaf-word-selection.test.ts#L419) |
-| function-variable | `choose` | [638](../../tests/mushaf-word-selection.test.ts#L638) |
+| type | `Node` | [27](../../tests/mushaf-word-selection.test.ts#L27) |
+| function-variable | `event` | [59](../../tests/mushaf-word-selection.test.ts#L59) |
+| function | `screen` | [84](../../tests/mushaf-word-selection.test.ts#L84) |
+| function-variable | `screen.same` | [117](../../tests/mushaf-word-selection.test.ts#L117) |
+| method | `screen.useState` | [126](../../tests/mushaf-word-selection.test.ts#L126) |
+| method | `screen.useRef` | [138](../../tests/mushaf-word-selection.test.ts#L138) |
+| method | `screen.useMemo` | [143](../../tests/mushaf-word-selection.test.ts#L143) |
+| method | `screen.useEffect` | [149](../../tests/mushaf-word-selection.test.ts#L149) |
+| method | `screen.useLayoutEffect` | [167](../../tests/mushaf-word-selection.test.ts#L167) |
+| function-variable | `screen.setImmersive` | [177](../../tests/mushaf-word-selection.test.ts#L177) |
+| function | `screen.render` | [322](../../tests/mushaf-word-selection.test.ts#L322) |
+| function | `screen.render.visit` | [347](../../tests/mushaf-word-selection.test.ts#L347) |
+| function-variable | `native` | [403](../../tests/mushaf-word-selection.test.ts#L403) |
+| function-variable | `horizontal` | [434](../../tests/mushaf-word-selection.test.ts#L434) |
+| function-variable | `choose` | [651](../../tests/mushaf-word-selection.test.ts#L651) |
 
 ### tests/mushafScrubber.test.ts
 
@@ -9136,16 +9402,16 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/navigationDock.test.ts
 
-[Volledige bron](../../tests/navigationDock.test.ts), 179 regels, rol: test.
+[Volledige bron](../../tests/navigationDock.test.ts), 229 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `Node` | [13](../../tests/navigationDock.test.ts#L13) |
-| function | `dock` | [14](../../tests/navigationDock.test.ts#L14) |
-| method | `dock.useState` | [26](../../tests/navigationDock.test.ts#L26) |
-| function | `dock.render` | [89](../../tests/navigationDock.test.ts#L89) |
-| function | `dock.render.visit` | [103](../../tests/navigationDock.test.ts#L103) |
-| function-variable | `checkbox` | [134](../../tests/navigationDock.test.ts#L134) |
+| type | `Node` | [14](../../tests/navigationDock.test.ts#L14) |
+| function | `dock` | [15](../../tests/navigationDock.test.ts#L15) |
+| method | `dock.useState` | [27](../../tests/navigationDock.test.ts#L27) |
+| function | `dock.render` | [100](../../tests/navigationDock.test.ts#L100) |
+| function | `dock.render.visit` | [114](../../tests/navigationDock.test.ts#L114) |
+| function-variable | `checkbox` | [145](../../tests/navigationDock.test.ts#L145) |
 
 ### tests/note-counts.test.ts
 
@@ -9182,6 +9448,31 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function | `activeWithoutFlag` | [70](../../tests/notes-format.test.ts#L70) |
 
+### tests/notes-import-library.test.ts
+
+[Volledige bron](../../tests/notes-import-library.test.ts), 265 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `note` | [22](../../tests/notes-import-library.test.ts#L22) |
+| function-variable | `commit` | [193](../../tests/notes-import-library.test.ts#L193) |
+| method | `usePreventRemove` | [203](../../tests/notes-import-library.test.ts#L203) |
+| method | `setOptions` | [233](../../tests/notes-import-library.test.ts#L233) |
+| function-variable | `render` | [234](../../tests/notes-import-library.test.ts#L234) |
+
+### tests/notes-library-adapters.test.ts
+
+[Volledige bron](../../tests/notes-library-adapters.test.ts), 179 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function | `load` | [7](../../tests/notes-library-adapters.test.ts#L7) |
+| method | `text` | [54](../../tests/notes-library-adapters.test.ts#L54) |
+| type | `Gesture` | [116](../../tests/notes-library-adapters.test.ts#L116) |
+| type | `Handlers` | [117](../../tests/notes-library-adapters.test.ts#L117) |
+| method | `setValue` | [139](../../tests/notes-library-adapters.test.ts#L139) |
+| method | `getTranslateTransform` | [140](../../tests/notes-library-adapters.test.ts#L140) |
+
 ### tests/notification-destinations.test.ts
 
 [Volledige bron](../../tests/notification-destinations.test.ts), 66 regels, rol: test.
@@ -9190,12 +9481,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/notification-native-permission.test.ts
 
-[Volledige bron](../../tests/notification-native-permission.test.ts), 123 regels, rol: test.
+[Volledige bron](../../tests/notification-native-permission.test.ts), 393 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `module` | [12](../../tests/notification-native-permission.test.ts#L12) |
-| function | `fixture` | [27](../../tests/notification-native-permission.test.ts#L27) |
+| function | `module` | [13](../../tests/notification-native-permission.test.ts#L13) |
+| function | `fixture` | [33](../../tests/notification-native-permission.test.ts#L33) |
+| function | `startupFixture` | [107](../../tests/notification-native-permission.test.ts#L107) |
+| function-variable | `startupFixture.load` | [117](../../tests/notification-native-permission.test.ts#L117) |
 
 ### tests/notification-system.test.ts
 
@@ -9263,17 +9556,23 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/pdf-reader-zoom.test.ts
 
-[Volledige bron](../../tests/pdf-reader-zoom.test.ts), 367 regels, rol: test.
+[Volledige bron](../../tests/pdf-reader-zoom.test.ts), 395 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | type | `Node` | [11](../../tests/pdf-reader-zoom.test.ts#L11) |
 | function | `pdfHarness` | [13](../../tests/pdf-reader-zoom.test.ts#L13) |
-| function-variable | `pdfHarness.setChrome` | [35](../../tests/pdf-reader-zoom.test.ts#L35) |
-| function-variable | `pdfHarness.effect` | [37](../../tests/pdf-reader-zoom.test.ts#L37) |
-| method | `pdfHarness.useState` | [56](../../tests/pdf-reader-zoom.test.ts#L56) |
-| function | `pdfHarness.render` | [161](../../tests/pdf-reader-zoom.test.ts#L161) |
-| function | `pdfHarness.render.visit` | [172](../../tests/pdf-reader-zoom.test.ts#L172) |
+| function-variable | `pdfHarness.setChrome` | [36](../../tests/pdf-reader-zoom.test.ts#L36) |
+| function-variable | `pdfHarness.effect` | [38](../../tests/pdf-reader-zoom.test.ts#L38) |
+| method | `pdfHarness.useState` | [57](../../tests/pdf-reader-zoom.test.ts#L57) |
+| function | `pdfHarness.render` | [165](../../tests/pdf-reader-zoom.test.ts#L165) |
+| function | `pdfHarness.render.visit` | [177](../../tests/pdf-reader-zoom.test.ts#L177) |
+
+### tests/planned-passage.test.ts
+
+[Volledige bron](../../tests/planned-passage.test.ts), 25 regels, rol: test.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/planning-reminders.test.ts
 
@@ -9332,7 +9631,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/reader-lifecycle.test.ts
 
-[Volledige bron](../../tests/reader-lifecycle.test.ts), 692 regels, rol: test.
+[Volledige bron](../../tests/reader-lifecycle.test.ts), 722 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
@@ -9347,7 +9646,7 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | method | `mountReader.useRef` | [78](../../tests/reader-lifecycle.test.ts#L78) |
 | method | `mountReader.render` | [196](../../tests/reader-lifecycle.test.ts#L196) |
 | method | `mountReader.unmount` | [202](../../tests/reader-lifecycle.test.ts#L202) |
-| function-variable | `find` | [212](../../tests/reader-lifecycle.test.ts#L212) |
+| function-variable | `find` | [229](../../tests/reader-lifecycle.test.ts#L229) |
 
 ### tests/reader-listen-button.test.ts
 
@@ -9367,24 +9666,25 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/reader-parity.test.ts
 
-[Volledige bron](../../tests/reader-parity.test.ts), 774 regels, rol: test.
+[Volledige bron](../../tests/reader-parity.test.ts), 951 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| type | `Element` | [23](../../tests/reader-parity.test.ts#L23) |
-| function | `evaluate` | [24](../../tests/reader-parity.test.ts#L24) |
-| function | `nodes` | [46](../../tests/reader-parity.test.ts#L46) |
-| function | `hookHarness` | [70](../../tests/reader-parity.test.ts#L70) |
-| function-variable | `hookHarness.memo` | [74](../../tests/reader-parity.test.ts#L74) |
-| function-variable | `render` | [442](../../tests/reader-parity.test.ts#L442) |
-| function-variable | `render` | [523](../../tests/reader-parity.test.ts#L523) |
-| class | `Directory` | [591](../../tests/reader-parity.test.ts#L591) |
-| method | `Directory.create` | [596](../../tests/reader-parity.test.ts#L596) |
-| class | `File` | [598](../../tests/reader-parity.test.ts#L598) |
-| method | `File.bytes` | [608](../../tests/reader-parity.test.ts#L608) |
-| method | `File.write` | [611](../../tests/reader-parity.test.ts#L611) |
-| method | `File.delete` | [616](../../tests/reader-parity.test.ts#L616) |
-| method | `File.move` | [619](../../tests/reader-parity.test.ts#L619) |
+| type | `Element` | [25](../../tests/reader-parity.test.ts#L25) |
+| function | `evaluate` | [26](../../tests/reader-parity.test.ts#L26) |
+| function | `nodes` | [48](../../tests/reader-parity.test.ts#L48) |
+| function | `hookHarness` | [72](../../tests/reader-parity.test.ts#L72) |
+| function-variable | `hookHarness.memo` | [76](../../tests/reader-parity.test.ts#L76) |
+| function-variable | `render` | [393](../../tests/reader-parity.test.ts#L393) |
+| function-variable | `render` | [619](../../tests/reader-parity.test.ts#L619) |
+| function-variable | `render` | [700](../../tests/reader-parity.test.ts#L700) |
+| class | `Directory` | [768](../../tests/reader-parity.test.ts#L768) |
+| method | `Directory.create` | [773](../../tests/reader-parity.test.ts#L773) |
+| class | `File` | [775](../../tests/reader-parity.test.ts#L775) |
+| method | `File.bytes` | [785](../../tests/reader-parity.test.ts#L785) |
+| method | `File.write` | [788](../../tests/reader-parity.test.ts#L788) |
+| method | `File.delete` | [793](../../tests/reader-parity.test.ts#L793) |
+| method | `File.move` | [796](../../tests/reader-parity.test.ts#L796) |
 
 ### tests/reader-position-persistence.test.ts
 
@@ -9418,6 +9718,14 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 Geen benoemde declaraties in deze index; zie de volledige bron.
 
+### tests/reading-plan-screen.test.ts
+
+[Volledige bron](../../tests/reading-plan-screen.test.ts), 85 regels, rol: test.
+
+| Soort | Declaratie | Regel |
+| --- | --- | --- |
+| function-variable | `render` | [59](../../tests/reading-plan-screen.test.ts#L59) |
+
 ### tests/reading-plan.test.ts
 
 [Volledige bron](../../tests/reading-plan.test.ts), 120 regels, rol: test.
@@ -9426,6 +9734,12 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 | --- | --- | --- |
 | function-variable | `row` | [16](../../tests/reading-plan.test.ts#L16) |
 | function-variable | `closeTo` | [29](../../tests/reading-plan.test.ts#L29) |
+
+### tests/reading-statistics-page-navigation.test.ts
+
+[Volledige bron](../../tests/reading-statistics-page-navigation.test.ts), 104 regels, rol: test.
+
+Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/realtime-readiness.test.ts
 
@@ -9639,26 +9953,27 @@ Geen benoemde declaraties in deze index; zie de volledige bron.
 
 ### tests/tracking-recheck-components.test.ts
 
-[Volledige bron](../../tests/tracking-recheck-components.test.ts), 138 regels, rol: test.
+[Volledige bron](../../tests/tracking-recheck-components.test.ts), 148 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
 | method | `navigate` | [57](../../tests/tracking-recheck-components.test.ts#L57) |
+| function | `renderChecklist` | [63](../../tests/tracking-recheck-components.test.ts#L63) |
 
 ### tests/tracking-ui.test.ts
 
-[Volledige bron](../../tests/tracking-ui.test.ts), 456 regels, rol: test.
+[Volledige bron](../../tests/tracking-ui.test.ts), 525 regels, rol: test.
 
 | Soort | Declaratie | Regel |
 | --- | --- | --- |
-| function | `mount` | [38](../../tests/tracking-ui.test.ts#L38) |
-| function-variable | `mount.persist` | [50](../../tests/tracking-ui.test.ts#L50) |
-| function-variable | `mount.dispatch` | [56](../../tests/tracking-ui.test.ts#L56) |
-| function-variable | `mount.commit` | [59](../../tests/tracking-ui.test.ts#L59) |
-| method | `mount.navigate` | [115](../../tests/tracking-ui.test.ts#L115) |
-| method | `mount.setParams` | [122](../../tests/tracking-ui.test.ts#L122) |
-| method | `mount.now` | [145](../../tests/tracking-ui.test.ts#L145) |
-| function | `button` | [177](../../tests/tracking-ui.test.ts#L177) |
+| function | `mount` | [39](../../tests/tracking-ui.test.ts#L39) |
+| function-variable | `mount.persist` | [51](../../tests/tracking-ui.test.ts#L51) |
+| function-variable | `mount.dispatch` | [57](../../tests/tracking-ui.test.ts#L57) |
+| function-variable | `mount.commit` | [60](../../tests/tracking-ui.test.ts#L60) |
+| method | `mount.navigate` | [122](../../tests/tracking-ui.test.ts#L122) |
+| method | `mount.setParams` | [129](../../tests/tracking-ui.test.ts#L129) |
+| method | `mount.now` | [155](../../tests/tracking-ui.test.ts#L155) |
+| function | `button` | [187](../../tests/tracking-ui.test.ts#L187) |
 
 ### tests/translations.test.ts
 

@@ -4,11 +4,26 @@ import {
   defaultDockDestinations,
   dockDestinationIds,
   normalizeDockDestinations,
+  visibleDockDestinations,
 } from '../src/domain/dockPreferences';
 import { dockDestinations } from '../src/app/navigation/dockDestinations';
 import { initialState } from '../src/state/models';
 import { appReducer } from '../src/state/reducer';
 import { decodeState } from '../src/state/persistence/decodeState';
+
+test('reading indexes remain directly reachable without changing custom pins', () => {
+  const pinned = [...defaultDockDestinations];
+  assert.deepEqual(visibleDockDestinations(pinned), [
+    'stats',
+    'mushaf',
+    'groups',
+    'surah',
+    'hizb',
+    'juz',
+  ]);
+  assert.deepEqual(pinned, defaultDockDestinations);
+  assert.deepEqual(visibleDockDestinations(['hizb', 'notes']), ['hizb', 'notes', 'surah', 'juz']);
+});
 
 test('missing preferences keep the original three destinations; explicit empty remains empty', () => {
   const saved = JSON.parse(JSON.stringify(initialState));

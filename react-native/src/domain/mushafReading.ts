@@ -1,11 +1,15 @@
-import type { MushafEdition, ReadingEntry } from '../state/models';
+import type { BookPresentation, MushafEdition, ReadingEntry } from '../state/models';
 import { hafsReferences, pageSegments, type Edition } from '../content/mushafGeometry';
 import { verseIndex, versePoint } from './checklist';
 
-export function mushafPageRange(edition: MushafEdition, page: number): ReadingEntry['ayahRange'] {
+export function mushafPageRange(
+  edition: MushafEdition,
+  page: number,
+  bookPresentation?: BookPresentation,
+): ReadingEntry['ayahRange'] {
   if (!['hafs', 'hafs_maknoon', 'warsh_maknoon', 'muhammadi'].includes(edition)) return undefined;
   const indexes: number[] = [];
-  for (const segment of pageSegments(edition as Edition, page)) {
+  for (const segment of pageSegments(edition as Edition, page, bookPresentation)) {
     try {
       for (const ayah of hafsReferences(edition as Edition, segment.surah, segment.ayah))
         indexes.push(verseIndex(segment.surah, ayah));
@@ -31,8 +35,9 @@ export function mushafPageEntry(
   title: string,
   now: number,
   date: string,
+  bookPresentation?: BookPresentation,
 ): ReadingEntry {
-  const ayahRange = mushafPageRange(edition, page);
+  const ayahRange = mushafPageRange(edition, page, bookPresentation);
   if (!ayahRange) throw new Error('This page has no verified Quran content range');
   return {
     id: sourceKey,
@@ -47,13 +52,19 @@ export function mushafPageEntry(
     dateKey: date,
     ownerId: '',
     ayahRange,
-    mushafPage: { edition, page },
+    mushafPage: { edition, page, ...(bookPresentation ? { bookPresentation } : {}) },
   };
 }
 
 /** A reversible page mark is separate from previous session, imported and bulk reads. */
-export function mushafPageMarkKey(edition: MushafEdition, page: number, ownerId: string): string {
-  return `mushaf-page-mark:v1:${JSON.stringify([ownerId, edition, page])}`;
+export function mushafPageMarkKey(
+  edition: MushafEdition,
+  page: number,
+  ownerId: string,
+  bookPresentation?: BookPresentation,
+): string {
+  const key = `mushaf-page-mark:v1:${JSON.stringify([ownerId, edition, page])}`;
+  return edition === 'hafs' && bookPresentation === 'original' ? `${key}:original` : key;
 }
 
 export function mushafPageMark(
@@ -61,8 +72,9 @@ export function mushafPageMark(
   edition: MushafEdition,
   page: number,
   ownerId: string,
+  bookPresentation?: BookPresentation,
 ): ReadingEntry | undefined {
-  const key = mushafPageMarkKey(edition, page, ownerId);
+  const key = mushafPageMarkKey(edition, page, ownerId, bookPresentation);
   return history.find(
     (row) =>
       row.id === key &&
@@ -73,7 +85,9 @@ export function mushafPageMark(
       row.action === 'read' &&
       row.amount === 1 &&
       row.mushafPage?.edition === edition &&
-      row.mushafPage.page === page,
+      row.mushafPage.page === page &&
+      (edition !== 'hafs' ||
+        (row.mushafPage.bookPresentation ?? 'selectable') === (bookPresentation ?? 'selectable')),
   );
 }
 
@@ -84,6 +98,7 @@ export type MushafPageMarkChange = {
   ownerId: string;
   now: number;
   date: string;
+  bookPresentation?: BookPresentation;
 };
 
 /** Set the intended state atomically; repeated callbacks cannot double-count or undo a new mark. */
@@ -99,13 +114,15 @@ export function setMushafPageMarks(
     !Number.isFinite(change.now) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(change.date) ||
     pages.some(
-      (item) => !Number.isInteger(item.page) || !mushafPageRange(change.edition, item.page),
+      (item) =>
+        !Number.isInteger(item.page) ||
+        !mushafPageRange(change.edition, item.page, change.bookPresentation),
     )
   )
     return history;
 
   const marks = pages.map(({ page }) =>
-    mushafPageMark(history, change.edition, page, change.ownerId),
+    mushafPageMark(history, change.edition, page, change.ownerId, change.bookPresentation),
   );
   if (!change.marked) {
     // Delete only the exact records represented by the visible checks. Older page
@@ -116,12 +133,20 @@ export function setMushafPageMarks(
   const adding: ReadingEntry[] = [];
   for (const [index, { page, title }] of pages.entries()) {
     if (marks[index]) continue;
-    const key = mushafPageMarkKey(change.edition, page, change.ownerId);
+    const key = mushafPageMarkKey(change.edition, page, change.ownerId, change.bookPresentation);
     // A malformed or unrelated row with this identity is user data too. Never
     // overwrite it, or create an ambiguous duplicate that unmark could remove.
     if (history.some((row) => row.id === key || row.sourceKey === key)) return history;
     adding.unshift({
-      ...mushafPageEntry(change.edition, page, key, title, change.now, change.date),
+      ...mushafPageEntry(
+        change.edition,
+        page,
+        key,
+        title,
+        change.now,
+        change.date,
+        change.bookPresentation,
+      ),
       ownerId: change.ownerId,
     });
   }

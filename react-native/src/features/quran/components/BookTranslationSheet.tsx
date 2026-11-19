@@ -4,7 +4,7 @@ import { chapterById } from '../../../content/quran';
 import { availableTranslations, getAyahTranslation } from '../../../content/translations';
 import { bookTranslationVerses } from '../../../domain/bookTranslation';
 import { useI18n } from '../../../i18n';
-import type { MushafEdition } from '../../../state/models';
+import type { BookPresentation, MushafEdition } from '../../../state/models';
 import { useAppStore } from '../../../state/store';
 import { Button, Segments, Sheet, T } from '../../../shared/components';
 import { usePalette } from '../../../shared/theme';
@@ -15,12 +15,14 @@ export function BookTranslationSheet({
   visible,
   edition,
   pages,
+  bookPresentation,
   onClose,
   onReadText,
 }: {
   visible: boolean;
   edition: MushafEdition;
   pages: number[];
+  bookPresentation?: BookPresentation;
   onClose: () => void;
   onReadText: (surah: number, ayah: number) => void;
 }) {
@@ -36,8 +38,8 @@ export function BookTranslationSheet({
         : 'en'
       : state.preferences.translation;
   const verses = useMemo(
-    () => (visible ? bookTranslationVerses(edition, pages) : []),
-    [visible, edition, pages],
+    () => (visible ? bookTranslationVerses(edition, pages, bookPresentation) : []),
+    [visible, edition, pages, bookPresentation],
   );
   return (
     <Sheet visible={visible} title={t('navigation.translation')} onClose={onClose}>

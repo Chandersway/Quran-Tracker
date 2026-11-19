@@ -84,6 +84,7 @@ test('leaving the library screen does not cancel a user-started download', async
       removeMushaf: () => undefined,
     },
     '../../../domain/bookPresentation': {},
+    '../../../domain/mushafResume': {},
     '../../../services/mushaf/mushafDownloads': { mushafDownloads: manager },
     '../model/mushafDownloadCopy': { downloadCopy: { en: {} } },
   };

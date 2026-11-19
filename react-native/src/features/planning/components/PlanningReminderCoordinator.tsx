@@ -14,7 +14,7 @@ import {
 import { Notice } from '../../../shared/components';
 import { useI18n } from '../../../i18n';
 
-/** Restores both daily reminders and pending Agenda alarms; never requests permission. */
+/** Restores local alarms on launch, onboarding completion and return from system settings. */
 export function PlanningReminderCoordinator() {
   const { state, ready } = useAppStore();
   const current = useRef(state);
@@ -35,7 +35,13 @@ export function PlanningReminderCoordinator() {
       unlisten();
       subscription.remove();
     };
-  }, [ready, state.plans, state.preferences.language, minute]);
+  }, [
+    ready,
+    state.plans,
+    state.preferences.language,
+    state.preferences.onboardingComplete,
+    minute,
+  ]);
   return null;
 }
 export function LocalReminderFailureNotice() {

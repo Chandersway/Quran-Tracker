@@ -79,10 +79,20 @@ export async function reconcileTrackedPlanReminders(
     if (!previous) {
       // Preserve the conservative first-upgrade decision if quiet hours change
       // later and move this same event into a future allowed time.
-      if (reminder.dueAt.getTime() < ledger.initializedAt) {
+      const existingDaily =
+        reminder.firstGrantSlot !== undefined &&
+        existing.some((item) => {
+          const key = item.data.planReminderKey;
+          return (
+            typeof key === 'string' &&
+            (key.startsWith(`daily:${reminder.firstGrantSlot}:`) || key.startsWith('legacy-daily:'))
+          );
+        });
+      if (existingDaily || reminder.dueAt.getTime() < ledger.initializedAt) {
+        const dueAt = reminder.deliveryDueAt ?? reminder.dueAt.getTime();
         ledger.entries[reminder.deliveryKey] ??= {
-          dueAt: reminder.dueAt.getTime(),
-          scheduledFor: reminder.dueAt.getTime(),
+          dueAt,
+          scheduledFor: dueAt,
           notificationId: null,
         };
       }
@@ -105,7 +115,12 @@ export async function reconcileTrackedPlanReminders(
     const submitted = reminder.deliveryKey ? ledger.entries[reminder.deliveryKey] : undefined;
     // Deferring quiet hours must never create a second alarm for an event whose
     // previous submission may already have displayed, even if its new time is future.
-    if (submitted && submitted.scheduledFor <= timestamp && !nativePending) return [];
+    if (
+      submitted &&
+      !nativePending &&
+      (reminder.firstGrantSlot !== undefined || submitted.scheduledFor <= timestamp)
+    )
+      return [];
     if (reminder.repeatDaily || dueAt > timestamp || byKey.has(reminder.key)) return [reminder];
     if (nativePending) return [{ ...reminder, key: String(nativePending.data.planReminderKey) }];
     if (

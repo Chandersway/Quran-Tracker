@@ -24,6 +24,7 @@ import { GroupChatScreen } from '../../features/groups/screens/GroupChatScreen';
 import { chatText } from '../../features/groups/chatCopy';
 import { GroupsScreen } from '../../features/groups/screens/GroupsScreen';
 import { NotesScreen } from '../../features/notes/screens/NotesScreen';
+import { BookmarksScreen } from '../../features/bookmarks/screens/BookmarksScreen';
 import { OnboardingScreen } from '../../features/onboarding/screens/OnboardingScreen';
 import {
   LocalReminderFailureNotice,
@@ -159,6 +160,11 @@ export function AppNavigator() {
                     options={{ title: t('Reflections') }}
                   />
                   <Stack.Screen
+                    name="Bookmarks"
+                    component={BookmarksScreen}
+                    options={{ title: t('app.bookmarks') }}
+                  />
+                  <Stack.Screen
                     name="Study"
                     component={StudyScreen}
                     options={{ title: t('Look a little closer') }}
@@ -251,7 +257,9 @@ export function AppNavigator() {
                 </Stack.Navigator>
               </View>
               {!immersiveReader && <MiniPlayer />}
-              {!immersiveReader && <FocusFloatingTimer />}
+              <FocusFloatingTimer
+                onBook={immersiveReader && navigation.getCurrentRoute()?.name === 'Mushaf'}
+              />
             </SafeAreaView>
           </AppChromeContext.Provider>
         </NavigationContainer>

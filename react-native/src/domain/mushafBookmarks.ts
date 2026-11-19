@@ -1,4 +1,31 @@
-import type { LegacyPreferenceValue, MushafBookmark } from '../state/models';
+import type {
+  BookPresentation,
+  LegacyPreferenceValue,
+  MushafBookmark,
+  MushafEdition,
+} from '../state/models';
+
+/** The printed Medina and selectable QPC layouts have different Hafs page boundaries. */
+export function bookmarkPresentation(
+  bookmark: Pick<MushafBookmark, 'edition' | 'bookPresentation'>,
+): BookPresentation {
+  return bookmark.edition === 'hafs' && bookmark.bookPresentation === 'selectable'
+    ? 'selectable'
+    : 'original';
+}
+
+export function matchesMushafBookmarkPage(
+  bookmark: MushafBookmark,
+  edition: MushafEdition,
+  page: number,
+  bookPresentation?: BookPresentation,
+): boolean {
+  return (
+    bookmark.edition === edition &&
+    bookmark.page === page &&
+    bookmarkPresentation(bookmark) === bookmarkPresentation({ edition, bookPresentation })
+  );
+}
 
 /** Kotlin's warsh_page_bookmarks keys were used for its Muhammadi page viewer. */
 export function legacyWarshBookmarks(

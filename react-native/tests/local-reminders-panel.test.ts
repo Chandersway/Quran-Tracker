@@ -14,10 +14,12 @@ import {
   type TestElement,
 } from './helpers/componentHarness';
 
-function fixture() {
+function fixture(permission = true) {
   const hooks = componentHarness();
   const pending: { action: Action; resolve: () => void; reject: (error: Error) => void }[] = [];
   let changed = 0;
+  let permissionRequests = 0;
+  let reminderSaves = 0;
   const { LocalRemindersPanel } = loadComponentModule<{ LocalRemindersPanel: () => TestElement }>(
     new URL('../src/features/account/components/LocalRemindersPanel.tsx', import.meta.url),
     {
@@ -44,10 +46,15 @@ function fixture() {
           daily: true,
           dailyMinute: 480,
         }),
-        saveLocalNotifications: async () => undefined,
+        saveLocalNotifications: async () => {
+          reminderSaves++;
+        },
       },
       '../../../services/notifications/planningReminderPort': {
-        requestPlanReminderPermission: async () => true,
+        requestPlanReminderPermission: async () => {
+          permissionRequests++;
+          return permission;
+        },
       },
       '../../../services/notifications/notificationPreferenceEvents': {
         notifyNotificationPreferencesChanged: () => {
@@ -85,8 +92,30 @@ function fixture() {
     press(findElement(tree, 'Button', 'title', 'notifications.save'));
     await new Promise(setImmediate);
   }
-  return { render, edit, pending, changes: () => changed };
+  return {
+    render,
+    edit,
+    pending,
+    changes: () => changed,
+    permissionRequests: () => permissionRequests,
+    reminderSaves: () => reminderSaves,
+  };
 }
+
+test('editing an enabled reminder time requests permission and cannot claim success when blocked', async () => {
+  const f = fixture(false);
+  await f.edit();
+  assert.equal(f.permissionRequests(), 1);
+  assert.equal(f.reminderSaves(), 0);
+  assert.equal(f.pending.length, 0);
+  const tree = f.render();
+  const sheet = findElement(tree, 'Sheet', 'visible', true);
+  assert.ok(findElement(sheet, 'Notice', 'message', 'notifications.blocked'));
+  assert.equal(
+    elements(tree, 'Notice').some((item) => item.props.message === 'notifications.saved'),
+    false,
+  );
+});
 
 test('reminder success waits for both the canonical goal and snapshot preferences', async () => {
   const f = fixture();
@@ -121,7 +150,8 @@ for (const failureAt of [0, 1]) {
     f.pending[failureAt]!.reject(new Error('storage full'));
     await new Promise(setImmediate);
     const tree = f.render();
-    assert.ok(findElement(tree, 'Notice', 'message', 'notifications.error'));
+    const sheet = findElement(tree, 'Sheet', 'visible', true);
+    assert.ok(findElement(sheet, 'Notice', 'message', 'notifications.error'));
     assert.equal(
       elements(tree, 'Notice').some((item) => item.props.message === 'notifications.saved'),
       false,

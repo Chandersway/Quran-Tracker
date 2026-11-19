@@ -24,6 +24,7 @@ export type RootStack = {
   ReadingPlan: undefined;
   Notifications: undefined;
   Settings: undefined;
+  Bookmarks: undefined;
   Account: undefined;
   Groups: undefined;
   Group: { code: string; postId?: string; invite?: string };

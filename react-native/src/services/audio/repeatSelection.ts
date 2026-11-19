@@ -8,6 +8,7 @@ import {
 import rawMap from '../../content/generated/warsh_ayah_map.json';
 import { repeatAyahUrl, type RepeatReciter, type AudioSelection } from '../../domain/repeat';
 import type { AudioService, AudioTrack } from '../backend/types';
+import type { BookPresentation } from '../../state/models';
 
 const warshMap: Record<string, number[][]> = rawMap.chapters;
 export type RepeatMode = 'page' | 'pages' | 'surah' | 'ayahs';
@@ -17,6 +18,7 @@ export type RepeatSelectionInput = {
   surah: number;
   warsh: boolean;
   edition: Edition | null;
+  pagePresentation?: BookPresentation;
   currentPage?: number;
   from: number;
   to: number;
@@ -36,8 +38,9 @@ export function repeatInitialPage(
   edition: Edition | null,
   surah: number,
   ayah: number,
+  pagePresentation?: BookPresentation,
 ): number | undefined {
-  return edition ? findMushafAyah(edition, surah, ayah)?.page : undefined;
+  return edition ? findMushafAyah(edition, surah, ayah, pagePresentation)?.page : undefined;
 }
 export function repeatSelection(
   input: RepeatSelectionInput,
@@ -63,7 +66,7 @@ export function repeatSelection(
     if (warsh !== (edition === 'warsh_maknoon' || edition === 'muhammadi'))
       throw new RangeError('REPEAT_PAGES_INVALID');
     for (let page = first; page <= last; page++) {
-      for (const segment of pageSegments(edition, page)) {
+      for (const segment of pageSegments(edition, page, input.pagePresentation)) {
         const refs = reciter.timingReadId
           ? [segment.ayah]
           : hafsReferences(edition, segment.surah, segment.ayah);

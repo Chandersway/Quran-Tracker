@@ -51,7 +51,7 @@ export function useNoteEditor({
   );
   const [preview, setPreview] = useState(Boolean(selectedFromRoute));
   const [showFormatting, setShowFormatting] = useState(false);
-  const [showMetadata, setShowMetadata] = useState(true);
+  const [showMetadata, setShowMetadata] = useState(!contextTarget && !selectedFromRoute);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -79,7 +79,7 @@ export function useNoteEditor({
     setFields(empty);
     setEditorOriginal(JSON.stringify(empty));
     setPreview(false);
-    setShowMetadata(true);
+    setShowMetadata(defaultTarget === null);
     setShowFormatting(false);
     setError(null);
     setMessage('new');

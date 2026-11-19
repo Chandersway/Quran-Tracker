@@ -1,6 +1,6 @@
 # Quran Tracker — gebruikershandleiding
 
-Deze handleiding helpt je lezen, luisteren, oefenen en je voortgang bijhouden. De stappen beschrijven de Nederlandstalige interface van de lokale React Native-app, gecontroleerd op 18 november 2026. Je kunt de app gebruiken zonder account; voor groepen en groepsberichten moet je inloggen.
+Deze handleiding helpt je lezen, luisteren, oefenen en je voortgang bijhouden. De stappen beschrijven de Nederlandstalige interface van de lokale React Native-app, bijgewerkt op 19 november 2026. Je kunt de app gebruiken zonder account; voor groepen en groepsberichten moet je inloggen.
 
 De app is lokaal op Android beschikbaar. iOS en de aflevering van online meldingen zijn nog niet volledig op toestellen gecontroleerd. Bij functies die verdere serverinrichting nodig hebben, staat dat hieronder vermeld.
 
@@ -17,7 +17,7 @@ De app is lokaal op Android beschikbaar. iOS en de aflevering van online melding
 - [9. Statistieken begrijpen](#9-statistieken-begrijpen)
 - [10. Dagdoelen, leesplan en agenda](#10-dagdoelen-leesplan-en-agenda)
 - [11. Tahajjud-checklist en Focus](#11-tahajjud-checklist-en-focus)
-- [12. Notities maken en exporteren](#12-notities-maken-en-exporteren)
+- [12. Notities, mappen, import en export](#12-notities-mappen-import-en-export)
 - [13. Groepen, feed en chat](#13-groepen-feed-en-chat)
 - [14. Account en meldingen](#14-account-en-meldingen)
 - [15. Studiebronnen en boeken](#15-studiebronnen-en-boeken)
@@ -28,38 +28,41 @@ De app is lokaal op Android beschikbaar. iOS en de aflevering van online melding
 ## 1. Snel beginnen
 
 1. Open de app en kies bij de introductie **Nederlands**, **English** of **العربية**. Je kunt de introductie overslaan of later via Instellingen opnieuw bekijken. De voorbeelden in de introductie maken geen echte leesregistraties aan.
-2. Open **Mushaf** onderaan. Kies **Boek** voor pagina's van een mushaf of **Tekst** voor een doorlopende lijst met aya's.
+2. Open **Mushaf** onderaan. Een nieuwe mushafpassage opent direct schermvullend in boekvorm. Tik op de kleine verkleinknop om de gewone bediening te tonen; daar kies je **Tekst lezen** voor een doorlopende lijst met aya's.
 3. Kies bij **Vertaling** Nederlands of Engels als je een vertaling wilt lezen. De app-taal en de vertaling zijn twee afzonderlijke instellingen.
-4. Lees een passage. Registreer daarna wat je hebt gelezen met het vinkje bij de boekpagina of met **Snelle check-in** op Stats.
+4. Lees een passage. Verlaat fullscreen om het vinkje bij de boekpagina te gebruiken, of registreer wat je hebt gelezen met **Snelle check-in** op Stats.
 5. Open **Stats** om je registraties en doelen te bekijken.
 
 ### Als je geen Arabisch kunt lezen
 
-Open **Mushaf → Tekst**, kies **Vertaling → Nederlands** en lees de Nederlandse tekst onder iedere aya. Via **Soera's** kun je eerst een hoofdstuk kiezen. De Arabische tekst blijft daarnaast zichtbaar; een Nederlandse app-taal alleen schakelt de vertaling niet in.
+Open **Mushaf**, tik linksboven op de verkleinknop en kies **Tekst lezen**. Kies **Vertaling → Nederlands** om onder de Arabische tekst van iedere aya de Nederlandse vertaling te lezen. Via **Soera's** kun je eerst een hoofdstuk kiezen. De app-taal stel je afzonderlijk in.
 
-Wil je ook luisteren, tik dan op **Luisteren**. Dit speelt een Arabische recitatie af; het is geen Nederlandse voorleesstem. Boekvorm toont de oorspronkelijke Arabische pagina. Voor langere stukken Nederlandse vertaling is de tekstweergave het geschiktst.
+Tik in de tekstweergave op **Luisteren** voor de Arabische recitatie. In het schermvullende boek vind je de afspeelknop rechtsonder. Voor langere stukken Nederlandse vertaling is de tekstweergave het geschiktst.
 
 ## 2. Navigatie en je eigen onderbalk
 
-De standaardonderbalk bevat **Stats**, **Mushaf**, **Groepen** en **Meer**.
+De standaardonderbalk bevat **Stats**, **Mushaf**, **Groepen**, **Soera**, **Hizb**, **Juz** en **Meer**. De drie leesindexen zijn direct bereikbaar, zodat je daarvoor niet telkens Meer hoeft te openen.
 
-| Onderdeel | Wat vind je er?                                                      |
-| --------- | -------------------------------------------------------------------- |
-| Stats     | Vandaag, verder lezen, leesregistraties, hifz, planning en leesplan. |
-| Mushaf    | De gezamenlijke ingang voor lezen in boek- en tekstvorm.             |
-| Groepen   | Je groepen, deelnemen, samenwerken en groepschat.                    |
-| Meer      | De overige pagina's, Instellingen en je account.                     |
+| Onderdeel        | Wat vind je er?                                                      |
+| ---------------- | -------------------------------------------------------------------- |
+| Stats            | Vandaag, verder lezen, leesregistraties, hifz, planning en leesplan. |
+| Mushaf           | De gezamenlijke ingang voor lezen in boek- en tekstvorm.             |
+| Groepen          | Je groepen, deelnemen, samenwerken en groepschat.                    |
+| Soera, Hizb, Juz | De drie leesindexen om direct een passage te openen.                 |
+| Meer             | De overige pagina's, Instellingen en je account.                     |
 
-Onder Meer staan onder andere Soera's, Hizb, Juz, Mushafbibliotheek, Lexicon, Studiebronnen, Boeken, Notities, Focus, de checklist en Agenda. **Een pagina die in je onderbalk staat, wordt niet nogmaals in de gewone lijst onder Meer getoond.** Zij is nog wel beschikbaar in de keuzelijst voor je snelkoppelingen.
+Onder Meer staan onder andere **Audio en reciteur**, **Bladwijzers**, Mushafbibliotheek, Lexicon, Studiebronnen, Boeken, Notities, Focus, de checklist en Agenda. **Een pagina die in je onderbalk staat, wordt niet nogmaals in de gewone lijst onder Meer getoond.** Zij is nog wel beschikbaar in de keuzelijst voor je snelkoppelingen.
 
 Je onderbalk aanpassen:
 
 1. Open **Meer**.
 2. Tik naast **Pagina's** op **Selecteren**.
-3. Vink maximaal drie pagina's aan. Haal zo nodig eerst een bestaand vinkje weg.
+3. Vink maximaal drie eigen snelkoppelingen aan. Haal zo nodig eerst een bestaand vinkje weg. Soera, Hizb en Juz blijven daarnaast rechtstreeks beschikbaar; een dubbele bestemming verschijnt maar één keer.
 4. Kies **Gereed**. Meer blijft beschikbaar voor de overige onderdelen.
 
-Met **Standaard herstellen** krijg je Stats, Mushaf en Groepen terug. Je keuze wordt op dit apparaat bewaard.
+Met **Standaard herstellen** krijg je Stats, Mushaf en Groepen als eigen snelkoppelingen terug. Soera, Hizb en Juz blijven erbij staan. Je keuze wordt op dit apparaat bewaard.
+
+De onderbalkbestemmingen **Hizb** en **Juz** tonen ieder uitsluitend hun eigen indeling. De categorieknoppen voor andere indelingen staan daar niet meer. De **Soera**-index biedt wel de uitgebreide keuze voor bladeren; die knoppen lopen over meerdere regels wanneer de breedte of tekstgrootte dat vraagt.
 
 ## 3. Begrippen en soorten voortgang
 
@@ -91,7 +94,7 @@ Een hifz-score opslaan maakt dus geen leesregistratie. Een bladwijzer toevoegen 
 
 ### Boekweergave
 
-Kies **Boek** in de lezer. De gekozen uitgave bepaalt de pagina-indeling en het totale aantal pagina's. Hafs en Warsh kunnen verschillen; gebruik een paginanummer daarom altijd samen met de uitgave.
+Iedere nieuwe opening van de mushaf begint schermvullend: via de onderbalk, Soera, Hizb, Juz, een bladwijzer of een geplande passage. Na het verlaten van fullscreen kun je de gewone boek- en tekstbediening gebruiken. De gekozen uitgave bepaalt de pagina-indeling en het totale aantal pagina's. Hafs en Warsh kunnen verschillen; gebruik een paginanummer daarom altijd samen met de uitgave.
 
 - Gebruik de pijlen om één pagina terug of vooruit te gaan.
 - In **Bladeren** kun je vanaf de linker- of rechterrand vegen. Een duidelijke, snelle veeg wordt ruimer herkend dan een langzame beweging midden op de pagina.
@@ -103,15 +106,18 @@ De streepjes gebruiken, waar een gecontroleerde paginakoppeling bestaat, het aan
 
 ### Schermvullend lezen en draaien
 
-Open het leesmenu en kies **Schermvullend lezen**, of gebruik het schermvullende pictogram. De gewone navigatie verdwijnt. De compacte bediening voor pagina's, zoom en selectie blijft bereikbaar.
+In fullscreen staan de oorspronkelijke gedrukte pagina's direct onder elkaar. Schuif verticaal om door te lezen. Spreid twee vingers op een scan om in te zoomen of knijp ze naar elkaar toe om uit te zoomen. Na inzoomen kun je met één vinger horizontaal en verticaal door de pagina bewegen. Dit werkt ook met de telefoon op zijn kant. In een gedownloade PDF kun je eveneens met twee vingers zoomen. De gewone bovenbalk, ondernavigatie en paginabalk zijn tijdens het schermvullend lezen verborgen.
 
-De verticale schuifregelaar rechts ligt transparant over het boek. Hiermee verplaats je de zichtbare uitsnede omhoog en omlaag. Als de hele pagina al in beeld past, is er niets verticaal te verschuiven; zoom dan eerst in. De horizontale balk verandert de pagina, de verticale balk je positie binnen de pagina.
+- Linksboven begint een kleine halftransparante **verkleinknop**. Tik erop om fullscreen te verlaten. Je kunt de knop horizontaal, verticaal en diagonaal verplaatsen; hij blijft binnen de schermranden. Slepen sluit fullscreen niet af. Android Terug verlaat ook eerst fullscreen.
+- Rechtsonder begint een afzonderlijke, kleine halftransparante **afspeelknop**. Ook die kun je vrij verslepen. Tikken start de recitatie, pauzeert de huidige recitatie of hervat de gepauzeerde recitatie. Tijdens laden is de afspeelactie tijdelijk niet beschikbaar.
+- Een actieve **focustimer** blijft rechtsboven over het boek zichtbaar, onder de systeemstatusbalk. Tik op de timer om Focus te openen.
+- Tik op een aya in een scan met gecontroleerde ayagebieden of houd de aya ingedrukt. De passage wordt gemarkeerd en de aya-acties verschijnen.
 
-Je kunt de telefoon ook draaien voor een bredere leesweergave. Verlaat fullscreen met de terugkeerknop; op Android verlaat de terugknop eerst fullscreen.
+Bij een PDF in de PDF-lezer kun je fullscreen ook verlaten met een enkele tik op de pagina. Buiten fullscreen krijg je weer toegang tot de paginabalk en de leesregistratie. De Android-systeemnavigatie kan door het besturingssysteem zichtbaar of oproepbaar blijven.
 
 ### Tekstweergave
 
-Kies **Tekst** voor de Arabische tekst met desgewenst een Nederlandse of Engelse vertaling. Je kunt scrollen, naar een aya springen en de Arabische lettergrootte aanpassen. Houd tekst ingedrukt om beschikbare tekstselectie en kopieeropties van je toestel te gebruiken.
+Kies **Tekst lezen** voor de Arabische tekst met desgewenst een Nederlandse of Engelse vertaling. Je kunt scrollen, naar een aya springen en de Arabische lettergrootte aanpassen. Houd tekst ingedrukt om beschikbare tekstselectie en kopieeropties van je toestel te gebruiken.
 
 Via **Soera's**, **Hizb** of **Juz** kies je een beginpunt. Hizb-rijen tonen herkenbare openingsinformatie en Arabische tekst; de vertaling kun je bij de rij tonen. Een rub openen navigeert naar het begin van dat kwart en registreert geen lezing. Ontbreekt de benodigde pagina lokaal, dan is voor het ophalen internet nodig.
 
@@ -129,12 +135,22 @@ Er zijn twee afzonderlijke keuzes: **welke boekweergave je ziet** en **hoe aanra
 
 ### Een aya op een oorspronkelijke pagina gebruiken
 
-1. Kies **Selecteren**.
+1. Kies buiten fullscreen **Selecteren**. In de fullscreen-scan kun je direct een gecontroleerd ayahgebied aanwijzen.
 2. Tik op het tekstgebied van de gewenste aya. De gekozen passage wordt gemarkeerd.
 3. Gebruik de beschikbare aya-acties, bijvoorbeeld een bladwijzer, kopiëren, delen, een notitie, audio of studiebronnen.
 4. Sluit de selectie of kies **Bladeren** om weer pagina's te vegen.
 
 Dit werkt voor oorspronkelijke uitgaven met gecontroleerde selectiegebieden. Een scan is een afbeelding: je kunt daarin geen willekeurige losse letters met native teksthandvatten selecteren.
+
+### Bladwijzers terugvinden en sorteren
+
+Bewaar een aya of boekpagina met het bladwijzerpictogram in de lezer. Open **Meer → Bladwijzers** of **Instellingen → Bladwijzers**. Daar staan bewaarde aya's en boekpagina's samen. Tik op een rij om de betreffende aya of pagina te openen; bij een paginabladwijzer wordt ook de oorspronkelijke uitgave meegenomen. Een nieuw geopend bladwijzerdoel begint fullscreen.
+
+Bij Hafs vermeldt een paginabladwijzer **Medina** voor de gedrukte uitgave of **QPC V1** voor de selecteerbare boektekst. Open je een QPC-bladwijzer, dan zie je schermvullend de Medina-scan met de eerste aya van de bewaarde QPC-pagina. Tik op de verkleinknop om die passage in QPC V1 te lezen. Oudere Hafs-bladwijzers zonder opgeslagen weergave openen in de gedrukte Medina-uitgave.
+
+De app bewaart ook de Hafs-weergave bij je laatste boekpagina. Wissel je van weergave, dan gebruikt **Verder lezen** je laatst gelezen aya om de passage terug te vinden. Zo staat 5:77 op pagina 120 in Medina en op pagina 121 in QPC V1.
+
+Kies bij **Sorteren** uit **Quranvolgorde**, **Soeranaam** of **Recent per type**. Aya's hebben een bewaardatum. Oudere paginabladwijzers bevatten geen datum en staan bij Recent per type in omgekeerde toevoegvolgorde; dit is geen gezamenlijke tijdlijn met verzonnen datums.
 
 ### Vrije tekstselectie in boekvorm
 
@@ -165,7 +181,7 @@ Houd voldoende opslagruimte vrij. Het besturingssysteem kan achtergrondwerk onde
 
 ### Gewoon luisteren
 
-Tik in de lezer op **Luisteren** om de geselecteerde soera te beluisteren. De knop verandert tijdens het afspelen in pauzeren of hervatten. Via aya-acties en de herhaalselectie kun je een kleiner gedeelte beluisteren.
+Tik in fullscreen op de kleine afspeelknop rechtsonder, of buiten fullscreen op **Luisteren**, om de geselecteerde soera te beluisteren. De knop verandert tijdens het afspelen in pauzeren of hervatten. Via aya-acties en de herhaalselectie kun je een kleiner gedeelte beluisteren.
 
 De kleine speler blijft beschikbaar wanneer je andere schermen opent. Tik erop of veeg hem omhoog voor de uitgebreide speler. Daar vind je:
 
@@ -204,7 +220,7 @@ Een bewust nieuwe check-in van dezelfde passage telt opnieuw mee. Een volledige 
 
 ### Pagina aan- en uitvinken
 
-Het vinkje in de boeklezer is een **toggle** voor die pagina in die uitgave: eenmaal tikken registreert de pagina, nogmaals tikken verwijdert die paginamarkering en haar bijdrage. De knop, het leesmenu en fullscreen delen dezelfde status.
+Tik buiten fullscreen op het vinkje om de zichtbare pagina als gelezen te registreren. Tik nogmaals om die paginamarkering en haar bijdrage te verwijderen. De knop en het leesmenu delen dezelfde status. De markering hoort bij de uitgave en de pagina die je voor je hebt. Gedrukte Medina-pagina's en selecteerbare QPC V1-pagina's hebben elk hun eigen markeringen.
 
 Oudere registraties en geïmporteerde geschiedenis blijven behouden. Daardoor kan een paginastreepje nog steeds historische leesdekking tonen nadat je de nieuwe paginamarkering hebt uitgezet.
 
@@ -226,7 +242,7 @@ Houd een soera-, hizb- of juzkaart ingedrukt om de beoordeling te openen. Stel e
 
 ## 9. Statistieken begrijpen
 
-Stats combineert je dagdoel, verder lezen, geregistreerde activiteit, hifz, planning en leesplan. Je kunt bij verschillende grafieken een periode kiezen of doorklikken naar de achterliggende registraties.
+Stats combineert je dagdoel, verder lezen, geregistreerde activiteit, hifz en leesplan. Na de leessamenvatting volgen het hizboverzicht, de recente geschiedenis en het hifz-overzicht. Planning beheer je via Agenda; het losse blok Planning vandaag staat niet meer op Stats. Je kunt bij verschillende grafieken een periode kiezen of doorklikken naar de achterliggende registraties.
 
 | Weergave                     | Hoe lees je het cijfer?                                                                                                                                          |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -242,6 +258,8 @@ Tik op een ringsegment, de bijbehorende legenda of **Bekijk registraties** om de
 
 Het hizboverzicht heeft eigen periodekeuzes, waaronder week, maand, jaar en een gekozen periode. Tik op een balk voor details. Leesstatistieken wissen vraagt om bevestiging; je hifz-scores blijven daarbij behouden.
 
+In het hifz-overzicht staat één compacte lijst van beoordeelde onderdelen, van lage naar hoge score. Scroll binnen die lijst voor de overige scores. De cijfers volgen de hifz-kleuren als die instelling aanstaat. Onder 60 verschijnt herhaaladvies; er is geen aparte lijst Sterk die ook lage scores als sterk zou tonen. De herhaallijst behoudt de knop **Agenda** om meteen een herhaling te plannen.
+
 ## 10. Dagdoelen, leesplan en agenda
 
 ### Dagelijkse doelen
@@ -256,7 +274,7 @@ Open **Mijn leesplan** op Stats. Kies een totale hoeveelheid in hizb, rub, juz, 
 
 Registraties vanaf de start van het plan tellen automatisch mee. Herhalingen tellen opnieuw mee. De app rekent verschillende eenheden bij benadering om; minuten tellen niet mee in dit hoeveelheidplan.
 
-Je kunt de voortgang handmatig corrigeren. Zo'n correctie verandert alleen het leesplan, niet je leesgeschiedenis of dagdoel. Mijn leesplan is dus een ander onderdeel dan de dagelijkse doelen.
+Je kunt de voortgang handmatig corrigeren. Zo'n correctie verandert alleen het leesplan, niet je leesgeschiedenis of dagdoel. Mijn leesplan is dus een ander onderdeel dan de dagelijkse doelen. Ook het totaal of de eenheid van dit plan wijzigen stelt je dagelijkse doel niet opnieuw in. Echte leesregistraties kunnen wel aan beide overzichten bijdragen: je dagelijkse voortgang gebruikt de registraties van vandaag, je leesplan de registraties vanaf zijn start.
 
 ### Agenda
 
@@ -267,13 +285,15 @@ Open **Agenda** via Meer of de planningskaart. Wissel tussen week en maand en ki
 3. Bekijk de geplande en gemiste onderdelen en de doelen voor die datum.
 4. Open een passage, markeer een uitgevoerd agenda-item of verwijder een item dat vervalt.
 
+Bij een **khatma-plan** tonen de geplande delen de echte soeranaam en begin-/eindaya. Een deel dat over twee soera's loopt toont beide namen en verwijzingen. De interne rubverdeling blijft de berekeningsbasis, maar de leesopdracht verschijnt als een concrete passage. Tik op een aankomend onderdeel om direct de mushaf bij de beginaya te openen; ook de eindgrens blijft bij het geplande onderdeel horen. De leesreis zelf kan eveneens bij het begin van haar totale passage worden geopend.
+
 De kalender onderscheidt onder andere gepland, gedeeltelijk afgerond, afgerond en gemist. Een planningsherinnering opent de betreffende datum in de agenda; vanuit het item open je de passage. Bij een leesreis kun je een reeks passages over een periode plannen. De bevestiging bij het uitvoeren van een activiteit bepaalt welke registratie wordt gemaakt; een item alleen inplannen telt niet als lezen.
 
 ## 11. Tahajjud-checklist en Focus
 
 ### Aparte leeschecklist
 
-Open de checklist via Meer. Kies een indeling, vink gelezen gedeelten af en klap een hizb of juz uit naar zijn rubs. De lijst gaat naar het bewaarde stoppunt. Overlappende delen gebruiken dezelfde ayadekking, zodat een gedeeltelijk afgevinkt onderdeel herkenbaar blijft.
+Open de checklist via Meer. Kies een indeling, vink gelezen gedeelten af en klap een hizb of juz uit naar zijn rubs. De lijst gaat naar het bewaarde stoppunt. Het bovenste blok met je leespositie, uitleg en knoppen scrollt met de lijst mee, zodat het bij naar beneden bladeren geen vaste ruimte blijft innemen. Overlappende delen gebruiken dezelfde ayadekking, zodat een gedeeltelijk afgevinkt onderdeel herkenbaar blijft.
 
 Met **Hier gestopt** bewaar je een stoppunt. Met **Verder lezen** open je dat punt. Het stoppunt en de vinkjes kun je afzonderlijk wissen.
 
@@ -283,23 +303,33 @@ Deze checklist staat los van je gewone leesregistraties. Een vinkje in de checkl
 
 Open **Focus** en kies lezen, memoriseren, herhalen of tafsir bestuderen. Kies 10, 15, 25 of 45 minuten, of stel zelf een duur in.
 
-Start, pauzeer, hervat of reset de timer met de bediening op het scherm. Je kunt vanuit Focus de mushaf openen. Een kleine timer blijft binnen de app zichtbaar als je naar een ander onderdeel gaat. Registreer de daadwerkelijk gelezen hoeveelheid via de leesacties; de timer vervangt die registratie niet.
+Start, pauzeer, hervat of reset de timer met de bediening op het scherm. Je kunt vanuit Focus de mushaf openen. Een kleine transparante timer staat rechtsboven, onder de systeemstatusbalk en met ruimte voor de telefooniconen. Hij blijft ook op de voorgrond zichtbaar in de fullscreen-mushaf. Tik erop om Focus te openen. Registreer de daadwerkelijk gelezen hoeveelheid via de leesacties; de timer vervangt die registratie niet.
 
-## 12. Notities maken en exporteren
+## 12. Notities, mappen, import en export
 
 Open **Notities** via Meer, of kies de notitieactie bij een passage.
 
-1. Kies **Nieuwe notitie** en een verwijzing: juz, hizb, rub, soera of aya.
-2. Vul de bijbehorende nummers in.
-3. Voeg een titel of notitietekst toe. Je kunt mappen en labels gebruiken en een notitie vastzetten.
-4. Gebruik desgewenst opmaak zoals vet, cursief, onderstrepen, koppen, kleur en lijsten.
+1. Kies **Nieuwe notitie**. De compacte werkbalk en titel laten het grootste deel van het scherm vrij voor je notitietekst.
+2. Open de context-/detailknop voor de koppeling aan juz, hizb, rub, soera of aya en vul de passende nummers in. Hier beheer je ook map, labels en vastzetten.
+3. Schrijf in het grote tekstveld. Langere notities kunnen binnen de editor doorlopen.
+4. Open **Opmaak** voor vet, cursief, onderstrepen, koppen, kleur en lijsten. De opmaakopties verschijnen in een apart paneel, zodat ze je schrijfvlak niet blijvend verkleinen.
 5. Tik op **Notitie opslaan** en wacht op de bevestiging.
 
 Zoeken en filters helpen bij terugvinden. Bij de context en in het voorbeeld zie je de verwijzing en bijbehorende Arabische begintekst. **Notities uit deze sectie meenemen** kan bijvoorbeeld ook ayanotities binnen een gekozen soera tonen. Bij verlaten met onopgeslagen wijzigingen krijg je een keuze; bij een opslagfout blijft het concept beschikbaar om opnieuw te proberen.
 
 Met **Notities exporteren** maak je een JSON-bestand dat je via de deel- of opslagmogelijkheden van je toestel bewaart. De export bevat alle opgeslagen notities, niet alleen de zichtbare zoekresultaten.
 
-Dit bestand is **geen volledige appback-up**: het bevat geen complete leesgeschiedenis, accounts of groepsgegevens. Er is momenteel geen gebruikersknop om zo'n notitie-export weer te importeren. Bewaar belangrijke exports buiten de app voordat je appgegevens verwijdert of van toestel wisselt.
+### Notities importeren
+
+Tik bovenaan de notitielijst op het **uploadpictogram - Notities importeren** en kies een JSON-notitie-export van Quran Tracker. De import leest het bestaande schema versie 2 en bewaart de verwijzing, tekst, opmaak, map, labels en oorspronkelijke tijdstempel. Een ongeldig record weigert het hele bestand. Bestaande notities worden niet overschreven; bij botsende ID's krijgen de toegevoegde notities een vrije lokale ID. Identieke notities worden overgeslagen en de melding toont het aantal toegevoegde en overgeslagen notities. De bestandslimiet is 10 MiB en 10.000 notities.
+
+### Algemene mappen en verplaatsen
+
+Onderaan de notitielijst staat de mapbalk. Tik op **Map maken**, geef een naam op en bewaar de map. Een algemene map staat los van een soera of aya en blijft ook leeg bestaan. Tik op een map om haar notities te tonen, op **Alles** voor alle notities of op **Zonder map** voor losse notities.
+
+Sleep de **verplaatsgreep met vier pijlen** naast een notitie naar een map in de onderste balk. De doelmap licht op; loslaten verplaatst de notitie. Loslaten buiten een map verandert niets. De ayah- of onderdeelverwijzing en opmaak blijven behouden. Tikken op de greep, of activeren met een schermlezer, opent een gewone mapkiezer als alternatief. Van daaruit kun je ook een nieuwe map maken en de notitie er meteen in plaatsen.
+
+De notitie-export is **geen volledige appback-up**: het bestand bevat geen complete leesgeschiedenis, accounts of groepsgegevens. Mappen die in geëxporteerde notities voorkomen gaan mee; lege mapdefinities staan alleen in de lokale appopslag. Bewaar belangrijke exports buiten de app voordat je appgegevens verwijdert of van toestel wisselt.
 
 ## 13. Groepen, feed en chat
 
@@ -333,7 +363,7 @@ Alleen notificaties op je telefoon toestaan maakt deze serverfuncties niet actie
 
 ### Aanmelden en je profiel
 
-Open **Meer → Je account**, of de accountoptie in Instellingen. Registreer met je e-mailadres en een wachtwoord dat aan de getoonde eisen voldoet. Bevestig zo nodig je e-mailadres met de nieuwste ontvangen link en keer terug naar de app. Vraag bij een verlopen link een nieuwe bevestiging aan.
+Open **Meer → Je account**, of **Instellingen → Account en gemeenschap → Account openen**. Het accountblok staat bovenaan Instellingen; uiterlijk en kleuren staan onderaan. Registreer met je e-mailadres en een wachtwoord dat aan de getoonde eisen voldoet. Bevestig zo nodig je e-mailadres met de nieuwste ontvangen link en keer terug naar de app. Vraag bij een verlopen link een nieuwe bevestiging aan.
 
 Je kunt met e-mail en wachtwoord inloggen; Google-aanmelding is afhankelijk van de inrichting van de gebruikte build. Op een ondersteunde iOS-build is ook de Apple-aanmeldknop beschikbaar. Hiervoor moeten de Apple-capability en de aanmeldprovider zijn ingericht. Gebruik wachtwoordherstel wanneer je het wachtwoord van een e-mailaccount niet meer weet.
 
@@ -355,9 +385,15 @@ Open **Instellingen → Meldingen en stille uren**. Hier beheer je onder andere:
 - Stille uren.
 - Groepscategorieën en de voorkeur per groep: alles, belangrijk, vermeldingen of dempen.
 
-Dagelijkse herinneringen kunnen ook komen wanneer je dagdoel al is gehaald. Een nog niet ingeplande agendaherinnering kan bij hervatten maximaal twaalf uur na de toegestane tijd alsnog worden aangeboden, buiten je stille uren. De instellingen van Android of iOS zelf kunnen meldingen daarnaast blokkeren; open zo nodig de systeeminstellingen vanuit dit scherm.
+De dagelijkse leesherinnering staat standaard op **08:00** en werkt offline, ook wanneer je dagdoel al is gehaald. Na de introductie vraagt de app op Android 13+ en iOS eenmalig toestemming als je een actieve herinnering hebt. Kies **Toestaan** om de ingestelde tijd op je toestel te laten plannen. Je kunt de tijd later wijzigen vanuit Notificaties of je dagdoel. Bij geweigerde toestemming zie je uitleg in de tijdkiezer. Je kunt de leeshoeveelheid van je dagdoel altijd los van de herinnering aanpassen.
 
-**Lokale herinneringen en online pushmeldingen zijn verschillende functies.** Lokale herinneringen worden op je toestel ingepland. Online groepsmeldingen vereisen bovendien een geregistreerd toestel en een werkende pushserver. De aflevering via Android en iOS moet nog volledig worden bevestigd. Het aanwezige serverpad ondersteunt discussie-antwoorden; push voor ieder nieuw chatbericht is niet geïmplementeerd.
+Geef je voor het eerst toestemming nadat de ingestelde tijd vandaag is verstreken, dan kan de app die herinnering vandaag nog één keer geven. Stille uren blijven gelden. Vanaf de volgende dag loopt de gewone dagelijkse herhaling door.
+
+Controleer **Meldingen toestaan**, de dagelijkse schakelaar, de opgeslagen tijd, een eventuele tweede tijd en stille uren. Twee gelijke dagelijkse tijden leveren bewust een melding op. De app controleert ook het Android-herinneringskanaal; een door het systeem geblokkeerd kanaal moet via de systeeminstellingen worden hersteld. Test eerst met een tijd enkele minuten vooruit, daarna op een tweede dag en na een normale toestelherstart. Batterijbeleid of geforceerd stoppen kan aflevering beïnvloeden; een opgeslagen instelling bewijst geen ontvangst.
+
+Een nog niet ingeplande agendaherinnering kan bij hervatten maximaal twaalf uur na de toegestane tijd alsnog worden aangeboden, buiten je stille uren. De instellingen van Android of iOS zelf kunnen meldingen daarnaast blokkeren; open zo nodig de systeeminstellingen vanuit dit scherm.
+
+**Lokale herinneringen en online pushmeldingen zijn verschillende functies.** Zie de [controle van dagelijkse meldingen tegen Kotlin](LOCAL_REMINDER_PARITY_2026-11-19.md) voor de gevonden correcties, toestelproef en overblijvende platformverschillen; de huidige implementatie is nog geen bewijs van volledig identieke aflevering op ieder toestel. Lokale herinneringen worden op je toestel ingepland. Online groepsmeldingen vereisen bovendien een geregistreerd toestel en een werkende pushserver. De aflevering via Android en iOS moet nog volledig worden bevestigd. Het aanwezige serverpad ondersteunt discussie-antwoorden; push voor ieder nieuw chatbericht is niet geïmplementeerd.
 
 ## 15. Studiebronnen en boeken
 
@@ -374,21 +410,23 @@ Bronnen hebben hun eigen taal en dekking. Een Nederlandse interface betekent nie
 
 ## 16. Taal, uiterlijk en leesvoorkeuren
 
-Open **Instellingen** via Meer of het instellingenpictogram op Stats.
+Open **Instellingen** via Meer of het instellingenpictogram op Stats. Het accountblok staat bovenaan; scrol naar beneden voor **Uiterlijk**. Ook **Bladwijzers** en de media-instellingen zijn vanuit Instellingen bereikbaar.
 
-| Instelling                   | Wat verandert er?                                                                                                                       |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| App-taal                     | De bediening in Nederlands, Engels of Arabisch. De Arabische interface gebruikt rechts-naar-linksweergave.                              |
-| Vertaling                    | Nederlandse of Engelse vertaling bij de aya's, of alleen Arabisch.                                                                      |
-| Thema                        | Kleuren van de interface, met lichte, donkere en andere beschikbare varianten en een systeemkeuze.                                      |
-| Kaartpatronen                | Decoratieve patronen en watermerken aan of uit. Uit geeft effen kaarten; het grote hifz-/herhaaloverzicht blijft rustig zonder patroon. |
-| Hifz-kleuren                 | De kleurweergave van je beheersingsscores. De scores zelf blijven bewaard.                                                              |
-| Grootte Arabische tekst      | De Arabische lettergrootte in de tekstweergave. Gebruik voor een gedrukte boekpagina de zoomknoppen.                                    |
-| Mushaf-editie                | Welke beschikbare uitgave je gebruikt. Aanvullende downloads beheer je in de Mushafbibliotheek.                                         |
-| Media-instellingen           | De beschikbare voorkeuren voor recitatie en afspelen.                                                                                   |
-| Introductie opnieuw afspelen | De uitleg nogmaals bekijken; de demonstraties veranderen je echte registraties niet.                                                    |
+| Instelling                   | Wat verandert er?                                                                                                                                                                                                                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| App-taal                     | De bediening in Nederlands, Engels of Arabisch. De Arabische interface gebruikt rechts-naar-linksweergave.                                                                                                                                                                         |
+| Vertaling                    | Nederlandse of Engelse vertaling bij de aya's, of alleen Arabisch.                                                                                                                                                                                                                 |
+| Thema                        | Kleuren van de interface, met lichte en donkere varianten en een systeemkeuze. **Mat · Middernacht** heeft een effen zwarte achtergrond, donkerblauwe vlakken en goud-/blauwe accenten. **Mat · Oceaan en goud** en **Mat · Pruim en perkament** bieden aanvullende matte kleuren. |
+| Kaartpatronen                | Decoratieve patronen en watermerken aan of uit. Uit geeft effen kaarten; het grote hifz-/herhaaloverzicht blijft rustig zonder patroon.                                                                                                                                            |
+| Hifz-kleuren                 | De kleurweergave van je beheersingsscores. De scores zelf blijven bewaard.                                                                                                                                                                                                         |
+| Grootte Arabische tekst      | De Arabische lettergrootte in de tekstweergave. In een schermvullende boekpagina zoom je met twee vingers. Buiten fullscreen kun je ook de zoomknoppen gebruiken. |
+| Mushaf-editie                | Welke beschikbare uitgave je gebruikt. Aanvullende downloads beheer je in de Mushafbibliotheek.                                                                                                                                                                                    |
+| Media-instellingen           | De beschikbare voorkeuren voor recitatie en afspelen.                                                                                                                                                                                                                              |
+| Introductie opnieuw afspelen | De uitleg nogmaals bekijken; de demonstraties veranderen je echte registraties niet.                                                                                                                                                                                               |
 
 De voorkeuren blijven lokaal bewaard. De onderste navigatie pas je afzonderlijk aan via Meer → Selecteren.
+
+Als je **Mat · Middernacht**, **Mat · Oceaan en goud** of **Mat · Pruim en perkament** kiest, worden kaartpatronen uitgeschakeld voor een rustige matte weergave. Je kunt **Kaartpatronen** daarna zelf weer inschakelen.
 
 ## 17. Offline gebruik en je gegevens
 
@@ -405,26 +443,27 @@ Een tweede toestel heeft niet vanzelf dezelfde persoonlijke voortgang, downloads
 
 Verwijder de app of haar gegevens niet als manier om een kleine storing op te lossen: lokale informatie kan daardoor verdwijnen. De notitie-export vervangt geen volledige back-up.
 
-Voor een installatie over de oorspronkelijke Android-app bestaat een automatische gegevensoverdracht onder specifieke installatievoorwaarden. Er is geen algemene bestandsimportknop. Laat vóór een overstap controleren of de installatie als geldige update toegang houdt tot de oorspronkelijke appgegevens; de technische voorwaarden staan in [importcompatibiliteit](import-compatibility.md).
+Voor een installatie over de oorspronkelijke Android-app bestaat een automatische gegevensoverdracht onder specifieke installatievoorwaarden. Voor oude Android-appgegevens is er geen algemene bestandsimportknop. De afzonderlijke notitie-import leest alleen het hierboven beschreven notitie-exportbestand. Laat vóór een overstap controleren of de installatie als geldige update toegang houdt tot de oorspronkelijke appgegevens; de technische voorwaarden staan in [importcompatibiliteit](import-compatibility.md).
 
 ## 18. Problemen oplossen
 
-| Wat zie je?                                                   | Wat kun je doen?                                                                                                                                              |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Wel Nederlandse knoppen, geen vertaling                       | Kies in de lezer expliciet **Vertaling → Nederlands**. App-taal en vertaalkeuze zijn afzonderlijk.                                                            |
-| Geen losse letters selecteerbaar op de scan                   | Gebruik Selecteren voor aya-acties, of open bewust de selecteerbare boektekst voor teksthandvatten. Een scan heeft zelf geen native tekst.                    |
-| Pagina's vegen werkt niet                                     | Kies Bladeren. Bij Selecteren zijn paginagebaren bewust uitgeschakeld. Gebruik bij inzoomen de paginapijlen als je wilt navigeren in plaats van pannen.       |
-| De verticale fullscreenregelaar doet niets                    | Zoom eerst in; als de hele pagina past, is er geen verticale overloop.                                                                                        |
-| Woordbetekenis ontbreekt                                      | Controleer of er een geverifieerde woordkoppeling is. Niet iedere uitgave of wortel heeft alle lexicongegevens.                                               |
-| Een pagina blijft historisch als gelezen zichtbaar            | Het uitzetten van de nieuwe paginamarkering verwijdert geen oudere leesregistraties.                                                                          |
-| Een menu-item ontbreekt onder Meer                            | Kijk of het in de onderbalk staat. Open Meer → Selecteren om de complete snelkoppelingenlijst te zien.                                                        |
-| Download staat stil                                           | Open de voortgangslijn of bibliotheek, controleer netwerk en opslag en gebruik de aangeboden hervat- of probeer-opnieuwactie.                                 |
-| Geen geluid                                                   | Open Luisteren of de kleine speler, controleer pauzestand, mediavolume en de gekozen audio-uitgang. Voor niet-gedownloade opnamen is internet nodig.          |
-| E-mailbevestiging lukt niet                                   | Gebruik de nieuwste link, vraag zo nodig een nieuwe aan en open de link op het toestel met de app. Geef verificatielinks of wachtwoorden niet door.           |
-| Groepsberichten verschijnen later of geen type-indicator      | Controleer verbinding en lidmaatschap. De serverinrichting voor Realtime en privékanalen moet ook actief zijn; zie de live-chathandleiding.                   |
-| Geen pushmelding                                              | Controleer app- en systeemtoestemming, stille uren en groepsvoorkeuren. Online aflevering vereist daarnaast de pushconfiguratie op de server.                 |
-| Opslaan van een notitie mislukt                               | Laat het concept open, maak zo nodig opslagruimte vrij en probeer opnieuw.                                                                                    |
-| Je ziet “Development Build” en een invoerveld voor een server | Dit is de ontwikkelclient. Deze heeft de lokale ontwikkelserver nodig; volg [Lokaal ontwikkelen](LOCAL_DEVELOPMENT.md) of open de geïnstalleerde release-app. |
+| Wat zie je?                                                   | Wat kun je doen?                                                                                                                                                                                                        |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Wel Nederlandse knoppen, geen vertaling                       | Kies in de lezer expliciet **Vertaling → Nederlands**. App-taal en vertaalkeuze zijn afzonderlijk.                                                                                                                      |
+| Geen losse letters selecteerbaar op de scan                   | Gebruik Selecteren voor aya-acties, of open bewust de selecteerbare boektekst voor teksthandvatten. Een scan heeft zelf geen native tekst.                                                                              |
+| Pagina's vegen werkt niet                                     | Schuif in fullscreen verticaal naar de volgende pagina. Kies buiten fullscreen **Bladeren** om vanaf de paginarand te vegen, of gebruik de paginapijlen. |
+| Ik zie geen bediening of regelaar in fullscreen               | Tik op de kleine, verplaatsbare verkleinknop om de gewone bediening terug te krijgen. Android Terug werkt ook. Op een geverifieerde scan opent een ayatik juist de selectieacties.                                      |
+| Woordbetekenis ontbreekt                                      | Controleer of er een geverifieerde woordkoppeling is. Niet iedere uitgave of wortel heeft alle lexicongegevens.                                                                                                         |
+| Een pagina blijft historisch als gelezen zichtbaar            | Het uitzetten van de nieuwe paginamarkering verwijdert geen oudere leesregistraties.                                                                                                                                    |
+| Een menu-item ontbreekt onder Meer                            | Kijk of het in de onderbalk staat. Open Meer → Selecteren om de complete snelkoppelingenlijst te zien.                                                                                                                  |
+| Download staat stil                                           | Open de voortgangslijn of bibliotheek, controleer netwerk en opslag en gebruik de aangeboden hervat- of probeer-opnieuwactie.                                                                                           |
+| Geen geluid                                                   | Open Luisteren of de kleine speler, controleer pauzestand, mediavolume en de gekozen audio-uitgang. Voor niet-gedownloade opnamen is internet nodig.                                                                    |
+| E-mailbevestiging lukt niet                                   | Gebruik de nieuwste link, vraag zo nodig een nieuwe aan en open de link op het toestel met de app. Geef verificatielinks of wachtwoorden niet door.                                                                     |
+| Groepsberichten verschijnen later of geen type-indicator      | Controleer verbinding en lidmaatschap. De serverinrichting voor Realtime en privékanalen moet ook actief zijn; zie de live-chathandleiding.                                                                             |
+| Geen dagelijkse herinnering                                   | Controleer lokale meldingen, systeemtoestemming, het Android-kanaal, de opgeslagen tijd en stille uren. Lees de [herinneringencontrole](LOCAL_REMINDER_PARITY_2026-11-19.md); Firebase is voor deze melding niet nodig. |
+| Geen online groepspushmelding                                 | Controleer app- en systeemtoestemming, stille uren en groepsvoorkeuren. Online aflevering vereist daarnaast de pushconfiguratie op de server.                                                                           |
+| Opslaan van een notitie mislukt                               | Laat het concept open, maak zo nodig opslagruimte vrij en probeer opnieuw.                                                                                                                                              |
+| Je ziet “Development Build” en een invoerveld voor een server | Dit is de ontwikkelclient. Deze heeft de lokale ontwikkelserver nodig; volg [Lokaal ontwikkelen](LOCAL_DEVELOPMENT.md) of open de geïnstalleerde release-app.                                                           |
 
 Blijft een probleem bestaan, noteer dan het scherm, de gekozen mushafuitgave en pagina, de handeling, de foutmelding en of je de release- of ontwikkelapp gebruikt. Daarmee is het probleem gericht te reproduceren zonder je persoonlijke gegevens te wissen.
 

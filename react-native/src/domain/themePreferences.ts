@@ -12,6 +12,9 @@ export const themeModes = [
   'matte_forest',
   'matte_charcoal',
   'matte_manuscript',
+  'matte_night',
+  'matte_ocean',
+  'matte_plum',
   'system',
 ] as const;
 

@@ -95,7 +95,7 @@ export function ReadingPlanScreen() {
       <T muted style={{ marginTop: 12 }}>
         {t(key(purpose))}
       </T>
-      <ReadingPlanHomeCard onOpen={() => undefined} />
+      <ReadingPlanHomeCard onOpen={null} />
       {error && (
         <Notice error message={t(key('Opslaan mislukt. Probeer opnieuw.'))} onRetry={retry} />
       )}

@@ -10,6 +10,8 @@ import { ActivityIndicator, BackHandler, View } from 'react-native';
 import { File } from 'expo-file-system';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Field, IconButton, Notice, Screen, Sheet, T, s } from '../../../shared/components';
+import { FullscreenExitButton } from './FullscreenExitButton';
+import { FloatingReaderAudio } from './FloatingReaderAudio';
 import { useAppStore } from '../../../state/store';
 import { newId } from '../../../state/reducer';
 import { mushafFile } from '../../../services/mushaf/storage';
@@ -57,7 +59,7 @@ export function DownloadedPdfMushaf({
   const [jump, setJump] = useState('');
   const [open, setOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
-  const [fullscreen, setFullscreen] = useState(context?.fullscreen ?? false);
+  const [fullscreen, setFullscreen] = useState(context?.fullscreen ?? true);
   const [error, setError] = useState('');
   const [preparedPdf, setPreparedPdf] = useState<string | null>(() => cachedCroppedPdfUri(file));
   const [preparationError, setPreparationError] = useState(false);
@@ -157,41 +159,40 @@ export function DownloadedPdfMushaf({
       </Screen>
     );
   return (
-    <Screen
-      scroll={false}
-      style={{ padding: 0, paddingTop: fullscreen ? insets.top : 0, paddingBottom: insets.bottom }}
-    >
+    <Screen scroll={false} style={{ padding: 0, paddingBottom: fullscreen ? 0 : insets.bottom }}>
       <StatusBar hidden={(fullscreen || shortLandscape) && focused} />
-      <View
-        testID="pdf-toolbar"
-        style={[s.row, { paddingHorizontal: 4, justifyContent: 'space-between' }]}
-      >
-        {!fullscreen && shortLandscape && (
-          <IconButton name="arrow-left" mirrorInRtl label={t('common.back')} onPress={onBack} />
-        )}
-        {fullscreen ? (
-          <ReaderListenButton compact surah={surah} onListen={() => void listen()} />
-        ) : (
-          <View style={{ flex: 1 }}>
-            <ReadingModeSwitch
-              compact
-              mode="book"
-              onBook={() => {}}
-              onText={() => onText(page, zoom)}
-            />
-          </View>
-        )}
-        <IconButton
-          name={fullscreen ? 'minimize' : 'maximize'}
-          label={t(fullscreen ? 'ui.mushaf.exitFullscreen' : 'ui.mushaf.enterFullscreen')}
-          onPress={() => changeFullscreen(!fullscreen)}
-        />
-        <IconButton
-          name="more-horizontal"
-          label={t('reader.menu')}
-          onPress={() => setToolsOpen(true)}
-        />
-      </View>
+      {!fullscreen && (
+        <View
+          testID="pdf-toolbar"
+          style={[s.row, { paddingHorizontal: 4, justifyContent: 'space-between' }]}
+        >
+          {!fullscreen && shortLandscape && (
+            <IconButton name="arrow-left" mirrorInRtl label={t('common.back')} onPress={onBack} />
+          )}
+          {fullscreen ? (
+            <ReaderListenButton compact surah={surah} onListen={() => void listen()} />
+          ) : (
+            <View style={{ flex: 1 }}>
+              <ReadingModeSwitch
+                compact
+                mode="book"
+                onBook={() => {}}
+                onText={() => onText(page, zoom)}
+              />
+            </View>
+          )}
+          <IconButton
+            name={fullscreen ? 'minimize' : 'maximize'}
+            label={t(fullscreen ? 'ui.mushaf.exitFullscreen' : 'ui.mushaf.enterFullscreen')}
+            onPress={() => changeFullscreen(!fullscreen)}
+          />
+          <IconButton
+            name="more-horizontal"
+            label={t('reader.menu')}
+            onPress={() => setToolsOpen(true)}
+          />
+        </View>
+      )}
       {!fullscreen && (
         <View testID="pdf-reading-actions" style={{ paddingHorizontal: 8, paddingBottom: 4 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -223,13 +224,17 @@ export function DownloadedPdfMushaf({
           <Pdf
             source={{ uri: useOriginalPdf ? file.uri : preparedPdf! }}
             page={page}
-            horizontal
-            enablePaging
+            horizontal={!fullscreen}
+            enablePaging={!fullscreen}
+            spacing={fullscreen ? 0 : 10}
+            onPageSingleTap={() => {
+              if (fullscreen) changeFullscreen(false);
+            }}
             enableDoubleTapZoom
             scale={zoom}
             minScale={PDF_MIN_ZOOM}
             maxScale={PDF_MAX_ZOOM}
-            fitPolicy={shortLandscape ? 0 : 2}
+            fitPolicy={fullscreen || shortLandscape ? 0 : 2}
             trustAllCerts={false}
             onLoadComplete={(total) => {
               setCount(total);
@@ -266,48 +271,58 @@ export function DownloadedPdfMushaf({
           </View>
         )}
       </Suspense>
+      {fullscreen && (
+        <FullscreenExitButton
+          label={t('ui.mushaf.exitFullscreen')}
+          onExit={() => changeFullscreen(false)}
+        />
+      )}
+      {fullscreen && <FloatingReaderAudio surah={surah} onListen={() => void listen()} />}
+
       {/* Mount the real footer before PDF decoding so its arrival cannot resize the PDF.
           The hidden one-position rail is layout only; native onLoadComplete owns the count. */}
-      <View
-        testID="pdf-footer-layout"
-        pointerEvents={ready ? 'auto' : 'none'}
-        accessibilityElementsHidden={!ready}
-        importantForAccessibility={ready ? 'auto' : 'no-hide-descendants'}
-        style={{ opacity: ready ? 1 : 0 }}
-      >
-        <MushafFooter
-          compact={shortLandscape}
-          page={ready ? page : 1}
-          maximum={ready ? count : 1}
-          onPageChange={(target) => {
-            if (ready) setPage(target);
-          }}
-          onNext={() => {
-            if (ready) setPage((value) => Math.min(count, value + 1));
-          }}
-          onPrevious={() => {
-            if (ready) setPage((value) => Math.max(1, value - 1));
-          }}
-          canNext={ready && page < count}
-          canPrevious={ready && page > 1}
-          zoom={zoom}
-          onZoomIn={() => {
-            if (ready) setZoom((value) => stepPdfZoom(value, 0.25));
-          }}
-          onZoomOut={() => {
-            if (ready) setZoom((value) => stepPdfZoom(value, -0.25));
-          }}
-          edition={id}
-          pages={[page]}
-          context={context}
-          readingSessionId={readingSessionId}
-          onJump={() => {
-            if (!ready) return;
-            setJump(String(page));
-            setOpen(true);
-          }}
-        />
-      </View>
+      {!fullscreen && (
+        <View
+          testID="pdf-footer-layout"
+          pointerEvents={ready ? 'auto' : 'none'}
+          accessibilityElementsHidden={!ready}
+          importantForAccessibility={ready ? 'auto' : 'no-hide-descendants'}
+          style={{ opacity: ready ? 1 : 0 }}
+        >
+          <MushafFooter
+            compact={shortLandscape}
+            page={ready ? page : 1}
+            maximum={ready ? count : 1}
+            onPageChange={(target) => {
+              if (ready) setPage(target);
+            }}
+            onNext={() => {
+              if (ready) setPage((value) => Math.min(count, value + 1));
+            }}
+            onPrevious={() => {
+              if (ready) setPage((value) => Math.max(1, value - 1));
+            }}
+            canNext={ready && page < count}
+            canPrevious={ready && page > 1}
+            zoom={zoom}
+            onZoomIn={() => {
+              if (ready) setZoom((value) => stepPdfZoom(value, 0.25));
+            }}
+            onZoomOut={() => {
+              if (ready) setZoom((value) => stepPdfZoom(value, -0.25));
+            }}
+            edition={id}
+            pages={[page]}
+            context={context}
+            readingSessionId={readingSessionId}
+            onJump={() => {
+              if (!ready) return;
+              setJump(String(page));
+              setOpen(true);
+            }}
+          />
+        </View>
+      )}
       <Sheet visible={toolsOpen} title={t('reader.menu')} onClose={() => setToolsOpen(false)}>
         {useOriginalPdf && (
           <>

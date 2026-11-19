@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Pressable, View, type GestureResponderEvent } from 'react-native';
 import { useI18n } from '../../../i18n';
 import type { RootStack } from '../../../app/navigation/types';
-import type { MushafEdition } from '../../../state/models';
+import type { BookPresentation, MushafEdition } from '../../../state/models';
 import { mushafPageDensity } from '../../../content/mushafPageMetrics';
 import { Icon, IconButton, T } from '../../../shared/components';
 import { usePalette } from '../../../shared/theme';
@@ -30,6 +30,7 @@ export function MushafPageRail({
   getTickMetrics,
   onPreviewChange,
   onPaper = false,
+  bookPresentation,
 }: {
   page: number;
   maximum: number;
@@ -38,6 +39,7 @@ export function MushafPageRail({
   getTickMetrics?: (firstPage: number, lastPage: number) => MushafTickMetrics | undefined;
   onPreviewChange?: (page: number | null) => void;
   onPaper?: boolean;
+  bookPresentation?: BookPresentation;
 }) {
   const p = usePalette();
   const { t, format } = useI18n();
@@ -126,7 +128,9 @@ export function MushafPageRail({
           const metrics = getTickMetrics?.(firstPage, lastPage);
           const density =
             metrics?.textDensity ??
-            (edition ? mushafPageDensity(edition, maximum, firstPage, lastPage) : undefined);
+            (edition
+              ? mushafPageDensity(edition, maximum, firstPage, lastPage, bookPresentation)
+              : undefined);
           const thickness =
             density === undefined || !Number.isFinite(density)
               ? 1.5
@@ -243,6 +247,7 @@ export function MushafFooter({
           page={page}
           maximum={maximum}
           edition={edition}
+          bookPresentation={context?.bookPresentation}
           onPageChange={onPageChange}
           getTickMetrics={getTickMetrics}
           onPreviewChange={setPreview}
@@ -302,6 +307,7 @@ export function MushafFooter({
           page={page}
           maximum={maximum}
           edition={edition}
+          bookPresentation={context?.bookPresentation}
           onPageChange={onPageChange}
           getTickMetrics={getTickMetrics}
           onPreviewChange={setPreview}

@@ -1,7 +1,7 @@
-import type { MushafEdition } from '../state/models';
+import type { BookPresentation, MushafEdition } from '../state/models';
 import hafs from './generated/hafs-positions.json';
 import warsh from './generated/warsh_maknoon_positions.json';
-import muhammadi from './generated/muhammadi-positions.json';
+import muhammadi from './generated/printed-muhammadi-strips.json';
 import kfqc from './generated/hafs-kfqc-page-counts.json';
 
 type Profile = {
@@ -10,7 +10,7 @@ type Profile = {
   minimum: number;
   maximum: number;
 };
-const profiles = new Map<MushafEdition, Profile | undefined>();
+const profiles = new Map<string, Profile | undefined>();
 
 /** Geometry can split one printed ayah across several lines. Count it once. */
 function countAyahs(rows: readonly (readonly number[])[]): number {
@@ -19,14 +19,21 @@ function countAyahs(rows: readonly (readonly number[])[]): number {
   ).size;
 }
 
-function profileFor(edition: MushafEdition): Profile | undefined {
-  if (profiles.has(edition)) return profiles.get(edition);
+function profileFor(
+  edition: MushafEdition,
+  bookPresentation?: BookPresentation,
+): Profile | undefined {
+  const profileKey = `${edition}:${edition === 'hafs' ? (bookPresentation ?? 'selectable') : ''}`;
+  if (profiles.has(profileKey)) return profiles.get(profileKey);
   let counts: number[] | undefined;
   switch (edition) {
     case 'hafs':
-      counts = Array.from({ length: 604 }, (_, page) =>
-        countAyahs((hafs as Record<string, number[][]>)[String(page + 1)] ?? []),
-      );
+      counts =
+        bookPresentation === 'original'
+          ? kfqc.counts
+          : Array.from({ length: 604 }, (_, page) =>
+              countAyahs((hafs as Record<string, number[][]>)[String(page + 1)] ?? []),
+            );
       break;
     case 'warsh_maknoon':
       counts = Array.from({ length: 604 }, (_, page) =>
@@ -36,8 +43,9 @@ function profileFor(edition: MushafEdition): Profile | undefined {
       );
       break;
     case 'muhammadi':
-      // This source has an empty sentinel at index zero, not a cover page.
-      counts = muhammadi.slice(1).map(countAyahs);
+      // Count printed ayahs touching the actual image, including verified
+      // continuations; expanding their canonical references would overcount.
+      counts = muhammadi.map((page) => countAyahs(page[2] as number[][]));
       break;
     case 'hafs_maknoon':
       counts = kfqc.counts;
@@ -50,7 +58,7 @@ function profileFor(edition: MushafEdition): Profile | undefined {
     default:
       // A different publisher/PDF is not evidence of the same pagination.
       // Leave its ticks neutral until its own page map has been verified.
-      profiles.set(edition, undefined);
+      profiles.set(profileKey, undefined);
       return undefined;
   }
   const prefix = [0];
@@ -61,13 +69,17 @@ function profileFor(edition: MushafEdition): Profile | undefined {
     minimum: Math.min(...counts),
     maximum: Math.max(...counts),
   };
-  profiles.set(edition, profile);
+  profiles.set(profileKey, profile);
   return profile;
 }
 
-export function mushafPageAyahCount(edition: MushafEdition, page: number): number | undefined {
+export function mushafPageAyahCount(
+  edition: MushafEdition,
+  page: number,
+  bookPresentation?: BookPresentation,
+): number | undefined {
   if (!Number.isInteger(page) || page < 1) return undefined;
-  return profileFor(edition)?.counts[page - 1];
+  return profileFor(edition, bookPresentation)?.counts[page - 1];
 }
 
 /**
@@ -80,8 +92,9 @@ export function mushafPageDensity(
   pageCount: number,
   firstPage: number,
   lastPage: number,
+  bookPresentation?: BookPresentation,
 ): number | undefined {
-  const profile = profileFor(edition);
+  const profile = profileFor(edition, bookPresentation);
   if (
     !profile ||
     pageCount !== profile.counts.length ||

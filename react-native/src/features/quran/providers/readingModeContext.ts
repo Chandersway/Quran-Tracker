@@ -9,16 +9,12 @@ export function textToBook(
   state: BookEntryState,
 ): RootStack['Mushaf'] {
   const samePoint = current.surah === context.surah && current.ayah === (context.ayah ?? 1);
-  return resolveBookEntry(
-    state,
-    {
-      ...context,
-      ...current,
-      page: samePoint ? context.page : undefined,
-      ...(samePoint || !context.bookView ? {} : { bookView: undefined }),
-    },
-    context.bookPresentation ?? state.preferences.bookPresentation,
-  );
+  return resolveBookEntry(state, {
+    ...context,
+    ...current,
+    page: samePoint ? context.page : undefined,
+    ...(samePoint || !context.bookView ? {} : { bookView: undefined }),
+  });
 }
 /** The caller must supply an actually mapped point or a clearly identified last-known position. */
 export function bookToText(

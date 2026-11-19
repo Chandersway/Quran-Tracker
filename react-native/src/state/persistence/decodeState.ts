@@ -66,7 +66,13 @@ const history = fields({
   contentType: string,
   extraInfo: optional(string),
   ayahRange: optional(fields({ start: position, end: position })),
-  mushafPage: optional(fields({ edition: string, page: number })),
+  mushafPage: optional(
+    fields({
+      edition: string,
+      page: number,
+      bookPresentation: optional((value) => value === 'original' || value === 'selectable'),
+    }),
+  ),
 });
 const note = fields({
   id: number,
@@ -217,6 +223,7 @@ export function decodeState(raw: string): AppState {
   const checks: Record<string, Check> = {
     history: array(history),
     notes: array(note),
+    noteFolders: optional(array(string)),
     plans: array(plan),
     journeys: array(journey),
     bookmarks: array(fields({ surah: number, ayah: number, createdAt: number })),
@@ -227,8 +234,20 @@ export function decodeState(raw: string): AppState {
     goal: fields({ unit: string, target: number }),
     goals: optional(array(dailyGoal)),
     goalDays: optional(array(goalDay)),
-    mushafBookmarks: optional(array(fields({ edition: string, surah: number, page: number }))),
+    mushafBookmarks: optional(
+      array(
+        fields({
+          edition: string,
+          surah: number,
+          page: number,
+          bookPresentation: optional((mode) => mode === 'original' || mode === 'selectable'),
+        }),
+      ),
+    ),
     mushafPositions: optional(record(number)),
+    mushafPositionPresentations: optional(
+      record((mode) => mode === 'original' || mode === 'selectable'),
+    ),
     surahPositions: optional(record(number)),
     readingJourney: optional(nullable(readingJourney)),
     legacyAndroid: optional(nullable(legacyAndroid)),

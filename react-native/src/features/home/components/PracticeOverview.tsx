@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { readingStreakText } from '../../../i18n/readingStreak';
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, Pressable, ScrollView, View } from 'react-native';
 import { useAppStore } from '../../../state/store';
 import { localDate } from '../../../domain/localDate';
 import { newId } from '../../../state/reducer';
@@ -85,47 +85,6 @@ export function PracticeOverview() {
   }
   return (
     <>
-      <Section title={t('app.motivationPoints')} />
-      <Card style={{ backgroundColor: p.subtle, gap: 12 }}>
-        <View style={[s.row, { justifyContent: 'space-between' }]}>
-          <T bold>{t(points.level.key)}</T>
-          <T bold size={24}>
-            {points.total} {t('app.pointsShort')}
-          </T>
-        </View>
-        <ProgressBar value={points.progress} label={t(points.level.key)} />
-        <T muted size={12}>
-          {points.remaining
-            ? format('app.pointsToNextLevel', points.remaining)
-            : t('app.newLevelReached')}
-        </T>
-        <View style={[s.row, { flexWrap: 'wrap', justifyContent: 'space-between' }]}>
-          {[
-            ['app.today', points.today],
-            ['app.week', points.week],
-            ['app.bonus', points.bonus],
-          ].map(([label, value]) => (
-            <View key={label} style={{ gap: 3 }}>
-              <T muted size={12}>
-                {t(String(label))}
-              </T>
-              <T bold size={21}>
-                {value}
-              </T>
-            </View>
-          ))}
-        </View>
-        <T size={13}>{readingStreakText(points.streak, locale)}</T>
-        <T size={12} muted>
-          {t('app.latest')}:{' '}
-          {points.latest
-            ? `${points.latest.surahName} · +${points.latestPoints}`
-            : t('quickCheck.noCheckIn')}
-        </T>
-        <T muted size={12}>
-          {t('app.appPointsDisclaimer')}
-        </T>
-      </Card>
       <Section
         title={t('app.hifzOverview')}
         action={t('app.scoreRange')}
@@ -205,30 +164,63 @@ export function PracticeOverview() {
         }}
       />
       {saved && <Notice message={t('hifz.range.saved')} />}
-      {!current.length ? (
-        <T muted size={13}>
-          {t('app.noHifzScores')}
-        </T>
-      ) : (
-        <>
-          {[
-            ['app.reviewFirst', [...current].sort((a, b) => a.score - b.score)],
-            ['app.strong', [...current].sort((a, b) => b.score - a.score)],
-          ].map(([title, rows]) => (
-            <View key={String(title)} style={{ marginTop: 16 }}>
-              <T bold>{t(String(title))}</T>
-              {(rows as Assessment[]).slice(0, 3).map((item) => (
-                <Row
+      <Card ornament={false} style={{ marginTop: 12, padding: 12 }}>
+        {!current.length ? (
+          <T muted size={13}>
+            {t('app.noHifzScores')}
+          </T>
+        ) : (
+          <ScrollView testID="hifz-assessed-list" nestedScrollEnabled style={{ maxHeight: 240 }}>
+            {[...current]
+              .sort((a, b) => a.score - b.score || a.number - b.number)
+              .map((item) => (
+                <Pressable
                   key={`${item.kind}:${item.number}`}
-                  title={name(item)}
-                  translateTitle={false}
-                  trailing={<T bold>{item.score}/100</T>}
-                />
+                  accessibilityRole="button"
+                  onPress={() => {
+                    setFrom(String(item.number));
+                    setTo(String(item.number));
+                    setScore(String(item.score));
+                    setEditing(true);
+                  }}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 12,
+                    paddingVertical: 12,
+                    minHeight: 60,
+                    borderBottomWidth: 0.5,
+                    borderBottomColor: p.line,
+                  }}
+                >
+                  <View style={{ flex: 1, gap: 4 }}>
+                    <T translate={false} bold size={15}>
+                      {name(item)}
+                    </T>
+                    {item.score < 60 && (
+                      <T muted size={12}>
+                        {t('app.reviewFirst')}
+                      </T>
+                    )}
+                  </View>
+                  <T
+                    testID="hifz-assessed-score"
+                    bold
+                    size={20}
+                    color={
+                      hifzCardColors(
+                        { hasHifzScore: true, progress: item.score },
+                        state.preferences.hifzColorsEnabled,
+                      )?.borderColor ?? p.ink
+                    }
+                  >
+                    {item.score}/100
+                  </T>
+                </Pressable>
               ))}
-            </View>
-          ))}
-        </>
-      )}
+          </ScrollView>
+        )}
+      </Card>
       {inconsistentJuz(assessments).map((number) => (
         <Notice
           key={number}
@@ -244,58 +236,101 @@ export function PracticeOverview() {
           {t('app.noRepeatAdvice')}
         </T>
       ) : (
-        due.slice(0, 5).map((item) => {
-          const date = new Date();
-          date.setDate(date.getDate() + Math.max(0, item.days));
-          const dateKey = localDate(date);
-          const planned = state.plans.some(
-            (plan) =>
-              plan.date === dateKey &&
-              plan.type === item.kind &&
-              plan.referenceId === item.number &&
-              plan.arabicText?.includes('Hifz herhaling'),
-          );
-          return (
-            <Row
-              key={`${item.kind}:${item.number}`}
-              title={name(item)}
-              translateTitle={false}
-              subtitle={`${format('tracker.scoreValue', item.score)} · ${item.days < 0 ? format('app.lateDays', -item.days) : item.days === 0 ? t('app.today') : item.days === 1 ? t('app.tomorrow') : format('app.inDays', item.days)}`}
-              trailing={
-                <Button
-                  title={t(planned ? 'app.planned' : 'app.agenda')}
-                  variant="secondary"
-                  disabled={planned}
-                  onPress={() =>
-                    dispatch({
-                      type: 'plan/add',
-                      plans: [
-                        {
-                          id: newId(),
-                          date: dateKey,
-                          type: item.kind,
-                          referenceId: item.number,
-                          subId: 0,
-                          displayName: name(item),
-                          arabicText: `${t(`unit.${item.kind}`)} · Hifz herhaling`,
-                          isDone: false,
-                          historyLogged: false,
-                          reminderHour: null,
-                          reminderMinute: null,
-                          createdAt: now,
-                          goalId: 1,
-                          amount: 1,
-                          measurementUnit: item.kind,
-                        },
-                      ],
-                    })
-                  }
-                />
-              }
-            />
-          );
-        })
+        <ScrollView nestedScrollEnabled style={{ maxHeight: 280 }} testID="hifz-review-list">
+          {due.map((item) => {
+            const date = new Date();
+            date.setDate(date.getDate() + Math.max(0, item.days));
+            const dateKey = localDate(date);
+            const planned = state.plans.some(
+              (plan) =>
+                plan.date === dateKey &&
+                plan.type === item.kind &&
+                plan.referenceId === item.number &&
+                plan.arabicText?.includes('Hifz herhaling'),
+            );
+            return (
+              <Row
+                key={`${item.kind}:${item.number}`}
+                title={name(item)}
+                translateTitle={false}
+                subtitle={`${format('tracker.scoreValue', item.score)} · ${item.days < 0 ? format('app.lateDays', -item.days) : item.days === 0 ? t('app.today') : item.days === 1 ? t('app.tomorrow') : format('app.inDays', item.days)}`}
+                trailing={
+                  <Button
+                    title={t(planned ? 'app.planned' : 'app.agenda')}
+                    variant="secondary"
+                    disabled={planned}
+                    onPress={() =>
+                      dispatch({
+                        type: 'plan/add',
+                        plans: [
+                          {
+                            id: newId(),
+                            date: dateKey,
+                            type: item.kind,
+                            referenceId: item.number,
+                            subId: 0,
+                            displayName: name(item),
+                            arabicText: `${t(`unit.${item.kind}`)} · Hifz herhaling`,
+                            isDone: false,
+                            historyLogged: false,
+                            reminderHour: null,
+                            reminderMinute: null,
+                            createdAt: now,
+                            goalId: 1,
+                            amount: 1,
+                            measurementUnit: item.kind,
+                          },
+                        ],
+                      })
+                    }
+                  />
+                }
+              />
+            );
+          })}
+        </ScrollView>
       )}
+      <Section title={t('app.motivationPoints')} />
+      <Card style={{ backgroundColor: p.subtle, gap: 12 }}>
+        <View style={[s.row, { justifyContent: 'space-between' }]}>
+          <T bold>{t(points.level.key)}</T>
+          <T bold size={24}>
+            {points.total} {t('app.pointsShort')}
+          </T>
+        </View>
+        <ProgressBar value={points.progress} label={t(points.level.key)} />
+        <T muted size={12}>
+          {points.remaining
+            ? format('app.pointsToNextLevel', points.remaining)
+            : t('app.newLevelReached')}
+        </T>
+        <View style={[s.row, { flexWrap: 'wrap', justifyContent: 'space-between' }]}>
+          {[
+            ['app.today', points.today],
+            ['app.week', points.week],
+            ['app.bonus', points.bonus],
+          ].map(([label, value]) => (
+            <View key={label} style={{ gap: 3 }}>
+              <T muted size={12}>
+                {t(String(label))}
+              </T>
+              <T bold size={21}>
+                {value}
+              </T>
+            </View>
+          ))}
+        </View>
+        <T size={13}>{readingStreakText(points.streak, locale)}</T>
+        <T size={12} muted>
+          {t('app.latest')}:{' '}
+          {points.latest
+            ? `${points.latest.surahName} · +${points.latestPoints}`
+            : t('quickCheck.noCheckIn')}
+        </T>
+        <T muted size={12}>
+          {t('app.appPointsDisclaimer')}
+        </T>
+      </Card>
       <Sheet visible={editing} title={t('app.scoreRange')} onClose={() => setEditing(false)}>
         <T muted>{format('hifz.range.limit', 1, limit)}</T>
         <View style={[s.row, { alignItems: 'flex-start', marginTop: 16 }]}>

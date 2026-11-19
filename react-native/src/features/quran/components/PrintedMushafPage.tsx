@@ -7,13 +7,14 @@ import { printedPages } from '../../../content/generated/printedPages';
 import { getAyahs } from '../../../content/quran';
 import {
   pageSegments,
-  maknoonRatio,
+  printedPageRatio,
   type Edition,
   type Segment,
 } from '../../../content/mushafGeometry';
 import { mushafFile } from '../../../services/mushaf/storage';
 import { T } from '../../../shared/components';
 import { useI18n } from '../../../i18n';
+import { continuousMushafCrop } from '../layout/continuousMushafCrop';
 import { cropSegment, mushafCropZoom, uncropPoint } from '../layout/mushafCrop';
 
 const cache = new Map<number, string>();
@@ -63,6 +64,10 @@ export function PrintedMushafPage({
   selected,
   onSelect,
   onError,
+  onLongPress,
+  exitLabel,
+  onLongPressSelect = false,
+  continuous = false,
 }: {
   edition: Edition;
   page: number;
@@ -73,6 +78,10 @@ export function PrintedMushafPage({
   selected: Segment | null;
   onSelect: (segment: Segment | null, page: number) => void;
   onError: (message: string) => void;
+  onLongPress?: () => void;
+  exitLabel?: string;
+  onLongPressSelect?: boolean;
+  continuous?: boolean;
 }) {
   const { format, t } = useI18n();
   const [xml, setXml] = useState<string | null>(null);
@@ -84,18 +93,11 @@ export function PrintedMushafPage({
     const settle = setTimeout(() => setSvgZoom(zoom), 120);
     return () => clearTimeout(settle);
   }, [zoom, svgZoom]);
-  const [ratio, setRatio] = useState(
-    edition === 'muhammadi'
-      ? 990 / 456
-      : edition === 'warsh_maknoon'
-        ? maknoonRatio(page)
-        : 1834 / 1260,
-  );
+  const ratio = printedPageRatio(edition, page);
   useEffect(() => {
     let active = true;
     setXml(null);
     if (edition === 'warsh_maknoon') {
-      setRatio(maknoonRatio(page));
       void warshPage(page)
         .then((value) => {
           if (active) setXml(value);
@@ -106,49 +108,71 @@ export function PrintedMushafPage({
     } else if (edition === 'hafs_maknoon') {
       const file = mushafFile('hafs_maknoon', page);
       if (!file.exists) onError('rub.open.download');
-      else
-        Image.getSize(
-          file.uri,
-          (width, height) => {
-            if (active && width > 0) setRatio(height / width);
-          },
-          () => {
-            if (active) onError('rub.open.error');
-          },
-        );
-    } else setRatio(edition === 'muhammadi' ? 990 / 456 : 1834 / 1260);
+    }
     return () => {
       active = false;
     };
   }, [edition, page, retry, onError]);
-  const baseWidth = Math.max(1, Math.min(maxWidth, maxHeight / ratio));
+  const edge = continuous
+    ? continuousMushafCrop(edition, page)
+    : { left: 0, right: 0, top: 0, bottom: 0 };
+  const baseWidth = Math.max(
+    1,
+    Math.min(maxWidth / (1 - edge.left - edge.right), maxHeight / ratio),
+  );
   const width = baseWidth * zoom,
     height = width * ratio;
-  const segments = pageSegments(edition, page);
+  const segments = pageSegments(edition, page, 'original');
   const asset = printedPages[edition === 'muhammadi' ? 'muhammadi' : 'hafs'][page];
   const crop = mushafCropZoom(edition);
   const cropLeft = -(width * (crop - 1)) / 2;
   const cropTop = -(height * (crop - 1)) / 2;
+  const selectAt = (event: { nativeEvent: { locationX: number; locationY: number } }) => {
+    if (edition === 'warsh_maknoon' && !xml) return;
+    if (edition === 'hafs_maknoon' && !mushafFile(edition, page).exists) return;
+    if ((edition === 'hafs' || edition === 'muhammadi') && asset === undefined) return;
+    const { x, y } = uncropPoint(
+      event.nativeEvent.locationX / width + edge.left,
+      event.nativeEvent.locationY / height + edge.top,
+      crop,
+    );
+    onSelect(
+      segments.find(
+        (row) => x >= row.x && x <= row.x + row.width && y >= row.y && y <= row.y + row.height,
+      ) ?? null,
+      page,
+    );
+  };
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={format('repeat.page', page)}
-      onPress={(event) => {
-        const { x, y } = uncropPoint(
-          event.nativeEvent.locationX / width,
-          event.nativeEvent.locationY / height,
-          crop,
-        );
-        onSelect(
-          segments.find(
-            (row) => x >= row.x && x <= row.x + row.width && y >= row.y && y <= row.y + row.height,
-          ) ?? null,
-          page,
-        );
+      onLongPress={onLongPressSelect ? selectAt : onLongPress}
+      accessibilityActions={onLongPress ? [{ name: 'escape', label: exitLabel }] : undefined}
+      onAccessibilityAction={(event) => {
+        if (event.nativeEvent.actionName === 'escape') onLongPress?.();
       }}
-      style={{ width, height, overflow: 'hidden', direction: 'ltr', backgroundColor: '#FFFEF5' }}
+      accessibilityLabel={
+        continuous && exitLabel && !onLongPressSelect
+          ? `${format('repeat.page', page)}. ${exitLabel}`
+          : format('repeat.page', page)
+      }
+      onPress={selectAt}
+      style={{
+        width: width * (1 - edge.left - edge.right),
+        height: height * (1 - edge.top - edge.bottom),
+        overflow: 'hidden',
+        direction: 'ltr',
+        backgroundColor: '#FFFEF5',
+      }}
     >
-      <View pointerEvents="none" style={{ position: 'absolute', left: cropLeft, top: cropTop }}>
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          left: cropLeft - width * edge.left,
+          top: cropTop - height * edge.top,
+        }}
+      >
         {edition === 'warsh_maknoon' ? (
           xml ? (
             <View
@@ -198,8 +222,8 @@ export function PrintedMushafPage({
               pointerEvents="none"
               style={{
                 position: 'absolute',
-                left: row.x * width,
-                top: row.y * height,
+                left: (row.x - edge.left) * width,
+                top: (row.y - edge.top) * height,
                 width: row.width * width,
                 height: row.height * height,
                 backgroundColor: '#D5B56B44',

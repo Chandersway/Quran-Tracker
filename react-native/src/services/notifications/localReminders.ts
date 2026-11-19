@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import { localDate } from '../../domain/localDate';
 import {
   decodeNotificationPreferences,
   localNotificationDefaults,
@@ -10,7 +11,12 @@ import { sourceText } from '../../i18n';
 import type { AppState } from '../../state/models';
 import { desiredPlanReminders, type DesiredPlanReminder } from './planningReminders';
 import { reconcileTrackedPlanReminders } from './planningReminderLedger';
-import { expoPlanReminderPort, hasPlanReminderPermission } from './planningReminderPort';
+import {
+  expoPlanReminderPort,
+  firstPlanReminderGrantAt,
+  hasPlanReminderPermission,
+  initialPlanReminderPermission,
+} from './planningReminderPort';
 
 export const localNotificationKey = 'wirdna:notification-preferences:v1';
 let queue: Promise<unknown> = Promise.resolve();
@@ -50,7 +56,8 @@ export async function loadLocalNotifications(
 function desiredLocalReminders(
   state: AppState,
   preferences: LocalNotificationPreferences,
-  now = new Date(),
+  now: Date,
+  firstGrantAt: number | null = null,
 ): DesiredPlanReminder[] {
   if (!preferences.enabled) return [];
   const language = state.preferences.language;
@@ -77,7 +84,7 @@ function desiredLocalReminders(
     const allowedMinute = dueAt.getHours() * 60 + dueAt.getMinutes();
     if (times.has(allowedMinute)) continue;
     times.add(allowedMinute);
-    plans.push({
+    const daily: DesiredPlanReminder = {
       key: `daily:${allowedMinute}:${language}`,
       planId: 'daily',
       sourceId: 'daily',
@@ -86,28 +93,73 @@ function desiredLocalReminders(
       repeatDaily: true,
       title: sourceText('notifications.reminder', language),
       body: sourceText('notifications.readingReminderBody', language),
+    };
+    plans.push(daily);
+    if (
+      firstGrantAt === null ||
+      localDate(new Date(firstGrantAt)) !== localDate(now) ||
+      dueAt.getTime() > firstGrantAt
+    )
+      continue;
+
+    // The first native DAILY can only fire in the future. Kotlin also offers
+    // today's passed slot, in local time, once. Quiet hours may defer it today.
+    const soon = new Date(now.getTime() + 5000);
+    const allowed = nextAllowedReminder(soon, preferences);
+    const day = localDate(now);
+    if (localDate(allowed) !== day) continue;
+    const firstAllowed = nextAllowedReminder(new Date(firstGrantAt + 5000), preferences);
+    const scheduleTime = allowed === soon ? firstAllowed.getTime() : allowed.getTime();
+    const deliveryKey = `daily-catchup:${day}:${minute}`;
+    plans.push({
+      ...daily,
+      repeatDaily: false,
+      firstGrantSlot: allowedMinute,
+      deliveryKey,
+      deliveryDueAt: dueAt.getTime(),
+      key: `${deliveryKey}:at:${scheduleTime}:${language}`,
+      dueAt: allowed,
+      date: day,
     });
   }
   return plans;
 }
-export function reconcileLocalReminders(state: AppState): Promise<void> {
+export function reconcileLocalReminders(
+  state: AppState,
+  commit?: () => Promise<void>,
+): Promise<void> {
   return ordered(async () => {
-    if (Platform.OS === 'web') return;
+    if (Platform.OS === 'web') return commit?.();
     const preferences = await loadLocalNotifications(state);
-    const desired = (await hasPlanReminderPermission())
-      ? desiredLocalReminders(state, preferences)
-      : [];
+    const opened = new Date();
+    const hasUpcoming =
+      preferences.enabled &&
+      (preferences.daily ||
+        preferences.extra ||
+        desiredLocalReminders(state, preferences, opened).some(
+          (reminder) => reminder.dueAt > opened,
+        ));
+    const permitted =
+      !commit && state.preferences.onboardingComplete && hasUpcoming
+        ? await initialPlanReminderPermission()
+        : await hasPlanReminderPermission();
+    if (commit && !permitted)
+      throw new Error(sourceText('notifications.blocked', state.preferences.language));
+    const firstGrant = permitted ? await firstPlanReminderGrantAt() : null;
     const now = new Date();
     const result = await reconcileTrackedPlanReminders(
-      desired,
+      permitted ? desiredLocalReminders(state, preferences, now, firstGrant) : [],
       expoPlanReminderPort,
       AsyncStorage,
       {
         now: () => Date.now(),
         catchUpAllowed: nextAllowedReminder(now, preferences).getTime() === now.getTime(),
+        commit,
       },
     );
-    setReminderFailure(result.cleanupFailures.length ? 'cleanup' : null);
+    setReminderFailure(
+      result.catchUpFailures.length ? 'restore' : result.cleanupFailures.length ? 'cleanup' : null,
+    );
   });
 }
 /** A schedule or persistence failure leaves the old settings and reminder intact. */
@@ -121,12 +173,11 @@ export function saveLocalNotifications(
       await AsyncStorage.setItem(localNotificationKey, JSON.stringify(validated));
       return;
     }
-    const desired = (await hasPlanReminderPermission())
-      ? desiredLocalReminders(state, validated)
-      : [];
+    const permitted = await hasPlanReminderPermission();
+    const firstGrant = permitted ? await firstPlanReminderGrantAt() : null;
     const now = new Date();
     const result = await reconcileTrackedPlanReminders(
-      desired,
+      permitted ? desiredLocalReminders(state, validated, now, firstGrant) : [],
       expoPlanReminderPort,
       AsyncStorage,
       {
@@ -135,6 +186,8 @@ export function saveLocalNotifications(
         commit: () => AsyncStorage.setItem(localNotificationKey, JSON.stringify(validated)),
       },
     );
-    setReminderFailure(result.cleanupFailures.length ? 'cleanup' : null);
+    setReminderFailure(
+      result.catchUpFailures.length ? 'restore' : result.cleanupFailures.length ? 'cleanup' : null,
+    );
   });
 }

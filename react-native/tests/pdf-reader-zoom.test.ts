@@ -16,6 +16,7 @@ function pdfHarness(
     nativeAvailable?: boolean;
     cached?: string;
     prepare?: (signal: AbortSignal) => Promise<string>;
+    defaultFullscreen?: boolean;
   } = {},
 ) {
   const slots: unknown[] = [];
@@ -97,7 +98,10 @@ function pdfHarness(
     '../../../state/store': {
       useAppStore: () => ({ state: { mushafBookmarks: [] }, dispatch: () => undefined }),
     },
+    './FullscreenExitButton': { FullscreenExitButton: 'FullscreenExitButton' },
+    './FloatingReaderAudio': { FloatingReaderAudio: 'FloatingReaderAudio' },
     '../../../state/reducer': { newId: () => 'pdf-test-session' },
+    '../../../shared/theme': { usePalette: () => ({ surface: '#FFFDF6' }) },
     '../../../shared/components': {
       ...Object.fromEntries(
         ['Button', 'Field', 'IconButton', 'Notice', 'Screen', 'Sheet', 'T'].map((value) => [
@@ -165,6 +169,7 @@ function pdfHarness(
       surah: 1,
       initialPage: 1,
       shortLandscape: false,
+      context: options.defaultFullscreen ? undefined : { fullscreen: false },
       onSelectable: (page: number, zoom: number) => selected.push([page, zoom]),
       onText: (page: number, zoom: number) => text.push([page, zoom]),
     });
@@ -201,6 +206,24 @@ function pdfHarness(
     back: () => back,
   };
 }
+
+test('PDF enters fullscreen by default with exit and audio controls, and tap restores normal controls', async () => {
+  const reader = pdfHarness({ defaultFullscreen: true });
+  reader.render();
+  await new Promise<void>((resolve) => setImmediate(resolve));
+  let find = reader.render();
+  assert.equal(reader.header.at(-1), false);
+  assert.equal(reader.chrome.at(-1), true);
+  assert.equal(find('MushafFooter'), undefined);
+  assert.ok(find('FullscreenExitButton'));
+  assert.ok(find('FloatingReaderAudio'));
+  assert.equal(find('Pdf').props.horizontal, false);
+  find('Pdf').props.onPageSingleTap();
+  find = reader.render();
+  assert.equal(reader.header.at(-1), true);
+  assert.equal(reader.chrome.at(-1), false);
+  assert.ok(find('MushafFooter'));
+});
 
 test('PDF footer follows native pinch zoom, applies bounded zoom commands and preserves original page order', async () => {
   const { render, selected, text, chrome, header, routeParams, focus, back } = pdfHarness();
@@ -276,7 +299,12 @@ test('PDF footer follows native pinch zoom, applies bounded zoom commands and pr
   );
   assert.equal(find('Pdf').props.page, 73);
   assert.equal(find('Pdf').props.scale, 2.25);
-  assert.ok(find('MushafFooter').props.onZoomIn, 'fullscreen keeps +/- and real page navigation');
+  assert.equal(find('MushafFooter'), undefined, 'fullscreen shows only the book');
+  assert.equal(find('pdf-toolbar'), undefined);
+  assert.equal(find('Pdf').props.horizontal, false);
+  assert.equal(find('Pdf').props.enablePaging, false);
+  assert.equal(find('Pdf').props.spacing, 0);
+  assert.equal(find('Pdf').props.fitPolicy, 0);
   assert.equal((routeParams.at(-1) as { fullscreen: boolean }).fullscreen, true);
   focus(false);
   find = render();

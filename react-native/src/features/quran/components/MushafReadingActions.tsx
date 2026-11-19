@@ -36,9 +36,13 @@ export function MushafReadingActions({
   const plan = context?.planId ? state.plans.find((item) => item.id === context.planId) : undefined;
   const target = context?.readingTarget;
   // A cover or an unmapped PDF page cannot silently count as Quran reading.
-  const knownContent = pages.length > 0 && pages.every((page) => !!mushafPageRange(edition, page));
+  const knownContent =
+    pages.length > 0 &&
+    pages.every((page) => !!mushafPageRange(edition, page, context?.bookPresentation));
   const marks = pages.map((page) =>
-    typeof ownerId === 'string' ? mushafPageMark(state.history, edition, page, ownerId) : undefined,
+    typeof ownerId === 'string'
+      ? mushafPageMark(state.history, edition, page, ownerId, context?.bookPresentation)
+      : undefined,
   );
   const done = knownContent && marks.every(Boolean);
   const partial = marks.some(Boolean);
@@ -58,6 +62,7 @@ export function MushafReadingActions({
       ownerId,
       now: Date.now(),
       date: localDate(),
+      ...(context?.bookPresentation ? { bookPresentation: context.bookPresentation } : {}),
     });
   }
   return (

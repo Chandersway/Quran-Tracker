@@ -5,6 +5,7 @@ import * as hizbContent from '../src/content/hizb';
 import * as quickCheck from '../src/domain/quickCheckIn';
 import * as goals from '../src/domain/goals';
 import * as planning from '../src/domain/planning';
+import * as plannedPassage from '../src/domain/plannedPassage';
 import * as journey from '../src/domain/journey';
 import * as agenda from '../src/domain/agenda';
 import * as hifz from '../src/domain/hifz';
@@ -79,13 +80,19 @@ function mount(
   );
   const modules = {
     react: hooks.react,
-    'react-native': { View: 'View', Pressable: 'Pressable', FlatList: 'FlatList' },
+    'react-native': {
+      View: 'View',
+      Pressable: 'Pressable',
+      FlatList: 'FlatList',
+      ScrollView: 'ScrollView',
+    },
     '../../../content/quran': content,
     '../../../content/hizb': hizbContent,
     '../../../domain/quickCheckIn': quickCheck,
     '../../../domain/localDate': { localDate: (clock?: Date) => localDate(clock ?? new Date(now)) },
     '../../../domain/goals': goals,
     '../../../domain/planning': planning,
+    '../../../domain/plannedPassage': plannedPassage,
     '../../../domain/journey': journey,
     '../../../domain/agenda': {
       ...agenda,
@@ -134,6 +141,9 @@ function mount(
     '../../planning/components/ReadingJourneyPanel': { ReadingJourneyPanel: 'ReadingJourneyPanel' },
     '../components/AgendaCalendar': { AgendaCalendar: 'AgendaCalendar' },
     '../../../services/notifications/planningReminders': reminders,
+    '../../../services/notifications/localReminders': {
+      loadLocalNotifications: async () => ({ enabled: true, daily: true }),
+    },
     '../../../services/notifications/planningReminderPort': {
       requestPlanReminderPermission: async () => true,
     },
@@ -421,6 +431,20 @@ test('a planning notification selects its local agenda date and its row retains 
   );
 });
 
+test('the upcoming khatma entry opens the displayed verse interval directly with its plan identity', () => {
+  const tomorrow = journey.addDays(date, 1);
+  const [plan] = journey.buildJourneyPlans(tomorrow, tomorrow, 1, 8, 'khatma');
+  assert.ok(plan);
+  const app = mount('PlanningScreen', { ...initialState, plans: [plan] }, {});
+  const row = findElement(app.render(), 'Row', 'title', 'Al-Fatihah 1:1 – Al-Baqarah 2:141');
+  press(row);
+  assert.deepEqual(JSON.parse(JSON.stringify(app.navigations)), [
+    ['Mushaf', { surah: 1, ayah: 1, endSurah: 2, endAyah: 141, planId: plan.id }],
+  ]);
+  assert.equal(app.state().plans[0]!.displayName, 'Rub 1–8');
+  assert.equal(app.state().plans[0]!.isDone, false);
+});
+
 test('Juz cards show completion from eight Rub marks without inventing a Juz read registration', () => {
   let state = initialState;
   for (const number of [1, 2])
@@ -452,4 +476,49 @@ test('Juz cards show completion from eight Rub marks without inventing a Juz rea
     scope: 'juz',
     number: 1,
   });
+});
+
+test('Home assessed scores never calls a low score strong and keeps all scores in one scrollable card', () => {
+  let state = initialState;
+  for (const [number, score] of [
+    [18, 57],
+    [19, 30],
+    [20, 17],
+  ] as const)
+    state = reducer.appReducer(state, { type: 'hifz', kind: 'hizb', number, score, now });
+  const app = mount('PracticeOverview', state);
+  change(findElement(app.render(), 'Segments', 'value', 'surah'), 'hizb');
+  const tree = app.render();
+  assert.equal(
+    elements(tree, 'T').some((node) => JSON.stringify(node.props.children).includes('app.strong')),
+    false,
+  );
+  const list = findElement(tree, 'ScrollView', 'testID', 'hifz-assessed-list');
+  assert.equal(list.props.nestedScrollEnabled, true);
+  assert.equal(
+    elements(list, 'T').filter((node) => node.props.testID === 'hifz-assessed-score').length,
+    3,
+  );
+  assert.equal(
+    elements(list, 'T').filter((node) =>
+      JSON.stringify(node.props.children).includes('app.reviewFirst'),
+    ).length,
+    3,
+  );
+  assert.deepEqual(
+    elements(list, 'T')
+      .filter((node) => node.props.testID === 'hifz-assessed-score')
+      .map((node) => node.props.color),
+    [17, 30, 57].map(
+      (score) =>
+        hifzPresentation.hifzCardColors({ hasHifzScore: true, progress: score }, true)!.borderColor,
+    ),
+  );
+  const review = findElement(tree, 'ScrollView', 'testID', 'hifz-review-list');
+  const first = elements(review, 'Row')[0]!;
+  const beforeHistory = structuredClone(app.state().history);
+  press(first.props.trailing as TestElement);
+  assert.equal(app.state().plans.length, 1);
+  assert.equal(app.state().plans[0]!.referenceId, 20);
+  assert.deepEqual(app.state().history, beforeHistory);
 });

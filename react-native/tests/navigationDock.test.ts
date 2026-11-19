@@ -8,10 +8,11 @@ import { appReducer, type Action } from '../src/state/reducer';
 import * as prefs from '../src/domain/dockPreferences';
 import * as catalog from '../src/app/navigation/dockDestinations';
 import * as navigationCopy from '../src/app/navigation/navigationCopy';
+import { bookmarkCopy } from '../src/features/bookmarks/bookmarkCopy';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Inspect rendered native props in a small hook harness.
 type Node = { type: string; props: Record<string, any>; children: unknown[] };
-function dock() {
+function dock(platform = 'android') {
   let app = initialState;
   let slot = 0;
   const slots: unknown[] = [];
@@ -36,8 +37,16 @@ function dock() {
   };
   const modules: Record<string, unknown> = {
     react,
-    'react-native': { View: 'View', Pressable: 'Pressable' },
-    'react-native-safe-area-context': { useSafeAreaInsets: () => ({ bottom: 0 }) },
+    'react-native': {
+      Platform: { OS: platform },
+      View: 'View',
+      Pressable: 'Pressable',
+      ScrollView: 'ScrollView',
+      useWindowDimensions: () => ({ width: 360, height: 800 }),
+    },
+    'react-native-safe-area-context': {
+      useSafeAreaInsets: () => ({ bottom: 0, left: 0, right: 0 }),
+    },
     '../../state/store': {
       useAppStore: () => ({
         state: app,
@@ -67,6 +76,8 @@ function dock() {
     '../../domain/dockPreferences': prefs,
     './dockDestinations': catalog,
     './navigationCopy': navigationCopy,
+    '../../features/bookmarks/bookmarkCopy': { bookmarkCopy },
+    '../../features/audio/components/MediaSettings': { MediaSettingsSheet: 'MediaSettingsSheet' },
   };
   const output = ts.transpileModule(
     readFileSync(new URL('../src/app/navigation/NavigationDock.tsx', import.meta.url), 'utf8'),
@@ -122,7 +133,7 @@ test('selector enforces three choices, restores defaults, and More groups destin
   nodes = app.render();
   assert.equal(
     nodes.filter((n) => n.type === 'Row').length,
-    catalog.dockDestinations.length - 3 + 2,
+    catalog.dockDestinations.length - 6 + 4,
   );
   assert.equal(
     nodes.some((n) => n.type === 'Row' && n.props.title === 'app.stats'),
@@ -175,4 +186,43 @@ test('Mushaf resumes its saved position and its separate library remains reachab
   nodes = app.render();
   nodes.find((n) => n.type === 'Row' && n.props.title === 'ui.nav.library')!.props.onPress();
   assert.deepEqual(app.calls, [['Mushaf', { page: 99 }], ['MushafLibrary']]);
+});
+
+test('More exposes bookmarks and opens the existing reciter settings directly', () => {
+  const app = dock();
+  let nodes = app.render();
+  nodes
+    .find((node) => node.type === 'Row' && node.props.title === bookmarkCopy.en.audio)!
+    .props.onPress();
+  nodes = app.render();
+  assert.equal(nodes.find((node) => node.type === 'MediaSettingsSheet')!.props.visible, true);
+  nodes.find((node) => node.type === 'MediaSettingsSheet')!.props.onClose();
+  nodes = app.render();
+  assert.equal(nodes.find((node) => node.type === 'MediaSettingsSheet')!.props.visible, false);
+  nodes
+    .find((node) => node.type === 'Row' && node.props.title === bookmarkCopy.en.title)!
+    .props.onPress();
+  assert.deepEqual(app.calls, [['Bookmarks']]);
+});
+
+test('iOS opens audio after More completes its native dismissal', () => {
+  const app = dock('ios');
+  const nodes = app.render();
+  nodes
+    .find((node) => node.type === 'Pressable' && node.props.accessibilityLabel === 'ui.more')!
+    .props.onPress();
+  const menu = app.render();
+  assert.equal(menu.find((node) => node.type === 'Sheet')!.props.visible, true);
+  menu
+    .find((node) => node.type === 'Row' && node.props.title === bookmarkCopy.en.audio)!
+    .props.onPress();
+  const closing = app.render();
+  assert.equal(closing.find((node) => node.type === 'MediaSettingsSheet')!.props.visible, false);
+  const more = closing.find((node) => node.type === 'Sheet')!;
+  assert.equal(more.props.visible, false);
+  more.props.onDismiss();
+  assert.equal(
+    app.render().find((node) => node.type === 'MediaSettingsSheet')!.props.visible,
+    true,
+  );
 });

@@ -23,6 +23,52 @@ const savedPdf = {
   mushafPositions: { hafs_indopak_15: 3, hafs: 18 },
 };
 
+test('canonical navigation with an unindexed IndoPak preference reaches the right ayah while physical PDF entries keep their page', () => {
+  const state = {
+    ...savedPdf,
+    preferences: { ...savedPdf.preferences, bookPresentation: 'original' as const },
+  };
+  for (const context of [
+    { surah: 5, ayah: 77 },
+    { surah: 5, ayah: 77, endSurah: 6, endAyah: 3, planId: 'range' },
+  ]) {
+    const verse = resolveBookEntry(state, context);
+    assert.equal(verse.edition, 'hafs');
+    assert.equal(verse.originalEdition, 'hafs_indopak_15');
+    assert.equal(verse.page, 121);
+    assert.deepEqual(resolveBookEntry(state, verse), verse);
+  }
+  const saved = resolveBookEntry(state, {
+    surah: 5,
+    edition: 'hafs_indopak_15',
+    bookPresentation: 'original',
+    page: 253,
+  });
+  assert.equal(saved.edition, 'hafs_indopak_15');
+  assert.equal(saved.page, 253);
+  assert.equal(
+    resolveBookEntry(state, { surah: 1, edition: 'hafs_indopak_15' }, 'original').page,
+    1,
+  );
+});
+
+test('returning from Unicode Hafs keeps the original Medina page until a deliberate page turn', () => {
+  const original = {
+    surah: 5,
+    ayah: 77,
+    page: 120,
+    edition: 'hafs' as const,
+    originalEdition: 'hafs' as const,
+    bookPresentation: 'original' as const,
+    bookView: { zoom: 2, horizontalOffset: 24, verticalAnchor: 0.4 },
+  };
+  const selected = beginBookSelection(savedPdf, original, 'original');
+  assert.equal(selected.page, 121);
+  assert.equal(restoreBookSelection(selected).page, 120);
+  assert.deepEqual(restoreBookSelection(selected).bookView, original.bookView);
+  assert.ok(restoreBookSelection({ ...selected, page: 125 }).page! > 120);
+});
+
 test('normal dock and Continue Reading resolve saved PDF to selectable canonical Hafs', () => {
   // Both actual call sites use this shared resolver; no special-route escape action.
   const dock = mushafResume(savedPdf);

@@ -413,11 +413,7 @@ export function ReaderScreen({ route, navigation }: NativeStackScreenProps<RootS
                 onBook={() =>
                   navigation.replace(
                     'Mushaf',
-                    textToBook(
-                      { ...route.params, fullscreen: immersive },
-                      lastVisible.current,
-                      state,
-                    ),
+                    textToBook({ ...route.params, fullscreen: true }, lastVisible.current, state),
                   )
                 }
               />
@@ -905,12 +901,13 @@ export function ReaderScreen({ route, navigation }: NativeStackScreenProps<RootS
         </View>
       )}
       <RepeatSheet
-        key={`${repeatTarget.surah}:${repeatTarget.ayah}`}
+        key={`${repeatTarget.surah}:${repeatTarget.ayah}:${repeatEdition}:${route.params.bookPresentation ?? state.preferences.bookPresentation}`}
         visible={repeatOpen}
         onClose={() => setRepeatOpen(false)}
         surah={repeatTarget.surah}
         initialAyah={repeatTarget.ayah}
         initialEndAyah={repeatTarget.endAyah}
+        pagePresentation={route.params.bookPresentation ?? state.preferences.bookPresentation}
         pageEdition={
           repeatEdition === 'hafs_madina_pdf' || repeatEdition === 'hafs_indopak_15'
             ? null

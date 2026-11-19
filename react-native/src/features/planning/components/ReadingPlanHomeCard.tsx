@@ -9,7 +9,7 @@ import { ProgressRing } from '../../../shared/components/ProgressRing';
 import { useAppStore } from '../../../state/store';
 import { useReadingPlan } from '../hooks/useReadingPlan';
 const key = (source: string) => `readingPlan.${source}`;
-export function ReadingPlanHomeCard({ onOpen }: { onOpen?: () => void }) {
+export function ReadingPlanHomeCard({ onOpen }: { onOpen?: (() => void) | null }) {
   const { state } = useAppStore();
   const navigation = useAppNavigation();
   const { t, locale } = useI18n();
@@ -18,10 +18,11 @@ export function ReadingPlanHomeCard({ onOpen }: { onOpen?: () => void }) {
   const quantity = (n: number) => n.toLocaleString(locale, { maximumFractionDigits: 1 });
   const fraction =
     ready && plan.started && plan.target > 0 ? Math.max(0, Math.min(1, done / plan.target)) : 0;
+  const Container = onOpen === null ? View : Pressable;
   return (
-    <Pressable
-      accessibilityRole="button"
-      onPress={onOpen ?? (() => navigation.navigate('ReadingPlan'))}
+    <Container
+      accessibilityRole={onOpen === null ? undefined : 'button'}
+      onPress={onOpen === null ? undefined : (onOpen ?? (() => navigation.navigate('ReadingPlan')))}
       style={{ marginTop: 20 }}
     >
       <Card ornament="zellij">
@@ -46,11 +47,13 @@ export function ReadingPlanHomeCard({ onOpen }: { onOpen?: () => void }) {
                   ? `${quantity(done)} / ${quantity(plan.target)} ${t(readingUnitLabelKey(plan.unit))}`
                   : t(key('Stel je eigen leesdoel in'))}
               </T>
-              <T>{t(key(plan.started ? 'Bekijken en aanpassen →' : 'Plan instellen →'))}</T>
+              {onOpen !== null && (
+                <T>{t(key(plan.started ? 'Bekijken en aanpassen →' : 'Plan instellen →'))}</T>
+              )}
             </View>
           </View>
         )}
       </Card>
-    </Pressable>
+    </Container>
   );
 }

@@ -63,13 +63,15 @@ export function LocalRemindersPanel() {
     setError('');
     setSaved(false);
     try {
-      const enables =
+      const schedules =
         (patch.enabled === true ||
           patch.daily === true ||
           patch.extra === true ||
-          patch.planning === true) &&
+          patch.planning === true ||
+          (patch.dailyMinute !== undefined && next.daily) ||
+          (patch.extraMinute !== undefined && next.extra)) &&
         next.enabled;
-      if (enables && Platform.OS !== 'web' && !(await requestPlanReminderPermission())) {
+      if (schedules && Platform.OS !== 'web' && !(await requestPlanReminderPermission())) {
         setError(t('notifications.blocked'));
         return;
       }
@@ -136,6 +138,7 @@ export function LocalRemindersPanel() {
             variant="secondary"
             disabled={busy || !ready}
             onPress={() => {
+              setError('');
               setEditing(key);
               setHour(String(Math.floor(preferences[key] / 60)));
               setMinute(String(preferences[key] % 60));
@@ -180,7 +183,7 @@ export function LocalRemindersPanel() {
           {t('notifications.timing')}
         </T>
       </Card>
-      {error && (
+      {!editing && !!error && (
         <Notice error message={error} onRetry={!ready ? () => latestLoad.current() : undefined} />
       )}
       {saved && <Notice message={t('notifications.saved')} />}
@@ -211,6 +214,7 @@ export function LocalRemindersPanel() {
             />
           </View>
         </View>
+        {!!error && <Notice error message={error} />}
         <Button
           title={t('notifications.save')}
           loading={busy}

@@ -30,12 +30,12 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/quran/screens/MushafScreen.tsx",
-          "line": 582,
+          "line": 646,
           "symbol": "async function playSelectedSurah"
         },
         {
           "path": "src/features/quran/screens/MushafScreen.tsx",
-          "line": 593,
+          "line": 657,
           "symbol": "function openRepeat"
         }
       ],
@@ -224,7 +224,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/quran/screens/ReaderScreen.tsx",
-          "line": 587,
+          "line": 583,
           "symbol": "showSurahCard && surahIllustrations[surah]"
         },
         {
@@ -478,7 +478,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-          "line": 90,
+          "line": 96,
           "symbol": "type: statsReadingBuckets"
         },
         {
@@ -545,7 +545,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-          "line": 221,
+          "line": 225,
           "symbol": "function clearReading"
         }
       ],
@@ -1090,12 +1090,12 @@
       "reactNativeEvidence": [
         {
           "path": "src/state/reducer.ts",
-          "line": 374,
+          "line": 421,
           "symbol": "case 'mushaf/position'"
         },
         {
           "path": "src/state/reducer.ts",
-          "line": 385,
+          "line": 443,
           "symbol": "case 'mushaf/bookmark'"
         },
         {
@@ -1126,7 +1126,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/quran/screens/MushafLibraryScreen.tsx",
-          "line": 115,
+          "line": 116,
           "symbol": "MushafLibraryScreen"
         },
         {
@@ -1157,7 +1157,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/content/mushafGeometry.ts",
-          "line": 28,
+          "line": 56,
           "symbol": "hafsReferences"
         }
       ],
@@ -1183,7 +1183,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/audio/components/RepeatSheet.tsx",
-          "line": 28,
+          "line": 29,
           "symbol": "export function RepeatSheet"
         }
       ],
@@ -1313,7 +1313,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/screens/ProgressScreen.tsx",
-          "line": 40,
+          "line": 43,
           "symbol": "selected"
         }
       ],
@@ -1554,7 +1554,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/screens/GoalsScreen.tsx",
-          "line": 194,
+          "line": 223,
           "symbol": "matchingPlans"
         }
       ],
@@ -1699,7 +1699,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/screens/ChecklistScreen.tsx",
-          "line": 31,
+          "line": 41,
           "symbol": "ChecklistScreen"
         }
       ],
@@ -3399,8 +3399,19 @@
           "name": "onCreate",
           "line": 27,
           "status": "unverified",
-          "candidateReactNativeEvidence": [],
-          "note": "No same-name implementation located; inspect renamed implementation before classifying missing."
+          "candidateReactNativeEvidence": [
+            {
+              "path": "src/features/notes/components/NoteFoldersBar.tsx",
+              "line": 13,
+              "symbol": "onCreate"
+            },
+            {
+              "path": "src/features/notes/screens/NotesScreen.tsx",
+              "line": 449,
+              "symbol": "onCreate"
+            }
+          ],
+          "note": "Name matches are review leads only, not proof of equivalent behavior."
         },
         {
           "kind": "fun",
@@ -3428,7 +3439,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 117,
+              "line": 129,
               "symbol": "reset"
             },
             {
@@ -3448,7 +3459,7 @@
             },
             {
               "path": "src/features/notes/hooks/useNoteFilters.ts",
-              "line": 64,
+              "line": 65,
               "symbol": "reset"
             },
             {
@@ -3752,7 +3763,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 85,
+              "line": 89,
               "symbol": "delete"
             },
             {
@@ -3835,7 +3846,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 57,
+              "line": 64,
               "symbol": "saveNote"
             }
           ],
@@ -3862,12 +3873,12 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 58,
+              "line": 65,
               "symbol": "deleteNote"
             },
             {
               "path": "src/features/notes/screens/NotesScreen.tsx",
-              "line": 88,
+              "line": 120,
               "symbol": "deleteNote"
             }
           ],
@@ -3926,7 +3937,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 57,
+              "line": 64,
               "symbol": "saveNote"
             }
           ],
@@ -3953,12 +3964,12 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 58,
+              "line": 65,
               "symbol": "deleteNote"
             },
             {
               "path": "src/features/notes/screens/NotesScreen.tsx",
-              "line": 88,
+              "line": 120,
               "symbol": "deleteNote"
             }
           ],
@@ -4009,12 +4020,12 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 17,
+              "line": 23,
               "symbol": "DailyGoal"
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 19,
+              "line": 24,
               "symbol": "DailyGoal"
             }
           ],
@@ -4159,7 +4170,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 178,
+              "line": 190,
               "symbol": "all"
             },
             {
@@ -4169,7 +4180,7 @@
             },
             {
               "path": "src/services/audio/repeatSelection.ts",
-              "line": 108,
+              "line": 111,
               "symbol": "all"
             },
             {
@@ -4198,7 +4209,7 @@
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 16,
+              "line": 21,
               "symbol": "goalAction"
             }
           ],
@@ -4234,7 +4245,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 339,
+              "line": 334,
               "symbol": "goalProgress"
             }
           ],
@@ -4304,7 +4315,7 @@
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 14,
+              "line": 19,
               "symbol": "saveGoalDefinition"
             }
           ],
@@ -4319,6 +4330,11 @@
             {
               "path": "src/domain/goals.ts",
               "line": 43,
+              "symbol": "record"
+            },
+            {
+              "path": "src/domain/notesLibrary.ts",
+              "line": 83,
               "symbol": "record"
             },
             {
@@ -4349,11 +4365,6 @@
             {
               "path": "src/state/persistence/decodeState.ts",
               "line": 28,
-              "symbol": "record"
-            },
-            {
-              "path": "src/services/auth/auth.ts",
-              "line": 11,
               "symbol": "record"
             }
           ],
@@ -4426,7 +4437,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 113,
+              "line": 112,
               "symbol": "schedule"
             },
             {
@@ -4436,17 +4447,17 @@
             },
             {
               "path": "src/services/notifications/planningReminderPort.ts",
-              "line": 36,
+              "line": 123,
               "symbol": "schedule"
             },
             {
               "path": "src/services/notifications/planningReminders.ts",
-              "line": 15,
+              "line": 17,
               "symbol": "schedule"
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 201,
+              "line": 230,
               "symbol": "schedule"
             },
             {
@@ -4523,7 +4534,7 @@
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 14,
+              "line": 19,
               "symbol": "saveGoalDefinition"
             }
           ],
@@ -4538,6 +4549,11 @@
             {
               "path": "src/domain/goals.ts",
               "line": 43,
+              "symbol": "record"
+            },
+            {
+              "path": "src/domain/notesLibrary.ts",
+              "line": 83,
               "symbol": "record"
             },
             {
@@ -4569,11 +4585,6 @@
               "path": "src/state/persistence/decodeState.ts",
               "line": 28,
               "symbol": "record"
-            },
-            {
-              "path": "src/services/auth/auth.ts",
-              "line": 11,
-              "symbol": "record"
             }
           ],
           "note": "Name matches are review leads only, not proof of equivalent behavior."
@@ -4596,7 +4607,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 113,
+              "line": 112,
               "symbol": "schedule"
             },
             {
@@ -4606,17 +4617,17 @@
             },
             {
               "path": "src/services/notifications/planningReminderPort.ts",
-              "line": 36,
+              "line": 123,
               "symbol": "schedule"
             },
             {
               "path": "src/services/notifications/planningReminders.ts",
-              "line": 15,
+              "line": 17,
               "symbol": "schedule"
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 201,
+              "line": 230,
               "symbol": "schedule"
             },
             {
@@ -6483,6 +6494,11 @@
               "symbol": "bounds"
             },
             {
+              "path": "src/features/quran/layout/continuousMushafCrop.ts",
+              "line": 7,
+              "symbol": "bounds"
+            },
+            {
               "path": "src/features/notes/editor/noteFormat.ts",
               "line": 143,
               "symbol": "bounds"
@@ -6493,13 +6509,13 @@
               "symbol": "bounds"
             },
             {
-              "path": "src/features/quran/screens/MushafScreen.tsx",
-              "line": 987,
+              "path": "src/features/quran/components/FloatingReaderButton.tsx",
+              "line": 47,
               "symbol": "bounds"
             },
             {
-              "path": "src/features/groups/components/GroupMemberReadingSheet.tsx",
-              "line": 45,
+              "path": "src/features/quran/screens/MushafScreen.tsx",
+              "line": 1102,
               "symbol": "bounds"
             }
           ],
@@ -6690,7 +6706,7 @@
             },
             {
               "path": "src/state/persistence/decodeState.ts",
-              "line": 183,
+              "line": 189,
               "symbol": "language"
             }
           ],
@@ -6985,7 +7001,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/domain/bookPresentation.ts",
-              "line": 150,
+              "line": 195,
               "symbol": "receive"
             },
             {
@@ -7029,7 +7045,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/domain/bookPresentation.ts",
-              "line": 150,
+              "line": 195,
               "symbol": "receive"
             },
             {
@@ -7226,7 +7242,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 85,
+              "line": 89,
               "symbol": "delete"
             },
             {
@@ -7304,7 +7320,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 421,
+              "line": 419,
               "symbol": "addItem"
             }
           ],
@@ -7380,7 +7396,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 421,
+              "line": 419,
               "symbol": "addItem"
             }
           ],
@@ -7416,7 +7432,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/content/mushafPageMetrics.ts",
-              "line": 46,
+              "line": 54,
               "symbol": "complete"
             },
             {
@@ -7848,7 +7864,7 @@
             },
             {
               "path": "src/state/persistence/decodeState.ts",
-              "line": 175,
+              "line": 181,
               "symbol": "migration"
             },
             {
@@ -8097,6 +8113,11 @@
           "status": "unverified",
           "candidateReactNativeEvidence": [
             {
+              "path": "src/domain/notesLibrary.ts",
+              "line": 2,
+              "symbol": "NoteScope"
+            },
+            {
               "path": "src/domain/quran.ts",
               "line": 25,
               "symbol": "NoteScope"
@@ -8118,7 +8139,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 8,
+              "line": 9,
               "symbol": "NoteScope"
             },
             {
@@ -8128,11 +8149,6 @@
             },
             {
               "path": "src/features/practice/screens/ChecklistScreen.tsx",
-              "line": 5,
-              "symbol": "NoteScope"
-            },
-            {
-              "path": "src/features/notes/components/NoteTargetControl.tsx",
               "line": 5,
               "symbol": "NoteScope"
             }
@@ -8162,7 +8178,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 7,
+              "line": 8,
               "symbol": "QuranNoteTarget"
             },
             {
@@ -8215,7 +8231,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/content/mushafGeometry.ts",
-              "line": 77,
+              "line": 98,
               "symbol": "includes"
             },
             {
@@ -8225,7 +8241,7 @@
             },
             {
               "path": "src/domain/dockPreferences.ts",
-              "line": 28,
+              "line": 33,
               "symbol": "includes"
             },
             {
@@ -8245,7 +8261,7 @@
             },
             {
               "path": "src/domain/mushafReading.ts",
-              "line": 6,
+              "line": 10,
               "symbol": "includes"
             },
             {
@@ -8290,12 +8306,12 @@
             },
             {
               "path": "src/domain/bookPresentation.ts",
-              "line": 34,
+              "line": 35,
               "symbol": "start"
             },
             {
               "path": "src/domain/bookTranslation.ts",
-              "line": 18,
+              "line": 19,
               "symbol": "start"
             },
             {
@@ -8442,7 +8458,7 @@
             },
             {
               "path": "src/features/quran/components/MushafReadingActions.tsx",
-              "line": 50,
+              "line": 54,
               "symbol": "quickCheckIn"
             },
             {
@@ -8452,7 +8468,7 @@
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 54,
+              "line": 59,
               "symbol": "quickCheckIn"
             },
             {
@@ -8576,7 +8592,7 @@
             },
             {
               "path": "src/features/quran/components/MushafReadingActions.tsx",
-              "line": 50,
+              "line": 54,
               "symbol": "quickCheckIn"
             },
             {
@@ -8586,7 +8602,7 @@
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 54,
+              "line": 59,
               "symbol": "quickCheckIn"
             },
             {
@@ -8777,12 +8793,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/content/mushafGeometry.ts",
-              "line": 42,
+              "line": 38,
               "symbol": "index"
             },
             {
               "path": "src/content/mushafPageMetrics.ts",
-              "line": 39,
+              "line": 55,
               "symbol": "index"
             },
             {
@@ -8797,7 +8813,7 @@
             },
             {
               "path": "src/domain/bookPresentation.ts",
-              "line": 129,
+              "line": 83,
               "symbol": "index"
             },
             {
@@ -8836,7 +8852,7 @@
             },
             {
               "path": "src/services/audio/repeatSelection.ts",
-              "line": 45,
+              "line": 48,
               "symbol": "point"
             },
             {
@@ -8861,7 +8877,7 @@
             },
             {
               "path": "src/features/quran/providers/readingModeContext.ts",
-              "line": 23,
+              "line": 19,
               "symbol": "point"
             }
           ],
@@ -8885,12 +8901,12 @@
             },
             {
               "path": "src/domain/mushafReading.ts",
-              "line": 21,
+              "line": 25,
               "symbol": "maximum"
             },
             {
               "path": "src/services/audio/repeatSelection.ts",
-              "line": 75,
+              "line": 78,
               "symbol": "maximum"
             },
             {
@@ -8924,17 +8940,17 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/content/mushafPageMetrics.ts",
-              "line": 75,
+              "line": 87,
               "symbol": "range"
             },
             {
               "path": "src/domain/bookPresentation.ts",
-              "line": 30,
+              "line": 31,
               "symbol": "range"
             },
             {
               "path": "src/domain/bookTranslation.ts",
-              "line": 16,
+              "line": 17,
               "symbol": "range"
             },
             {
@@ -8949,17 +8965,17 @@
             },
             {
               "path": "src/domain/mushafReading.ts",
-              "line": 36,
+              "line": 41,
+              "symbol": "range"
+            },
+            {
+              "path": "src/domain/plannedPassage.ts",
+              "line": 4,
               "symbol": "range"
             },
             {
               "path": "src/domain/quranNavigation.ts",
               "line": 55,
-              "symbol": "range"
-            },
-            {
-              "path": "src/domain/statistics.ts",
-              "line": 316,
               "symbol": "range"
             }
           ],
@@ -8989,7 +9005,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/practice/screens/ChecklistScreen.tsx",
-              "line": 215,
+              "line": 247,
               "symbol": "clearPosition"
             }
           ],
@@ -9027,7 +9043,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 95,
+              "line": 107,
               "symbol": "completed"
             },
             {
@@ -9081,17 +9097,17 @@
             },
             {
               "path": "src/features/quran/components/MushafReadingActions.tsx",
-              "line": 44,
+              "line": 48,
               "symbol": "partial"
             },
             {
               "path": "src/features/quran/screens/MushafLibraryScreen.tsx",
-              "line": 32,
+              "line": 33,
               "symbol": "partial"
             },
             {
               "path": "src/features/practice/screens/ChecklistScreen.tsx",
-              "line": 120,
+              "line": 131,
               "symbol": "partial"
             }
           ],
@@ -9110,7 +9126,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 29,
+              "line": 33,
               "symbol": "check"
             },
             {
@@ -9199,7 +9215,7 @@
             },
             {
               "path": "src/domain/mushafReading.ts",
-              "line": 20,
+              "line": 24,
               "symbol": "read"
             },
             {
@@ -9729,7 +9745,12 @@
             },
             {
               "path": "src/features/quran/screens/MushafScreen.tsx",
-              "line": 312,
+              "line": 349,
+              "symbol": "measure"
+            },
+            {
+              "path": "src/features/notes/components/NoteFoldersBar.tsx",
+              "line": 34,
               "symbol": "measure"
             }
           ],
@@ -9753,7 +9774,7 @@
             },
             {
               "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-              "line": 330,
+              "line": 335,
               "symbol": "ayahEquivalent"
             },
             {
@@ -11724,7 +11745,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/quran/screens/QuranScreen.tsx",
-              "line": 111,
+              "line": 117,
               "symbol": "Surahs"
             }
           ],
@@ -11763,7 +11784,7 @@
             },
             {
               "path": "src/features/quran/screens/MushafScreen.tsx",
-              "line": 76,
+              "line": 78,
               "symbol": "Reader"
             },
             {
@@ -11806,7 +11827,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/app/navigation/types.ts",
-              "line": 55,
+              "line": 56,
               "symbol": "Mutashabihat"
             },
             {
@@ -11816,12 +11837,12 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 44,
+              "line": 45,
               "symbol": "Mutashabihat"
             },
             {
               "path": "src/app/navigation/NavigationDock.tsx",
-              "line": 64,
+              "line": 71,
               "symbol": "Mutashabihat"
             }
           ],
@@ -11864,7 +11885,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/app/navigation/types.ts",
-              "line": 57,
+              "line": 58,
               "symbol": "BookReader"
             },
             {
@@ -11879,7 +11900,7 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 43,
+              "line": 44,
               "symbol": "BookReader"
             }
           ],
@@ -11928,7 +11949,7 @@
             },
             {
               "path": "src/features/home/screens/MainScreen.tsx",
-              "line": 108,
+              "line": 103,
               "symbol": "Notes"
             }
           ],
@@ -11947,22 +11968,22 @@
             },
             {
               "path": "src/features/practice/providers/FocusProvider.tsx",
-              "line": 14,
+              "line": 15,
               "symbol": "Focus"
             },
             {
               "path": "src/features/home/screens/MainScreen.tsx",
-              "line": 87,
+              "line": 82,
               "symbol": "Focus"
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 33,
+              "line": 34,
               "symbol": "Focus"
             },
             {
               "path": "src/app/navigation/NavigationDock.tsx",
-              "line": 70,
+              "line": 77,
               "symbol": "Focus"
             }
           ],
@@ -11976,7 +11997,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/app/navigation/types.ts",
-              "line": 28,
+              "line": 29,
               "symbol": "Groups"
             },
             {
@@ -11986,7 +12007,7 @@
             },
             {
               "path": "src/features/account/screens/SettingsScreen.tsx",
-              "line": 327,
+              "line": 169,
               "symbol": "Groups"
             },
             {
@@ -12015,7 +12036,7 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 32,
+              "line": 33,
               "symbol": "ReadingPlan"
             }
           ],
@@ -12049,12 +12070,12 @@
             },
             {
               "path": "src/services/notifications/planningReminderPort.ts",
-              "line": 2,
+              "line": 9,
               "symbol": "Notifications"
             },
             {
               "path": "src/services/notifications/planningReminders.ts",
-              "line": 173,
+              "line": 185,
               "symbol": "Notifications"
             },
             {
@@ -12101,12 +12122,12 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 17,
+              "line": 23,
               "symbol": "DailyGoal"
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 19,
+              "line": 24,
               "symbol": "DailyGoal"
             }
           ],
@@ -12135,12 +12156,12 @@
             },
             {
               "path": "src/features/practice/screens/ProgressScreen.tsx",
-              "line": 128,
+              "line": 131,
               "symbol": "Stats"
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 37,
+              "line": 38,
               "symbol": "Stats"
             }
           ],
@@ -12155,11 +12176,6 @@
             {
               "path": "src/services/notifications/notificationDestinations.ts",
               "line": 35,
-              "symbol": "Agenda"
-            },
-            {
-              "path": "src/features/planning/components/PlanningReminderCoordinator.tsx",
-              "line": 17,
               "symbol": "Agenda"
             }
           ],
@@ -12184,8 +12200,19 @@
           "name": "onCreate",
           "line": 86,
           "status": "unverified",
-          "candidateReactNativeEvidence": [],
-          "note": "No same-name implementation located; inspect renamed implementation before classifying missing."
+          "candidateReactNativeEvidence": [
+            {
+              "path": "src/features/notes/components/NoteFoldersBar.tsx",
+              "line": 13,
+              "symbol": "onCreate"
+            },
+            {
+              "path": "src/features/notes/screens/NotesScreen.tsx",
+              "line": 449,
+              "symbol": "onCreate"
+            }
+          ],
+          "note": "Name matches are review leads only, not proof of equivalent behavior."
         },
         {
           "kind": "fun",
@@ -12210,7 +12237,7 @@
             },
             {
               "path": "src/services/notifications/notificationSystem.ts",
-              "line": 32,
+              "line": 39,
               "symbol": "onResume"
             },
             {
@@ -12409,6 +12436,11 @@
               "path": "src/services/groups/groupFeedController.ts",
               "line": 215,
               "symbol": "dismiss"
+            },
+            {
+              "path": "src/features/notes/components/NoteEditorView.tsx",
+              "line": 100,
+              "symbol": "dismiss"
             }
           ],
           "note": "Name matches are review leads only, not proof of equivalent behavior."
@@ -12511,6 +12543,11 @@
             {
               "path": "src/services/notifications/planningReminderLedger.ts",
               "line": 41,
+              "symbol": "installation"
+            },
+            {
+              "path": "src/services/notifications/planningReminderPort.ts",
+              "line": 58,
               "symbol": "installation"
             },
             {
@@ -12743,7 +12780,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 11,
+              "line": 12,
               "symbol": "planning"
             },
             {
@@ -12826,7 +12863,7 @@
             },
             {
               "path": "src/state/persistence/decodeState.ts",
-              "line": 183,
+              "line": 189,
               "symbol": "language"
             }
           ],
@@ -14605,6 +14642,11 @@
               "symbol": "arabicUi"
             },
             {
+              "path": "src/features/notes/components/NoteEditorView.tsx",
+              "line": 159,
+              "symbol": "arabicUi"
+            },
+            {
               "path": "src/features/groups/components/GroupChatComposer.tsx",
               "line": 79,
               "symbol": "arabicUi"
@@ -14662,6 +14704,11 @@
           "status": "unverified",
           "candidateReactNativeEvidence": [
             {
+              "path": "src/content/mushafPageMetrics.ts",
+              "line": 46,
+              "symbol": "ayahs"
+            },
+            {
               "path": "src/domain/asbabDiscovery.ts",
               "line": 22,
               "symbol": "ayahs"
@@ -14695,11 +14742,6 @@
               "path": "src/domain/readingUnit.ts",
               "line": 4,
               "symbol": "ayahs"
-            },
-            {
-              "path": "src/domain/repeat.ts",
-              "line": 8,
-              "symbol": "ayahs"
             }
           ],
           "note": "Name matches are review leads only, not proof of equivalent behavior."
@@ -14712,7 +14754,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/content/mushafPageMetrics.ts",
-              "line": 23,
+              "line": 27,
               "symbol": "has"
             },
             {
@@ -14727,7 +14769,7 @@
             },
             {
               "path": "src/domain/bookPresentation.ts",
-              "line": 53,
+              "line": 54,
               "symbol": "has"
             },
             {
@@ -14742,12 +14784,12 @@
             },
             {
               "path": "src/domain/mushafReading.ts",
-              "line": 36,
+              "line": 41,
               "symbol": "has"
             },
             {
-              "path": "src/domain/selectableMushaf.ts",
-              "line": 162,
+              "path": "src/domain/notesLibrary.ts",
+              "line": 15,
               "symbol": "has"
             }
           ],
@@ -14881,7 +14923,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 300,
+              "line": 98,
               "symbol": "AyahNotesScreen"
             },
             {
@@ -14891,7 +14933,7 @@
             },
             {
               "path": "src/features/notes/screens/NotesScreen.tsx",
-              "line": 115,
+              "line": 202,
               "symbol": "AyahNotesScreen"
             }
           ],
@@ -14925,7 +14967,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 95,
+              "line": 96,
               "symbol": "label"
             },
             {
@@ -14951,8 +14993,14 @@
           "name": "fingerprint",
           "line": 324,
           "status": "unverified",
-          "candidateReactNativeEvidence": [],
-          "note": "No same-name implementation located; inspect renamed implementation before classifying missing."
+          "candidateReactNativeEvidence": [
+            {
+              "path": "src/domain/notesLibrary.ts",
+              "line": 26,
+              "symbol": "fingerprint"
+            }
+          ],
+          "note": "Name matches are review leads only, not proof of equivalent behavior."
         },
         {
           "kind": "fun",
@@ -14997,6 +15045,11 @@
             {
               "path": "src/features/notes/components/NoteRow.tsx",
               "line": 8,
+              "symbol": "noteDisplayTitle"
+            },
+            {
+              "path": "src/features/notes/screens/NotesScreen.tsx",
+              "line": 28,
               "symbol": "noteDisplayTitle"
             }
           ],
@@ -15055,7 +15108,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 2,
+              "line": 3,
               "symbol": "noteTagList"
             },
             {
@@ -15075,7 +15128,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 21,
+              "line": 29,
               "symbol": "noteTagList"
             },
             {
@@ -15633,7 +15686,7 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 43,
+              "line": 44,
               "symbol": "BookReaderScreen"
             }
           ],
@@ -16437,7 +16490,7 @@
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 26,
+              "line": 31,
               "symbol": "ProgressBar"
             },
             {
@@ -16539,7 +16592,7 @@
             },
             {
               "path": "src/features/practice/providers/FocusProvider.tsx",
-              "line": 92,
+              "line": 93,
               "symbol": "sample"
             },
             {
@@ -16572,28 +16625,28 @@
               "symbol": "pause"
             },
             {
+              "path": "src/features/quran/components/FloatingReaderAudio.tsx",
+              "line": 14,
+              "symbol": "pause"
+            },
+            {
               "path": "src/features/quran/components/ReaderListenButton.tsx",
               "line": 22,
               "symbol": "pause"
             },
             {
               "path": "src/features/quran/screens/MushafScreen.tsx",
-              "line": 1312,
+              "line": 1371,
               "symbol": "pause"
             },
             {
               "path": "src/features/practice/providers/FocusProvider.tsx",
-              "line": 146,
+              "line": 155,
               "symbol": "pause"
             },
             {
               "path": "src/features/practice/screens/FocusScreen.tsx",
               "line": 159,
-              "symbol": "pause"
-            },
-            {
-              "path": "src/features/onboarding/components/OnboardingFlow.tsx",
-              "line": 194,
               "symbol": "pause"
             }
           ],
@@ -16612,7 +16665,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 91,
+              "line": 103,
               "symbol": "toggle"
             },
             {
@@ -16622,7 +16675,7 @@
             },
             {
               "path": "src/features/quran/components/MushafReadingActions.tsx",
-              "line": 67,
+              "line": 72,
               "symbol": "toggle"
             },
             {
@@ -16637,7 +16690,7 @@
             },
             {
               "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 358,
+              "line": 356,
               "symbol": "toggle"
             },
             {
@@ -16715,12 +16768,12 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/practice/providers/FocusProvider.tsx",
-              "line": 121,
+              "line": 122,
               "symbol": "FocusFloatingTimer"
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 33,
+              "line": 34,
               "symbol": "FocusFloatingTimer"
             }
           ],
@@ -17001,7 +17054,12 @@
             },
             {
               "path": "src/features/quran/components/DownloadedPdfMushaf.native.tsx",
-              "line": 135,
+              "line": 137,
+              "symbol": "play"
+            },
+            {
+              "path": "src/features/quran/components/FloatingReaderAudio.tsx",
+              "line": 7,
               "symbol": "play"
             },
             {
@@ -17011,17 +17069,12 @@
             },
             {
               "path": "src/features/quran/screens/MushafScreen.tsx",
-              "line": 582,
+              "line": 646,
               "symbol": "play"
             },
             {
               "path": "src/features/quran/screens/ReaderScreen.tsx",
               "line": 329,
-              "symbol": "play"
-            },
-            {
-              "path": "src/features/practice/screens/FocusScreen.tsx",
-              "line": 160,
               "symbol": "play"
             }
           ],
@@ -17106,28 +17159,28 @@
               "symbol": "pause"
             },
             {
+              "path": "src/features/quran/components/FloatingReaderAudio.tsx",
+              "line": 14,
+              "symbol": "pause"
+            },
+            {
               "path": "src/features/quran/components/ReaderListenButton.tsx",
               "line": 22,
               "symbol": "pause"
             },
             {
               "path": "src/features/quran/screens/MushafScreen.tsx",
-              "line": 1312,
+              "line": 1371,
               "symbol": "pause"
             },
             {
               "path": "src/features/practice/providers/FocusProvider.tsx",
-              "line": 146,
+              "line": 155,
               "symbol": "pause"
             },
             {
               "path": "src/features/practice/screens/FocusScreen.tsx",
               "line": 159,
-              "symbol": "pause"
-            },
-            {
-              "path": "src/features/onboarding/components/OnboardingFlow.tsx",
-              "line": 194,
               "symbol": "pause"
             }
           ],
@@ -17140,8 +17193,13 @@
           "status": "unverified",
           "candidateReactNativeEvidence": [
             {
+              "path": "src/domain/bookPresentation.ts",
+              "line": 82,
+              "symbol": "resume"
+            },
+            {
               "path": "src/services/notifications/notificationSystem.ts",
-              "line": 70,
+              "line": 82,
               "symbol": "resume"
             },
             {
@@ -17160,23 +17218,18 @@
               "symbol": "resume"
             },
             {
+              "path": "src/features/quran/components/FloatingReaderAudio.tsx",
+              "line": 21,
+              "symbol": "resume"
+            },
+            {
               "path": "src/features/quran/components/ReaderListenButton.tsx",
               "line": 34,
               "symbol": "resume"
             },
             {
               "path": "src/features/quran/screens/MushafScreen.tsx",
-              "line": 85,
-              "symbol": "resume"
-            },
-            {
-              "path": "src/features/onboarding/components/OnboardingFlow.tsx",
-              "line": 196,
-              "symbol": "resume"
-            },
-            {
-              "path": "src/features/home/components/ResumeReadingCard.tsx",
-              "line": 10,
+              "line": 101,
               "symbol": "resume"
             }
           ],
@@ -17228,7 +17281,7 @@
             },
             {
               "path": "src/services/notifications/planningReminderLedger.ts",
-              "line": 129,
+              "line": 144,
               "symbol": "retry"
             },
             {
@@ -17267,7 +17320,7 @@
             },
             {
               "path": "src/services/notifications/notificationSystem.ts",
-              "line": 88,
+              "line": 100,
               "symbol": "stop"
             },
             {
@@ -17783,7 +17836,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 216,
+              "line": 245,
               "symbol": "GoalHubPanel"
             },
             {
@@ -18141,7 +18194,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 95,
+              "line": 96,
               "symbol": "label"
             },
             {
@@ -19904,7 +19957,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 95,
+              "line": 96,
               "symbol": "label"
             },
             {
@@ -20768,8 +20821,14 @@
           "name": "HizbScreen",
           "line": 30,
           "status": "unverified",
-          "candidateReactNativeEvidence": [],
-          "note": "No same-name implementation located; inspect renamed implementation before classifying missing."
+          "candidateReactNativeEvidence": [
+            {
+              "path": "src/app/navigation/MainTabs.tsx",
+              "line": 18,
+              "symbol": "HizbScreen"
+            }
+          ],
+          "note": "Name matches are review leads only, not proof of equivalent behavior."
         }
       ],
       "imports": [
@@ -21113,7 +21172,7 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 44,
+              "line": 45,
               "symbol": "MutashabihatScreen"
             }
           ],
@@ -21168,7 +21227,7 @@
             },
             {
               "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-              "line": 155,
+              "line": 161,
               "symbol": "referenceLabel"
             }
           ],
@@ -21293,7 +21352,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 24,
+              "line": 32,
               "symbol": "NoteTargetSummary"
             },
             {
@@ -21308,7 +21367,7 @@
             },
             {
               "path": "src/features/notes/screens/NotesScreen.tsx",
-              "line": 30,
+              "line": 32,
               "symbol": "NoteTargetSummary"
             }
           ],
@@ -21356,7 +21415,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 95,
+              "line": 96,
               "symbol": "label"
             },
             {
@@ -21901,7 +21960,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 43,
+              "line": 44,
               "symbol": "PlanningScreen"
             },
             {
@@ -22268,7 +22327,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 91,
+              "line": 103,
               "symbol": "toggle"
             },
             {
@@ -22278,7 +22337,7 @@
             },
             {
               "path": "src/features/quran/components/MushafReadingActions.tsx",
-              "line": 67,
+              "line": 72,
               "symbol": "toggle"
             },
             {
@@ -22293,7 +22352,7 @@
             },
             {
               "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 358,
+              "line": 356,
               "symbol": "toggle"
             },
             {
@@ -22548,7 +22607,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 95,
+              "line": 96,
               "symbol": "label"
             },
             {
@@ -22964,7 +23023,7 @@
             },
             {
               "path": "src/services/audio/repeatSelection.ts",
-              "line": 45,
+              "line": 48,
               "symbol": "point"
             },
             {
@@ -22989,7 +23048,7 @@
             },
             {
               "path": "src/features/quran/providers/readingModeContext.ts",
-              "line": 23,
+              "line": 19,
               "symbol": "point"
             }
           ],
@@ -23013,12 +23072,22 @@
             },
             {
               "path": "src/domain/bookPresentation.ts",
-              "line": 153,
+              "line": 198,
               "symbol": "name"
             },
             {
               "path": "src/domain/mutashabihat.ts",
               "line": 1,
+              "symbol": "name"
+            },
+            {
+              "path": "src/domain/notesLibrary.ts",
+              "line": 4,
+              "symbol": "name"
+            },
+            {
+              "path": "src/domain/plannedPassage.ts",
+              "line": 28,
               "symbol": "name"
             },
             {
@@ -23029,16 +23098,6 @@
             {
               "path": "src/domain/readingContext.ts",
               "line": 37,
-              "symbol": "name"
-            },
-            {
-              "path": "src/domain/repeat.ts",
-              "line": 60,
-              "symbol": "name"
-            },
-            {
-              "path": "src/domain/statistics.ts",
-              "line": 93,
               "symbol": "name"
             }
           ],
@@ -23161,7 +23220,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 95,
+              "line": 96,
               "symbol": "label"
             },
             {
@@ -23232,7 +23291,7 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 32,
+              "line": 33,
               "symbol": "ReadingPlan"
             }
           ],
@@ -23252,6 +23311,11 @@
             {
               "path": "src/domain/goals.ts",
               "line": 4,
+              "symbol": "plan"
+            },
+            {
+              "path": "src/domain/plannedPassage.ts",
+              "line": 35,
               "symbol": "plan"
             },
             {
@@ -23276,12 +23340,7 @@
             },
             {
               "path": "src/state/persistence/decodeState.ts",
-              "line": 96,
-              "symbol": "plan"
-            },
-            {
-              "path": "src/services/notifications/expoPlanningReminders.ts",
-              "line": 3,
+              "line": 102,
               "symbol": "plan"
             }
           ],
@@ -23357,12 +23416,12 @@
             },
             {
               "path": "src/features/quran/components/MushafReadingActions.tsx",
-              "line": 43,
+              "line": 47,
               "symbol": "done"
             },
             {
               "path": "src/features/quran/screens/MushafLibraryScreen.tsx",
-              "line": 130,
+              "line": 131,
               "symbol": "done"
             }
           ],
@@ -23486,7 +23545,7 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 32,
+              "line": 33,
               "symbol": "ReadingPlanScreen"
             }
           ],
@@ -23704,6 +23763,11 @@
               "symbol": "displayName"
             },
             {
+              "path": "src/domain/plannedPassage.ts",
+              "line": 36,
+              "symbol": "displayName"
+            },
+            {
               "path": "src/migration/legacyRoom.ts",
               "line": 203,
               "symbol": "displayName"
@@ -23715,12 +23779,12 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 241,
+              "line": 253,
               "symbol": "displayName"
             },
             {
               "path": "src/state/persistence/decodeState.ts",
-              "line": 102,
+              "line": 108,
               "symbol": "displayName"
             },
             {
@@ -23731,11 +23795,6 @@
             {
               "path": "src/services/auth/types.ts",
               "line": 10,
-              "symbol": "displayName"
-            },
-            {
-              "path": "src/services/backend/backend.ts",
-              "line": 183,
               "symbol": "displayName"
             }
           ],
@@ -24220,7 +24279,7 @@
             },
             {
               "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-              "line": 413,
+              "line": 418,
               "symbol": "StatsScreen"
             },
             {
@@ -24235,7 +24294,7 @@
             },
             {
               "path": "src/app/navigation/AppNavigator.tsx",
-              "line": 37,
+              "line": 38,
               "symbol": "StatsScreen"
             }
           ],
@@ -24277,7 +24336,7 @@
             },
             {
               "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 95,
+              "line": 96,
               "symbol": "label"
             },
             {
@@ -24672,13 +24731,13 @@
               "symbol": "Surah"
             },
             {
-              "path": "src/features/notes/editor/noteEditor.ts",
-              "line": 101,
+              "path": "src/features/bookmarks/bookmarkCopy.ts",
+              "line": 24,
               "symbol": "Surah"
             },
             {
-              "path": "src/features/study/screens/StudyScreen.tsx",
-              "line": 126,
+              "path": "src/features/notes/editor/noteEditor.ts",
+              "line": 102,
               "symbol": "Surah"
             }
           ],
@@ -24789,7 +24848,7 @@
             },
             {
               "path": "src/content/mushafGeometry.ts",
-              "line": 31,
+              "line": 59,
               "symbol": "Error"
             },
             {
@@ -24819,7 +24878,7 @@
             },
             {
               "path": "src/domain/mushafReading.ts",
-              "line": 36,
+              "line": 41,
               "symbol": "Error"
             }
           ],
@@ -25514,7 +25573,7 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 57,
+              "line": 64,
               "symbol": "saveNote"
             }
           ],
@@ -25533,12 +25592,12 @@
             },
             {
               "path": "src/features/notes/components/NoteEditorView.tsx",
-              "line": 58,
+              "line": 65,
               "symbol": "deleteNote"
             },
             {
               "path": "src/features/notes/screens/NotesScreen.tsx",
-              "line": 88,
+              "line": 120,
               "symbol": "deleteNote"
             }
           ],
@@ -25611,6 +25670,11 @@
               "symbol": "record"
             },
             {
+              "path": "src/domain/notesLibrary.ts",
+              "line": 83,
+              "symbol": "record"
+            },
+            {
               "path": "src/domain/selectableMushaf.ts",
               "line": 68,
               "symbol": "record"
@@ -25638,11 +25702,6 @@
             {
               "path": "src/state/persistence/decodeState.ts",
               "line": 28,
-              "symbol": "record"
-            },
-            {
-              "path": "src/services/auth/auth.ts",
-              "line": 11,
               "symbol": "record"
             }
           ],
@@ -25715,7 +25774,7 @@
             },
             {
               "path": "src/services/notifications/localReminders.ts",
-              "line": 113,
+              "line": 112,
               "symbol": "schedule"
             },
             {
@@ -25725,17 +25784,17 @@
             },
             {
               "path": "src/services/notifications/planningReminderPort.ts",
-              "line": 36,
+              "line": 123,
               "symbol": "schedule"
             },
             {
               "path": "src/services/notifications/planningReminders.ts",
-              "line": 15,
+              "line": 17,
               "symbol": "schedule"
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 201,
+              "line": 230,
               "symbol": "schedule"
             },
             {
@@ -25784,7 +25843,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-              "line": 104,
+              "line": 110,
               "symbol": "unitLabel"
             },
             {
@@ -25889,7 +25948,7 @@
             },
             {
               "path": "src/services/notifications/planningReminderLedger.ts",
-              "line": 129,
+              "line": 144,
               "symbol": "retry"
             },
             {
@@ -25945,7 +26004,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/planning/screens/PlanningScreen.tsx",
-              "line": 421,
+              "line": 419,
               "symbol": "addItem"
             }
           ],
@@ -26005,7 +26064,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-              "line": 104,
+              "line": 110,
               "symbol": "unitLabel"
             },
             {
@@ -26064,7 +26123,7 @@
           "candidateReactNativeEvidence": [
             {
               "path": "src/domain/mushafReading.ts",
-              "line": 121,
+              "line": 138,
               "symbol": "create"
             },
             {
@@ -26079,7 +26138,7 @@
             },
             {
               "path": "src/state/reducer.ts",
-              "line": 162,
+              "line": 90,
               "symbol": "create"
             },
             {
@@ -26148,7 +26207,7 @@
             },
             {
               "path": "src/features/quran/components/MushafReadingActions.tsx",
-              "line": 50,
+              "line": 54,
               "symbol": "quickCheckIn"
             },
             {
@@ -26158,7 +26217,7 @@
             },
             {
               "path": "src/features/practice/screens/GoalsScreen.tsx",
-              "line": 54,
+              "line": 59,
               "symbol": "quickCheckIn"
             },
             {

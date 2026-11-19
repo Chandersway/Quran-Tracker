@@ -7,7 +7,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { AppState, Pressable, View } from 'react-native';
+import { AppState, Pressable } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   focusReducer,
@@ -118,37 +119,41 @@ export function useFocus() {
   if (!context) throw new Error('FocusProvider is missing');
   return context;
 }
-export function FocusFloatingTimer() {
+export function FocusFloatingTimer({ onBook = false }: { onBook?: boolean }) {
   const { timer, ready } = useFocus();
   const nav = useAppNavigation();
   const p = usePalette();
   const { t } = useI18n();
+  const insets = useSafeAreaInsets();
+  const color = onBook ? '#18382E' : p.ink;
   if (!ready || !timer.started || timer.finished) return null;
   const navigation = nav.getState();
-  if (navigation?.routes[navigation.index]?.name === 'Focus') return null;
+  const onFocusScreen = navigation?.routes[navigation.index]?.name === 'Focus';
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={t('focus.title')}
-      onPress={() => nav.navigate('Focus')}
+      accessibilityLabel={`${t('focus.title')}: ${Math.floor(timer.remaining / 60)}:${String(timer.remaining % 60).padStart(2, '0')}`}
+      onPress={() => {
+        if (!onFocusScreen) nav.navigate('Focus');
+      }}
+      testID="focus-clock-overlay"
       style={{
-        backgroundColor: p.primary,
-        marginHorizontal: 12,
-        marginBottom: 6,
-        padding: 12,
-        borderRadius: 12,
+        position: 'absolute',
+        top: insets.top + 8,
+        right: 12,
+        zIndex: 100,
+        backgroundColor: 'transparent',
+        paddingHorizontal: 4,
+        minWidth: 48,
+        minHeight: 44,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 12,
-        minHeight: 48,
+        justifyContent: 'flex-end',
+        gap: 3,
       }}
     >
-      <Icon name={timer.deadline ? 'clock' : 'pause'} color={p.onPrimary} size={19} />
-      <T color={p.onPrimary} bold>
-        {t('focus.menuTitle')}
-      </T>
-      <View style={{ flex: 1 }} />
-      <T color={p.onPrimary} style={{ fontVariant: ['tabular-nums'] }}>
+      <Icon name={timer.deadline ? 'clock' : 'pause'} color={color} size={12} />
+      <T translate={false} size={12} color={color} style={{ fontVariant: ['tabular-nums'] }}>
         {Math.floor(timer.remaining / 60)}:{String(timer.remaining % 60).padStart(2, '0')}
       </T>
     </Pressable>

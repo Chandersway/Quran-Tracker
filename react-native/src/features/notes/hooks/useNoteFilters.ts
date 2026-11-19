@@ -10,6 +10,7 @@ import {
 export function useNoteFilters(
   notes: readonly ExportableNote[],
   context: Pick<NoteFilters, 'contextTarget' | 'language' | 'copy'>,
+  savedFolders: readonly string[] = [],
 ) {
   const { contextTarget, language, copy } = context;
   const [selectedScope, setSelectedScope] = useState<ScopeFilter>('all');
@@ -21,10 +22,10 @@ export function useNoteFilters(
   const [titleSort, setTitleSort] = useState(false);
   const folders = useMemo(
     () =>
-      [...new Set(notes.map((note) => note.folder.trim()).filter(Boolean))].sort((a, b) =>
-        a.localeCompare(b),
+      [...new Set([...savedFolders, ...notes.map((note) => note.folder)].filter(Boolean))].sort(
+        (a, b) => a.localeCompare(b),
       ),
-    [notes],
+    [notes, savedFolders],
   );
   const tags = useMemo(
     () =>

@@ -21,6 +21,11 @@ import { AyahSearchResults, quranSearchCopy } from '../components/AyahSearchResu
 import { searchQuran } from '../../../domain/quranNavigation';
 import { hifzCardColors } from '../../../domain/hifzPresentation';
 import { NoteCountButton } from '../../notes/components/NoteCountButton';
+import {
+  bookmarkEditionName,
+  pageBookmarkKey,
+  savedBookmarkTarget,
+} from '../../bookmarks/bookmarks';
 
 export function QuranScreen() {
   const nav = useAppNavigation();
@@ -105,6 +110,7 @@ export function QuranScreen() {
         clearButtonMode="while-editing"
       />
       <Segments
+        layout="wrap"
         value={mode}
         onChange={setMode}
         options={[
@@ -205,9 +211,7 @@ export function QuranScreen() {
         <FlatList
           data={saved.reverse()}
           keyExtractor={(b) =>
-            b.kind === 'ayah'
-              ? `ayah:${b.surah}:${b.ayah}`
-              : `page:${b.edition}:${b.surah}:${b.page}`
+            b.kind === 'ayah' ? `ayah:${b.surah}:${b.ayah}` : pageBookmarkKey(b)
           }
           ListEmptyComponent={
             <Empty icon="bookmark" title={t('app.bookmarks')} message={t('app.noBookmarks')} />
@@ -215,11 +219,7 @@ export function QuranScreen() {
           renderItem={({ item: b }) => (
             <Pressable
               accessibilityRole="button"
-              onPress={() =>
-                b.kind === 'ayah'
-                  ? nav.navigate('Mushaf', { surah: b.surah, ayah: b.ayah })
-                  : nav.navigate('Mushaf', { surah: b.surah, edition: b.edition, page: b.page })
-              }
+              onPress={() => nav.navigate('Mushaf', savedBookmarkTarget(b))}
               style={[s.listRow, { borderBottomColor: p.line }]}
             >
               <Icon name="bookmark" color={p.primary} />
@@ -236,9 +236,7 @@ export function QuranScreen() {
                   </T>
                 ) : (
                   <T translate={false} muted size={13}>
-                    {b.edition === 'muhammadi'
-                      ? 'Warsh · Muhammadi'
-                      : b.edition.replaceAll('_', ' ')}
+                    {bookmarkEditionName(b)}
                   </T>
                 )}
               </View>

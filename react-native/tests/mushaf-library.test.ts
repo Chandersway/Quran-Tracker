@@ -137,7 +137,17 @@ test('source geometry retains edition-specific first-page references and Warsh m
   assert.equal(findMushafAyah('muhammadi', 1, 1)?.page, 1);
   assert.equal(pageSegments('hafs', 1)[0]?.x, 0.3253968);
   assert.equal(pageSegments('warsh_maknoon', 1)[0]?.x, 0.3869723);
-  assert.deepEqual(pageSegments('hafs_maknoon', 1), pageSegments('hafs', 1));
+  // Numbered medallion center in the publisher's unmodified 771 × 1040 PNG.
+  assert.ok(
+    pageSegments('hafs_maknoon', 1).some(
+      (row) =>
+        row.ayah === 1 &&
+        row.x <= 259 / 771 &&
+        row.x + row.width >= 259 / 771 &&
+        row.y <= 316 / 1040 &&
+        row.y + row.height >= 316 / 1040,
+    ),
+  );
 });
 test('page bookmarks and positions are edition-specific and legacy Warsh keys recover once', () => {
   const source = { warsh_page_bookmarks_2: ['8', '8', '0', '639'], ayah_bookmarks_2: ['3'] };

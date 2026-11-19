@@ -11,6 +11,7 @@ import {
 import { initialState, type AppState } from '../src/state/models';
 import { appReducer, type Action } from '../src/state/reducer';
 import { appearanceCopy } from '../src/features/account/appearanceCopy';
+import { bookmarkCopy } from '../src/features/bookmarks/bookmarkCopy';
 import { light } from '../src/shared/theme/colors';
 import {
   layoutDirection,
@@ -26,6 +27,7 @@ function settingsHarness() {
   const harness = componentHarness();
   let state: AppState = structuredClone(initialState);
   const actions: Action[] = [];
+  const navigations: unknown[][] = [];
   const { SettingsScreen } = loadComponentModule<{ SettingsScreen: () => unknown }>(
     new URL('../src/features/account/screens/SettingsScreen.tsx', import.meta.url),
     {
@@ -37,7 +39,9 @@ function settingsHarness() {
         sourceText: (key: string) => key,
       },
       '../../../content/translations': { availableTranslations: [] },
-      '../../../app/navigation/types': { useAppNavigation: () => ({ navigate() {} }) },
+      '../../../app/navigation/types': {
+        useAppNavigation: () => ({ navigate: (...args: unknown[]) => navigations.push(args) }),
+      },
       '../../../state/store': {
         useAppStore: () => ({
           state,
@@ -53,11 +57,30 @@ function settingsHarness() {
       '../../onboarding/components/OnboardingFlow': { OnboardingFlow: 'OnboardingFlow' },
       '../../audio/components/MediaSettings': { MediaSettingsSheet: 'MediaSettingsSheet' },
       '../appearanceCopy': { appearanceCopy },
+      '../../bookmarks/bookmarkCopy': { bookmarkCopy },
       '../../../domain/readerTypography': typography,
     },
   );
-  return { render: () => harness.render(SettingsScreen), actions, state: () => state };
+  return { render: () => harness.render(SettingsScreen), actions, navigations, state: () => state };
 }
+
+test('account is the first settings action, bookmarks open directly, and appearance controls come last', () => {
+  const ui = settingsHarness();
+  const root = ui.render();
+  const rows = elements(root, 'Row');
+  assert.equal(rows[0]!.props.icon, 'user');
+  press(rows[0]!);
+  press(rows.find((row) => row.props.icon === 'bookmark')!);
+  assert.deepEqual(ui.navigations, [['Account'], ['Bookmarks']]);
+  const nodes = elements(root);
+  const pickerIndex = nodes.findIndex((node) => node.type === 'ThemePicker');
+  const lastRowIndex = Math.max(...nodes.map((node, index) => (node.type === 'Row' ? index : -1)));
+  assert.ok(pickerIndex > lastRowIndex);
+  const picker = elements(root, 'ThemePicker')[0]!;
+  (picker.props.onChange as (theme: string) => void)('matte_ocean');
+  assert.equal(ui.state().preferences.theme, 'matte_ocean');
+  assert.equal(ui.state().preferences.cardPatterns, false);
+});
 
 test('visible hifz and card-pattern switches persist independent preferences without changing scores', () => {
   const ui = settingsHarness();

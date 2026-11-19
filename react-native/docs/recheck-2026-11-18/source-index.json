@@ -3,10 +3,10 @@
   "meaning": "Structural source index, not an assertion of semantic parity or native acceptance. Kotlin is a lexical named-declaration index; TypeScript/JavaScript use the compiler AST. Other native sources list lexically identified type declarations (not all methods). SQL is indexed at file level, with schema/RPC behavior documented in the backend guide. Generated native projects, build caches and dependencies are excluded.",
   "counts": {
     "kotlinFiles": 198,
-    "reactNativeFiles": 555,
+    "reactNativeFiles": 584,
     "backendFiles": 51,
     "kotlinDeclarations": 1932,
-    "reactNativeDeclarations": 2532,
+    "reactNativeDeclarations": 2650,
     "backendDeclarations": 35
   },
   "routes": [
@@ -77,75 +77,81 @@
       "path": "src/app/navigation/types.ts"
     },
     {
-      "name": "Account",
+      "name": "Bookmarks",
       "type": "undefined",
       "line": 27,
       "path": "src/app/navigation/types.ts"
     },
     {
-      "name": "Groups",
+      "name": "Account",
       "type": "undefined",
       "line": 28,
       "path": "src/app/navigation/types.ts"
     },
     {
+      "name": "Groups",
+      "type": "undefined",
+      "line": 29,
+      "path": "src/app/navigation/types.ts"
+    },
+    {
       "name": "Group",
       "type": "{ code: string; postId?: string; invite?: string }",
-      "line": 29,
+      "line": 30,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "GroupChat",
       "type": "{ code: string }",
-      "line": 30,
+      "line": 31,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "Study",
       "type": "{\n    surah: number;\n    ayah?: number;\n    mode?: 'words' | 'irab' | 'similar';\n    fixedReferences?: Array<{ surah: number; ayah: number }>;\n  }",
-      "line": 31,
+      "line": 32,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "StudySources",
       "type": "| {\n        surah?: number;\n        ayah?: number;\n        kind?: 'tafsir' | 'irab' | 'asbab';\n        autoLoad?: boolean;\n        fixedReferences?: Array<{ surah: number; ayah: number }>;\n        warshReference?: { surah: number; ayah: number };\n      }\n    | undefined",
-      "line": 37,
+      "line": 38,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "LexiconSearch",
       "type": "undefined",
-      "line": 47,
+      "line": 48,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "Lexicon",
       "type": "| {\n        kind: 'word';\n        reference: { surah: number; ayah: number; word: number };\n        candidateText: string;\n      }\n    | { kind: 'root' | 'lemma'; id: string }",
-      "line": 48,
+      "line": 49,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "Mutashabihat",
       "type": "undefined",
-      "line": 55,
+      "line": 56,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "Books",
       "type": "undefined",
-      "line": 56,
+      "line": 57,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "BookReader",
       "type": "{ bookId: string; title: string }",
-      "line": 57,
+      "line": 58,
       "path": "src/app/navigation/types.ts"
     },
     {
       "name": "Checklist",
       "type": "undefined",
-      "line": 58,
+      "line": 59,
       "path": "src/app/navigation/types.ts"
     }
   ],
@@ -12800,13 +12806,13 @@
       "path": "src/app/navigation/AppNavigator.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 262,
-      "sha256": "0ee927e8f9d54269a6e09c5de6a78b4dfb22126272bec7d1bfbcdc8f033d8f35",
+      "lines": 270,
+      "sha256": "87f9ea232c962016dfa32f66f648222c71768fd1ce3cd4762855851437a2c513",
       "declarations": [
         {
           "kind": "function",
           "name": "AppNavigator",
-          "line": 58
+          "line": 59
         }
       ]
     },
@@ -12833,8 +12839,8 @@
       "path": "src/app/navigation/MainTabs.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 28,
-      "sha256": "cb0635242b5d9ce4bd0d97c381bee3a7e5eb26e9f79a71da5e56b0cb78e8a4eb",
+      "lines": 31,
+      "sha256": "4998ff0ac6cf7b1b68f698c283ec5a49980e5b1b8739f43e720e75a9b459f591",
       "declarations": [
         {
           "kind": "function",
@@ -12845,6 +12851,11 @@
           "kind": "function",
           "name": "JuzScreen",
           "line": 25
+        },
+        {
+          "kind": "function",
+          "name": "HizbScreen",
+          "line": 28
         }
       ]
     },
@@ -12852,38 +12863,38 @@
       "path": "src/app/navigation/NavigationDock.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 330,
-      "sha256": "0bd21667d8790c3e928a927ead2364e595594910a6cedfe0b3f0ec8fd02d8198",
+      "lines": 361,
+      "sha256": "d0b0924549fe2b52b673e1272ebd27e17d39d5acaf58653156125b077b8dd95f",
       "declarations": [
         {
           "kind": "function",
           "name": "NavigationDock",
-          "line": 21
+          "line": 24
         },
         {
           "kind": "function-variable",
           "name": "NavigationDock.destinationLabel",
-          "line": 26
+          "line": 30
         },
         {
           "kind": "function",
           "name": "NavigationDock.goTab",
-          "line": 37
+          "line": 44
         },
         {
           "kind": "function",
           "name": "NavigationDock.go",
-          "line": 47
+          "line": 54
         },
         {
           "kind": "function",
           "name": "NavigationDock.toggle",
-          "line": 80
+          "line": 87
         },
         {
           "kind": "function-variable",
           "name": "NavigationDock.dockItem",
-          "line": 88
+          "line": 95
         }
       ]
     },
@@ -12921,8 +12932,8 @@
       "path": "src/app/navigation/types.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 61,
-      "sha256": "dc8ccd8671029a6df88965219c174c2d6f4708a1a244da79ec2305fa8fdd1804",
+      "lines": 62,
+      "sha256": "b5cb991c587248f3774aa0f04d814968bf7816c85f9f3996dab8e9c992a6e6ec",
       "declarations": [
         {
           "kind": "type",
@@ -12932,7 +12943,7 @@
         {
           "kind": "function-variable",
           "name": "useAppNavigation",
-          "line": 60
+          "line": 61
         }
       ]
     },
@@ -13083,48 +13094,58 @@
       "path": "src/content/mushafGeometry.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 87,
-      "sha256": "847331d7c34ffbc247ca5d87261a5536f8969d2899f2dbe63eb10a92c1a2fb24",
+      "lines": 108,
+      "sha256": "8b905bf756b67cdbe0a512f7b0875060a8d0ea39f60bc1170d590b34e50a3357",
       "declarations": [
         {
           "kind": "type",
           "name": "Segment",
-          "line": 6
+          "line": 11
         },
         {
           "kind": "type",
           "name": "Edition",
-          "line": 14
+          "line": 19
+        },
+        {
+          "kind": "type",
+          "name": "Scan",
+          "line": 24
+        },
+        {
+          "kind": "function",
+          "name": "printedHafsPage",
+          "line": 35
+        },
+        {
+          "kind": "function",
+          "name": "printedPageRatio",
+          "line": 42
         },
         {
           "kind": "function-variable",
           "name": "toSegment",
-          "line": 19
+          "line": 47
         },
         {
           "kind": "function",
           "name": "hafsReferences",
-          "line": 28
+          "line": 56
         },
         {
           "kind": "function",
           "name": "pageSegments",
-          "line": 34
-        },
-        {
-          "kind": "function",
-          "name": "pageSegments.add",
-          "line": 45
+          "line": 62
         },
         {
           "kind": "function",
           "name": "findMushafAyah",
-          "line": 68
+          "line": 82
         },
         {
           "kind": "function",
           "name": "maknoonRatio",
-          "line": 83
+          "line": 104
         }
       ]
     },
@@ -13132,8 +13153,8 @@
       "path": "src/content/mushafPageMetrics.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 100,
-      "sha256": "a4ffa3c81c9f59967796e0d66c73a077bcb5ffac592a274d167fad40c2c68d78",
+      "lines": 113,
+      "sha256": "c0c8ef1c6af4fa4b015d413f87f734716e98b09e8414bdf1f326f1e5c03998a2",
       "declarations": [
         {
           "kind": "type",
@@ -13153,12 +13174,12 @@
         {
           "kind": "function",
           "name": "mushafPageAyahCount",
-          "line": 68
+          "line": 76
         },
         {
           "kind": "function",
           "name": "mushafPageDensity",
-          "line": 78
+          "line": 90
         }
       ]
     },
@@ -13423,58 +13444,58 @@
       "path": "src/domain/bookPresentation.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 162,
-      "sha256": "03ed8dc8d9c65bcec36e6aa361d6fe7d25bd94a2a5aebdcbeed9725e60af9189",
+      "lines": 207,
+      "sha256": "c401f5a72404cc7b2fcd1b98d927920df0a22f73b2ceb2250b5317444e865498",
       "declarations": [
         {
           "kind": "type",
           "name": "BookEntryState",
-          "line": 6
+          "line": 7
         },
         {
           "kind": "type",
           "name": "ResolvedBookEntry",
-          "line": 7
+          "line": 8
         },
         {
           "kind": "function",
           "name": "normalizeBookPresentation",
-          "line": 14
+          "line": 15
         },
         {
           "kind": "function",
           "name": "preferredMushafEdition",
-          "line": 18
+          "line": 19
         },
         {
           "kind": "function",
           "name": "canonicalHafsPage",
-          "line": 22
+          "line": 23
         },
         {
           "kind": "function",
           "name": "verifiedHafsPage",
-          "line": 28
+          "line": 29
         },
         {
           "kind": "function",
           "name": "resolveBookEntry",
-          "line": 40
+          "line": 41
         },
         {
           "kind": "function",
           "name": "beginBookSelection",
-          "line": 98
+          "line": 121
         },
         {
           "kind": "function",
           "name": "restoreBookSelection",
-          "line": 124
+          "line": 147
         },
         {
           "kind": "function",
           "name": "bookSelectionReturnDistance",
-          "line": 151
+          "line": 196
         }
       ]
     },
@@ -13482,8 +13503,8 @@
       "path": "src/domain/bookTranslation.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 29,
-      "sha256": "9359a4d9c36120e0b509b3e9a5596648f1008d8a0b6209afe91c1fdf64fc84ce",
+      "lines": 30,
+      "sha256": "f5d25a2a9bcb81106dd6a907f90afb5a92adee50bb768dfbb0ac41e5d24cf6e6",
       "declarations": [
         {
           "kind": "type",
@@ -13565,8 +13586,8 @@
       "path": "src/domain/dockPreferences.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 36,
-      "sha256": "41f04d409938837464969123cf599351912723db006fa0219d614b11c4b50a57",
+      "lines": 41,
+      "sha256": "9fcba9071f1cf4d3045b5263b5d1cac880434f8d3a4c3b25038574195170ff5e",
       "declarations": [
         {
           "kind": "type",
@@ -13575,8 +13596,13 @@
         },
         {
           "kind": "function",
-          "name": "normalizeDockDestinations",
+          "name": "visibleDockDestinations",
           "line": 23
+        },
+        {
+          "kind": "function",
+          "name": "normalizeDockDestinations",
+          "line": 28
         }
       ]
     },
@@ -13908,13 +13934,23 @@
       "path": "src/domain/mushafBookmarks.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 16,
-      "sha256": "17060eb34f4fc621f15fd8b18abece2df920548e0ef6c7494d6a86506b07ad3f",
+      "lines": 43,
+      "sha256": "5bec3d96c527b0fb084481d0984a7b2432909e5c4a7e8572a79ef53a5863bb91",
       "declarations": [
         {
           "kind": "function",
+          "name": "bookmarkPresentation",
+          "line": 9
+        },
+        {
+          "kind": "function",
+          "name": "matchesMushafBookmarkPage",
+          "line": 17
+        },
+        {
+          "kind": "function",
           "name": "legacyWarshBookmarks",
-          "line": 4
+          "line": 31
         }
       ]
     },
@@ -13922,8 +13958,8 @@
       "path": "src/domain/mushafReading.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 130,
-      "sha256": "58e7b98614e596fa3c83662ab3bd7b71e55015d6a03bf050eed3dd05af42eae0",
+      "lines": 155,
+      "sha256": "e559048ff961efb9ce76d3381e25036801dc9623a0cc7e0b6a0ae0c1eb9898c0",
       "declarations": [
         {
           "kind": "function",
@@ -13933,32 +13969,32 @@
         {
           "kind": "function",
           "name": "mushafSpread",
-          "line": 21
+          "line": 25
         },
         {
           "kind": "function",
           "name": "mushafPageEntry",
-          "line": 27
+          "line": 31
         },
         {
           "kind": "function",
           "name": "mushafPageMarkKey",
-          "line": 55
+          "line": 60
         },
         {
           "kind": "function",
           "name": "mushafPageMark",
-          "line": 59
+          "line": 70
         },
         {
           "kind": "type",
           "name": "MushafPageMarkChange",
-          "line": 80
+          "line": 94
         },
         {
           "kind": "function",
           "name": "setMushafPageMarks",
-          "line": 90
+          "line": 105
         }
       ]
     },
@@ -13966,13 +14002,23 @@
       "path": "src/domain/mushafResume.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 29,
-      "sha256": "3f04248327762ed13698e41431bce898454852de3e07056efc8049a27f58317d",
+      "lines": 42,
+      "sha256": "b9024e5b41dd39e6e86c53ea70ea5a3aab31437023ee6373016dfb05fea4afdf",
       "declarations": [
+        {
+          "kind": "type",
+          "name": "SavedPositions",
+          "line": 8
+        },
+        {
+          "kind": "function",
+          "name": "savedMushafPage",
+          "line": 11
+        },
         {
           "kind": "function",
           "name": "mushafResume",
-          "line": 9
+          "line": 22
         }
       ]
     },
@@ -14050,6 +14096,85 @@
       ]
     },
     {
+      "path": "src/domain/notesLibrary.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 182,
+      "sha256": "ca3361fd7ca52cd2ee9bc957e984ec5caec7584e2f1c96060c61f230f1cac7cc",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "normalizeNoteFolder",
+          "line": 4
+        },
+        {
+          "kind": "function",
+          "name": "nextFreeNoteId",
+          "line": 9
+        },
+        {
+          "kind": "function",
+          "name": "mergeImportedNotes",
+          "line": 22
+        },
+        {
+          "kind": "function-variable",
+          "name": "mergeImportedNotes.fingerprint",
+          "line": 26
+        },
+        {
+          "kind": "type",
+          "name": "DropBounds",
+          "line": 57
+        },
+        {
+          "kind": "type",
+          "name": "FolderDropRect",
+          "line": 63
+        },
+        {
+          "kind": "function",
+          "name": "folderAtPoint",
+          "line": 64
+        },
+        {
+          "kind": "function-variable",
+          "name": "folderAtPoint.contains",
+          "line": 70
+        },
+        {
+          "kind": "function",
+          "name": "parseNotesImport",
+          "line": 84
+        },
+        {
+          "kind": "function-variable",
+          "name": "parseNotesImport.record",
+          "line": 87
+        },
+        {
+          "kind": "function-variable",
+          "name": "parseNotesImport.str",
+          "line": 101
+        },
+        {
+          "kind": "function-variable",
+          "name": "parseNotesImport.num",
+          "line": 105
+        },
+        {
+          "kind": "function-variable",
+          "name": "parseNotesImport.nullable",
+          "line": 110
+        },
+        {
+          "kind": "function-variable",
+          "name": "parseNotesImport.bool",
+          "line": 112
+        }
+      ]
+    },
+    {
       "path": "src/domain/notificationPreferences.ts",
       "side": "react-native",
       "role": "implementation",
@@ -14119,6 +14244,35 @@
           "kind": "function",
           "name": "validDemoPlan",
           "line": 34
+        }
+      ]
+    },
+    {
+      "path": "src/domain/plannedPassage.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 43,
+      "sha256": "663e9fcaaa2c521a97b1b3757ef2dca53048c0cbcf5b546124703f8a96d5ada7",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "rubPassage",
+          "line": 5
+        },
+        {
+          "kind": "function",
+          "name": "rubPassageLabel",
+          "line": 25
+        },
+        {
+          "kind": "function-variable",
+          "name": "rubPassageLabel.name",
+          "line": 28
+        },
+        {
+          "kind": "function",
+          "name": "plannedPassageTitle",
+          "line": 35
         }
       ]
     },
@@ -14899,33 +15053,33 @@
       "path": "src/domain/themePreferences.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 32,
-      "sha256": "d794cb841c12c080748014a3e41bd1c9e7114d5ce15b66ca521c2aea0f337966",
+      "lines": 35,
+      "sha256": "3dec8a040bcf805752e65e15ae5e6e78b497352ec9139244921f738c1ca27239",
       "declarations": [
         {
           "kind": "type",
           "name": "ThemeMode",
-          "line": 18
+          "line": 21
         },
         {
           "kind": "type",
           "name": "FixedThemeMode",
-          "line": 19
+          "line": 22
         },
         {
           "kind": "function",
           "name": "isThemeMode",
-          "line": 21
+          "line": 24
         },
         {
           "kind": "function",
           "name": "normalizeThemeMode",
-          "line": 25
+          "line": 28
         },
         {
           "kind": "function",
           "name": "resolvedThemeMode",
-          "line": 29
+          "line": 32
         }
       ]
     },
@@ -14982,8 +15136,8 @@
       "path": "src/features/account/appearanceCopy.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 90,
-      "sha256": "8c58f67e59d9e8349ca52d589e38472ea1aef14c2e1663dd59f68c3a9e1d431d",
+      "lines": 99,
+      "sha256": "2f872b9bb97a6eb1662893a4831e4f297ea4417d60096da4bb554d12a88373a6",
       "declarations": [
         {
           "kind": "type",
@@ -15082,8 +15236,8 @@
       "path": "src/features/account/components/LocalRemindersPanel.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 226,
-      "sha256": "aa8b7d3f95c0feeead49442a123e718f032c64c8d16e9c61603311bee2ee243f",
+      "lines": 230,
+      "sha256": "655de58bc0e0a93fb0970b0fc241101a173fed8b36879635dd0a2b0629a8648f",
       "declarations": [
         {
           "kind": "type",
@@ -15108,12 +15262,12 @@
         {
           "kind": "function-variable",
           "name": "LocalRemindersPanel.toggle",
-          "line": 113
+          "line": 115
         },
         {
           "kind": "function",
           "name": "LocalRemindersPanel.time",
-          "line": 129
+          "line": 131
         }
       ]
     },
@@ -15398,13 +15552,13 @@
       "path": "src/features/account/screens/SettingsScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 357,
-      "sha256": "00ce547f859682e8299465b882e41c812ba4912a3de8c4c1b027e8d8c92f9e0b",
+      "lines": 377,
+      "sha256": "2c6cb2652af2ebe375ee01adadd8e2af4a27860b266a6ef832520c84f3824983",
       "declarations": [
         {
           "kind": "function",
           "name": "SettingsScreen",
-          "line": 137
+          "line": 138
         }
       ]
     },
@@ -15488,23 +15642,23 @@
       "path": "src/features/audio/components/RepeatSheet.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 370,
-      "sha256": "2dccedd8ad5f516c077f532ff7d7b5612bc427bbd601a60e3eca58cc7601bf77",
+      "lines": 376,
+      "sha256": "0006e5fc615685f4e1755c179d6c525425767fe1e4726bc94ba4ecb59b9d98e3",
       "declarations": [
         {
           "kind": "function",
           "name": "RepeatSheet",
-          "line": 28
+          "line": 29
         },
         {
           "kind": "function",
           "name": "RepeatSheet.downloadSelection",
-          "line": 102
+          "line": 106
         },
         {
           "kind": "function",
           "name": "RepeatSheet.start",
-          "line": 151
+          "line": 156
         }
       ]
     },
@@ -15726,6 +15880,72 @@
           "kind": "function",
           "name": "useAudio",
           "line": 41
+        }
+      ]
+    },
+    {
+      "path": "src/features/bookmarks/bookmarkCopy.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 49,
+      "sha256": "02b5fcb471b04542d346ee0d6f45ff885e06cb1c461aef2c83b554b1b7747c27",
+      "declarations": []
+    },
+    {
+      "path": "src/features/bookmarks/bookmarks.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 82,
+      "sha256": "8cd3b41311cadc1c280a7f1b8d9bfbc0df6aa99afb92266133e42793b909dbda",
+      "declarations": [
+        {
+          "kind": "type",
+          "name": "BookmarkSort",
+          "line": 5
+        },
+        {
+          "kind": "type",
+          "name": "Bookmark",
+          "line": 6
+        },
+        {
+          "kind": "type",
+          "name": "SavedBookmark",
+          "line": 9
+        },
+        {
+          "kind": "function",
+          "name": "pageBookmarkKey",
+          "line": 11
+        },
+        {
+          "kind": "function",
+          "name": "savedBookmarks",
+          "line": 17
+        },
+        {
+          "kind": "function",
+          "name": "savedBookmarkTarget",
+          "line": 55
+        },
+        {
+          "kind": "function",
+          "name": "bookmarkEditionName",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "path": "src/features/bookmarks/screens/BookmarksScreen.tsx",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 75,
+      "sha256": "7716f2ecb508ec86381fe1f0f08297f8249507fc0127d526e27cfc2ed8773312",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "BookmarksScreen",
+          "line": 16
         }
       ]
     },
@@ -16503,8 +16723,8 @@
       "path": "src/features/home/components/HizbOverviewCard.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 188,
-      "sha256": "d6562ac8244561a5a14f6bc39699589ea56dcffee368e1385b0c989f153bfb2f",
+      "lines": 189,
+      "sha256": "ae04436f4e8da39a4b56f03b44e7c2eae0adcd201a0463cc14c2b14bdf396118",
       "declarations": [
         {
           "kind": "function",
@@ -16522,8 +16742,8 @@
       "path": "src/features/home/components/PracticeOverview.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 340,
-      "sha256": "0829241f7a7ed4e348352e5303c664b3da6a0216f6d11a512317ca47f781bdcf",
+      "lines": 375,
+      "sha256": "f63813e17661478b2370582719dc98cd583123966fa2ec4979c30ed6af3ca366",
       "declarations": [
         {
           "kind": "function",
@@ -16588,8 +16808,8 @@
       "path": "src/features/home/model/resumeReference.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 18,
-      "sha256": "f79e8305deb0bcc756897d1cd1ea808d4a9845f5fcc6e27a8f6f2cba6738d491",
+      "lines": 19,
+      "sha256": "4ae7de00acfdee9595e06a5f3ed2546b84cae0e619a96c79936f18818de2303d",
       "declarations": [
         {
           "kind": "function",
@@ -16599,7 +16819,7 @@
         {
           "kind": "function-variable",
           "name": "resumeReference.key",
-          "line": 15
+          "line": 16
         }
       ]
     },
@@ -16607,13 +16827,13 @@
       "path": "src/features/home/screens/MainScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 168,
-      "sha256": "b6d52ab4f6134bff22fc0c03fbb77cb790555bf5f0b82bdcf4017fdb36f8b09d",
+      "lines": 163,
+      "sha256": "5d9ab1ac19c3e19ccc78823e3eee567ad2a59544b6f3e675ac13ba6fa1414e3f",
       "declarations": [
         {
           "kind": "function",
           "name": "MainScreen",
-          "line": 33
+          "line": 32
         }
       ]
     },
@@ -16795,16 +17015,30 @@
       ]
     },
     {
+      "path": "src/features/notes/components/NoteDragHandle.tsx",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 88,
+      "sha256": "f9267949723d3eb34e5ba259bd4ff059065ebba25cb554ef834ae2e31c023f89",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "NoteDragHandle",
+          "line": 5
+        }
+      ]
+    },
+    {
       "path": "src/features/notes/components/NoteEditorView.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 398,
-      "sha256": "4ba520d2cc097b898d4fb26115c3a7073169fc7e9b9406afd529e6818a6f60ee",
+      "lines": 408,
+      "sha256": "04d3e000144a299879c68abe288173e8387fe98e1d2c5707424f608994b17ed8",
       "declarations": [
         {
           "kind": "function",
           "name": "NoteEditorView",
-          "line": 27
+          "line": 35
         }
       ]
     },
@@ -16823,11 +17057,40 @@
       ]
     },
     {
+      "path": "src/features/notes/components/NoteFoldersBar.tsx",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 130,
+      "sha256": "4f3cac96a0185e2a7e83bfc12317099fc5a54384a1ec558698c35f4716cd2880",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "NoteFoldersBar",
+          "line": 9
+        },
+        {
+          "kind": "function-variable",
+          "name": "NoteFoldersBar.measureTarget",
+          "line": 34
+        },
+        {
+          "kind": "function-variable",
+          "name": "NoteFoldersBar.measure",
+          "line": 38
+        },
+        {
+          "kind": "function-variable",
+          "name": "NoteFoldersBar.measureViewport",
+          "line": 39
+        }
+      ]
+    },
+    {
       "path": "src/features/notes/components/NoteRow.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 88,
-      "sha256": "21199a7e2f55105ec14b4233779888ccf704b6d5c424f0c61dac6241dee27319",
+      "lines": 91,
+      "sha256": "2a921580c2793468e48da817d57ebe7dbcefe3ced3cfd908340682ed276aba9d",
       "declarations": [
         {
           "kind": "function",
@@ -16949,68 +17212,68 @@
       "path": "src/features/notes/editor/noteEditor.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 208,
-      "sha256": "502e97cde5a37b893951f9063d03d6ec47d5573519302547cdaff0af5714e672",
+      "lines": 209,
+      "sha256": "a1d437b1690adf20d19fc82177d82264aabcfe7cd264e5589d632ef036c7be9d",
       "declarations": [
         {
           "kind": "type",
           "name": "EditorFields",
-          "line": 17
+          "line": 18
         },
         {
           "kind": "function-variable",
           "name": "blankFields",
-          "line": 35
+          "line": 36
         },
         {
           "kind": "function",
           "name": "targetForNote",
-          "line": 53
+          "line": 54
         },
         {
           "kind": "function",
           "name": "fieldsForNote",
-          "line": 72
+          "line": 73
         },
         {
           "kind": "function",
           "name": "targetTitle",
-          "line": 92
+          "line": 93
         },
         {
           "kind": "function",
           "name": "toggleTag",
-          "line": 109
+          "line": 110
         },
         {
           "kind": "function",
           "name": "noteTargetFields",
-          "line": 117
+          "line": 118
         },
         {
           "kind": "function",
           "name": "sameTarget",
-          "line": 128
+          "line": 129
         },
         {
           "kind": "function",
           "name": "saveFormatInfo",
-          "line": 132
+          "line": 133
         },
         {
           "kind": "function",
           "name": "updateEditorText",
-          "line": 146
+          "line": 147
         },
         {
           "kind": "type",
           "name": "NoteSaveResult",
-          "line": 172
+          "line": 173
         },
         {
           "kind": "function",
           "name": "prepareNoteSave",
-          "line": 177
+          "line": 178
         }
       ]
     },
@@ -17122,7 +17385,7 @@
       "side": "react-native",
       "role": "implementation",
       "lines": 244,
-      "sha256": "a30c8e552b195e832edcbc0fe5fe9dbeb6d52b63a39e0d7b7e1598b6c47c0341",
+      "sha256": "e9e82bb298b1543703ed4849850e44c8ca486614f16fd4494142629e9e5d015c",
       "declarations": [
         {
           "kind": "type",
@@ -17185,8 +17448,8 @@
       "path": "src/features/notes/hooks/useNoteFilters.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 102,
-      "sha256": "a8072d26ea3ff9cc1cc20c2d4596b800caffcf1d76b5768259c4a9ee939b939d",
+      "lines": 103,
+      "sha256": "6ba3751adee00cc1ca41df817b2d46457f9f0fb0dae1493a1a9265311db6a8e9",
       "declarations": [
         {
           "kind": "function",
@@ -17196,41 +17459,74 @@
         {
           "kind": "function",
           "name": "useNoteFilters.reset",
-          "line": 64
+          "line": 65
         },
         {
           "kind": "type",
           "name": "NoteFilterState",
-          "line": 101
+          "line": 102
         }
       ]
+    },
+    {
+      "path": "src/features/notes/libraryCopy.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 66,
+      "sha256": "aa08b789e1fe80c4c876b0379d65b8c762557bcce0fc008deea67245b4adf87d",
+      "declarations": []
     },
     {
       "path": "src/features/notes/screens/NotesScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 271,
-      "sha256": "272ca1bd9b53d151768bfa0c4510af46a9ec1922ebc2b4169b8377ce9056a4cc",
+      "lines": 461,
+      "sha256": "b10a31c17f49341768e8876aec2ea66589ade21507b52b8660f0e1c696dd884b",
       "declarations": [
         {
           "kind": "type",
           "name": "Props",
-          "line": 32
+          "line": 46
         },
         {
           "kind": "function",
           "name": "NotesScreen",
-          "line": 34
+          "line": 48
         },
         {
           "kind": "method",
           "name": "NotesScreen.onSaved",
-          "line": 72
+          "line": 104
+        },
+        {
+          "kind": "function",
+          "name": "NotesScreen.runLibrary",
+          "line": 130
+        },
+        {
+          "kind": "function",
+          "name": "NotesScreen.importNotes",
+          "line": 145
+        },
+        {
+          "kind": "function",
+          "name": "NotesScreen.moveNote",
+          "line": 170
+        },
+        {
+          "kind": "function-variable",
+          "name": "NotesScreen.clearDrag",
+          "line": 177
+        },
+        {
+          "kind": "function-variable",
+          "name": "NotesScreen.folderHit",
+          "line": 181
         },
         {
           "kind": "function",
           "name": "NotesScreen.startNew",
-          "line": 98
+          "line": 185
         }
       ]
     },
@@ -17355,8 +17651,8 @@
       "path": "src/features/planning/components/PlanningReminderCoordinator.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 52,
-      "sha256": "95d0c43ca15ec5ae1a5779a8e501e13a47c14a57c7a4e30900fe3230abb473ca",
+      "lines": 58,
+      "sha256": "4b280ba74a40702b2e70e3f7129d5c9e3a1ed97404d89e4e22197ec0e43e8308",
       "declarations": [
         {
           "kind": "function",
@@ -17371,7 +17667,7 @@
         {
           "kind": "function",
           "name": "LocalReminderFailureNotice",
-          "line": 41
+          "line": 47
         }
       ]
     },
@@ -17408,8 +17704,8 @@
       "path": "src/features/planning/components/ReadingPlanHomeCard.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 57,
-      "sha256": "cac47edee0cd6f84aae18682c17938ef1bf1af378a1f9e3be3b9a39f4acc0414",
+      "lines": 60,
+      "sha256": "b90e7dac63cba01d996289b982cd7a34f902833becb9dde70b3b51b3967f4485",
       "declarations": [
         {
           "kind": "function-variable",
@@ -17446,43 +17742,43 @@
       "path": "src/features/planning/screens/PlanningScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 684,
-      "sha256": "9c3e104fa37a02f9e05a07c779643ab03de84e644c3933cf1b48b37996561476",
+      "lines": 680,
+      "sha256": "c0c20464dd09d36c5eddcf991d9c90e7e8bde7ecd9d1e8ef504e9eadfedb0dc9",
       "declarations": [
         {
           "kind": "function",
           "name": "PlanningScreen",
-          "line": 43
+          "line": 44
         },
         {
           "kind": "function",
           "name": "PlanningScreen.planningError",
-          "line": 95
+          "line": 96
         },
         {
           "kind": "function",
           "name": "PlanningScreen.savePlan",
-          "line": 117
+          "line": 118
         },
         {
           "kind": "function",
           "name": "PlanningScreen.saveJourney",
-          "line": 168
+          "line": 169
         },
         {
           "kind": "function",
           "name": "PlanningScreen.openPlan",
-          "line": 191
+          "line": 192
         },
         {
           "kind": "function",
           "name": "PlanningScreen.openReminder",
-          "line": 217
+          "line": 210
         },
         {
           "kind": "function",
           "name": "PlanningScreen.saveReminder",
-          "line": 224
+          "line": 217
         }
       ]
     },
@@ -17491,7 +17787,7 @@
       "side": "react-native",
       "role": "implementation",
       "lines": 221,
-      "sha256": "fde2630f813ac6090f1060a112d847e544fc5eeacc7657e6f47f6a6a7d118215",
+      "sha256": "99fa5f8eebf8ad6542e764089e45e46cb5c2100d79798985f06262c929d0afa2",
       "declarations": [
         {
           "kind": "function-variable",
@@ -17580,8 +17876,8 @@
       "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 772,
-      "sha256": "82d34572101ba122e2c7686c1889d5645b106ab4c8d741e35889f5e529f5d3b1",
+      "lines": 777,
+      "sha256": "d626bc0504c5c36057040f85914ce1e1cbbcdd60d634e6d46ab171e7a28747d4",
       "declarations": [
         {
           "kind": "function",
@@ -17596,32 +17892,32 @@
         {
           "kind": "function-variable",
           "name": "ReadingStatisticsOverview.unitLabel",
-          "line": 104
+          "line": 110
         },
         {
           "kind": "function-variable",
           "name": "ReadingStatisticsOverview.label",
-          "line": 117
+          "line": 123
         },
         {
           "kind": "function",
           "name": "ReadingStatisticsOverview.referenceLabel",
-          "line": 155
+          "line": 161
         },
         {
           "kind": "function-variable",
           "name": "ReadingStatisticsOverview.referenceLabel.number",
-          "line": 157
+          "line": 163
         },
         {
           "kind": "function",
           "name": "ReadingStatisticsOverview.historyRow",
-          "line": 160
+          "line": 166
         },
         {
           "kind": "function",
           "name": "ReadingStatisticsOverview.clearReading",
-          "line": 221
+          "line": 225
         }
       ]
     },
@@ -17704,33 +18000,33 @@
       "path": "src/features/practice/providers/FocusProvider.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 157,
-      "sha256": "df8792f86a5b6b3a803ad7b3d5601d2164bf74be7bf6ac39529c2de74b5f221d",
+      "lines": 162,
+      "sha256": "d06ce9fea915d8e06ea30e341d94e9b4811ce8ddda76610c6c70cc9c7c0d3619",
       "declarations": [
         {
           "kind": "type",
           "name": "FocusContext",
-          "line": 27
+          "line": 28
         },
         {
           "kind": "function",
           "name": "FocusProvider",
-          "line": 35
+          "line": 36
         },
         {
           "kind": "function-variable",
           "name": "FocusProvider.sample",
-          "line": 92
+          "line": 93
         },
         {
           "kind": "function",
           "name": "useFocus",
-          "line": 116
+          "line": 117
         },
         {
           "kind": "function",
           "name": "FocusFloatingTimer",
-          "line": 121
+          "line": 122
         }
       ]
     },
@@ -17738,38 +18034,38 @@
       "path": "src/features/practice/screens/ChecklistScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 288,
-      "sha256": "92d2a38ee7ee192325e1361cd9f9cb4300ec804ae5412af2c353dcaec78b8c56",
+      "lines": 329,
+      "sha256": "66d252dcb5416959cbc0c7067b986caede2bacc9654e16d8f8a60becf453f5ba",
       "declarations": [
         {
           "kind": "function",
           "name": "ChecklistScreen",
-          "line": 31
+          "line": 41
         },
         {
           "kind": "function",
           "name": "ChecklistScreen.save",
-          "line": 83
+          "line": 94
         },
         {
           "kind": "function-variable",
           "name": "ChecklistScreen.number",
-          "line": 106
+          "line": 117
         },
         {
           "kind": "function-variable",
           "name": "ChecklistScreen.point",
-          "line": 107
+          "line": 118
         },
         {
           "kind": "function-variable",
           "name": "ChecklistScreen.name",
-          "line": 109
+          "line": 120
         },
         {
           "kind": "function",
           "name": "ChecklistScreen.partRow",
-          "line": 115
+          "line": 126
         }
       ]
     },
@@ -17801,33 +18097,38 @@
       "path": "src/features/practice/screens/GoalsScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 470,
-      "sha256": "aaaf3b83e211f8316306ec00dc64a44eb0130b6de6309e036630059bfd675f56",
+      "lines": 506,
+      "sha256": "e25689fe517a90b9e66a091a7fcaf6d7c8564319ca78295799e9b63c608974fa",
       "declarations": [
         {
           "kind": "function",
           "name": "GoalsScreen",
-          "line": 42
+          "line": 47
         },
         {
           "kind": "function",
           "name": "GoalsScreen.save",
-          "line": 75
+          "line": 82
+        },
+        {
+          "kind": "function-variable",
+          "name": "GoalsScreen.save.persist",
+          "line": 96
         },
         {
           "kind": "function",
           "name": "GoalsScreen.record",
-          "line": 93
+          "line": 122
         },
         {
           "kind": "function",
           "name": "GoalsScreen.resolve",
-          "line": 180
+          "line": 209
         },
         {
           "kind": "function",
           "name": "GoalsScreen.openRecord",
-          "line": 201
+          "line": 230
         }
       ]
     },
@@ -17835,8 +18136,8 @@
       "path": "src/features/practice/screens/ProgressScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 438,
-      "sha256": "11461086e306674494959780ef23e559947d911fb1492801b4b264ce6abad922",
+      "lines": 445,
+      "sha256": "d5ba6cf9c79397659eb565cb9aa0146e57ab0634a969fab2b17573ceb56f5dc0",
       "declarations": [
         {
           "kind": "function",
@@ -17846,32 +18147,32 @@
         {
           "kind": "function-variable",
           "name": "ProgressScreen.reference",
-          "line": 54
+          "line": 57
         },
         {
           "kind": "function-variable",
           "name": "ProgressScreen.label",
-          "line": 58
+          "line": 61
         },
         {
           "kind": "function",
           "name": "ProgressScreen.open",
-          "line": 66
+          "line": 69
         },
         {
           "kind": "function",
           "name": "ProgressScreen.checkIn",
-          "line": 79
+          "line": 82
         },
         {
           "kind": "function",
           "name": "ProgressScreen.editScore",
-          "line": 100
+          "line": 103
         },
         {
           "kind": "function",
           "name": "ProgressScreen.toggleSelection",
-          "line": 105
+          "line": 108
         }
       ]
     },
@@ -17941,8 +18242,8 @@
       "path": "src/features/quran/components/BookTranslationSheet.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 94,
-      "sha256": "17f53efae228ee0ee7701b96a1ad280ec1efc1b42b8a6a0d243137fd1bdcdfe9",
+      "lines": 96,
+      "sha256": "6a65a6dc347e4c0f0c64d84c0be4a354406d1363c6e2d59e79c0fa0d35f4634d",
       "declarations": [
         {
           "kind": "function",
@@ -17952,26 +18253,55 @@
       ]
     },
     {
+      "path": "src/features/quran/components/ContinuousMushafPages.tsx",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 241,
+      "sha256": "9f33c68aa548eccf138e0e0f339de65dd1939f5b67f3f00fb6df83827cbda33b",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "ContinuousMushafPages",
+          "line": 11
+        },
+        {
+          "kind": "function-variable",
+          "name": "ContinuousMushafPages.scrollTo",
+          "line": 67
+        },
+        {
+          "kind": "function-variable",
+          "name": "ContinuousMushafPages.publishVisible",
+          "line": 97
+        },
+        {
+          "kind": "function-variable",
+          "name": "ContinuousMushafPages.restoreLayout",
+          "line": 111
+        }
+      ]
+    },
+    {
       "path": "src/features/quran/components/DownloadedPdfMushaf.native.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 392,
-      "sha256": "8696667e65fb3764996f5f80bbfc83b94e98c357750f3fdbfef0e1eb42ebf482",
+      "lines": 407,
+      "sha256": "4b88d9d518038a13b4e24e558d071f1c26d17896e591f22b4aad45140e056f8a",
       "declarations": [
         {
           "kind": "function",
           "name": "DownloadedPdfMushaf",
-          "line": 31
+          "line": 33
         },
         {
           "kind": "function-variable",
           "name": "DownloadedPdfMushaf.changeFullscreen",
-          "line": 112
+          "line": 114
         },
         {
           "kind": "function",
           "name": "DownloadedPdfMushaf.listen",
-          "line": 129
+          "line": 131
         }
       ]
     },
@@ -17994,6 +18324,48 @@
           "kind": "function",
           "name": "DownloadedPdfMushaf",
           "line": 7
+        }
+      ]
+    },
+    {
+      "path": "src/features/quran/components/FloatingReaderAudio.tsx",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 33,
+      "sha256": "891c9e879607b7f0a3f57ebcabd85f608f35522110415256390a0b9851f89ee6",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "FloatingReaderAudio",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "path": "src/features/quran/components/FloatingReaderButton.tsx",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 133,
+      "sha256": "270f92f62cdd92fcdccdbd83ddae4571d8b5989802e0e32f4555b383a9ca19a2",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "FloatingReaderButton",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "path": "src/features/quran/components/FullscreenExitButton.tsx",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 7,
+      "sha256": "6fed9939254d72583044155cd052702be1e5cf4049a0ea93483a4c6199818774",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "FullscreenExitButton",
+          "line": 4
         }
       ]
     },
@@ -18034,8 +18406,8 @@
       "path": "src/features/quran/components/MushafFooter.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 398,
-      "sha256": "f9fd7a31aae80686a4e98720863021708fa2e02ee8a607c989cda97b40cd2f56",
+      "lines": 404,
+      "sha256": "bf1aaec97efff8da5bb42eef4fd011845e8670d8528f2b9c1f7ec09462b89231",
       "declarations": [
         {
           "kind": "type",
@@ -18050,17 +18422,17 @@
         {
           "kind": "function-variable",
           "name": "MushafPageRail.cancelDrag",
-          "line": 53
+          "line": 55
         },
         {
           "kind": "function-variable",
           "name": "MushafPageRail.update",
-          "line": 58
+          "line": 60
         },
         {
           "kind": "function",
           "name": "MushafFooter",
-          "line": 181
+          "line": 185
         }
       ]
     },
@@ -18068,8 +18440,8 @@
       "path": "src/features/quran/components/MushafReadingActions.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 160,
-      "sha256": "c7cde7ea44734f249bdd5ef7f7bdd70349683c0f6ee84a53794167c45b197813",
+      "lines": 165,
+      "sha256": "07e6fee16513f62d41e74bb14bae500d3dedfec331ccbae7ad884793b9fef8de",
       "declarations": [
         {
           "kind": "function",
@@ -18079,7 +18451,7 @@
         {
           "kind": "function",
           "name": "MushafReadingActions.markPages",
-          "line": 51
+          "line": 55
         }
       ]
     },
@@ -18145,18 +18517,23 @@
       "path": "src/features/quran/components/PrintedMushafPage.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 213,
-      "sha256": "1891811a96698e1810b1ad0b9f0cbe704aee0a4487c318e6de6a7f68a762ad63",
+      "lines": 237,
+      "sha256": "b3d72aff65d84671e49df60998826d272b37874f787bc27bc4c22ddbd241d85d",
       "declarations": [
         {
           "kind": "function",
           "name": "warshPage",
-          "line": 22
+          "line": 23
         },
         {
           "kind": "function",
           "name": "PrintedMushafPage",
-          "line": 56
+          "line": 57
+        },
+        {
+          "kind": "function-variable",
+          "name": "PrintedMushafPage.selectAt",
+          "line": 130
         }
       ]
     },
@@ -18527,6 +18904,20 @@
       ]
     },
     {
+      "path": "src/features/quran/layout/continuousMushafCrop.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 16,
+      "sha256": "ca213476325d500824c285957d496d69e3fc155a4f36473296e99a810a317dc8",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "continuousMushafCrop",
+          "line": 5
+        }
+      ]
+    },
+    {
       "path": "src/features/quran/layout/mushafCrop.ts",
       "side": "react-native",
       "role": "implementation",
@@ -18762,8 +19153,8 @@
       "path": "src/features/quran/model/readPageMetrics.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 63,
-      "sha256": "185a8c22156d7a264e7618d33d98badb50cb92faf4a0a6268411a75f6dc663a6",
+      "lines": 69,
+      "sha256": "83dd4b0f4d82bddd32b8cca1e8da59ec07e0916286d38ce7997fefba7b040ede",
       "declarations": [
         {
           "kind": "function",
@@ -18798,8 +19189,8 @@
       "path": "src/features/quran/providers/readingModeContext.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 32,
-      "sha256": "5f4b79290f551315183e79b6c0f108ae25beaab1d33dae8c6df69727e1bb0785",
+      "lines": 28,
+      "sha256": "9d997df6aa592022a3024b717d8a8e12a46a7715daf82eb64f5b066724ba9f95",
       "declarations": [
         {
           "kind": "type",
@@ -18814,7 +19205,7 @@
         {
           "kind": "function",
           "name": "bookToText",
-          "line": 24
+          "line": 20
         }
       ]
     },
@@ -18822,28 +19213,28 @@
       "path": "src/features/quran/screens/MushafLibraryScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 342,
-      "sha256": "a80b6f97dd638df86030da9a248e48da696b3dd79feb5b224daa75783851f7eb",
+      "lines": 343,
+      "sha256": "0d4d0b7899d4865e56055369012f7571c2721ef49907c495a5a30a4ce47a2abf",
       "declarations": [
         {
           "kind": "function",
           "name": "MushafLibraryScreen",
-          "line": 115
+          "line": 116
         },
         {
           "kind": "function",
           "name": "MushafLibraryScreen.select",
-          "line": 136
+          "line": 137
         },
         {
           "kind": "function",
           "name": "MushafLibraryScreen.askDownload",
-          "line": 142
+          "line": 143
         },
         {
           "kind": "function",
           "name": "MushafLibraryScreen.askRemove",
-          "line": 173
+          "line": 174
         }
       ]
     },
@@ -18851,63 +19242,73 @@
       "path": "src/features/quran/screens/MushafScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 1547,
-      "sha256": "a8a9ba240c71788da4005fb75223d39afe3caa05378aa5b028beb240a138dee7",
+      "lines": 1607,
+      "sha256": "97b285aa4d21ea3c8baef923649d1690c9f21dc58273a1caab3360111cf906d7",
       "declarations": [
         {
           "kind": "function",
+          "name": "pointOnPage",
+          "line": 85
+        },
+        {
+          "kind": "function",
           "name": "MushafScreen",
-          "line": 81
+          "line": 97
         },
         {
           "kind": "function",
           "name": "ImageMushaf",
-          "line": 199
+          "line": 220
+        },
+        {
+          "kind": "function",
+          "name": "ImageMushaf.setFullscreen",
+          "line": 611
         },
         {
           "kind": "function-variable",
           "name": "ImageMushaf.openText",
-          "line": 560
+          "line": 625
         },
         {
           "kind": "function",
           "name": "ImageMushaf.playSelectedSurah",
-          "line": 582
+          "line": 646
         },
         {
           "kind": "function",
           "name": "ImageMushaf.openRepeat",
-          "line": 593
+          "line": 657
         },
         {
           "kind": "function",
           "name": "ImageMushaf.openWord",
-          "line": 603
+          "line": 667
         },
         {
           "kind": "function-variable",
           "name": "ImageMushaf.goToPage",
-          "line": 621
+          "line": 685
         },
         {
           "kind": "function-variable",
           "name": "ImageMushaf.turn",
-          "line": 629
+          "line": 693
         },
         {
           "kind": "function-variable",
           "name": "ImageMushaf.imagePoint",
-          "line": 630
+          "line": 694
         },
         {
           "kind": "function-variable",
           "name": "ImageMushaf.choosePresentation",
-          "line": 658
+          "line": 722
         },
         {
           "kind": "function-variable",
           "name": "ImageMushaf.chooseSelectionMode",
-          "line": 683
+          "line": 745
         }
       ]
     },
@@ -18915,23 +19316,23 @@
       "path": "src/features/quran/screens/QuranScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 364,
-      "sha256": "ace63cd2c26ba502f44d6b53b7165cd1aeaf50e1d7d893c11da5b54ebc9f06c5",
+      "lines": 362,
+      "sha256": "d5e208141a38ba3c5f860e692aeb2c8b4e650141b3aa9df488a21e0219832021",
       "declarations": [
         {
           "kind": "function",
           "name": "QuranScreen",
-          "line": 25
+          "line": 30
         },
         {
           "kind": "function",
           "name": "QuranScreen.openPart",
-          "line": 54
+          "line": 59
         },
         {
           "kind": "function",
           "name": "QuranScreen.partActions",
-          "line": 74
+          "line": 79
         }
       ]
     },
@@ -18939,8 +19340,8 @@
       "path": "src/features/quran/screens/ReaderScreen.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 943,
-      "sha256": "e9430878a7c711d914e9fd3d3d16521c33e4366b88c020c11be6b812e3f35832",
+      "lines": 940,
+      "sha256": "e36cd9f0e37e8406cfc584b2c29b54738dbe2ecf211a155b2dbb556e5ca058e4",
       "declarations": [
         {
           "kind": "type",
@@ -19849,48 +20250,48 @@
       "path": "src/services/audio/repeatSelection.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 145,
-      "sha256": "8d446c84be5af112e25b70f17d3a3a36ee30d50eb4721c77cfe4ceb0c2c16b4c",
+      "lines": 148,
+      "sha256": "8c0f68a553316b58f312fcee2f76cb00b0caf167826b4757998ff4da32e345e4",
       "declarations": [
         {
           "kind": "type",
           "name": "RepeatMode",
-          "line": 13
-        },
-        {
-          "kind": "type",
-          "name": "RepeatPoint",
           "line": 14
         },
         {
           "kind": "type",
-          "name": "RepeatSelectionInput",
+          "name": "RepeatPoint",
           "line": 15
+        },
+        {
+          "kind": "type",
+          "name": "RepeatSelectionInput",
+          "line": 16
         },
         {
           "kind": "function",
           "name": "printedVerseCount",
-          "line": 26
+          "line": 28
         },
         {
           "kind": "function",
           "name": "printedVerseForCanonical",
-          "line": 29
+          "line": 31
         },
         {
           "kind": "function",
           "name": "repeatInitialPage",
-          "line": 35
+          "line": 37
         },
         {
           "kind": "function",
           "name": "repeatSelection",
-          "line": 42
+          "line": 45
         },
         {
           "kind": "function",
           "name": "createRepeatQueue",
-          "line": 100
+          "line": 103
         }
       ]
     },
@@ -23470,48 +23871,48 @@
       "path": "src/services/notifications/localReminders.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 141,
-      "sha256": "05ef6b1e596b623abb028e9b434a315a491430bc5280ea24b977e5db79f17731",
+      "lines": 194,
+      "sha256": "0a7122259e06d021b84bc9b2ea4a1869c1632769db6676b33f3193ca1927432c",
       "declarations": [
         {
           "kind": "function-variable",
           "name": "getReminderFailure",
-          "line": 19
+          "line": 25
         },
         {
           "kind": "function",
           "name": "onReminderFailureChanged",
-          "line": 20
-        },
-        {
-          "kind": "function",
-          "name": "setReminderFailure",
           "line": 26
         },
         {
           "kind": "function",
+          "name": "setReminderFailure",
+          "line": 32
+        },
+        {
+          "kind": "function",
           "name": "ordered",
-          "line": 31
+          "line": 37
         },
         {
           "kind": "function",
           "name": "loadLocalNotifications",
-          "line": 36
+          "line": 42
         },
         {
           "kind": "function",
           "name": "desiredLocalReminders",
-          "line": 50
+          "line": 56
         },
         {
           "kind": "function",
           "name": "reconcileLocalReminders",
-          "line": 93
+          "line": 127
         },
         {
           "kind": "function",
           "name": "saveLocalNotifications",
-          "line": 114
+          "line": 166
         }
       ]
     },
@@ -23562,8 +23963,8 @@
       "path": "src/services/notifications/notificationSystem.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 99,
-      "sha256": "5457e740782ff6613c444985f81d58fcd167a42d86f4bc4adab888dc196c2afc",
+      "lines": 111,
+      "sha256": "c0eb8fb39b06effd61c3aa3a1fa932eaad94cacab5d94cf1d9d639a382864ce7",
       "declarations": [
         {
           "kind": "type",
@@ -23583,62 +23984,62 @@
         {
           "kind": "type",
           "name": "NotificationSystemStatus",
-          "line": 17
+          "line": 24
         },
         {
           "kind": "type",
           "name": "NotificationSystemPort",
-          "line": 21
+          "line": 28
         },
         {
           "kind": "method",
           "name": "NotificationSystemPort.permission",
-          "line": 23
-        },
-        {
-          "kind": "method",
-          "name": "NotificationSystemPort.channels",
-          "line": 29
-        },
-        {
-          "kind": "method",
-          "name": "NotificationSystemPort.openAndroidSettings",
           "line": 30
         },
         {
           "kind": "method",
+          "name": "NotificationSystemPort.channels",
+          "line": 36
+        },
+        {
+          "kind": "method",
+          "name": "NotificationSystemPort.openAndroidSettings",
+          "line": 37
+        },
+        {
+          "kind": "method",
           "name": "NotificationSystemPort.openSettings",
-          "line": 31
+          "line": 38
         },
         {
           "kind": "method",
           "name": "NotificationSystemPort.onResume",
-          "line": 32
+          "line": 39
         },
         {
           "kind": "function",
           "name": "readNotificationSystem",
-          "line": 36
+          "line": 43
         },
         {
           "kind": "function",
           "name": "openNotificationSettings",
-          "line": 58
+          "line": 70
         },
         {
           "kind": "function",
           "name": "observeNotificationSystem",
-          "line": 71
+          "line": 83
         },
         {
           "kind": "function-variable",
           "name": "observeNotificationSystem.refresh",
-          "line": 78
+          "line": 90
         },
         {
           "kind": "method",
           "name": "observeNotificationSystem.dispose",
-          "line": 92
+          "line": 104
         }
       ]
     },
@@ -23670,8 +24071,8 @@
       "path": "src/services/notifications/planningReminderLedger.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 173,
-      "sha256": "ea7366aa50a9f03d1ce5c78391399314a2e6e280f2f289dd0a5ba4e4e57f300e",
+      "lines": 188,
+      "sha256": "e51fb61a880af93621e4cc805b64e422fdbe15e216b9448f3b53d4eccdccd1b3",
       "declarations": [
         {
           "kind": "type",
@@ -23716,17 +24117,17 @@
         {
           "kind": "function-variable",
           "name": "reconcileTrackedPlanReminders.persist",
-          "line": 100
+          "line": 110
         },
         {
           "kind": "method",
           "name": "reconcileTrackedPlanReminders.schedule",
-          "line": 124
+          "line": 139
         },
         {
           "kind": "method",
           "name": "reconcileTrackedPlanReminders.cancel",
-          "line": 157
+          "line": 172
         }
       ]
     },
@@ -23734,28 +24135,63 @@
       "path": "src/services/notifications/planningReminderPort.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 64,
-      "sha256": "a6808ab6968c7d0f0a043343f33bc15aae26a26d077139057b1aaf7ad623b31a",
+      "lines": 176,
+      "sha256": "1bbf38d26977903640be0766d1d9af74863e439a12fccd4d4582b2d9f9c0f4dc",
       "declarations": [
         {
           "kind": "function",
+          "name": "rememberFirstGrant",
+          "line": 20
+        },
+        {
+          "kind": "function",
+          "name": "promptForPermission",
+          "line": 26
+        },
+        {
+          "kind": "function",
+          "name": "firstPlanReminderGrantAt",
+          "line": 51
+        },
+        {
+          "kind": "function",
+          "name": "hasPreviousAndroidDenial",
+          "line": 59
+        },
+        {
+          "kind": "method",
+          "name": "hasPreviousAndroidDenial.shouldShowRequestPermissionRationale",
+          "line": 62
+        },
+        {
+          "kind": "function",
+          "name": "ensureReminderChannel",
+          "line": 72
+        },
+        {
+          "kind": "function",
           "name": "hasPlanReminderPermission",
-          "line": 8
+          "line": 82
         },
         {
           "kind": "function",
           "name": "requestPlanReminderPermission",
-          "line": 13
+          "line": 87
+        },
+        {
+          "kind": "function",
+          "name": "initialPlanReminderPermission",
+          "line": 96
         },
         {
           "kind": "method",
           "name": "list",
-          "line": 26
+          "line": 121
         },
         {
           "kind": "method",
           "name": "schedule",
-          "line": 36
+          "line": 143
         }
       ]
     },
@@ -23763,8 +24199,8 @@
       "path": "src/services/notifications/planningReminders.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 192,
-      "sha256": "46df1bd72c0ac4159e021cba81514a971c4ee6eeda1475ec0ad0b015f4ff8b2e",
+      "lines": 204,
+      "sha256": "86f1de376a77b01ecb00f187c258beb5d6da370451ed1c4d7984af33afedd5a5",
       "declarations": [
         {
           "kind": "type",
@@ -23774,47 +24210,47 @@
         {
           "kind": "type",
           "name": "ExistingPlanReminder",
-          "line": 18
+          "line": 20
         },
         {
           "kind": "type",
           "name": "PlanReminderPort",
-          "line": 19
+          "line": 21
         },
         {
           "kind": "type",
           "name": "ReminderReconcileResult",
-          "line": 24
+          "line": 26
         },
         {
           "kind": "function",
           "name": "planningReminderDueAt",
-          "line": 31
+          "line": 34
         },
         {
           "kind": "function",
           "name": "planReminderKey",
-          "line": 68
+          "line": 71
         },
         {
           "kind": "function",
           "name": "desiredPlanReminders",
-          "line": 76
+          "line": 79
         },
         {
           "kind": "function",
           "name": "reconcilePlanReminders",
-          "line": 113
+          "line": 116
         },
         {
           "kind": "function",
           "name": "planReminderCopy",
-          "line": 163
+          "line": 175
         },
         {
           "kind": "function",
           "name": "reminderCopy",
-          "line": 189
+          "line": 201
         }
       ]
     },
@@ -24217,6 +24653,42 @@
           "kind": "method",
           "name": "createDeviceStorage.migrate",
           "line": 92
+        }
+      ]
+    },
+    {
+      "path": "src/services/storage/pickNotesFile.native.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 16,
+      "sha256": "2a4883c57c9c574d9965e36a67288635c5bde9f07930009d7cbc20ca6a203f0d",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "pickNotesFile",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "path": "src/services/storage/pickNotesFile.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 2,
+      "sha256": "8e710979afbad5451b3dba9cb92065f1cd08654298713c262008bffc58c203e1",
+      "declarations": []
+    },
+    {
+      "path": "src/services/storage/pickNotesFile.web.ts",
+      "side": "react-native",
+      "role": "implementation",
+      "lines": 14,
+      "sha256": "3f56affdc2881fb7c152fcdff2aed7a047a26f37aeeba65c45f284a55422f465",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "pickNotesFile",
+          "line": 3
         }
       ]
     },
@@ -24853,8 +25325,8 @@
       "path": "src/shared/components/Sheet.tsx",
       "side": "react-native",
       "role": "implementation",
-      "lines": 101,
-      "sha256": "384609f0bd5d55c14c4e60292c93efe7b9d4a27b6bcc7b7a436af0f5799f94e6",
+      "lines": 109,
+      "sha256": "834873fffb44573671e2a09633a375cded5a4e8acc583771c04608c861ea4df6",
       "declarations": [
         {
           "kind": "function",
@@ -24955,8 +25427,8 @@
       "path": "src/shared/theme/colors.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 191,
-      "sha256": "810c4de76403aa76192668b87082cc620c1d5b3fc06b2ed12651a561db96d320",
+      "lines": 242,
+      "sha256": "401005bad6b3c3137c7f6711f3371dc9c8c1b28f580953765bb681de96d2cd85",
       "declarations": [
         {
           "kind": "type",
@@ -24966,17 +25438,17 @@
         {
           "kind": "function",
           "name": "relativeLuminance",
-          "line": 173
+          "line": 224
         },
         {
           "kind": "function",
           "name": "contrastRatio",
-          "line": 181
+          "line": 232
         },
         {
           "kind": "function",
           "name": "isDarkPalette",
-          "line": 186
+          "line": 237
         }
       ]
     },
@@ -25024,8 +25496,8 @@
       "path": "src/state/models.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 224,
-      "sha256": "27be6de77172ef3df754ae63c3c3a5544ec63351e8c3f165cb0653509cc1b467",
+      "lines": 233,
+      "sha256": "de1008fbd0cfd2bac8ff2848846b060c438472106e59a09baedee365f66a3bd9",
       "declarations": [
         {
           "kind": "type",
@@ -25115,12 +25587,12 @@
         {
           "kind": "type",
           "name": "FocusSession",
-          "line": 152
+          "line": 157
         },
         {
           "kind": "type",
           "name": "AppState",
-          "line": 153
+          "line": 158
         }
       ]
     },
@@ -25128,8 +25600,8 @@
       "path": "src/state/persistence/decodeState.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 268,
-      "sha256": "9005de13f9486004d0ee676c7f8dd07593a59ed38caa5fc3e423ef963ec3102a",
+      "lines": 287,
+      "sha256": "5dd986929f57a3ccbc26ffbcb552af1cfc5156b6e642b89d91b2a8169ee856c9",
       "declarations": [
         {
           "kind": "type",
@@ -25184,12 +25656,12 @@
         {
           "kind": "function-variable",
           "name": "legacyPreference",
-          "line": 145
+          "line": 151
         },
         {
           "kind": "function",
           "name": "decodeState",
-          "line": 208
+          "line": 214
         }
       ]
     },
@@ -25278,48 +25750,53 @@
       "path": "src/state/reducer.ts",
       "side": "react-native",
       "role": "implementation",
-      "lines": 519,
-      "sha256": "8b8ac3fd31a5635b1a1b7b3b5721019dbd895d53ba26b67193888ec47eb70061",
+      "lines": 577,
+      "sha256": "8a8ce85d8477dc5096c44be34bbf319814a539971ed232e1566d54611abb654c",
       "declarations": [
         {
           "kind": "function-variable",
           "name": "newId",
-          "line": 27
+          "line": 31
         },
         {
           "kind": "type",
           "name": "CheckInAction",
-          "line": 28
+          "line": 32
         },
         {
           "kind": "type",
           "name": "Action",
-          "line": 40
+          "line": 44
         },
         {
           "kind": "function-variable",
           "name": "progressKey",
-          "line": 119
+          "line": 131
         },
         {
           "kind": "function",
           "name": "validMushafPage",
-          "line": 122
-        },
-        {
-          "kind": "function",
-          "name": "checkIn",
           "line": 134
         },
         {
           "kind": "function",
+          "name": "checkIn",
+          "line": 146
+        },
+        {
+          "kind": "function",
           "name": "completePlan",
-          "line": 205
+          "line": 217
         },
         {
           "kind": "function",
           "name": "appReducer",
-          "line": 254
+          "line": 266
+        },
+        {
+          "kind": "function-variable",
+          "name": "appReducer.matches",
+          "line": 451
         }
       ]
     },
@@ -25588,48 +26065,43 @@
       "path": "tests/appearance-controls.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 170,
-      "sha256": "8306d374edb3c4f273d4d7524d98548947c7551a37fa59f5a9104f20fb7d1a18",
+      "lines": 193,
+      "sha256": "3ee3306dc8b92490a5ea0ec075ad695f0f5d30e15bacac89709f633a1ca29f3c",
       "declarations": [
         {
           "kind": "function",
           "name": "settingsHarness",
-          "line": 25
-        },
-        {
-          "kind": "method",
-          "name": "settingsHarness.navigate",
-          "line": 40
+          "line": 26
         },
         {
           "kind": "method",
           "name": "settingsHarness.dispatch",
-          "line": 44
+          "line": 48
         },
         {
           "kind": "function-variable",
           "name": "toggle",
-          "line": 65
+          "line": 88
         },
         {
           "kind": "method",
           "name": "onClose",
-          "line": 120
+          "line": 143
         },
         {
           "kind": "method",
           "name": "remove",
-          "line": 125
+          "line": 148
         },
         {
           "kind": "function-variable",
           "name": "render",
-          "line": 141
+          "line": 164
         },
         {
           "kind": "method",
           "name": "render.onClose",
-          "line": 145
+          "line": 168
         }
       ]
     },
@@ -25637,28 +26109,28 @@
       "path": "tests/appearance-preferences.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 150,
-      "sha256": "cab07c9c1c17d03c02dbec5303dddfe209356d2a8d369509fc26c5a64e909fbe",
+      "lines": 159,
+      "sha256": "5a3aa1577a5197b532c702c65435f1b02ffd53c3987ab67f9c66dd311ad4d57e",
       "declarations": [
         {
           "kind": "function-variable",
           "name": "imported",
-          "line": 84
+          "line": 93
         },
         {
           "kind": "method",
           "name": "getItem",
-          "line": 114
+          "line": 123
         },
         {
           "kind": "method",
           "name": "setItem",
-          "line": 117
+          "line": 126
         },
         {
           "kind": "function-variable",
           "name": "importer",
-          "line": 122
+          "line": 131
         }
       ]
     },
@@ -26161,9 +26633,43 @@
       "path": "tests/book-presentation.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 268,
-      "sha256": "60b4cf37234b53e4d56d7c316647951be0d2ddaf2dd7166c26eba3defdb2f34f",
+      "lines": 314,
+      "sha256": "8137de13cd1ed9c0e39b56da40873e7bd3fd7c509d898218fbaa583873e7e448",
       "declarations": []
+    },
+    {
+      "path": "tests/book-translation-sheet.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 76,
+      "sha256": "4481572fc282c78f46a2daf5251f74aab29c62427d8186c674c28495bca6394f",
+      "declarations": [
+        {
+          "kind": "method",
+          "name": "dispatch",
+          "line": 42
+        },
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 50
+        },
+        {
+          "kind": "method",
+          "name": "render.onClose",
+          "line": 57
+        },
+        {
+          "kind": "method",
+          "name": "render.onReadText",
+          "line": 58
+        },
+        {
+          "kind": "function-variable",
+          "name": "verses",
+          "line": 61
+        }
+      ]
     },
     {
       "path": "tests/book-translation.test.ts",
@@ -26214,6 +26720,20 @@
           "kind": "function",
           "name": "claim",
           "line": 48
+        }
+      ]
+    },
+    {
+      "path": "tests/bookmarks.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 207,
+      "sha256": "7a530dece631879e086dc5bfa5f7e87d8e80353df259080f97b4cc8b2333ca97",
+      "declarations": [
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 49
         }
       ]
     },
@@ -26313,6 +26833,100 @@
       "declarations": []
     },
     {
+      "path": "tests/continuous-mushaf-lifecycle.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 152,
+      "sha256": "c62a13cb2cd4edfb8a48f71378ac15281bf5bc591abbb11560f6357a0ab59759",
+      "declarations": [
+        {
+          "kind": "type",
+          "name": "Ref",
+          "line": 9
+        },
+        {
+          "kind": "type",
+          "name": "Frame",
+          "line": 10
+        },
+        {
+          "kind": "method",
+          "name": "Frame.measureInWindow",
+          "line": 11
+        },
+        {
+          "kind": "method",
+          "name": "Frame.onLayout",
+          "line": 12
+        },
+        {
+          "kind": "type",
+          "name": "List",
+          "line": 16
+        },
+        {
+          "kind": "method",
+          "name": "List.scrollToOffset",
+          "line": 17
+        },
+        {
+          "kind": "method",
+          "name": "List.onContentSizeChange",
+          "line": 18
+        },
+        {
+          "kind": "method",
+          "name": "List.onScroll",
+          "line": 19
+        },
+        {
+          "kind": "method",
+          "name": "List.onViewableItemsChanged",
+          "line": 20
+        },
+        {
+          "kind": "function",
+          "name": "touch",
+          "line": 23
+        },
+        {
+          "kind": "function",
+          "name": "reader",
+          "line": 31
+        },
+        {
+          "kind": "function",
+          "name": "reader.render",
+          "line": 52
+        },
+        {
+          "kind": "method",
+          "name": "reader.render.onExit",
+          "line": 64
+        },
+        {
+          "kind": "method",
+          "name": "reader.render.onZoom",
+          "line": 65
+        },
+        {
+          "kind": "method",
+          "name": "reader.render.onSelect",
+          "line": 66
+        },
+        {
+          "kind": "method",
+          "name": "reader.render.onError",
+          "line": 67
+        },
+        {
+          "kind": "method",
+          "name": "reader.render.scrollTo",
+          "line": 75
+        }
+      ]
+    },
+    {
       "path": "tests/device-storage.test.ts",
       "side": "react-native",
       "role": "test",
@@ -26345,8 +26959,8 @@
       "path": "tests/dockPreferences.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 124,
-      "sha256": "bbe8491a97dc7786f0a46794bb663af827a5fbfc60dd68551b17fc87abfe807f",
+      "lines": 139,
+      "sha256": "91b31578675efc0e89b1ef4d97c8453dd01d9c44a470b2bf5320d98350f6ed90",
       "declarations": []
     },
     {
@@ -26382,12 +26996,94 @@
       ]
     },
     {
+      "path": "tests/floating-reader-audio.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 76,
+      "sha256": "4f04830a5f322969c00197d11c07ff924b1828fedceae9b96231710daea3f9df",
+      "declarations": [
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 54
+        }
+      ]
+    },
+    {
       "path": "tests/focus.test.ts",
       "side": "react-native",
       "role": "test",
       "lines": 43,
       "sha256": "53991a9e5cbf1a4794f30a9d8bcae25093d9f9772f07cf3f044a327bf53d9856",
       "declarations": []
+    },
+    {
+      "path": "tests/fullscreen-exit-drag.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 113,
+      "sha256": "198a8da548a4f079c71246c9655bbde9a9a3162626b98587c94665fcb1bace7c",
+      "declarations": [
+        {
+          "kind": "method",
+          "name": "setValue",
+          "line": 34
+        },
+        {
+          "kind": "method",
+          "name": "getTranslateTransform",
+          "line": 37
+        },
+        {
+          "kind": "type",
+          "name": "Gesture",
+          "line": 49
+        },
+        {
+          "kind": "type",
+          "name": "Handlers",
+          "line": 50
+        },
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "path": "tests/goal-reminder-permission.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 144,
+      "sha256": "4d1aa48cf211ab9830489c8ed92cf3521751bc6a243118add5819e492833a154",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "fixture",
+          "line": 21
+        },
+        {
+          "kind": "function-variable",
+          "name": "fixture.apply",
+          "line": 26
+        },
+        {
+          "kind": "method",
+          "name": "fixture.setParams",
+          "line": 37
+        },
+        {
+          "kind": "function-variable",
+          "name": "fixture.render",
+          "line": 79
+        },
+        {
+          "kind": "function",
+          "name": "fixture.save",
+          "line": 80
+        }
+      ]
     },
     {
       "path": "tests/goals.test.ts",
@@ -27183,8 +27879,8 @@
       "path": "tests/home-resume-reference.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 23,
-      "sha256": "46c24dfc177abc9af51bdf0971af015983d02da041d2886a4081607f64b20b45",
+      "lines": 35,
+      "sha256": "a8f39059cf1d514ae676f904ffec019688cc42cea581f4f7f6e542f1011dccdd",
       "declarations": []
     },
     {
@@ -27372,38 +28068,38 @@
       "path": "tests/local-reminder-reconciliation.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 271,
-      "sha256": "6da222d068bd57f5fbd85997485adcf7d6bb5306e40f315c48c344c9917f75a6",
+      "lines": 405,
+      "sha256": "c49cb26737f07aa64ea9add46385bd7195fd4850ac055ef42ecbc662580ce71c",
       "declarations": [
         {
           "kind": "function-variable",
           "name": "time",
-          "line": 13
-        },
-        {
-          "kind": "function",
-          "name": "planned",
           "line": 14
         },
         {
           "kind": "function",
+          "name": "planned",
+          "line": 15
+        },
+        {
+          "kind": "function",
           "name": "fixture",
-          "line": 33
+          "line": 34
         },
         {
           "kind": "function",
           "name": "fixture.load",
-          "line": 68
+          "line": 70
         },
         {
           "kind": "class",
           "name": "fixture.load.ClockDate",
-          "line": 87
+          "line": 95
         },
         {
           "kind": "method",
           "name": "fixture.load.ClockDate.now",
-          "line": 91
+          "line": 99
         }
       ]
     },
@@ -27411,8 +28107,8 @@
       "path": "tests/local-reminders-panel.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 139,
-      "sha256": "73a4f59b0ba0daf1fd4719a4fa2f58e7dfb1d1749bbb6538df910ee8a0058e7d",
+      "lines": 169,
+      "sha256": "396f4c2aa5b389244530cb638d3d2db4e9fe3fbc3f026b851ebca02934d268c6",
       "declarations": [
         {
           "kind": "function",
@@ -27422,12 +28118,12 @@
         {
           "kind": "function-variable",
           "name": "fixture.render",
-          "line": 64
+          "line": 71
         },
         {
           "kind": "function",
           "name": "fixture.edit",
-          "line": 65
+          "line": 72
         }
       ]
     },
@@ -27474,13 +28170,13 @@
       "path": "tests/mushaf-download-lifecycle.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 127,
-      "sha256": "a2bd68fff2b2cd76199ab415c2abc787fb6e5352a384f7e8cb6232a3107c5083",
+      "lines": 128,
+      "sha256": "c7c5e761da92f5097ad2fa9a11d0b06960c553ea2c4d588ad1bba96f079fa521",
       "declarations": [
         {
           "kind": "function-variable",
           "name": "find",
-          "line": 103
+          "line": 104
         }
       ]
     },
@@ -27509,6 +28205,30 @@
       ]
     },
     {
+      "path": "tests/mushaf-fullscreen.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 139,
+      "sha256": "87735b88f56693b5aacf0c50e3b0d83a2b34befdb399bce8cc61adc66b193fef",
+      "declarations": [
+        {
+          "kind": "type",
+          "name": "Element",
+          "line": 25
+        },
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 72
+        },
+        {
+          "kind": "function",
+          "name": "find",
+          "line": 76
+        }
+      ]
+    },
+    {
       "path": "tests/mushaf-gesture-bridge.test.ts",
       "side": "react-native",
       "role": "test",
@@ -27531,8 +28251,8 @@
       "path": "tests/mushaf-library.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 158,
-      "sha256": "778e83bad11df177b7e463afed9a8d2594a8638f666def8b8631419f042ec3db",
+      "lines": 168,
+      "sha256": "28f468090fc90cb2b9effadac88272d998b884d659db88fa884c4a47ed9a678f",
       "declarations": [
         {
           "kind": "function-variable",
@@ -27684,8 +28404,8 @@
       "path": "tests/mushaf-page-metrics.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 93,
-      "sha256": "83181ada94daff70d2244fc342cf90fb77339eac378763eaeef2f5808128cccb",
+      "lines": 96,
+      "sha256": "aa2143bcace21a3f8f3a6d17117d89bccf80880c76a41ff40d77ec7ccf8ef75b",
       "declarations": []
     },
     {
@@ -27694,6 +28414,14 @@
       "role": "test",
       "lines": 56,
       "sha256": "283b9e2830e2db981650b849018f701383d9b20e758e1a4377a3e6d9cab375e2",
+      "declarations": []
+    },
+    {
+      "path": "tests/mushaf-presentation-propagation.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 94,
+      "sha256": "3be985842aa98eea2e86ea77c4ff7fc6207d6479bcbbad03336e5416e70e61c1",
       "declarations": []
     },
     {
@@ -27742,8 +28470,8 @@
       "path": "tests/mushaf-resume.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 33,
-      "sha256": "690f32542078ea7dd8b1fa3578642872f7901b9005449cadf481390edc87f687",
+      "lines": 78,
+      "sha256": "e239f48f43b0dc5a73d4010988617750d4c224daf6d03540d7aa143663de86e8",
       "declarations": []
     },
     {
@@ -27837,83 +28565,83 @@
       "path": "tests/mushaf-word-selection.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 1178,
-      "sha256": "f02a95447a8835411fff1e2d9969d67aac64a9a00869fb852ed35322cb5f2503",
+      "lines": 1166,
+      "sha256": "0a14aa273032192297fb9aa0bd6eeee44273aeefaa08abd941fde9afb247b93f",
       "declarations": [
         {
           "kind": "type",
           "name": "Node",
-          "line": 21
+          "line": 27
         },
         {
           "kind": "function-variable",
           "name": "event",
-          "line": 53
+          "line": 59
         },
         {
           "kind": "function",
           "name": "screen",
-          "line": 78
+          "line": 84
         },
         {
           "kind": "function-variable",
           "name": "screen.same",
-          "line": 107
+          "line": 117
         },
         {
           "kind": "method",
           "name": "screen.useState",
-          "line": 116
+          "line": 126
         },
         {
           "kind": "method",
           "name": "screen.useRef",
-          "line": 128
+          "line": 138
         },
         {
           "kind": "method",
           "name": "screen.useMemo",
-          "line": 133
+          "line": 143
         },
         {
           "kind": "method",
           "name": "screen.useEffect",
-          "line": 139
+          "line": 149
         },
         {
           "kind": "method",
           "name": "screen.useLayoutEffect",
-          "line": 157
+          "line": 167
         },
         {
           "kind": "function-variable",
           "name": "screen.setImmersive",
-          "line": 167
+          "line": 177
         },
         {
           "kind": "function",
           "name": "screen.render",
-          "line": 308
+          "line": 322
         },
         {
           "kind": "function",
           "name": "screen.render.visit",
-          "line": 332
+          "line": 347
         },
         {
           "kind": "function-variable",
           "name": "native",
-          "line": 388
+          "line": 403
         },
         {
           "kind": "function-variable",
           "name": "horizontal",
-          "line": 419
+          "line": 434
         },
         {
           "kind": "function-variable",
           "name": "choose",
-          "line": 638
+          "line": 651
         }
       ]
     },
@@ -27956,38 +28684,38 @@
       "path": "tests/navigationDock.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 179,
-      "sha256": "c919b522d67e3326766fec05cb7d4ebed9d787447cdccd7df63836837aa75362",
+      "lines": 229,
+      "sha256": "bc2b9f663c22fb9d3a7cd7c8058c9d391b8e15294d6602e2e4fa2df626c20d3d",
       "declarations": [
         {
           "kind": "type",
           "name": "Node",
-          "line": 13
+          "line": 14
         },
         {
           "kind": "function",
           "name": "dock",
-          "line": 14
+          "line": 15
         },
         {
           "kind": "method",
           "name": "dock.useState",
-          "line": 26
+          "line": 27
         },
         {
           "kind": "function",
           "name": "dock.render",
-          "line": 89
+          "line": 100
         },
         {
           "kind": "function",
           "name": "dock.render.visit",
-          "line": 103
+          "line": 114
         },
         {
           "kind": "function-variable",
           "name": "checkbox",
-          "line": 134
+          "line": 145
         }
       ]
     },
@@ -28093,6 +28821,79 @@
       ]
     },
     {
+      "path": "tests/notes-import-library.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 265,
+      "sha256": "b92aab6827102881959f9ddc6f3c316a5262321a4b25c27b3bdb418e7712c39c",
+      "declarations": [
+        {
+          "kind": "function-variable",
+          "name": "note",
+          "line": 22
+        },
+        {
+          "kind": "function-variable",
+          "name": "commit",
+          "line": 193
+        },
+        {
+          "kind": "method",
+          "name": "usePreventRemove",
+          "line": 203
+        },
+        {
+          "kind": "method",
+          "name": "setOptions",
+          "line": 233
+        },
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 234
+        }
+      ]
+    },
+    {
+      "path": "tests/notes-library-adapters.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 179,
+      "sha256": "82443f8af761129e4bae61b52693af43d1963a96f2fb3634427aef76b2c84f63",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "load",
+          "line": 7
+        },
+        {
+          "kind": "method",
+          "name": "text",
+          "line": 54
+        },
+        {
+          "kind": "type",
+          "name": "Gesture",
+          "line": 116
+        },
+        {
+          "kind": "type",
+          "name": "Handlers",
+          "line": 117
+        },
+        {
+          "kind": "method",
+          "name": "setValue",
+          "line": 139
+        },
+        {
+          "kind": "method",
+          "name": "getTranslateTransform",
+          "line": 140
+        }
+      ]
+    },
+    {
       "path": "tests/notification-destinations.test.ts",
       "side": "react-native",
       "role": "test",
@@ -28104,18 +28905,28 @@
       "path": "tests/notification-native-permission.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 123,
-      "sha256": "aff91b539dab66fbe5aade197297480b482b831b647e332c724d67e59256aa80",
+      "lines": 393,
+      "sha256": "481801b89432cb6c8342c316985eb3a1690538a0df7cf7038d9f5a016a9b956f",
       "declarations": [
         {
           "kind": "function",
           "name": "module",
-          "line": 12
+          "line": 13
         },
         {
           "kind": "function",
           "name": "fixture",
-          "line": 27
+          "line": 33
+        },
+        {
+          "kind": "function",
+          "name": "startupFixture",
+          "line": 107
+        },
+        {
+          "kind": "function-variable",
+          "name": "startupFixture.load",
+          "line": 117
         }
       ]
     },
@@ -28291,8 +29102,8 @@
       "path": "tests/pdf-reader-zoom.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 367,
-      "sha256": "78b23f66e384b6bf9f07f08e56a6475f307466ba6a91b684e490b86dd33b5dd7",
+      "lines": 395,
+      "sha256": "4667a5e156cdd1caa11ea2d8207379caa0ed251a2b21030524527412ef1fd403",
       "declarations": [
         {
           "kind": "type",
@@ -28307,29 +29118,37 @@
         {
           "kind": "function-variable",
           "name": "pdfHarness.setChrome",
-          "line": 35
+          "line": 36
         },
         {
           "kind": "function-variable",
           "name": "pdfHarness.effect",
-          "line": 37
+          "line": 38
         },
         {
           "kind": "method",
           "name": "pdfHarness.useState",
-          "line": 56
+          "line": 57
         },
         {
           "kind": "function",
           "name": "pdfHarness.render",
-          "line": 161
+          "line": 165
         },
         {
           "kind": "function",
           "name": "pdfHarness.render.visit",
-          "line": 172
+          "line": 177
         }
       ]
+    },
+    {
+      "path": "tests/planned-passage.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 25,
+      "sha256": "2dd554ff0f9a8c9d85bb9a42f67925e6ad35628428935ea33f58b6e667a350fe",
+      "declarations": []
     },
     {
       "path": "tests/planning-reminders.test.ts",
@@ -28466,8 +29285,8 @@
       "path": "tests/reader-lifecycle.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 692,
-      "sha256": "61b7a0f13c226dd0a22ed89ab10d965657d4796d1a96491ae65867c8840cde05",
+      "lines": 722,
+      "sha256": "a4a53198e1f7e2c6a9c584f8f2c1076622d4f0279af493c78dfea5acceca3e98",
       "declarations": [
         {
           "kind": "type",
@@ -28527,7 +29346,7 @@
         {
           "kind": "function-variable",
           "name": "find",
-          "line": 212
+          "line": 229
         }
       ]
     },
@@ -28563,78 +29382,83 @@
       "path": "tests/reader-parity.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 774,
-      "sha256": "589d4c1a8e8b8a2e88b1f9d979b3eefbd40e9daa8edfe17b0c4a1c50cac510c1",
+      "lines": 951,
+      "sha256": "6e8bff14cd39fb0a79868029d48d0c428f2568dcd1515ef1c1dc288e4530e6f8",
       "declarations": [
         {
           "kind": "type",
           "name": "Element",
-          "line": 23
+          "line": 25
         },
         {
           "kind": "function",
           "name": "evaluate",
-          "line": 24
+          "line": 26
         },
         {
           "kind": "function",
           "name": "nodes",
-          "line": 46
+          "line": 48
         },
         {
           "kind": "function",
           "name": "hookHarness",
-          "line": 70
+          "line": 72
         },
         {
           "kind": "function-variable",
           "name": "hookHarness.memo",
-          "line": 74
+          "line": 76
         },
         {
           "kind": "function-variable",
           "name": "render",
-          "line": 442
+          "line": 393
         },
         {
           "kind": "function-variable",
           "name": "render",
-          "line": 523
+          "line": 619
+        },
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 700
         },
         {
           "kind": "class",
           "name": "Directory",
-          "line": 591
+          "line": 768
         },
         {
           "kind": "method",
           "name": "Directory.create",
-          "line": 596
+          "line": 773
         },
         {
           "kind": "class",
           "name": "File",
-          "line": 598
+          "line": 775
         },
         {
           "kind": "method",
           "name": "File.bytes",
-          "line": 608
+          "line": 785
         },
         {
           "kind": "method",
           "name": "File.write",
-          "line": 611
+          "line": 788
         },
         {
           "kind": "method",
           "name": "File.delete",
-          "line": 616
+          "line": 793
         },
         {
           "kind": "method",
           "name": "File.move",
-          "line": 619
+          "line": 796
         }
       ]
     },
@@ -28685,6 +29509,20 @@
       "declarations": []
     },
     {
+      "path": "tests/reading-plan-screen.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 85,
+      "sha256": "5afda82cdd62911555a7da4030b290000621784075b6241d147856b0f8c571d1",
+      "declarations": [
+        {
+          "kind": "function-variable",
+          "name": "render",
+          "line": 59
+        }
+      ]
+    },
+    {
       "path": "tests/reading-plan.test.ts",
       "side": "react-native",
       "role": "test",
@@ -28702,6 +29540,14 @@
           "line": 29
         }
       ]
+    },
+    {
+      "path": "tests/reading-statistics-page-navigation.test.ts",
+      "side": "react-native",
+      "role": "test",
+      "lines": 104,
+      "sha256": "5338d16b70dbc2ad1d02136a2b925ff719759a00ee1c46eea19762030f26580b",
+      "declarations": []
     },
     {
       "path": "tests/realtime-readiness.test.ts",
@@ -29187,13 +30033,18 @@
       "path": "tests/tracking-recheck-components.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 138,
-      "sha256": "20df17f2d25b7b570b6078d78d137157009482c229380e5876900297a7bbdb0d",
+      "lines": 148,
+      "sha256": "6da108cedda6351826af28538b760d165a0b285640a53e6be302ce21a08a500d",
       "declarations": [
         {
           "kind": "method",
           "name": "navigate",
           "line": 57
+        },
+        {
+          "kind": "function",
+          "name": "renderChecklist",
+          "line": 63
         }
       ]
     },
@@ -29201,48 +30052,48 @@
       "path": "tests/tracking-ui.test.ts",
       "side": "react-native",
       "role": "test",
-      "lines": 456,
-      "sha256": "ccb413f596ed0bd4091b226224793d866fc7b9c6f1fdca463d274454378dda55",
+      "lines": 525,
+      "sha256": "57c04ea5975450a73465c1b572f492c06615f8555ab892c5d11b3c5939ed7041",
       "declarations": [
         {
           "kind": "function",
           "name": "mount",
-          "line": 38
+          "line": 39
         },
         {
           "kind": "function-variable",
           "name": "mount.persist",
-          "line": 50
+          "line": 51
         },
         {
           "kind": "function-variable",
           "name": "mount.dispatch",
-          "line": 56
+          "line": 57
         },
         {
           "kind": "function-variable",
           "name": "mount.commit",
-          "line": 59
+          "line": 60
         },
         {
           "kind": "method",
           "name": "mount.navigate",
-          "line": 115
-        },
-        {
-          "kind": "method",
-          "name": "mount.setParams",
           "line": 122
         },
         {
           "kind": "method",
+          "name": "mount.setParams",
+          "line": 129
+        },
+        {
+          "kind": "method",
           "name": "mount.now",
-          "line": 145
+          "line": 155
         },
         {
           "kind": "function",
           "name": "button",
-          "line": 177
+          "line": 187
         }
       ]
     },

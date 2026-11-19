@@ -20,6 +20,7 @@ export function Sheet({
   visible,
   title,
   onClose,
+  onDismiss,
   children,
   translateTitle = true,
   footer,
@@ -28,6 +29,7 @@ export function Sheet({
   visible: boolean;
   title: string;
   onClose: () => void;
+  onDismiss?: () => void;
   translateTitle?: boolean;
   footer?: React.ReactNode;
   avoidKeyboard?: boolean;
@@ -37,7 +39,13 @@ export function Sheet({
   const { width, height } = useWindowDimensions();
   const shortLandscape = width > height && height < 500;
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onClose}
+      onDismiss={onDismiss}
+    >
       <KeyboardAvoidingView
         enabled={avoidKeyboard}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

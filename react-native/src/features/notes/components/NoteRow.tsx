@@ -14,6 +14,7 @@ export function NoteRow({
   onOpen,
   onPin,
   onDelete,
+  dragHandle,
 }: {
   note: ExportableNote;
   language: 'en' | 'nl' | 'ar';
@@ -21,6 +22,7 @@ export function NoteRow({
   onOpen: () => void;
   onPin: () => void;
   onDelete: () => void;
+  dragHandle?: React.ReactNode;
 }) {
   const p = usePalette();
   const target = targetForNote(note);
@@ -82,6 +84,7 @@ export function NoteRow({
         onPress={onPin}
       />
       <IconButton name="trash-2" label={labels.delete} onPress={onDelete} />
+      {dragHandle}
     </View>
   );
 }

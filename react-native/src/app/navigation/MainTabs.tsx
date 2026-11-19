@@ -15,7 +15,7 @@ export function MainTabs() {
     >
       <Tab.Screen name="Today" component={MainScreen} />
       <Tab.Screen name="Quran" component={QuranScreen} />
-      <Tab.Screen name="Practice" component={ProgressScreen} />
+      <Tab.Screen name="Practice" component={HizbScreen} />
       <Tab.Screen name="Juz" component={JuzScreen} />
       <Tab.Screen name="Plan" component={PlanningScreen} />
       <Tab.Screen name="Circle" component={GroupsScreen} />
@@ -23,5 +23,8 @@ export function MainTabs() {
   );
 }
 function JuzScreen() {
-  return <ProgressScreen initialMode="juz" />;
+  return <ProgressScreen initialMode="juz" dedicated />;
+}
+function HizbScreen() {
+  return <ProgressScreen initialMode="hizb" dedicated />;
 }

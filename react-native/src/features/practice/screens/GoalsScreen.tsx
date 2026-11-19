@@ -1,9 +1,14 @@
 import { readingUnitLabelKey } from '../../../domain/readingUnit';
 import { QuickCheckInSheet } from '../components/QuickCheckInSheet';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigation, useRoute, type RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
+import {
+  loadLocalNotifications,
+  reconcileLocalReminders,
+} from '../../../services/notifications/localReminders';
+import { requestPlanReminderPermission } from '../../../services/notifications/planningReminderPort';
 import { useAppStore } from '../../../state/store';
 import { localDate } from '../../../domain/localDate';
 import { newId } from '../../../state/reducer';
@@ -44,7 +49,7 @@ export function GoalsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStack, 'Goals'>>();
   const { t } = useI18n();
   const p = usePalette();
-  const { state, dispatch } = useAppStore();
+  const { state, dispatch, commit } = useAppStore();
   const today = localDate();
   const [editing, setEditing] = useState<DailyGoal | null>(null);
   const [target, setTarget] = useState('4');
@@ -63,6 +68,8 @@ export function GoalsScreen() {
   const [number, setNumber] = useState('1');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [saving, setSaving] = useState(false);
+  const savingGoal = useRef(false);
   useEffect(() => {
     if (params?.quickCheckIn) {
       setQuickCheck(true);
@@ -72,8 +79,11 @@ export function GoalsScreen() {
   useEffect(() => {
     dispatch({ type: 'goals/refresh', date: today });
   }, [dispatch, today]);
-  function save() {
-    if (!editing) return;
+  async function save() {
+    if (!editing || savingGoal.current) return;
+    savingGoal.current = true;
+    setSaving(true);
+    setError('');
     try {
       const goal = {
         ...editing,
@@ -82,12 +92,31 @@ export function GoalsScreen() {
         reminderHour: Number(hour),
         reminderMinute: Number(minute),
       };
-      saveGoalDefinition(state, goal, today);
-      dispatch({ type: 'goals/save', goal, date: today });
+      const nextState = saveGoalDefinition(state, goal, today);
+      const persist = () => commit({ type: 'goals/save', goal, date: today });
+      const changesReminder =
+        goal.reminderHour !== editing.reminderHour ||
+        goal.reminderMinute !== editing.reminderMinute;
+      const reminders =
+        goal.id === 1 && changesReminder && Platform.OS !== 'web'
+          ? await loadLocalNotifications(state)
+          : null;
+      if (reminders?.enabled && reminders.daily) {
+        if (!(await requestPlanReminderPermission())) {
+          setError(t('notifications.blocked'));
+          return;
+        }
+        await reconcileLocalReminders(nextState, persist);
+      } else {
+        await persist();
+      }
       setEditing(null);
       setMessage('Your daily intention is saved.');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'This goal could not be saved.');
+    } finally {
+      savingGoal.current = false;
+      setSaving(false);
     }
   }
   function record() {
@@ -340,7 +369,9 @@ export function GoalsScreen() {
       <Sheet
         visible={editing !== null}
         title={t(goalNames[editing?.id ?? 1] ?? 'Reading')}
-        onClose={() => setEditing(null)}
+        onClose={() => {
+          if (!savingGoal.current) setEditing(null);
+        }}
       >
         <T bold>{t('dailyGoal.unit')}</T>
         <Segments
@@ -375,7 +406,12 @@ export function GoalsScreen() {
           </View>
         )}
         {error && <Notice error message={error} />}
-        <Button title="inline.GoalHubPanel.88b7665451" onPress={save} />
+        <Button
+          title="inline.GoalHubPanel.88b7665451"
+          onPress={save}
+          loading={saving}
+          disabled={saving}
+        />
       </Sheet>
       <Sheet
         visible={recording !== null}

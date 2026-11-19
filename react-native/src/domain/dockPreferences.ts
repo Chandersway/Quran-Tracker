@@ -19,6 +19,11 @@ export type DockDestinationId = (typeof dockDestinationIds)[number];
 export const defaultDockDestinations: DockDestinationId[] = ['stats', 'mushaf', 'groups'];
 export const maxDockDestinations = 3;
 
+/** Common reading indexes stay one tap away; custom pins and their saved limit are preserved. */
+export function visibleDockDestinations(pinned: DockDestinationId[]): DockDestinationId[] {
+  return [...new Set<DockDestinationId>([...pinned, 'surah', 'hizb', 'juz'])];
+}
+
 /** Missing or malformed preferences use defaults; an explicitly empty selection is valid. */
 export function normalizeDockDestinations(value: unknown): DockDestinationId[] {
   if (!Array.isArray(value)) return [...defaultDockDestinations];

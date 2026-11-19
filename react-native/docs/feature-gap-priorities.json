@@ -188,7 +188,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-        "line": 90,
+        "line": 96,
         "symbol": "type: statsReadingBuckets"
       },
       {
@@ -257,7 +257,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-        "line": 221,
+        "line": 225,
         "symbol": "function clearReading"
       }
     ],
@@ -822,12 +822,12 @@
     "reactNativeEvidence": [
       {
         "path": "src/state/reducer.ts",
-        "line": 374,
+        "line": 421,
         "symbol": "case 'mushaf/position'"
       },
       {
         "path": "src/state/reducer.ts",
-        "line": 385,
+        "line": 443,
         "symbol": "case 'mushaf/bookmark'"
       },
       {
@@ -859,7 +859,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/quran/screens/MushafLibraryScreen.tsx",
-        "line": 115,
+        "line": 116,
         "symbol": "MushafLibraryScreen"
       },
       {
@@ -891,7 +891,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/content/mushafGeometry.ts",
-        "line": 28,
+        "line": 56,
         "symbol": "hafsReferences"
       }
     ],
@@ -918,7 +918,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/audio/components/RepeatSheet.tsx",
-        "line": 28,
+        "line": 29,
         "symbol": "export function RepeatSheet"
       }
     ],
@@ -1053,7 +1053,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/practice/screens/ProgressScreen.tsx",
-        "line": 40,
+        "line": 43,
         "symbol": "selected"
       }
     ],
@@ -1302,7 +1302,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/practice/screens/GoalsScreen.tsx",
-        "line": 194,
+        "line": 223,
         "symbol": "matchingPlans"
       }
     ],
@@ -1452,7 +1452,7 @@
     "reactNativeEvidence": [
       {
         "path": "src/features/practice/screens/ChecklistScreen.tsx",
-        "line": 31,
+        "line": 41,
         "symbol": "ChecklistScreen"
       }
     ],

@@ -66,7 +66,7 @@ export type ReadingEntry = {
   contentType: string;
   extraInfo?: string;
   ayahRange?: { start: { surah: number; ayah: number }; end: { surah: number; ayah: number } };
-  mushafPage?: { edition: MushafEdition; page: number };
+  mushafPage?: { edition: MushafEdition; page: number; bookPresentation?: BookPresentation };
 };
 export type Plan = {
   id: string;
@@ -148,7 +148,12 @@ export type MushafEdition =
   | 'muhammadi'
   | 'hafs_madina_pdf'
   | 'hafs_indopak_15';
-export type MushafBookmark = { edition: MushafEdition; surah: number; page: number };
+export type MushafBookmark = {
+  edition: MushafEdition;
+  surah: number;
+  page: number;
+  bookPresentation?: BookPresentation;
+};
 export type FocusSession = { id: string; durationSeconds: number; finishedAt: number };
 export type AppState = {
   version: 1;
@@ -156,6 +161,7 @@ export type AppState = {
   progress: Record<string, Progress>;
   history: ReadingEntry[];
   notes: ExportableNote[];
+  noteFolders: string[];
   plans: Plan[];
   goals: DailyGoal[];
   goalDays: GoalDay[];
@@ -164,6 +170,7 @@ export type AppState = {
   bookmarks: Bookmark[];
   mushafBookmarks: MushafBookmark[];
   mushafPositions: Partial<Record<MushafEdition, number>>;
+  mushafPositionPresentations?: Partial<Record<MushafEdition, BookPresentation>>;
   surahPositions: Record<string, number>;
   focusSessions: FocusSession[];
   cursor: { surah: number; ayah: number };
@@ -203,6 +210,7 @@ export const initialState: AppState = {
   progress: {},
   history: [],
   notes: [],
+  noteFolders: [],
   plans: [],
   goals: [
     { id: 1, unit: 'rub', target: 4, reminderHour: 8, reminderMinute: 0 },
@@ -215,6 +223,7 @@ export const initialState: AppState = {
   bookmarks: [],
   mushafBookmarks: [],
   mushafPositions: {},
+  mushafPositionPresentations: {},
   surahPositions: {},
   focusSessions: [],
   cursor: { surah: 1, ayah: 1 },

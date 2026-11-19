@@ -33,7 +33,7 @@ import {
 import { ProgressRing } from '../../../shared/components/ProgressRing';
 import { StatisticsSurface } from './StatisticsSurface';
 import { usePalette } from '../../../shared/theme';
-import type { MushafEdition, ReadingEntry } from '../../../state/models';
+import type { ReadingEntry } from '../../../state/models';
 import { localDate } from '../../../domain/localDate';
 
 import { useAppStore } from '../../../state/store';
@@ -71,7 +71,13 @@ function StatisticsSection({
 }
 
 /** Shared Home/Stats circles use the same rows and detail membership. */
-export function ReadingStatisticsOverview({ home = false }: { home?: boolean }) {
+export function ReadingStatisticsOverview({
+  home = false,
+  beforeHistory,
+}: {
+  home?: boolean;
+  beforeHistory?: React.ReactNode;
+}) {
   const p = usePalette();
   const nav = useAppNavigation();
   const { state, dispatch } = useAppStore();
@@ -160,11 +166,7 @@ export function ReadingStatisticsOverview({ home = false }: { home?: boolean }) 
   function historyRow(row: ReadingEntry) {
     const range = statsHistoryRange(row);
     const opening = statsHistoryOpening(row);
-    const page = (
-      row as ReadingEntry & {
-        mushafPage?: { edition: MushafEdition; page: number };
-      }
-    ).mushafPage;
+    const page = row.mushafPage;
     const canOpen = Boolean(range || page);
     return (
       <Pressable
@@ -176,6 +178,8 @@ export function ReadingStatisticsOverview({ home = false }: { home?: boolean }) 
             nav.navigate('Mushaf', {
               edition: page.edition,
               page: page.page,
+              bookPresentation:
+                page.bookPresentation ?? (page.edition === 'hafs' ? 'selectable' : 'original'),
               surah:
                 range?.start.surah ?? (row.surahId >= 1 && row.surahId <= 114 ? row.surahId : 1),
               ayah: range?.start.ayah,
@@ -258,6 +262,7 @@ export function ReadingStatisticsOverview({ home = false }: { home?: boolean }) 
               onSelect={(distribution, selected) => setDetail({ distribution, selected })}
               onOpen={() => nav.navigate('Stats')}
             />
+            {beforeHistory}
             <StatisticsSurface style={{ paddingVertical: 12 }}>
               <T size={20} bold>
                 {t('stats.recentHistory')}

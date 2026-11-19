@@ -80,6 +80,7 @@ export function HizbOverviewCard() {
             <ScrollView
               horizontal
               testID="hizb_chart"
+              style={{ flex: 1, minWidth: 0, height: height + 28 }}
               contentContainerStyle={{ flexDirection: 'row', direction: 'ltr' }}
               showsHorizontalScrollIndicator
             >

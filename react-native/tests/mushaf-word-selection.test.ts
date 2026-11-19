@@ -8,13 +8,19 @@ import * as viewportGestures from '../src/features/quran/gestures/bookViewportGe
 import * as bookPresentation from '../src/domain/bookPresentation';
 import * as readingModes from '../src/features/quran/providers/readingModeContext';
 import * as mushafReading from '../src/domain/mushafReading';
+import * as mushafBookmarks from '../src/domain/mushafBookmarks';
 import * as audioCopy from '../src/features/quran/model/readerCopy';
 import * as scrollPosition from '../src/features/quran/layout/bookScrollPosition';
 import * as quranNavigation from '../src/domain/quranNavigation';
-import { pageSegments } from '../src/content/mushafGeometry';
+import {
+  pageSegments,
+  hafsReferences,
+  findMushafAyah,
+  type Edition,
+} from '../src/content/mushafGeometry';
 import { initialState } from '../src/state/models';
 import { readPageMetrics } from '../src/features/quran/model/readPageMetrics';
-import { getAyahs } from '../src/content/quran';
+import { chapterById, getAyahs } from '../src/content/quran';
 import type { RootStack } from '../src/app/navigation/types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Replay actual screen props without a native renderer.
@@ -75,7 +81,11 @@ test('zoomed book applies both axes from one uninterrupted diagonal pointer gest
 });
 
 /** Preserve real screen hook state across user actions; only platform/data dependencies are stubbed. */
-function screen(presentation = 'selectable', context: Partial<RootStack['Mushaf']> = {}) {
+function screen(
+  presentation = 'selectable',
+  context: Partial<RootStack['Mushaf']> = {},
+  realReferences = false,
+) {
   let slot = 0;
   let stateChanges = 0;
   let now = 1000;
@@ -223,7 +233,7 @@ function screen(presentation = 'selectable', context: Partial<RootStack['Mushaf'
       }),
     },
     '../../../content/quran': {
-      chapterById: () => ({ id: 3, name: 'Al Imran', nameAr: 'آل عمران' }),
+      chapterById,
       getAyahs,
     },
     '../../../content/study': {
@@ -233,12 +243,15 @@ function screen(presentation = 'selectable', context: Partial<RootStack['Mushaf'
       },
     },
     '../../../content/mushafGeometry': {
-      findMushafAyah: (edition: string) => ({ page: edition === 'warsh_maknoon' ? 158 : 50 }),
+      findMushafAyah,
       pageSegments,
-      hafsReferences: (_edition: string, _surah: number, ayah: number) => [ayah],
+      hafsReferences: (edition: Edition, surah: number, ayah: number) =>
+        realReferences ? hafsReferences(edition, surah, ayah) : [ayah],
     },
     '../../../services/mushaf/storage': {},
     '../components/DownloadedPdfMushaf': { DownloadedPdfMushaf: 'DownloadedPdfMushaf' },
+    '../components/ContinuousMushafPages': { ContinuousMushafPages: 'ContinuousMushafPages' },
+    '../components/FloatingReaderAudio': { FloatingReaderAudio: 'FloatingReaderAudio' },
     '../components/PrintedMushafPage': { PrintedMushafPage: 'PrintedMushafPage' },
     '../components/SelectableMushafPage': { SelectableMushafPage: 'SelectableMushafPage' },
     '../components/MushafReadingActions': { MushafReadingActions: 'MushafReadingActions' },
@@ -256,6 +269,7 @@ function screen(presentation = 'selectable', context: Partial<RootStack['Mushaf'
     '../components/ReaderListenButton': { ReaderListenButton: 'ReaderListenButton' },
     '../layout/readingLayout': { isShortLandscape: () => false, useBookSpread: () => false },
     '../../../domain/mushafReading': mushafReading,
+    '../../../domain/mushafBookmarks': mushafBookmarks,
     '../../../domain/bookPresentation': bookPresentation,
     '../../../domain/quranNavigation': quranNavigation,
     '../../../content/translations': { availableTranslations: [{ id: 'nl', labelKey: 'Dutch' }] },
@@ -316,6 +330,7 @@ function screen(presentation = 'selectable', context: Partial<RootStack['Mushaf'
           page: 50,
           edition: 'hafs',
           bookPresentation: presentation,
+          fullscreen: false,
           ...context,
         },
       },
@@ -412,12 +427,14 @@ test('native pan updates the rail without rerendering the original artwork on ev
 
 test('zooming back to page width resets a retained native horizontal pan', () => {
   const app = screen('original', {
-    fullscreen: true,
+    fullscreen: false,
     bookView: { zoom: 2, horizontalOffset: 0, verticalAnchor: 0 },
   });
   let tree = app.render();
   const horizontal = () =>
-    tree.nodes.find((node) => node.type === 'ScrollView' && node.props.horizontal)!;
+    tree.nodes.find(
+      (node) => node.type === 'ScrollView' && node.props.horizontal && node.props.ref,
+    )!;
   const writes: number[] = [];
   horizontal().props.ref.current = { scrollTo: ({ x }: { x: number }) => writes.push(x) };
   horizontal().props.onContentSizeChange(800);
@@ -433,79 +450,143 @@ test('zooming back to page width resets a retained native horizontal pan', () =>
   assert.equal(tree.find('MushafFooter').props.page, 50);
 });
 
-test('fullscreen rail includes space occupied by overlays even when the artwork alone fits', () => {
-  const app = screen('original', {
-    fullscreen: true,
-    bookView: { zoom: 1.5, horizontalOffset: 0, verticalAnchor: 0 },
-  });
+test('image book defaults to fullscreen and exposes the floating audio action', () => {
+  const app = screen('original', { fullscreen: undefined });
   let tree = app.render();
-  tree.nodes
-    .find((node) => node.props.testID === 'mushaf-book-content')!
-    .props.onLayout({ nativeEvent: { layout: { width: 500, height: 500 } } });
-  tree.find('ScrollView').props.onContentSizeChange(500, 700);
+  assert.ok(tree.find('ContinuousMushafPages'));
+  assert.ok(tree.find('FloatingReaderAudio'));
+  assert.equal(tree.find('MushafFooter'), undefined);
+  assert.equal(app.immersive(), true);
+  tree.find('ContinuousMushafPages').props.onExit();
   tree = app.render();
+  assert.equal(tree.find('ContinuousMushafPages'), undefined);
+  assert.ok(tree.find('MushafFooter'));
+  assert.equal(app.immersive(), false);
+});
+
+test('fullscreen aya strokes on a different page retain the correct actions and page highlight', () => {
+  const app = screen('original', { fullscreen: true });
+  const selectedPage = 52;
+  const segment = pageSegments('hafs', selectedPage)[0]!;
+  assert.ok(segment);
+  app.render().find('ContinuousMushafPages').props.onSelect(segment, selectedPage);
+  let tree = app.render();
+  assert.equal(app.immersive(), true);
+  assert.equal(tree.find('MushafFooter'), undefined);
+  assert.equal(tree.find('AyahActionsSheet').props.ayah.surah, segment.surah);
+  assert.equal(tree.find('AyahActionsSheet').props.ayah.number, segment.ayah);
+  assert.equal(tree.find('ContinuousMushafPages').props.selected.page, selectedPage);
+  assert.equal(tree.find('ContinuousMushafPages').props.selected.segment, segment);
+  tree.find('AyahActionsSheet').props.onClose();
+  tree = app.render();
+  assert.equal(tree.find('AyahActionsSheet').props.ayah, null);
+  assert.equal(tree.find('ContinuousMushafPages').props.selected, null);
+  assert.equal(app.immersive(), true);
+});
+
+test('selectable Hafs handoffs, active translation and repeat use the actual displayed page map', () => {
+  const app = screen('selectable', { surah: 5, ayah: 77, page: 121, fullscreen: true }, true);
+  let tree = app.render();
+  assert.equal(tree.find('ContinuousMushafPages').props.initialPage, 120);
+  assert.equal(tree.find('BookTranslationSheet').props.bookPresentation, 'original');
+  const verse = pageSegments('hafs', 120, 'original').find(
+    (row) => row.surah === 5 && row.ayah === 77,
+  )!;
+  tree.find('ContinuousMushafPages').props.onSelect(verse, 120);
+  tree = app.render();
+  tree.find('AyahActionsSheet').props.onRepeat(5, 77);
+  app.flushTimers();
+  tree = app.render();
+  assert.equal(tree.find('RepeatSheet').props.pagePresentation, 'original');
+  assert.equal(tree.find('RepeatSheet').props.currentPage, 120);
+  tree.find('RepeatSheet').props.onClose();
+  tree.find('ContinuousMushafPages').props.onExit();
+  tree = app.render();
+  assert.equal(tree.find('SelectableMushafPage').props.page, 121);
+  assert.equal(tree.find('BookTranslationSheet').props.bookPresentation, 'selectable');
+  assert.equal(tree.find('RepeatSheet').props.pagePresentation, 'selectable');
+  tree.nodes
+    .find((node) => node.type === 'Segments' && node.props.value === 'selectable')!
+    .props.onChange('original');
   assert.equal(
-    tree.find('MushafVerticalRail').props.maximum,
-    160,
-    'the real scroll range includes fullscreen gutters',
+    app.replacements.at(-1)?.page,
+    120,
+    'the resolver receives the source page presentation',
+  );
+  assert.equal(app.replacements.at(-1)?.ayah, 77);
+});
+
+test('opening a later chapter on a mixed final leaf keeps its canonical cursor and audio chapter', () => {
+  const app = screen('original', { surah: 114, ayah: 1, page: 604, fullscreen: true }, true);
+  const tree = app.render();
+  assert.equal(tree.find('FloatingReaderAudio').props.surah, 114);
+  assert.ok(
+    app.actions.some((value) => value.type === 'cursor' && 'surah' in value && value.surah === 114),
   );
 });
 
-test('fullscreen rail overlays the full-width book without changing pan bounds or blocking its body', () => {
-  const app = screen('original', {
-    fullscreen: true,
-    bookView: { zoom: 2, horizontalOffset: 0, verticalAnchor: 0 },
-  });
-  let tree = app.render();
-  assert.equal(tree.find('PrintedMushafPage').props.maxWidth, 370);
-  assert.equal(tree.find('ScrollView').props.style, undefined, 'the rail reserves no book width');
-  const overlay = tree.nodes.find((node) => node.props.testID === 'mushaf-vertical-overlay')!;
-  assert.equal(overlay.props.pointerEvents, 'box-none', 'only the narrow control receives touches');
-  assert.equal(overlay.props.style.position, 'absolute');
-  assert.equal(overlay.props.style.right, 0);
-  assert.equal(overlay.props.style.width, 48);
-  assert.equal(overlay.props.style.backgroundColor, 'transparent');
-  const writes: Array<{ x?: number; y?: number }> = [];
-  const vertical = tree.find('ScrollView');
-  const horizontal = tree.nodes.find(
-    (node) => node.type === 'ScrollView' && node.props.horizontal && node.props.ref,
+test('fullscreen Warsh selection carries merged canonical verses from the clicked printed page', () => {
+  const app = screen(
+    'original',
+    { edition: 'warsh_maknoon', fullscreen: true, surah: 7, ayah: 58, page: 158 },
+    true,
+  );
+  const segment = pageSegments('warsh_maknoon', 1).find(
+    (row) => row.surah === 1 && row.ayah === 1,
   )!;
-  vertical.props.ref.current = { scrollTo: (value: { y: number }) => writes.push(value) };
-  horizontal.props.ref.current = { scrollTo: (value: { x: number }) => writes.push(value) };
-  vertical.props.onContentSizeChange(800, 1800);
-  horizontal.props.onContentSizeChange(800, 1800);
-  tree = app.render();
-  assert.equal(
-    tree.find('PrintedMushafPage').props.maxWidth,
-    370,
-    'measuring cannot move the book',
+  const canonical = hafsReferences('warsh_maknoon', segment.surah, segment.ayah);
+  assert.ok(canonical.length > 1, 'fixture must cover a genuinely merged printed Warsh aya');
+  app.render().find('ContinuousMushafPages').props.onSelect(segment, 1);
+  const tree = app.render();
+  const sheet = tree.find('AyahActionsSheet');
+  assert.deepEqual(
+    Array.from(
+      sheet.props.relatedAyahs,
+      (verse: { surah: number; number: number }) => `${verse.surah}:${verse.number}`,
+    ),
+    canonical.map((ayah) => `1:${ayah}`),
   );
-  assert.equal(tree.find('MushafVerticalRail').props.maximum, 1260);
-  tree.find('MushafVerticalRail').props.onScroll(750);
-  assert.equal(writes.at(-1)!.y, 750);
-  const viewport = tree.nodes.find((node) => node.props.testID === 'mushaf-pan-viewport')!;
-  viewport.props.onTouchStart(app.event(300, 300, 1));
-  assert.equal(viewport.props.onMoveShouldSetResponderCapture(app.event(-500, 100, 1)), true);
-  viewport.props.onResponderGrant(app.event(-500, 100, 1));
-  assert.equal(
-    writes.at(-2)!.x,
-    400,
-    'pan clamps to the full viewport, without a hidden rail gutter',
-  );
-  assert.equal(writes.at(-1)!.y, 200, 'the same body gesture still moves both axes');
-  assert.equal(tree.find('MushafFooter').props.page, 50);
+  assert.equal(sheet.props.ayah.number, canonical[0]);
+  assert.equal(sheet.props.sourceReference.surah, 1);
+  assert.equal(sheet.props.sourceReference.ayah, 1);
+  assert.equal(sheet.props.sourceReference.edition, 'warsh');
+  assert.equal(tree.find('ContinuousMushafPages').props.selected.page, 1);
+  assert.equal(tree.find('ContinuousMushafPages').props.selected.segment, segment);
+  assert.equal(app.immersive(), true);
+  assert.deepEqual({ ...app.actions.at(-1) }, { type: 'cursor', surah: 1, ayah: canonical[0] });
+});
+
+test('fullscreen contains the continuous book without overlay gutters or rails', () => {
+  const app = screen('original', { fullscreen: true });
+  const tree = app.render();
+  assert.ok(tree.find('ContinuousMushafPages'));
+  assert.equal(tree.find('MushafFooter'), undefined);
+  assert.equal(tree.find('MushafVerticalRail'), undefined);
+  assert.equal(tree.find('ReaderListenButton'), undefined);
+  assert.equal(tree.find('ScrollView'), undefined);
+});
+
+test('fullscreen uses the current original edition at the full measured width', () => {
+  const app = screen('original', { fullscreen: true, edition: 'hafs_maknoon' });
+  const tree = app.render();
+  const book = tree.find('ContinuousMushafPages');
+  assert.equal(book.props.edition, 'hafs_maknoon');
+  assert.equal(book.props.width, 400);
+  assert.equal(book.props.initialPage, 50);
+  book.props.onPageChange(52);
+  assert.equal(app.render().find('ContinuousMushafPages').props.initialPage, 52);
 });
 
 test('fullscreen uses the whole page width and releases root chrome when unfocused or exited', () => {
   const app = screen();
   let tree = app.render();
-  const regularWidth = tree.find('SelectableMushafPage').props.maxWidth;
+  assert.ok(tree.find('SelectableMushafPage'));
   tree.nodes
     .find((node) => node.type === 'IconButton' && node.props.label === 'ui.mushaf.enterFullscreen')!
     .props.onPress();
   tree = app.render();
   assert.equal(app.immersive(), true);
-  assert.equal(tree.find('SelectableMushafPage').props.maxWidth, regularWidth);
+  assert.equal(tree.find('ContinuousMushafPages').props.width, 400);
   app.focus(false);
   app.render();
   assert.equal(app.immersive(), false);
@@ -521,10 +602,6 @@ test('fullscreen uses the whole page width and releases root chrome when unfocus
 test('portrait Hafs retains its complete width after async overflow without shrinking source typography', () => {
   const app = screen();
   let tree = app.render();
-  tree.nodes
-    .find((node) => node.type === 'IconButton' && node.props.label === 'ui.mushaf.enterFullscreen')!
-    .props.onPress();
-  tree = app.render();
   const fullWidth = tree.find('SelectableMushafPage').props.maxWidth;
   assert.equal(
     tree.find('MushafVerticalRail'),
@@ -549,90 +626,26 @@ test('portrait Hafs retains its complete width after async overflow without shri
   );
 });
 
-test('a measured overflowing page survives fullscreen viewport changes without a body swipe and ignores stale pages', () => {
-  const app = screen();
+test('continuous fullscreen accepts viewport changes without retaining the old single-page rail', () => {
+  const app = screen('original', { fullscreen: true });
   let tree = app.render();
-  tree.find('MushafFooter').props.onZoomIn();
-  tree = app.render();
-  const firstBook = tree.nodes.find((node) => node.props.testID === 'mushaf-book-content')!;
-  firstBook.props.onLayout({ nativeEvent: { layout: { height: 1800 } } });
-  tree = app.render();
   tree.nodes
-    .find((node) => node.type === 'IconButton' && node.props.label === 'ui.mushaf.enterFullscreen')!
-    .props.onPress();
+    .find((node) => node.type === 'View' && node.props.onLayout && !node.props.testID)!
+    .props.onLayout({ nativeEvent: { layout: { width: 700, height: 400 } } });
   tree = app.render();
-  const viewport = tree.nodes.find(
-    (node) => node.type === 'View' && node.props.onLayout && !node.props.testID,
-  )!;
-  viewport.props.onLayout({ nativeEvent: { layout: { width: 400, height: 700 } } });
-  tree = app.render();
-  assert.equal(
-    tree.find('ScrollView').props.style,
-    undefined,
-    'fullscreen zoom overlays the rail without a reserved gutter',
-  );
-  const narrowedBook = tree.nodes.find((node) => node.props.testID === 'mushaf-book-content')!;
-  narrowedBook.props.onLayout({ nativeEvent: { layout: { height: 1900 } } });
-  tree.find('ScrollView').props.onContentSizeChange(352, 2104);
-  tree = app.render();
-  assert.equal(
-    tree.find('MushafVerticalRail').props.maximum,
-    1404,
-    'actual extent activates rail before any scroll',
-  );
-  tree.find('MushafFooter').props.onPageChange(51);
-  tree = app.render();
-  assert.equal(
-    tree.find('MushafVerticalRail').props.maximum,
-    0,
-    'the prior page extent is not reused',
-  );
-  narrowedBook.props.onLayout({ nativeEvent: { layout: { height: 1900 } } });
-  tree = app.render();
-  assert.equal(
-    tree.find('MushafVerticalRail').props.maximum,
-    0,
-    'late old-page layout cannot enable this page',
-  );
+  assert.equal(tree.find('ContinuousMushafPages').props.width, 700);
+  assert.equal(tree.find('MushafVerticalRail'), undefined);
 });
 
-test('fullscreen Warsh keeps its full width beneath the overlay as asynchronous text overflows', () => {
-  const app = screen('selectable', {
-    edition: 'warsh_maknoon',
-    surah: 7,
-    ayah: 58,
-    page: 158,
-    fullscreen: true,
-  });
-  let tree = app.render();
-  const firstWidth = tree.find('SelectableMushafPage').props.maxWidth;
-  assert.equal(firstWidth, 370);
-  assert.equal(tree.find('ScrollView').props.style, undefined);
-  assert.equal(tree.find('MushafVerticalRail').props.maximum, 0);
-  tree.nodes
-    .find((node) => node.props.testID === 'mushaf-book-content')!
-    .props.onLayout({ nativeEvent: { layout: { height: 500 } } });
-  tree.find('ScrollView').props.onContentSizeChange(352, 700);
-  tree = app.render();
-  assert.equal(
-    tree.find('MushafVerticalRail').props.maximum,
-    160,
-    'fullscreen clearance is real scrollable space around the same-width text',
-  );
-  tree.nodes
-    .find((node) => node.props.testID === 'mushaf-book-content')!
-    .props.onLayout({ nativeEvent: { layout: { height: 1800 } } });
-  tree.find('ScrollView').props.onContentSizeChange(352, 2000);
-  tree = app.render();
-  assert.equal(
-    tree.find('SelectableMushafPage').props.maxWidth,
-    firstWidth,
-    'loading cannot visibly resize the book',
-  );
-  assert.equal(tree.find('MushafVerticalRail').props.maximum, 1460);
+test('fullscreen Warsh retains its original artwork in the continuous reader', () => {
+  const app = screen('selectable', { edition: 'warsh_maknoon', page: 158, fullscreen: true });
+  const tree = app.render();
+  assert.equal(tree.find('ContinuousMushafPages').props.edition, 'warsh_maknoon');
+  assert.equal(tree.find('ContinuousMushafPages').props.initialPage, 158);
+  assert.equal(tree.find('SelectableMushafPage'), undefined);
 });
 
-test('selection mode is visible in normal and fullscreen reading and keeps explicit page controls', () => {
+test('selection mode retains its state while fullscreen temporarily hides controls', () => {
   const app = screen();
   let tree = app.render();
   const choose = (label: string) =>
@@ -655,22 +668,16 @@ test('selection mode is visible in normal and fullscreen reading and keeps expli
     .find((node) => node.type === 'IconButton' && node.props.label === 'ui.mushaf.enterFullscreen')!
     .props.onPress();
   tree = app.render();
-  assert.equal(tree.find('MushafVerticalRail'), undefined);
-  tree.find('MushafFooter').props.onPageChange(52);
+  assert.equal(tree.find('MushafFooter'), undefined);
+  tree.find('ContinuousMushafPages').props.onExit();
   tree = app.render();
-  assert.equal(tree.find('SelectableMushafPage').props.page, 52);
-  choose('ui.mushaf.browseMode');
-  tree = app.render();
-  assert.equal(tree.find('SelectableMushafPage').props.selectionEnabled, false);
-  assert.equal(tree.find('SelectableMushafPage').props.pageTurnEnabled, true);
-  assert.equal(app.back(), true);
-  app.render();
+  assert.equal(tree.find('SelectableMushafPage').props.selectionEnabled, true);
   assert.equal(app.immersive(), false);
 });
 
-test('Select stays on every original edition and retains the page, zoom and fullscreen', () => {
+test('Select stays on every original edition and retains the page and zoom', () => {
   for (const edition of ['hafs', 'hafs_maknoon', 'warsh_maknoon', 'muhammadi'] as const) {
-    const app = screen('original', { edition, fullscreen: true });
+    const app = screen('original', { edition, fullscreen: false });
     let tree = app.render();
     tree.find('MushafFooter').props.onPageChange(51);
     tree.find('MushafFooter').props.onZoomIn();
@@ -685,7 +692,7 @@ test('Select stays on every original edition and retains the page, zoom and full
     assert.equal(tree.find('PrintedMushafPage').props.page, 51);
     assert.equal(tree.find('PrintedMushafPage').props.zoom, 1.25);
     assert.equal(tree.find('SelectableMushafPage'), undefined);
-    assert.equal(app.immersive(), true);
+    assert.equal(app.immersive(), false);
     assert.equal(
       tree.nodes.find((node) => node.props.accessibilityLabel === 'ui.mushaf.selectionMode')!.props
         .accessibilityState.selected,
@@ -714,7 +721,7 @@ test('Warsh Unicode remains an explicit presentation choice and never invents ve
     surah: 7,
     ayah: 58,
     page: 158,
-    fullscreen: true,
+    fullscreen: false,
     planId: 'plan',
   });
   const tree = original.render();
@@ -725,7 +732,7 @@ test('Warsh Unicode remains an explicit presentation choice and never invents ve
   assert.equal(entry.edition, 'warsh_maknoon');
   assert.equal(entry.page, 158);
   assert.equal(entry.planId, 'plan');
-  assert.equal(entry.fullscreen, true);
+  assert.equal(entry.fullscreen, false);
   const selected = screen('selectable', { ...entry, selectionMode: true });
   let selectedTree = selected.render();
   const page = selectedTree.find('SelectableMushafPage');
@@ -774,10 +781,12 @@ test('edition switch uses current fullscreen and selection modes instead of stal
     .find((node) => node.type === 'IconButton' && node.props.label === 'ui.mushaf.enterFullscreen')!
     .props.onPress();
   tree = inverse.render();
+  tree.find('ContinuousMushafPages').props.onExit();
+  tree = inverse.render();
   tree.nodes
     .find((node) => node.type === 'Segments' && node.props.value === 'hafs')!
     .props.onChange('warsh_maknoon');
-  assert.equal(inverse.replacements[0]!.fullscreen, true);
+  assert.equal(inverse.replacements[0]!.fullscreen, false);
   assert.equal(inverse.replacements[0]!.selectionMode, true);
 });
 
@@ -787,7 +796,7 @@ test('an existing explicit alternate selection returns to its exact retained sca
     page: 158,
     surah: 7,
     ayah: 58,
-    fullscreen: true,
+    fullscreen: false,
   });
   let tree = original.render();
   tree.find('MushafFooter').props.onZoomIn();
@@ -804,7 +813,7 @@ test('an existing explicit alternate selection returns to its exact retained sca
       edition: 'warsh_maknoon',
       page: 158,
       bookPresentation: 'original',
-      fullscreen: true,
+      fullscreen: false,
       bookView: { zoom: 1.25, horizontalOffset: 0, verticalAnchor: 0 },
     },
     'book-current',
@@ -1053,43 +1062,22 @@ test('a printed page tap still selects its ayah after the raw release finishes',
   assert.equal(tree.find('AyahActionsSheet').props.ayah?.surah, 3);
 });
 
-test('fullscreen keeps the page and zoom, scrolls measured content and exits before navigating back', () => {
+test('fullscreen scroll position returns to normal reading with the retained zoom', () => {
   const app = screen();
   let tree = app.render();
   tree.find('MushafFooter').props.onZoomIn();
   tree = app.render();
-  const zoomedWidth = tree.find('SelectableMushafPage').props.maxWidth;
   tree.nodes
     .find((node) => node.type === 'IconButton' && node.props.label === 'ui.mushaf.enterFullscreen')!
     .props.onPress();
   tree = app.render();
-  assert.equal(
-    tree.find('MushafFooter').props.zoom,
-    1.25,
-    'fullscreen retains zoom and explicit registration controls',
-  );
-  assert.equal(tree.find('ReadingModeSwitch'), undefined);
   assert.equal(tree.find('StatusBar').props.hidden, true);
-  assert.equal(tree.find('MushafFooter').props.page, 50);
-  const scrollCalls: { y: number; animated: boolean }[] = [];
-  tree.find('ScrollView').props.ref.current = {
-    scrollTo: ({ y, animated }: { y: number; animated: boolean }) =>
-      scrollCalls.push({ y, animated }),
-  };
-  tree.nodes
-    .find((node) => node.props.testID === 'mushaf-book-content')!
-    .props.onLayout({ nativeEvent: { layout: { height: 1800 } } });
-  tree.find('ScrollView').props.onContentSizeChange(400, 2000);
-  tree = app.render();
-  assert.equal(tree.find('MushafVerticalRail').props.maximum, 1460);
-  tree.find('MushafVerticalRail').props.onScroll(700);
-  assert.deepEqual(scrollCalls, [{ y: 700, animated: false }]);
-  assert.equal(tree.find('SelectableMushafPage').props.page, 50);
+  assert.equal(tree.find('MushafFooter'), undefined);
+  tree.find('ContinuousMushafPages').props.onPageChange(53);
   assert.equal(app.back(), true);
   tree = app.render();
-  assert.equal(tree.find('MushafFooter').props.page, 50);
+  assert.equal(tree.find('MushafFooter').props.page, 53);
   assert.equal(tree.find('MushafFooter').props.zoom, 1.25);
-  assert.equal(tree.find('SelectableMushafPage').props.maxWidth, zoomedWidth);
 });
 
 test('footer next and previous callbacks navigate real screen state and retain the reading session', () => {

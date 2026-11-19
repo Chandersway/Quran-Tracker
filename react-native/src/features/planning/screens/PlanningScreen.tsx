@@ -5,7 +5,7 @@ import { useAppStore } from '../../../state/store';
 import { addDays, buildJourneyPlans, parseDateKey } from '../../../domain/journey';
 import { localDate } from '../../../domain/localDate';
 import { newId } from '../../../state/reducer';
-import { chapterById, divisions, divisionEnd } from '../../../content/quran';
+import { chapterById } from '../../../content/quran';
 import type { Plan } from '../../../state/models';
 import {
   Button,
@@ -30,6 +30,7 @@ import {
   type AgendaReminderPreset,
 } from '../../../domain/agenda';
 import { planIdentity } from '../../../domain/planning';
+import { plannedPassageTitle, rubPassage, rubPassageLabel } from '../../../domain/plannedPassage';
 import { progressForGoal } from '../../../domain/goals';
 import { useI18n } from '../../../i18n';
 import { usePalette } from '../../../shared/theme';
@@ -203,16 +204,8 @@ export function PlanningScreen() {
       plan.type === 'khatma'
         ? plan.subId
         : startId + (plan.type === 'juz' ? 7 : plan.type === 'hizb' ? 3 : 0);
-    const d = divisions[startId - 1];
-    if (!d) return;
-    const end = divisionEnd(endId);
-    nav.navigate('Mushaf', {
-      surah: d.surah,
-      ayah: d.ayah,
-      endSurah: end.surah,
-      endAyah: end.ayah,
-      planId: plan.id,
-    });
+    const passage = rubPassage(startId, endId);
+    if (passage) nav.navigate('Mushaf', { ...passage, planId: plan.id });
   }
   function openReminder(plan: Plan) {
     setReminderPlan(plan);
@@ -276,7 +269,9 @@ export function PlanningScreen() {
           accessibilityRole="alert"
           style={{ backgroundColor: p.subtle, padding: 16, borderRadius: 12, marginVertical: 8 }}
         >
-          <T translate={false}>{format('ui.planning.removed', removedPlan.displayName)}</T>
+          <T translate={false}>
+            {format('ui.planning.removed', plannedPassageTitle(removedPlan, locale))}
+          </T>
           <Button
             title={t('ui.planning.undo')}
             variant="quiet"
@@ -351,7 +346,10 @@ export function PlanningScreen() {
           <View key={plan.id} style={[s.listRow, { borderBottomColor: p.line }]}>
             <Pressable
               accessibilityRole="checkbox"
-              accessibilityLabel={format('ui.planning.markComplete', plan.displayName)}
+              accessibilityLabel={format(
+                'ui.planning.markComplete',
+                plannedPassageTitle(plan, locale),
+              )}
               accessibilityState={{ checked: plan.isDone }}
               onPress={() =>
                 dispatch({
@@ -379,7 +377,7 @@ export function PlanningScreen() {
                 bold
                 style={plan.isDone ? { textDecorationLine: 'line-through' } : undefined}
               >
-                {plan.displayName}
+                {plannedPassageTitle(plan, locale)}
               </T>
               <T size={13} muted>
                 {plan.reminderHour !== null && plan.reminderMinute !== null
@@ -405,7 +403,7 @@ export function PlanningScreen() {
             />
             <IconButton
               name="trash-2"
-              label={format('ui.planning.removePlan', plan.displayName)}
+              label={format('ui.planning.removePlan', plannedPassageTitle(plan, locale))}
               onPress={() => {
                 setRemovedPlan(plan);
                 dispatch({ type: 'plan/delete', id: plan.id });
@@ -451,14 +449,12 @@ export function PlanningScreen() {
               key={j.id}
               title={j.name}
               translateTitle={false}
-              subtitle={format(
-                'ui.planning.journeyRange',
-                j.startDate,
-                j.endDate,
-                j.startRub,
-                j.endRub,
-              )}
+              subtitle={`${j.startDate} – ${j.endDate} · ${rubPassageLabel(j.startRub, j.endRub, locale)}`}
               icon="map"
+              onPress={() => {
+                const passage = rubPassage(j.startRub, j.endRub);
+                if (passage) nav.navigate('Mushaf', passage);
+              }}
             />
           ))}
         </>
@@ -475,7 +471,7 @@ export function PlanningScreen() {
           {(allUpcoming ? upcoming : upcoming.slice(0, 3)).map((plan) => (
             <Row
               key={`upcoming-${plan.id}`}
-              title={plan.displayName}
+              title={plannedPassageTitle(plan, locale)}
               translateTitle={false}
               subtitle={
                 plan.date === addDays(today, 1)
@@ -487,7 +483,7 @@ export function PlanningScreen() {
                       })
               }
               icon="calendar"
-              onPress={() => setDate(plan.date)}
+              onPress={() => openPlan(plan)}
             />
           ))}
         </>

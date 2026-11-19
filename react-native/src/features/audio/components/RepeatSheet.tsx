@@ -22,6 +22,7 @@ import { useAudio } from '../providers/audioContext';
 import type { Edition } from '../../../content/mushafGeometry';
 import { chapterById } from '../../../content/quran';
 import { audioCopy } from '../model/audioCopy';
+import type { BookPresentation } from '../../../state/models';
 
 const service = createAudioService(process.env.EXPO_PUBLIC_AUDIO_BASE_URL);
 
@@ -35,6 +36,7 @@ export function RepeatSheet({
   warsh = false,
   pageEdition = warsh ? 'warsh_maknoon' : 'hafs',
   currentPage,
+  pagePresentation,
 }: {
   visible: boolean;
   onClose: () => void;
@@ -45,13 +47,15 @@ export function RepeatSheet({
   warsh?: boolean;
   pageEdition?: Edition | null;
   currentPage?: number;
+  pagePresentation?: BookPresentation;
 }) {
   const { t, format, locale } = useI18n();
   const p = usePalette();
   const audio = useAudio();
   const { state, commit } = useAppStore();
   const options = repeatReciterOptions(warsh);
-  const page = currentPage ?? repeatInitialPage(pageEdition, surah, initialAyah ?? 1);
+  const page =
+    currentPage ?? repeatInitialPage(pageEdition, surah, initialAyah ?? 1, pagePresentation);
   const maximumPage = pageEdition === 'muhammadi' ? 638 : 604;
   const maximumVerse = printedVerseCount(surah, warsh);
   const defaultMode =
@@ -115,6 +119,7 @@ export function RepeatSheet({
           surah,
           warsh,
           edition: pageEdition,
+          ...(pagePresentation ? { pagePresentation } : {}),
           currentPage: page,
           from: Number(from),
           to: Number(to),
@@ -164,6 +169,7 @@ export function RepeatSheet({
           surah,
           warsh,
           edition: pageEdition,
+          ...(pagePresentation ? { pagePresentation } : {}),
           currentPage: page,
           from: Number(from),
           to: Number(to),

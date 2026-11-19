@@ -20,3 +20,15 @@ test('resume caption preserves a precise verified aya on the saved page and uses
     ayah: 100,
   });
 });
+
+test('the Hafs resume caption uses the active printed or selectable page boundary', () => {
+  const target = { edition: 'hafs' as const, page: 120, surah: 5, ayah: 77 };
+  assert.deepEqual(resumeReference({ ...target, bookPresentation: 'original' }), {
+    surah: 5,
+    ayah: 77,
+  });
+  assert.deepEqual(resumeReference({ ...target, bookPresentation: 'selectable' }), {
+    surah: 5,
+    ayah: 71,
+  });
+});

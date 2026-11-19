@@ -14,11 +14,15 @@ import {
   type ReadingJourneyConfiguration,
 } from '../domain/readingJourney';
 import type { ExportableNote } from '../exporting/notesExport';
-import type { DailyGoal } from './models';
+import { mergeImportedNotes, normalizeNoteFolder } from '../domain/notesLibrary';
+import { matchesMushafBookmarkPage } from '../domain/mushafBookmarks';
 import {
   initialState,
   type AppState,
+  type BookPresentation,
+  type DailyGoal,
   type Journey,
+  type MushafBookmark,
   type MushafEdition,
   type Plan,
   type Preferences,
@@ -83,9 +87,17 @@ export type Action =
     }
   | { type: 'note/save'; note: ExportableNote }
   | { type: 'note/delete'; id: number }
+  | { type: 'note/folder-create'; name: string }
+  | { type: 'note/move'; id: number; folder: string }
+  | { type: 'notes/import'; notes: ExportableNote[] }
   | { type: 'bookmark'; surah: number; ayah: number; now: number }
-  | { type: 'mushaf/bookmark'; edition: MushafEdition; surah: number; page: number }
-  | { type: 'mushaf/position'; edition: MushafEdition; page: number }
+  | ({ type: 'mushaf/bookmark' } & MushafBookmark)
+  | {
+      type: 'mushaf/position';
+      edition: MushafEdition;
+      page: number;
+      bookPresentation?: BookPresentation;
+    }
   | { type: 'plan/add'; plans: Plan[] }
   | {
       type: 'plan/toggle';
@@ -371,15 +383,61 @@ export function appReducer(state: AppState, action: Action): AppState {
       };
     case 'note/delete':
       return { ...state, notes: state.notes.filter((n) => n.id !== action.id) };
+    case 'note/folder-create': {
+      const folder = normalizeNoteFolder(action.name);
+      return !folder || state.noteFolders.includes(folder)
+        ? state
+        : {
+            ...state,
+            noteFolders: [...state.noteFolders, folder],
+          };
+    }
+    case 'note/move': {
+      // A selected folder can come verbatim from an older export or the note editor.
+      const folder = action.folder;
+      if (!state.notes.some((note) => note.id === action.id)) return state;
+      return {
+        ...state,
+        noteFolders:
+          folder && !state.noteFolders.includes(folder)
+            ? [...state.noteFolders, folder]
+            : state.noteFolders,
+        notes: state.notes.map((note) => (note.id === action.id ? { ...note, folder } : note)),
+      };
+    }
+    case 'notes/import': {
+      const merged = mergeImportedNotes(state.notes, action.notes);
+      return {
+        ...state,
+        notes: merged.notes,
+        noteFolders: [
+          ...new Set([
+            ...state.noteFolders,
+            ...action.notes.map((note) => note.folder).filter(Boolean),
+          ]),
+        ],
+      };
+    }
     case 'mushaf/position': {
+      const sourceChanged =
+        action.edition === 'hafs' &&
+        state.mushafPositionPresentations?.hafs !== action.bookPresentation;
       if (
         !validMushafPage(action.edition, action.page) ||
-        state.mushafPositions[action.edition] === action.page
+        (state.mushafPositions[action.edition] === action.page && !sourceChanged)
       )
         return state;
       return {
         ...state,
         mushafPositions: { ...state.mushafPositions, [action.edition]: action.page },
+        ...(sourceChanged
+          ? {
+              mushafPositionPresentations: {
+                ...state.mushafPositionPresentations,
+                hafs: action.bookPresentation,
+              },
+            }
+          : {}),
       };
     }
     case 'mushaf/bookmark': {
@@ -390,23 +448,23 @@ export function appReducer(state: AppState, action: Action): AppState {
         action.surah > 114
       )
         return state;
-      const existing = state.mushafBookmarks.some(
-        (b) => b.edition === action.edition && b.surah === action.surah && b.page === action.page,
-      );
+      const matches = (bookmark: MushafBookmark) =>
+        bookmark.surah === action.surah &&
+        matchesMushafBookmarkPage(bookmark, action.edition, action.page, action.bookPresentation);
       return {
         ...state,
-        mushafBookmarks: existing
-          ? state.mushafBookmarks.filter(
-              (b) =>
-                !(
-                  b.edition === action.edition &&
-                  b.surah === action.surah &&
-                  b.page === action.page
-                ),
-            )
+        mushafBookmarks: state.mushafBookmarks.some(matches)
+          ? state.mushafBookmarks.filter((bookmark) => !matches(bookmark))
           : [
               ...state.mushafBookmarks,
-              { edition: action.edition, surah: action.surah, page: action.page },
+              {
+                edition: action.edition,
+                surah: action.surah,
+                page: action.page,
+                ...(action.edition === 'hafs' && action.bookPresentation
+                  ? { bookPresentation: action.bookPresentation }
+                  : {}),
+              },
             ],
       };
     }

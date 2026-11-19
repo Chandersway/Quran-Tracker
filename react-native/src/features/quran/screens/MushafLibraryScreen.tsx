@@ -16,6 +16,7 @@ import { removeMushaf } from '../../../services/mushaf/storage';
 import { mushafDownloads } from '../../../services/mushaf/mushafDownloads';
 import { downloadCopy, remainingDownloadTime } from '../model/mushafDownloadCopy';
 import { resolveBookEntry } from '../../../domain/bookPresentation';
+import { savedMushafPage } from '../../../domain/mushafResume';
 
 // New functional controls; edition descriptions remain the exact source literals.
 const copy = {
@@ -293,7 +294,7 @@ export function MushafLibraryScreen() {
                             surah: state.cursor.surah,
                             ayah: state.cursor.ayah,
                             edition: option.id,
-                            page: state.mushafPositions[option.id],
+                            page: savedMushafPage(state, option.id, 'original'),
                           },
                           'original',
                         ),

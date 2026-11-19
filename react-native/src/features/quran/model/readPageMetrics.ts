@@ -1,4 +1,4 @@
-import type { MushafEdition, ReadingEntry } from '../../../state/models';
+import type { BookPresentation, MushafEdition, ReadingEntry } from '../../../state/models';
 import { mushafPageRange } from '../../../domain/mushafReading';
 import { statsHistoryRange } from '../../../domain/statistics';
 import { verseIndex } from '../../../domain/checklist';
@@ -14,13 +14,19 @@ export function readPageMetrics(
   edition: MushafEdition,
   maximum: number,
   pageRange: typeof mushafPageRange = mushafPageRange,
+  bookPresentation?: BookPresentation,
 ) {
   const pages = new Set<number>();
   const ranges: [number, number][] = [];
   for (const row of history) {
     if (row.action !== 'read') continue;
     if (row.mushafPage) {
-      if (row.mushafPage.edition === edition) pages.add(row.mushafPage.page);
+      if (
+        row.mushafPage.edition === edition &&
+        (edition !== 'hafs' ||
+          (row.mushafPage.bookPresentation ?? 'selectable') === (bookPresentation ?? 'selectable'))
+      )
+        pages.add(row.mushafPage.page);
       continue;
     }
     const range = statsHistoryRange(row);
@@ -39,7 +45,7 @@ export function readPageMetrics(
   }
   const coverage = new Map<number, boolean | undefined>();
   for (let page = 1; page <= maximum; page++) {
-    const range = pageRange(edition, page);
+    const range = pageRange(edition, page, bookPresentation);
     if (!range) {
       coverage.set(page, undefined);
       continue;

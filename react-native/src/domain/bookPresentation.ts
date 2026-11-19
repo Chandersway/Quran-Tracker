@@ -1,4 +1,5 @@
 import { getAyahs } from '../content/quran';
+import { printedHafsPage } from '../content/mushafGeometry';
 import type { BookSelectionOrigin, MushafReadingContext, ReadingContext } from './readingContext';
 import type { AppState, BookPresentation, MushafEdition, Preferences } from '../state/models';
 import { mushafPageRange } from './mushafReading';
@@ -69,26 +70,48 @@ export function resolveBookEntry(
     };
   }
   const warsh = originalEdition === 'warsh_maknoon' || originalEdition === 'muhammadi';
-  if (requested === 'original' || warsh) {
+  const originalPage =
+    currentEdition === 'hafs' &&
+    originalEdition === 'hafs' &&
+    context.bookPresentation === 'selectable' &&
+    requested === 'original'
+      ? printedHafsPage(context.surah, context.ayah ?? 1)
+      : currentEdition === originalEdition
+        ? context.page
+        : state.mushafPositions[originalEdition];
+  // An explicit library/resume choice can open the beginning of the PDF. A canonical
+  // passage cannot use that index: IndoPak has no verified verse-to-page map.
+  const canOpenOriginal =
+    originalEdition !== 'hafs_indopak_15' ||
+    originalPage !== undefined ||
+    presentation === 'original';
+  if ((requested === 'original' && canOpenOriginal) || warsh) {
     return {
       ...context,
       edition: originalEdition,
       originalEdition,
-      page:
-        currentEdition === originalEdition ? context.page : state.mushafPositions[originalEdition],
+      page: originalPage ?? (originalEdition === 'hafs_indopak_15' ? 1 : undefined),
       bookPresentation: 'original',
       selectablePage: false,
     };
   }
   const canonical = canonicalHafsPage(context.surah, context.ayah ?? 1);
   const existingHafsPage = currentEdition === 'hafs' ? context.page : undefined;
+  const explicitPage =
+    context.bookPresentation === 'selectable' &&
+    context.ayah === undefined &&
+    existingHafsPage !== undefined
+      ? mushafPageRange('hafs', existingHafsPage, 'selectable')
+      : undefined;
   return {
     ...context,
+    ...(explicitPage ? explicitPage.start : {}),
     edition: 'hafs',
     originalEdition,
-    page: verifiedHafsPage(existingHafsPage, context.surah, context.ayah ?? 1)
-      ? existingHafsPage
-      : canonical,
+    page:
+      explicitPage || verifiedHafsPage(existingHafsPage, context.surah, context.ayah ?? 1)
+        ? existingHafsPage
+        : canonical,
     bookPresentation: 'selectable',
     selectablePage: true,
   };
@@ -127,9 +150,26 @@ export function restoreBookSelection(context: MushafReadingContext): MushafReadi
   const { routeKey: _routeKey, ...original } = selectionOrigin;
   // A deliberate page turn can carry back only within this same verified
   // edition. A reconstructed Hafs page is never a PDF or another print's index.
-  const changedPage = current.edition === original.edition && current.page !== original.page;
+  const crossesHafsLayouts =
+    current.edition === 'hafs' &&
+    original.edition === 'hafs' &&
+    current.bookPresentation !== original.bookPresentation;
+  const originPoint =
+    original.ayah === undefined
+      ? mushafPageRange(original.edition, original.page, original.bookPresentation)?.start
+      : { surah: original.surah, ayah: original.ayah };
+  const correspondingPage =
+    crossesHafsLayouts && originPoint
+      ? (current.bookPresentation === 'original' ? printedHafsPage : canonicalHafsPage)(
+          originPoint.surah,
+          originPoint.ayah,
+        )
+      : original.page;
+  const changedPage = current.edition === original.edition && current.page !== correspondingPage;
   const changedRange =
-    changedPage && current.page ? mushafPageRange(original.edition, current.page) : null;
+    changedPage && current.page
+      ? mushafPageRange(original.edition, current.page, current.bookPresentation)
+      : null;
   return {
     ...current,
     ...original,
@@ -137,7 +177,12 @@ export function restoreBookSelection(context: MushafReadingContext): MushafReadi
     selectionMode: false,
     ...(changedRange
       ? {
-          page: current.page,
+          page: crossesHafsLayouts
+            ? (original.bookPresentation === 'original' ? printedHafsPage : canonicalHafsPage)(
+                changedRange.start.surah,
+                changedRange.start.ayah,
+              )
+            : current.page,
           ...changedRange.start,
           bookView: original.bookView
             ? { ...original.bookView, horizontalOffset: 0, verticalAnchor: 0 }
