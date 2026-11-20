@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-18T00:38:10.021Z",
+  "mutation": "none; public GET requests only",
+  "results": [
+    {
+      "name": "ar-tafsir-al-tabari",
+      "status": "ok",
+      "milliseconds": 91,
+      "result": {
+        "characters": 35507
+      }
+    },
+    {
+      "name": "ar-tafsir-ibn-kathir",
+      "status": "ok",
+      "milliseconds": 64,
+      "result": {
+        "characters": 51716
+      }
+    },
+    {
+      "name": "ar-tafseer-al-saddi",
+      "status": "ok",
+      "milliseconds": 57,
+      "result": {
+        "characters": 718
+      }
+    },
+    {
+      "name": "ar-tafsir-al-baghawi",
+      "status": "ok",
+      "milliseconds": 62,
+      "result": {
+        "characters": 28669
+      }
+    },
+    {
+      "name": "ar-tafseer-al-qurtubi",
+      "status": "ok",
+      "milliseconds": 64,
+      "result": {
+        "characters": 97070
+      }
+    },
+    {
+      "name": "ar-tafsir-muyassar",
+      "status": "ok",
+      "milliseconds": 59,
+      "result": {
+        "characters": 805
+      }
+    },
+    {
+      "name": "ar-tafsir-al-wasit",
+      "status": "ok",
+      "milliseconds": 56,
+      "result": {
+        "characters": 4076
+      }
+    },
+    {
+      "name": "ar-tafseer-tanwir-al-miqbas",
+      "status": "ok",
+      "milliseconds": 59,
+      "result": {
+        "characters": 28208
+      }
+    },
+    {
+      "name": "irab-316",
+      "status": "ok",
+      "milliseconds": 58,
+      "result": {
+        "book": 316,
+        "fragments": 2,
+        "characters": 3135
+      }
+    },
+    {
+      "name": "irab-309",
+      "status": "ok",
+      "milliseconds": 70,
+      "result": {
+        "book": 309,
+        "fragments": 0,
+        "characters": 0
+      }
+    },
+    {
+      "name": "asbab-index-and-indexed-excerpts",
+      "status": "ok",
+      "milliseconds": 112,
+      "result": [
+        {
+          "book": 2919,
+          "coveredSurahs": 82,
+          "reference": "1:1",
+          "fragments": 1
+        },
+        {
+          "book": 460,
+          "coveredSurahs": 59,
+          "reference": "2:97",
+          "fragments": 8
+        }
+      ]
+    }
+  ]
+}

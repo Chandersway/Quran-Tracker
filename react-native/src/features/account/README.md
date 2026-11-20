@@ -1,0 +1,16 @@
+# Account en meldingen
+
+`screens/AccountScreen.tsx` stelt aanmelden, profielbewerking en beveiligingsacties samen. `components/KeyboardFormScreen.tsx` meet de zichtbare invoervelden en houdt ze boven het native toetsenbord. `screens/NotificationsScreen.tsx` en `screens/SettingsScreen.tsx` verzorgen de meldingenweergave en voorkeuren.
+
+- `hooks/useAccountProfile.ts` bezit de profielbewerking, documentkeuze, laad- en opslagstatus en feedback. Verouderde antwoorden na een accountwissel of unmount worden genegeerd; een late profiellezing overschrijft geen ingevoerde naam.
+- `components/AuthLinkHandler.tsx` coördineert app-links, gelijktijdige callbacklevering en appstatus. Vertrouwde callbackinterpretatie en sessieverificatie lopen via `services/auth`.
+- `components/PushNotificationHandler.tsx` koppelt de app-levensduur aan de meldingsmodules.
+- `model/accountCopy.ts` bevat de ongewijzigde volledige Engelse, Nederlandse en Arabische accountteksten. `model/authLinkState.ts` deelt uitsluitend de tijdelijke herstelstatus van aanmeldlinks.
+
+Schermen en hooks importeren geen Supabase-SDK en kennen geen profieltabellen, opslagbuckets of tokens. Auth- en profielbewerkingen lopen via de publieke contracten in `services/auth/types.ts` en `services/profiles/types.ts`. Profielopslag en apparaatregistratie horen bij services, geen andere feature mag een accountscherm importeren om die bewerkingen te hergebruiken. Gemeenschappelijke visuele primitives komen uit `shared/components` en `shared/theme`.
+
+Controles: `tests/account-forms.test.ts` oefent de werkelijke formuliercallbacks en de volledige bevestigingsteksten; `tests/account-keyboard.test.ts` controleert de gemeten toetsenbordafhandeling; `tests/account-profile.test.ts` controleert profielbewerkingen, annulering, fouten en verouderde antwoorden. De auth- en profielcontracten hebben afzonderlijke servicetests. Deze broncontroles vervangen geen native apparaatscontrole.
+
+Registratie vraagt opnieuw om wachtwoordbevestiging en controleert gelijkheid ook in de submitcallback, vóór de authaanroep. `NotificationSystemPanel` leest actuele systeemtoestemming en beide Android-kanalen, vernieuwt na apphervatting en opent de notificatie-instellingen met een fallback naar appinstellingen. Alleen expliciete bestaande enable-acties vragen toestemming of registreren push; openen van het scherm doet dit niet. `notificationSystem.ts` bezit platformneutrale status-/levensduurlogica; `notificationSystemPort.ts` bevat de native API-grens. Dagelijkse/extra herinneringen, stille uren en de gedeelde Arabische/Persische cijfernormalisatie blijven behouden.
+
+Instellingen biedt de twaalf oorspronkelijke kleurthema's plus systeem, aparte switches voor kaartpatronen en hifz-kleuren, en een directe ingang naar `MediaSettingsSheet` voor reciteur-/riwayakeuze en afspeelinstellingen. De introductieknop opent meteen een geïsoleerde replay. `appearanceCopy.ts` bevat de aanvullende volledige EN/NL/AR-kopij; de oorspronkelijke catalogus is ongewijzigd. Settings en Reader delen de tekstgroottegrenzen 20–54 via `domain/readerTypography.ts`; alleen een expliciete aanpassing begrenst de waarde, niet het laden van opgeslagen gegevens. `tests/appearance-controls.test.ts` voert de werkelijke switch-, thema- en replaycallbacks uit.

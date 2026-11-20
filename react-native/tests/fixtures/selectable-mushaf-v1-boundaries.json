@@ -1,0 +1,483 @@
+{
+  "note": "Live legacy API boundary regression, captured 2026-11-14. Only each returned verse's first and end-marker words are retained; this is a test excerpt, not an offline Quran content bundle.",
+  "pages": [
+    {
+      "page": 123,
+      "source": "https://api.quran.com/api/v4/verses/by_page/123?mushaf=2&words=true&word_fields=text_qpc_hafs%2Ctext_uthmani%2Ccode_v1%2Cv1_page%2Cline_number%2Cposition&per_page=50",
+      "fullWordCount": 151,
+      "verses": [
+        {
+          "verse_key": "5:90",
+          "words": [
+            {
+              "id": 68026,
+              "position": 1,
+              "page_number": 122,
+              "v1_page": 123,
+              "line_number": 1,
+              "char_type_name": "word",
+              "text_qpc_hafs": "يَٰٓأَيُّهَا",
+              "text_uthmani": "يَـٰٓأَيُّهَا"
+            },
+            {
+              "id": 68041,
+              "position": 16,
+              "page_number": 122,
+              "v1_page": 123,
+              "line_number": 2,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٩٠",
+              "text_uthmani": "٩٠"
+            }
+          ]
+        },
+        {
+          "verse_key": "5:91",
+          "words": [
+            {
+              "id": 68484,
+              "position": 1,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 2,
+              "char_type_name": "word",
+              "text_qpc_hafs": "إِنَّمَا",
+              "text_uthmani": "إِنَّمَا"
+            },
+            {
+              "id": 68505,
+              "position": 21,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 4,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٩١",
+              "text_uthmani": "٩١"
+            }
+          ]
+        },
+        {
+          "verse_key": "5:92",
+          "words": [
+            {
+              "id": 68755,
+              "position": 1,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 4,
+              "char_type_name": "word",
+              "text_qpc_hafs": "وَأَطِيعُواْ",
+              "text_uthmani": "وَأَطِيعُوا۟"
+            },
+            {
+              "id": 68769,
+              "position": 14,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 6,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٩٢",
+              "text_uthmani": "٩٢"
+            }
+          ]
+        },
+        {
+          "verse_key": "5:93",
+          "words": [
+            {
+              "id": 69115,
+              "position": 1,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 6,
+              "char_type_name": "word",
+              "text_qpc_hafs": "لَيۡسَ",
+              "text_uthmani": "لَيْسَ"
+            },
+            {
+              "id": 69140,
+              "position": 25,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 9,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٩٣",
+              "text_uthmani": "٩٣"
+            }
+          ]
+        },
+        {
+          "verse_key": "5:94",
+          "words": [
+            {
+              "id": 69538,
+              "position": 1,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 9,
+              "char_type_name": "word",
+              "text_qpc_hafs": "يَٰٓأَيُّهَا",
+              "text_uthmani": "يَـٰٓأَيُّهَا"
+            },
+            {
+              "id": 69562,
+              "position": 24,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 11,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٩٤",
+              "text_uthmani": "٩٤"
+            }
+          ]
+        },
+        {
+          "verse_key": "5:95",
+          "words": [
+            {
+              "id": 69848,
+              "position": 1,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 11,
+              "char_type_name": "word",
+              "text_qpc_hafs": "يَٰٓأَيُّهَا",
+              "text_uthmani": "يَـٰٓأَيُّهَا"
+            },
+            {
+              "id": 69902,
+              "position": 51,
+              "page_number": 123,
+              "v1_page": 123,
+              "line_number": 15,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٩٥",
+              "text_uthmani": "٩٥"
+            }
+          ]
+        }
+      ],
+      "pagination": {
+        "per_page": 5,
+        "current_page": 1,
+        "next_page": null,
+        "total_pages": 1,
+        "total_records": 5
+      }
+    },
+    {
+      "page": 598,
+      "source": "https://api.quran.com/api/v4/verses/by_page/598?mushaf=2&words=true&word_fields=text_qpc_hafs%2Ctext_uthmani%2Ccode_v1%2Cv1_page%2Cline_number%2Cposition&per_page=50",
+      "fullWordCount": 115,
+      "verses": [
+        {
+          "verse_key": "97:1",
+          "words": [
+            {
+              "id": 169,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 3,
+              "char_type_name": "word",
+              "text_qpc_hafs": "إِنَّآ",
+              "text_uthmani": "إِنَّآ"
+            },
+            {
+              "id": 174,
+              "position": 6,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 3,
+              "char_type_name": "end",
+              "text_qpc_hafs": "١",
+              "text_uthmani": "١"
+            }
+          ]
+        },
+        {
+          "verse_key": "97:2",
+          "words": [
+            {
+              "id": 1789,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 3,
+              "char_type_name": "word",
+              "text_qpc_hafs": "وَمَآ",
+              "text_uthmani": "وَمَآ"
+            },
+            {
+              "id": 1794,
+              "position": 6,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 3,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٢",
+              "text_uthmani": "٢"
+            }
+          ]
+        },
+        {
+          "verse_key": "97:3",
+          "words": [
+            {
+              "id": 2900,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 4,
+              "char_type_name": "word",
+              "text_qpc_hafs": "لَيۡلَةُ",
+              "text_uthmani": "لَيْلَةُ"
+            },
+            {
+              "id": 2906,
+              "position": 7,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 4,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٣",
+              "text_uthmani": "٣"
+            }
+          ]
+        },
+        {
+          "verse_key": "97:4",
+          "words": [
+            {
+              "id": 4399,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 4,
+              "char_type_name": "word",
+              "text_qpc_hafs": "تَنَزَّلُ",
+              "text_uthmani": "تَنَزَّلُ"
+            },
+            {
+              "id": 4408,
+              "position": 10,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 5,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٤",
+              "text_uthmani": "٤"
+            }
+          ]
+        },
+        {
+          "verse_key": "97:5",
+          "words": [
+            {
+              "id": 4984,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 5,
+              "char_type_name": "word",
+              "text_qpc_hafs": "سَلَٰمٌ",
+              "text_uthmani": "سَلَـٰمٌ"
+            },
+            {
+              "id": 4989,
+              "position": 6,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 5,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٥",
+              "text_uthmani": "٥"
+            }
+          ]
+        },
+        {
+          "verse_key": "98:1",
+          "words": [
+            {
+              "id": 122,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 8,
+              "char_type_name": "word",
+              "text_qpc_hafs": "لَمۡ",
+              "text_uthmani": "لَمْ"
+            },
+            {
+              "id": 134,
+              "position": 13,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 9,
+              "char_type_name": "end",
+              "text_qpc_hafs": "١",
+              "text_uthmani": "١"
+            }
+          ]
+        },
+        {
+          "verse_key": "98:2",
+          "words": [
+            {
+              "id": 1795,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 9,
+              "char_type_name": "word",
+              "text_qpc_hafs": "رَسُولٞ",
+              "text_uthmani": "رَسُولٌۭ"
+            },
+            {
+              "id": 1801,
+              "position": 7,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 9,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٢",
+              "text_uthmani": "٢"
+            }
+          ]
+        },
+        {
+          "verse_key": "98:3",
+          "words": [
+            {
+              "id": 2907,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 10,
+              "char_type_name": "word",
+              "text_qpc_hafs": "فِيهَا",
+              "text_uthmani": "فِيهَا"
+            },
+            {
+              "id": 2910,
+              "position": 4,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 10,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٣",
+              "text_uthmani": "٣"
+            }
+          ]
+        },
+        {
+          "verse_key": "98:4",
+          "words": [
+            {
+              "id": 3300,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 10,
+              "char_type_name": "word",
+              "text_qpc_hafs": "وَمَا",
+              "text_uthmani": "وَمَا"
+            },
+            {
+              "id": 3311,
+              "position": 12,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 11,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٤",
+              "text_uthmani": "٤"
+            }
+          ]
+        },
+        {
+          "verse_key": "98:5",
+          "words": [
+            {
+              "id": 4610,
+              "position": 1,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 11,
+              "char_type_name": "word",
+              "text_qpc_hafs": "وَمَآ",
+              "text_uthmani": "وَمَآ"
+            },
+            {
+              "id": 4627,
+              "position": 17,
+              "page_number": 598,
+              "v1_page": 598,
+              "line_number": 13,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٥",
+              "text_uthmani": "٥"
+            }
+          ]
+        },
+        {
+          "verse_key": "98:6",
+          "words": [
+            {
+              "id": 6766,
+              "position": 1,
+              "page_number": 599,
+              "v1_page": 598,
+              "line_number": 13,
+              "char_type_name": "word",
+              "text_qpc_hafs": "إِنَّ",
+              "text_uthmani": "إِنَّ"
+            },
+            {
+              "id": 6783,
+              "position": 17,
+              "page_number": 599,
+              "v1_page": 598,
+              "line_number": 14,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٦",
+              "text_uthmani": "٦"
+            }
+          ]
+        },
+        {
+          "verse_key": "98:7",
+          "words": [
+            {
+              "id": 8199,
+              "position": 1,
+              "page_number": 599,
+              "v1_page": 598,
+              "line_number": 14,
+              "char_type_name": "word",
+              "text_qpc_hafs": "إِنَّ",
+              "text_uthmani": "إِنَّ"
+            },
+            {
+              "id": 8208,
+              "position": 10,
+              "page_number": 599,
+              "v1_page": 598,
+              "line_number": 15,
+              "char_type_name": "end",
+              "text_qpc_hafs": "٧",
+              "text_uthmani": "٧"
+            }
+          ]
+        }
+      ],
+      "pagination": {
+        "per_page": 17,
+        "current_page": 1,
+        "next_page": null,
+        "total_pages": 1,
+        "total_records": 17
+      }
+    }
+  ]
+}

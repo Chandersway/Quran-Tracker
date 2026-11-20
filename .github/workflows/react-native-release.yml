@@ -1,0 +1,172 @@
+name: React Native release
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Build binaries or submit a previously completed build
+        type: choice
+        options: [build, submit]
+        default: build
+        required: true
+      platform:
+        description: Target platform
+        type: choice
+        options: [all, android, ios]
+        default: all
+        required: true
+      environment:
+        description: GitHub environment supplying this run's secrets
+        type: environment
+        required: true
+      profile:
+        description: EAS profile used for the build or submit configuration
+        type: choice
+        options: [preview, production]
+        default: preview
+        required: true
+      build_id:
+        description: Required for submit; paste the EAS build ID from the completed build
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: react-native-release-${{ inputs.environment }}-${{ inputs.platform }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: EAS ${{ inputs.action }} (${{ inputs.platform }})
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    defaults:
+      run:
+        working-directory: react-native
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Match protected environment to EAS profile
+        shell: bash
+        env:
+          RELEASE_ENVIRONMENT: ${{ inputs.environment }}
+          RELEASE_PROFILE: ${{ inputs.profile }}
+        run: |
+          if [[ "$RELEASE_ENVIRONMENT" != "$RELEASE_PROFILE" ]]; then
+            echo "Choose the matching preview or production environment and profile." >&2
+            exit 1
+          fi
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: react-native/package-lock.json
+      - name: Set up Java for isolated native runtime probes
+        if: inputs.action == 'build'
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate source before preparing a new release build
+        if: inputs.action == 'build'
+        run: npm run verify && npm run format:check
+      - name: Validate Apple account deletion function
+        if: inputs.action == 'build'
+        working-directory: supabase/functions/apple-account-delete
+        run: |
+          npx --yes deno@2.9.6 check --node-modules-dir=none --no-lock index.ts
+          npx --yes deno@2.9.6 test --node-modules-dir=none --no-lock appleProvider_test.ts
+      - name: Validate release configuration
+        run: node scripts/check-config.mjs --release
+        env:
+          EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+      - name: Validate submit request
+        if: inputs.action == 'submit'
+        shell: bash
+        env:
+          BUILD_ID: ${{ inputs.build_id }}
+          PROFILE: ${{ inputs.profile }}
+          PLATFORM: ${{ inputs.platform }}
+        run: |
+          if [[ -z "$BUILD_ID" ]]; then
+            echo "A completed EAS build ID is required for submit." >&2
+            exit 1
+          fi
+          if [[ "$PROFILE" != "production" ]]; then
+            echo "Only production builds can be submitted to app stores." >&2
+            exit 1
+          fi
+          if [[ "$PLATFORM" == "all" ]]; then
+            echo "Select one platform when submitting a specific completed build ID." >&2
+            exit 1
+          fi
+      - name: Validate Expo token
+        shell: bash
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          if [[ -z "$EXPO_TOKEN" ]]; then
+            echo "Add EXPO_TOKEN to the selected GitHub environment secrets." >&2
+            exit 1
+          fi
+      - name: Set explicit iOS submission destination
+        if: inputs.action == 'submit' && inputs.platform == 'ios'
+        run: node scripts/prepare-ios-submit.mjs
+        env:
+          ASC_APP_ID: ${{ secrets.ASC_APP_ID }}
+      - name: Install EAS CLI
+        run: npm install --global eas-cli@27.10.0
+      - name: Sync GitHub configuration to the selected EAS environment
+        if: inputs.action == 'build'
+        shell: bash
+        env:
+          EAS_ENVIRONMENT: ${{ inputs.profile }}
+          EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+          EXPO_PUBLIC_AUDIO_BASE_URL: ${{ secrets.EXPO_PUBLIC_AUDIO_BASE_URL }}
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+          PLATFORM: ${{ inputs.platform }}
+        run: |
+          set +x
+          if [[ "$PLATFORM" != "ios" && -z "$GOOGLE_SERVICES_JSON" ]]; then
+            echo "Add GOOGLE_SERVICES_JSON to the selected GitHub environment secrets for Android builds." >&2
+            exit 1
+          fi
+          for name in EXPO_PROJECT_ID EXPO_PUBLIC_SUPABASE_URL EXPO_PUBLIC_SUPABASE_ANON_KEY EXPO_PUBLIC_AUDIO_BASE_URL; do
+            value="${!name}"
+            if [[ -n "$value" ]]; then
+              eas env:set --environment "$EAS_ENVIRONMENT" --name "$name" --value "$value" --visibility sensitive --non-interactive
+            fi
+          done
+          if [[ -n "$GOOGLE_SERVICES_JSON" ]]; then
+            firebase_file="$(mktemp)"
+            trap 'rm -f -- "$firebase_file"' EXIT
+            printf '%s' "$GOOGLE_SERVICES_JSON" > "$firebase_file"
+            jq -e '.client | any(.client_info.android_client_info.package_name == "com.Ameender.qurantracker")' "$firebase_file" > /dev/null
+            eas env:set --environment "$EAS_ENVIRONMENT" --name GOOGLE_SERVICES_JSON --type file --value "$firebase_file" --visibility secret --non-interactive
+          fi
+      - name: Start EAS build
+        if: inputs.action == 'build'
+        run: eas build --platform "${{ inputs.platform }}" --profile "${{ inputs.profile }}" --non-interactive --no-wait
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+          EXPO_PUBLIC_AUDIO_BASE_URL: ${{ secrets.EXPO_PUBLIC_AUDIO_BASE_URL }}
+      - name: Submit completed EAS build
+        if: inputs.action == 'submit'
+        run: eas submit --platform "${{ inputs.platform }}" --profile "${{ inputs.profile }}" --id "$BUILD_ID" --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
+          BUILD_ID: ${{ inputs.build_id }}

@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-17",
+  "scope": "Synthetic in-memory reproduction; no actual notification scheduled or local user data touched",
+  "noonTimestamp": {
+    "source": "src/features/practice/screens/GoalsScreen.tsx:110,161",
+    "actualExpression": "new Date(`${date}T12:00:00`).getTime()",
+    "planStartLocalHour": 14,
+    "registrationLocalHour": 18,
+    "persistedEntryLocalHour": 12,
+    "loggedHizbUsingActiveUiTimestamp": 0,
+    "loggedHizbUsingActualRegistrationTime": 1
+  },
+  "independentGoalPlans": {
+    "requestedGoalIds": [
+      1,
+      2,
+      3
+    ],
+    "actualGoalIds": [
+      1
+    ],
+    "actualPlanCount": 1
+  },
+  "reminderCompletion": {
+    "retainedHourAfterDone": 20,
+    "desiredRemindersWhileDone": 0,
+    "desiredRemindersAfterUndo": 1
+  },
+  "hifzAssessmentAge": {
+    "scoreBefore": 30,
+    "scoreAfter": 30,
+    "dueDaysBeforeRead": -2,
+    "dueDaysAfterRead": 1,
+    "assessmentTimestampChanged": true
+  }
+}

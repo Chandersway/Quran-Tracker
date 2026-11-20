@@ -1,0 +1,14 @@
+{
+  "serial": "emulator-5554",
+  "avd": "wirdna-qa",
+  "install": "install -r succeeded",
+  "package": "com.Ameender.qurantracker",
+  "launchStatus": "ok",
+  "uidPreserved": true,
+  "installedApkMatches": true,
+  "sha256": "c7bc1fb5a398382cabac5f144a0f7cdf4acd99325dbc6a17af4c0b523e34ce07",
+  "bytes": 251580739,
+  "runtimeErrorLogLines": 0,
+  "observedScreen": "Statistics screen rendered after returning from the restored group screen.",
+  "acceptanceBoundary": "Startup/install only; not all screen flows or hosted push/realtime acceptance."
+}

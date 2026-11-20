@@ -1,0 +1,1797 @@
+{
+  "note": "Minimal complete-page fixtures required by strict extent validation: two opening pages and user-reported page158. Exact text/attached signs from text.quran.ws on2026-11-14; test fixtures only, not an offline reading bundle.",
+  "opening": {
+    "words": [
+      {
+        "surah": 1,
+        "ayah": 0,
+        "position": 0,
+        "number": 1,
+        "text": "بِسْمِ",
+        "page": 1,
+        "line": 1
+      },
+      {
+        "surah": 1,
+        "ayah": 0,
+        "position": 0,
+        "number": 2,
+        "text": "ࡴ۬للَّهِ",
+        "page": 1,
+        "line": 1
+      },
+      {
+        "surah": 1,
+        "ayah": 0,
+        "position": 0,
+        "number": 3,
+        "text": "ࡴ۬لرَّحْمَٰنِ",
+        "page": 1,
+        "line": 1
+      },
+      {
+        "surah": 1,
+        "ayah": 0,
+        "position": 0,
+        "number": 4,
+        "text": "ࡴ۬لرَّحِيمِ",
+        "page": 1,
+        "line": 1
+      },
+      {
+        "surah": 1,
+        "ayah": 1,
+        "position": 1,
+        "number": 5,
+        "text": "ࡴ۬لْحَمْدُ",
+        "page": 1,
+        "line": 2
+      },
+      {
+        "surah": 1,
+        "ayah": 1,
+        "position": 2,
+        "number": 6,
+        "text": "لِلهِ",
+        "page": 1,
+        "line": 2
+      },
+      {
+        "surah": 1,
+        "ayah": 1,
+        "position": 3,
+        "number": 7,
+        "text": "رَبِّ",
+        "page": 1,
+        "line": 2
+      },
+      {
+        "surah": 1,
+        "ayah": 1,
+        "position": 4,
+        "number": 8,
+        "text": "ࡴ۬لْعَٰلَمِينَ",
+        "page": 1,
+        "line": 2
+      },
+      {
+        "surah": 1,
+        "ayah": 2,
+        "position": 1,
+        "number": 9,
+        "text": "ࡰ۬لرَّحْمَٰنِ",
+        "page": 1,
+        "line": 2
+      },
+      {
+        "surah": 1,
+        "ayah": 2,
+        "position": 2,
+        "number": 10,
+        "text": "ࡴ۬لرَّحِيمِ",
+        "page": 1,
+        "line": 3
+      },
+      {
+        "surah": 1,
+        "ayah": 3,
+        "position": 1,
+        "number": 11,
+        "text": "مَلِكِ",
+        "page": 1,
+        "line": 3
+      },
+      {
+        "surah": 1,
+        "ayah": 3,
+        "position": 2,
+        "number": 12,
+        "text": "يَوْمِ",
+        "page": 1,
+        "line": 3
+      },
+      {
+        "surah": 1,
+        "ayah": 3,
+        "position": 3,
+        "number": 13,
+        "text": "ࡴ۬لدِّينِ࣌",
+        "page": 1,
+        "line": 3
+      },
+      {
+        "surah": 1,
+        "ayah": 4,
+        "position": 1,
+        "number": 14,
+        "text": "إِيَّاكَ",
+        "page": 1,
+        "line": 3
+      },
+      {
+        "surah": 1,
+        "ayah": 4,
+        "position": 2,
+        "number": 15,
+        "text": "نَعْبُدُ",
+        "page": 1,
+        "line": 4
+      },
+      {
+        "surah": 1,
+        "ayah": 4,
+        "position": 3,
+        "number": 16,
+        "text": "وَإِيَّاكَ",
+        "page": 1,
+        "line": 4
+      },
+      {
+        "surah": 1,
+        "ayah": 4,
+        "position": 4,
+        "number": 17,
+        "text": "نَسْتَعِينُ࣌",
+        "page": 1,
+        "line": 4
+      },
+      {
+        "surah": 1,
+        "ayah": 5,
+        "position": 1,
+        "number": 18,
+        "text": "ࡲٜهْدِنَا",
+        "page": 1,
+        "line": 4
+      },
+      {
+        "surah": 1,
+        "ayah": 5,
+        "position": 2,
+        "number": 19,
+        "text": "ࡰ۬لصِّرَٰطَ",
+        "page": 1,
+        "line": 5
+      },
+      {
+        "surah": 1,
+        "ayah": 5,
+        "position": 3,
+        "number": 20,
+        "text": "ࡰ۬لْمُسْتَقِيمَ",
+        "page": 1,
+        "line": 5
+      },
+      {
+        "surah": 1,
+        "ayah": 6,
+        "position": 1,
+        "number": 21,
+        "text": "صِرَٰطَ",
+        "page": 1,
+        "line": 5
+      },
+      {
+        "surah": 1,
+        "ayah": 6,
+        "position": 2,
+        "number": 22,
+        "text": "ࡰ۬لذِينَ",
+        "page": 1,
+        "line": 5
+      },
+      {
+        "surah": 1,
+        "ayah": 6,
+        "position": 3,
+        "number": 23,
+        "text": "أَنْعَمْتَ",
+        "page": 1,
+        "line": 6
+      },
+      {
+        "surah": 1,
+        "ayah": 6,
+        "position": 4,
+        "number": 24,
+        "text": "عَلَيْهِمْ",
+        "page": 1,
+        "line": 6
+      },
+      {
+        "surah": 1,
+        "ayah": 7,
+        "position": 1,
+        "number": 25,
+        "text": "غَيْرِ",
+        "page": 1,
+        "line": 6
+      },
+      {
+        "surah": 1,
+        "ayah": 7,
+        "position": 2,
+        "number": 26,
+        "text": "ࡴ۬لْمَغْضُوبِ",
+        "page": 1,
+        "line": 6
+      },
+      {
+        "surah": 1,
+        "ayah": 7,
+        "position": 3,
+        "number": 27,
+        "text": "عَلَيْهِمْ",
+        "page": 1,
+        "line": 7
+      },
+      {
+        "surah": 1,
+        "ayah": 7,
+        "position": 4,
+        "number": 28,
+        "text": "وَلَا",
+        "page": 1,
+        "line": 7
+      },
+      {
+        "surah": 1,
+        "ayah": 7,
+        "position": 5,
+        "number": 29,
+        "text": "ࡰ۬لضَّآلِّينَ࣌",
+        "page": 1,
+        "line": 7
+      }
+    ]
+  },
+  "second": {
+    "words": [
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 1,
+        "number": 30,
+        "text": "أَلَٓمِّٓ࣌",
+        "page": 2,
+        "line": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 2,
+        "number": 31,
+        "text": "ذَٰلِكَ",
+        "page": 2,
+        "line": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 3,
+        "number": 32,
+        "text": "ࡰ۬لْكِتَٰبُ",
+        "page": 2,
+        "line": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 4,
+        "number": 33,
+        "text": "لَا",
+        "page": 2,
+        "line": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 5,
+        "number": 34,
+        "text": "رَيْبَ࣌",
+        "page": 2,
+        "line": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 6,
+        "number": 35,
+        "text": "فِيهِ",
+        "page": 2,
+        "line": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 7,
+        "number": 36,
+        "text": "هُدىࣰ",
+        "page": 2,
+        "line": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 1,
+        "position": 8,
+        "number": 37,
+        "text": "لِّلْمُتَّقِينَ",
+        "page": 2,
+        "line": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 1,
+        "number": 38,
+        "text": "ࡰ۬لذِينَ",
+        "page": 2,
+        "line": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 2,
+        "number": 39,
+        "text": "يُومِنُونَ",
+        "page": 2,
+        "line": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 3,
+        "number": 40,
+        "text": "بِالْغَيْبِ",
+        "page": 2,
+        "line": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 4,
+        "number": 41,
+        "text": "وَيُقِيمُونَ",
+        "page": 2,
+        "line": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 5,
+        "number": 42,
+        "text": "ࡰ۬لصَّلَوٰةَ",
+        "page": 2,
+        "line": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 6,
+        "number": 43,
+        "text": "وَمِمَّا",
+        "page": 2,
+        "line": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 7,
+        "number": 44,
+        "text": "رَزَقْنَٰهُمْ",
+        "page": 2,
+        "line": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 2,
+        "position": 8,
+        "number": 45,
+        "text": "يُنفِقُونَ࣌",
+        "page": 2,
+        "line": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 1,
+        "number": 46,
+        "text": "وَالذِينَ",
+        "page": 2,
+        "line": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 2,
+        "number": 47,
+        "text": "يُومِنُونَ",
+        "page": 2,
+        "line": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 3,
+        "number": 48,
+        "text": "بِمَآ",
+        "page": 2,
+        "line": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 4,
+        "number": 49,
+        "text": "أُنزِلَ",
+        "page": 2,
+        "line": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 5,
+        "number": 50,
+        "text": "إِلَيْكَ",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 6,
+        "number": 51,
+        "text": "وَمَآ",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 7,
+        "number": 52,
+        "text": "أُنزِلَ",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 8,
+        "number": 53,
+        "text": "مِن",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 9,
+        "number": 54,
+        "text": "قَبْلِكَ",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 10,
+        "number": 55,
+        "text": "وَبِالَاخِرَةِ",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 11,
+        "number": 56,
+        "text": "هُمْ",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 3,
+        "position": 12,
+        "number": 57,
+        "text": "يُوقِنُونَ",
+        "page": 2,
+        "line": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 1,
+        "number": 58,
+        "text": "أُوْلَٰٓئِكَ",
+        "page": 2,
+        "line": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 2,
+        "number": 59,
+        "text": "عَلَىٰ",
+        "page": 2,
+        "line": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 3,
+        "number": 60,
+        "text": "هُدىࣰ",
+        "page": 2,
+        "line": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 4,
+        "number": 61,
+        "text": "مِّن",
+        "page": 2,
+        "line": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 5,
+        "number": 62,
+        "text": "رَّبِّهِمْ࣌",
+        "page": 2,
+        "line": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 6,
+        "number": 63,
+        "text": "وَأُوْلَٰٓئِكَ",
+        "page": 2,
+        "line": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 7,
+        "number": 64,
+        "text": "هُمُ",
+        "page": 2,
+        "line": 6
+      },
+      {
+        "surah": 2,
+        "ayah": 4,
+        "position": 8,
+        "number": 65,
+        "text": "ࡲ۬لْمُفْلِحُونَ࣌",
+        "page": 2,
+        "line": 6
+      }
+    ]
+  },
+  "subset": {
+    "words": [
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 1,
+        "number": 20173,
+        "text": "وَالْبَلَدُ",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 2,
+        "number": 20174,
+        "text": "ࡲ۬لطَّيِّبُ",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 3,
+        "number": 20175,
+        "text": "يَخْرُجُ",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 4,
+        "number": 20176,
+        "text": "نَبَاتُهُۥ",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 5,
+        "number": 20177,
+        "text": "بِإِذْنِ",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 6,
+        "number": 20178,
+        "text": "رَبِّهِۦ࣌",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 7,
+        "number": 20179,
+        "text": "وَالذِے",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 8,
+        "number": 20180,
+        "text": "خَبُثَ",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 9,
+        "number": 20181,
+        "text": "لَا",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 10,
+        "number": 20182,
+        "text": "يَخْرُجُ",
+        "page": 158,
+        "line": 1
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 11,
+        "number": 20183,
+        "text": "إِلَّا",
+        "page": 158,
+        "line": 2
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 12,
+        "number": 20184,
+        "text": "نَكِداࣰ࣌",
+        "page": 158,
+        "line": 2
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 13,
+        "number": 20185,
+        "text": "كَذَٰلِكَ",
+        "page": 158,
+        "line": 2
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 14,
+        "number": 20186,
+        "text": "نُصَرِّفُ",
+        "page": 158,
+        "line": 2
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 15,
+        "number": 20187,
+        "text": "ࡲ۬لَايَٰتِ",
+        "page": 158,
+        "line": 2
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 16,
+        "number": 20188,
+        "text": "لِقَوْمࣲ",
+        "page": 158,
+        "line": 2
+      },
+      {
+        "surah": 7,
+        "ayah": 57,
+        "position": 17,
+        "number": 20189,
+        "text": "يَشْكُرُونَ࣌",
+        "page": 158,
+        "line": 2
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 1,
+        "number": 20190,
+        "text": "لَقَدَ",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 2,
+        "number": 20191,
+        "text": "ࡰرْسَلْنَا",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 3,
+        "number": 20192,
+        "text": "نُوحاً",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 4,
+        "number": 20193,
+        "text": "ࡴلَىٰ",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 5,
+        "number": 20194,
+        "text": "قَوْمِهِۦ",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 6,
+        "number": 20195,
+        "text": "فَقَالَ",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 7,
+        "number": 20196,
+        "text": "يَٰقَوْمِ",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 8,
+        "number": 20197,
+        "text": "ࡴ࢈عْبُدُواْ",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 9,
+        "number": 20198,
+        "text": "ࡲ۬للَّهَ",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 10,
+        "number": 20199,
+        "text": "مَا",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 11,
+        "number": 20200,
+        "text": "لَكُم",
+        "page": 158,
+        "line": 3
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 12,
+        "number": 20201,
+        "text": "مِّنِ",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 13,
+        "number": 20202,
+        "text": "ࡴلَٰهٍ",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 14,
+        "number": 20203,
+        "text": "غَيْرُهُۥٓ࣌",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 15,
+        "number": 20204,
+        "text": "إِنِّيَ",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 16,
+        "number": 20205,
+        "text": "أَخَافُ",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 17,
+        "number": 20206,
+        "text": "عَلَيْكُمْ",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 18,
+        "number": 20207,
+        "text": "عَذَابَ",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 19,
+        "number": 20208,
+        "text": "يَوْمٍ",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 58,
+        "position": 20,
+        "number": 20209,
+        "text": "عَظِيمࣲ࣌",
+        "page": 158,
+        "line": 4
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 1,
+        "number": 20210,
+        "text": "قَالَ",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 2,
+        "number": 20211,
+        "text": "ࡰ۬لْمَلَأُ",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 3,
+        "number": 20212,
+        "text": "مِن",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 4,
+        "number": 20213,
+        "text": "قَوْمِهِۦٓ",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 5,
+        "number": 20214,
+        "text": "إِنَّا",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 6,
+        "number": 20215,
+        "text": "لَنَرٜيٰكَ",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 7,
+        "number": 20216,
+        "text": "فِے",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 8,
+        "number": 20217,
+        "text": "ضَلَٰلࣲ",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 59,
+        "position": 9,
+        "number": 20218,
+        "text": "مُّبِينࣲ࣌",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 1,
+        "number": 20219,
+        "text": "قَالَ",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 2,
+        "number": 20220,
+        "text": "يَٰقَوْمِ",
+        "page": 158,
+        "line": 5
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 3,
+        "number": 20221,
+        "text": "لَيْسَ",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 4,
+        "number": 20222,
+        "text": "بِے",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 5,
+        "number": 20223,
+        "text": "ضَلَٰلَةࣱ",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 6,
+        "number": 20224,
+        "text": "وَلَٰكِنِّے",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 7,
+        "number": 20225,
+        "text": "رَسُولࣱ",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 8,
+        "number": 20226,
+        "text": "مِّن",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 9,
+        "number": 20227,
+        "text": "رَّبِّ",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 60,
+        "position": 10,
+        "number": 20228,
+        "text": "ࡴ۬لْعَٰلَمِينَ࣌",
+        "page": 158,
+        "line": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 1,
+        "number": 20229,
+        "text": "أُبَلِّغُكُمْ",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 2,
+        "number": 20230,
+        "text": "رِسَٰلَٰتِ",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 3,
+        "number": 20231,
+        "text": "رَبِّے",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 4,
+        "number": 20232,
+        "text": "وَأَنصَحُ",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 5,
+        "number": 20233,
+        "text": "لَكُمْ",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 6,
+        "number": 20234,
+        "text": "وَأَعْلَمُ",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 7,
+        "number": 20235,
+        "text": "مِنَ",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 8,
+        "number": 20236,
+        "text": "ࡰ۬للَّهِ",
+        "page": 158,
+        "line": 7
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 9,
+        "number": 20237,
+        "text": "مَا",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 10,
+        "number": 20238,
+        "text": "لَا",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 61,
+        "position": 11,
+        "number": 20239,
+        "text": "تَعْلَمُونَ࣌",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 1,
+        "number": 20240,
+        "text": "أَوَعَجِبْتُمُۥٓ",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 2,
+        "number": 20241,
+        "text": "أَن",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 3,
+        "number": 20242,
+        "text": "جَآءَكُمْ",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 4,
+        "number": 20243,
+        "text": "ذِكْرࣱ",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 5,
+        "number": 20244,
+        "text": "مِّن",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 6,
+        "number": 20245,
+        "text": "رَّبِّكُمْ",
+        "page": 158,
+        "line": 8
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 7,
+        "number": 20246,
+        "text": "عَلَىٰ",
+        "page": 158,
+        "line": 9
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 8,
+        "number": 20247,
+        "text": "رَجُلࣲ",
+        "page": 158,
+        "line": 9
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 9,
+        "number": 20248,
+        "text": "مِّنكُمْ",
+        "page": 158,
+        "line": 9
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 10,
+        "number": 20249,
+        "text": "لِيُنذِرَكُمْ",
+        "page": 158,
+        "line": 9
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 11,
+        "number": 20250,
+        "text": "وَلِتَتَّقُواْ",
+        "page": 158,
+        "line": 9
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 12,
+        "number": 20251,
+        "text": "وَلَعَلَّكُمْ",
+        "page": 158,
+        "line": 9
+      },
+      {
+        "surah": 7,
+        "ayah": 62,
+        "position": 13,
+        "number": 20252,
+        "text": "تُرْحَمُونَ࣌",
+        "page": 158,
+        "line": 9
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 1,
+        "number": 20253,
+        "text": "فَكَذَّبُوهُ",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 2,
+        "number": 20254,
+        "text": "فَأَنجَيْنَٰهُ",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 3,
+        "number": 20255,
+        "text": "وَالذِينَ",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 4,
+        "number": 20256,
+        "text": "مَعَهُۥ",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 5,
+        "number": 20257,
+        "text": "فِے",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 6,
+        "number": 20258,
+        "text": "ࡴ۬لْفُلْكِ࣌",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 7,
+        "number": 20259,
+        "text": "وَأَغْرَقْنَا",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 8,
+        "number": 20260,
+        "text": "ࡰ۬لذِينَ",
+        "page": 158,
+        "line": 10
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 9,
+        "number": 20261,
+        "text": "كَذَّبُواْ",
+        "page": 158,
+        "line": 11
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 10,
+        "number": 20262,
+        "text": "بِـَٔايَٰتِنَآ࣌",
+        "page": 158,
+        "line": 11
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 11,
+        "number": 20263,
+        "text": "إِنَّهُمْ",
+        "page": 158,
+        "line": 11
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 12,
+        "number": 20264,
+        "text": "كَانُواْ",
+        "page": 158,
+        "line": 11
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 13,
+        "number": 20265,
+        "text": "قَوْماً",
+        "page": 158,
+        "line": 11
+      },
+      {
+        "surah": 7,
+        "ayah": 63,
+        "position": 14,
+        "number": 20266,
+        "text": "عَمِينَ࣌",
+        "page": 158,
+        "line": 11
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 1,
+        "number": 20267,
+        "text": "وَإِلَىٰ",
+        "page": 158,
+        "line": 11
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 2,
+        "number": 20268,
+        "text": "عَادٍ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 3,
+        "number": 20269,
+        "text": "ࡰخَاهُمْ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 4,
+        "number": 20270,
+        "text": "هُوداࣰ࣌",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 5,
+        "number": 20271,
+        "text": "قَالَ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 6,
+        "number": 20272,
+        "text": "يَٰقَوْمِ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 7,
+        "number": 20273,
+        "text": "ࡴ࢈عْبُدُواْ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 8,
+        "number": 20274,
+        "text": "ࡲ۬للَّهَ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 9,
+        "number": 20275,
+        "text": "مَا",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 10,
+        "number": 20276,
+        "text": "لَكُم",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 11,
+        "number": 20277,
+        "text": "مِّنِ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 12,
+        "number": 20278,
+        "text": "ࡴلَٰهٍ",
+        "page": 158,
+        "line": 12
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 13,
+        "number": 20279,
+        "text": "غَيْرُهُۥٓ࣌",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 14,
+        "number": 20280,
+        "text": "أَفَلَا",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 64,
+        "position": 15,
+        "number": 20281,
+        "text": "تَتَّقُونَ࣌",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 1,
+        "number": 20282,
+        "text": "قَالَ",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 2,
+        "number": 20283,
+        "text": "ࡰ۬لْمَلَأُ",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 3,
+        "number": 20284,
+        "text": "ࡲ۬لذِينَ",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 4,
+        "number": 20285,
+        "text": "كَفَرُواْ",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 5,
+        "number": 20286,
+        "text": "مِن",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 6,
+        "number": 20287,
+        "text": "قَوْمِهِۦٓ",
+        "page": 158,
+        "line": 13
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 7,
+        "number": 20288,
+        "text": "إِنَّا",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 8,
+        "number": 20289,
+        "text": "لَنَرٜيٰكَ",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 9,
+        "number": 20290,
+        "text": "فِے",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 10,
+        "number": 20291,
+        "text": "سَفَاهَةࣲ",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 11,
+        "number": 20292,
+        "text": "وَإِنَّا",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 12,
+        "number": 20293,
+        "text": "لَنَظُنُّكَ",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 13,
+        "number": 20294,
+        "text": "مِنَ",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 65,
+        "position": 14,
+        "number": 20295,
+        "text": "ࡰ۬لْكَٰذِبِينَ࣌",
+        "page": 158,
+        "line": 14
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 1,
+        "number": 20296,
+        "text": "قَالَ",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 2,
+        "number": 20297,
+        "text": "يَٰقَوْمِ",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 3,
+        "number": 20298,
+        "text": "لَيْسَ",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 4,
+        "number": 20299,
+        "text": "بِے",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 5,
+        "number": 20300,
+        "text": "سَفَاهَةࣱ",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 6,
+        "number": 20301,
+        "text": "وَلَٰكِنِّے",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 7,
+        "number": 20302,
+        "text": "رَسُولࣱ",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 8,
+        "number": 20303,
+        "text": "مِّن",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 9,
+        "number": 20304,
+        "text": "رَّبِّ",
+        "page": 158,
+        "line": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 66,
+        "position": 10,
+        "number": 20305,
+        "text": "ࡴ۬لْعَٰلَمِينَ࣌",
+        "page": 158,
+        "line": 15
+      }
+    ]
+  }
+}

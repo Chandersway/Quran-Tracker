@@ -1,0 +1,15 @@
+# Audio
+
+`providers/AudioProvider.tsx` owns the single native player. Request tokens prevent old loads or autoplay lookups from replacing newer choices. `play` explicitly starts from the beginning; `replaceTrack` changes the current surah recording while preserving absolute seconds and play/pause intent. A selection queue is never silently converted to a full-surah track. Finite rounds include the first play; zero continues until stopped. Replaying a completed selection restarts its entire queue.
+
+`components/MiniPlayer.tsx` supports tap/upward-swipe expansion, both seek directions, play/pause, stop, direct speed changes, loading, time/progress and selected range/round metadata. `AudioSeekBar` shares accessible pointer and increment/decrement controls between mini and expanded players. Its physical timeline remains left-to-right in all interface languages. `AudioPlayerSheet` provides all six speeds (0.75–2), 5/10-second skips, autoplay, track loop, sleep and media settings.
+
+`MediaSettings` is reused by Settings, Reader and the expanded player. Name and normalized riwaya filters operate on the unchanged bundled catalog. Choosing persists the reciter without starting an idle player; changing an active recording calls `replaceTrack`. Start now is explicit. Downloading saves the chosen surah, independently of account/backend availability.
+
+`RepeatSheet` exposes current page, page range, whole surah and verse range. Selected-verse callers supply canonical `initialAyah` values; the sheet converts those to printed Warsh inputs, then `services/audio/repeatSelection.ts` maps to the recording's numbering. The known Hafs Maknoon source uses verified geometry. `pageEdition={null}` disables page choices for unmapped PDFs. Mushaf menu callers pass `initialMode="page"`; selected-verse actions pass `initialMode="ayahs"`. Hafs/Warsh reciter choices and 2/3/5/unlimited rounds persist independently. Saving a selection downloads distinct recordings once, including timing metadata for offline Warsh clips; it never starts playback.
+
+Source and local-file I/O remain in `services/audio`; pure playback/repeat rules and metadata types live in `domain`. Source catalogs and import pipelines are unchanged. New feature copy is isolated in `model/audioCopy.ts` for NL/EN/AR.
+
+Verification: `tests/audio-provider.test.ts` executes real provider hooks/effects; `tests/audio-ui.test.ts` executes actual media, repeat, mini and seek callbacks; `tests/audio-repeat-selection.test.ts` checks source mappings including all 604 Hafs Maknoon pages. Native background/interruption/gesture/audio validation is separate from these deterministic harnesses. See `docs/parity-2026-11-17/audio-implementation.md`.
+
+`ReaderAudioBar` is the compact fullscreen-reader overlay. Its visibility belongs to `FloatingReaderAudio`; dismissing it never changes playback. The reciter caption opens `MediaSettingsSheet` with `recitersOnly`, exposing search and selection immediately. It shares `AudioProvider` with the other players and preserves the existing active-repeat-queue policy. Whole-sentence NL/EN/AR copy lives in `model/readerAudioCopy.ts`.

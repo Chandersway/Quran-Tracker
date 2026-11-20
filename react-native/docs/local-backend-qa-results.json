@@ -1,0 +1,152 @@
+{
+    "environment":  "isolated localhost Docker stack; fabricated confirmed users",
+    "apiScenarios":  [
+                         {
+                             "label":  "own groups and capabilities come from authenticated RPC",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "published feed SELECT is isolated by membership and group",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "server rejects forged cross-group posts and reactions",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "typed operations edit/pin posts while member moderation is denied",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "comment RPC is group-scoped and typed delete redacts it",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "all four reactions toggle on the authenticated post",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "member permission revocation is authoritative for post/comment RPCs",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "private media uploads, signs, downloads and deletes with group authorization",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "secure invitation acceptance is idempotent and revocation enforced",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "join requests require review before membership exists",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "role RPC forbids self management and assignment of owner",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "group profile override is retained in member identity",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "events support member RSVP and manager-only status transitions",
+                             "passed":  true
+                         },
+                         {
+                             "label":  "progress, rules, notice and audit typed RPCs work on local schema",
+                             "passed":  true
+                         }
+                     ],
+    "sqlSuites":  [
+                      {
+                          "name":  "group_comment_deletion.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_detail_v2_app_api.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_detail_v2_authorization.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_detail_v2_foundation.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_detail_v2_legacy_migration.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_events_profiles_points_v3.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_feed_v2_actions.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_logos.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_management_api_v2.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_media_v2_actions.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_membership_v2_actions.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_member_permissions.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_profile_names.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "group_reply_push.sql",
+                          "passed":  null,
+                          "skipped":  "Outbound dispatcher deliberately disabled in isolated QA"
+                      },
+                      {
+                          "name":  "group_reply_push_ios.sql",
+                          "passed":  null,
+                          "skipped":  "Outbound dispatcher deliberately disabled in isolated QA"
+                      },
+                      {
+                          "name":  "group_tasks_v2_actions.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      },
+                      {
+                          "name":  "invitation_acceptance_idempotency.sql",
+                          "passed":  true,
+                          "skipped":  null
+                      }
+                  ],
+    "sourceMigrationsUnchanged":  true,
+    "nativeUiAcceptance":  "Recorded separately in NATIVE_QA.md",
+    "pushEgress":  "Production dispatcher URLs replaced and cron disabled in working QA copies before execution; two outbound-push suites intentionally skipped",
+    "productionDeployment":  "Not performed"
+}

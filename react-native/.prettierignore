@@ -1,0 +1,7 @@
+src/content/generated/
+node_modules/
+android/
+ios/
+.tooling/
+dist*/
+audio-cache/

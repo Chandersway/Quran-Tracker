@@ -1,0 +1,595 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": "F26",
+  "reviewedOn": "2026-11-15",
+  "features": {
+    "copy.source-values": {
+      "path": "src/i18n/index.ts",
+      "symbol": "sourceCatalog",
+      "status": "partial"
+    },
+    "locale.french": {
+      "path": "src/i18n/index.ts",
+      "symbol": "type Locale",
+      "status": "unverified"
+    },
+    "home.motivation": {
+      "path": "src/features/home/components/PracticeOverview.tsx",
+      "symbol": "motivationStats",
+      "status": "partial"
+    },
+    "home.hifz-recommendations": {
+      "path": "src/features/home/components/PracticeOverview.tsx",
+      "symbol": "reviewDue",
+      "status": "partial"
+    },
+    "home.hizb-analytics": {
+      "path": "src/features/home/components/HizbOverviewCard.tsx",
+      "symbol": "HizbOverviewCard",
+      "status": "partial"
+    },
+    "stats.drilldown": {
+      "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
+      "symbol": "type: statsReadingBuckets",
+      "status": "partial",
+      "extraEvidence": [
+        {
+          "path": "src/features/practice/components/ReadingStatisticsSummary.tsx",
+          "symbol": "export function ReadingStatisticsSummary"
+        },
+        {
+          "path": "src/features/practice/components/ReadingDistributionRing.tsx",
+          "symbol": "export function ReadingDistributionRing"
+        }
+      ]
+    },
+    "stats.reading-metrics": {
+      "path": "src/domain/statistics.ts",
+      "symbol": "export function statsOverview",
+      "status": "partial"
+    },
+    "stats.clear-reading": {
+      "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
+      "symbol": "function clearReading",
+      "status": "partial"
+    },
+    "groups.discovery": {
+      "path": "src/features/groups/screens/GroupsScreen.tsx",
+      "symbol": "create",
+      "status": "partial",
+      "gap": "The source discovery-labelled view searches the current user groups. Creation/filtering/join contracts remain; no public-discovery backend is invented. Native authenticated acceptance remains separate."
+    },
+    "groups.feed": {
+      "path": "src/features/groups/screens/GroupScreen.tsx",
+      "symbol": "feed",
+      "status": "partial",
+      "gap": "Group-specific posts/replies/reactions remain. F26 adds in-process account/group drafts, cursor pagination, separate pins and realtime invalidation with polling recovery. Realtime publication is prepared, not deployed; authenticated multi-account/native acceptance remains separate."
+    },
+    "groups.post-edit-pin": {
+      "path": "src/features/groups/components/GroupFeedPanel.tsx",
+      "symbol": "pinPost",
+      "status": "partial"
+    },
+    "groups.member-reading": {
+      "path": "src/features/groups/components/GroupMemberReadingSheet.tsx",
+      "symbol": "member?.entries",
+      "status": "partial"
+    },
+    "groups.permissions": {
+      "path": "src/services/groups/groupOperations.ts",
+      "symbol": "setMemberRole",
+      "status": "partial",
+      "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features."
+    },
+    "groups.invitations": {
+      "path": "src/services/groups/groupOperations.ts",
+      "symbol": "createInvitation",
+      "status": "partial",
+      "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features."
+    },
+    "groups.join-requests": {
+      "path": "src/services/groups/groupOperations.ts",
+      "symbol": "reviewJoinRequest",
+      "status": "partial",
+      "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features."
+    },
+    "groups.media": {
+      "path": "src/services/groups/groupOperations.ts",
+      "symbol": "uploadMedia",
+      "status": "partial",
+      "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features."
+    },
+    "groups.events": {
+      "path": "src/services/groups/groupOperations.ts",
+      "symbol": "createEvent",
+      "status": "partial",
+      "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features."
+    },
+    "groups.tasks": {
+      "path": "src/features/groups/screens/GroupScreen.tsx",
+      "symbol": "task",
+      "status": "partial"
+    },
+    "groups.rules": {
+      "path": "src/services/groups/groupOperations.ts",
+      "symbol": "publishRules",
+      "status": "partial",
+      "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features."
+    },
+    "groups.moderation": {
+      "path": "src/features/groups/components/GroupGovernancePanels.tsx",
+      "symbol": "reviewReport",
+      "status": "partial"
+    },
+    "groups.leaderboard": {
+      "path": "src/features/groups/components/GroupProgressPanel.tsx",
+      "symbol": "listLeaderboard",
+      "status": "partial"
+    },
+    "groups.profile-logo": {
+      "path": "src/features/groups/components/GroupProfilePanel.tsx",
+      "symbol": "updateMyProfile",
+      "status": "partial"
+    },
+    "groups.delete": {
+      "path": "src/services/groups/groupOperations.ts",
+      "symbol": "deleteGroup",
+      "status": "partial",
+      "gap": "Concrete RN group service operations and reachable panels are present. Source permission rules, RPC inputs, state/error recovery and authenticated multi-account/native acceptance remain separate; renamed methods are not missing features."
+    },
+    "groups.notification-routing": {
+      "path": "src/services/notifications/pushDevice.ts",
+      "symbol": "export async function enablePushDevice",
+      "status": "partial"
+    },
+    "reader.selection-toolbar": {
+      "path": "src/features/quran/components/AyahActionsSheet.tsx",
+      "symbol": "export function AyahActionsSheet",
+      "status": "partial",
+      "gap": "Contextual copy, bookmark, share, note and study are present. F26 connects book Play to the complete selected surah and Repeat to the existing queue; verified Hafs words open aya actions/lexicon. Original Play was not clipped selected-aya audio. Native selection/audio lifecycle acceptance remains separate."
+    },
+    "reader.immersive": {
+      "path": "src/features/quran/screens/ReaderScreen.tsx",
+      "symbol": "setImmersiveReader((immersive || shortLandscape) && focused)",
+      "status": "partial",
+      "gap": "F26 text/image readers use focus-aware AppChrome including short landscape, hardware Back and blur/unmount cleanup. Source text/fonts are unchanged. Native navigation, rotation and accessibility acceptance remain separate."
+    },
+    "reader.word-by-word": {
+      "path": "src/features/study/screens/StudyScreen.tsx",
+      "symbol": "word",
+      "status": "partial"
+    },
+    "reader.cursor-bookmarks": {
+      "path": "src/state/reducer.ts",
+      "symbol": "case 'mushaf/position'",
+      "status": "partial",
+      "gap": "Ayah cursor, edition-specific positions and page bookmarks persist. Mode/fullscreen changes retain context and source-relative scroll position; unmapped pages do not claim a canonical resume aya. Restart and all-edition acceptance remain separate.",
+      "extraEvidence": [
+        {
+          "path": "src/state/reducer.ts",
+          "symbol": "case 'mushaf/bookmark'"
+        },
+        {
+          "path": "src/features/quran/providers/readingModeContext.ts",
+          "symbol": "export function textToBook"
+        }
+      ]
+    },
+    "mushaf.library": {
+      "path": "src/features/quran/screens/MushafLibraryScreen.tsx",
+      "symbol": "MushafLibraryScreen",
+      "status": "partial",
+      "gap": "Original edition library and file/PDF rendering remain. F26 adds OS-owned Android DownloadManager/JobService and iOS URLSession queues, durable recovery and atomic installation. Read final QA for actually exercised native completion/interruption; source presence is not delivery evidence.",
+      "extraEvidence": [
+        {
+          "path": "src/services/mushaf/backgroundManager.ts",
+          "symbol": "export function createBackgroundMushafManager"
+        }
+      ]
+    },
+    "mushaf.warsh-geometry": {
+      "path": "src/content/mushafGeometry.ts",
+      "symbol": "hafsReferences",
+      "status": "partial"
+    },
+    "audio.repeat": {
+      "path": "src/features/audio/components/RepeatSheet.tsx",
+      "symbol": "export function RepeatSheet",
+      "status": "partial"
+    },
+    "audio.global-controls": {
+      "path": "src/features/audio/providers/AudioProvider.tsx",
+      "symbol": "MiniPlayer",
+      "status": "partial"
+    },
+    "focus.intentions": {
+      "path": "src/features/practice/screens/FocusScreen.tsx",
+      "symbol": "focus.goals",
+      "status": "partial"
+    },
+    "focus.custom-duration": {
+      "path": "src/features/practice/screens/FocusScreen.tsx",
+      "symbol": "focus.custom",
+      "status": "partial"
+    },
+    "hifz.consistency": {
+      "path": "src/domain/hifz.ts",
+      "symbol": "export function inconsistentJuz",
+      "status": "partial"
+    },
+    "hifz.bulk-range": {
+      "path": "src/features/practice/screens/ProgressScreen.tsx",
+      "symbol": "selected",
+      "status": "partial"
+    },
+    "onboarding.interactive": {
+      "path": "src/features/onboarding/components/OnboardingFlow.tsx",
+      "symbol": "function ReadingDemo",
+      "status": "partial"
+    },
+    "onboarding.checkpoint": {
+      "path": "src/features/onboarding/components/OnboardingFlow.tsx",
+      "symbol": "resolveOnboardingStep(state.preferences.onboardingStep)",
+      "status": "partial"
+    },
+    "notes.scopes": {
+      "path": "src/features/notes/components/NoteTargetControl.tsx",
+      "symbol": "NoteTargetControl",
+      "status": "partial"
+    },
+    "notes.rich-export": {
+      "path": "src/features/notes/components/FormattedNote.tsx",
+      "symbol": "FormattedNote",
+      "status": "partial"
+    },
+    "planning.agenda": {
+      "path": "src/features/planning/screens/PlanningScreen.tsx",
+      "symbol": "AgendaCalendar",
+      "status": "partial"
+    },
+    "planning.reading-plan": {
+      "path": "src/features/planning/screens/ReadingPlanScreen.tsx",
+      "symbol": "ReadingPlanScreen",
+      "status": "partial"
+    },
+    "planning.journey": {
+      "path": "src/features/planning/components/ReadingJourneyPanel.tsx",
+      "symbol": "ReadingJourneyPanel",
+      "status": "partial"
+    },
+    "goals.unfinished-days": {
+      "path": "src/features/practice/screens/GoalsScreen.tsx",
+      "symbol": "matchingPlans",
+      "status": "partial"
+    },
+    "notifications.policy": {
+      "path": "src/features/account/screens/NotificationsScreen.tsx",
+      "symbol": "quiet",
+      "status": "partial"
+    },
+    "account.management": {
+      "path": "src/features/account/screens/AccountScreen.tsx",
+      "symbol": "delete",
+      "status": "partial"
+    },
+    "migration.room": {
+      "path": "src/migration/legacyRoom.ts",
+      "symbol": "export function normalizeLegacyRoomRows",
+      "status": "partial",
+      "extraEvidence": [
+        {
+          "path": "src/migration/legacyAndroid.native.ts",
+          "symbol": "export async function importLegacyAndroidData"
+        }
+      ]
+    },
+    "account.google-oauth": {
+      "path": "src/services/auth/googleOAuth.ts",
+      "symbol": "googleOAuthUrl",
+      "status": "partial"
+    },
+    "checklist.coverage": {
+      "path": "src/features/practice/screens/ChecklistScreen.tsx",
+      "symbol": "ChecklistScreen",
+      "status": "partial"
+    },
+    "study.translation": {
+      "path": "src/features/study/screens/StudySourceContent.tsx",
+      "symbol": "translationProviders",
+      "status": "partial",
+      "gap": "Bundled Dutch/English reading translations and original selectable providers remain reachable. F26 study rendering and requests bind source/reference identity. Live source/device acceptance remains separate."
+    },
+    "study.tafsir": {
+      "path": "src/services/study/studyProviders.ts",
+      "symbol": "tafsirProviders",
+      "status": "partial"
+    },
+    "study.irab": {
+      "path": "src/features/study/screens/StudySourceContent.tsx",
+      "symbol": "createStudyRequestController",
+      "status": "partial",
+      "gap": "Contextual F26 Irab opens the original Quranpedia book source automatically. Bundled grammar stays separate. Fixed references, original Warsh identity, immutable requests, selectable excerpts and complete citations are implemented. Online/native acceptance remains separate."
+    },
+    "study.asbab": {
+      "path": "src/features/study/screens/StudySourceContent.tsx",
+      "symbol": "hasStudySource(availability",
+      "status": "partial",
+      "gap": "F26 retains every fixed reliable reference and original Warsh context. Missing coverage stays unavailable; late source responses cannot replace current content. Full native/online acceptance remains separate."
+    },
+    "study.books": {
+      "path": "src/features/study/screens/BooksScreen.tsx",
+      "symbol": "export function BooksScreen",
+      "status": "partial",
+      "extraEvidence": [
+        {
+          "path": "src/features/study/screens/BookReaderScreen.tsx",
+          "symbol": "export function BookReaderScreen"
+        }
+      ]
+    },
+    "study.mutashabihat-global": {
+      "path": "src/features/study/screens/MutashabihatScreen.tsx",
+      "symbol": "selectedJuz",
+      "status": "partial"
+    },
+    "navigation.top-level": {
+      "path": "src/app/navigation/MainTabs.tsx",
+      "symbol": "export function MainTabs",
+      "status": "partial",
+      "gap": "Original destinations remain reachable through the current stack, preserved tab routes and grouped configurable dock. Lexicon/Study/Books are additive. Native root restoration/back/large-text acceptance remains separate."
+    }
+  },
+  "changes": [
+    {
+      "id": "K01",
+      "title": "Book-selected Play and Repeat",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/features/quran/screens/MushafScreen.tsx",
+          "symbol": "async function playSelectedSurah"
+        },
+        {
+          "path": "src/features/quran/screens/MushafScreen.tsx",
+          "symbol": "function openRepeat"
+        }
+      ],
+      "testPaths": [
+        "tests/mushaf-word-selection.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/QuranReaderScreen.kt",
+          "line": 1507
+        }
+      ]
+    },
+    {
+      "id": "K02",
+      "title": "Original contextual Quranpedia Irab",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/features/quran/components/AyahActionsSheet.tsx",
+          "symbol": "openSource('irab')"
+        },
+        {
+          "path": "src/features/study/screens/StudySourceContent.tsx",
+          "symbol": "loadIrab"
+        }
+      ],
+      "testPaths": [
+        "tests/study-request.test.ts",
+        "tests/study-providers.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/QuranReaderScreen.kt",
+          "line": 484
+        }
+      ]
+    },
+    {
+      "id": "K03",
+      "title": "Fixed Asbab and reliable Warsh reference sets",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/features/quran/components/AyahActionsSheet.tsx",
+          "symbol": "const fixedReferences"
+        },
+        {
+          "path": "src/services/study/studyRequest.ts",
+          "symbol": "export function fixedStudyReferences"
+        }
+      ],
+      "testPaths": [
+        "tests/study-request.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/IrabScreen.kt",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "title": "Immutable study requests reject stale results",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/services/study/studyRequest.ts",
+          "symbol": "export function createStudyRequestController"
+        },
+        {
+          "path": "src/features/study/screens/StudySourcesScreen.tsx",
+          "symbol": "key={JSON.stringify(route.params)}"
+        }
+      ],
+      "testPaths": [
+        "tests/study-request.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/IrabScreen.kt",
+          "line": 138
+        }
+      ]
+    },
+    {
+      "id": "K05",
+      "title": "Account/group-scoped post and reply drafts",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/services/groups/groupDrafts.ts",
+          "symbol": "export function groupDrafts"
+        },
+        {
+          "path": "src/features/groups/screens/GroupScreen.tsx",
+          "symbol": "const draftStore = useMemo"
+        }
+      ],
+      "testPaths": [
+        "tests/community-feed.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/HamburgerMenu.kt",
+          "line": 815
+        }
+      ]
+    },
+    {
+      "id": "K06",
+      "title": "Text immersive mode restores global chrome",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/features/quran/screens/ReaderScreen.tsx",
+          "symbol": "setImmersiveReader((immersive || shortLandscape) && focused)"
+        }
+      ],
+      "testPaths": [
+        "tests/reader-lifecycle.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/MainActivity.kt",
+          "line": 463
+        }
+      ]
+    },
+    {
+      "id": "K07",
+      "title": "Selectable Quranpedia excerpts and citations",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/features/study/screens/StudySourceContent.tsx",
+          "symbol": "format('irab.reference'"
+        },
+        {
+          "path": "src/features/study/screens/StudySourceContent.tsx",
+          "symbol": "<T arabic selectable size={22}"
+        }
+      ],
+      "testPaths": [
+        "tests/study-request.test.ts",
+        "tests/study-providers.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/IrabScreen.kt",
+          "line": 169
+        }
+      ]
+    },
+    {
+      "id": "K08",
+      "title": "Original optional 114 surah illustrations",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/features/quran/screens/ReaderScreen.tsx",
+          "symbol": "showSurahCard && surahIllustrations[surah]"
+        },
+        {
+          "path": "scripts/prepare-reader-assets.ts",
+          "symbol": "Original Kotlin artwork, unchanged."
+        }
+      ],
+      "testPaths": [
+        "tests/reader-source-assets.test.ts",
+        "tests/reader-lifecycle.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/QuranReaderScreen.kt",
+          "line": 564
+        }
+      ]
+    },
+    {
+      "id": "K09",
+      "title": "Source labels for stored reading unit codes",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/domain/readingUnit.ts",
+          "symbol": "export function readingUnitLabelKey"
+        },
+        {
+          "path": "src/features/planning/screens/ReadingPlanScreen.tsx",
+          "symbol": "readingUnitLabelKey(plan.unit)"
+        }
+      ],
+      "testPaths": [
+        "tests/i18n.test.ts",
+        "tests/reading-plan.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/ReadingPlanScreen.kt",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "id": "K10",
+      "title": "Curated group role labels",
+      "implementationStatus": "implemented",
+      "nativeAcceptanceStatus": "pending-final-root-record",
+      "reactNativeAnchors": [
+        {
+          "path": "src/features/groups/communityCopy.ts",
+          "symbol": "export function groupRoleLabel"
+        },
+        {
+          "path": "src/features/groups/components/GroupMembersPanel.tsx",
+          "symbol": "groupRoleLabel(value.role, t, locale)"
+        }
+      ],
+      "testPaths": [
+        "tests/community-feed.test.ts",
+        "tests/i18n.test.ts"
+      ],
+      "kotlinEvidence": [
+        {
+          "path": "app/src/main/java/com/Ameender/qurantracker/ui/HamburgerMenu.kt",
+          "line": 4625
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "scope": "Actual RN lookup and component callbacks, fabricated selection, native I/O mocked; not a device test.",
+  "warshRubNavigation": {
+    "checked": 240,
+    "wrongTargets": 56,
+    "wrongPages": 18,
+    "example": {
+      "rub": 40,
+      "currentPage": 100,
+      "expectedPage": 99,
+      "currentPrintedAyah": 134,
+      "expectedPrintedAyah": 129
+    }
+  },
+  "mergedWarshSelection": {
+    "printedReference": "1:1",
+    "canonicalReferences": [
+      1,
+      2
+    ],
+    "displayedVerses": 2,
+    "copiedFirstVerse": true,
+    "copiedSecondVerse": false,
+    "shareMatchesCopy": true,
+    "wordDetailsRoute": [
+      "Study",
+      {
+        "surah": 1,
+        "ayah": 1,
+        "mode": "words"
+      }
+    ]
+  }
+}
