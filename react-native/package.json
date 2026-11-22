@@ -11,6 +11,7 @@
     "android:compare": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/android-compare.ps1",
     "android:emulator": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/android-local.ps1 -EmulatorOnly",
     "build:apk": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-apk.ps1",
+    "build:apk:quick": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-apk.ps1 -SkipFormat",
     "build:apk:cloud": "npx --yes eas-cli@27.10.0 build --platform android --profile preview",
     "build:aab": "npx --yes eas-cli@27.10.0 build --platform android --profile production",
     "build:ios": "npx --yes eas-cli@27.10.0 build --platform ios --profile production",
