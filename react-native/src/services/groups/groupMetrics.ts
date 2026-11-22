@@ -135,3 +135,44 @@ export function groupGoalProgress(
     group.goal_period !== 'none' && (group.goal_target ?? 0) > 0 ? group.goal_target! : null;
   return { achieved, target, fraction: target ? Math.min(1, achieved / target) : 0 };
 }
+
+export type GroupContribution = {
+  code: string;
+  name: string;
+  myPages: number;
+  groupPages: number;
+  share: number;
+  myStreak: number;
+  myWeeklyPoints: number;
+  rank: number | null;
+  members: number;
+  goal: { achieved: number; target: number | null; fraction: number; unit: string; period: string };
+};
+
+/** The viewer's own slice of a group's leaderboard, for the personal statistics page. */
+export function groupContribution(
+  group: Pick<Group, 'code' | 'name' | 'progress_unit' | 'goal_target' | 'goal_period'>,
+  rows: readonly GroupLeaderboardRow[],
+  userId: string,
+  now = new Date(),
+): GroupContribution {
+  const mine = rows.find((row) => row.userId === userId);
+  const totalAyahs = rows.reduce((sum, row) => sum + row.totalAyahs, 0);
+  const index = rows.findIndex((row) => row.userId === userId);
+  return {
+    code: group.code,
+    name: group.name,
+    myPages: mine?.pages ?? 0,
+    groupPages: rows.reduce((sum, row) => sum + row.pages, 0),
+    share: totalAyahs > 0 ? (mine?.totalAyahs ?? 0) / totalAyahs : 0,
+    myStreak: mine?.streak ?? 0,
+    myWeeklyPoints: mine?.weeklyPoints ?? 0,
+    rank: mine && mine.totalPoints > 0 ? index + 1 : null,
+    members: rows.length,
+    goal: {
+      ...groupGoalProgress(rows, group, now),
+      unit: group.progress_unit,
+      period: group.goal_period,
+    },
+  };
+}

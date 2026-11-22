@@ -842,6 +842,264 @@
       "nl": "Positie op de pagina",
       "ar": "الموضع في الصفحة",
       "reason": "Accessible name for the full-screen vertical scroll control"
+    },
+    "ui.stats.title": {
+      "en": "Statistics",
+      "nl": "Statistieken",
+      "ar": "الإحصائيات",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.subtitle": {
+      "en": "See how your reading is going",
+      "nl": "Bekijk hoe je ervoor staat",
+      "ar": "اطّلع على سير قراءتك",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.tabReading": {
+      "en": "Reading",
+      "nl": "Lezen",
+      "ar": "القراءة",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.tabHifz": {
+      "en": "Hifz",
+      "nl": "Hifdh",
+      "ar": "الحفظ",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.tabGroups": {
+      "en": "Groups",
+      "nl": "Groepen",
+      "ar": "المجموعات",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.longestStreak": {
+      "en": "Longest streak",
+      "nl": "Langste streak",
+      "ar": "أطول سلسلة",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.heatmapTitle": {
+      "en": "Reading calendar",
+      "nl": "Leeskalender",
+      "ar": "تقويم القراءة",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.heatmapHint": {
+      "en": "Each square is a day; darker means more pages.",
+      "nl": "Elk vakje is een dag; donkerder betekent meer pagina's.",
+      "ar": "كل مربع يمثل يومًا؛ اللون الأغمق يعني صفحات أكثر.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.less": {
+      "en": "Less",
+      "nl": "Minder",
+      "ar": "أقل",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.more": {
+      "en": "More",
+      "nl": "Meer",
+      "ar": "أكثر",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.barsDay": {
+      "en": "Per day",
+      "nl": "Per dag",
+      "ar": "يوميًا",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.barsWeek": {
+      "en": "Per week",
+      "nl": "Per week",
+      "ar": "أسبوعيًا",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.barsMonth": {
+      "en": "Per month",
+      "nl": "Per maand",
+      "ar": "شهريًا",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.barsEmpty": {
+      "en": "No pages registered in this period yet.",
+      "nl": "Nog geen pagina's geregistreerd in deze periode.",
+      "ar": "لم تُسجَّل صفحات في هذه الفترة بعد.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.goalTitle": {
+      "en": "Daily goal",
+      "nl": "Dagdoel",
+      "ar": "الهدف اليومي",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.goalRate": {
+      "en": "Reached on %1$s of %2$s days (last 30 days)",
+      "nl": "%1$s van %2$s dagen gehaald (laatste 30 dagen)",
+      "ar": "تحقق في %1$s من %2$s يومًا (آخر 30 يومًا)",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.goalEmpty": {
+      "en": "Set a daily goal to see how often you reach it.",
+      "nl": "Stel een dagdoel in om te zien hoe vaak je het haalt.",
+      "ar": "حدّد هدفًا يوميًا لترى كم مرة تحققه.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.khatmaTitle": {
+      "en": "Khatma forecast",
+      "nl": "Khatma-voorspelling",
+      "ar": "توقّع الختمة",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.khatmaDays": {
+      "en": "%s days to go",
+      "nl": "Nog %s dagen",
+      "ar": "متبقٍ %s يومًا",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.khatmaForecast": {
+      "en": "At %1$s pages a day you finish the remaining %2$s pages around %3$s.",
+      "nl": "Met %1$s pagina's per dag lees je de resterende %2$s pagina's uit rond %3$s.",
+      "ar": "بمعدل %1$s صفحة يوميًا تُتمّ الصفحات المتبقية (%2$s) نحو %3$s.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.khatmaNone": {
+      "en": "Read something in the last 30 days to get a forecast.",
+      "nl": "Lees iets in de afgelopen 30 dagen om een voorspelling te krijgen.",
+      "ar": "اقرأ شيئًا خلال آخر 30 يومًا لتحصل على توقّع.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.khatmaDone": {
+      "en": "Every Rub is marked as read. Mabrook!",
+      "nl": "Alle Rub zijn als gelezen gemarkeerd. Mabrook!",
+      "ar": "كل الأرباع معلّمة كمقروءة. مبارك!",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.khatmaHint": {
+      "en": "Estimate based on the Rub you have not marked yet and your average over the last 30 days.",
+      "nl": "Schatting op basis van de Rub die je nog niet hebt gemarkeerd en je gemiddelde van de laatste 30 dagen.",
+      "ar": "تقدير مبني على الأرباع غير المعلّمة ومعدلك خلال آخر 30 يومًا.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.coverageTitle": {
+      "en": "Quran coverage",
+      "nl": "Quran-dekking",
+      "ar": "تغطية القرآن",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.coverageHint": {
+      "en": "Each tile is a Hizb; the fill shows how many quarters you marked as read.",
+      "nl": "Elk vakje is een Hizb; de vulling toont hoeveel kwarten je als gelezen hebt gemarkeerd.",
+      "ar": "كل مربع حزب؛ يوضح التلوين عدد الأرباع التي علّمتها كمقروءة.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.memorizedTitle": {
+      "en": "Memorised",
+      "nl": "Gememoriseerd",
+      "ar": "المحفوظ",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.memorizedHint": {
+      "en": "Each tile is a Hizb; highlighted tiles are marked as memorised.",
+      "nl": "Elk vakje is een Hizb; gekleurde vakjes zijn als gememoriseerd gemarkeerd.",
+      "ar": "كل مربع حزب؛ المربعات الملوّنة معلّمة كمحفوظة.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.reviewsDue": {
+      "en": "Due for review",
+      "nl": "Toe aan herhaling",
+      "ar": "حان وقت مراجعته",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.reviewsNone": {
+      "en": "Nothing to review today.",
+      "nl": "Vandaag niets te herhalen.",
+      "ar": "لا شيء للمراجعة اليوم.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.groupShare": {
+      "en": "%1$s pages · %2$s%% of the group",
+      "nl": "%1$s pagina's · %2$s%% van de groep",
+      "ar": "%1$s صفحة · %2$s%% من المجموعة",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.groupRank": {
+      "en": "Rank %1$s of %2$s",
+      "nl": "Plek %1$s van %2$s",
+      "ar": "المرتبة %1$s من %2$s",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.groupGoal": {
+      "en": "Group goal: %1$s of %2$s",
+      "nl": "Groepsdoel: %1$s van %2$s",
+      "ar": "هدف المجموعة: %1$s من %2$s",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.groupsEmpty": {
+      "en": "You're not in a group yet.",
+      "nl": "Je zit nog niet in een groep.",
+      "ar": "لم تنضم إلى أي مجموعة بعد.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.groupsSignedOut": {
+      "en": "Sign in to see your group statistics.",
+      "nl": "Log in om je groepsstatistieken te zien.",
+      "ar": "سجّل الدخول لترى إحصائيات مجموعاتك.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.groupsError": {
+      "en": "Group statistics could not be loaded.",
+      "nl": "Groepsstatistieken konden niet worden geladen.",
+      "ar": "تعذّر تحميل إحصائيات المجموعات.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.retry": {
+      "en": "Try again",
+      "nl": "Opnieuw proberen",
+      "ar": "أعد المحاولة",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.clearAction": {
+      "en": "Delete statistics",
+      "nl": "Statistieken verwijderen",
+      "ar": "حذف الإحصائيات",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.clearTitle": {
+      "en": "Delete statistics?",
+      "nl": "Statistieken verwijderen?",
+      "ar": "حذف الإحصائيات؟",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.clearMessage": {
+      "en": "This deletes your reading history, read marks and focus time on this device. Hifz scores, notes and plans stay. This cannot be undone.",
+      "nl": "Dit verwijdert je leesgeschiedenis, gelezen-markeringen en focustijd op dit apparaat. Hifdh-scores, notities en planning blijven staan. Dit kan niet ongedaan worden gemaakt.",
+      "ar": "سيؤدي هذا إلى حذف سجل قراءتك وعلامات القراءة ووقت التركيز على هذا الجهاز. تبقى درجات الحفظ والملاحظات والخطط. لا يمكن التراجع عن ذلك.",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.clearConfirm": {
+      "en": "Delete",
+      "nl": "Verwijderen",
+      "ar": "حذف",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.homeShortcut": {
+      "en": "Your statistics",
+      "nl": "Jouw statistieken",
+      "ar": "إحصائياتك",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.homeShortcutHint": {
+      "en": "%1$s-day streak · %2$s pages this week",
+      "nl": "%1$s dagen op rij · %2$s pagina's deze week",
+      "ar": "%1$s أيام متتالية · %2$s صفحة هذا الأسبوع",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.homeShortcutEmpty": {
+      "en": "Go here and see how you're doing",
+      "nl": "Ga hierheen en bekijk hoe je het doet",
+      "ar": "اذهب إلى هنا واطّلع على أدائك",
+      "reason": "Dedicated statistics page"
     }
   }
 }
