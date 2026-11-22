@@ -1,0 +1,6 @@
+# Bundled license/notice texts must keep their original bytes on every OS
+# (tests compare them exactly; Windows autocrlf would otherwise rewrite them).
+react-native/assets/lexicon/*.txt -text
+react-native/assets/lexicon/*.json -text
+react-native/assets/lexicon/*.db binary
+react-native/data/lexicon/*.txt -text
