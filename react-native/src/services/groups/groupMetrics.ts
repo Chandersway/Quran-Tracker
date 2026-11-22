@@ -65,6 +65,21 @@ export function groupLeaderboard(
     .sort((left, right) => right.totalPoints - left.totalPoints);
 }
 
+/** Page equivalents a reader logged in the last `days` UTC days (all time when null). */
+export function groupPeriodPages(
+  row: Pick<GroupLeaderboardRow, 'entries'>,
+  days: number | null,
+  now = new Date(),
+): number {
+  const from = days === null ? null : daysAgo(now, days - 1);
+  const today = daysAgo(now, 0);
+  return pageEquivalent(
+    row.entries
+      .filter((entry) => from === null || (entry.occurred_on >= from && entry.occurred_on <= today))
+      .reduce((sum, entry) => sum + groupAyahEquivalent(entry), 0),
+  );
+}
+
 /** Explicit unit totals are kept separate from the estimated page/ayah equivalents. */
 export function groupReadingTotals(entries: readonly GroupProgressEntry[]) {
   const total = (unit: string) =>

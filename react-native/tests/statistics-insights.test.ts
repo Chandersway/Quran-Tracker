@@ -194,3 +194,19 @@ test('group contribution reports the viewer share, rank and goal', () => {
   assert.equal(result.goal.target, 50);
   assert.equal(groupContribution(group, rows, 'stranger').rank, null);
 });
+
+test('group period pages count only entries inside the rolling UTC window', async () => {
+  const { groupPeriodPages } = await import('../src/services/groups/groupMetrics');
+  const entry = (occurred_on: string, amount: number) => ({
+    user_id: 'u',
+    unit: 'page',
+    amount,
+    source: 'manual',
+    occurred_on,
+  });
+  const row = { entries: [entry('2026-11-22', 2), entry('2026-11-16', 3), entry('2026-11-01', 5)] };
+  const now = new Date('2026-11-22T12:00:00Z');
+  assert.equal(groupPeriodPages(row, 7, now), 5);
+  assert.equal(groupPeriodPages(row, 30, now), 10);
+  assert.equal(groupPeriodPages(row, null, now), 10);
+});
