@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/quran_goal_widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/quran_goal_widget_background"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="14dp">
+
+    <TextView
+        android:id="@+id/quran_goal_widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/quran_goal_widget_title"
+        android:textColor="@color/quran_goal_widget_accent"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/quran_goal_widget_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/quran_goal_widget_preview_progress"
+        android:textColor="@color/quran_goal_widget_text"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/quran_goal_widget_bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="6dp"
+        android:max="1000"
+        android:progress="500"
+        android:progressDrawable="@drawable/quran_goal_widget_progress" />
+
+    <TextView
+        android:id="@+id/quran_goal_widget_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/quran_goal_widget_preview_status"
+        android:textColor="@color/quran_goal_widget_muted"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/quran_goal_widget_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/quran_goal_widget_preview_next"
+        android:textColor="@color/quran_goal_widget_clay"
+        android:textSize="13sp" />
+</LinearLayout>

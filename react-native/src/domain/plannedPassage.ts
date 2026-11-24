@@ -40,3 +40,21 @@ export function plannedPassageTitle(
     ? rubPassageLabel(plan.referenceId, plan.subId, locale) || plan.displayName
     : plan.displayName;
 }
+
+/** The verses an agenda item points at; surah plans open at the surah itself. */
+export function plannedPassage(plan: Pick<Plan, 'type' | 'referenceId' | 'subId'>) {
+  if (plan.type === 'surah') return { surah: plan.referenceId };
+  const startId =
+    plan.type === 'khatma'
+      ? plan.referenceId
+      : plan.type === 'juz'
+        ? (plan.referenceId - 1) * 8 + 1
+        : plan.type === 'hizb'
+          ? (plan.referenceId - 1) * 4 + 1
+          : (plan.referenceId - 1) * 4 + plan.subId;
+  const endId =
+    plan.type === 'khatma'
+      ? plan.subId
+      : startId + (plan.type === 'juz' ? 7 : plan.type === 'hizb' ? 3 : 0);
+  return rubPassage(startId, endId);
+}

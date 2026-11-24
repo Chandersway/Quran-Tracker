@@ -32,6 +32,7 @@ import {
   LocalReminderFailureNotice,
   PlanningReminderCoordinator,
 } from '../../features/planning/components/PlanningReminderCoordinator';
+import { HomeWidgetSync } from '../../features/homeWidget/components/HomeWidgetSync';
 import { ReadingPlanScreen } from '../../features/planning/screens/ReadingPlanScreen';
 import { FocusFloatingTimer } from '../../features/practice/providers/FocusProvider';
 import { ChecklistScreen } from '../../features/practice/screens/ChecklistScreen';
@@ -92,6 +93,7 @@ export function AppNavigator() {
       <PushNotificationHandler />
       <GroupJoinLinkHandler />
       <PlanningReminderCoordinator />
+      <HomeWidgetSync />
       <StatusBar style={dark ? 'light' : 'dark'} />
       {!state.preferences.onboardingComplete ? (
         <OnboardingScreen />

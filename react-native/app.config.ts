@@ -44,6 +44,7 @@ const config: ExpoConfig = {
     './plugins/withMushafTextGestures',
     './plugins/withPdfRuntime',
     './plugins/withMushafPdfCrop',
+    './plugins/withQuranGoalWidget',
     'expo-dev-client',
     'expo-apple-authentication',
     [

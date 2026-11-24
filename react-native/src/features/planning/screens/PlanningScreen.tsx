@@ -30,7 +30,12 @@ import {
   type AgendaReminderPreset,
 } from '../../../domain/agenda';
 import { planIdentity } from '../../../domain/planning';
-import { plannedPassageTitle, rubPassage, rubPassageLabel } from '../../../domain/plannedPassage';
+import {
+  plannedPassage,
+  plannedPassageTitle,
+  rubPassage,
+  rubPassageLabel,
+} from '../../../domain/plannedPassage';
 import { progressForGoal } from '../../../domain/goals';
 import { useI18n } from '../../../i18n';
 import { usePalette } from '../../../shared/theme';
@@ -190,21 +195,7 @@ export function PlanningScreen() {
     }
   }
   function openPlan(plan: Plan) {
-    if (plan.type === 'surah')
-      return nav.navigate('Mushaf', { surah: plan.referenceId, planId: plan.id });
-    const startId =
-      plan.type === 'khatma'
-        ? plan.referenceId
-        : plan.type === 'juz'
-          ? (plan.referenceId - 1) * 8 + 1
-          : plan.type === 'hizb'
-            ? (plan.referenceId - 1) * 4 + 1
-            : (plan.referenceId - 1) * 4 + plan.subId;
-    const endId =
-      plan.type === 'khatma'
-        ? plan.subId
-        : startId + (plan.type === 'juz' ? 7 : plan.type === 'hizb' ? 3 : 0);
-    const passage = rubPassage(startId, endId);
+    const passage = plannedPassage(plan);
     if (passage) nav.navigate('Mushaf', { ...passage, planId: plan.id });
   }
   function openReminder(plan: Plan) {
