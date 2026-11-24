@@ -47,7 +47,7 @@ export function MainScreen() {
         />
         <View style={{ flex: 1, gap: 2 }}>
           <T size={25} bold>
-            {t('app.stats')}
+            {t('app.quranTracker')}
           </T>
           <T muted size={12}>
             {new Date().toLocaleDateString(locale, {
