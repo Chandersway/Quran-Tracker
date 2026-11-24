@@ -33,7 +33,7 @@ export function SurahActionsSheet({
       <Button
         title={t('common.open')}
         icon="book-open"
-        onPress={() => finish(() => nav.navigate('Mushaf', { surah }))}
+        onPress={() => finish(() => nav.navigate('Mushaf', { surah, ayah: 1 }))}
       />
       <Button
         title={t('navigation.notes')}

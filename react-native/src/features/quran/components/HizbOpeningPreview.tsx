@@ -22,8 +22,17 @@ export function HizbTitle({ number }: { number: number }) {
   );
 }
 
-/** Independent of row navigation and progress controls; hidden until requested. */
-export function HizbOpeningPreview({ number }: { number: number }) {
+const openCopy = {
+  nl: 'Hizb openen',
+  en: 'Open hizb',
+  ar: 'فتح الحزب',
+} as const;
+
+/**
+ * The opening verse of a hizb. With `onOpen` the verse itself and an explicit
+ * button open the hizb, so it is clear how to start reading it.
+ */
+export function HizbOpeningPreview({ number, onOpen }: { number: number; onOpen?: () => void }) {
   const [expanded, setExpanded] = useState(false);
   const { state } = useAppStore();
   const { t, format, locale } = useI18n();
@@ -37,39 +46,75 @@ export function HizbOpeningPreview({ number }: { number: number }) {
   );
   return (
     <View style={{ gap: 8, marginTop: 8 }}>
-      <T
-        arabic
-        translate={false}
-        accessibilityLanguage="ar"
-        size={17}
-        style={{ textAlign: 'right', writingDirection: 'rtl' }}
-      >
-        {ayah.text}
-      </T>
       <Pressable
-        testID={`hizb_translation_toggle_${number}`}
-        accessibilityRole="button"
-        accessibilityLabel={`${toggleLabel} · ${format('common.hizbNumber', number)}`}
-        accessibilityState={{ expanded }}
-        onPress={() => setExpanded((value) => !value)}
-        style={({ pressed }) => ({
-          minHeight: 44,
-          alignSelf: 'flex-start',
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 8,
-          paddingHorizontal: 12,
-          paddingVertical: 8,
-          borderRadius: 10,
-          backgroundColor: p.subtle,
-          opacity: pressed ? 0.7 : 1,
-        })}
+        disabled={!onOpen}
+        accessibilityRole={onOpen ? 'button' : undefined}
+        accessibilityLabel={
+          onOpen ? `${openCopy[locale]} · ${format('common.hizbNumber', number)}` : undefined
+        }
+        onPress={onOpen}
+        style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
       >
-        <Icon name={expanded ? 'chevron-up' : 'chevron-down'} size={16} color={p.primary} />
-        <T translate={false} size={12} bold color={p.primary} style={{ flexShrink: 1 }}>
-          {toggleLabel}
+        <T
+          arabic
+          translate={false}
+          accessibilityLanguage="ar"
+          size={17}
+          style={{ textAlign: 'right', writingDirection: 'rtl' }}
+        >
+          {ayah.text}
         </T>
       </Pressable>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+        {onOpen ? (
+          <Pressable
+            testID={`hizb_open_${number}`}
+            accessibilityRole="button"
+            accessibilityLabel={`${openCopy[locale]} · ${format('common.hizbNumber', number)}`}
+            onPress={onOpen}
+            style={({ pressed }) => ({
+              minHeight: 44,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+              paddingHorizontal: 14,
+              paddingVertical: 8,
+              borderRadius: 10,
+              backgroundColor: p.primary,
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <Icon name="book-open" size={16} color={p.onPrimary} />
+            <T translate={false} size={13} bold color={p.onPrimary}>
+              {openCopy[locale]}
+            </T>
+          </Pressable>
+        ) : null}
+        <Pressable
+          testID={`hizb_translation_toggle_${number}`}
+          accessibilityRole="button"
+          accessibilityLabel={`${toggleLabel} · ${format('common.hizbNumber', number)}`}
+          accessibilityState={{ expanded }}
+          onPress={() => setExpanded((value) => !value)}
+          style={({ pressed }) => ({
+            minHeight: 44,
+            alignSelf: 'flex-start',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+            paddingHorizontal: 12,
+            paddingVertical: 8,
+            borderRadius: 10,
+            backgroundColor: p.subtle,
+            opacity: pressed ? 0.7 : 1,
+          })}
+        >
+          <Icon name={expanded ? 'chevron-up' : 'chevron-down'} size={16} color={p.primary} />
+          <T translate={false} size={12} bold color={p.primary} style={{ flexShrink: 1 }}>
+            {toggleLabel}
+          </T>
+        </Pressable>
+      </View>
       {expanded && (
         <T
           testID={`hizb_translation_${number}`}

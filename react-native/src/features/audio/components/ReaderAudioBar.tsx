@@ -10,6 +10,8 @@ import { audioTime } from '../model/audioLabels';
 import { readerAudioCopy } from '../model/readerAudioCopy';
 import { useAudio } from '../providers/audioContext';
 import { MediaSettingsSheet } from './MediaSettings';
+import { RepeatSheet } from './RepeatSheet';
+import { audioCopy } from '../model/audioCopy';
 
 /** A deliberate, dismissible reader overlay backed by the app's single audio player. */
 export function ReaderAudioBar({
@@ -27,6 +29,7 @@ export function ReaderAudioBar({
   const copy = readerAudioCopy[locale];
   const insets = useSafeAreaInsets();
   const [recitersOpen, setRecitersOpen] = useState(false);
+  const [repeatOpen, setRepeatOpen] = useState(false);
   const offset = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const dismiss = useRef(onDismiss);
   dismiss.current = onDismiss;
@@ -153,6 +156,12 @@ export function ReaderAudioBar({
               {audio.rate}×
             </T>
           </Pressable>
+          <IconButton
+            name="repeat"
+            label={audioCopy(locale, 'repeatHeading')}
+            selected={current && (audio.selection || audio.repeatEnabled)}
+            onPress={() => setRepeatOpen(true)}
+          />
           {loading ? (
             <View
               style={{ width: 48, height: 48, alignItems: 'center', justifyContent: 'center' }}
@@ -196,6 +205,13 @@ export function ReaderAudioBar({
         visible={recitersOpen}
         onClose={() => setRecitersOpen(false)}
         surah={surah}
+      />
+      <RepeatSheet
+        key={surah}
+        visible={repeatOpen}
+        onClose={() => setRepeatOpen(false)}
+        surah={surah}
+        warsh={current && !!audio.track && /warsh|ورش/i.test(audio.track.riwaya)}
       />
     </>
   );

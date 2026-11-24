@@ -57,6 +57,35 @@ const copy = {
     nl: 'Het downloaden is niet voltooid. Probeer opnieuw.',
     ar: 'لم يكتمل التنزيل. حاول مرة أخرى.',
   },
+  playerTitle: { en: 'Player', nl: 'Speler', ar: 'المشغل' },
+  openPlayer: { en: 'Open player', nl: 'Speler openen', ar: 'فتح المشغل' },
+  repeatHeading: { en: 'Repeat', nl: 'Herhalen', ar: 'التكرار' },
+  repeatSurah: {
+    en: 'Repeat this surah',
+    nl: 'Deze soera herhalen',
+    ar: 'تكرار هذه السورة',
+  },
+  repeatSurahHint: {
+    en: 'Starts the surah again when it ends.',
+    nl: 'Begint de soera opnieuw zodra hij klaar is.',
+    ar: 'تبدأ السورة من جديد عند انتهائها.',
+  },
+  repeatPassage: {
+    en: 'Repeat verses or a page',
+    nl: 'Verzen of pagina herhalen',
+    ar: 'تكرار آيات أو صفحة',
+  },
+  repeatPassageHint: {
+    en: 'Choose verses, a page or the whole surah, and how many rounds.',
+    nl: 'Kies verzen, een pagina of de hele soera, en hoeveel rondes.',
+    ar: 'اختر آيات أو صفحة أو السورة كاملة، وعدد الدورات.',
+  },
+  repeatActive: { en: 'Repeating', nl: 'Wordt herhaald', ar: 'قيد التكرار' },
+  noTrack: {
+    en: 'Nothing is playing. Open a surah and tap Listen.',
+    nl: 'Er speelt niets. Open een soera en tik op Luisteren.',
+    ar: 'لا يوجد تشغيل. افتح سورة واضغط استماع.',
+  },
 } as const;
 
 export function audioCopy(locale: Language, key: keyof typeof copy): string {

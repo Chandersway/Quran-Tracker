@@ -27,6 +27,12 @@ import {
   savedBookmarkTarget,
 } from '../../bookmarks/bookmarks';
 
+const partOpenHint = {
+  nl: 'Tik op een deel om het te openen en te lezen. Houd ingedrukt of tik op ··· voor meer acties.',
+  en: 'Tap a part to open and read it. Long-press or tap ··· for more actions.',
+  ar: 'اضغط على الجزء لفتحه وقراءته. اضغط مطولًا أو على ··· لمزيد من الإجراءات.',
+} as const;
+
 export function QuranScreen() {
   const nav = useAppNavigation();
   const p = usePalette();
@@ -121,6 +127,11 @@ export function QuranScreen() {
           { value: 'saved', label: 'Saved' },
         ]}
       />
+      {mode === 'juz' || mode === 'hizb' || mode === 'rub' ? (
+        <T translate={false} muted size={13} style={{ marginTop: 8 }}>
+          {partOpenHint[locale]}
+        </T>
+      ) : null}
       {mode === 'surah' ? (
         <FlatList
           data={filtered}
@@ -159,7 +170,7 @@ export function QuranScreen() {
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={`${c.name}, ${format(c.verseCount === 1 ? 'surah.ayahCount.one' : 'surah.ayahCount.other', c.verseCount)}`}
-                onPress={() => nav.navigate('Mushaf', { surah: c.id })}
+                onPress={() => nav.navigate('Mushaf', { surah: c.id, ayah: 1 })}
                 onLongPress={() => setSelectedSurah(c.id)}
                 style={({ pressed }) => [
                   s.row,
@@ -288,6 +299,7 @@ export function QuranScreen() {
                         {d.surah}:{d.ayah} · {t('app.groupPage')} {d.page}
                       </T>
                     </View>
+                    <Icon name="chevron-right" mirrorInRtl size={18} color={p.primary} />
                   </Pressable>
                   <NoteCountButton target={{ scope: 'hizb', number: d.hizb }} />
                   <IconButton
@@ -296,7 +308,7 @@ export function QuranScreen() {
                     onPress={() => partActions(d)}
                   />
                 </View>
-                <HizbOpeningPreview number={d.hizb} />
+                <HizbOpeningPreview number={d.hizb} onOpen={() => openPart(d)} />
               </View>
             ) : (
               <View
@@ -331,6 +343,7 @@ export function QuranScreen() {
                       {t('app.groupPage')} {d.page}
                     </T>
                   </View>
+                  <Icon name="chevron-right" mirrorInRtl size={18} color={p.primary} />
                 </Pressable>
                 <NoteCountButton
                   target={{

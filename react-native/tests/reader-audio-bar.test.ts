@@ -78,6 +78,8 @@ function mount() {
       '../model/readerAudioCopy': { readerAudioCopy },
       '../providers/audioContext': { useAudio: () => audio },
       './MediaSettings': { MediaSettingsSheet: 'MediaSettingsSheet' },
+      './RepeatSheet': { RepeatSheet: 'RepeatSheet' },
+      '../model/audioCopy': { audioCopy: (_locale: string, key: string) => key },
     },
   );
   return {
@@ -173,4 +175,16 @@ test('swiping down or sideways and closing hide the bar without stopping the aud
   assert.equal(app.stops, 0);
   assert.equal(app.pauses, 0);
   assert.equal(app.audio.isPlaying, true);
+});
+
+test('the reader bar opens the repeat choices for the open surah without touching playback', () => {
+  const app = mount();
+  let tree = app.render();
+  assert.equal(elements(tree, 'RepeatSheet')[0]!.props.visible, false);
+  press(findElement(tree, 'IconButton', 'name', 'repeat'));
+  tree = app.render();
+  const sheet = elements(tree, 'RepeatSheet')[0]!;
+  assert.equal(sheet.props.visible, true);
+  assert.equal(sheet.props.surah, 2);
+  assert.equal(app.pauses + app.resumes + app.starts + app.stops, 0);
 });

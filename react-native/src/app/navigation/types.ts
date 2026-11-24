@@ -57,5 +57,6 @@ export type RootStack = {
   Books: undefined;
   BookReader: { bookId: string; title: string };
   Checklist: undefined;
+  Player: undefined;
 };
 export const useAppNavigation = () => useNavigation<NativeStackNavigationProp<RootStack>>();

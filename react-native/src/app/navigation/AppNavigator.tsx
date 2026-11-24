@@ -18,6 +18,8 @@ import { AccountScreen } from '../../features/account/screens/AccountScreen';
 import { NotificationsScreen } from '../../features/account/screens/NotificationsScreen';
 import { SettingsScreen } from '../../features/account/screens/SettingsScreen';
 import { MiniPlayer } from '../../features/audio/providers/AudioProvider';
+import { PlayerScreen } from '../../features/audio/screens/PlayerScreen';
+import { audioCopy } from '../../features/audio/model/audioCopy';
 import { GroupJoinLinkHandler } from '../../features/groups/components/GroupJoinLinkHandler';
 import { GroupScreen } from '../../features/groups/screens/GroupScreen';
 import { GroupChatScreen } from '../../features/groups/screens/GroupChatScreen';
@@ -59,6 +61,7 @@ const Stack = createNativeStackNavigator<RootStack>();
 export function AppNavigator() {
   const navigation = useNavigationContainerRef<RootStack>();
   const [immersiveReader, setImmersiveReader] = useState(false);
+  const [routeName, setRouteName] = useState<string | undefined>();
   const chromeOwners = useRef(createReaderChromeOwners());
   const setReaderChrome = useCallback((owner: symbol, immersive: boolean) => {
     setImmersiveReader(chromeOwners.current(owner, immersive));
@@ -95,6 +98,7 @@ export function AppNavigator() {
       ) : (
         <NavigationContainer
           ref={navigation}
+          onStateChange={() => setRouteName(navigation.getCurrentRoute()?.name)}
           direction={direction}
           linking={linking}
           theme={{
@@ -200,6 +204,11 @@ export function AppNavigator() {
                     options={({ route }) => ({ title: route.params.title })}
                   />
                   <Stack.Screen
+                    name="Player"
+                    component={PlayerScreen}
+                    options={{ title: audioCopy(locale, 'playerTitle') }}
+                  />
+                  <Stack.Screen
                     name="Stats"
                     component={StatsScreen}
                     options={{ title: t('Your practice') }}
@@ -256,7 +265,13 @@ export function AppNavigator() {
                   />
                 </Stack.Navigator>
               </View>
-              {!immersiveReader && <MiniPlayer />}
+              {!immersiveReader && routeName !== 'Player' && (
+                <MiniPlayer
+                  onOpen={() => {
+                    if (navigation.isReady()) navigation.navigate('Player');
+                  }}
+                />
+              )}
               <FocusFloatingTimer
                 onBook={immersiveReader && navigation.getCurrentRoute()?.name === 'Mushaf'}
               />

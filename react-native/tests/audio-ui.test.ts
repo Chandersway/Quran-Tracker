@@ -113,7 +113,7 @@ function fixture(preferences: Partial<typeof initialState.preferences> = {}) {
     '../providers/audioContext': { useAudio: () => audio },
     '../model/audioCopy': copy,
     '../model/audioLabels': labels,
-    './AudioPlayerSheet': { AudioPlayerSheet: 'AudioPlayerSheet' },
+    './RepeatSheet': { RepeatSheet: 'RepeatSheet' },
     './AudioSeekBar': { AudioSeekBar: 'AudioSeekBar' },
   };
   return { modules, calls, audio, store, service };
@@ -354,34 +354,33 @@ test('saving a Hafs range downloads each verse and surfaces a failure without st
   );
 });
 
-test('actual mini player tap and upward swipe expand; speed, both seeks, pause/resume and stop are reachable', async () => {
+test('compact mini player opens the player page on tap and upward swipe; repeat, pause/resume and stop are one tap away', async () => {
   const f = fixture();
   f.audio.track = track();
+  let opens = 0;
   const app = mountHookComponent(
     'src/features/audio/components/MiniPlayer.tsx',
     'MiniPlayer',
     f.modules,
+    { onOpen: () => opens++ },
   );
   app.find('Pressable', (node) => node.props.testID === 'audio-mini-expand').props.onPress();
-  await app.settle();
-  assert.equal(app.find('AudioPlayerSheet').props.visible, true);
-  app.find('AudioPlayerSheet').props.onClose();
-  await app.settle();
+  assert.equal(opens, 1);
   const player = app.find('View', (node) => node.props.testID === 'audio-mini-player');
   assert.equal(player.props.onMoveShouldSetPanResponder(null, { dx: 2, dy: -20 }), true);
   assert.equal(player.props.onMoveShouldSetPanResponder(null, { dx: 40, dy: -20 }), false);
   player.props.onPanResponderRelease(null, { dx: 0, dy: -25 });
+  assert.equal(opens, 2);
+  assert.equal(app.find('RepeatSheet').props.visible, false);
+  app.find('IconButton', (node) => node.props.name === 'repeat').props.onPress();
   await app.settle();
-  assert.equal(app.find('AudioPlayerSheet').props.visible, true);
-  app.find('Pressable', (node) => node.props.testID === 'audio-mini-speed').props.onPress();
-  app.find('IconButton', (node) => node.props.name === 'rewind').props.onPress();
-  app.find('IconButton', (node) => node.props.name === 'fast-forward').props.onPress();
+  assert.equal(app.find('RepeatSheet').props.visible, true);
+  assert.equal(app.find('RepeatSheet').props.surah, 1);
+  app.find('RepeatSheet').props.onClose();
+  await app.settle();
   app.find('IconButton', (node) => node.props.name === 'play').props.onPress();
-  app.find('IconButton', (node) => node.props.name === 'square').props.onPress();
+  app.find('IconButton', (node) => node.props.name === 'x').props.onPress();
   assert.deepEqual(f.calls, [
-    { kind: 'rate', values: [1.25] },
-    { kind: 'seek', values: [35] },
-    { kind: 'seek', values: [55] },
     { kind: 'resume', values: [] },
     { kind: 'stop', values: [] },
   ]);
@@ -408,10 +407,12 @@ test('native mini upward move survives should-set, grant reset and immediate rel
   const f = fixture();
   f.audio.track = track();
   f.modules['react-native'].PanResponder = nativePanResponder();
+  let opens = 0;
   const app = mountHookComponent(
     'src/features/audio/components/MiniPlayer.tsx',
     'MiniPlayer',
     f.modules,
+    { onOpen: () => opens++ },
   );
   const player = app.find('View', (node) => node.props.testID === 'audio-mini-player');
   const touch = {
@@ -453,5 +454,5 @@ test('native mini upward move survives should-set, grant reset and immediate rel
   history.numberActiveTouches = 0;
   player.props.onResponderRelease(event());
   await app.settle();
-  assert.equal(app.find('AudioPlayerSheet').props.visible, true);
+  assert.equal(opens, 1);
 });
