@@ -6,7 +6,7 @@ import type { Group } from '../../../services/backend/types';
 import type { GroupLeaderboardRow } from '../../../services/groups/groupTypes';
 import { groupDashboard } from '../../../services/groups/groupMetrics';
 import { Card, Row, T } from '../../../shared/components';
-import { groupReadingLabel } from '../groupProgressCopy';
+import { groupProgressText, groupReadingLabel } from '../groupProgressCopy';
 import { ResourceState, useGroupResource } from './groupUi';
 import { GroupProgressSummary } from './GroupProgressSummary';
 import { GroupMemberReadingSheet } from './GroupMemberReadingSheet';
@@ -32,7 +32,9 @@ export function GroupOverviewPanel({ backend, group }: { backend: Backend; group
           const row = summary[period];
           return row ? (
             <View key={period}>
-              <T muted>{t(`group.${period}`)}</T>
+              <T muted>
+                {groupProgressText(period === 'bestWeek' ? 'bestLast7' : 'bestLast30', locale)}
+              </T>
               <Row
                 title={row.displayName}
                 translateTitle={false}

@@ -57,7 +57,8 @@ test('Lane bundle has complete exact-heading coverage, source metadata and origi
       assert.ok(String(entry.definition).length > 0);
     }
   }
-  const license = readFileSync('assets/lexicon/LANE-LICENSE.txt', 'utf8');
+  // Line endings are normalised so a Windows checkout with core.autocrlf still compares the text.
+  const license = readFileSync('assets/lexicon/LANE-LICENSE.txt', 'utf8').replace(/\r\n/g, '\n');
   assert.equal(JSON.parse(readFileSync('assets/lexicon/lane-license.json', 'utf8')).text, license);
   assert.match(license, /GNU GENERAL PUBLIC LICENSE/);
   assert.equal(provenance.sourceSha256, mapping.laneInputSha256);

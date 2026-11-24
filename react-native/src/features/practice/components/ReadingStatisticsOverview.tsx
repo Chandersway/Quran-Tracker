@@ -73,9 +73,12 @@ function StatisticsSection({
 /** Shared Home/Stats circles use the same rows and detail membership. */
 export function ReadingStatisticsOverview({
   home = false,
+  embedded = false,
   beforeHistory,
 }: {
   home?: boolean;
+  /** Inside the Stats page tabs: the page owns the header, streaks, Hifz and reset. */
+  embedded?: boolean;
   beforeHistory?: React.ReactNode;
 }) {
   const p = usePalette();
@@ -235,7 +238,7 @@ export function ReadingStatisticsOverview({
       },
     ]);
   }
-  const Container = home ? View : Screen;
+  const Container = home || embedded ? View : Screen;
   return (
     <Container>
       <View
@@ -289,14 +292,16 @@ export function ReadingStatisticsOverview({
           </View>
         ) : (
           <>
-            <StatisticsSurface style={[styles.header, { borderBottomColor: p.line }]}>
-              <ArabicWatermark label={sourceText('app.stats', 'ar')} large />
-              <T size={home ? 28 : 34} bold>
-                {t(home ? 'stats.overviewTitle' : 'app.stats')}
-              </T>
-              {!home && <T muted>{format('stats.totalActions', overview.readActions)}</T>}
-            </StatisticsSurface>
-            {!home && (
+            {!embedded && (
+              <StatisticsSurface style={[styles.header, { borderBottomColor: p.line }]}>
+                <ArabicWatermark label={sourceText('app.stats', 'ar')} large />
+                <T size={home ? 28 : 34} bold>
+                  {t(home ? 'stats.overviewTitle' : 'app.stats')}
+                </T>
+                {!home && <T muted>{format('stats.totalActions', overview.readActions)}</T>}
+              </StatisticsSurface>
+            )}
+            {!home && !embedded && (
               <StatisticsSurface style={[s.row, { gap: 24, flexDirection: 'row' }]}>
                 <View style={{ flex: 1, gap: 4 }}>
                   <T size={38} bold>
@@ -554,77 +559,81 @@ export function ReadingStatisticsOverview({
             })}
             {!home && (
               <>
-                <StatisticsSection
-                  title={t('inline.StatsScreen.47a2e98e72')}
-                  arabicLabel={sourceText('app.hifz', 'ar')}
-                >
-                  <View style={{ alignItems: 'center', gap: 24 }}>
-                    <ProgressRing
-                      value={(mastery ?? 0) / 100}
-                      label={t('inline.StatsScreen.47a2e98e72')}
-                      primary={mastery === null ? '\u2014' : `${mastery.toLocaleString(locale)}%`}
-                      size={188}
-                    />
-                    <T muted>
-                      {format(
-                        'hifz.assessed',
-                        assessed.length.toLocaleString(locale),
-                        (60).toLocaleString(locale),
-                      )}
-                    </T>
-                  </View>
-                  <T muted size={13}>
-                    {t('inline.StatsScreen.0306a1b5dd')}
-                  </T>
-                </StatisticsSection>
-                <StatisticsSection title={t('stats.weeklyActivity')}>
-                  {!activity.length ? (
-                    <T muted>{t('stats.noWeeklyActivity')}</T>
-                  ) : (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        height: 176,
-                        gap: 12,
-                        borderBottomWidth: StyleSheet.hairlineWidth,
-                        borderBottomColor: p.line,
-                        paddingBottom: 16,
-                      }}
-                    >
-                      {activity.map(({ date: day, count }) => (
-                        <View
-                          key={day}
-                          style={{
-                            flex: 1,
-                            justifyContent: 'flex-end',
-                            alignItems: 'center',
-                            gap: 8,
-                          }}
-                        >
-                          <T size={12} muted style={styles.numeral}>
-                            {count.toLocaleString(locale)}
-                          </T>
-                          <View
-                            style={{
-                              width: '100%',
-                              maxWidth: 32,
-                              height: Math.max(5, (count / maximum) * 100),
-                              backgroundColor: day === today ? p.primary : p.lime,
-                              borderTopLeftRadius: 4,
-                              borderTopRightRadius: 4,
-                            }}
-                          />
-                          <T size={12} muted>
-                            {new Date(`${day}T12:00:00`).toLocaleDateString(locale, {
-                              weekday: 'narrow',
-                            })}
-                          </T>
-                        </View>
-                      ))}
+                {!embedded && (
+                  <StatisticsSection
+                    title={t('inline.StatsScreen.47a2e98e72')}
+                    arabicLabel={sourceText('app.hifz', 'ar')}
+                  >
+                    <View style={{ alignItems: 'center', gap: 24 }}>
+                      <ProgressRing
+                        value={(mastery ?? 0) / 100}
+                        label={t('inline.StatsScreen.47a2e98e72')}
+                        primary={mastery === null ? '\u2014' : `${mastery.toLocaleString(locale)}%`}
+                        size={188}
+                      />
+                      <T muted>
+                        {format(
+                          'hifz.assessed',
+                          assessed.length.toLocaleString(locale),
+                          (60).toLocaleString(locale),
+                        )}
+                      </T>
                     </View>
-                  )}
-                </StatisticsSection>
+                    <T muted size={13}>
+                      {t('inline.StatsScreen.0306a1b5dd')}
+                    </T>
+                  </StatisticsSection>
+                )}
+                {!embedded && (
+                  <StatisticsSection title={t('stats.weeklyActivity')}>
+                    {!activity.length ? (
+                      <T muted>{t('stats.noWeeklyActivity')}</T>
+                    ) : (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          height: 176,
+                          gap: 12,
+                          borderBottomWidth: StyleSheet.hairlineWidth,
+                          borderBottomColor: p.line,
+                          paddingBottom: 16,
+                        }}
+                      >
+                        {activity.map(({ date: day, count }) => (
+                          <View
+                            key={day}
+                            style={{
+                              flex: 1,
+                              justifyContent: 'flex-end',
+                              alignItems: 'center',
+                              gap: 8,
+                            }}
+                          >
+                            <T size={12} muted style={styles.numeral}>
+                              {count.toLocaleString(locale)}
+                            </T>
+                            <View
+                              style={{
+                                width: '100%',
+                                maxWidth: 32,
+                                height: Math.max(5, (count / maximum) * 100),
+                                backgroundColor: day === today ? p.primary : p.lime,
+                                borderTopLeftRadius: 4,
+                                borderTopRightRadius: 4,
+                              }}
+                            />
+                            <T size={12} muted>
+                              {new Date(`${day}T12:00:00`).toLocaleDateString(locale, {
+                                weekday: 'narrow',
+                              })}
+                            </T>
+                          </View>
+                        ))}
+                      </View>
+                    )}
+                  </StatisticsSection>
+                )}
                 <StatisticsSection title={t('stats.recentHistory')} reveal={false}>
                   <StatisticsHistory history={state.history} renderRow={historyRow} />
                 </StatisticsSection>
@@ -652,19 +661,21 @@ export function ReadingStatisticsOverview({
                     )}
                   </T>
                 </StatisticsSection>
-                <View
-                  style={{
-                    gap: 12,
-                    paddingTop: 24,
-                    borderTopWidth: StyleSheet.hairlineWidth,
-                    borderTopColor: p.line,
-                  }}
-                >
-                  <Button title="stats.clearData" variant="danger" onPress={clearReading} />
-                  <T muted size={12}>
-                    {t('stats.clearDescription')}
-                  </T>
-                </View>
+                {!embedded && (
+                  <View
+                    style={{
+                      gap: 12,
+                      paddingTop: 24,
+                      borderTopWidth: StyleSheet.hairlineWidth,
+                      borderTopColor: p.line,
+                    }}
+                  >
+                    <Button title="stats.clearData" variant="danger" onPress={clearReading} />
+                    <T muted size={12}>
+                      {t('stats.clearDescription')}
+                    </T>
+                  </View>
+                )}
               </>
             )}
           </>

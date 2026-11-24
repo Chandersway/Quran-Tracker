@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import type { Backend } from '../../../services/backend/backend';
 import type { Group } from '../../../services/backend/types';
 import type { GroupLeaderboardRow } from '../../../services/groups/groupTypes';
-import { groupReadingTotals } from '../../../services/groups/groupMetrics';
+import { groupPeriodPages } from '../../../services/groups/groupMetrics';
 import { canShareGroupProgress, groupProgressInput } from '../../../services/groups/groupProgress';
 import { useI18n } from '../../../i18n';
 import { Button, Card, Empty, Field, Notice, Row, Segments, T } from '../../../shared/components';
@@ -12,7 +12,16 @@ import { groupProgressText, groupReadingLabel } from '../groupProgressCopy';
 import { GroupProgressSummary } from './GroupProgressSummary';
 import { GroupMemberReadingSheet } from './GroupMemberReadingSheet';
 
-export function GroupProgressPanel({ backend, group }: { backend: Backend; group: Group }) {
+export function GroupProgressPanel({
+  backend,
+  group,
+  accountId,
+}: {
+  backend: Backend;
+  group: Group;
+  /** The signed-in reader, highlighted as "You" in the ranking. */
+  accountId?: string;
+}) {
   const { t, format, locale } = useI18n();
   const resource = useGroupResource(
     () => backend.groups.listLeaderboard(group.code),
@@ -81,20 +90,26 @@ export function GroupProgressPanel({ backend, group }: { backend: Backend; group
         value={period}
         options={[
           { value: 'total', label: t('app.groupProgress.total') },
-          { value: 'week', label: t('app.groupProgress.week') },
-          { value: 'month', label: t('app.groupProgress.month') },
+          { value: 'week', label: groupProgressText('last7', locale) },
+          { value: 'month', label: groupProgressText('last30', locale) },
         ]}
         onChange={setPeriod}
       />
+      {sorted.length ? (
+        <T muted size={13}>
+          {groupProgressText('pointsExplain', locale)}
+        </T>
+      ) : null}
       {sorted.map((row, index) => {
-        const totals = groupReadingTotals(row.entries);
+        const pages = groupPeriodPages(row, period === 'week' ? 7 : period === 'month' ? 30 : null);
+        const mine = accountId !== undefined && row.userId === accountId;
         return (
           <Row
             key={row.userId}
-            title={`${(index + 1).toLocaleString(locale)}. ${row.displayName}`}
+            title={`${(index + 1).toLocaleString(locale)}. ${row.displayName}${mine ? ` (${groupProgressText('you', locale)})` : ''}`}
             translateTitle={false}
             translateSubtitle={false}
-            subtitle={`${row.pages.toLocaleString(locale)} ${t('app.groupUnitOption.pages')} · ${totals.juz.toLocaleString(locale)} ${t('app.groupUnitOption.juzs')} · ${totals.hizb.toLocaleString(locale)} ${t('app.groupUnitOption.hizbs')} · ${totals.surah.toLocaleString(locale)} ${t('app.groupUnitOption.surahs')}\n${groupProgressText('streakDays', locale)}: ${row.streak.toLocaleString(locale)} · ${groupProgressText(row.activeToday ? 'readToday' : 'noReadingToday', locale)}`}
+            subtitle={`${pages.toLocaleString(locale)} ${groupProgressText('pagesUnit', locale)} · ${groupProgressText('streak', locale)} ${row.streak.toLocaleString(locale)}\n${groupProgressText(row.activeToday ? 'readToday' : 'noReadingToday', locale)}`}
             trailing={
               <T bold>
                 {points(row).toLocaleString(locale)} {t('app.points')}

@@ -512,7 +512,9 @@ function GroupContent({
               {tab === 'members' ? <GroupMembersPanel backend={backend} group={group} /> : null}
               {tab === 'media' ? <GroupMediaPanel backend={backend} group={group} /> : null}
               {tab === 'events' ? <GroupEventsPanel backend={backend} group={group} /> : null}
-              {tab === 'progress' ? <GroupProgressPanel backend={backend} group={group} /> : null}
+              {tab === 'progress' ? (
+                <GroupProgressPanel backend={backend} group={group} accountId={accountId} />
+              ) : null}
               {tab === 'notices' ? (
                 <GroupNoticesPanel backend={backend} group={group} openPost={openPost} />
               ) : null}

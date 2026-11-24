@@ -3,6 +3,8 @@ param(
     [ValidatePattern('^(arm64-v8a|x86_64|armeabi-v7a|x86)(,(arm64-v8a|x86_64|armeabi-v7a|x86))*$')]
     [string]$Architectures = 'arm64-v8a,x86_64',
     [switch]$SkipChecks,
+    # Typecheck and tests only: no lint/Prettier, so line endings cannot block a test APK.
+    [switch]$SkipFormat,
     [switch]$DryRun
 )
 
@@ -54,7 +56,11 @@ if (-not $env:WIRDNA_NATIVE_BUILD_DIR) {
     $env:WIRDNA_NATIVE_BUILD_DIR = Join-Path ([IO.Path]::GetPathRoot($projectRoot)) 'wirdna-native-build'
 }
 
-if (-not $SkipChecks) {
+if ($SkipChecks) {
+} elseif ($SkipFormat) {
+    Invoke-Checked 'npm.cmd' @('run', 'typecheck')
+    Invoke-Checked 'npm.cmd' @('test')
+} else {
     Invoke-Checked 'npm.cmd' @('run', 'verify')
     Invoke-Checked 'npm.cmd' @('run', 'format:check')
 }

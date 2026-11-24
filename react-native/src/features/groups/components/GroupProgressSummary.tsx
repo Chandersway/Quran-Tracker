@@ -44,7 +44,6 @@ export function GroupReadingTotals({ entries }: { entries: readonly GroupProgres
         { label: groupProgressText('readings', locale), value: totals.readings },
         { label: groupProgressText('pageEquivalent', locale), value: totals.pages },
         { label: t('app.groupUnitOption.ayahs'), value: totals.ayahs },
-        { label: t('group.manualPageProgress'), value: totals.manualPages },
         { label: t('app.groupUnitOption.juzs'), value: totals.juz },
         { label: t('app.groupUnitOption.hizbs'), value: totals.hizb },
         { label: t('app.groupUnitOption.surahs'), value: totals.surah },

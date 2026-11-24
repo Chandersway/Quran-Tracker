@@ -478,7 +478,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-          "line": 96,
+          "line": 99,
           "symbol": "type: statsReadingBuckets"
         },
         {
@@ -545,7 +545,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/components/ReadingStatisticsOverview.tsx",
-          "line": 225,
+          "line": 228,
           "symbol": "function clearReading"
         }
       ],
@@ -906,7 +906,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/groups/components/GroupProgressPanel.tsx",
-          "line": 18,
+          "line": 27,
           "symbol": "listLeaderboard"
         }
       ],
@@ -1090,12 +1090,12 @@
       "reactNativeEvidence": [
         {
           "path": "src/state/reducer.ts",
-          "line": 421,
+          "line": 423,
           "symbol": "case 'mushaf/position'"
         },
         {
           "path": "src/state/reducer.ts",
-          "line": 443,
+          "line": 445,
           "symbol": "case 'mushaf/bookmark'"
         },
         {

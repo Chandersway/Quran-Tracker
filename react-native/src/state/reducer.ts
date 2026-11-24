@@ -126,6 +126,8 @@ export type Action =
   | { type: 'focus/finish'; id: string; seconds: number; now: number }
   | { type: 'history/delete'; id: string }
   | { type: 'history/clear' }
+  /** Statistics reset: reading history, read marks and focus time. Hifz scores, notes and plans stay. */
+  | { type: 'stats/clear' }
   | { type: 'reset' };
 
 export const progressKey = (type: QuranProgressKind, number: number, subId = 0): string =>
@@ -567,6 +569,8 @@ export function appReducer(state: AppState, action: Action): AppState {
           ? { ...state.legacyAndroid, checkinRequestIds: [] }
           : null,
       };
+    case 'stats/clear':
+      return { ...appReducer(state, { type: 'history/clear' }), focusSessions: [] };
     case 'reset':
       return {
         ...initialState,

@@ -23,6 +23,7 @@ import { ReadingPlanHomeCard } from '../../planning/components/ReadingPlanHomeCa
 import { RevealBlock } from '../../../shared/components/RevealBlock';
 import { TodayReadingCard } from '../components/TodayReadingCard';
 import { ResumeReadingCard } from '../components/ResumeReadingCard';
+import { StatsShortcutCard } from '../components/StatsShortcutCard';
 
 // Metro resolves bundled image assets through a static require.
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -63,6 +64,7 @@ export function MainScreen() {
         />
       </View>
       <View style={{ gap: 16 }}>
+        <StatsShortcutCard />
         <TodayReadingCard />
         <ResumeReadingCard />
         <ReadingStatisticsOverview home beforeHistory={<HizbOverviewCard />} />

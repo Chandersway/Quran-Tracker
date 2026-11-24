@@ -4,12 +4,32 @@ import { groupReadingNumber, groupReadingReference } from '../../services/groups
 
 const copy = {
   utcDays: {
-    en: 'Group days and periods follow UTC.',
-    nl: 'Groepsdagen en perioden volgen UTC.',
-    ar: 'تتبع أيام المجموعة وفتراتها التوقيت العالمي UTC.',
+    en: 'A group day starts at midnight UTC (01:00 in the Netherlands, 02:00 in summer).',
+    nl: 'Een groepsdag begint om middernacht UTC (in Nederland 01:00, in de zomer 02:00).',
+    ar: 'يبدأ يوم المجموعة عند منتصف الليل بالتوقيت العالمي UTC.',
   },
-  readings: { en: 'Reading entries', nl: 'Leesregistraties', ar: 'سجلات القراءة' },
-  pageEquivalent: { en: 'Page equivalents', nl: 'Pagina-equivalenten', ar: 'ما يعادل الصفحات' },
+  readings: { en: 'Times read', nl: 'Keer gelezen', ar: 'مرات القراءة' },
+  pageEquivalent: { en: 'Pages (estimated)', nl: "Pagina's (geschat)", ar: 'الصفحات (تقديرًا)' },
+  pointsExplain: {
+    en: '1 point = 1 ayah · 1 page = 10 points · 1 Hizb = 103 points',
+    nl: '1 punt = 1 ayah · 1 pagina = 10 punten · 1 hizb = 103 punten',
+    ar: 'نقطة واحدة = آية واحدة · صفحة واحدة = 10 نقاط · حزب واحد = 103 نقاط',
+  },
+  last7: { en: 'Last 7 days', nl: 'Laatste 7 dagen', ar: 'آخر 7 أيام' },
+  last30: { en: 'Last 30 days', nl: 'Laatste 30 dagen', ar: 'آخر 30 يومًا' },
+  bestLast7: {
+    en: 'Best reader, last 7 days',
+    nl: 'Beste lezer, laatste 7 dagen',
+    ar: 'أفضل قارئ في آخر 7 أيام',
+  },
+  bestLast30: {
+    en: 'Best reader, last 30 days',
+    nl: 'Beste lezer, laatste 30 dagen',
+    ar: 'أفضل قارئ في آخر 30 يومًا',
+  },
+  you: { en: 'You', nl: 'Jij', ar: 'أنت' },
+  streak: { en: 'streak', nl: 'streak', ar: 'سلسلة' },
+  pagesUnit: { en: 'pages', nl: "pagina's", ar: 'صفحة' },
   readToday: { en: 'Read today', nl: 'Vandaag gelezen', ar: 'قرأ اليوم' },
   noReadingToday: {
     en: 'No reading today',
