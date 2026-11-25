@@ -108,14 +108,26 @@ export function ReadingBars({ history }: { history: readonly ReadingEntry[] }) {
   const maximum = Math.max(1, ...bars.map((bar) => bar.pages));
   const label = (start: string) => {
     const date = new Date(`${start}T12:00:00`);
+    // Arabic narrow month names collide (يناير/يونيو/يوليو all start with ي): use the month number.
     return period === 'month'
-      ? date.toLocaleDateString(locale, { month: 'narrow' })
+      ? date.toLocaleDateString(locale, { month: locale === 'ar' ? 'numeric' : 'narrow' })
       : period === 'week'
         ? date.toLocaleDateString(locale, { day: 'numeric', month: 'numeric' })
-        : date.toLocaleDateString(locale, { weekday: 'narrow' });
+        : locale === 'ar'
+          ? date.toLocaleDateString(locale, { day: 'numeric' })
+          : date.toLocaleDateString(locale, { weekday: 'narrow' });
   };
   return (
-    <InsightCard title={t('stats.pagesRead')}>
+    <InsightCard
+      title={t('stats.pagesRead')}
+      hint={
+        period === 'week'
+          ? t('ui.stats.barsWeekHint')
+          : period === 'month'
+            ? t('ui.stats.barsMonthHint')
+            : undefined
+      }
+    >
       <Segments
         value={period}
         onChange={setPeriod}
