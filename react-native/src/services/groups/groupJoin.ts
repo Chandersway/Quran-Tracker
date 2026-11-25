@@ -70,7 +70,12 @@ export function buildGroupCode(name: string, timestamp = Date.now()): string {
   return `${prefix}-${String(Math.abs(hash)).slice(-4).padStart(4, '0')}`;
 }
 /** Auth callbacks, malformed links and stale completions cannot erase a valid invitation awaiting confirmation. */
-export function createPendingGroupStore(storage: GroupJoinStorage) {
+/**
+ * A pending invitation only survives onboarding, sign-in and process recreation. After a day it
+ * is stale: replaying it would keep opening that group on every launch.
+ */
+export const PENDING_GROUP_TTL_MS = 24 * 60 * 60 * 1000;
+export function createPendingGroupStore(storage: GroupJoinStorage, now: () => number = Date.now) {
   const key = 'pending-group-invitation-v1';
   let queue: Promise<unknown> = Promise.resolve();
   const serial = <T>(work: () => Promise<T>): Promise<T> => {
@@ -81,7 +86,13 @@ export function createPendingGroupStore(storage: GroupJoinStorage) {
   const read = async (): Promise<GroupJoinTarget | null> => {
     const raw = await storage.getItem(key);
     if (!raw) return null;
-    const row = JSON.parse(raw) as GroupJoinTarget;
+    const row = JSON.parse(raw) as GroupJoinTarget & { savedAt?: unknown };
+    const age = typeof row.savedAt === 'number' ? now() - row.savedAt : Infinity;
+    // Rows from before savedAt existed are treated as stale as well.
+    if (!(age >= 0 && age <= PENDING_GROUP_TTL_MS)) {
+      await storage.removeItem(key);
+      return null;
+    }
     return typeof row.code === 'string' && (row.token === null || typeof row.token === 'string')
       ? parseGroupJoinInput(groupJoinUrl(row))
       : null;
@@ -91,7 +102,7 @@ export function createPendingGroupStore(storage: GroupJoinStorage) {
     receive: (raw: string) =>
       serial(async () => {
         const target = parseGroupJoinInput(raw);
-        if (target) await storage.setItem(key, JSON.stringify(target));
+        if (target) await storage.setItem(key, JSON.stringify({ ...target, savedAt: now() }));
         return target;
       }),
     consume: (target: GroupJoinTarget) =>

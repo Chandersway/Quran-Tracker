@@ -27,8 +27,12 @@ export function GroupJoinLinkHandler() {
       }, 0);
     }
     void restore().catch(() => undefined);
+    let account: string | null | undefined;
     const stop = getBackend()?.auth.onChange((session) => {
-      if (session?.user.id)
+      const previous = account;
+      account = session?.user.id ?? null;
+      // Only a sign-in (no account before) re-delivers; the initial session and token refreshes do not.
+      if (account && previous === null)
         setTimeout(() => {
           if (active) void restore(true).catch(() => undefined);
         }, 0);

@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import {
   buildGroupCode,
   createPendingGroupStore,
+  PENDING_GROUP_TTL_MS,
   parseGroupJoinInput,
   groupShareUrl,
 } from '../src/services/groups/groupJoin';
@@ -113,4 +114,24 @@ test('the observed private-group refusal is permission feedback, including wrapp
     'groups.error.permission',
   );
   assert.equal(groupErrorKey({ details: 'NOT_GROUP_NOT_VISIBLE' }), null);
+});
+
+test('a pending invitation expires after a day and legacy rows without a timestamp are dropped', async () => {
+  const values = new Map<string, string>();
+  const driver = {
+    getItem: async (key: string) => values.get(key) ?? null,
+    setItem: async (key: string, value: string) => void values.set(key, value),
+    removeItem: async (key: string) => void values.delete(key),
+  };
+  let clock = 1_000_000;
+  const store = createPendingGroupStore(driver, () => clock);
+  await store.receive('qurantracker://group/ABC-1234');
+  clock += PENDING_GROUP_TTL_MS;
+  assert.equal((await store.load())?.code, 'ABC-1234');
+  clock += 1;
+  assert.equal(await store.load(), null);
+  assert.equal(values.size, 0, 'An expired invitation is removed, not only hidden');
+  values.set('pending-group-invitation-v1', JSON.stringify({ code: 'ABC-1234', token: null }));
+  assert.equal(await store.load(), null);
+  assert.equal(values.size, 0);
 });

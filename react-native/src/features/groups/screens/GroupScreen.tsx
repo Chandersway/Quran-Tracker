@@ -223,6 +223,12 @@ function GroupContent({
   useEffect(() => {
     if (params.postId) setTab('feed');
   }, [params.postId]);
+  // A plain group link is done once the member sees the group; never replay it on the next launch.
+  const loaded = Boolean(resource.value);
+  useEffect(() => {
+    if (loaded && incoming && !incoming.token)
+      void pendingGroup.consume(incoming).catch(() => undefined);
+  }, [loaded, incoming?.code, incoming?.token]);
   useEffect(() => {
     setInviteVisible(Boolean(params.invite));
   }, [params.invite]);
