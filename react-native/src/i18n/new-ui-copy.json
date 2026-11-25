@@ -1100,6 +1100,18 @@
       "nl": "Ga hierheen en bekijk hoe je het doet",
       "ar": "اذهب إلى هنا واطّلع على أدائك",
       "reason": "Dedicated statistics page"
+    },
+    "ui.stats.barsWeekHint": {
+      "en": "Each bar is one week; the label is its Monday (day/month).",
+      "nl": "Elke balk is één week; het label is de maandag van die week (dag/maand).",
+      "ar": "كل عمود يمثل أسبوعًا؛ التسمية هي تاريخ يوم الاثنين (اليوم/الشهر).",
+      "reason": "Dedicated statistics page"
+    },
+    "ui.stats.barsMonthHint": {
+      "en": "Each bar is one month; the label is the first letter of the month.",
+      "nl": "Elke balk is één maand; het label is de eerste letter van de maand.",
+      "ar": "كل عمود يمثل شهرًا؛ الرقم هو رقم الشهر (١ = يناير، ١٢ = ديسمبر).",
+      "reason": "Dedicated statistics page"
     }
   }
 }
