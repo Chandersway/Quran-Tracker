@@ -1,0 +1,12 @@
+{
+  "sourceBytes": 51351963,
+  "outputBytes": 48965780,
+  "sourceSha256": "fcdc9cc2d47ee9646b49a0fdfcf0417c54a23de2d9335f79bff3f49a81636c7f",
+  "outputSha256": "c2dc4ecb5c58e0f167e3e52be316f99a97743e19e2ba70946957b8949ed936fe",
+  "pages": 612,
+  "maxCropBoxErrorPoints": 0.000056999999856088834,
+  "unchangedPageImageResources": 2279,
+  "sourceIndirectImages": 2296,
+  "outputIndirectImages": 2279,
+  "proof": "Actual Android native output pulled from the QA app; all page boxes checked independently against the TypeScript crop formula; every page image resource compared after supported lossless decoding. PDFium may discard unreferenced source objects when saving a fresh copy."
+}

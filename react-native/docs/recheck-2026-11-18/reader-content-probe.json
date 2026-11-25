@@ -1,0 +1,44 @@
+{
+  "mutation": "none; original content opened read-only",
+  "checks": {
+    "verbatim_reference_files": 5,
+    "verbatim_databases": 2,
+    "verbatim_translations": {
+      "en": 6236,
+      "nl": 6236
+    },
+    "canonical_ayahs_and_both_translations": 6236,
+    "study_surahs": 114,
+    "source_words": 77429,
+    "audio_catalogs": 114,
+    "audio_options": 18012,
+    "audio_next_surah_missing_reciter_ids": 0,
+    "verbatim_original_page_images": 1242,
+    "verbatim_surah_cards": 114,
+    "source_page_range_maps": 2,
+    "verified_hafs_geometry_pages": 604,
+    "verified_muhammadi_coordinate_source": true,
+    "book_pages": {
+      "ibn_abi_zayd_nawadir": 7181,
+      "ibn_muflih_furu": 2988,
+      "ibn_qudama_mughni": 3893,
+      "malik_muwatta": 1944,
+      "nawawi_minhaj": 164,
+      "qadi_abu_yala_masail": 137,
+      "shafii_umm": 2203
+    },
+    "book_chapters": {
+      "ibn_abi_zayd_nawadir": 205,
+      "ibn_muflih_furu": 34,
+      "ibn_qudama_mughni": 71,
+      "malik_muwatta": 723,
+      "nawawi_minhaj": 147,
+      "qadi_abu_yala_masail": 1,
+      "shafii_umm": 1344
+    },
+    "original_database_sha256": {
+      "Quraan.db": "427263a9e4cfcbc382e464679c8749c595d0525717f45ddbbc7b0f8d95831b67",
+      "books/books.db": "b4706940f5d0a29a33cc5585a188700e34e709f93794e2139111a9418f1e96bc"
+    }
+  }
+}

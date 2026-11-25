@@ -1,0 +1,14 @@
+# Bundled license/notice texts must keep their original bytes on every OS
+# (tests compare them exactly; Windows autocrlf would otherwise rewrite them).
+react-native/assets/lexicon/*.txt -text
+react-native/assets/lexicon/*.json -text
+react-native/assets/lexicon/*.db binary
+react-native/data/lexicon/*.txt -text
+
+# Prettier checks these with endOfLine "lf"; keep them LF on Windows checkouts too.
+react-native/**/*.ts text eol=lf
+react-native/**/*.tsx text eol=lf
+react-native/**/*.js text eol=lf
+react-native/**/*.mjs text eol=lf
+# Generated content keeps the bytes it was generated with.
+react-native/src/content/generated/** -text

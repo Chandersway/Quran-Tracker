@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="quran_goal_widget_surface">#F6F4EB</color>
+    <color name="quran_goal_widget_text">#1F2A24</color>
+    <color name="quran_goal_widget_muted">#5E655F</color>
+    <color name="quran_goal_widget_accent">#183B30</color>
+    <color name="quran_goal_widget_done">#2E7D4F</color>
+    <color name="quran_goal_widget_clay">#A95E40</color>
+    <color name="quran_goal_widget_track">#DCD8C8</color>
+</resources>

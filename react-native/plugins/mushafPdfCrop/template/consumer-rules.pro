@@ -1,0 +1,1 @@
+-keep class com.Ameender.qurantracker.pdfcrop.PdfCropBridge { *; }

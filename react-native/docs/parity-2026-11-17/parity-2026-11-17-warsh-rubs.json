@@ -1,0 +1,7716 @@
+{
+  "method": "Static source/data comparison; no app execution, downloads, or user-data access.",
+  "sources": {
+    "rn": [
+      "src/content/quran.ts:7",
+      "src/features/quran/screens/QuranScreen.tsx:44",
+      "src/features/quran/screens/QuranScreen.tsx:54",
+      "src/features/practice/screens/ProgressScreen.tsx:52",
+      "src/features/planning/screens/PlanningScreen.tsx:172",
+      "src/content/mushafGeometry.ts:73"
+    ],
+    "kotlin": [
+      "../app/src/main/java/com/Ameender/qurantracker/ui/RubReaderAction.kt:20",
+      "../app/src/main/java/com/Ameender/qurantracker/ui/HizbScreen.kt:79",
+      "../app/src/main/java/com/Ameender/qurantracker/MainActivity.kt:612",
+      "../app/src/main/java/com/Ameender/qurantracker/ui/WarshMaknoonGeometry.kt:45"
+    ]
+  },
+  "asset_bytes_identical": {
+    "rub_starts.json": true,
+    "warsh_rub_starts.json": true,
+    "warsh_maknoon_positions.json": true,
+    "warsh_ayah_map.json": true,
+    "mutashabiha_data.json": true
+  },
+  "counts": {
+    "canonical_differs": 56,
+    "resolved_differs": 56,
+    "page_differs": 18,
+    "rn_vs_validated_differs": 56,
+    "kotlin_vs_validated_differs": 0
+  },
+  "count": 240,
+  "rows": [
+    {
+      "rub_id": 1,
+      "hizb": 1,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 1,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 1,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 1,
+        "printed_warsh_ayah": 1,
+        "top": 0.3739836
+      },
+      "kotlin_resolved": {
+        "page": 1,
+        "printed_warsh_ayah": 1,
+        "top": 0.3739836
+      },
+      "validated_warsh_boundary": {
+        "page": 1,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 2,
+      "hizb": 1,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 26
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 26
+      },
+      "rn_resolved": {
+        "page": 5,
+        "printed_warsh_ayah": 25,
+        "top": 0.2628038
+      },
+      "kotlin_resolved": {
+        "page": 5,
+        "printed_warsh_ayah": 25,
+        "top": 0.2628038
+      },
+      "validated_warsh_boundary": {
+        "page": 5,
+        "printed_warsh_ayah": 25
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 3,
+      "hizb": 1,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 44
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 42
+      },
+      "rn_resolved": {
+        "page": 7,
+        "printed_warsh_ayah": 43,
+        "top": 0.5349305
+      },
+      "kotlin_resolved": {
+        "page": 7,
+        "printed_warsh_ayah": 41,
+        "top": 0.4252394
+      },
+      "validated_warsh_boundary": {
+        "page": 7,
+        "printed_warsh_ayah": 41
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 4,
+      "hizb": 1,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 60
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 60
+      },
+      "rn_resolved": {
+        "page": 9,
+        "printed_warsh_ayah": 59,
+        "top": 0.3169479
+      },
+      "kotlin_resolved": {
+        "page": 9,
+        "printed_warsh_ayah": 59,
+        "top": 0.3169479
+      },
+      "validated_warsh_boundary": {
+        "page": 9,
+        "printed_warsh_ayah": 59
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 5,
+      "hizb": 2,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 75
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 76
+      },
+      "rn_resolved": {
+        "page": 11,
+        "printed_warsh_ayah": 74,
+        "top": 0.6430497
+      },
+      "kotlin_resolved": {
+        "page": 11,
+        "printed_warsh_ayah": 75,
+        "top": 0.7531242
+      },
+      "validated_warsh_boundary": {
+        "page": 11,
+        "printed_warsh_ayah": 75
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 6,
+      "hizb": 2,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 92
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 92
+      },
+      "rn_resolved": {
+        "page": 14,
+        "printed_warsh_ayah": 91,
+        "top": 0.5914041
+      },
+      "kotlin_resolved": {
+        "page": 14,
+        "printed_warsh_ayah": 91,
+        "top": 0.5914041
+      },
+      "validated_warsh_boundary": {
+        "page": 14,
+        "printed_warsh_ayah": 91
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 7,
+      "hizb": 2,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 106
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 106
+      },
+      "rn_resolved": {
+        "page": 17,
+        "printed_warsh_ayah": 105,
+        "top": 0.0927654
+      },
+      "kotlin_resolved": {
+        "page": 17,
+        "printed_warsh_ayah": 105,
+        "top": 0.0927654
+      },
+      "validated_warsh_boundary": {
+        "page": 17,
+        "printed_warsh_ayah": 105
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 8,
+      "hizb": 2,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 124
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 124
+      },
+      "rn_resolved": {
+        "page": 19,
+        "printed_warsh_ayah": 123,
+        "top": 0.4803442
+      },
+      "kotlin_resolved": {
+        "page": 19,
+        "printed_warsh_ayah": 123,
+        "top": 0.4803442
+      },
+      "validated_warsh_boundary": {
+        "page": 19,
+        "printed_warsh_ayah": 123
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 9,
+      "hizb": 3,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 142
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 142
+      },
+      "rn_resolved": {
+        "page": 22,
+        "printed_warsh_ayah": 141,
+        "top": 0.0967556
+      },
+      "kotlin_resolved": {
+        "page": 22,
+        "printed_warsh_ayah": 141,
+        "top": 0.0967556
+      },
+      "validated_warsh_boundary": {
+        "page": 22,
+        "printed_warsh_ayah": 141
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 10,
+      "hizb": 3,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 158
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 158
+      },
+      "rn_resolved": {
+        "page": 24,
+        "printed_warsh_ayah": 157,
+        "top": 0.3712963
+      },
+      "kotlin_resolved": {
+        "page": 24,
+        "printed_warsh_ayah": 157,
+        "top": 0.3712963
+      },
+      "validated_warsh_boundary": {
+        "page": 24,
+        "printed_warsh_ayah": 157
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 11,
+      "hizb": 3,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 177
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 177
+      },
+      "rn_resolved": {
+        "page": 27,
+        "printed_warsh_ayah": 176,
+        "top": 0.0937217
+      },
+      "kotlin_resolved": {
+        "page": 27,
+        "printed_warsh_ayah": 176,
+        "top": 0.0937217
+      },
+      "validated_warsh_boundary": {
+        "page": 27,
+        "printed_warsh_ayah": 176
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 12,
+      "hizb": 3,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 189
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 189
+      },
+      "rn_resolved": {
+        "page": 29,
+        "printed_warsh_ayah": 188,
+        "top": 0.6423901
+      },
+      "kotlin_resolved": {
+        "page": 29,
+        "printed_warsh_ayah": 188,
+        "top": 0.6423901
+      },
+      "validated_warsh_boundary": {
+        "page": 29,
+        "printed_warsh_ayah": 188
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 13,
+      "hizb": 4,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 203
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 203
+      },
+      "rn_resolved": {
+        "page": 32,
+        "printed_warsh_ayah": 201,
+        "top": 0.0993923
+      },
+      "kotlin_resolved": {
+        "page": 32,
+        "printed_warsh_ayah": 201,
+        "top": 0.0993923
+      },
+      "validated_warsh_boundary": {
+        "page": 32,
+        "printed_warsh_ayah": 201
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 14,
+      "hizb": 4,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 219
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 219
+      },
+      "rn_resolved": {
+        "page": 34,
+        "printed_warsh_ayah": 217,
+        "top": 0.6983336
+      },
+      "kotlin_resolved": {
+        "page": 34,
+        "printed_warsh_ayah": 217,
+        "top": 0.6983336
+      },
+      "validated_warsh_boundary": {
+        "page": 34,
+        "printed_warsh_ayah": 217
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 15,
+      "hizb": 4,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 233
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 233
+      },
+      "rn_resolved": {
+        "page": 37,
+        "printed_warsh_ayah": 231,
+        "top": 0.5353234
+      },
+      "kotlin_resolved": {
+        "page": 37,
+        "printed_warsh_ayah": 231,
+        "top": 0.5353234
+      },
+      "validated_warsh_boundary": {
+        "page": 37,
+        "printed_warsh_ayah": 231
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 16,
+      "hizb": 4,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 243
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 243
+      },
+      "rn_resolved": {
+        "page": 39,
+        "printed_warsh_ayah": 241,
+        "top": 0.5340633
+      },
+      "kotlin_resolved": {
+        "page": 39,
+        "printed_warsh_ayah": 241,
+        "top": 0.5340633
+      },
+      "validated_warsh_boundary": {
+        "page": 39,
+        "printed_warsh_ayah": 241
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 17,
+      "hizb": 5,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 253
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 253
+      },
+      "rn_resolved": {
+        "page": 42,
+        "printed_warsh_ayah": 251,
+        "top": 0.095808
+      },
+      "kotlin_resolved": {
+        "page": 42,
+        "printed_warsh_ayah": 251,
+        "top": 0.095808
+      },
+      "validated_warsh_boundary": {
+        "page": 42,
+        "printed_warsh_ayah": 251
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 18,
+      "hizb": 5,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 263
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 263
+      },
+      "rn_resolved": {
+        "page": 44,
+        "printed_warsh_ayah": 262,
+        "top": 0.5924552
+      },
+      "kotlin_resolved": {
+        "page": 44,
+        "printed_warsh_ayah": 262,
+        "top": 0.5924552
+      },
+      "validated_warsh_boundary": {
+        "page": 44,
+        "printed_warsh_ayah": 262
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 19,
+      "hizb": 5,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 272
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 272
+      },
+      "rn_resolved": {
+        "page": 46,
+        "printed_warsh_ayah": 271,
+        "top": 0.3174779
+      },
+      "kotlin_resolved": {
+        "page": 46,
+        "printed_warsh_ayah": 271,
+        "top": 0.3174779
+      },
+      "validated_warsh_boundary": {
+        "page": 46,
+        "printed_warsh_ayah": 271
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 20,
+      "hizb": 5,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 2,
+        "ayah": 283
+      },
+      "kotlin_canonical_reference": {
+        "surah": 2,
+        "ayah": 283
+      },
+      "rn_resolved": {
+        "page": 49,
+        "printed_warsh_ayah": 282,
+        "top": 0.092793
+      },
+      "kotlin_resolved": {
+        "page": 49,
+        "printed_warsh_ayah": 282,
+        "top": 0.092793
+      },
+      "validated_warsh_boundary": {
+        "page": 49,
+        "printed_warsh_ayah": 282
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 21,
+      "hizb": 6,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 15
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 15
+      },
+      "rn_resolved": {
+        "page": 51,
+        "printed_warsh_ayah": 15,
+        "top": 0.6976543
+      },
+      "kotlin_resolved": {
+        "page": 51,
+        "printed_warsh_ayah": 15,
+        "top": 0.6976543
+      },
+      "validated_warsh_boundary": {
+        "page": 51,
+        "printed_warsh_ayah": 15
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 22,
+      "hizb": 6,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 33
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 33
+      },
+      "rn_resolved": {
+        "page": 54,
+        "printed_warsh_ayah": 33,
+        "top": 0.3754758
+      },
+      "kotlin_resolved": {
+        "page": 54,
+        "printed_warsh_ayah": 33,
+        "top": 0.3754758
+      },
+      "validated_warsh_boundary": {
+        "page": 54,
+        "printed_warsh_ayah": 33
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 23,
+      "hizb": 6,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 52
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 52
+      },
+      "rn_resolved": {
+        "page": 56,
+        "printed_warsh_ayah": 51,
+        "top": 0.7548757
+      },
+      "kotlin_resolved": {
+        "page": 56,
+        "printed_warsh_ayah": 51,
+        "top": 0.7548757
+      },
+      "validated_warsh_boundary": {
+        "page": 56,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 24,
+      "hizb": 6,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 75
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 75
+      },
+      "rn_resolved": {
+        "page": 59,
+        "printed_warsh_ayah": 74,
+        "top": 0.4807976
+      },
+      "kotlin_resolved": {
+        "page": 59,
+        "printed_warsh_ayah": 74,
+        "top": 0.4807976
+      },
+      "validated_warsh_boundary": {
+        "page": 59,
+        "printed_warsh_ayah": 74
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 25,
+      "hizb": 7,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 93
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 92
+      },
+      "rn_resolved": {
+        "page": 62,
+        "printed_warsh_ayah": 93,
+        "top": 0.1534719
+      },
+      "kotlin_resolved": {
+        "page": 62,
+        "printed_warsh_ayah": 91,
+        "top": 0.0983164
+      },
+      "validated_warsh_boundary": {
+        "page": 62,
+        "printed_warsh_ayah": 91
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 26,
+      "hizb": 7,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 113
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 113
+      },
+      "rn_resolved": {
+        "page": 64,
+        "printed_warsh_ayah": 113,
+        "top": 0.6420044
+      },
+      "kotlin_resolved": {
+        "page": 64,
+        "printed_warsh_ayah": 113,
+        "top": 0.6420044
+      },
+      "validated_warsh_boundary": {
+        "page": 64,
+        "printed_warsh_ayah": 113
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 27,
+      "hizb": 7,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 133
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 133
+      },
+      "rn_resolved": {
+        "page": 67,
+        "printed_warsh_ayah": 133,
+        "top": 0.101193
+      },
+      "kotlin_resolved": {
+        "page": 67,
+        "printed_warsh_ayah": 133,
+        "top": 0.101193
+      },
+      "validated_warsh_boundary": {
+        "page": 67,
+        "printed_warsh_ayah": 133
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 28,
+      "hizb": 7,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 153
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 153
+      },
+      "rn_resolved": {
+        "page": 69,
+        "printed_warsh_ayah": 153,
+        "top": 0.6986843
+      },
+      "kotlin_resolved": {
+        "page": 69,
+        "printed_warsh_ayah": 153,
+        "top": 0.6986843
+      },
+      "validated_warsh_boundary": {
+        "page": 69,
+        "printed_warsh_ayah": 153
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 29,
+      "hizb": 8,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 171
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 171
+      },
+      "rn_resolved": {
+        "page": 72,
+        "printed_warsh_ayah": 171,
+        "top": 0.5919609
+      },
+      "kotlin_resolved": {
+        "page": 72,
+        "printed_warsh_ayah": 171,
+        "top": 0.5919609
+      },
+      "validated_warsh_boundary": {
+        "page": 72,
+        "printed_warsh_ayah": 171
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 30,
+      "hizb": 8,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 3,
+        "ayah": 186
+      },
+      "kotlin_canonical_reference": {
+        "surah": 3,
+        "ayah": 186
+      },
+      "rn_resolved": {
+        "page": 74,
+        "printed_warsh_ayah": 186,
+        "top": 0.6966074
+      },
+      "kotlin_resolved": {
+        "page": 74,
+        "printed_warsh_ayah": 186,
+        "top": 0.6966074
+      },
+      "validated_warsh_boundary": {
+        "page": 74,
+        "printed_warsh_ayah": 186
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 31,
+      "hizb": 8,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 6
+      },
+      "rn_resolved": {
+        "page": 77,
+        "printed_warsh_ayah": 1,
+        "top": 0.2180299
+      },
+      "kotlin_resolved": {
+        "page": 77,
+        "printed_warsh_ayah": 6,
+        "top": 0.7018185
+      },
+      "validated_warsh_boundary": {
+        "page": 77,
+        "printed_warsh_ayah": 6
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 32,
+      "hizb": 8,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 12
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 13
+      },
+      "rn_resolved": {
+        "page": 79,
+        "printed_warsh_ayah": 12,
+        "top": 0.0999382
+      },
+      "kotlin_resolved": {
+        "page": 79,
+        "printed_warsh_ayah": 13,
+        "top": 0.6438941
+      },
+      "validated_warsh_boundary": {
+        "page": 79,
+        "printed_warsh_ayah": 13
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 33,
+      "hizb": 9,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 24
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 24
+      },
+      "rn_resolved": {
+        "page": 82,
+        "printed_warsh_ayah": 24,
+        "top": 0.0972474
+      },
+      "kotlin_resolved": {
+        "page": 82,
+        "printed_warsh_ayah": 24,
+        "top": 0.0972474
+      },
+      "validated_warsh_boundary": {
+        "page": 82,
+        "printed_warsh_ayah": 24
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 34,
+      "hizb": 9,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 36
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 36
+      },
+      "rn_resolved": {
+        "page": 84,
+        "printed_warsh_ayah": 36,
+        "top": 0.5337749
+      },
+      "kotlin_resolved": {
+        "page": 84,
+        "printed_warsh_ayah": 36,
+        "top": 0.5337749
+      },
+      "validated_warsh_boundary": {
+        "page": 84,
+        "printed_warsh_ayah": 36
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 35,
+      "hizb": 9,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 58
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 58
+      },
+      "rn_resolved": {
+        "page": 87,
+        "printed_warsh_ayah": 57,
+        "top": 0.5888175
+      },
+      "kotlin_resolved": {
+        "page": 87,
+        "printed_warsh_ayah": 57,
+        "top": 0.5888175
+      },
+      "validated_warsh_boundary": {
+        "page": 87,
+        "printed_warsh_ayah": 57
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 36,
+      "hizb": 9,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 74
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 74
+      },
+      "rn_resolved": {
+        "page": 89,
+        "printed_warsh_ayah": 73,
+        "top": 0.7537006
+      },
+      "kotlin_resolved": {
+        "page": 89,
+        "printed_warsh_ayah": 73,
+        "top": 0.7537006
+      },
+      "validated_warsh_boundary": {
+        "page": 89,
+        "printed_warsh_ayah": 73
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 37,
+      "hizb": 10,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 88
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 87
+      },
+      "rn_resolved": {
+        "page": 92,
+        "printed_warsh_ayah": 87,
+        "top": 0.1564329
+      },
+      "kotlin_resolved": {
+        "page": 92,
+        "printed_warsh_ayah": 86,
+        "top": 0.0974643
+      },
+      "validated_warsh_boundary": {
+        "page": 92,
+        "printed_warsh_ayah": 86
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 38,
+      "hizb": 10,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 100
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 100
+      },
+      "rn_resolved": {
+        "page": 94,
+        "printed_warsh_ayah": 99,
+        "top": 0.5892736
+      },
+      "kotlin_resolved": {
+        "page": 94,
+        "printed_warsh_ayah": 99,
+        "top": 0.5892736
+      },
+      "validated_warsh_boundary": {
+        "page": 94,
+        "printed_warsh_ayah": 99
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 39,
+      "hizb": 10,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 114
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 114
+      },
+      "rn_resolved": {
+        "page": 97,
+        "printed_warsh_ayah": 113,
+        "top": 0.0993797
+      },
+      "kotlin_resolved": {
+        "page": 97,
+        "printed_warsh_ayah": 113,
+        "top": 0.0993797
+      },
+      "validated_warsh_boundary": {
+        "page": 97,
+        "printed_warsh_ayah": 113
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 40,
+      "hizb": 10,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 135
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 130
+      },
+      "rn_resolved": {
+        "page": 100,
+        "printed_warsh_ayah": 134,
+        "top": 0.0989018
+      },
+      "kotlin_resolved": {
+        "page": 99,
+        "printed_warsh_ayah": 129,
+        "top": 0.4240297
+      },
+      "validated_warsh_boundary": {
+        "page": 99,
+        "printed_warsh_ayah": 129
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 41,
+      "hizb": 11,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 148
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 148
+      },
+      "rn_resolved": {
+        "page": 102,
+        "printed_warsh_ayah": 147,
+        "top": 0.0984945
+      },
+      "kotlin_resolved": {
+        "page": 102,
+        "printed_warsh_ayah": 147,
+        "top": 0.0984945
+      },
+      "validated_warsh_boundary": {
+        "page": 102,
+        "printed_warsh_ayah": 147
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 42,
+      "hizb": 11,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 4,
+        "ayah": 163
+      },
+      "kotlin_canonical_reference": {
+        "surah": 4,
+        "ayah": 166
+      },
+      "rn_resolved": {
+        "page": 104,
+        "printed_warsh_ayah": 162,
+        "top": 0.0987194
+      },
+      "kotlin_resolved": {
+        "page": 104,
+        "printed_warsh_ayah": 165,
+        "top": 0.4781059
+      },
+      "validated_warsh_boundary": {
+        "page": 104,
+        "printed_warsh_ayah": 165
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 43,
+      "hizb": 11,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 3
+      },
+      "rn_resolved": {
+        "page": 106,
+        "printed_warsh_ayah": 1,
+        "top": 0.4916138
+      },
+      "kotlin_resolved": {
+        "page": 107,
+        "printed_warsh_ayah": 4,
+        "top": 0.0978716
+      },
+      "validated_warsh_boundary": {
+        "page": 107,
+        "printed_warsh_ayah": 4
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 44,
+      "hizb": 11,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 12
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 12
+      },
+      "rn_resolved": {
+        "page": 109,
+        "printed_warsh_ayah": 13,
+        "top": 0.3191219
+      },
+      "kotlin_resolved": {
+        "page": 109,
+        "printed_warsh_ayah": 13,
+        "top": 0.3191219
+      },
+      "validated_warsh_boundary": {
+        "page": 109,
+        "printed_warsh_ayah": 13
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 45,
+      "hizb": 12,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 27
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 23
+      },
+      "rn_resolved": {
+        "page": 112,
+        "printed_warsh_ayah": 29,
+        "top": 0.3710128
+      },
+      "kotlin_resolved": {
+        "page": 111,
+        "printed_warsh_ayah": 25,
+        "top": 0.7517489
+      },
+      "validated_warsh_boundary": {
+        "page": 111,
+        "printed_warsh_ayah": 25
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 46,
+      "hizb": 12,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 41
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 41
+      },
+      "rn_resolved": {
+        "page": 114,
+        "printed_warsh_ayah": 43,
+        "top": 0.4244315
+      },
+      "kotlin_resolved": {
+        "page": 114,
+        "printed_warsh_ayah": 43,
+        "top": 0.4244315
+      },
+      "validated_warsh_boundary": {
+        "page": 114,
+        "printed_warsh_ayah": 43
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 47,
+      "hizb": 12,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 51
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 49
+      },
+      "rn_resolved": {
+        "page": 117,
+        "printed_warsh_ayah": 53,
+        "top": 0.0939097
+      },
+      "kotlin_resolved": {
+        "page": 116,
+        "printed_warsh_ayah": 51,
+        "top": 0.646064
+      },
+      "validated_warsh_boundary": {
+        "page": 116,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 48,
+      "hizb": 12,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 67
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 67
+      },
+      "rn_resolved": {
+        "page": 119,
+        "printed_warsh_ayah": 69,
+        "top": 0.3189918
+      },
+      "kotlin_resolved": {
+        "page": 119,
+        "printed_warsh_ayah": 69,
+        "top": 0.3189918
+      },
+      "validated_warsh_boundary": {
+        "page": 119,
+        "printed_warsh_ayah": 69
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 49,
+      "hizb": 13,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 82
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 82
+      },
+      "rn_resolved": {
+        "page": 121,
+        "printed_warsh_ayah": 84,
+        "top": 0.5355933
+      },
+      "kotlin_resolved": {
+        "page": 121,
+        "printed_warsh_ayah": 84,
+        "top": 0.5355933
+      },
+      "validated_warsh_boundary": {
+        "page": 121,
+        "printed_warsh_ayah": 84
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 50,
+      "hizb": 13,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 97
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 97
+      },
+      "rn_resolved": {
+        "page": 124,
+        "printed_warsh_ayah": 99,
+        "top": 0.2076876
+      },
+      "kotlin_resolved": {
+        "page": 124,
+        "printed_warsh_ayah": 99,
+        "top": 0.2076876
+      },
+      "validated_warsh_boundary": {
+        "page": 124,
+        "printed_warsh_ayah": 99
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 51,
+      "hizb": 13,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 5,
+        "ayah": 109
+      },
+      "kotlin_canonical_reference": {
+        "surah": 5,
+        "ayah": 111
+      },
+      "rn_resolved": {
+        "page": 126,
+        "printed_warsh_ayah": 111,
+        "top": 0.0990891
+      },
+      "kotlin_resolved": {
+        "page": 126,
+        "printed_warsh_ayah": 113,
+        "top": 0.5906327
+      },
+      "validated_warsh_boundary": {
+        "page": 126,
+        "printed_warsh_ayah": 113
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 52,
+      "hizb": 13,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 13
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 13
+      },
+      "rn_resolved": {
+        "page": 129,
+        "printed_warsh_ayah": 14,
+        "top": 0.4276966
+      },
+      "kotlin_resolved": {
+        "page": 129,
+        "printed_warsh_ayah": 14,
+        "top": 0.4276966
+      },
+      "validated_warsh_boundary": {
+        "page": 129,
+        "printed_warsh_ayah": 14
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 53,
+      "hizb": 14,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 36
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 36
+      },
+      "rn_resolved": {
+        "page": 132,
+        "printed_warsh_ayah": 37,
+        "top": 0.0942988
+      },
+      "kotlin_resolved": {
+        "page": 132,
+        "printed_warsh_ayah": 37,
+        "top": 0.0942988
+      },
+      "validated_warsh_boundary": {
+        "page": 132,
+        "printed_warsh_ayah": 37
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 54,
+      "hizb": 14,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 59
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 59
+      },
+      "rn_resolved": {
+        "page": 134,
+        "printed_warsh_ayah": 60,
+        "top": 0.6977883
+      },
+      "kotlin_resolved": {
+        "page": 134,
+        "printed_warsh_ayah": 60,
+        "top": 0.6977883
+      },
+      "validated_warsh_boundary": {
+        "page": 134,
+        "printed_warsh_ayah": 60
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 55,
+      "hizb": 14,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 74
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 80
+      },
+      "rn_resolved": {
+        "page": 137,
+        "printed_warsh_ayah": 75,
+        "top": 0.091488
+      },
+      "kotlin_resolved": {
+        "page": 137,
+        "printed_warsh_ayah": 81,
+        "top": 0.5876105
+      },
+      "validated_warsh_boundary": {
+        "page": 137,
+        "printed_warsh_ayah": 81
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 56,
+      "hizb": 14,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 95
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 95
+      },
+      "rn_resolved": {
+        "page": 140,
+        "printed_warsh_ayah": 96,
+        "top": 0.0970756
+      },
+      "kotlin_resolved": {
+        "page": 140,
+        "printed_warsh_ayah": 96,
+        "top": 0.0970756
+      },
+      "validated_warsh_boundary": {
+        "page": 140,
+        "printed_warsh_ayah": 96
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 57,
+      "hizb": 15,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 111
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 111
+      },
+      "rn_resolved": {
+        "page": 142,
+        "printed_warsh_ayah": 112,
+        "top": 0.097994
+      },
+      "kotlin_resolved": {
+        "page": 142,
+        "printed_warsh_ayah": 112,
+        "top": 0.097994
+      },
+      "validated_warsh_boundary": {
+        "page": 142,
+        "printed_warsh_ayah": 112
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 58,
+      "hizb": 15,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 127
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 127
+      },
+      "rn_resolved": {
+        "page": 144,
+        "printed_warsh_ayah": 128,
+        "top": 0.3165617
+      },
+      "kotlin_resolved": {
+        "page": 144,
+        "printed_warsh_ayah": 128,
+        "top": 0.3165617
+      },
+      "validated_warsh_boundary": {
+        "page": 144,
+        "printed_warsh_ayah": 128
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 59,
+      "hizb": 15,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 141
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 140
+      },
+      "rn_resolved": {
+        "page": 146,
+        "printed_warsh_ayah": 142,
+        "top": 0.5345864
+      },
+      "kotlin_resolved": {
+        "page": 146,
+        "printed_warsh_ayah": 141,
+        "top": 0.4284779
+      },
+      "validated_warsh_boundary": {
+        "page": 146,
+        "printed_warsh_ayah": 141
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 60,
+      "hizb": 15,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 6,
+        "ayah": 151
+      },
+      "kotlin_canonical_reference": {
+        "surah": 6,
+        "ayah": 151
+      },
+      "rn_resolved": {
+        "page": 148,
+        "printed_warsh_ayah": 152,
+        "top": 0.5918414
+      },
+      "kotlin_resolved": {
+        "page": 148,
+        "printed_warsh_ayah": 152,
+        "top": 0.5918414
+      },
+      "validated_warsh_boundary": {
+        "page": 148,
+        "printed_warsh_ayah": 152
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 61,
+      "hizb": 16,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 5
+      },
+      "rn_resolved": {
+        "page": 151,
+        "printed_warsh_ayah": 1,
+        "top": 0.2162084
+      },
+      "kotlin_resolved": {
+        "page": 151,
+        "printed_warsh_ayah": 4,
+        "top": 0.4294036
+      },
+      "validated_warsh_boundary": {
+        "page": 151,
+        "printed_warsh_ayah": 4
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 62,
+      "hizb": 16,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 31
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 32
+      },
+      "rn_resolved": {
+        "page": 154,
+        "printed_warsh_ayah": 29,
+        "top": 0.09636
+      },
+      "kotlin_resolved": {
+        "page": 154,
+        "printed_warsh_ayah": 30,
+        "top": 0.154141
+      },
+      "validated_warsh_boundary": {
+        "page": 154,
+        "printed_warsh_ayah": 30
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 63,
+      "hizb": 16,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 47
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 47
+      },
+      "rn_resolved": {
+        "page": 156,
+        "printed_warsh_ayah": 46,
+        "top": 0.4258005
+      },
+      "kotlin_resolved": {
+        "page": 156,
+        "printed_warsh_ayah": 46,
+        "top": 0.4258005
+      },
+      "validated_warsh_boundary": {
+        "page": 156,
+        "printed_warsh_ayah": 46
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 64,
+      "hizb": 16,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 65
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 69
+      },
+      "rn_resolved": {
+        "page": 158,
+        "printed_warsh_ayah": 64,
+        "top": 0.6429573
+      },
+      "kotlin_resolved": {
+        "page": 159,
+        "printed_warsh_ayah": 68,
+        "top": 0.0937777
+      },
+      "validated_warsh_boundary": {
+        "page": 159,
+        "printed_warsh_ayah": 68
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 65,
+      "hizb": 17,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 88
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 88
+      },
+      "rn_resolved": {
+        "page": 162,
+        "printed_warsh_ayah": 87,
+        "top": 0.0981222
+      },
+      "kotlin_resolved": {
+        "page": 162,
+        "printed_warsh_ayah": 87,
+        "top": 0.0981222
+      },
+      "validated_warsh_boundary": {
+        "page": 162,
+        "printed_warsh_ayah": 87
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 66,
+      "hizb": 17,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 117
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 117
+      },
+      "rn_resolved": {
+        "page": 164,
+        "printed_warsh_ayah": 116,
+        "top": 0.7512664
+      },
+      "kotlin_resolved": {
+        "page": 164,
+        "printed_warsh_ayah": 116,
+        "top": 0.7512664
+      },
+      "validated_warsh_boundary": {
+        "page": 164,
+        "printed_warsh_ayah": 116
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 67,
+      "hizb": 17,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 142
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 142
+      },
+      "rn_resolved": {
+        "page": 167,
+        "printed_warsh_ayah": 142,
+        "top": 0.4816463
+      },
+      "kotlin_resolved": {
+        "page": 167,
+        "printed_warsh_ayah": 142,
+        "top": 0.4816463
+      },
+      "validated_warsh_boundary": {
+        "page": 167,
+        "printed_warsh_ayah": 142
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 68,
+      "hizb": 17,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 156
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 156
+      },
+      "rn_resolved": {
+        "page": 170,
+        "printed_warsh_ayah": 156,
+        "top": 0.0985594
+      },
+      "kotlin_resolved": {
+        "page": 170,
+        "printed_warsh_ayah": 156,
+        "top": 0.0985594
+      },
+      "validated_warsh_boundary": {
+        "page": 170,
+        "printed_warsh_ayah": 156
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 69,
+      "hizb": 18,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 171
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 171
+      },
+      "rn_resolved": {
+        "page": 173,
+        "printed_warsh_ayah": 171,
+        "top": 0.0973059
+      },
+      "kotlin_resolved": {
+        "page": 173,
+        "printed_warsh_ayah": 171,
+        "top": 0.0973059
+      },
+      "validated_warsh_boundary": {
+        "page": 173,
+        "printed_warsh_ayah": 171
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 70,
+      "hizb": 18,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 7,
+        "ayah": 189
+      },
+      "kotlin_canonical_reference": {
+        "surah": 7,
+        "ayah": 188
+      },
+      "rn_resolved": {
+        "page": 175,
+        "printed_warsh_ayah": 189,
+        "top": 0.2079687
+      },
+      "kotlin_resolved": {
+        "page": 175,
+        "printed_warsh_ayah": 188,
+        "top": 0.0939884
+      },
+      "validated_warsh_boundary": {
+        "page": 175,
+        "printed_warsh_ayah": 188
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 71,
+      "hizb": 18,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 8,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 8,
+        "ayah": 5
+      },
+      "rn_resolved": {
+        "page": 177,
+        "printed_warsh_ayah": 1,
+        "top": 0.2191681
+      },
+      "kotlin_resolved": {
+        "page": 177,
+        "printed_warsh_ayah": 5,
+        "top": 0.5423727
+      },
+      "validated_warsh_boundary": {
+        "page": 177,
+        "printed_warsh_ayah": 5
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 72,
+      "hizb": 18,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 8,
+        "ayah": 22
+      },
+      "kotlin_canonical_reference": {
+        "surah": 8,
+        "ayah": 22
+      },
+      "rn_resolved": {
+        "page": 179,
+        "printed_warsh_ayah": 22,
+        "top": 0.5357385
+      },
+      "kotlin_resolved": {
+        "page": 179,
+        "printed_warsh_ayah": 22,
+        "top": 0.5357385
+      },
+      "validated_warsh_boundary": {
+        "page": 179,
+        "printed_warsh_ayah": 22
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 73,
+      "hizb": 19,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 8,
+        "ayah": 41
+      },
+      "kotlin_canonical_reference": {
+        "surah": 8,
+        "ayah": 41
+      },
+      "rn_resolved": {
+        "page": 182,
+        "printed_warsh_ayah": 41,
+        "top": 0.1003768
+      },
+      "kotlin_resolved": {
+        "page": 182,
+        "printed_warsh_ayah": 41,
+        "top": 0.1003768
+      },
+      "validated_warsh_boundary": {
+        "page": 182,
+        "printed_warsh_ayah": 41
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 74,
+      "hizb": 19,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 8,
+        "ayah": 61
+      },
+      "kotlin_canonical_reference": {
+        "surah": 8,
+        "ayah": 60
+      },
+      "rn_resolved": {
+        "page": 184,
+        "printed_warsh_ayah": 62,
+        "top": 0.8091305
+      },
+      "kotlin_resolved": {
+        "page": 184,
+        "printed_warsh_ayah": 61,
+        "top": 0.6457089
+      },
+      "validated_warsh_boundary": {
+        "page": 184,
+        "printed_warsh_ayah": 61
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 75,
+      "hizb": 19,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 5
+      },
+      "rn_resolved": {
+        "page": 187,
+        "printed_warsh_ayah": 1,
+        "top": 0.163688
+      },
+      "kotlin_resolved": {
+        "page": 187,
+        "printed_warsh_ayah": 5,
+        "top": 0.5928025
+      },
+      "validated_warsh_boundary": {
+        "page": 187,
+        "printed_warsh_ayah": 5
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 76,
+      "hizb": 19,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 19
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 19
+      },
+      "rn_resolved": {
+        "page": 189,
+        "printed_warsh_ayah": 19,
+        "top": 0.6432605
+      },
+      "kotlin_resolved": {
+        "page": 189,
+        "printed_warsh_ayah": 19,
+        "top": 0.6432605
+      },
+      "validated_warsh_boundary": {
+        "page": 189,
+        "printed_warsh_ayah": 19
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 77,
+      "hizb": 20,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 34
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 34
+      },
+      "rn_resolved": {
+        "page": 192,
+        "printed_warsh_ayah": 34,
+        "top": 0.2626352
+      },
+      "kotlin_resolved": {
+        "page": 192,
+        "printed_warsh_ayah": 34,
+        "top": 0.2626352
+      },
+      "validated_warsh_boundary": {
+        "page": 192,
+        "printed_warsh_ayah": 34
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 78,
+      "hizb": 20,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 46
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 46
+      },
+      "rn_resolved": {
+        "page": 194,
+        "printed_warsh_ayah": 46,
+        "top": 0.6458153
+      },
+      "kotlin_resolved": {
+        "page": 194,
+        "printed_warsh_ayah": 46,
+        "top": 0.6458153
+      },
+      "validated_warsh_boundary": {
+        "page": 194,
+        "printed_warsh_ayah": 46
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 79,
+      "hizb": 20,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 60
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 61
+      },
+      "rn_resolved": {
+        "page": 196,
+        "printed_warsh_ayah": 60,
+        "top": 0.5333271
+      },
+      "kotlin_resolved": {
+        "page": 196,
+        "printed_warsh_ayah": 61,
+        "top": 0.7008276
+      },
+      "validated_warsh_boundary": {
+        "page": 196,
+        "printed_warsh_ayah": 61
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 80,
+      "hizb": 20,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 75
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 75
+      },
+      "rn_resolved": {
+        "page": 199,
+        "printed_warsh_ayah": 76,
+        "top": 0.4274301
+      },
+      "kotlin_resolved": {
+        "page": 199,
+        "printed_warsh_ayah": 76,
+        "top": 0.4274301
+      },
+      "validated_warsh_boundary": {
+        "page": 199,
+        "printed_warsh_ayah": 76
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 81,
+      "hizb": 21,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 93
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 93
+      },
+      "rn_resolved": {
+        "page": 201,
+        "printed_warsh_ayah": 94,
+        "top": 0.7533499
+      },
+      "kotlin_resolved": {
+        "page": 201,
+        "printed_warsh_ayah": 94,
+        "top": 0.7533499
+      },
+      "validated_warsh_boundary": {
+        "page": 201,
+        "printed_warsh_ayah": 94
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 82,
+      "hizb": 21,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 111
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 111
+      },
+      "rn_resolved": {
+        "page": 204,
+        "printed_warsh_ayah": 112,
+        "top": 0.6470674
+      },
+      "kotlin_resolved": {
+        "page": 204,
+        "printed_warsh_ayah": 112,
+        "top": 0.6470674
+      },
+      "validated_warsh_boundary": {
+        "page": 204,
+        "printed_warsh_ayah": 112
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 83,
+      "hizb": 21,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 9,
+        "ayah": 122
+      },
+      "kotlin_canonical_reference": {
+        "surah": 9,
+        "ayah": 123
+      },
+      "rn_resolved": {
+        "page": 206,
+        "printed_warsh_ayah": 123,
+        "top": 0.752297
+      },
+      "kotlin_resolved": {
+        "page": 207,
+        "printed_warsh_ayah": 124,
+        "top": 0.1003152
+      },
+      "validated_warsh_boundary": {
+        "page": 207,
+        "printed_warsh_ayah": 124
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 84,
+      "hizb": 21,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 10,
+        "ayah": 11
+      },
+      "kotlin_canonical_reference": {
+        "surah": 10,
+        "ayah": 11
+      },
+      "rn_resolved": {
+        "page": 209,
+        "printed_warsh_ayah": 11,
+        "top": 0.4268068
+      },
+      "kotlin_resolved": {
+        "page": 209,
+        "printed_warsh_ayah": 11,
+        "top": 0.4268068
+      },
+      "validated_warsh_boundary": {
+        "page": 209,
+        "printed_warsh_ayah": 11
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 85,
+      "hizb": 22,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 10,
+        "ayah": 26
+      },
+      "kotlin_canonical_reference": {
+        "surah": 10,
+        "ayah": 26
+      },
+      "rn_resolved": {
+        "page": 212,
+        "printed_warsh_ayah": 26,
+        "top": 0.0890345
+      },
+      "kotlin_resolved": {
+        "page": 212,
+        "printed_warsh_ayah": 26,
+        "top": 0.0890345
+      },
+      "validated_warsh_boundary": {
+        "page": 212,
+        "printed_warsh_ayah": 26
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 86,
+      "hizb": 22,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 10,
+        "ayah": 53
+      },
+      "kotlin_canonical_reference": {
+        "surah": 10,
+        "ayah": 49
+      },
+      "rn_resolved": {
+        "page": 214,
+        "printed_warsh_ayah": 53,
+        "top": 0.8067616
+      },
+      "kotlin_resolved": {
+        "page": 214,
+        "printed_warsh_ayah": 49,
+        "top": 0.5337564
+      },
+      "validated_warsh_boundary": {
+        "page": 214,
+        "printed_warsh_ayah": 49
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 87,
+      "hizb": 22,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 10,
+        "ayah": 71
+      },
+      "kotlin_canonical_reference": {
+        "surah": 10,
+        "ayah": 71
+      },
+      "rn_resolved": {
+        "page": 217,
+        "printed_warsh_ayah": 71,
+        "top": 0.0982006
+      },
+      "kotlin_resolved": {
+        "page": 217,
+        "printed_warsh_ayah": 71,
+        "top": 0.0982006
+      },
+      "validated_warsh_boundary": {
+        "page": 217,
+        "printed_warsh_ayah": 71
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 88,
+      "hizb": 22,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 10,
+        "ayah": 90
+      },
+      "kotlin_canonical_reference": {
+        "surah": 10,
+        "ayah": 93
+      },
+      "rn_resolved": {
+        "page": 219,
+        "printed_warsh_ayah": 90,
+        "top": 0.1533884
+      },
+      "kotlin_resolved": {
+        "page": 219,
+        "printed_warsh_ayah": 93,
+        "top": 0.4802158
+      },
+      "validated_warsh_boundary": {
+        "page": 219,
+        "printed_warsh_ayah": 93
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 89,
+      "hizb": 23,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 11,
+        "ayah": 6
+      },
+      "kotlin_canonical_reference": {
+        "surah": 11,
+        "ayah": 6
+      },
+      "rn_resolved": {
+        "page": 222,
+        "printed_warsh_ayah": 6,
+        "top": 0.0994435
+      },
+      "kotlin_resolved": {
+        "page": 222,
+        "printed_warsh_ayah": 6,
+        "top": 0.0994435
+      },
+      "validated_warsh_boundary": {
+        "page": 222,
+        "printed_warsh_ayah": 6
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 90,
+      "hizb": 23,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 11,
+        "ayah": 24
+      },
+      "kotlin_canonical_reference": {
+        "surah": 11,
+        "ayah": 24
+      },
+      "rn_resolved": {
+        "page": 224,
+        "printed_warsh_ayah": 24,
+        "top": 0.4256985
+      },
+      "kotlin_resolved": {
+        "page": 224,
+        "printed_warsh_ayah": 24,
+        "top": 0.4256985
+      },
+      "validated_warsh_boundary": {
+        "page": 224,
+        "printed_warsh_ayah": 24
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 91,
+      "hizb": 23,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 11,
+        "ayah": 41
+      },
+      "kotlin_canonical_reference": {
+        "surah": 11,
+        "ayah": 41
+      },
+      "rn_resolved": {
+        "page": 226,
+        "printed_warsh_ayah": 41,
+        "top": 0.3707883
+      },
+      "kotlin_resolved": {
+        "page": 226,
+        "printed_warsh_ayah": 41,
+        "top": 0.3707883
+      },
+      "validated_warsh_boundary": {
+        "page": 226,
+        "printed_warsh_ayah": 41
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 92,
+      "hizb": 23,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 11,
+        "ayah": 61
+      },
+      "kotlin_canonical_reference": {
+        "surah": 11,
+        "ayah": 62
+      },
+      "rn_resolved": {
+        "page": 228,
+        "printed_warsh_ayah": 60,
+        "top": 0.6439946
+      },
+      "kotlin_resolved": {
+        "page": 228,
+        "printed_warsh_ayah": 61,
+        "top": 0.8074276
+      },
+      "validated_warsh_boundary": {
+        "page": 228,
+        "printed_warsh_ayah": 61
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 93,
+      "hizb": 24,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 11,
+        "ayah": 84
+      },
+      "kotlin_canonical_reference": {
+        "surah": 11,
+        "ayah": 84
+      },
+      "rn_resolved": {
+        "page": 231,
+        "printed_warsh_ayah": 83,
+        "top": 0.2075386
+      },
+      "kotlin_resolved": {
+        "page": 231,
+        "printed_warsh_ayah": 83,
+        "top": 0.2075386
+      },
+      "validated_warsh_boundary": {
+        "page": 231,
+        "printed_warsh_ayah": 83
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 94,
+      "hizb": 24,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 11,
+        "ayah": 108
+      },
+      "kotlin_canonical_reference": {
+        "surah": 11,
+        "ayah": 105
+      },
+      "rn_resolved": {
+        "page": 233,
+        "printed_warsh_ayah": 108,
+        "top": 0.8071706
+      },
+      "kotlin_resolved": {
+        "page": 233,
+        "printed_warsh_ayah": 105,
+        "top": 0.5894999
+      },
+      "validated_warsh_boundary": {
+        "page": 233,
+        "printed_warsh_ayah": 105
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 95,
+      "hizb": 24,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 12,
+        "ayah": 7
+      },
+      "kotlin_canonical_reference": {
+        "surah": 12,
+        "ayah": 10
+      },
+      "rn_resolved": {
+        "page": 236,
+        "printed_warsh_ayah": 7,
+        "top": 0.3181901
+      },
+      "kotlin_resolved": {
+        "page": 236,
+        "printed_warsh_ayah": 10,
+        "top": 0.5354432
+      },
+      "validated_warsh_boundary": {
+        "page": 236,
+        "printed_warsh_ayah": 10
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 96,
+      "hizb": 24,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 12,
+        "ayah": 30
+      },
+      "kotlin_canonical_reference": {
+        "surah": 12,
+        "ayah": 33
+      },
+      "rn_resolved": {
+        "page": 238,
+        "printed_warsh_ayah": 30,
+        "top": 0.8061721
+      },
+      "kotlin_resolved": {
+        "page": 239,
+        "printed_warsh_ayah": 33,
+        "top": 0.371816
+      },
+      "validated_warsh_boundary": {
+        "page": 239,
+        "printed_warsh_ayah": 33
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 97,
+      "hizb": 25,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 12,
+        "ayah": 53
+      },
+      "kotlin_canonical_reference": {
+        "surah": 12,
+        "ayah": 53
+      },
+      "rn_resolved": {
+        "page": 242,
+        "printed_warsh_ayah": 53,
+        "top": 0.097645
+      },
+      "kotlin_resolved": {
+        "page": 242,
+        "printed_warsh_ayah": 53,
+        "top": 0.097645
+      },
+      "validated_warsh_boundary": {
+        "page": 242,
+        "printed_warsh_ayah": 53
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 98,
+      "hizb": 25,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 12,
+        "ayah": 77
+      },
+      "kotlin_canonical_reference": {
+        "surah": 12,
+        "ayah": 77
+      },
+      "rn_resolved": {
+        "page": 244,
+        "printed_warsh_ayah": 77,
+        "top": 0.6447689
+      },
+      "kotlin_resolved": {
+        "page": 244,
+        "printed_warsh_ayah": 77,
+        "top": 0.6447689
+      },
+      "validated_warsh_boundary": {
+        "page": 244,
+        "printed_warsh_ayah": 77
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 99,
+      "hizb": 25,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 12,
+        "ayah": 101
+      },
+      "kotlin_canonical_reference": {
+        "surah": 12,
+        "ayah": 101
+      },
+      "rn_resolved": {
+        "page": 247,
+        "printed_warsh_ayah": 101,
+        "top": 0.5904769
+      },
+      "kotlin_resolved": {
+        "page": 247,
+        "printed_warsh_ayah": 101,
+        "top": 0.5904769
+      },
+      "validated_warsh_boundary": {
+        "page": 247,
+        "printed_warsh_ayah": 101
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 100,
+      "hizb": 25,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 13,
+        "ayah": 5
+      },
+      "kotlin_canonical_reference": {
+        "surah": 13,
+        "ayah": 5
+      },
+      "rn_resolved": {
+        "page": 249,
+        "printed_warsh_ayah": 5,
+        "top": 0.7006675
+      },
+      "kotlin_resolved": {
+        "page": 249,
+        "printed_warsh_ayah": 5,
+        "top": 0.7006675
+      },
+      "validated_warsh_boundary": {
+        "page": 249,
+        "printed_warsh_ayah": 5
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 101,
+      "hizb": 26,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 13,
+        "ayah": 19
+      },
+      "kotlin_canonical_reference": {
+        "surah": 13,
+        "ayah": 19
+      },
+      "rn_resolved": {
+        "page": 252,
+        "printed_warsh_ayah": 21,
+        "top": 0.0993288
+      },
+      "kotlin_resolved": {
+        "page": 252,
+        "printed_warsh_ayah": 21,
+        "top": 0.0993288
+      },
+      "validated_warsh_boundary": {
+        "page": 252,
+        "printed_warsh_ayah": 21
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 102,
+      "hizb": 26,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 13,
+        "ayah": 35
+      },
+      "kotlin_canonical_reference": {
+        "surah": 13,
+        "ayah": 35
+      },
+      "rn_resolved": {
+        "page": 254,
+        "printed_warsh_ayah": 36,
+        "top": 0.0994109
+      },
+      "kotlin_resolved": {
+        "page": 254,
+        "printed_warsh_ayah": 36,
+        "top": 0.0994109
+      },
+      "validated_warsh_boundary": {
+        "page": 254,
+        "printed_warsh_ayah": 36
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 103,
+      "hizb": 26,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 14,
+        "ayah": 10
+      },
+      "kotlin_canonical_reference": {
+        "surah": 14,
+        "ayah": 10
+      },
+      "rn_resolved": {
+        "page": 256,
+        "printed_warsh_ayah": 13,
+        "top": 0.6975087
+      },
+      "kotlin_resolved": {
+        "page": 256,
+        "printed_warsh_ayah": 13,
+        "top": 0.6975087
+      },
+      "validated_warsh_boundary": {
+        "page": 256,
+        "printed_warsh_ayah": 13
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 104,
+      "hizb": 26,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 14,
+        "ayah": 28
+      },
+      "kotlin_canonical_reference": {
+        "surah": 14,
+        "ayah": 28
+      },
+      "rn_resolved": {
+        "page": 259,
+        "printed_warsh_ayah": 30,
+        "top": 0.3703575
+      },
+      "kotlin_resolved": {
+        "page": 259,
+        "printed_warsh_ayah": 30,
+        "top": 0.3703575
+      },
+      "validated_warsh_boundary": {
+        "page": 259,
+        "printed_warsh_ayah": 30
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 105,
+      "hizb": 27,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 15,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 15,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 262,
+        "printed_warsh_ayah": 1,
+        "top": 0.2163936
+      },
+      "kotlin_resolved": {
+        "page": 262,
+        "printed_warsh_ayah": 1,
+        "top": 0.2163936
+      },
+      "validated_warsh_boundary": {
+        "page": 262,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 106,
+      "hizb": 27,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 15,
+        "ayah": 50
+      },
+      "kotlin_canonical_reference": {
+        "surah": 15,
+        "ayah": 49
+      },
+      "rn_resolved": {
+        "page": 264,
+        "printed_warsh_ayah": 50,
+        "top": 0.8086814
+      },
+      "kotlin_resolved": {
+        "page": 264,
+        "printed_warsh_ayah": 49,
+        "top": 0.8086814
+      },
+      "validated_warsh_boundary": {
+        "page": 264,
+        "printed_warsh_ayah": 49
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 107,
+      "hizb": 27,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 16,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 16,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 267,
+        "printed_warsh_ayah": 1,
+        "top": 0.5438824
+      },
+      "kotlin_resolved": {
+        "page": 267,
+        "printed_warsh_ayah": 1,
+        "top": 0.5438824
+      },
+      "validated_warsh_boundary": {
+        "page": 267,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 108,
+      "hizb": 27,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 16,
+        "ayah": 30
+      },
+      "kotlin_canonical_reference": {
+        "surah": 16,
+        "ayah": 30
+      },
+      "rn_resolved": {
+        "page": 270,
+        "printed_warsh_ayah": 30,
+        "top": 0.3721211
+      },
+      "kotlin_resolved": {
+        "page": 270,
+        "printed_warsh_ayah": 30,
+        "top": 0.3721211
+      },
+      "validated_warsh_boundary": {
+        "page": 270,
+        "printed_warsh_ayah": 30
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 109,
+      "hizb": 28,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 16,
+        "ayah": 51
+      },
+      "kotlin_canonical_reference": {
+        "surah": 16,
+        "ayah": 51
+      },
+      "rn_resolved": {
+        "page": 272,
+        "printed_warsh_ayah": 51,
+        "top": 0.6438313
+      },
+      "kotlin_resolved": {
+        "page": 272,
+        "printed_warsh_ayah": 51,
+        "top": 0.6438313
+      },
+      "validated_warsh_boundary": {
+        "page": 272,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 110,
+      "hizb": 28,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 16,
+        "ayah": 75
+      },
+      "kotlin_canonical_reference": {
+        "surah": 16,
+        "ayah": 71
+      },
+      "rn_resolved": {
+        "page": 275,
+        "printed_warsh_ayah": 75,
+        "top": 0.2071235
+      },
+      "kotlin_resolved": {
+        "page": 274,
+        "printed_warsh_ayah": 71,
+        "top": 0.6462987
+      },
+      "validated_warsh_boundary": {
+        "page": 274,
+        "printed_warsh_ayah": 71
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 111,
+      "hizb": 28,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 16,
+        "ayah": 90
+      },
+      "kotlin_canonical_reference": {
+        "surah": 16,
+        "ayah": 90
+      },
+      "rn_resolved": {
+        "page": 277,
+        "printed_warsh_ayah": 90,
+        "top": 0.3181106
+      },
+      "kotlin_resolved": {
+        "page": 277,
+        "printed_warsh_ayah": 90,
+        "top": 0.3181106
+      },
+      "validated_warsh_boundary": {
+        "page": 277,
+        "printed_warsh_ayah": 90
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 112,
+      "hizb": 28,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 16,
+        "ayah": 111
+      },
+      "kotlin_canonical_reference": {
+        "surah": 16,
+        "ayah": 111
+      },
+      "rn_resolved": {
+        "page": 280,
+        "printed_warsh_ayah": 111,
+        "top": 0.096348
+      },
+      "kotlin_resolved": {
+        "page": 280,
+        "printed_warsh_ayah": 111,
+        "top": 0.096348
+      },
+      "validated_warsh_boundary": {
+        "page": 280,
+        "printed_warsh_ayah": 111
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 113,
+      "hizb": 29,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 17,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 17,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 282,
+        "printed_warsh_ayah": 1,
+        "top": 0.2184629
+      },
+      "kotlin_resolved": {
+        "page": 282,
+        "printed_warsh_ayah": 1,
+        "top": 0.2184629
+      },
+      "validated_warsh_boundary": {
+        "page": 282,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 114,
+      "hizb": 29,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 17,
+        "ayah": 23
+      },
+      "kotlin_canonical_reference": {
+        "surah": 17,
+        "ayah": 23
+      },
+      "rn_resolved": {
+        "page": 284,
+        "printed_warsh_ayah": 23,
+        "top": 0.4786859
+      },
+      "kotlin_resolved": {
+        "page": 284,
+        "printed_warsh_ayah": 23,
+        "top": 0.4786859
+      },
+      "validated_warsh_boundary": {
+        "page": 284,
+        "printed_warsh_ayah": 23
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 115,
+      "hizb": 29,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 17,
+        "ayah": 50
+      },
+      "kotlin_canonical_reference": {
+        "surah": 17,
+        "ayah": 50
+      },
+      "rn_resolved": {
+        "page": 287,
+        "printed_warsh_ayah": 50,
+        "top": 0.1016642
+      },
+      "kotlin_resolved": {
+        "page": 287,
+        "printed_warsh_ayah": 50,
+        "top": 0.1016642
+      },
+      "validated_warsh_boundary": {
+        "page": 287,
+        "printed_warsh_ayah": 50
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 116,
+      "hizb": 29,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 17,
+        "ayah": 70
+      },
+      "kotlin_canonical_reference": {
+        "surah": 17,
+        "ayah": 70
+      },
+      "rn_resolved": {
+        "page": 289,
+        "printed_warsh_ayah": 70,
+        "top": 0.3732958
+      },
+      "kotlin_resolved": {
+        "page": 289,
+        "printed_warsh_ayah": 70,
+        "top": 0.3732958
+      },
+      "validated_warsh_boundary": {
+        "page": 289,
+        "printed_warsh_ayah": 70
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 117,
+      "hizb": 30,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 17,
+        "ayah": 99
+      },
+      "kotlin_canonical_reference": {
+        "surah": 17,
+        "ayah": 99
+      },
+      "rn_resolved": {
+        "page": 292,
+        "printed_warsh_ayah": 99,
+        "top": 0.316785
+      },
+      "kotlin_resolved": {
+        "page": 292,
+        "printed_warsh_ayah": 99,
+        "top": 0.316785
+      },
+      "validated_warsh_boundary": {
+        "page": 292,
+        "printed_warsh_ayah": 99
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 118,
+      "hizb": 30,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 18,
+        "ayah": 17
+      },
+      "kotlin_canonical_reference": {
+        "surah": 18,
+        "ayah": 17
+      },
+      "rn_resolved": {
+        "page": 295,
+        "printed_warsh_ayah": 17,
+        "top": 0.2112797
+      },
+      "kotlin_resolved": {
+        "page": 295,
+        "printed_warsh_ayah": 17,
+        "top": 0.2112797
+      },
+      "validated_warsh_boundary": {
+        "page": 295,
+        "printed_warsh_ayah": 17
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 119,
+      "hizb": 30,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 18,
+        "ayah": 32
+      },
+      "kotlin_canonical_reference": {
+        "surah": 18,
+        "ayah": 30
+      },
+      "rn_resolved": {
+        "page": 297,
+        "printed_warsh_ayah": 32,
+        "top": 0.6453521
+      },
+      "kotlin_resolved": {
+        "page": 297,
+        "printed_warsh_ayah": 30,
+        "top": 0.4276508
+      },
+      "validated_warsh_boundary": {
+        "page": 297,
+        "printed_warsh_ayah": 30
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 120,
+      "hizb": 30,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 18,
+        "ayah": 51
+      },
+      "kotlin_canonical_reference": {
+        "surah": 18,
+        "ayah": 50
+      },
+      "rn_resolved": {
+        "page": 299,
+        "printed_warsh_ayah": 50,
+        "top": 0.6449068
+      },
+      "kotlin_resolved": {
+        "page": 299,
+        "printed_warsh_ayah": 49,
+        "top": 0.4792616
+      },
+      "validated_warsh_boundary": {
+        "page": 299,
+        "printed_warsh_ayah": 49
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 121,
+      "hizb": 31,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 18,
+        "ayah": 75
+      },
+      "kotlin_canonical_reference": {
+        "surah": 18,
+        "ayah": 75
+      },
+      "rn_resolved": {
+        "page": 302,
+        "printed_warsh_ayah": 74,
+        "top": 0.0938215
+      },
+      "kotlin_resolved": {
+        "page": 302,
+        "printed_warsh_ayah": 74,
+        "top": 0.0938215
+      },
+      "validated_warsh_boundary": {
+        "page": 302,
+        "printed_warsh_ayah": 74
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 122,
+      "hizb": 31,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 18,
+        "ayah": 99
+      },
+      "kotlin_canonical_reference": {
+        "surah": 18,
+        "ayah": 102
+      },
+      "rn_resolved": {
+        "page": 304,
+        "printed_warsh_ayah": 95,
+        "top": 0.1563711
+      },
+      "kotlin_resolved": {
+        "page": 304,
+        "printed_warsh_ayah": 98,
+        "top": 0.3171011
+      },
+      "validated_warsh_boundary": {
+        "page": 304,
+        "printed_warsh_ayah": 98
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 123,
+      "hizb": 31,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 19,
+        "ayah": 22
+      },
+      "kotlin_canonical_reference": {
+        "surah": 19,
+        "ayah": 22
+      },
+      "rn_resolved": {
+        "page": 306,
+        "printed_warsh_ayah": 21,
+        "top": 0.6430485
+      },
+      "kotlin_resolved": {
+        "page": 306,
+        "printed_warsh_ayah": 21,
+        "top": 0.6430485
+      },
+      "validated_warsh_boundary": {
+        "page": 306,
+        "printed_warsh_ayah": 21
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 124,
+      "hizb": 31,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 19,
+        "ayah": 59
+      },
+      "kotlin_canonical_reference": {
+        "surah": 19,
+        "ayah": 59
+      },
+      "rn_resolved": {
+        "page": 309,
+        "printed_warsh_ayah": 59,
+        "top": 0.5361661
+      },
+      "kotlin_resolved": {
+        "page": 309,
+        "printed_warsh_ayah": 59,
+        "top": 0.5361661
+      },
+      "validated_warsh_boundary": {
+        "page": 309,
+        "printed_warsh_ayah": 59
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 125,
+      "hizb": 32,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 20,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 20,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 312,
+        "printed_warsh_ayah": 1,
+        "top": 0.4367782
+      },
+      "kotlin_resolved": {
+        "page": 312,
+        "printed_warsh_ayah": 1,
+        "top": 0.4367782
+      },
+      "validated_warsh_boundary": {
+        "page": 312,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 126,
+      "hizb": 32,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 20,
+        "ayah": 55
+      },
+      "kotlin_canonical_reference": {
+        "surah": 20,
+        "ayah": 55
+      },
+      "rn_resolved": {
+        "page": 315,
+        "printed_warsh_ayah": 54,
+        "top": 0.2638692
+      },
+      "kotlin_resolved": {
+        "page": 315,
+        "printed_warsh_ayah": 54,
+        "top": 0.2638692
+      },
+      "validated_warsh_boundary": {
+        "page": 315,
+        "printed_warsh_ayah": 54
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 127,
+      "hizb": 32,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 20,
+        "ayah": 83
+      },
+      "kotlin_canonical_reference": {
+        "surah": 20,
+        "ayah": 83
+      },
+      "rn_resolved": {
+        "page": 317,
+        "printed_warsh_ayah": 81,
+        "top": 0.4795428
+      },
+      "kotlin_resolved": {
+        "page": 317,
+        "printed_warsh_ayah": 81,
+        "top": 0.4795428
+      },
+      "validated_warsh_boundary": {
+        "page": 317,
+        "printed_warsh_ayah": 81
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 128,
+      "hizb": 32,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 20,
+        "ayah": 111
+      },
+      "kotlin_canonical_reference": {
+        "surah": 20,
+        "ayah": 111
+      },
+      "rn_resolved": {
+        "page": 319,
+        "printed_warsh_ayah": 108,
+        "top": 0.6997464
+      },
+      "kotlin_resolved": {
+        "page": 319,
+        "printed_warsh_ayah": 108,
+        "top": 0.6997464
+      },
+      "validated_warsh_boundary": {
+        "page": 319,
+        "printed_warsh_ayah": 108
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 129,
+      "hizb": 33,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 21,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 21,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 322,
+        "printed_warsh_ayah": 1,
+        "top": 0.2199325
+      },
+      "kotlin_resolved": {
+        "page": 322,
+        "printed_warsh_ayah": 1,
+        "top": 0.2199325
+      },
+      "validated_warsh_boundary": {
+        "page": 322,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 130,
+      "hizb": 33,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 21,
+        "ayah": 29
+      },
+      "kotlin_canonical_reference": {
+        "surah": 21,
+        "ayah": 30
+      },
+      "rn_resolved": {
+        "page": 324,
+        "printed_warsh_ayah": 29,
+        "top": 0.3192577
+      },
+      "kotlin_resolved": {
+        "page": 324,
+        "printed_warsh_ayah": 30,
+        "top": 0.4270878
+      },
+      "validated_warsh_boundary": {
+        "page": 324,
+        "printed_warsh_ayah": 30
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 131,
+      "hizb": 33,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 21,
+        "ayah": 51
+      },
+      "kotlin_canonical_reference": {
+        "surah": 21,
+        "ayah": 51
+      },
+      "rn_resolved": {
+        "page": 326,
+        "printed_warsh_ayah": 51,
+        "top": 0.5356574
+      },
+      "kotlin_resolved": {
+        "page": 326,
+        "printed_warsh_ayah": 51,
+        "top": 0.5356574
+      },
+      "validated_warsh_boundary": {
+        "page": 326,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 132,
+      "hizb": 33,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 21,
+        "ayah": 83
+      },
+      "kotlin_canonical_reference": {
+        "surah": 21,
+        "ayah": 87
+      },
+      "rn_resolved": {
+        "page": 329,
+        "printed_warsh_ayah": 82,
+        "top": 0.153264
+      },
+      "kotlin_resolved": {
+        "page": 329,
+        "printed_warsh_ayah": 86,
+        "top": 0.4793867
+      },
+      "validated_warsh_boundary": {
+        "page": 329,
+        "printed_warsh_ayah": 86
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 133,
+      "hizb": 34,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 22,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 22,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 332,
+        "printed_warsh_ayah": 1,
+        "top": 0.2185368
+      },
+      "kotlin_resolved": {
+        "page": 332,
+        "printed_warsh_ayah": 1,
+        "top": 0.2185368
+      },
+      "validated_warsh_boundary": {
+        "page": 332,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 134,
+      "hizb": 34,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 22,
+        "ayah": 19
+      },
+      "kotlin_canonical_reference": {
+        "surah": 22,
+        "ayah": 19
+      },
+      "rn_resolved": {
+        "page": 334,
+        "printed_warsh_ayah": 19,
+        "top": 0.4798783
+      },
+      "kotlin_resolved": {
+        "page": 334,
+        "printed_warsh_ayah": 19,
+        "top": 0.4798783
+      },
+      "validated_warsh_boundary": {
+        "page": 334,
+        "printed_warsh_ayah": 19
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 135,
+      "hizb": 34,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 22,
+        "ayah": 38
+      },
+      "kotlin_canonical_reference": {
+        "surah": 22,
+        "ayah": 38
+      },
+      "rn_resolved": {
+        "page": 336,
+        "printed_warsh_ayah": 36,
+        "top": 0.8074161
+      },
+      "kotlin_resolved": {
+        "page": 336,
+        "printed_warsh_ayah": 36,
+        "top": 0.8074161
+      },
+      "validated_warsh_boundary": {
+        "page": 336,
+        "printed_warsh_ayah": 36
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 136,
+      "hizb": 34,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 22,
+        "ayah": 60
+      },
+      "kotlin_canonical_reference": {
+        "surah": 22,
+        "ayah": 60
+      },
+      "rn_resolved": {
+        "page": 339,
+        "printed_warsh_ayah": 58,
+        "top": 0.4282145
+      },
+      "kotlin_resolved": {
+        "page": 339,
+        "printed_warsh_ayah": 58,
+        "top": 0.4282145
+      },
+      "validated_warsh_boundary": {
+        "page": 339,
+        "printed_warsh_ayah": 58
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 137,
+      "hizb": 35,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 23,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 23,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 342,
+        "printed_warsh_ayah": 1,
+        "top": 0.2199322
+      },
+      "kotlin_resolved": {
+        "page": 342,
+        "printed_warsh_ayah": 1,
+        "top": 0.2199322
+      },
+      "validated_warsh_boundary": {
+        "page": 342,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 138,
+      "hizb": 35,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 23,
+        "ayah": 36
+      },
+      "kotlin_canonical_reference": {
+        "surah": 23,
+        "ayah": 39
+      },
+      "rn_resolved": {
+        "page": 344,
+        "printed_warsh_ayah": 36,
+        "top": 0.5908441
+      },
+      "kotlin_resolved": {
+        "page": 344,
+        "printed_warsh_ayah": 39,
+        "top": 0.6989173
+      },
+      "validated_warsh_boundary": {
+        "page": 344,
+        "printed_warsh_ayah": 39
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 139,
+      "hizb": 35,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 23,
+        "ayah": 75
+      },
+      "kotlin_canonical_reference": {
+        "surah": 23,
+        "ayah": 75
+      },
+      "rn_resolved": {
+        "page": 347,
+        "printed_warsh_ayah": 76,
+        "top": 0.0987512
+      },
+      "kotlin_resolved": {
+        "page": 347,
+        "printed_warsh_ayah": 76,
+        "top": 0.0987512
+      },
+      "validated_warsh_boundary": {
+        "page": 347,
+        "printed_warsh_ayah": 76
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 140,
+      "hizb": 35,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 24,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 23,
+        "ayah": 115
+      },
+      "rn_resolved": {
+        "page": 350,
+        "printed_warsh_ayah": 1,
+        "top": 0.2178533
+      },
+      "kotlin_resolved": {
+        "page": 349,
+        "printed_warsh_ayah": 116,
+        "top": 0.589732
+      },
+      "validated_warsh_boundary": {
+        "page": 349,
+        "printed_warsh_ayah": 116
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 141,
+      "hizb": 36,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 24,
+        "ayah": 21
+      },
+      "kotlin_canonical_reference": {
+        "surah": 24,
+        "ayah": 21
+      },
+      "rn_resolved": {
+        "page": 352,
+        "printed_warsh_ayah": 21,
+        "top": 0.0988936
+      },
+      "kotlin_resolved": {
+        "page": 352,
+        "printed_warsh_ayah": 21,
+        "top": 0.0988936
+      },
+      "validated_warsh_boundary": {
+        "page": 352,
+        "printed_warsh_ayah": 21
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 142,
+      "hizb": 36,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 24,
+        "ayah": 35
+      },
+      "kotlin_canonical_reference": {
+        "surah": 24,
+        "ayah": 35
+      },
+      "rn_resolved": {
+        "page": 354,
+        "printed_warsh_ayah": 35,
+        "top": 0.5352316
+      },
+      "kotlin_resolved": {
+        "page": 354,
+        "printed_warsh_ayah": 35,
+        "top": 0.5352316
+      },
+      "validated_warsh_boundary": {
+        "page": 354,
+        "printed_warsh_ayah": 35
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 143,
+      "hizb": 36,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 24,
+        "ayah": 53
+      },
+      "kotlin_canonical_reference": {
+        "surah": 24,
+        "ayah": 53
+      },
+      "rn_resolved": {
+        "page": 356,
+        "printed_warsh_ayah": 51,
+        "top": 0.8087704
+      },
+      "kotlin_resolved": {
+        "page": 356,
+        "printed_warsh_ayah": 51,
+        "top": 0.8087704
+      },
+      "validated_warsh_boundary": {
+        "page": 356,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 144,
+      "hizb": 36,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 25,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 24,
+        "ayah": 63
+      },
+      "rn_resolved": {
+        "page": 359,
+        "printed_warsh_ayah": 1,
+        "top": 0.7580924
+      },
+      "kotlin_resolved": {
+        "page": 359,
+        "printed_warsh_ayah": 61,
+        "top": 0.3145048
+      },
+      "validated_warsh_boundary": {
+        "page": 359,
+        "printed_warsh_ayah": 61
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 145,
+      "hizb": 37,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 25,
+        "ayah": 21
+      },
+      "kotlin_canonical_reference": {
+        "surah": 25,
+        "ayah": 21
+      },
+      "rn_resolved": {
+        "page": 362,
+        "printed_warsh_ayah": 21,
+        "top": 0.1022469
+      },
+      "kotlin_resolved": {
+        "page": 362,
+        "printed_warsh_ayah": 21,
+        "top": 0.1022469
+      },
+      "validated_warsh_boundary": {
+        "page": 362,
+        "printed_warsh_ayah": 21
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 146,
+      "hizb": 37,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 25,
+        "ayah": 53
+      },
+      "kotlin_canonical_reference": {
+        "surah": 25,
+        "ayah": 45
+      },
+      "rn_resolved": {
+        "page": 364,
+        "printed_warsh_ayah": 53,
+        "top": 0.6444156
+      },
+      "kotlin_resolved": {
+        "page": 364,
+        "printed_warsh_ayah": 45,
+        "top": 0.1546931
+      },
+      "validated_warsh_boundary": {
+        "page": 364,
+        "printed_warsh_ayah": 45
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 147,
+      "hizb": 37,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 26,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 26,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 367,
+        "printed_warsh_ayah": 1,
+        "top": 0.2176559
+      },
+      "kotlin_resolved": {
+        "page": 367,
+        "printed_warsh_ayah": 1,
+        "top": 0.2176559
+      },
+      "validated_warsh_boundary": {
+        "page": 367,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 148,
+      "hizb": 37,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 26,
+        "ayah": 52
+      },
+      "kotlin_canonical_reference": {
+        "surah": 26,
+        "ayah": 50
+      },
+      "rn_resolved": {
+        "page": 369,
+        "printed_warsh_ayah": 52,
+        "top": 0.6437844
+      },
+      "kotlin_resolved": {
+        "page": 369,
+        "printed_warsh_ayah": 50,
+        "top": 0.5357889
+      },
+      "validated_warsh_boundary": {
+        "page": 369,
+        "printed_warsh_ayah": 50
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 149,
+      "hizb": 38,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 26,
+        "ayah": 111
+      },
+      "kotlin_canonical_reference": {
+        "surah": 26,
+        "ayah": 111
+      },
+      "rn_resolved": {
+        "page": 371,
+        "printed_warsh_ayah": 111,
+        "top": 0.8600528
+      },
+      "kotlin_resolved": {
+        "page": 371,
+        "printed_warsh_ayah": 111,
+        "top": 0.8600528
+      },
+      "validated_warsh_boundary": {
+        "page": 371,
+        "printed_warsh_ayah": 111
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 150,
+      "hizb": 38,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 26,
+        "ayah": 181
+      },
+      "kotlin_canonical_reference": {
+        "surah": 26,
+        "ayah": 181
+      },
+      "rn_resolved": {
+        "page": 374,
+        "printed_warsh_ayah": 181,
+        "top": 0.7525183
+      },
+      "kotlin_resolved": {
+        "page": 374,
+        "printed_warsh_ayah": 181,
+        "top": 0.7525183
+      },
+      "validated_warsh_boundary": {
+        "page": 374,
+        "printed_warsh_ayah": 181
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 151,
+      "hizb": 38,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 27,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 27,
+        "ayah": 6
+      },
+      "rn_resolved": {
+        "page": 377,
+        "printed_warsh_ayah": 1,
+        "top": 0.2176274
+      },
+      "kotlin_resolved": {
+        "page": 377,
+        "printed_warsh_ayah": 6,
+        "top": 0.4322013
+      },
+      "validated_warsh_boundary": {
+        "page": 377,
+        "printed_warsh_ayah": 6
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 152,
+      "hizb": 38,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 27,
+        "ayah": 27
+      },
+      "kotlin_canonical_reference": {
+        "surah": 27,
+        "ayah": 27
+      },
+      "rn_resolved": {
+        "page": 379,
+        "printed_warsh_ayah": 27,
+        "top": 0.3708479
+      },
+      "kotlin_resolved": {
+        "page": 379,
+        "printed_warsh_ayah": 27,
+        "top": 0.3708479
+      },
+      "validated_warsh_boundary": {
+        "page": 379,
+        "printed_warsh_ayah": 27
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 153,
+      "hizb": 39,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 27,
+        "ayah": 56
+      },
+      "kotlin_canonical_reference": {
+        "surah": 27,
+        "ayah": 56
+      },
+      "rn_resolved": {
+        "page": 382,
+        "printed_warsh_ayah": 58,
+        "top": 0.1001112
+      },
+      "kotlin_resolved": {
+        "page": 382,
+        "printed_warsh_ayah": 58,
+        "top": 0.1001112
+      },
+      "validated_warsh_boundary": {
+        "page": 382,
+        "printed_warsh_ayah": 58
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 154,
+      "hizb": 39,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 27,
+        "ayah": 82
+      },
+      "kotlin_canonical_reference": {
+        "surah": 27,
+        "ayah": 82
+      },
+      "rn_resolved": {
+        "page": 384,
+        "printed_warsh_ayah": 84,
+        "top": 0.3190908
+      },
+      "kotlin_resolved": {
+        "page": 384,
+        "printed_warsh_ayah": 84,
+        "top": 0.3190908
+      },
+      "validated_warsh_boundary": {
+        "page": 384,
+        "printed_warsh_ayah": 84
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 155,
+      "hizb": 39,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 28,
+        "ayah": 12
+      },
+      "kotlin_canonical_reference": {
+        "surah": 28,
+        "ayah": 12
+      },
+      "rn_resolved": {
+        "page": 386,
+        "printed_warsh_ayah": 11,
+        "top": 0.6994113
+      },
+      "kotlin_resolved": {
+        "page": 386,
+        "printed_warsh_ayah": 11,
+        "top": 0.6994113
+      },
+      "validated_warsh_boundary": {
+        "page": 386,
+        "printed_warsh_ayah": 11
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 156,
+      "hizb": 39,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 28,
+        "ayah": 29
+      },
+      "kotlin_canonical_reference": {
+        "surah": 28,
+        "ayah": 29
+      },
+      "rn_resolved": {
+        "page": 389,
+        "printed_warsh_ayah": 29,
+        "top": 0.1028341
+      },
+      "kotlin_resolved": {
+        "page": 389,
+        "printed_warsh_ayah": 29,
+        "top": 0.1028341
+      },
+      "validated_warsh_boundary": {
+        "page": 389,
+        "printed_warsh_ayah": 29
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 157,
+      "hizb": 40,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 28,
+        "ayah": 51
+      },
+      "kotlin_canonical_reference": {
+        "surah": 28,
+        "ayah": 51
+      },
+      "rn_resolved": {
+        "page": 392,
+        "printed_warsh_ayah": 51,
+        "top": 0.0979618
+      },
+      "kotlin_resolved": {
+        "page": 392,
+        "printed_warsh_ayah": 51,
+        "top": 0.0979618
+      },
+      "validated_warsh_boundary": {
+        "page": 392,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 158,
+      "hizb": 40,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 28,
+        "ayah": 76
+      },
+      "kotlin_canonical_reference": {
+        "surah": 28,
+        "ayah": 76
+      },
+      "rn_resolved": {
+        "page": 394,
+        "printed_warsh_ayah": 76,
+        "top": 0.5913557
+      },
+      "kotlin_resolved": {
+        "page": 394,
+        "printed_warsh_ayah": 76,
+        "top": 0.5913557
+      },
+      "validated_warsh_boundary": {
+        "page": 394,
+        "printed_warsh_ayah": 76
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 159,
+      "hizb": 40,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 29,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 29,
+        "ayah": 8
+      },
+      "rn_resolved": {
+        "page": 396,
+        "printed_warsh_ayah": 1,
+        "top": 0.5990766
+      },
+      "kotlin_resolved": {
+        "page": 397,
+        "printed_warsh_ayah": 7,
+        "top": 0.1546908
+      },
+      "validated_warsh_boundary": {
+        "page": 397,
+        "printed_warsh_ayah": 7
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 160,
+      "hizb": 40,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 29,
+        "ayah": 26
+      },
+      "kotlin_canonical_reference": {
+        "surah": 29,
+        "ayah": 26
+      },
+      "rn_resolved": {
+        "page": 399,
+        "printed_warsh_ayah": 25,
+        "top": 0.3728235
+      },
+      "kotlin_resolved": {
+        "page": 399,
+        "printed_warsh_ayah": 25,
+        "top": 0.3728235
+      },
+      "validated_warsh_boundary": {
+        "page": 399,
+        "printed_warsh_ayah": 25
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 161,
+      "hizb": 41,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 29,
+        "ayah": 46
+      },
+      "kotlin_canonical_reference": {
+        "surah": 29,
+        "ayah": 46
+      },
+      "rn_resolved": {
+        "page": 402,
+        "printed_warsh_ayah": 46,
+        "top": 0.0988766
+      },
+      "kotlin_resolved": {
+        "page": 402,
+        "printed_warsh_ayah": 46,
+        "top": 0.0988766
+      },
+      "validated_warsh_boundary": {
+        "page": 402,
+        "printed_warsh_ayah": 46
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 162,
+      "hizb": 41,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 30,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 30,
+        "ayah": 9
+      },
+      "rn_resolved": {
+        "page": 404,
+        "printed_warsh_ayah": 1,
+        "top": 0.7061587
+      },
+      "kotlin_resolved": {
+        "page": 405,
+        "printed_warsh_ayah": 8,
+        "top": 0.3175851
+      },
+      "validated_warsh_boundary": {
+        "page": 405,
+        "printed_warsh_ayah": 8
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 163,
+      "hizb": 41,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 30,
+        "ayah": 31
+      },
+      "kotlin_canonical_reference": {
+        "surah": 30,
+        "ayah": 30
+      },
+      "rn_resolved": {
+        "page": 407,
+        "printed_warsh_ayah": 30,
+        "top": 0.7533251
+      },
+      "kotlin_resolved": {
+        "page": 407,
+        "printed_warsh_ayah": 29,
+        "top": 0.591848
+      },
+      "validated_warsh_boundary": {
+        "page": 407,
+        "printed_warsh_ayah": 29
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 164,
+      "hizb": 41,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 30,
+        "ayah": 54
+      },
+      "kotlin_canonical_reference": {
+        "surah": 30,
+        "ayah": 54
+      },
+      "rn_resolved": {
+        "page": 410,
+        "printed_warsh_ayah": 53,
+        "top": 0.2662274
+      },
+      "kotlin_resolved": {
+        "page": 410,
+        "printed_warsh_ayah": 53,
+        "top": 0.2662274
+      },
+      "validated_warsh_boundary": {
+        "page": 410,
+        "printed_warsh_ayah": 53
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 165,
+      "hizb": 42,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 31,
+        "ayah": 22
+      },
+      "kotlin_canonical_reference": {
+        "surah": 31,
+        "ayah": 22
+      },
+      "rn_resolved": {
+        "page": 413,
+        "printed_warsh_ayah": 21,
+        "top": 0.3186216
+      },
+      "kotlin_resolved": {
+        "page": 413,
+        "printed_warsh_ayah": 21,
+        "top": 0.3186216
+      },
+      "validated_warsh_boundary": {
+        "page": 413,
+        "printed_warsh_ayah": 21
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 166,
+      "hizb": 42,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 32,
+        "ayah": 11
+      },
+      "kotlin_canonical_reference": {
+        "surah": 32,
+        "ayah": 11
+      },
+      "rn_resolved": {
+        "page": 415,
+        "printed_warsh_ayah": 11,
+        "top": 0.8085328
+      },
+      "kotlin_resolved": {
+        "page": 415,
+        "printed_warsh_ayah": 11,
+        "top": 0.8085328
+      },
+      "validated_warsh_boundary": {
+        "page": 415,
+        "printed_warsh_ayah": 11
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 167,
+      "hizb": 42,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 33,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 33,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 418,
+        "printed_warsh_ayah": 1,
+        "top": 0.2180162
+      },
+      "kotlin_resolved": {
+        "page": 418,
+        "printed_warsh_ayah": 1,
+        "top": 0.2180162
+      },
+      "validated_warsh_boundary": {
+        "page": 418,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 168,
+      "hizb": 42,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 33,
+        "ayah": 18
+      },
+      "kotlin_canonical_reference": {
+        "surah": 33,
+        "ayah": 18
+      },
+      "rn_resolved": {
+        "page": 420,
+        "printed_warsh_ayah": 18,
+        "top": 0.2656988
+      },
+      "kotlin_resolved": {
+        "page": 420,
+        "printed_warsh_ayah": 18,
+        "top": 0.2656988
+      },
+      "validated_warsh_boundary": {
+        "page": 420,
+        "printed_warsh_ayah": 18
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 169,
+      "hizb": 43,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 33,
+        "ayah": 31
+      },
+      "kotlin_canonical_reference": {
+        "surah": 33,
+        "ayah": 31
+      },
+      "rn_resolved": {
+        "page": 422,
+        "printed_warsh_ayah": 31,
+        "top": 0.0998579
+      },
+      "kotlin_resolved": {
+        "page": 422,
+        "printed_warsh_ayah": 31,
+        "top": 0.0998579
+      },
+      "validated_warsh_boundary": {
+        "page": 422,
+        "printed_warsh_ayah": 31
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 170,
+      "hizb": 43,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 33,
+        "ayah": 51
+      },
+      "kotlin_canonical_reference": {
+        "surah": 33,
+        "ayah": 49
+      },
+      "rn_resolved": {
+        "page": 425,
+        "printed_warsh_ayah": 51,
+        "top": 0.0917812
+      },
+      "kotlin_resolved": {
+        "page": 424,
+        "printed_warsh_ayah": 49,
+        "top": 0.3726191
+      },
+      "validated_warsh_boundary": {
+        "page": 424,
+        "printed_warsh_ayah": 49
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 171,
+      "hizb": 43,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 33,
+        "ayah": 60
+      },
+      "kotlin_canonical_reference": {
+        "surah": 33,
+        "ayah": 60
+      },
+      "rn_resolved": {
+        "page": 426,
+        "printed_warsh_ayah": 60,
+        "top": 0.6432989
+      },
+      "kotlin_resolved": {
+        "page": 426,
+        "printed_warsh_ayah": 60,
+        "top": 0.6432989
+      },
+      "validated_warsh_boundary": {
+        "page": 426,
+        "printed_warsh_ayah": 60
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 172,
+      "hizb": 43,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 34,
+        "ayah": 10
+      },
+      "kotlin_canonical_reference": {
+        "surah": 34,
+        "ayah": 10
+      },
+      "rn_resolved": {
+        "page": 429,
+        "printed_warsh_ayah": 10,
+        "top": 0.319359
+      },
+      "kotlin_resolved": {
+        "page": 429,
+        "printed_warsh_ayah": 10,
+        "top": 0.319359
+      },
+      "validated_warsh_boundary": {
+        "page": 429,
+        "printed_warsh_ayah": 10
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 173,
+      "hizb": 44,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 34,
+        "ayah": 24
+      },
+      "kotlin_canonical_reference": {
+        "surah": 34,
+        "ayah": 24
+      },
+      "rn_resolved": {
+        "page": 431,
+        "printed_warsh_ayah": 24,
+        "top": 0.208944
+      },
+      "kotlin_resolved": {
+        "page": 431,
+        "printed_warsh_ayah": 24,
+        "top": 0.208944
+      },
+      "validated_warsh_boundary": {
+        "page": 431,
+        "printed_warsh_ayah": 24
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 174,
+      "hizb": 44,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 34,
+        "ayah": 46
+      },
+      "kotlin_canonical_reference": {
+        "surah": 34,
+        "ayah": 46
+      },
+      "rn_resolved": {
+        "page": 433,
+        "printed_warsh_ayah": 46,
+        "top": 0.6439837
+      },
+      "kotlin_resolved": {
+        "page": 433,
+        "printed_warsh_ayah": 46,
+        "top": 0.6439837
+      },
+      "validated_warsh_boundary": {
+        "page": 433,
+        "printed_warsh_ayah": 46
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 175,
+      "hizb": 44,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 35,
+        "ayah": 15
+      },
+      "kotlin_canonical_reference": {
+        "surah": 35,
+        "ayah": 15
+      },
+      "rn_resolved": {
+        "page": 436,
+        "printed_warsh_ayah": 15,
+        "top": 0.5893168
+      },
+      "kotlin_resolved": {
+        "page": 436,
+        "printed_warsh_ayah": 15,
+        "top": 0.5893168
+      },
+      "validated_warsh_boundary": {
+        "page": 436,
+        "printed_warsh_ayah": 15
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 176,
+      "hizb": 44,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 35,
+        "ayah": 41
+      },
+      "kotlin_canonical_reference": {
+        "surah": 35,
+        "ayah": 41
+      },
+      "rn_resolved": {
+        "page": 439,
+        "printed_warsh_ayah": 41,
+        "top": 0.3724645
+      },
+      "kotlin_resolved": {
+        "page": 439,
+        "printed_warsh_ayah": 41,
+        "top": 0.3724645
+      },
+      "validated_warsh_boundary": {
+        "page": 439,
+        "printed_warsh_ayah": 41
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 177,
+      "hizb": 45,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 36,
+        "ayah": 28
+      },
+      "kotlin_canonical_reference": {
+        "surah": 36,
+        "ayah": 28
+      },
+      "rn_resolved": {
+        "page": 442,
+        "printed_warsh_ayah": 27,
+        "top": 0.1011136
+      },
+      "kotlin_resolved": {
+        "page": 442,
+        "printed_warsh_ayah": 27,
+        "top": 0.1011136
+      },
+      "validated_warsh_boundary": {
+        "page": 442,
+        "printed_warsh_ayah": 27
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 178,
+      "hizb": 45,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 36,
+        "ayah": 60
+      },
+      "kotlin_canonical_reference": {
+        "surah": 36,
+        "ayah": 60
+      },
+      "rn_resolved": {
+        "page": 444,
+        "printed_warsh_ayah": 59,
+        "top": 0.2647016
+      },
+      "kotlin_resolved": {
+        "page": 444,
+        "printed_warsh_ayah": 59,
+        "top": 0.2647016
+      },
+      "validated_warsh_boundary": {
+        "page": 444,
+        "printed_warsh_ayah": 59
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 179,
+      "hizb": 45,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 37,
+        "ayah": 22
+      },
+      "kotlin_canonical_reference": {
+        "surah": 37,
+        "ayah": 22
+      },
+      "rn_resolved": {
+        "page": 446,
+        "printed_warsh_ayah": 22,
+        "top": 0.8091395
+      },
+      "kotlin_resolved": {
+        "page": 446,
+        "printed_warsh_ayah": 22,
+        "top": 0.8091395
+      },
+      "validated_warsh_boundary": {
+        "page": 446,
+        "printed_warsh_ayah": 22
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 180,
+      "hizb": 45,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 37,
+        "ayah": 83
+      },
+      "kotlin_canonical_reference": {
+        "surah": 37,
+        "ayah": 83
+      },
+      "rn_resolved": {
+        "page": 449,
+        "printed_warsh_ayah": 83,
+        "top": 0.2091929
+      },
+      "kotlin_resolved": {
+        "page": 449,
+        "printed_warsh_ayah": 83,
+        "top": 0.2091929
+      },
+      "validated_warsh_boundary": {
+        "page": 449,
+        "printed_warsh_ayah": 83
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 181,
+      "hizb": 46,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 37,
+        "ayah": 145
+      },
+      "kotlin_canonical_reference": {
+        "surah": 37,
+        "ayah": 145
+      },
+      "rn_resolved": {
+        "page": 451,
+        "printed_warsh_ayah": 145,
+        "top": 0.5892889
+      },
+      "kotlin_resolved": {
+        "page": 451,
+        "printed_warsh_ayah": 145,
+        "top": 0.5892889
+      },
+      "validated_warsh_boundary": {
+        "page": 451,
+        "printed_warsh_ayah": 145
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 182,
+      "hizb": 46,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 38,
+        "ayah": 21
+      },
+      "kotlin_canonical_reference": {
+        "surah": 38,
+        "ayah": 21
+      },
+      "rn_resolved": {
+        "page": 454,
+        "printed_warsh_ayah": 20,
+        "top": 0.2632575
+      },
+      "kotlin_resolved": {
+        "page": 454,
+        "printed_warsh_ayah": 20,
+        "top": 0.2632575
+      },
+      "validated_warsh_boundary": {
+        "page": 454,
+        "printed_warsh_ayah": 20
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 183,
+      "hizb": 46,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 38,
+        "ayah": 52
+      },
+      "kotlin_canonical_reference": {
+        "surah": 38,
+        "ayah": 52
+      },
+      "rn_resolved": {
+        "page": 456,
+        "printed_warsh_ayah": 51,
+        "top": 0.5352443
+      },
+      "kotlin_resolved": {
+        "page": 456,
+        "printed_warsh_ayah": 51,
+        "top": 0.5352443
+      },
+      "validated_warsh_boundary": {
+        "page": 456,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 184,
+      "hizb": 46,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 39,
+        "ayah": 8
+      },
+      "kotlin_canonical_reference": {
+        "surah": 39,
+        "ayah": 8
+      },
+      "rn_resolved": {
+        "page": 459,
+        "printed_warsh_ayah": 9,
+        "top": 0.4819237
+      },
+      "kotlin_resolved": {
+        "page": 459,
+        "printed_warsh_ayah": 9,
+        "top": 0.4819237
+      },
+      "validated_warsh_boundary": {
+        "page": 459,
+        "printed_warsh_ayah": 9
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 185,
+      "hizb": 47,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 39,
+        "ayah": 32
+      },
+      "kotlin_canonical_reference": {
+        "surah": 39,
+        "ayah": 32
+      },
+      "rn_resolved": {
+        "page": 462,
+        "printed_warsh_ayah": 31,
+        "top": 0.1023298
+      },
+      "kotlin_resolved": {
+        "page": 462,
+        "printed_warsh_ayah": 31,
+        "top": 0.1023298
+      },
+      "validated_warsh_boundary": {
+        "page": 462,
+        "printed_warsh_ayah": 31
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 186,
+      "hizb": 47,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 39,
+        "ayah": 53
+      },
+      "kotlin_canonical_reference": {
+        "surah": 39,
+        "ayah": 54
+      },
+      "rn_resolved": {
+        "page": 464,
+        "printed_warsh_ayah": 50,
+        "top": 0.5366527
+      },
+      "kotlin_resolved": {
+        "page": 464,
+        "printed_warsh_ayah": 51,
+        "top": 0.6450956
+      },
+      "validated_warsh_boundary": {
+        "page": 464,
+        "printed_warsh_ayah": 51
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 187,
+      "hizb": 47,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 40,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 40,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 467,
+        "printed_warsh_ayah": 1,
+        "top": 0.3322543
+      },
+      "kotlin_resolved": {
+        "page": 467,
+        "printed_warsh_ayah": 1,
+        "top": 0.3322543
+      },
+      "validated_warsh_boundary": {
+        "page": 467,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 188,
+      "hizb": 47,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 40,
+        "ayah": 21
+      },
+      "kotlin_canonical_reference": {
+        "surah": 40,
+        "ayah": 21
+      },
+      "rn_resolved": {
+        "page": 469,
+        "printed_warsh_ayah": 21,
+        "top": 0.3728914
+      },
+      "kotlin_resolved": {
+        "page": 469,
+        "printed_warsh_ayah": 21,
+        "top": 0.3728914
+      },
+      "validated_warsh_boundary": {
+        "page": 469,
+        "printed_warsh_ayah": 21
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 189,
+      "hizb": 48,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 40,
+        "ayah": 41
+      },
+      "kotlin_canonical_reference": {
+        "surah": 40,
+        "ayah": 41
+      },
+      "rn_resolved": {
+        "page": 472,
+        "printed_warsh_ayah": 41,
+        "top": 0.1017493
+      },
+      "kotlin_resolved": {
+        "page": 472,
+        "printed_warsh_ayah": 41,
+        "top": 0.1017493
+      },
+      "validated_warsh_boundary": {
+        "page": 472,
+        "printed_warsh_ayah": 41
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 190,
+      "hizb": 48,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 40,
+        "ayah": 66
+      },
+      "kotlin_canonical_reference": {
+        "surah": 40,
+        "ayah": 66
+      },
+      "rn_resolved": {
+        "page": 474,
+        "printed_warsh_ayah": 66,
+        "top": 0.7524106
+      },
+      "kotlin_resolved": {
+        "page": 474,
+        "printed_warsh_ayah": 66,
+        "top": 0.7524106
+      },
+      "validated_warsh_boundary": {
+        "page": 474,
+        "printed_warsh_ayah": 66
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 191,
+      "hizb": 48,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 41,
+        "ayah": 9
+      },
+      "kotlin_canonical_reference": {
+        "surah": 41,
+        "ayah": 9
+      },
+      "rn_resolved": {
+        "page": 477,
+        "printed_warsh_ayah": 8,
+        "top": 0.5947039
+      },
+      "kotlin_resolved": {
+        "page": 477,
+        "printed_warsh_ayah": 8,
+        "top": 0.5947039
+      },
+      "validated_warsh_boundary": {
+        "page": 477,
+        "printed_warsh_ayah": 8
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 192,
+      "hizb": 48,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 41,
+        "ayah": 25
+      },
+      "kotlin_canonical_reference": {
+        "surah": 41,
+        "ayah": 25
+      },
+      "rn_resolved": {
+        "page": 479,
+        "printed_warsh_ayah": 24,
+        "top": 0.4263938
+      },
+      "kotlin_resolved": {
+        "page": 479,
+        "printed_warsh_ayah": 24,
+        "top": 0.4263938
+      },
+      "validated_warsh_boundary": {
+        "page": 479,
+        "printed_warsh_ayah": 24
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 193,
+      "hizb": 49,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 41,
+        "ayah": 47
+      },
+      "kotlin_canonical_reference": {
+        "surah": 41,
+        "ayah": 47
+      },
+      "rn_resolved": {
+        "page": 482,
+        "printed_warsh_ayah": 46,
+        "top": 0.0998747
+      },
+      "kotlin_resolved": {
+        "page": 482,
+        "printed_warsh_ayah": 46,
+        "top": 0.0998747
+      },
+      "validated_warsh_boundary": {
+        "page": 482,
+        "printed_warsh_ayah": 46
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 194,
+      "hizb": 49,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 42,
+        "ayah": 13
+      },
+      "kotlin_canonical_reference": {
+        "surah": 42,
+        "ayah": 13
+      },
+      "rn_resolved": {
+        "page": 484,
+        "printed_warsh_ayah": 11,
+        "top": 0.3196375
+      },
+      "kotlin_resolved": {
+        "page": 484,
+        "printed_warsh_ayah": 11,
+        "top": 0.3196375
+      },
+      "validated_warsh_boundary": {
+        "page": 484,
+        "printed_warsh_ayah": 11
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 195,
+      "hizb": 49,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 42,
+        "ayah": 27
+      },
+      "kotlin_canonical_reference": {
+        "surah": 42,
+        "ayah": 27
+      },
+      "rn_resolved": {
+        "page": 486,
+        "printed_warsh_ayah": 25,
+        "top": 0.5342665
+      },
+      "kotlin_resolved": {
+        "page": 486,
+        "printed_warsh_ayah": 25,
+        "top": 0.5342665
+      },
+      "validated_warsh_boundary": {
+        "page": 486,
+        "printed_warsh_ayah": 25
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 196,
+      "hizb": 49,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 42,
+        "ayah": 51
+      },
+      "kotlin_canonical_reference": {
+        "surah": 42,
+        "ayah": 51
+      },
+      "rn_resolved": {
+        "page": 488,
+        "printed_warsh_ayah": 48,
+        "top": 0.7532016
+      },
+      "kotlin_resolved": {
+        "page": 488,
+        "printed_warsh_ayah": 48,
+        "top": 0.7532016
+      },
+      "validated_warsh_boundary": {
+        "page": 488,
+        "printed_warsh_ayah": 48
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 197,
+      "hizb": 50,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 43,
+        "ayah": 24
+      },
+      "kotlin_canonical_reference": {
+        "surah": 43,
+        "ayah": 24
+      },
+      "rn_resolved": {
+        "page": 491,
+        "printed_warsh_ayah": 23,
+        "top": 0.2089331
+      },
+      "kotlin_resolved": {
+        "page": 491,
+        "printed_warsh_ayah": 23,
+        "top": 0.2089331
+      },
+      "validated_warsh_boundary": {
+        "page": 491,
+        "printed_warsh_ayah": 23
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 198,
+      "hizb": 50,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 43,
+        "ayah": 57
+      },
+      "kotlin_canonical_reference": {
+        "surah": 43,
+        "ayah": 63
+      },
+      "rn_resolved": {
+        "page": 493,
+        "printed_warsh_ayah": 57,
+        "top": 0.6455001
+      },
+      "kotlin_resolved": {
+        "page": 494,
+        "printed_warsh_ayah": 63,
+        "top": 0.2095994
+      },
+      "validated_warsh_boundary": {
+        "page": 494,
+        "printed_warsh_ayah": 63
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 199,
+      "hizb": 50,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 44,
+        "ayah": 17
+      },
+      "kotlin_canonical_reference": {
+        "surah": 44,
+        "ayah": 25
+      },
+      "rn_resolved": {
+        "page": 496,
+        "printed_warsh_ayah": 16,
+        "top": 0.80761
+      },
+      "kotlin_resolved": {
+        "page": 497,
+        "printed_warsh_ayah": 24,
+        "top": 0.2646082
+      },
+      "validated_warsh_boundary": {
+        "page": 497,
+        "printed_warsh_ayah": 24
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 200,
+      "hizb": 50,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 45,
+        "ayah": 12
+      },
+      "kotlin_canonical_reference": {
+        "surah": 45,
+        "ayah": 14
+      },
+      "rn_resolved": {
+        "page": 499,
+        "printed_warsh_ayah": 11,
+        "top": 0.7561909
+      },
+      "kotlin_resolved": {
+        "page": 500,
+        "printed_warsh_ayah": 13,
+        "top": 0.1033532
+      },
+      "validated_warsh_boundary": {
+        "page": 500,
+        "printed_warsh_ayah": 13
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 201,
+      "hizb": 51,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 46,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 46,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 502,
+        "printed_warsh_ayah": 1,
+        "top": 0.545354
+      },
+      "kotlin_resolved": {
+        "page": 502,
+        "printed_warsh_ayah": 1,
+        "top": 0.545354
+      },
+      "validated_warsh_boundary": {
+        "page": 502,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 202,
+      "hizb": 51,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 46,
+        "ayah": 21
+      },
+      "kotlin_canonical_reference": {
+        "surah": 46,
+        "ayah": 21
+      },
+      "rn_resolved": {
+        "page": 505,
+        "printed_warsh_ayah": 20,
+        "top": 0.1047863
+      },
+      "kotlin_resolved": {
+        "page": 505,
+        "printed_warsh_ayah": 20,
+        "top": 0.1047863
+      },
+      "validated_warsh_boundary": {
+        "page": 505,
+        "printed_warsh_ayah": 20
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 203,
+      "hizb": 51,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 47,
+        "ayah": 10
+      },
+      "kotlin_canonical_reference": {
+        "surah": 47,
+        "ayah": 10
+      },
+      "rn_resolved": {
+        "page": 507,
+        "printed_warsh_ayah": 11,
+        "top": 0.7544038
+      },
+      "kotlin_resolved": {
+        "page": 507,
+        "printed_warsh_ayah": 11,
+        "top": 0.7544038
+      },
+      "validated_warsh_boundary": {
+        "page": 507,
+        "printed_warsh_ayah": 11
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 204,
+      "hizb": 51,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 47,
+        "ayah": 33
+      },
+      "kotlin_canonical_reference": {
+        "surah": 47,
+        "ayah": 33
+      },
+      "rn_resolved": {
+        "page": 510,
+        "printed_warsh_ayah": 34,
+        "top": 0.3728441
+      },
+      "kotlin_resolved": {
+        "page": 510,
+        "printed_warsh_ayah": 34,
+        "top": 0.3728441
+      },
+      "validated_warsh_boundary": {
+        "page": 510,
+        "printed_warsh_ayah": 34
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 205,
+      "hizb": 52,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 48,
+        "ayah": 18
+      },
+      "kotlin_canonical_reference": {
+        "surah": 48,
+        "ayah": 18
+      },
+      "rn_resolved": {
+        "page": 513,
+        "printed_warsh_ayah": 18,
+        "top": 0.3712964
+      },
+      "kotlin_resolved": {
+        "page": 513,
+        "printed_warsh_ayah": 18,
+        "top": 0.3712964
+      },
+      "validated_warsh_boundary": {
+        "page": 513,
+        "printed_warsh_ayah": 18
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 206,
+      "hizb": 52,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 49,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 49,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 515,
+        "printed_warsh_ayah": 1,
+        "top": 0.5454219
+      },
+      "kotlin_resolved": {
+        "page": 515,
+        "printed_warsh_ayah": 1,
+        "top": 0.5454219
+      },
+      "validated_warsh_boundary": {
+        "page": 515,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 207,
+      "hizb": 52,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 49,
+        "ayah": 14
+      },
+      "kotlin_canonical_reference": {
+        "surah": 49,
+        "ayah": 14
+      },
+      "rn_resolved": {
+        "page": 517,
+        "printed_warsh_ayah": 14,
+        "top": 0.3731022
+      },
+      "kotlin_resolved": {
+        "page": 517,
+        "printed_warsh_ayah": 14,
+        "top": 0.3731022
+      },
+      "validated_warsh_boundary": {
+        "page": 517,
+        "printed_warsh_ayah": 14
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 208,
+      "hizb": 52,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 50,
+        "ayah": 27
+      },
+      "kotlin_canonical_reference": {
+        "surah": 50,
+        "ayah": 27
+      },
+      "rn_resolved": {
+        "page": 519,
+        "printed_warsh_ayah": 27,
+        "top": 0.5345577
+      },
+      "kotlin_resolved": {
+        "page": 519,
+        "printed_warsh_ayah": 27,
+        "top": 0.5345577
+      },
+      "validated_warsh_boundary": {
+        "page": 519,
+        "printed_warsh_ayah": 27
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 209,
+      "hizb": 53,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 51,
+        "ayah": 31
+      },
+      "kotlin_canonical_reference": {
+        "surah": 51,
+        "ayah": 31
+      },
+      "rn_resolved": {
+        "page": 522,
+        "printed_warsh_ayah": 31,
+        "top": 0.0989257
+      },
+      "kotlin_resolved": {
+        "page": 522,
+        "printed_warsh_ayah": 31,
+        "top": 0.0989257
+      },
+      "validated_warsh_boundary": {
+        "page": 522,
+        "printed_warsh_ayah": 31
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 210,
+      "hizb": 53,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 52,
+        "ayah": 24
+      },
+      "kotlin_canonical_reference": {
+        "surah": 52,
+        "ayah": 24
+      },
+      "rn_resolved": {
+        "page": 524,
+        "printed_warsh_ayah": 22,
+        "top": 0.5356544
+      },
+      "kotlin_resolved": {
+        "page": 524,
+        "printed_warsh_ayah": 22,
+        "top": 0.5356544
+      },
+      "validated_warsh_boundary": {
+        "page": 524,
+        "printed_warsh_ayah": 22
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 211,
+      "hizb": 53,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 53,
+        "ayah": 26
+      },
+      "kotlin_canonical_reference": {
+        "surah": 53,
+        "ayah": 26
+      },
+      "rn_resolved": {
+        "page": 526,
+        "printed_warsh_ayah": 26,
+        "top": 0.8090945
+      },
+      "kotlin_resolved": {
+        "page": 526,
+        "printed_warsh_ayah": 26,
+        "top": 0.8090945
+      },
+      "validated_warsh_boundary": {
+        "page": 526,
+        "printed_warsh_ayah": 26
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 212,
+      "hizb": 53,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 54,
+        "ayah": 9
+      },
+      "kotlin_canonical_reference": {
+        "surah": 54,
+        "ayah": 10
+      },
+      "rn_resolved": {
+        "page": 529,
+        "printed_warsh_ayah": 9,
+        "top": 0.1549139
+      },
+      "kotlin_resolved": {
+        "page": 529,
+        "printed_warsh_ayah": 10,
+        "top": 0.2094939
+      },
+      "validated_warsh_boundary": {
+        "page": 529,
+        "printed_warsh_ayah": 10
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 213,
+      "hizb": 54,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 55,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 55,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 531,
+        "printed_warsh_ayah": 1,
+        "top": 0.4376982
+      },
+      "kotlin_resolved": {
+        "page": 531,
+        "printed_warsh_ayah": 1,
+        "top": 0.4376982
+      },
+      "validated_warsh_boundary": {
+        "page": 531,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 214,
+      "hizb": 54,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 56,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 56,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 534,
+        "printed_warsh_ayah": 1,
+        "top": 0.5430975
+      },
+      "kotlin_resolved": {
+        "page": 534,
+        "printed_warsh_ayah": 1,
+        "top": 0.5430975
+      },
+      "validated_warsh_boundary": {
+        "page": 534,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 215,
+      "hizb": 54,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 56,
+        "ayah": 75
+      },
+      "kotlin_canonical_reference": {
+        "surah": 56,
+        "ayah": 75
+      },
+      "rn_resolved": {
+        "page": 536,
+        "printed_warsh_ayah": 78,
+        "top": 0.8075422
+      },
+      "kotlin_resolved": {
+        "page": 536,
+        "printed_warsh_ayah": 78,
+        "top": 0.8075422
+      },
+      "validated_warsh_boundary": {
+        "page": 536,
+        "printed_warsh_ayah": 78
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 216,
+      "hizb": 54,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 57,
+        "ayah": 16
+      },
+      "kotlin_canonical_reference": {
+        "surah": 57,
+        "ayah": 16
+      },
+      "rn_resolved": {
+        "page": 539,
+        "printed_warsh_ayah": 15,
+        "top": 0.5905644
+      },
+      "kotlin_resolved": {
+        "page": 539,
+        "printed_warsh_ayah": 15,
+        "top": 0.5905644
+      },
+      "validated_warsh_boundary": {
+        "page": 539,
+        "printed_warsh_ayah": 15
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 217,
+      "hizb": 55,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 58,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 58,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 542,
+        "printed_warsh_ayah": 1,
+        "top": 0.2184873
+      },
+      "kotlin_resolved": {
+        "page": 542,
+        "printed_warsh_ayah": 1,
+        "top": 0.2184873
+      },
+      "validated_warsh_boundary": {
+        "page": 542,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 218,
+      "hizb": 55,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 58,
+        "ayah": 14
+      },
+      "kotlin_canonical_reference": {
+        "surah": 58,
+        "ayah": 14
+      },
+      "rn_resolved": {
+        "page": 544,
+        "printed_warsh_ayah": 14,
+        "top": 0.3170429
+      },
+      "kotlin_resolved": {
+        "page": 544,
+        "printed_warsh_ayah": 14,
+        "top": 0.3170429
+      },
+      "validated_warsh_boundary": {
+        "page": 544,
+        "printed_warsh_ayah": 14
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 219,
+      "hizb": 55,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 59,
+        "ayah": 11
+      },
+      "kotlin_canonical_reference": {
+        "surah": 59,
+        "ayah": 11
+      },
+      "rn_resolved": {
+        "page": 547,
+        "printed_warsh_ayah": 11,
+        "top": 0.2097772
+      },
+      "kotlin_resolved": {
+        "page": 547,
+        "printed_warsh_ayah": 11,
+        "top": 0.2097772
+      },
+      "validated_warsh_boundary": {
+        "page": 547,
+        "printed_warsh_ayah": 11
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 220,
+      "hizb": 55,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 60,
+        "ayah": 7
+      },
+      "kotlin_canonical_reference": {
+        "surah": 60,
+        "ayah": 7
+      },
+      "rn_resolved": {
+        "page": 550,
+        "printed_warsh_ayah": 7,
+        "top": 0.1542449
+      },
+      "kotlin_resolved": {
+        "page": 550,
+        "printed_warsh_ayah": 7,
+        "top": 0.1542449
+      },
+      "validated_warsh_boundary": {
+        "page": 550,
+        "printed_warsh_ayah": 7
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 221,
+      "hizb": 56,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 62,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 62,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 553,
+        "printed_warsh_ayah": 1,
+        "top": 0.2184616
+      },
+      "kotlin_resolved": {
+        "page": 553,
+        "printed_warsh_ayah": 1,
+        "top": 0.2184616
+      },
+      "validated_warsh_boundary": {
+        "page": 553,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 222,
+      "hizb": 56,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 63,
+        "ayah": 4
+      },
+      "kotlin_canonical_reference": {
+        "surah": 63,
+        "ayah": 9
+      },
+      "rn_resolved": {
+        "page": 554,
+        "printed_warsh_ayah": 4,
+        "top": 0.7578387
+      },
+      "kotlin_resolved": {
+        "page": 555,
+        "printed_warsh_ayah": 9,
+        "top": 0.5910798
+      },
+      "validated_warsh_boundary": {
+        "page": 555,
+        "printed_warsh_ayah": 9
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 223,
+      "hizb": 56,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 65,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 65,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 558,
+        "printed_warsh_ayah": 1,
+        "top": 0.2181695
+      },
+      "kotlin_resolved": {
+        "page": 558,
+        "printed_warsh_ayah": 1,
+        "top": 0.2181695
+      },
+      "validated_warsh_boundary": {
+        "page": 558,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 224,
+      "hizb": 56,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 66,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 66,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 560,
+        "printed_warsh_ayah": 1,
+        "top": 0.2177922
+      },
+      "kotlin_resolved": {
+        "page": 560,
+        "printed_warsh_ayah": 1,
+        "top": 0.2177922
+      },
+      "validated_warsh_boundary": {
+        "page": 560,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 225,
+      "hizb": 57,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 67,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 67,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 562,
+        "printed_warsh_ayah": 1,
+        "top": 0.2181901
+      },
+      "kotlin_resolved": {
+        "page": 562,
+        "printed_warsh_ayah": 1,
+        "top": 0.2181901
+      },
+      "validated_warsh_boundary": {
+        "page": 562,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 226,
+      "hizb": 57,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 68,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 68,
+        "ayah": 19
+      },
+      "rn_resolved": {
+        "page": 564,
+        "printed_warsh_ayah": 1,
+        "top": 0.4919803
+      },
+      "kotlin_resolved": {
+        "page": 565,
+        "printed_warsh_ayah": 19,
+        "top": 0.153733
+      },
+      "validated_warsh_boundary": {
+        "page": 565,
+        "printed_warsh_ayah": 19
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 227,
+      "hizb": 57,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 69,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 69,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 566,
+        "printed_warsh_ayah": 1,
+        "top": 0.7033366
+      },
+      "kotlin_resolved": {
+        "page": 566,
+        "printed_warsh_ayah": 1,
+        "top": 0.7033366
+      },
+      "validated_warsh_boundary": {
+        "page": 566,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 228,
+      "hizb": 57,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 70,
+        "ayah": 19
+      },
+      "kotlin_canonical_reference": {
+        "surah": 70,
+        "ayah": 40
+      },
+      "rn_resolved": {
+        "page": 569,
+        "printed_warsh_ayah": 19,
+        "top": 0.2634587
+      },
+      "kotlin_resolved": {
+        "page": 569,
+        "printed_warsh_ayah": 40,
+        "top": 0.8626281
+      },
+      "validated_warsh_boundary": {
+        "page": 569,
+        "printed_warsh_ayah": 40
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 229,
+      "hizb": 58,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 72,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 72,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 572,
+        "printed_warsh_ayah": 1,
+        "top": 0.2180746
+      },
+      "kotlin_resolved": {
+        "page": 572,
+        "printed_warsh_ayah": 1,
+        "top": 0.2180746
+      },
+      "validated_warsh_boundary": {
+        "page": 572,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 230,
+      "hizb": 58,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 73,
+        "ayah": 20
+      },
+      "kotlin_canonical_reference": {
+        "surah": 73,
+        "ayah": 20
+      },
+      "rn_resolved": {
+        "page": 575,
+        "printed_warsh_ayah": 18,
+        "top": 0.1014332
+      },
+      "kotlin_resolved": {
+        "page": 575,
+        "printed_warsh_ayah": 18,
+        "top": 0.1014332
+      },
+      "validated_warsh_boundary": {
+        "page": 575,
+        "printed_warsh_ayah": 18
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 231,
+      "hizb": 58,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 75,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 75,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 577,
+        "printed_warsh_ayah": 1,
+        "top": 0.4922057
+      },
+      "kotlin_resolved": {
+        "page": 577,
+        "printed_warsh_ayah": 1,
+        "top": 0.4922057
+      },
+      "validated_warsh_boundary": {
+        "page": 577,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 232,
+      "hizb": 58,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 76,
+        "ayah": 19
+      },
+      "kotlin_canonical_reference": {
+        "surah": 76,
+        "ayah": 19
+      },
+      "rn_resolved": {
+        "page": 579,
+        "printed_warsh_ayah": 19,
+        "top": 0.5899676
+      },
+      "kotlin_resolved": {
+        "page": 579,
+        "printed_warsh_ayah": 19,
+        "top": 0.5899676
+      },
+      "validated_warsh_boundary": {
+        "page": 579,
+        "printed_warsh_ayah": 19
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 233,
+      "hizb": 59,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 78,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 78,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 582,
+        "printed_warsh_ayah": 1,
+        "top": 0.2180903
+      },
+      "kotlin_resolved": {
+        "page": 582,
+        "printed_warsh_ayah": 1,
+        "top": 0.2180903
+      },
+      "validated_warsh_boundary": {
+        "page": 582,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 234,
+      "hizb": 59,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 80,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 79,
+        "ayah": 42
+      },
+      "rn_resolved": {
+        "page": 585,
+        "printed_warsh_ayah": 1,
+        "top": 0.2173077
+      },
+      "kotlin_resolved": {
+        "page": 584,
+        "printed_warsh_ayah": 41,
+        "top": 0.7515456
+      },
+      "validated_warsh_boundary": {
+        "page": 584,
+        "printed_warsh_ayah": 41
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": true,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 235,
+      "hizb": 59,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 82,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 82,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 587,
+        "printed_warsh_ayah": 1,
+        "top": 0.214205
+      },
+      "kotlin_resolved": {
+        "page": 587,
+        "printed_warsh_ayah": 1,
+        "top": 0.214205
+      },
+      "validated_warsh_boundary": {
+        "page": 587,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 236,
+      "hizb": 59,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 84,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 84,
+        "ayah": 16
+      },
+      "rn_resolved": {
+        "page": 589,
+        "printed_warsh_ayah": 1,
+        "top": 0.3306403
+      },
+      "kotlin_resolved": {
+        "page": 589,
+        "printed_warsh_ayah": 16,
+        "top": 0.7021634
+      },
+      "validated_warsh_boundary": {
+        "page": 589,
+        "printed_warsh_ayah": 16
+      },
+      "canonical_differs": true,
+      "resolved_differs": true,
+      "page_differs": false,
+      "rn_vs_validated_differs": true,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 237,
+      "hizb": 60,
+      "quarter": 1,
+      "rn_canonical_reference": {
+        "surah": 87,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 87,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 591,
+        "printed_warsh_ayah": 1,
+        "top": 0.7107472
+      },
+      "kotlin_resolved": {
+        "page": 591,
+        "printed_warsh_ayah": 1,
+        "top": 0.7107472
+      },
+      "validated_warsh_boundary": {
+        "page": 591,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 238,
+      "hizb": 60,
+      "quarter": 2,
+      "rn_canonical_reference": {
+        "surah": 90,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 90,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 594,
+        "printed_warsh_ayah": 1,
+        "top": 0.4907912
+      },
+      "kotlin_resolved": {
+        "page": 594,
+        "printed_warsh_ayah": 1,
+        "top": 0.4907912
+      },
+      "validated_warsh_boundary": {
+        "page": 594,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 239,
+      "hizb": 60,
+      "quarter": 3,
+      "rn_canonical_reference": {
+        "surah": 94,
+        "ayah": 1
+      },
+      "kotlin_canonical_reference": {
+        "surah": 94,
+        "ayah": 1
+      },
+      "rn_resolved": {
+        "page": 596,
+        "printed_warsh_ayah": 1,
+        "top": 0.8713281
+      },
+      "kotlin_resolved": {
+        "page": 596,
+        "printed_warsh_ayah": 1,
+        "top": 0.8713281
+      },
+      "validated_warsh_boundary": {
+        "page": 596,
+        "printed_warsh_ayah": 1
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    },
+    {
+      "rub_id": 240,
+      "hizb": 60,
+      "quarter": 4,
+      "rn_canonical_reference": {
+        "surah": 100,
+        "ayah": 9
+      },
+      "kotlin_canonical_reference": {
+        "surah": 100,
+        "ayah": 9
+      },
+      "rn_resolved": {
+        "page": 600,
+        "printed_warsh_ayah": 9,
+        "top": 0.1521456
+      },
+      "kotlin_resolved": {
+        "page": 600,
+        "printed_warsh_ayah": 9,
+        "top": 0.1521456
+      },
+      "validated_warsh_boundary": {
+        "page": 600,
+        "printed_warsh_ayah": 9
+      },
+      "canonical_differs": false,
+      "resolved_differs": false,
+      "page_differs": false,
+      "rn_vs_validated_differs": false,
+      "kotlin_vs_validated_differs": false
+    }
+  ]
+}

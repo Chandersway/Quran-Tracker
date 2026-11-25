@@ -1,0 +1,461 @@
+{
+  "source": "../app/src/main/res/drawable",
+  "files": {
+    "surah_card_001.jpg": {
+      "sha256": "45900b3bec0aeb82fa518400254d764763f57de7705a1000b94a17857025f11f",
+      "bytes": 201589
+    },
+    "surah_card_002.jpg": {
+      "sha256": "d7afd0aad7be35184d06942173840adf012372081413fc027e03364a62cd7fbd",
+      "bytes": 224785
+    },
+    "surah_card_003.jpg": {
+      "sha256": "8070539f230508144286f21602c8baccb59a3034a6421c6fe0d0f140f15fee07",
+      "bytes": 216702
+    },
+    "surah_card_004.jpg": {
+      "sha256": "668cae040c0a6ec3373ea326e01aea1b6c63038b5aed1372be5dc3ffe3ac8f8f",
+      "bytes": 197383
+    },
+    "surah_card_005.jpg": {
+      "sha256": "567435ae9f15b6764c4deecbe4e00887124abb3982d30bb093b7c2e6c0581291",
+      "bytes": 228957
+    },
+    "surah_card_006.jpg": {
+      "sha256": "5d51e0360293891e604075a3fa7a8d3283fec2404405e3bdd989fa218ff7491f",
+      "bytes": 190868
+    },
+    "surah_card_007.jpg": {
+      "sha256": "6d79c3f5a8603f26f15a735776719dfb3c3ae1ad8300a0484901771ae8bf8590",
+      "bytes": 205143
+    },
+    "surah_card_008.jpg": {
+      "sha256": "cbb9994fed3c1255a3a2bd7c8bfeb3e551c35f446fb5394ee84f7a997f22721a",
+      "bytes": 224941
+    },
+    "surah_card_009.jpg": {
+      "sha256": "9ae83506f396fb1e4835cd861c966c39da559a369d305deb4caabfe89300ca35",
+      "bytes": 227266
+    },
+    "surah_card_010.jpg": {
+      "sha256": "349aaa8cd3f06596525fba4f139b3e9bbe64c92a9bed77fed3c0b4a196d2be69",
+      "bytes": 217249
+    },
+    "surah_card_011.jpg": {
+      "sha256": "ca69392bb4f3d15a259c38a7798534023f418f7ea65630e0d8b69e43fcde4690",
+      "bytes": 235764
+    },
+    "surah_card_012.jpg": {
+      "sha256": "4cb32c8062c42f3f6b20688c0f40846bad141681024bc36b11237adcc66fabb6",
+      "bytes": 237051
+    },
+    "surah_card_013.jpg": {
+      "sha256": "3adc74918c56b421e694499a1ae239fb3b5fd7be5fd8afb2e531681f99064c57",
+      "bytes": 201514
+    },
+    "surah_card_014.jpg": {
+      "sha256": "e4f444b99027b6d2c401bcc27dd61337947acf870588645382646393785a48fe",
+      "bytes": 211926
+    },
+    "surah_card_015.jpg": {
+      "sha256": "dfdaf61df29c18c707c26c4ec2214f2dd5991b09a1e3b1125398e5837953c789",
+      "bytes": 217187
+    },
+    "surah_card_016.jpg": {
+      "sha256": "fae073e291adbe6f665a394dd642694a087df9b1b5b70642e3fe110475d501ad",
+      "bytes": 203869
+    },
+    "surah_card_017.jpg": {
+      "sha256": "0bafe9870384953ed7b41fe0682c5e90c3f780dca12333046e69f85012e9d55c",
+      "bytes": 243958
+    },
+    "surah_card_018.jpg": {
+      "sha256": "c228284ecd757a38f3710e2a6464b5f6b3183c4902c13481eb0249152a995a7e",
+      "bytes": 232272
+    },
+    "surah_card_019.jpg": {
+      "sha256": "3e8f112121a9a51a9ef7e0eb156bc0176b83365c366f946f402b44d7d9ca87af",
+      "bytes": 201353
+    },
+    "surah_card_020.jpg": {
+      "sha256": "54fafbd15cece18bf8462cb1421a0a185b614c86bf0975ebe9598452c2fe8fe5",
+      "bytes": 230688
+    },
+    "surah_card_021.jpg": {
+      "sha256": "9d5752c9196239d67a7a992592c36da10e36981a26d7b0bc675c4b69619ba67e",
+      "bytes": 227362
+    },
+    "surah_card_022.jpg": {
+      "sha256": "26836a2dba9524b03189636c8def718dc706da6a0ee6519070eea00dd8540601",
+      "bytes": 209251
+    },
+    "surah_card_023.jpg": {
+      "sha256": "65249e876eabe52e8a87c45b2bbcf4e00b3868131a15eb0dedf08f391dd08fe9",
+      "bytes": 215245
+    },
+    "surah_card_024.jpg": {
+      "sha256": "3d631d5fd89ccbc4e6416800705f17a25a036b7f8c43858199acbdd5aa21fcc7",
+      "bytes": 221123
+    },
+    "surah_card_025.jpg": {
+      "sha256": "91b12477b38abb3e8055605a0ee2a2e95fd2c0eeb7dc99fce767d2a2860c6898",
+      "bytes": 190334
+    },
+    "surah_card_026.jpg": {
+      "sha256": "9344a15a2e35cbe20d38e1e47e4bb14c450e6c52bebdcc61faca2040e2da935e",
+      "bytes": 189763
+    },
+    "surah_card_027.jpg": {
+      "sha256": "834463b32fcdc73d4f36b167dcb9c74bfa6c84a4bdfc2135bd5a895db3db001f",
+      "bytes": 198628
+    },
+    "surah_card_028.jpg": {
+      "sha256": "55d85498f49656cee7629f5dadf06666c879810196962c18b590cf0bf28abce7",
+      "bytes": 205966
+    },
+    "surah_card_029.jpg": {
+      "sha256": "6d49314874779b5f4414236ccf4ea06fb2e9959e11825fa6a48d68bb0d7432bb",
+      "bytes": 195997
+    },
+    "surah_card_030.jpg": {
+      "sha256": "8a8347c62ed097aadf96e05536d7c3e0183512e5f11404e4226e3603e9ca95b1",
+      "bytes": 190957
+    },
+    "surah_card_031.jpg": {
+      "sha256": "7af9673a277d2fe73561ecb9dd194221998ab28cd1069756b21528557fb04a39",
+      "bytes": 195219
+    },
+    "surah_card_032.jpg": {
+      "sha256": "1b4ca2d272b3ab6daf1f06d4aaa70064a4892839a64d19e580e327a4e52252f2",
+      "bytes": 228093
+    },
+    "surah_card_033.jpg": {
+      "sha256": "b67cfbcfd850ccc030320a438dba948aaf33a68b8c84bc637add2a3115e4243e",
+      "bytes": 214634
+    },
+    "surah_card_034.jpg": {
+      "sha256": "afaab7c0ec90d4f7603291c0103b92c2a22f3b291d47bdf9c452388640269db3",
+      "bytes": 211722
+    },
+    "surah_card_035.jpg": {
+      "sha256": "ad62db98be65f94067bea9888042fbfb32eda4f29fb6b966ab9dad275a26a132",
+      "bytes": 200642
+    },
+    "surah_card_036.jpg": {
+      "sha256": "d6d1caddd62ae0fa01c7ac54ab39adbe806d0c0646764c6ae5bed0f60835b4ee",
+      "bytes": 229834
+    },
+    "surah_card_037.jpg": {
+      "sha256": "5523c45cc8b7b397545ca2e57b869a2c7c792df5536c9d9c9e991d46c29c9a16",
+      "bytes": 207177
+    },
+    "surah_card_038.jpg": {
+      "sha256": "9bb0c58f1a886ad451a3197206eef90647ff473b2a67b79466d29c326a2c10b2",
+      "bytes": 221888
+    },
+    "surah_card_039.jpg": {
+      "sha256": "3d4b1098b81781cd3515a880af3950390b5d0d63734524573ab572cc9a2ff0e6",
+      "bytes": 209057
+    },
+    "surah_card_040.jpg": {
+      "sha256": "3939edbec6d45bcb4405fea35181b68679783c9c2515c97a2b9d8aba50e4cebf",
+      "bytes": 213617
+    },
+    "surah_card_041.jpg": {
+      "sha256": "fd54e51f6e72584e6dc046fc3b89201560d77eff1ba8cd045b1c8b524f291499",
+      "bytes": 218704
+    },
+    "surah_card_042.jpg": {
+      "sha256": "a72c74cbe0598b687292e8bf3b2ed3749e30dd74e9c4aa6f981e91b1ad7db121",
+      "bytes": 207898
+    },
+    "surah_card_043.jpg": {
+      "sha256": "2e0a96cb9d875784d6ca690840ba4d8746367050ad1275329f89fbf7916d3be3",
+      "bytes": 227202
+    },
+    "surah_card_044.jpg": {
+      "sha256": "d42522cf30524a650da2af3ba41d8fcfd9919b9fb030adb67a343a3b28d70005",
+      "bytes": 234238
+    },
+    "surah_card_045.jpg": {
+      "sha256": "5c5487d42872cbedb4b7b68bb8486dd5a033c7b4e438ea109c2153213846ce9c",
+      "bytes": 215832
+    },
+    "surah_card_046.jpg": {
+      "sha256": "bea08a8715448b3e1af2dbe5f0e5f44f70b85db5930ae7003204b35dbaba3df7",
+      "bytes": 218584
+    },
+    "surah_card_047.jpg": {
+      "sha256": "f799b1cabf440b242a49b68c7a064005d94995a4b931b8ab52054725b1cf1819",
+      "bytes": 215599
+    },
+    "surah_card_048.jpg": {
+      "sha256": "a020be50e130d76d7072ccd0bb1b6eb012727185e4cb2e9a93e0e329271e0fd0",
+      "bytes": 220077
+    },
+    "surah_card_049.jpg": {
+      "sha256": "b73db3740c35ed5790cfdaf0f5a581267d76580062508009e61a00b6acca073f",
+      "bytes": 236630
+    },
+    "surah_card_050.jpg": {
+      "sha256": "a24719036b3c6b76529b3f84c4b552a9858a1426d503428c062967fb082046e1",
+      "bytes": 232512
+    },
+    "surah_card_051.jpg": {
+      "sha256": "c0b8125a0b544dda022e3d73515760df15c2bab81ffeb7ec988589f465f8e8ac",
+      "bytes": 200423
+    },
+    "surah_card_052.jpg": {
+      "sha256": "4f54fe7a7e4df500961cae1d3ddf79c5e16a143a1a8b3f29061d676496a87241",
+      "bytes": 233589
+    },
+    "surah_card_053.jpg": {
+      "sha256": "e7d2104f8b5292d15b07d17118305bd80207d593d17fb27082310c8a7c65d89f",
+      "bytes": 225224
+    },
+    "surah_card_054.jpg": {
+      "sha256": "76da3b407ce4fc591ac272aeec98faa5c81c8ccb5c266063928fc2f8447e9ec1",
+      "bytes": 230660
+    },
+    "surah_card_055.jpg": {
+      "sha256": "07a72568bb29aebc9ffa35aad76cc223d910d612e28527af689ca6cefc53197f",
+      "bytes": 220357
+    },
+    "surah_card_056.jpg": {
+      "sha256": "bc9d1255c4b5378acdd0f26997a7465e54257e26598c290ebf5feaadbf37b21c",
+      "bytes": 231390
+    },
+    "surah_card_057.jpg": {
+      "sha256": "e2ce3e5f1e612deb20265bf1d9801d618f664fcd3ebf4b8f7925b831ecc3206e",
+      "bytes": 202985
+    },
+    "surah_card_058.jpg": {
+      "sha256": "820f0993aedb931c082d86c57e8090044872390e7a1d88beae3d7c70812860e8",
+      "bytes": 235562
+    },
+    "surah_card_059.jpg": {
+      "sha256": "a9fbffff9d496697f1338ac9f8f73d832aa84af9683c3ee90cc0e5efa07532cf",
+      "bytes": 213245
+    },
+    "surah_card_060.jpg": {
+      "sha256": "44417890b5529905762633833afbeed34f1e5904753e014787783783199e199d",
+      "bytes": 215624
+    },
+    "surah_card_061.jpg": {
+      "sha256": "1af21b777b0dccb0014db2f1c31f9be7088b9aa167895e71690679760dafbc4d",
+      "bytes": 208813
+    },
+    "surah_card_062.jpg": {
+      "sha256": "7f855ddf5b937da45a678d4cd522f04637ba24cd790406ae0664c98e533ebbc0",
+      "bytes": 225801
+    },
+    "surah_card_063.jpg": {
+      "sha256": "278aaa271c9d3e6b247f968ce8d8f37e1f14a43782ab1a5de2d9533a940052ca",
+      "bytes": 191802
+    },
+    "surah_card_064.jpg": {
+      "sha256": "cf4b720d4889f178fc53b25b4fc45c27030e8a9b12a92c77f494e98f57cc1c4d",
+      "bytes": 202000
+    },
+    "surah_card_065.jpg": {
+      "sha256": "27ff3a889f456b686ed84c3b92b51c31c9cdab12018f7413d32b985679da327f",
+      "bytes": 188446
+    },
+    "surah_card_066.jpg": {
+      "sha256": "3d9d9d2925cdaf302864a7454fbf9daec1da53eaee09ec566048b04cbb5d8e43",
+      "bytes": 199370
+    },
+    "surah_card_067.jpg": {
+      "sha256": "3f72742cd4785f814f212962154e65327e69735a194c4621459d5f4801fe1256",
+      "bytes": 225199
+    },
+    "surah_card_068.jpg": {
+      "sha256": "1c7eb749b122366b1b2002da51d1a5062192305359025ede6637f16c525dcf5e",
+      "bytes": 199002
+    },
+    "surah_card_069.jpg": {
+      "sha256": "4af04c53cc35bd5b423ab9341e4469c88dfc7baf82edac90bd3c319418101827",
+      "bytes": 206983
+    },
+    "surah_card_070.jpg": {
+      "sha256": "e5c1bb7a9195f669858c6dfd1e18cdd0a4f6d0bb06053efff01d50cde5944ce5",
+      "bytes": 215513
+    },
+    "surah_card_071.jpg": {
+      "sha256": "f28b3e7444f6efa5c7089a022c79ed74c8fe96abacb8d258d97a5ab8579fe9d1",
+      "bytes": 190768
+    },
+    "surah_card_072.jpg": {
+      "sha256": "9ba3a20e7ed7087183f6ce99101af273844d7b6cda10fe2d16b65add8e8abe91",
+      "bytes": 211536
+    },
+    "surah_card_073.jpg": {
+      "sha256": "fca7877d5034e044898865b75461af5e52b81fc2460206254ab88c8fa9b4618a",
+      "bytes": 205965
+    },
+    "surah_card_074.jpg": {
+      "sha256": "036885445046ee867286e4810d4fe408e719e0e05b4c6818fbc127fd85e1f452",
+      "bytes": 240824
+    },
+    "surah_card_075.jpg": {
+      "sha256": "5db7cc42e2395eaeec44654e38e026bee506334915c029a940e876b3c60e8227",
+      "bytes": 211164
+    },
+    "surah_card_076.jpg": {
+      "sha256": "93bf9454d6ef5f2e9d480fca99752f4362c7a5b014865a4c33d61ae0803b4828",
+      "bytes": 241526
+    },
+    "surah_card_077.jpg": {
+      "sha256": "e9af5c53b01f156d3f071d275b427142eb4f42655fc94e0ddcde349a3dd89d2c",
+      "bytes": 253505
+    },
+    "surah_card_078.jpg": {
+      "sha256": "266677083699800664bab39c9cc29e98b6f71c752d5b9e0d53c5241e9b021d43",
+      "bytes": 225199
+    },
+    "surah_card_079.jpg": {
+      "sha256": "acf3d02db6cff1d713bc061516acead3226cce5e7f2048e694de98ead8d114fd",
+      "bytes": 224980
+    },
+    "surah_card_080.jpg": {
+      "sha256": "1ff1faba6d2ec4b4f207915500ed39883e52ed00b9008450ad1b06a5fc82afa4",
+      "bytes": 252389
+    },
+    "surah_card_081.jpg": {
+      "sha256": "52f31200a025443061d2ff0be7b920952e77f2e327f52305457581c808fd6823",
+      "bytes": 254355
+    },
+    "surah_card_082.jpg": {
+      "sha256": "5b1995c95a62eb3d6f5ff5ec4eba6e994740dfe9eeb0d8a64b737e6682580b46",
+      "bytes": 224910
+    },
+    "surah_card_083.jpg": {
+      "sha256": "d9055500fef658a228d5218404b3354650caa6789a84842f273c393d2cc9a35b",
+      "bytes": 235084
+    },
+    "surah_card_084.jpg": {
+      "sha256": "0177781f976833879600221d0098e5d8f7806ff871c0533af10552bab5c701f7",
+      "bytes": 214665
+    },
+    "surah_card_085.jpg": {
+      "sha256": "b7739225c314d253383974fd0331da3552b46190f6636c26855a4e32b168a042",
+      "bytes": 203676
+    },
+    "surah_card_086.jpg": {
+      "sha256": "560d6d82e634dc0167c27645966f05a91518c2441999df63f0b72d6fbc78554c",
+      "bytes": 175154
+    },
+    "surah_card_087.jpg": {
+      "sha256": "11e1c4fc93c2c6beaf517d7689e822e8d279e5bc2b9b4082ae3fb7c55db8b04a",
+      "bytes": 217898
+    },
+    "surah_card_088.jpg": {
+      "sha256": "12803cb1af38648eea21bfb0b6f2865c6dac753f6d3134e7a311ef112189cd7a",
+      "bytes": 188008
+    },
+    "surah_card_089.jpg": {
+      "sha256": "02e587864a2ec5817dd398586afd6028d3ef0b8bd0b87e79f940cd2ae013ea54",
+      "bytes": 162763
+    },
+    "surah_card_090.jpg": {
+      "sha256": "d0b61e7c2eb8a261f0c24a6c4895942942734ffd5414d1f5f5138cbd1f2991aa",
+      "bytes": 144807
+    },
+    "surah_card_091.jpg": {
+      "sha256": "0c39948a5112d8b6b256b272e372ea339fa4a8d420b69e52ee4f1492ebccc097",
+      "bytes": 163350
+    },
+    "surah_card_092.jpg": {
+      "sha256": "80882f645391c2ab8df3fad7b68804e1d5257d7cdb2028ceb863ecd5c911eb79",
+      "bytes": 173154
+    },
+    "surah_card_093.jpg": {
+      "sha256": "ee3243fd00ac78e149155348f6cb725e045e89a8a5251d177f7fab4dc4fefb0f",
+      "bytes": 198794
+    },
+    "surah_card_094.jpg": {
+      "sha256": "0272ff7daf7d8b8a2a62128feb603422abf8a0f50559e0d30df088b2216785dc",
+      "bytes": 154897
+    },
+    "surah_card_095.jpg": {
+      "sha256": "44e49d8fc5ec1ac48807fa9e0408d3482035ccc2a6a222d378793aae0288a638",
+      "bytes": 174806
+    },
+    "surah_card_096.jpg": {
+      "sha256": "a398d6002ef7655723f40aecaa66e175d2a3ec4654acd2a842bd35a45eac13f4",
+      "bytes": 184632
+    },
+    "surah_card_097.jpg": {
+      "sha256": "c210e15ff64843fb3de523743c1b55cfc050ac31181cb8dc4a5e372399dae7fa",
+      "bytes": 160656
+    },
+    "surah_card_098.jpg": {
+      "sha256": "fb7ecee368fa9a2788d7c7c125de841ddb92b9767114d87334d9c1ff52914d48",
+      "bytes": 170082
+    },
+    "surah_card_099.jpg": {
+      "sha256": "b435ceff16faaee7695eda2ac764aa3292da07946794993a44c328a8ae8a212e",
+      "bytes": 214803
+    },
+    "surah_card_100.jpg": {
+      "sha256": "bb248267e9f7ef824663af6b0806280adcba045b4ebc54ce6daffccfd6584245",
+      "bytes": 178285
+    },
+    "surah_card_101.jpg": {
+      "sha256": "231f300496dd004adf6f6691142fcd36d3f55cefaaa09ca01d941aebc14fefa2",
+      "bytes": 166897
+    },
+    "surah_card_102.jpg": {
+      "sha256": "b6491f1d79a2543aff331f952907eeb984d318c684fa23453a22692ab06192d4",
+      "bytes": 141887
+    },
+    "surah_card_103.jpg": {
+      "sha256": "399a98e3a9e273951d3d656fc3213cde79b73a3cb1a44ea931d3b2e36ff3c60a",
+      "bytes": 157212
+    },
+    "surah_card_104.jpg": {
+      "sha256": "6dc130c91cba55b8ba5cc5ae8a2654801c58a57d4b22d840865570eee70fd51f",
+      "bytes": 148448
+    },
+    "surah_card_105.jpg": {
+      "sha256": "d883546f4315df6d8e14376bb16ea8b5d54d16c68274c08d3462651a3321c59e",
+      "bytes": 184935
+    },
+    "surah_card_106.jpg": {
+      "sha256": "e838a270c2744a882f5bd9d6e9fe1ad67b4eeaf97c9f4721543008d10b65e6fa",
+      "bytes": 168642
+    },
+    "surah_card_107.jpg": {
+      "sha256": "2926fa7e17abf8913a9464e860dd4c03469a60707bdd801b9812b251057ee239",
+      "bytes": 156525
+    },
+    "surah_card_108.jpg": {
+      "sha256": "36f49982a37007e0cf16dd9bdaa8908ae28c405d558d0bab623d118412579191",
+      "bytes": 198584
+    },
+    "surah_card_109.jpg": {
+      "sha256": "ac3a0332014dedd8e226e43091e18da3f3050d35cc0504ca45f97a33b9782fa1",
+      "bytes": 204100
+    },
+    "surah_card_110.jpg": {
+      "sha256": "433c4e2757e3f766e501f77007fbfc24f372651cdd7235ee2b284a31268c4b33",
+      "bytes": 155331
+    },
+    "surah_card_111.jpg": {
+      "sha256": "9be5ce1f92da7ac3f7106d6a0a92f830b32dc80841aba969150d6b6ae8098655",
+      "bytes": 171599
+    },
+    "surah_card_112.jpg": {
+      "sha256": "4bb6d740a8a844ac8c01db83a2bc8bebfef7adc4db533f7aa797d2fb85f37838",
+      "bytes": 231931
+    },
+    "surah_card_113.jpg": {
+      "sha256": "967db834e48030564ce02d8b14d092b4311c3bf8e86be29c513ab99956f4b191",
+      "bytes": 217646
+    },
+    "surah_card_114.jpg": {
+      "sha256": "e4b3d059d51575775fc6fccca60acc84a977c62ea928c72fec9add91a2879d2a",
+      "bytes": 218546
+    }
+  }
+}

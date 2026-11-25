@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quran_goal_widget_label">Dagdoel</string>
+    <string name="quran_goal_widget_description">Je leesdoel van vandaag, met voortgang. Tik om verder te lezen.</string>
+    <string name="quran_goal_widget_title">Vandaag lezen</string>
+    <string name="quran_goal_widget_empty">Open Quran Tracker om je dagdoel te laden</string>
+    <string name="quran_goal_widget_preview_progress">2 / 4 Hizb</string>
+    <string name="quran_goal_widget_preview_status">Nog 2 Hizb te gaan</string>
+    <string name="quran_goal_widget_preview_next">Verder: Hizb 33</string>
+</resources>

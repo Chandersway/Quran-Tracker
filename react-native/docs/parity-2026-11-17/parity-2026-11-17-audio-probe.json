@@ -1,0 +1,14 @@
+{
+  "scope": "Real AudioProvider in existing mocked-native harness; no audio/network/device playback.",
+  "before": {
+    "position": 45,
+    "status": "paused",
+    "plays": 1
+  },
+  "after": {
+    "nativePosition": 0,
+    "status": "playing",
+    "plays": 2
+  },
+  "preservesPositionAndPause": false
+}

@@ -1,0 +1,8 @@
+{
+  "baseline": "docs/kotlin-feature-inventory.json",
+  "checkedFiles": 198,
+  "comparison": "UTF-8 source with universal newline normalization, compared to stored SHA-256",
+  "changedFiles": [],
+  "missingFiles": [],
+  "meaning": "Source preservation only; not evidence of React Native feature equivalence."
+}

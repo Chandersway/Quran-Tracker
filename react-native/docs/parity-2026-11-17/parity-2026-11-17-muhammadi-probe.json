@@ -1,0 +1,10 @@
+{
+  "scope": "Real generated map and PrintedMushafPage render function; native rendering/effects/PNG loads mocked, not a device test.",
+  "generatedEditionKeys": [
+    "hafs",
+    "muhammadi"
+  ],
+  "requestedKeyForMuhammadi": "warsh",
+  "availableMuhammadiPages": 638,
+  "pagesRenderingErrorInsteadOfImage": 638
+}
