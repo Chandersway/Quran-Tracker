@@ -37,7 +37,8 @@ export function MainScreen() {
   const { t, locale } = useI18n();
   const verse = getAyahs(73)[3]!;
   return (
-    <Screen style={{ paddingTop: 8 }}>
+    // Home scrolls plainly: cards such as Recente geschiedenis must not slide up while scrolling.
+    <Screen style={{ paddingTop: 8 }} reveal={false}>
       <View style={[s.row, { flexDirection: 'row', gap: 10, marginBottom: 18 }]}>
         <Image
           source={appSymbol}
