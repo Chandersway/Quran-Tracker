@@ -1313,7 +1313,7 @@
       "reactNativeEvidence": [
         {
           "path": "src/features/practice/screens/ProgressScreen.tsx",
-          "line": 43,
+          "line": 45,
           "symbol": "selected"
         }
       ],

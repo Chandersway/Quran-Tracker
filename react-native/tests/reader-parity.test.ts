@@ -110,7 +110,7 @@ function hookHarness() {
   };
 }
 
-test('all 240 Warsh rub entries land on the validated printed ayah/page; direct hizb/juz routes are unchanged', () => {
+test('all 240 Warsh rub entries land on the validated printed ayah/page; hizb/juz routes open at the Warsh start', () => {
   for (const expected of warshStarts.starts) {
     const actual = resolveRubStart('warsh_maknoon', expected.hizb, expected.quarter);
     assert.deepEqual(actual, {
@@ -141,13 +141,20 @@ test('all 240 Warsh rub entries land on the validated printed ayah/page; direct 
   }
   for (const kind of ['hizb', 'juz'] as const) {
     for (let number = 1; number <= (kind === 'hizb' ? 60 : 30); number++) {
-      const start = quran.divisions[(number - 1) * (kind === 'hizb' ? 4 : 8)]!;
+      const id = (number - 1) * (kind === 'hizb' ? 4 : 8) + 1;
+      const start = quran.divisions[id - 1]!;
+      const warsh = warshStarts.starts[id - 1]!;
       const context = {
         surah: start.surah,
         ayah: start.ayah,
         readingTarget: { kind, number, name: '' },
       };
-      assert.strictEqual(resolveReaderEntry(context, 'warsh_maknoon'), context);
+      const entry = resolveReaderEntry(context, 'warsh_maknoon');
+      assert.deepEqual(
+        [entry.surah, entry.ayah, entry.page],
+        [warsh.surah, warsh.ayah, warsh.page],
+      );
+      assert.strictEqual(resolveReaderEntry(context, 'hafs'), context);
     }
   }
   assert.throws(() => resolveRubStart('warsh_maknoon', 10, 5), /Invalid rub/);

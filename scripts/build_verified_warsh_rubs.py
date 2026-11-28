@@ -16,7 +16,11 @@ REVIEWED = {2:(2,16),7:(2,59),10:(2,84),26:(2,211),28:(2,226),42:(3,23),
     78:(4,123),81:(4,147),99:(5,99),112:(6,104),118:(6,146),140:(7,200),
     188:(11,117),202:(13,31),203:(13,36),235:(18,17),266:(22,11),302:(27,17),
     331:(32,11),359:(37,83),370:(39,40),410:(48,26),418:(51,56),
-    453:(69,1),454:(69,18),455:(70,40)}
+    453:(69,1),454:(69,18),455:(70,40),121:(7,1)}
+# Printed ornament -> Hizb start that replaces it. The Maknoon print and the
+# open-mushaf index mark Warsh 7:4 (fa-ma kana da'wahum), but the Maghribi
+# Warsh hizb list opens Hizb 16 with Alif-Lam-Mim-Sad (7:1), al-A'raf's start.
+HIZB_START_OVERRIDES = {(7,4):(7,1)}
 
 def read(path):
     return json.loads(path.read_text(encoding='utf-8'))
@@ -34,7 +38,11 @@ def build():
         g = geometry[str(m['page'])]
         assert any(v[0:2] == [s,a] and v[2]*g['width']-1 <= m['x'] <= (v[2]+v[4])*g['width']+1
             and v[3]*g['height']-1 <= m['y'] <= (v[3]+v[5])*g['height']+1 for v in g['segments'])
-        boundaries.append((s,a,m['page']))
+        page = m['page']
+        if (s,a) in HIZB_START_OVERRIDES:
+            s, a = HIZB_START_OVERRIDES[(s,a)]
+            page = min(int(p) for p,g in geometry.items() if any(v[0:2] == [s,a] for v in g['segments']))
+        boundaries.append((s,a,page))
     anchors = [r for r in source if r['starting_aya'] == 1]
     assert len(anchors) == 45
     for r in anchors:

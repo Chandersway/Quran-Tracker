@@ -7,7 +7,9 @@ import { savedBookmarks, savedBookmarkTarget } from '../src/features/bookmarks/b
 import * as bookmarks from '../src/features/bookmarks/bookmarks';
 import * as copy from '../src/features/bookmarks/bookmarkCopy';
 import * as quran from '../src/content/quran';
+import * as bookPresentation from '../src/domain/bookPresentation';
 import { resolveBookEntry } from '../src/domain/bookPresentation';
+import { editionDivisions } from '../src/domain/quranNavigation';
 import type { MushafReadingContext } from '../src/domain/readingContext';
 import { matchesMushafBookmarkPage } from '../src/domain/mushafBookmarks';
 import {
@@ -142,7 +144,8 @@ test('the Surah index Saved tab also opens a bookmarked page in its original edi
       '../components/HizbOpeningPreview': {},
       '../components/PartActionsSheet': {},
       '../components/AyahSearchResults': { quranSearchCopy: { nl: { placeholder: 'Zoeken' } } },
-      '../../../domain/quranNavigation': {},
+      '../../../domain/quranNavigation': { editionDivisions },
+      '../../../domain/bookPresentation': bookPresentation,
       '../../../domain/hifzPresentation': { hifzCardColors: () => undefined },
       '../../notes/components/NoteCountButton': {},
       '../../bookmarks/bookmarks': bookmarks,

@@ -45,6 +45,37 @@ test('opening previews use existing Hizb boundaries, including the first and las
   for (const number of [0, 61, 1.5, NaN]) assert.throws(() => getHizbOpening(number), RangeError);
 });
 
+test('Warsh Hizb openings follow the Maghribi Warsh hizb starts, not Hafs', () => {
+  // Hizb 2 "wa-idha laqu", 7 "lan tanalu", 10 "Allahu la ilaha illa huwa",
+  // 12 "qala rajulan", 16 "Alif-Lam-Mim-Sad" (Hafs ayah references).
+  assert.deepEqual(
+    [2, 7, 10, 12, 16].map((number) => {
+      const { start, ayah } = getHizbOpening(number, 'warsh_maknoon');
+      return [start.surah, start.ayah, ayah.number];
+    }),
+    [
+      [2, 76, 76],
+      [3, 92, 92],
+      [4, 87, 87],
+      [5, 23, 23],
+      [7, 1, 1],
+    ],
+  );
+  assert.deepEqual(
+    [2, 7, 10, 12, 16].map((number) => {
+      const { start } = getHizbOpening(number);
+      return [start.surah, start.ayah];
+    }),
+    [
+      [2, 75],
+      [3, 93],
+      [4, 88],
+      [5, 27],
+      [7, 1],
+    ],
+  );
+});
+
 test('optional previews respect saved translation choice and reader-off locale fallback', () => {
   assert.equal(resolveTranslationLanguage('en', 'nl'), 'en');
   assert.equal(resolveTranslationLanguage('nl', 'en'), 'nl');
