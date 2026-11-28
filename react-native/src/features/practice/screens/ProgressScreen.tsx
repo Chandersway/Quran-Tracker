@@ -25,6 +25,8 @@ import { usePalette } from '../../../shared/theme';
 import { useAppNavigation } from '../../../app/navigation/types';
 import { useI18n } from '../../../i18n';
 import { getHizbOpening } from '../../../content/hizb';
+import { preferredMushafEdition } from '../../../domain/bookPresentation';
+import { editionDivisions } from '../../../domain/quranNavigation';
 import { HizbOpeningPreview, HizbTitle } from '../../quran/components/HizbOpeningPreview';
 import { PartActionsSheet, type PartActionTarget } from '../../quran/components/PartActionsSheet';
 import { hifzCardColors } from '../../../domain/hifzPresentation';
@@ -171,9 +173,15 @@ export function ProgressScreen({
           const partition =
             mode === 'hizb' || mode === 'juz' ? partitionReadStatus(state.progress, mode, n) : null;
           const progress = partition ? { ...stored, readCount: partition.readCount } : stored;
-          const juzStart = mode === 'juz' ? divisions[(n - 1) * 8]! : null;
+          const juzStart =
+            mode === 'juz'
+              ? editionDivisions(preferredMushafEdition(state.preferences.mushaf))[(n - 1) * 8]!
+              : null;
           const isSelected = selected.includes(n);
-          const opening = mode === 'hizb' ? getHizbOpening(n) : null;
+          const opening =
+            mode === 'hizb'
+              ? getHizbOpening(n, preferredMushafEdition(state.preferences.mushaf))
+              : null;
           const tint = hifzCardColors(stored, state.preferences.hifzColorsEnabled);
           return (
             <View

@@ -1,13 +1,13 @@
 import warshStarts from '../content/generated/warsh_rub_starts.json';
 import { chapters, divisions, getAyahs, normalizeSearch } from '../content/quran';
 import { hafsReferences, pageSegments } from '../content/mushafGeometry';
-import type { Ayah } from '../content/types';
+import type { Ayah, Division } from '../content/types';
 import type { MushafEdition } from '../state/models';
 import type { ReadingContext } from './readingContext';
 
 export type RubStart = { surah: number; ayah: number; page: number; printedAyah: number };
 
-/** Only individual rub navigation uses the separately verified Warsh boundaries. */
+/** Rub, hizb and juz navigation use the separately verified Warsh boundaries. */
 export function resolveRubStart(edition: MushafEdition, hizb: number, quarter: number): RubStart {
   if (
     !Number.isInteger(hizb) ||
@@ -42,6 +42,26 @@ export function resolveRubStart(edition: MushafEdition, hizb: number, quarter: n
   return { surah: start.surah, ayah: start.ayah, page: start.page, printedAyah: start.printedAyah };
 }
 
+/** Division rows as the chosen mushaf starts them; Warsh rows use the verified Warsh starts. */
+let warshDivisions: Division[] | undefined;
+export function editionDivisions(edition: MushafEdition): Division[] {
+  if (edition !== 'warsh_maknoon') return divisions;
+  warshDivisions ??= divisions.map((division) => {
+    const start = resolveRubStart(edition, division.hizb, division.quarter);
+    return { ...division, surah: start.surah, ayah: start.ayah, page: start.page };
+  });
+  return warshDivisions;
+}
+
+function warshTargetStart(
+  target: NonNullable<ReadingContext['readingTarget']>,
+): { hizb: number; quarter: number } | null {
+  if (target.kind === 'rub') return { hizb: target.number, quarter: target.subId ?? 1 };
+  if (target.kind === 'hizb') return { hizb: target.number, quarter: 1 };
+  if (target.kind === 'juz') return { hizb: (target.number - 1) * 2 + 1, quarter: 1 };
+  return null;
+}
+
 export function resolveReaderEntry<T extends ReadingContext>(
   context: T,
   edition: MushafEdition,
@@ -50,8 +70,10 @@ export function resolveReaderEntry<T extends ReadingContext>(
   // A saved page, selection return or text/book handoff is already an exact location.
   if (context.page !== undefined || context.selectionOrigin || context.bookView) return context;
   const target = context.readingTarget;
-  if (target?.kind === 'rub' && edition === 'warsh_maknoon') {
-    const start = resolveRubStart(edition, target.number, target.subId ?? 1);
+  const warshStart = target && edition === 'warsh_maknoon' ? warshTargetStart(target) : null;
+  if (warshStart) {
+    // Warsh opens some hizbs (2, 7, 10, 12) at a different ayah than Hafs.
+    const start = resolveRubStart(edition, warshStart.hizb, warshStart.quarter);
     // Preserve canonical range ends: the partition's reading registration remains independent.
     return { ...context, surah: start.surah, ayah: start.ayah, page: start.page };
   }

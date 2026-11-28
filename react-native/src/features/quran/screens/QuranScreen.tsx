@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import {
   chapters,
-  divisions,
   chapterById,
   divisionEnd,
   getAyahs,
@@ -18,7 +17,8 @@ import { SurahActionsSheet } from '../components/SurahActionsSheet';
 import { HizbOpeningPreview, HizbTitle } from '../components/HizbOpeningPreview';
 import { PartActionsSheet, type PartActionTarget } from '../components/PartActionsSheet';
 import { AyahSearchResults, quranSearchCopy } from '../components/AyahSearchResults';
-import { searchQuran } from '../../../domain/quranNavigation';
+import { editionDivisions, searchQuran } from '../../../domain/quranNavigation';
+import { preferredMushafEdition } from '../../../domain/bookPresentation';
 import { hifzCardColors } from '../../../domain/hifzPresentation';
 import { NoteCountButton } from '../../notes/components/NoteCountButton';
 import {
@@ -52,6 +52,8 @@ export function QuranScreen() {
     );
   }, [query]);
   const ayahResults = useMemo(() => (query.trim().length >= 2 ? searchQuran(query) : []), [query]);
+  const edition = preferredMushafEdition(state.preferences.mushaf);
+  const divisions = useMemo(() => editionDivisions(edition), [edition]);
   const parts =
     mode === 'juz'
       ? divisions.filter((d) => (d.id - 1) % 8 === 0)

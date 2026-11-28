@@ -14,6 +14,8 @@ import * as motivation from '../src/domain/motivation';
 import * as goalRegistration from '../src/domain/goalRegistration';
 import * as readingUnit from '../src/domain/readingUnit';
 import * as progressActions from '../src/domain/progressActions';
+import * as bookPresentation from '../src/domain/bookPresentation';
+import * as quranNavigation from '../src/domain/quranNavigation';
 import * as reducer from '../src/state/reducer';
 import * as reminders from '../src/services/notifications/planningReminders';
 import { initialState, type AppState, type Plan } from '../src/state/models';
@@ -102,6 +104,8 @@ function mount(
     '../../../domain/goalRegistration': goalRegistration,
     '../../../domain/readingUnit': readingUnit,
     '../../../domain/progressActions': progressActions,
+    '../../../domain/bookPresentation': bookPresentation,
+    '../../../domain/quranNavigation': quranNavigation,
     '../../../domain/hifz': hifz,
     '../../../domain/hifzPresentation': hifzPresentation,
     '../../../domain/motivation': motivation,

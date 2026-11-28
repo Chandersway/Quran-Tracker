@@ -54,6 +54,10 @@
       6,
       146
     ],
+    "121": [
+      7,
+      1
+    ],
     "140": [
       7,
       200
@@ -661,8 +665,8 @@
       "hizb": 16,
       "quarter": 1,
       "surah": 7,
-      "ayah": 5,
-      "printedAyah": 4,
+      "ayah": 1,
+      "printedAyah": 1,
       "page": 151
     },
     {

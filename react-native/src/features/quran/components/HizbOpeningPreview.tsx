@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { getHizbOpening } from '../../../content/hizb';
+import { preferredMushafEdition } from '../../../domain/bookPresentation';
 import {
   availableTranslations,
   getAyahTranslation,
@@ -14,7 +15,8 @@ import { usePalette } from '../../../shared/theme';
 /** The title uses the opening surah, matching the original Kotlin HizbInfo UI. */
 export function HizbTitle({ number }: { number: number }) {
   const { format, locale } = useI18n();
-  const { chapter } = getHizbOpening(number);
+  const { state } = useAppStore();
+  const { chapter } = getHizbOpening(number, preferredMushafEdition(state.preferences.mushaf));
   return (
     <T translate={false} bold size={18}>
       {format('common.hizbNumber', number)} · {locale === 'ar' ? chapter.nameAr : chapter.name}
@@ -37,7 +39,7 @@ export function HizbOpeningPreview({ number, onOpen }: { number: number; onOpen?
   const { state } = useAppStore();
   const { t, format, locale } = useI18n();
   const p = usePalette();
-  const { ayah } = getHizbOpening(number);
+  const { ayah } = getHizbOpening(number, preferredMushafEdition(state.preferences.mushaf));
   const language = resolveTranslationLanguage(state.preferences.translation, locale);
   const languageLabel = t(availableTranslations.find((item) => item.id === language)!.labelKey);
   const toggleLabel = format(
